@@ -428,7 +428,7 @@ static int XOcp_AttestWithKeyWrapDevAkIpi(u32 AttnPloadAddrLow, u32 AttnPloadAdd
 	u32 KeyInUseIdx = XSecure_GetRsaKeyInUseIdx();
 	const XSecure_RsaPubKey *RsaPubKey =  XSecure_GetRsaPublicKey(KeyInUseIdx);
 	u8 *AttnPloadBuf = (u8*)(UINTPTR)XOCP_KEY_WRAP_ATTEST_PAYLOAD_ADDRESS;
-	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES];
+	u8 Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 
 	if ((AttnPloadSize == 0U) || (AttnPloadSize > XOCP_KEY_WRAP_MAX_BUF_SIZE)) {
 		Status = XST_INVALID_PARAM;

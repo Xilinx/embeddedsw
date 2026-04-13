@@ -46,8 +46,11 @@ extern "C" {
 
 #define XSECURE_SHA_0_DEVICE_ID			(XSECURE_SHA3_DEVICE_ID)
 							/**< SHA 0 device id */
-
-#define XSECURE_MAX_HASH_SIZE_IN_BYTES          (32U)	/**< SHA3 maximum supported hash size */
+#ifdef SPARTANUPLUSAES1
+#define	XSECURE_MAX_HASH_SIZE_IN_BYTES		(48U)	/**< Maximum hash size in bytes supported by the hardware */
+#else
+#define	XSECURE_MAX_HASH_SIZE_IN_BYTES		(32U)	/**< Maximum hash size in bytes supported by the hardware */
+#endif
 
 #define XSECURE_SHA2_MODE_OFFSET		(0xA0U) /**< SHA2 Mode Register offset */
 #define XSECURE_SHA3_MODE_OFFSET		(0xA0U) /**< SHA3 Mode Register offset */

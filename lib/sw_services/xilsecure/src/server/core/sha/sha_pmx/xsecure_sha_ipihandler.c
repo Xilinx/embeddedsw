@@ -198,7 +198,7 @@ static int XSecure_Sha3UpdateIpi(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
 		Status = XSecure_Sha3Finish(XSecureSha3InstPtr,
 				&Hash);
 		if (XST_SUCCESS == Status) {
-			XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, XSECURE_MAX_HASH_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
+			XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 			/* copy hash to provided destination address using DMA */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);

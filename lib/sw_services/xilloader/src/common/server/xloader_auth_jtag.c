@@ -466,7 +466,7 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 		goto END;
 	}
 
-	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
+	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL, Status);
@@ -525,8 +525,8 @@ static int XLoader_AuthJtagPpkOnly(u32 *TimeOut)
 	*TimeOut = SecureParams.AuthJtagMessagePtr->JtagEnableTimeout;
 
 END:
-	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
-		XLOADER_SHA3_LEN);
+	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+		XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (ClearStatus != XST_SUCCESS) {
 		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}
@@ -587,8 +587,8 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	u32 SecureStateAHWRoT = XLoader_GetAHWRoT(NULL);
 	u32 MsgLenInBytes = 0U;
 	u32 IdWord;
-	u8 SpkHash[XLOADER_SHA3_LEN];
-	u8 Sha3Hash[XLOADER_SHA3_LEN];
+	u8 SpkHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
+	u8 Sha3Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 	u32 AuthType;
 	u32 CopyLen;
 	u32 MsgLenInWords;
@@ -856,8 +856,8 @@ END:
 		XLOADER_PMC_TAP_AUTH_JTAG_INT_STATUS_MASK);
 
 
-	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XLOADER_SHA3_LEN, 0U,
-			XLOADER_SHA3_LEN);
+	ClearStatus = XPlmi_MemSetBytes(&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (ClearStatus != XST_SUCCESS) {
 		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}

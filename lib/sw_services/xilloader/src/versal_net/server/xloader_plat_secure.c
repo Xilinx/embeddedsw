@@ -377,7 +377,7 @@ int XLoader_MaskGenFunc(XSecure_Sha3 *Sha3InstancePtr,
 	XSecure_MgfInput MgfInput;
 
 	MgfInput.Seed = Input;
-	MgfInput.SeedLen = XLOADER_SHA3_LEN;
+	MgfInput.SeedLen = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 	MgfInput.Output = Out;
 	MgfInput.OutputLen = OutLen;
 	Status = XSecure_MaskGenFunc(XSECURE_SHA3_384, Sha3InstancePtr, &MgfInput);

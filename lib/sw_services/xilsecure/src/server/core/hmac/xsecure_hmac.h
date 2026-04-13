@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -46,7 +46,7 @@ extern "C" {
 /************************** Type Definitions ********************************/
 /** Stores the resultant HMAC */
 typedef struct {
-	u8 Hash[XSECURE_HASH_SIZE_IN_BYTES]; /**< Hash value*/
+	u8 Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES]; /**< Hash value*/
 } XSecure_HmacRes;
 
 /**

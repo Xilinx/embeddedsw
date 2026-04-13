@@ -64,21 +64,14 @@ extern "C" {
 				/**< PMC DMA Max Transfer rate in bytes*/
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU)
 
-#define XSECURE_HASH_SIZE_IN_BYTES      (48U)
-
-#define XSECURE_SHA3_HASH_LENGTH_IN_BITS (384U)
-					/**< SHA 3 hash length in bits */
-
-#define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
-					(XSECURE_MAX_HASH_SIZE_IN_BYTES / 4U)
-					/**< SHA 3 hash length in words */
+#define XSECURE_SHA_384_HASH_SIZE_IN_BYTES	(48U) /**< SHA-384 hash size in bytes */
 
 /***************************** Type Definitions******************************/
 
-/** SHA3 Hash */
+/** SHA-384 Hash */
 typedef struct {
-	u8 Hash[XSECURE_MAX_HASH_SIZE_IN_BYTES];	/**< SHA3 Hash */
-} XSecure_Sha3Hash;
+	u8 Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES]; /**< SHA-384 bit Hash */
+} XSecure_Sha384Hash;
 
 /** SHA driver states */
 typedef enum {

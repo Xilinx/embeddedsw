@@ -521,7 +521,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	volatile int Status = XST_FAILURE;
 	volatile int StatusTmp = XST_FAILURE;
 	XSecure_Sha *ShaInstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XSecure_Sha3Hash BlkHash;
+	XSecure_Sha384Hash BlkHash;
 	u32 HashAddr = SecurePtr->ChunkAddr + Size;
 	u32 DataLen = Size;
 	u8 *ExpHash = (u8 *)SecurePtr->Sha3Hash;
@@ -535,7 +535,7 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	}
 
 	if ((SecurePtr->IsCdo == (u8)TRUE) && (Last != (u8)TRUE)) {
-		DataLen += XLOADER_SHA3_LEN;
+		DataLen += XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 	}
 
 	/** Set the data context of previous SHA operation */
@@ -577,28 +577,28 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 		}
 #endif
 		Status = XSecure_ShaUpdate(ShaInstPtr,
-				(u64)HashAddr, XLOADER_SHA3_LEN);
+				(u64)HashAddr, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 			goto END;
 		}
 	}
 
-	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&BlkHash, XLOADER_SHA3_LEN);
+	Status = XSecure_ShaFinish(ShaInstPtr, (u64)(UINTPTR)&BlkHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_CALC_FAIL, Status);
 		goto END;
 	}
 
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemCmp_CT, ExpHash,
-		XLOADER_SHA3_LEN, BlkHash.Hash, XLOADER_SHA3_LEN,
-		XLOADER_SHA3_LEN);
+		XSECURE_SHA_384_HASH_SIZE_IN_BYTES, BlkHash.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+		XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		XPlmi_Printf(DEBUG_INFO, "Hash mismatch error\n\r");
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)BlkHash.Hash,
-			XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Calculated Hash");
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES / XIH_PRTN_WORD_LEN, "Calculated Hash");
 		XPlmi_PrintArray(DEBUG_INFO, (UINTPTR)ExpHash,
-			XLOADER_SHA3_LEN / XIH_PRTN_WORD_LEN, "Expected Hash");
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES / XIH_PRTN_WORD_LEN, "Expected Hash");
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_PRTN_HASH_COMPARE_FAIL,
 			Status);
 		goto END;
@@ -609,8 +609,8 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 	if (SecurePtr->BlockNum == 0x0U) {
 		/** Store Hash of the first block of the partition, required for data measurement */
 		Status = Xil_SMemCpy(&PtrnHashTablePtr[SecurePtr->PdiPtr->ImagePrtnId].Hash,
-				     XLOADER_SHA3_LEN, &BlkHash.Hash,
-				     XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+				     XSECURE_SHA_384_HASH_SIZE_IN_BYTES, &BlkHash.Hash,
+				     XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
@@ -619,13 +619,13 @@ int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
 
 	/** Update the next expected hash and data location */
 	if (Last != (u8)TRUE) {
-		Status = Xil_SMemCpy(ExpHash, XLOADER_SHA3_LEN,
-			(u8 *)HashAddr, XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+		Status = Xil_SMemCpy(ExpHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+			(u8 *)HashAddr, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	}
 
 END:
-	ClearStatus = XPlmi_MemSetBytes(&BlkHash, XLOADER_SHA3_LEN, 0U,
-			XLOADER_SHA3_LEN);
+	ClearStatus = XPlmi_MemSetBytes(&BlkHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (ClearStatus != XST_SUCCESS) {
 		Status = (int)((u32)Status | XLOADER_SEC_BUF_CLEAR_ERR);
 	}
@@ -680,14 +680,14 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 				((u64)SecurePtr->PrtnHdr->ChecksumWordOfst *
 					XIH_PRTN_WORD_LEN);
 		Status = SecurePtr->PdiPtr->MetaHdr->DeviceCopy(ChecksumOffset,
-			(UINTPTR)SecurePtr->Sha3Hash, XLOADER_SHA3_LEN, SecurePtr->DmaFlags);
+			(UINTPTR)SecurePtr->Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, SecurePtr->DmaFlags);
 #else
 		if ((SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_PARTIAL) &&
 		    (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_IPU) &&
 		    (SecurePtr->PdiPtr->PdiType != XLOADER_PDI_TYPE_IAU)){
-			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
+			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 					HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum].PrtnHash,
-					XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		} else {
 			/* For a partial PDI in the absence of PLM, the partition number
 			 * starts with 0, but in HashBlock at index 0 MetaHeader
@@ -695,9 +695,9 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 			 * Hence it is always PrtnNum + 1 indicates the corresponding
 			 * partition hash in HashBlock
 			 */
-			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XLOADER_SHA3_LEN,
+			Status = Xil_SMemCpy(SecurePtr->Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 					HBPtr->HashData[SecurePtr->PdiPtr->PrtnNum + XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET].PrtnHash,
-					XLOADER_SHA3_LEN, XLOADER_SHA3_LEN);
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		}
 #endif
 		if (Status != XST_SUCCESS){
@@ -773,7 +773,7 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	SecurePtr->SecureData = SecurePtr->ChunkAddr;
 	if (Last != (u8)TRUE) {
 		/** Remove Checksum overhead in the chunk */
-		SecurePtr->SecureDataLen = TotalSize - XLOADER_SHA3_LEN;
+		SecurePtr->SecureDataLen = TotalSize - XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 	}
 	else {
 		/* This is the last block */

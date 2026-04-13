@@ -1792,7 +1792,7 @@ static int XOcp_MeasureSecureState(void)
 	/** - Calculate secure eFuse configuration hash */
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,
 				(UINTPTR)&SecureConfig, sizeof(XOcp_SecureConfig),
-				(u64)(UINTPTR)(XSecure_Sha3Hash*)&SecureStateHash.SecureConfigHash,
+				(u64)(UINTPTR)&SecureStateHash.SecureConfigHash,
 				sizeof(SecureStateHash.SecureConfigHash));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1801,7 +1801,7 @@ static int XOcp_MeasureSecureState(void)
 	/** - Calculate secure tap configuration hash */
 	Status = XSecure_ShaDigest(Sha3InstPtr, XSECURE_SHA3_384,
 				(UINTPTR)&SecureTapConfig, sizeof(XOcp_SecureTapConfig),
-				(u64)(UINTPTR)(XSecure_Sha3Hash*)&SecureStateHash.TapConfigHash,
+				(u64)(UINTPTR)&SecureStateHash.TapConfigHash,
 				sizeof(SecureStateHash.TapConfigHash));
 
 END:

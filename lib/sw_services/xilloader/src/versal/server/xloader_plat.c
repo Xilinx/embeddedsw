@@ -251,7 +251,7 @@ int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLe
 				 */
 				Status = XSecure_ShaFinish(ShaInstPtr,
 					 (u64)(UINTPTR)PtrnHashTablePtr[PdiPtr->ImagePrtnId].Hash,
-					 XLOADER_SHA3_LEN);
+					 XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 				ProcessedLen = 0U;
 			}
 		} else {
@@ -533,7 +533,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		    Index < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns;
 		    Index++)
 		{
-			ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
+			ImageMeasureInfo.DataSize = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 			ImageMeasureInfo.PcrInfo = PcrInfo;
 			ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 			ImageMeasureInfo.Flags = XLOADER_MEASURE_UPDATE;
@@ -550,8 +550,8 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 		Status = XLoader_DataMeasurement(&ImageMeasureInfo);
 		/* Zeroise the stored hashes from hash table */
 		TmpStatus = Xil_SMemSet((void *)(UINTPTR)PtrnHashTablePtr[0].Hash,
-			XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES, 0U,
-			XIH_MAX_PRTNS * XSECURE_MAX_HASH_SIZE_IN_BYTES);
+			XIH_MAX_PRTNS * XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+			XIH_MAX_PRTNS * XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		Status = XPlmi_UpdateStatus(Status, TmpStatus);
 	} else {
 		ImageMeasureInfo.PcrInfo = PcrInfo;
@@ -673,7 +673,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
+		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		break;
 	default:
 		/* No action*/

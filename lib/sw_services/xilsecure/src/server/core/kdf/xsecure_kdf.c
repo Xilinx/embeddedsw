@@ -75,8 +75,8 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 	/**
 	 * Calculate number of iterations based on HKDF output key length and SHA hash length.
 	 */
-	Iterations = (u32)(((u64)KdfOutLen + (u64)XSECURE_HASH_SIZE_IN_BYTES - 1ULL) /
-			(u64)XSECURE_HASH_SIZE_IN_BYTES);
+	Iterations = (u32)(((u64)KdfOutLen + (u64)XSECURE_SHA_384_HASH_SIZE_IN_BYTES - 1ULL) /
+			(u64)XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Iterations == 0U) {
 		Status = XSECURE_ERR_HKDF_INVALID_PARAM;
 		goto END;
@@ -134,20 +134,20 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 		 * output length.
 		 */
 		if (KdfIndex == (Iterations - XSECURE_HKDF_BLOCK_INDEX_LENGTH)) {
-			Status = Xil_SMemCpy((u8 *)&KdfOut[XSECURE_HASH_SIZE_IN_BYTES * KdfIndex],
-					(KdfOutLen - (KdfIndex * XSECURE_HASH_SIZE_IN_BYTES)),
-					Hmac.Hash, XSECURE_HASH_SIZE_IN_BYTES,
-					KdfOutLen - (KdfIndex * XSECURE_HASH_SIZE_IN_BYTES));
+			Status = Xil_SMemCpy((u8 *)&KdfOut[XSECURE_SHA_384_HASH_SIZE_IN_BYTES * KdfIndex],
+					(KdfOutLen - (KdfIndex * XSECURE_SHA_384_HASH_SIZE_IN_BYTES)),
+					Hmac.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+					KdfOutLen - (KdfIndex * XSECURE_SHA_384_HASH_SIZE_IN_BYTES));
 		} else {
 
 			/**
 			 * - Copy the final HMAC of each iteration to the destination key output
 			 *   buffer.
 			 */
-			Status = Xil_SMemCpy((u8 *)&KdfOut[XSECURE_HASH_SIZE_IN_BYTES * KdfIndex],
-					XSECURE_HASH_SIZE_IN_BYTES, Hmac.Hash,
-					XSECURE_HASH_SIZE_IN_BYTES,
-					XSECURE_HASH_SIZE_IN_BYTES);
+			Status = Xil_SMemCpy((u8 *)&KdfOut[XSECURE_SHA_384_HASH_SIZE_IN_BYTES * KdfIndex],
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES, Hmac.Hash,
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
+					XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		}
 
 	}

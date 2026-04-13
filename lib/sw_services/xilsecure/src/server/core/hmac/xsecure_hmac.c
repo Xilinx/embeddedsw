@@ -192,7 +192,7 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	XSecure_Sha3 *Sha3InstancePtr;
-	u8 IntHash[XSECURE_HASH_SIZE_IN_BYTES];
+	XSecure_Sha384Hash IntHash;
 
 	if ((InstancePtr == NULL) || (InstancePtr->Sha3InstPtr == NULL) ||
 			(Hmac == NULL)) {
@@ -204,7 +204,7 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 
 	/* Calculate final hash on IPAD || MSG */
 	Status = XSecure_ShaFinish(InstancePtr->Sha3InstPtr,
-				(u64)(UINTPTR)(XSecure_Sha3Hash *)IntHash, sizeof(IntHash));
+				(u64)(UINTPTR)&IntHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -222,15 +222,15 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 	}
 
 	Status = XST_FAILURE;
-	Status = XSecure_ShaUpdate(Sha3InstancePtr, (UINTPTR)IntHash,
-			XSECURE_HASH_SIZE_IN_BYTES);
+	Status = XSecure_ShaUpdate(Sha3InstancePtr, (u64)(UINTPTR)IntHash.Hash,
+				   XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XST_FAILURE;
 	Status = XSecure_ShaFinish(InstancePtr->Sha3InstPtr,
-			(u64)(UINTPTR)(XSecure_Sha3Hash *)Hmac->Hash, sizeof(Hmac->Hash));
+			(u64)(UINTPTR)Hmac->Hash, sizeof(Hmac->Hash));
 	RetStatus = Status;
 END:
 	if ((Status != XST_SUCCESS) && (RetStatus != XST_SUCCESS)) {
@@ -244,7 +244,7 @@ END:
 								XSECURE_SHA3_BLOCK_LEN);
 	RetStatus |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 							XSECURE_SHA3_BLOCK_LEN);
-	Status |= Xil_SecureZeroize(IntHash, XSECURE_HASH_SIZE_IN_BYTES);
+	RetStatus |= Xil_SecureZeroize(IntHash.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 
 RET:
 	return RetStatus;
@@ -291,15 +291,15 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 		 * make K0 to the length of SHA3 Block length
 		 */
 		Status = XSecure_ShaDigest(InstancePtr->Sha3InstPtr, XSECURE_SHA3_384,
-			KeyAddr, KeyLen, (u64)(UINTPTR)(XSecure_Sha3Hash *)K0, XSECURE_HASH_SIZE_IN_BYTES);
+			KeyAddr, KeyLen, (u64)(UINTPTR)K0, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
 		Status = XST_FAILURE;
-		Status = Xil_SMemSet((void *)&K0[XSECURE_HASH_SIZE_IN_BYTES],
-							  KeyOutLen - XSECURE_HASH_SIZE_IN_BYTES, 0U,
-							  KeyOutLen - XSECURE_HASH_SIZE_IN_BYTES);
+		Status = Xil_SMemSet((void *)&K0[XSECURE_SHA_384_HASH_SIZE_IN_BYTES],
+							  KeyOutLen - XSECURE_SHA_384_HASH_SIZE_IN_BYTES, 0U,
+							  KeyOutLen - XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	}
 	else {
 		/* if Key provided is of SHA 3 block length */

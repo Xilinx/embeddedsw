@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -81,7 +81,7 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 	volatile u32 Index;
 	XSecure_HmacRes Hmac = {0U};
 	XSecure_Hmac HmacInstance;
-	const u8 HmacExpected[XSECURE_HASH_SIZE_IN_BYTES] = {
+	const u8 HmacExpected[XSECURE_SHA_384_HASH_SIZE_IN_BYTES] = {
 		0x0E,0x1D,0x1E,0x2A,0x22,0x6F,0xB9,0x56,
 		0x10,0x4F,0x10,0x00,0x8A,0x50,0xE3,0x5E,
 		0xAB,0x2E,0x37,0xB5,0xE0,0x9F,0xA1,0x68,
@@ -110,18 +110,18 @@ int XSecure_HmacKat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 	Status = (int)XSECURE_HMAC_KAT_ERROR;
-	for(Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+	for(Index = 0U; Index < XSECURE_SHA_384_HASH_SIZE_IN_BYTES; Index++) {
 		if (HmacExpected[Index] != Hmac.Hash[Index]) {
 			Status = (int)XSECURE_HMAC_KAT_ERROR;
 			goto END;
 		}
 	}
 
-	if(Index == XSECURE_HASH_SIZE_IN_BYTES) {
+	if(Index == XSECURE_SHA_384_HASH_SIZE_IN_BYTES) {
 		Status = XST_SUCCESS;
 	}
 END:
-	SStatus = Xil_SecureZeroize(Hmac.Hash, XSECURE_HASH_SIZE_IN_BYTES);
+	SStatus = Xil_SecureZeroize(Hmac.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}
@@ -145,8 +145,8 @@ int XSecure_Sha384Kat(void)
 	volatile int SStatus = (int)XSECURE_SHA384_KAT_ERROR;
 	volatile u32 Index;
 	u8 *Data = XSecure_GetKatMessage();
-	u8 CalculatedHash[XSECURE_HASH_SIZE_IN_BYTES];
-	const u8 ExpectedHash[XSECURE_HASH_SIZE_IN_BYTES] = {
+	u8 CalculatedHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
+	const u8 ExpectedHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES] = {
 		0x5AU, 0x2CU, 0xFCU, 0x1CU, 0xC1U, 0x1EU, 0x61U, 0x1BU,
 		0xD1U, 0xEAU, 0x4EU, 0x51U, 0xC8U, 0x72U, 0x73U, 0x40U,
 		0x01U, 0xCDU, 0x53U, 0x95U, 0x5DU, 0xC6U, 0xF9U, 0xFFU,
@@ -160,19 +160,19 @@ int XSecure_Sha384Kat(void)
 		goto END;
 	}
 
-	for (Index = 0U; Index < XSECURE_HASH_SIZE_IN_BYTES; Index++) {
+	for (Index = 0U; Index < XSECURE_SHA_384_HASH_SIZE_IN_BYTES; Index++) {
 		if (CalculatedHash[Index] != ExpectedHash[Index]) {
 			Status = (int)XSECURE_SHA384_KAT_ERROR;
 			goto END;
 		}
 	}
 
-	if (Index == XSECURE_HASH_SIZE_IN_BYTES) {
+	if (Index == XSECURE_SHA_384_HASH_SIZE_IN_BYTES) {
 		Status = XST_SUCCESS;
 	}
 
 END:
-	SStatus = Xil_SecureZeroize(CalculatedHash, XSECURE_HASH_SIZE_IN_BYTES);
+	SStatus = Xil_SecureZeroize(CalculatedHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
 	}

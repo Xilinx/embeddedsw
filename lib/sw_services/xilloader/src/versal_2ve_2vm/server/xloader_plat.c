@@ -173,12 +173,12 @@ static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu,
 static int XLoader_InitTrngInstance(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams,
-	XSecure_Sha3Hash* Sha3Hash);
-static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 OverWrite);
-static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
-static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex, u32 OverWrite);
-static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash);
-static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex, u32 OverWrite);
+	XSecure_Sha384Hash* Sha3Hash);
+static int XLoader_ExtendSpkHash(XSecure_Sha384Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 OverWrite);
+static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash);
+static int XLoader_ExtendSpkId(XSecure_Sha384Hash* SpkIdHash, u32 PcrInfo, u32 DigestIndex, u32 OverWrite);
+static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash);
+static int XLoader_ExtendEncRevokeId(XSecure_Sha384Hash* RevokeIdHash, u32 PcrInfo, u32 DigestIndex, u32 OverWrite);
 #endif
 
 /************************** Variable Definitions *****************************/
@@ -498,7 +498,7 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr)
 			ImageMeasureInfo.DataAddr =
 			(u64)(UINTPTR)&HBPtr->HashData[PrtnNum + XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET].PrtnHash;
 		}
-		ImageMeasureInfo.DataSize = XLOADER_SHA3_LEN;
+		ImageMeasureInfo.DataSize = XSECURE_SHA_384_HASH_SIZE_IN_BYTES;
 		ImageMeasureInfo.PcrInfo = PcrInfo;
 		ImageMeasureInfo.SubsystemID = PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID;
 		/**
@@ -1421,7 +1421,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 
 #if defined(PLM_OCP) || defined(PLM_TPM)
 	XSecure_Sha3 *Sha3InstPtr = XSecure_GetSha3Instance(XSECURE_SHA_0_DEVICE_ID);
-	XSecure_Sha3Hash Sha3Hash;
+	XSecure_Sha384Hash Sha3Hash;
 	u32 PcrNo;
 
 	switch(ImageInfo->Flags) {
@@ -1441,7 +1441,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 				ImageInfo->DataAddr, ImageInfo->DataSize);
 		break;
 	case XLOADER_MEASURE_FINISH:
-		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XLOADER_SHA3_LEN);
+		Status = XSecure_ShaFinish(Sha3InstPtr, (UINTPTR)&Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 		break;
 	default:
 		break;
@@ -1470,7 +1470,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 #else
 			/* Extend to internal HW PCR */
 			Status = XOcp_ExtendHwPcr(PcrNo,(u64)(UINTPTR)&Sha3Hash.Hash,
-				XLOADER_SHA3_LEN);
+				XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 			if (Status != XST_SUCCESS) {
 				goto END;
 			}
@@ -1478,7 +1478,7 @@ int XLoader_DataMeasurement(XLoader_ImageMeasureInfo *ImageInfo)
 #ifdef PLM_OCP
 			/* Extend SW PCR */
 			Status = XOcp_ExtendSwPcr(PcrNo, *(u32 *)(ImageInfo->DigestIndex),
-				(u64)(UINTPTR)Sha3Hash.Hash, XLOADER_SHA3_LEN,
+				(u64)(UINTPTR)Sha3Hash.Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES,
 				ImageInfo->OverWrite);
 #endif
 		}
@@ -1524,7 +1524,7 @@ int XLoader_SecureConfigMeasurement(XLoader_SecureParams* SecurePtr, u32 PcrInfo
 	volatile u32 IsEncryptedTmp = SecurePtr->IsEncrypted;
 	u32 MeasureIdx = (PcrInfo & XOCP_PCR_MEASUREMENT_INDEX_MASK) >> 16U;
 	u32 PcrNo = PcrInfo & XOCP_PCR_NUMBER_MASK;
-	XSecure_Sha3Hash Sha3Hash = {0U};
+	XSecure_Sha384Hash Sha3Hash = {0U};
 	volatile u32 ExtendAuthKeys = (XPlmi_In32(XLOADER_EFUSE_ROM_RSVD_CACHE_ADDRESS) &
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_MASK) >>
 			XLOADER_EFUSE_ROM_RSVD_AUTH_KEYS_TO_HASH_SHIFT;;
@@ -1595,21 +1595,21 @@ END:
  * @brief	This function measures the SPK by calculating SHA3 hash.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParams instance.
- * @param	Sha3Hash	Pointer to the XSecure_Sha3Hash.
+ * @param	Sha3Hash	Pointer to the XSecure_Sha384Hash.
  *
  * @return	XST_SUCCESS 	On Success
  * 		ErrorCode	On failure
  *
  *****************************************************************************/
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
-	XSecure_Sha3Hash* Sha3Hash)
+	XSecure_Sha384Hash* Sha3Hash)
 {
 	XSecure_Sha *ShaInstPtr = XSecure_GetShaInstance(XSECURE_SHA_0_DEVICE_ID);
 
 	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384,
 			(UINTPTR)&SecurePtr->AcPtr->Spk,
 			SecurePtr->AcPtr->SpkHeader.SPKSize,
-			(u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			(u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 }
 
 /*****************************************************************************/
@@ -1627,18 +1627,18 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
  * 		ErrorCode 	On Failure
  *
  *****************************************************************************/
-static int XLoader_ExtendSpkHash(XSecure_Sha3Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 OverWrite)
+static int XLoader_ExtendSpkHash(XSecure_Sha384Hash* SpkHash , u32 PcrNo, u32 DigestIndex, u32 OverWrite)
 {
 	volatile int Status = XST_FAILURE;
 
 	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkHash->Hash,
-			XLOADER_SHA3_LEN);
+			XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
                 goto END;
         }
 
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-			(u64)(UINTPTR)&SpkHash->Hash, XLOADER_SHA3_LEN, OverWrite);
+			(u64)(UINTPTR)&SpkHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, OverWrite);
 END:
 	return Status;
 }
@@ -1648,18 +1648,18 @@ END:
  * @brief	This function measures the SPK ID by calculating SHA3 hash.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParams instance.
- * @param	Sha3Hash	Pointer to the XSecure_Sha3Hash.
+ * @param	Sha3Hash	Pointer to the XSecure_Sha384Hash.
  *
  * @return	XST_SUCCESS	On Success
  * 		ErrorCode 	On failure
  *
  *****************************************************************************/
-static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
+static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash)
 {
 	XSecure_Sha *ShaInstPtr = XSecure_GetShaInstance(XSECURE_SHA_0_DEVICE_ID);
 
 	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->AcPtr->SpkId,
-			sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			sizeof(SecurePtr->AcPtr->SpkId), (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 }
 
 /*****************************************************************************/
@@ -1678,17 +1678,17 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
  * 		ErrorCode	On Failure
  *
  *****************************************************************************/
-static int XLoader_ExtendSpkId(XSecure_Sha3Hash* SpkIdHash, u32 PcrNo, u32 DigestIndex, u32 OverWrite)
+static int XLoader_ExtendSpkId(XSecure_Sha384Hash* SpkIdHash, u32 PcrNo, u32 DigestIndex, u32 OverWrite)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN);
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&SpkIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
                 goto END;
         }
 
         Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-				(u64)(UINTPTR)&SpkIdHash->Hash, XLOADER_SHA3_LEN, OverWrite);
+				(u64)(UINTPTR)&SpkIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, OverWrite);
 END:
 	return Status;
 }
@@ -1698,18 +1698,18 @@ END:
  * @brief	This function measures the Encryption Revoke ID by calculating SHA3 hash.
  *
  * @param	SecurePtr	Pointer to the XLoader_SecureParams instance.
- * @param	Sha3Hash	Pointer to the XSecure_Sha3Hash.
+ * @param	Sha3Hash	Pointer to the XSecure_Sha384Hash.
  *
  * @return	XST_SUCCESS	On success
  * 		ErrorCode 	On failure
  *
  *****************************************************************************/
-static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha3Hash* Sha3Hash)
+static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha384Hash* Sha3Hash)
 {
 	XSecure_Sha *ShaInstPtr = XSecure_GetShaInstance(XSECURE_SHA_0_DEVICE_ID);
 
 	return XSecure_ShaDigest(ShaInstPtr, XSECURE_SHA3_384, (UINTPTR)&SecurePtr->PrtnHdr->EncRevokeID,
-			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (u64)(UINTPTR)Sha3Hash, XLOADER_SHA3_LEN);
+			sizeof(SecurePtr->PrtnHdr->EncRevokeID), (u64)(UINTPTR)Sha3Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 }
 
 /*****************************************************************************/
@@ -1727,17 +1727,17 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecu
  * 		ErrorCode 	On failure
  *
  *****************************************************************************/
-static int XLoader_ExtendEncRevokeId(XSecure_Sha3Hash* RevokeIdHash, u32 PcrNo, u32 DigestIndex, u32 OverWrite)
+static int XLoader_ExtendEncRevokeId(XSecure_Sha384Hash* RevokeIdHash, u32 PcrNo, u32 DigestIndex, u32 OverWrite)
 {
 	volatile int Status = XST_FAILURE;
 
-	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN);
+	Status = XOcp_ExtendHwPcr(PcrNo, (u64)(UINTPTR)&RevokeIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	Status = XOcp_ExtendSwPcr(PcrNo, DigestIndex,
-			(u64)(UINTPTR)&RevokeIdHash->Hash, XLOADER_SHA3_LEN, OverWrite);
+			(u64)(UINTPTR)&RevokeIdHash->Hash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, OverWrite);
 
 END:
 	return Status;
