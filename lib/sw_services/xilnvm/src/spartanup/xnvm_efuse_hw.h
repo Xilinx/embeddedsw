@@ -252,6 +252,7 @@ extern "C" {
 /**< Efuse Cache Security Control bits, shifts, masks, rows and columns */
 #define XNVM_EFUSE_SEC_CTRL_BITS			(0x01U) /**< Secure control bits */
 
+#define XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_SHIFT		(0U) /**< SCAN_CLEAR_EN shift */
 #define XNVM_EFUSE_SEC_CTRL_AES_DIS_SHIFT		(1U) /**< AES disable shift */
 #define XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_SHIFT		(6U) /**< RMA disable 0 shift */
 #define XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_SHIFT		(7U) /**< RMA enable 0 shift */
@@ -266,6 +267,7 @@ extern "C" {
 #define XNVM_EFUSE_SEC_CTRL_USER_WR_LK_SHIFT		(27U) /**< User write lock shift */
 #define XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT		(31U) /**< PPK0 invalidation 1 shift */
 
+#define XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_MASK		(0x00000001U) /**< SCAN_CLEAR_EN mask */
 #define XNVM_EFUSE_SEC_CTRL_AES_DIS_MASK		(0x00000002U) /**< AES disable mask */
 #define XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_MASK		(0x00000040U) /**< RMA disable 0 mask */
 #define XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_MASK		(0x00000080U) /**< RMA enable 0 mask */
@@ -288,6 +290,7 @@ extern "C" {
 
 #define	XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_COL		(3U) /**< RMA disable 0 bit column value: 3 */
 #define	XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_COL		(4U) /**< RMA enable 0 bit column value: 4 */
+#define XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_COL		(5U) /**< Scan Clear En bit column value: 5 */
 #define	XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_COL		(6U) /**< Hash PUF or PPK bit column value: 6 */
 #define XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_COL	(14U) /**< JTAG error out disable bit column value: 14 */
 #define XNVM_EFUSE_SEC_CTRL_USER_WR_LK_COL		(15U) /**< User write lock bit column value: 15 */
