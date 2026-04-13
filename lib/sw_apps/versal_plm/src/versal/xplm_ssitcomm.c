@@ -31,6 +31,7 @@
 *       kd   09/04/2025 Modified status variable to volatile in XPlm_SsitCommSendMessage
 *       kd   09/11/2025 Modified status and ZeroizeStatus variables to volatile in XPlm_SsitCommAesKeyWrite
 *       tvp  04/03/2026 Use generic API to increment IV
+*       obs  04/13/2026 Remove deadcode from xplm_ssitcomm
 *</pre>
 *
 * @note
@@ -55,8 +56,6 @@
 
 /************************** Constant Definitions *************************************************/
 #define XPLMI_ZERO                       (0U) /**< Zero value */
-#define XPLMI_BYTE_MASK                  0XFF /**< Mask for extracting byte */
-#define XPLMI_BYTE_SHIFT                 (8U) /**< Byte shift value*/
 #define XPLM_CMD_SIZE                  (8U) /**< Command size */
 #define XPLM_NUM_OF_AES_OP              (2U) /**< Number of operations */
 #define XPLM_IV2_AND_KEY_SIZE_BYTES     (48U) /**< IV + key size in bytes */
