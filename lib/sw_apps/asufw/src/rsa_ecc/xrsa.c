@@ -68,6 +68,7 @@
 														value of one */
 #define XRSA_PUB_EXP_INVALID_THREE_VALUE	(3U)	/**< Indicates invalid public exponent
 														value of three */
+#define XRSA_BORROW_PROPAGATION_FILL_VALUE	(0xFFU)	/**< Fill value during borrow propagation in subtraction */
 
 #ifdef XASU_KEYMANAGER_ENABLE
 #define XRSA_KEY_GEN_POLL_INTERVAL	(100U)	/**< Key pair generation scheduler task poll interval in ms */
@@ -78,8 +79,6 @@
 #define XRSA_KEY_GEN_VAULT_CAPACITY (2U) /**< Number of RSA key pairs that can be stored in ASU vault */
 
 #define XRSA_PWCT_TEST_MSG_VALUE	(2U)	/**< PWCT test message value (must be > 0 and < modulus) */
-
-#define XRSA_BORROW_PROPAGATION_FILL_VALUE	(0xFFU)	/**< Fill value during borrow propagation in subtraction */
 
 /************************************** Type Definitions *****************************************/
 typedef RsaKeyPair XRsa_KeyPtr;
