@@ -660,7 +660,7 @@ void XPfw_RecoveryRestart(PmMaster *Master) { }
 s32 XPfw_StoreFsblToDDR(void)
 {
 	u32 FsblStatus;
-	s32 Status;
+	s32 Status = XST_FAILURE;
 	void * volatile FsblStoreAddr = (void *)FSBL_STORE_ADDR;
 	const void * volatile FsblLoadAddr = (const void *)FSBL_LOAD_ADDR;
 
