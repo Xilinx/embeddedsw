@@ -78,6 +78,7 @@ extern "C" {
 #define XLOADER_ADDR_2_OFST	(2U) /* Middle byte of address to read or write */
 #define XLOADER_ADDR_3_OFST	(3U) /* Middle byte of address to read or write */
 #define XLOADER_ADDR_4_OFST	(4U) /* LSB byte of address to read or write */
+#define XLOADER_MODE_BITS_OFST	(5U) /* Mode bits (CYPRESS_ID only)*/
 #define XLOADER_DUMMY_CLOCKS	(8U) /* Number of dummy bytes for fast, dual and
 				     quad reads */
 

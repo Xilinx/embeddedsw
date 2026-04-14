@@ -922,6 +922,13 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 
 		WriteBuffer[XLOADER_ADDR_1_OFST] = (u8)(QspiAddr & 0xFFU);
 
+		if((QspiFlashMake == XLOADER_CYPRESS_ID)
+			 && (ReadCommand == XLOADER_FAST_READ_CMD_32BIT))
+		{
+			WriteBuffer[XLOADER_MODE_BITS_OFST] = (u8)0x00U;
+			FlashMsg[0U].ByteCount += 1U;
+		}
+
 		FlashMsg[0U].TxBfrPtr = WriteBuffer;
 		FlashMsg[2U].RxAddr64bit = DestAddr + DestOffset;
 		FlashMsg[2U].ByteCount = TransferBytes;
