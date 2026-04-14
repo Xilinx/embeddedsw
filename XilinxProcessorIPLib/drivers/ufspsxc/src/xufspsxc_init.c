@@ -892,4 +892,60 @@ ERROR:
 	return Status;
 }
 
+/*****************************************************************************/
+/**
+* @brief
+* This API sets the reference clock frequency attribute (bRefClkFreq) on the
+* UFS device based on the configured reference pad clock frequency.
+*
+* The function maps the reference pad clock frequency from the instance
+* configuration to the appropriate UFS attribute value and writes it to the
+* device using a query command.
+*
+* @param	InstancePtr Pointer to the XUfsPsxc instance.
+* @param	CmdDescPtr Pointer to the XUfsPsxc_Xfer_CmdDesc instance
+*
+* @return	XUFSPSXC_SUCCESS on success or Error Codes.
+*
+* @note		The supported reference clock frequencies are:
+*		- 19.2 MHz (XUFSPSXC_CLK_SEL_19P2)
+*		- 26 MHz (XUFSPSXC_CLK_SEL_26)
+*		- 38.4 MHz (XUFSPSXC_CLK_SEL_38P4)
+*		- 52 MHz (XUFSPSXC_CLK_SEL_52)
+*
+******************************************************************************/
+u32 XUfsPsxc_SetbRefClkFreq(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr)
+{
+	volatile u32 Status = (u32)XUFSPSXC_FAILURE;
+	u32 bRefClkFreq = XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_INVAL;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(CmdDescPtr != NULL);
+
+	if (InstancePtr->Config.RefPadClk == XUFSPSXC_CLK_SEL_19P2) {
+		bRefClkFreq = XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_19_2_MHZ;
+	} else if (InstancePtr->Config.RefPadClk == XUFSPSXC_CLK_SEL_26) {
+		bRefClkFreq = XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_26_MHZ;
+	} else if (InstancePtr->Config.RefPadClk == XUFSPSXC_CLK_SEL_38P4) {
+		bRefClkFreq = XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_38_4_MHZ;
+	} else if (InstancePtr->Config.RefPadClk == XUFSPSXC_CLK_SEL_52) {
+		bRefClkFreq = XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_52_MHZ;
+	} else {
+		Status = ((u32)XUFSPSXC_DEVICE_CFG_ERROR << 8U) | (u32)XUFSPSXC_INVALID_REFCLKFREQ;
+		goto ERROR;
+	}
+
+	/* Write bRefClkFreq IDN in Attributes */
+	(void)memset((void *)CmdDescPtr, 0, sizeof(XUfsPsxc_Xfer_CmdDesc));
+	XUfsPsxc_FillAttrUpiu(InstancePtr, CmdDescPtr, XUFSPSXC_WRITE, XUFSPSXC_REF_CLK_FREQ_ATTRID, bRefClkFreq);
+	Status = XUfsPsxc_ProcessUpiu(InstancePtr, CmdDescPtr);
+	if (Status != (u32)XUFSPSXC_SUCCESS) {
+		Status = ((u32)XUFSPSXC_QRY_WRITE_ATTR_ERROR << 12U) | Status;
+		goto ERROR;
+	}
+
+ERROR:
+	return Status;
+}
+
 /** @} */

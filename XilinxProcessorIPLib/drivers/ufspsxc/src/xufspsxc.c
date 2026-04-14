@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -103,6 +103,11 @@ u32 XUfsPsxc_Initialize(XUfsPsxc *InstancePtr)
 	}
 
 	Status = XUfsPsxc_CardInitialize(InstancePtr, &InstancePtr->CmdDesc);
+	if (Status != (u32)XUFSPSXC_SUCCESS) {
+		goto ERROR;
+	}
+
+	Status = XUfsPsxc_SetbRefClkFreq(InstancePtr, &InstancePtr->CmdDesc);
 	if (Status != (u32)XUFSPSXC_SUCCESS) {
 		goto ERROR;
 	}

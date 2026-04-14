@@ -93,6 +93,8 @@ u32 XUfsPsxc_ReadDeviceInfo(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDes
 /* Fill SCSI Write command UPIU with PRDT entries. */
 void XUfsPsxc_FillWriteCmdUpiu(XUfsPsxc *InstancePtr,
 		XUfsPsxc_Xfer_CmdDesc *CmdDescPtr, u64 Address, u32 BlkCnt, const u8 *Buff);
+/* Set device bRefClkFreq attribute based on reference pad clock. */
+u32 XUfsPsxc_SetbRefClkFreq(XUfsPsxc *InstancePtr, XUfsPsxc_Xfer_CmdDesc *CmdDescPtr);
 
 #ifdef __cplusplus
 }
