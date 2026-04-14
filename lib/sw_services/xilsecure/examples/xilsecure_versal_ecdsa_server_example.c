@@ -35,6 +35,7 @@
 *       mb   04/13/24 Added support for P-224 Curve
 *       vss  01/08/25 Updated comments related to deprecated server mode of versalnet
 * 5.7   mb   04/11/26 Refactor code to run curves based on BSP configs
+*       ssc  04/12/26 Made minor print formatting changes
 *
 * </pre>
 *
@@ -77,14 +78,14 @@ int main()
 	xil_printf("Test P-384 curve started \r\n");
 	Status = XSecure_TestP384();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Ecdsa example failed for P-384 with Status:%08x\r\n", Status);
+		xil_printf("ECDSA example failed for P-384 with Status:%08x\r\n", Status);
 		goto END;
 	}
 #ifdef XSECURE_ECC_SUPPORT_NIST_P192
 	xil_printf("Test P-192 curve started \r\n");
 	Status = XSecure_TestP192();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Ecdsa example failed for P-192 with Status:%08x\r\n", Status);
+		xil_printf("ECDSA example failed for P-192 with Status:%08x\r\n", Status);
 		goto END;
 	}
 #endif
@@ -93,7 +94,7 @@ int main()
 	xil_printf("Test P-224 curve started \r\n");
 	Status = XSecure_TestP224();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Ecdsa example failed for P-224 with Status:%08x\r\n", Status);
+		xil_printf("ECDSA example failed for P-224 with Status:%08x\r\n", Status);
 		goto END;
 	}
 #endif
@@ -102,7 +103,7 @@ int main()
 	xil_printf("Test P-256 curve started \r\n");
 	Status = XSecure_TestP256();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Ecdsa example failed for P-256 with Status:%08x\r\n", Status);
+		xil_printf("ECDSA example failed for P-256 with Status:%08x\r\n", Status);
 		goto END;
 	}
 #endif
@@ -111,12 +112,12 @@ int main()
 	xil_printf("Test P-521 curve started \r\n");
 	Status = XSecure_TestP521();
 	if (Status != XST_SUCCESS) {
-		xil_printf("Ecdsa example failed for P-521 with Status:%08x\r\n", Status);
+		xil_printf("ECDSA example failed for P-521 with Status:%08x\r\n", Status);
 		goto END;
 	}
 #endif
 
-	xil_printf("Successfully ran Ecdsa example \r\n");
+	xil_printf("Successfully ran ECDSA example \r\n");
 
 END:
 	return Status;
@@ -222,13 +223,14 @@ int XSecure_TestP384()
 	xil_printf("Generated Sign\r\n");
 	xil_printf("R :");
 	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P384_SIZE_IN_BYTES);
-	xil_printf("\r\n S :");
+	xil_printf("\r\n");
+	xil_printf("S :");
 	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P384, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key validation failed for P-384 curve, Status =  %x \r\n", Status);
+		xil_printf("Key validation failed for P-384 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -476,13 +478,14 @@ int XSecure_TestP256()
 	xil_printf("Generated Sign\r\n");
 	xil_printf("R :");
 	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P256_SIZE_IN_BYTES);
-	xil_printf("\r\n S :");
+	xil_printf("\r\n");
+	xil_printf("S :");
 	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P256_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P256, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key validation failed for P-256 curve, Status =  %x \r\n", Status);
+		xil_printf("Key validation failed for P-256 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -583,13 +586,14 @@ int XSecure_TestP192()
 	xil_printf("Generated Sign\r\n");
 	xil_printf("R :");
 	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P192_SIZE_IN_BYTES);
-	xil_printf("\r\n S :");
+	xil_printf("\r\n");
+	xil_printf("S :");
 	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P192_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P192, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key validation failed for P-192 curve, Status =  %x \r\n", Status);
+		xil_printf("Key validation failed for P-192 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
@@ -696,13 +700,14 @@ int XSecure_TestP224()
 	xil_printf("Generated Sign\r\n");
 	xil_printf("R :");
 	XSecure_ShowData(GeneratedSign.SignR, XSECURE_ECC_P224_SIZE_IN_BYTES);
-	xil_printf("\r\n S :");
+	xil_printf("\r\n");
+	xil_printf("S :");
 	XSecure_ShowData(GeneratedSign.SignS, XSECURE_ECC_P224_SIZE_IN_BYTES);
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticValidateKey(XSECURE_ECC_NIST_P224, &Key);
 	if (Status != XST_SUCCESS) {
-		xil_printf("Key validation failed for P-224 curve, Status =  %x \r\n", Status);
+		xil_printf("Key validation failed for P-224 curve, Status = %x \r\n", Status);
 		goto END;
 	}
 
