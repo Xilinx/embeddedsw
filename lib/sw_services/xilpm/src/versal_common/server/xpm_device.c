@@ -24,6 +24,30 @@
 #define DEV_NONSECURE			(1U)
 #define DEV_SECURE			(0U)
 
+/** @brief UART buffer flush delay in microseconds */
+#define UART_FLUSH_DELAY_US		(10000U)
+
+/** @name SLCR secure write protection register values */
+/**@{*/
+#define SLCR_SECURE_WPROT_DISABLE	(0x0U) /**< Disable SLCR secure write protection */
+#define SLCR_SECURE_WPROT_ENABLE	(0x1U) /**< Enable SLCR secure write protection */
+/**@}*/
+
+/** @name Device requirement allocation status */
+/**@{*/
+#define DEV_ALLOCATED			(1U) /**< Device is allocated to a subsystem */
+#define DEV_NOT_ALLOCATED		(0U) /**< Device is not allocated */
+/**@}*/
+
+/** @name Clock enable/disable flag for SetClocks */
+/**@{*/
+#define CLK_ENABLE			(1U) /**< Enable clock */
+#define CLK_DISABLE			(0U) /**< Disable clock */
+/**@}*/
+
+/** @brief Clock enabled state returned by PM clock state API */
+#define CLK_STATE_ENABLED		(0x1U)
+
 static const char *PmDevStates[] = {
 	"UNUSED",
 	"RUNNING",
@@ -277,7 +301,7 @@ u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 		Subsystem = XPmSubsystem_GetByIndex(Idx);
 		if (NULL != Subsystem) {
 			Reqm = FindReqm(Device, Subsystem);
-			if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
+			if ((NULL != Reqm) && (DEV_ALLOCATED == Reqm->Allocated)) {
 				break;
 			}
 		}
@@ -423,7 +447,7 @@ static XStatus SetClocks(const XPm_Device *Device, u32 Enable)
 	const XPm_ClockHandle *ClkHandle = Device->ClkHandles;
 
 	/* Enable all the clock gates, skip over others */
-	if (1U == Enable) {
+	if (CLK_ENABLE == Enable) {
 		Status = XPmClock_Request(ClkHandle);
 	} else {
 		Status = XPmClock_Release(ClkHandle);
@@ -459,7 +483,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (Device->WfPwrUseCnt == Device->Power->UseCount) {
 					Node->State = (u8)XPM_DEVSTATE_CLK_ON;
 					/* Enable clock */
-					Status = SetClocks(Device, 1U);
+					Status = SetClocks(Device, CLK_ENABLE);
 					if (XST_SUCCESS != Status) {
 						DbgErr = XPM_INT_ERR_CLK_ENABLE;
 						break;
@@ -547,7 +571,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			} else if ((u32)XPM_DEVEVENT_BRINGUP_CLKRST == Event) {
 				Node->State = (u8)XPM_DEVSTATE_CLK_ON;
 				/* Enable all clocks */
-				Status = SetClocks(Device, 1U);
+				Status = SetClocks(Device, CLK_ENABLE);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_CLK_ENABLE;
 					break;
@@ -582,7 +606,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 			} else if ((u32)XPM_DEVEVENT_RUNTIME_SUSPEND == Event) {
 				Node->State = (u8)XPM_DEVSTATE_RUNTIME_SUSPEND;
 				/* Disable all clocks */
-				Status = SetClocks(Device, 0U);
+				Status = SetClocks(Device, CLK_DISABLE);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_CLK_DISABLE;
 					break;
@@ -599,7 +623,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				if (TRUE /* Hack: asserted */) {
 					Node->State = (u8)XPM_DEVSTATE_CLK_OFF;
 					/* Disable all clocks */
-					Status = SetClocks(Device, 0U);
+					Status = SetClocks(Device, CLK_DISABLE);
 					if (XST_SUCCESS != Status) {
 						DbgErr = XPM_INT_ERR_CLK_DISABLE;
 						break;
@@ -635,7 +659,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Device->Node.Flags &= (u8)(~NODE_IDLE_DONE);
 				if (Device->WfPwrUseCnt == Device->Power->UseCount) {
 					if (1U == Device->WfDealloc) {
-						Device->PendingReqm->Allocated = 0;
+						Device->PendingReqm->Allocated = DEV_NOT_ALLOCATED;
 						Device->WfDealloc = 0;
 					}
 					if(Device->PendingReqm != NULL) {
@@ -677,7 +701,7 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 				Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
 			} else if ((u32)XPM_DEVEVENT_BRINGUP_ALL == Event) {
 				/* Enable all clocks */
-				Status = SetClocks(Device, 1U);
+				Status = SetClocks(Device, CLK_ENABLE);
 				if (XST_SUCCESS != Status) {
 					DbgErr = XPM_INT_ERR_CLK_ENABLE;
 					break;
@@ -847,13 +871,13 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 	CurrSecState = XPm_In32(BaseAddr + Offset1) & Mask1;
 
 	/* Do nothing if device is still ON after release */
-	if ((0U == Reqm->Allocated) &&
+	if ((DEV_NOT_ALLOCATED == Reqm->Allocated) &&
 	    ((u8)XPM_DEVSTATE_RUNNING == Reqm->Device->Node.State)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
-	if ((1U == Reqm->Allocated) &&
+	if ((DEV_ALLOCATED == Reqm->Allocated) &&
 	    ((u32)XPM_DEVSTATE_RUNNING == PrevState)) {
 		/**
 		 * Return error if current device state does not match
@@ -870,9 +894,9 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 	}
 
 	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
-		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x0U);
+		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, SLCR_SECURE_WPROT_DISABLE);
 	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
-		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, 0x0U);
+		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, SLCR_SECURE_WPROT_DISABLE);
 	} else {
 		/* Required due to MISRA */
 	}
@@ -891,9 +915,9 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 	}
 
 	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
-		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
+		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, SLCR_SECURE_WPROT_ENABLE);
 	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
-		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
+		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, SLCR_SECURE_WPROT_ENABLE);
 	} else {
 		/* Required due to MISRA */
 	}
@@ -958,7 +982,7 @@ static XStatus SetDevCohVirtAttr(XPm_Requirement *Reqm, u32 ReqCaps,
 
 	DevReqm = Reqm->Device->Requirements;
 	while (NULL != DevReqm) {
-		if (1U == DevReqm->Allocated) {
+		if (DEV_ALLOCATED == DevReqm->Allocated) {
 			CurrCaps |= DevReqm->AttrCaps;
 		}
 		DevReqm = DevReqm->NextSubsystem;
@@ -1045,7 +1069,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 		goto done;
 	}
 
-	if (1U == Reqm->Allocated) {
+	if (DEV_ALLOCATED == Reqm->Allocated) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1056,7 +1080,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 			//Check if it already requested by other subsystem. If yes, return
 			const XPm_Requirement *NextReqm = Reqm->NextSubsystem;
 			while (NULL != NextReqm) {
-				if (1U == NextReqm->Allocated) {
+				if (DEV_ALLOCATED == NextReqm->Allocated) {
 					Status = XPM_PM_NODE_USED;
 					goto done;
 				}
@@ -1065,7 +1089,7 @@ static XStatus DevRequest(XPm_Device *Device, XPm_Subsystem *Subsystem,
 	}
 
 	/* Allocated device for the subsystem */
-	Reqm->Allocated = 1U;
+	Reqm->Allocated = DEV_ALLOCATED;
 
 	Status = Device->DeviceOps->SetRequirement(Device, Subsystem,
 						   Capabilities, QoS);
@@ -1178,7 +1202,7 @@ static XStatus DevRelease(XPm_Device *Device, const XPm_Subsystem *Subsystem, u3
 		goto done;
 	}
 
-	if (0U == Device->PendingReqm->Allocated) {
+	if (DEV_NOT_ALLOCATED == Device->PendingReqm->Allocated) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1455,7 +1479,7 @@ XStatus XPmDevice_Reset(const XPm_Device *Device, const XPm_ResetActions Action)
 	    (PM_RESET_ACTION_ASSERT == Action)) {
 		PmDbg("Disabling UART prints\r\n");
 		/* Wait for UART buffer to flush */
-		usleep(10000);
+		usleep(UART_FLUSH_DELAY_US);
 		XPlmi_ResetLpdInitialized();
 	}
 #endif
@@ -1531,7 +1555,7 @@ XStatus XPmDevice_CheckPermissions(const XPm_Subsystem *Subsystem, u32 DeviceId)
 		goto done;
 	}
 
-	if (1U == Reqm->Allocated) {
+	if (DEV_ALLOCATED == Reqm->Allocated) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
@@ -1959,13 +1983,13 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 			if (XST_SUCCESS != Status) {
 				goto done;
 			}
-			if(0x1U == RstStatus){
+			if(XPM_RST_STATE_ASSERTED == RstStatus){
 				break;
 			}
 			RstHandle = RstHandle->NextReset;
 		}
 		if(((XPm_In32(((XPm_RpuCore *)Device)->ResumeCfg) & XPM_RPU_CPUHALT_MASK) == XPM_RPU_CPUHALT_VAL) &&
-			(0x1U == ClkStatus) && (0U == RstStatus)){
+			(CLK_STATE_ENABLED == ClkStatus) && (XPM_RST_STATE_DEASSERTED == RstStatus)){
 				DeviceStatus->Status = (u32)XPM_DEVSTATE_HALT;
 		}
 		else{
@@ -2088,7 +2112,7 @@ XStatus XPmDevice_GetPermissions(const XPm_Device *Device, u32 *PermissionMask)
 
 	Reqm = Device->Requirements;
 	while (NULL != Reqm) {
-		if (1U == Reqm->Allocated) {
+		if (DEV_ALLOCATED == Reqm->Allocated) {
 			for (Idx = 0; Idx <= SubsysIdx; Idx++) {
 				if (Reqm->Subsystem == XPmSubsystem_GetByIndex(Idx)) {
 					*PermissionMask |= ((u32)1U << Idx);
@@ -2462,7 +2486,7 @@ u32 XPmDevice_GetUsageStatus(const XPm_Subsystem *Subsystem, const XPm_Device *D
 	const XPm_Requirement *Reqm = Device->Requirements;
 
 	while (NULL != Reqm) {
-		if (1U == Reqm->Allocated) {
+		if (DEV_ALLOCATED == Reqm->Allocated) {
 			/* This subsystem is currently using this device */
 			if (Subsystem == Reqm->Subsystem) {
 				UsageStatus |= (u32)PM_USAGE_CURRENT_SUBSYSTEM;
@@ -2544,7 +2568,7 @@ XStatus XPmDevice_IsRequested(const u32 DeviceId, const u32 SubsystemId)
 	}
 
 	Reqm = FindReqm(Device, Subsystem);
-	if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
+	if ((NULL != Reqm) && (DEV_ALLOCATED == Reqm->Allocated)) {
 		Status = XST_SUCCESS;
 	}
 
