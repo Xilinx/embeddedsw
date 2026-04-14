@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2026 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1493,7 +1493,9 @@ void XVphy_Set8b10b(XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 * @param	QuadId is the GT quad ID to operate on.
 * @param	ChId is the channel ID to operate on.
 * @param	Dir is an indicator for TX or RX.
-* @param	Enable will enable (if 1) or disable (if 0) the LPM logic.
+* @param	Rate is the line rate configured.
+* @param	RefClkSel is the reference clock selected.
+* @param	PllSelect is the PLL selected.
 *
 * @return	None.
 *
@@ -1505,7 +1507,9 @@ void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_PllType PllSelect)
 {
 	u32 RegVal;
-	u32 Status = XST_SUCCESS;
+
+	/* Suppress Warning Messages */
+	ChId = ChId;
 
 	RegVal = XVphy_ReadReg(InstancePtr->Config.BaseAddr,
 			XVPHY_CLKDET_CTRL_REG);
@@ -1588,6 +1592,21 @@ void XVphy_SetupDP21Phy (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	}
 }
 
+/*****************************************************************************/
+/**
+* This function resets the PHY for DP2.1
+*
+* @param	InstancePtr is a pointer to the XVphy core instance.
+* @param	QuadId is the GT quad ID to operate on.
+* @param	ChId is the channel ID to operate on.
+* @param	Dir is an indicator for TX or RX.
+*
+* @return
+*		- XST_SUCCESS.
+*
+* @note		None.
+*
+******************************************************************************/
 
 u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 		XVphy_DirectionType Dir)
@@ -1595,7 +1614,8 @@ u16 XVphy_DP21PhyReset (XVphy *InstancePtr, u8 QuadId, XVphy_ChannelId ChId,
 	u32 Status;
 	u32 Retry;
 
-	u8 PllSelect = XVphy_GetPllType (InstancePtr, QuadId, Dir, ChId);
+	/* Suppress Warning Messages */
+	QuadId = QuadId;
 
 	if (!Dir) {
 	XVphy_BufgGtReset(InstancePtr, XVPHY_DIR_RX,(TRUE));
