@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -24,6 +24,7 @@
  *                    in XSfl_CntrlInfo.
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
+ * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *
  * </pre>
  *
@@ -93,6 +94,37 @@
 #define XSFL_QUAD_SEC_ERASE_CMD      0xD8
 #define XSFL_WRITE_CMD               0x02
 #define XSFL_READ_CMD                0x03
+/**
+ * @def XSFL_NO_CMD
+ * @brief No command / dummy command value (0x00)
+ */
+#define XSFL_NO_CMD                  0x00
+
+/* Commands for Winbond Flash */
+/**
+ * @def XSFL_WB_READ_STATUS_REG2_CMD
+ * @brief Command for reading the status register 2.
+ *
+ * This command is used to retrieve the status of the second status
+ * register.
+ * Winbond Read SR2 (0x35) coincides with XSFL_READ_CONFIG_CMD.
+ */
+#define XSFL_WB_READ_STATUS_REG2_CMD    XSFL_READ_CONFIG_CMD
+
+/**
+ * @def XSFL_WB_WRITE_STATUS_REG2_CMD
+ * @brief Write Status Register 2 command.
+ *
+ * This command is used to write the status register 2.
+ */
+#define XSFL_WB_WRITE_STATUS_REG2_CMD   0x31
+
+/* Manufacturer IDs */
+/**
+ * @def XSFL_WINBOND_ID_BYTE0
+ * @brief The first byte of the Winbond ID.
+ */
+#define XSFL_WINBOND_ID_BYTE0 0xEF
 
 /*
  * Sixteen MB
@@ -211,6 +243,16 @@
 #define XSFL_X2_BUS_WIDTH  0x02
 #define XSFL_X4_BUS_WIDTH  0x04
 #define XSFL_X8_BUS_WIDTH  0x08
+
+/* Register BitFields */
+
+/* Winbond */
+/**
+ * @def XSFL_WB_QUAD_ENABLE_BIT
+ * @brief Winbond QE bit: Status Register-2 bit[1] (SR2[1]).
+ * Setting this bit enables Quad SPI transfers.
+ */
+#define XSFL_WB_QUAD_ENABLE_BIT 0x02U
 
 /**************************** Type Definitions *******************************/
 

@@ -22,6 +22,7 @@
  * 1.1   sb  02/11/25  Add support for x2/x4 operartion.
  * 1.1   sb  02/12/25  Add support for MT25QU128 flash.
  * 1.3   zm  29/01/26  Add support for remaining micron OSPI and QSPI flashes.
+ * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *
  * </pre>
  *
@@ -167,6 +168,21 @@ const XFlashInfo Flash_Config_Table[] = {
 		(XSFL_FLASH_PROTO_1_1_2 << 24)  | (XSFL_FLASH_PROTO_1_1_4 << 16) | XSFL_FLASH_PROTO_1_1_1,
 		XSFL_FLASH_FREQUENCY_166_MHZ, (XSFL_FLASH_DUMMY_CYCLES_10 << 16) | XSFL_FLASH_DUMMY_CYCLES_8,
 		XSFL_READ_FLAG_STATUS_CMD, 4, 1, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
+	},
+	/* Winbond */
+	/* W25Q128JW */
+	/*
+	 * no 1-1-2 Page Program; bits[31:24] of WriteCmd MUST NOT be
+	 * used for writes (W25Q128JW has no dual-write opcode).
+	 */
+	{
+		0xef8018, XSFL_FLASH_SECTOR_SIZE_64KB, 0x100, XSFL_FLASH_PAGE_SIZE_256,
+		0x10000, XSFL_FLASH_DEVICE_SIZE_128M, 0xFFFF0000, (XSFL_DUAL_READ_CMD << 24) |
+		(XSFL_QUAD_READ_CMD << 16) | XSFL_READ_CMD,
+		(XSFL_NO_CMD << 24) | (XSFL_QUAD_WRITE_CMD << 16) | XSFL_WRITE_CMD, XSFL_QUAD_SEC_ERASE_CMD,
+		(XSFL_FLASH_PROTO_1_1_2 << 24)  | (XSFL_FLASH_PROTO_1_1_4 << 16) | XSFL_FLASH_PROTO_1_1_1,
+		XSFL_FLASH_FREQUENCY_133_MHZ, (XSFL_FLASH_DUMMY_CYCLES_8 << 16) | XSFL_FLASH_DUMMY_CYCLES_8,
+		XSFL_READ_STATUS_CMD, 1, 0, XSFL_DUAL_BYTE_OP_DISABLE, XSFL_QSPI_FLASH
 	}
 };
 

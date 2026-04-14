@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -22,6 +22,7 @@
  * 1.0   sb  9/25/24  Add check for bytecount in non-blocking read and
  *                    add support for unaligned byte read
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
+ * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *
  * </pre>
  *
@@ -112,6 +113,38 @@ u32 XSfl_FlashInit(u8 *SflHandler, XSfl_UserConfig SflUserOptions, u8 Controller
 	FlashType = Flash_Config_Table[FCTIndex].FlashType;
 	FlashSize = Flash_Config_Table[FCTIndex].FlashDeviceSize;
 	SflInstance.Instance[Idx].SflFlashInfo.AddrSize = 3;
+
+	if ((FlashType == XSFL_QSPI_FLASH) &&
+			((SflInstance.Instance[Idx].CntrlInfo.BusWidth == XSFL_X4_BUS_WIDTH) ||
+			 (SflInstance.Instance[Idx].CntrlInfo.BusWidth == 0U))) {
+		u8 cs;
+
+		/* In Stacked mode, both flash chips must be configured in Quad mode. */
+		if (SflInstance.Instance[Idx].SflFlashInfo.ConnectionMode ==
+				XSFL_CONNECTION_MODE_STACKED) {
+			for (cs = XSFL_SELECT_FLASH_CS0; cs <= XSFL_SELECT_FLASH_CS1; cs++) {
+				Status = XSfl_FlashEnableQuadMode(&SflInstance.Instance[Idx], cs);
+				if (Status != XST_SUCCESS) {
+#ifdef XSFL_DEBUG
+					xil_printf("XSfl_FlashEnableQuadMode CS%u Failed\r\n", cs);
+#endif
+					return XST_FAILURE;
+				}
+			}
+		/* In normal mode, enable Quad mode in the configured flash chip */
+		} else {
+
+			Status = XSfl_FlashEnableQuadMode(&SflInstance.Instance[Idx],
+					SflInstance.Instance[Idx].CntrlInfo.ChipSelectNum);
+			if (Status != XST_SUCCESS) {
+#ifdef XSFL_DEBUG
+				xil_printf("XSfl_FlashEnableQuadMode CS%u Failed\r\n",
+						SflInstance.Instance[Idx].CntrlInfo.ChipSelectNum);
+#endif
+				return XST_FAILURE;
+			}
+		}
+	}
 
 	if (SflInstance.Instance[Idx].CntrlInfo.CntrlType == XSFL_OSPI_CNTRL) {
 		if ((FlashType == XSFL_OSPI_FLASH) &&
