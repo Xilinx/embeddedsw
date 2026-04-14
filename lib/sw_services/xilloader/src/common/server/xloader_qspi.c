@@ -45,6 +45,7 @@
 *       pre  09/06/2024 Setting the pre-scaler for QSPI clock from CIPS
 *		prt	 04/02/2025 Added support for Infineon QSPI flash parts
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in QSPI release
+* 2.4   aa   04/14/2026 Added support for Infineon QSPI flash parts
 *
 * </pre>
 *
@@ -161,6 +162,10 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 	else if(ReadBuffer[0U] == XLOADER_ISSI_ID) {
 		QspiFlashMake = XLOADER_ISSI_ID;
 		XLoader_Printf(DEBUG_INFO, "ISSI ");
+	}
+	else if(ReadBuffer[0U] == XLOADER_CYPRESS_ID) {
+		QspiFlashMake = XLOADER_CYPRESS_ID;
+		XLoader_Printf(DEBUG_INFO, "CYPRESS ");
 	}
 	else {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID, 0);
