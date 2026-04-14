@@ -555,7 +555,7 @@ void PrintLinkInfo()
 		   (int)DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].Misc0);
 
 	if ((Linkrate == 0x1) || (Linkrate == 0x2) || (Linkrate == 0x4)) {
-		xil_printf("VFreq %d\r\n",
+		xil_printf("VFreq %u\r\n",
 			   DpRxSsInst.DpPtr->RxInstance.MsaConfig[0].VFreq);
 	} else {
 		xil_printf("Mvid=%d, Nvid=%d \r\n",

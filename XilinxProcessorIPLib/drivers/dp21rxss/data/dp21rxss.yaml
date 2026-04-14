@@ -158,6 +158,7 @@ required:
           - reg
     - interrupts: 5
     - interrupt-parent
+    - xlnx,examplemodes
 
 config:
     - XDpRxSs_Config
@@ -181,6 +182,53 @@ examples:
             - src/dp21_rx_only/xdprxss_dp21_rx.c
             - src/dp21_rx_only/xvidframe_crc.c
             - src/dp21_rx_only/xvidframe_crc.h
+            - src/platforms/vcu_risc/lscript.ld
+
+    src/dp21_pt/xdprxss_dp21_pt.c:
+        - dependency_files:
+            - src/dp21_pt/clk_set.c
+            - src/dp21_pt/clk_set.h
+            - src/dp21_pt/main.h
+            - src/dp21_pt/menus.c
+            - src/dp21_pt/passthrough.c
+            - src/dp21_pt/rx.c
+            - src/dp21_pt/rx.h
+            - src/dp21_pt/si570.c
+            - src/dp21_pt/si570drv.c
+            - src/dp21_pt/si570drv.h
+            - src/dp21_pt/tx.c
+            - src/dp21_pt/tx.h
+            - src/dp21_pt/videofmc_defs.h
+            - src/dp21_pt/xdprxss_dp21_pt.c
+            - src/dp21_pt/xvid_clk_gen.c
+            - src/dp21_pt/xvidframe_crc.c
+            - src/dp21_pt/xvidframe_crc.h
+        - xlnx,examplemodes: 1
+        - xlnx,hdcp-enable: 0
+        - xlnx,num-streams: 1
+
+    dummy/xdprxss_dp21_pt_vcu.txt:
+        - dependency_files:
+            - src/dp21_pt/clk_set.c
+            - src/dp21_pt/clk_set.h
+            - src/dp21_pt/main.h
+            - src/dp21_pt/menus.c
+            - src/dp21_pt/passthrough.c
+            - src/dp21_pt/rx.c
+            - src/dp21_pt/rx.h
+            - src/dp21_pt/si570.c
+            - src/dp21_pt/si570drv.c
+            - src/dp21_pt/si570drv.h
+            - src/dp21_pt/tx.c
+            - src/dp21_pt/tx.h
+            - src/dp21_pt/videofmc_defs.h
+            - src/dp21_pt/xdprxss_dp21_pt.c
+            - src/dp21_pt/xvid_clk_gen.c
+            - src/dp21_pt/xvidframe_crc.c
+            - src/dp21_pt/xvidframe_crc.h
             - src/platforms/vcu_mb/lscript.ld
+        - xlnx,examplemodes: 1
+        - xlnx,hdcp-enable: 0
+        - xlnx,num-streams: 1
 
 ...
