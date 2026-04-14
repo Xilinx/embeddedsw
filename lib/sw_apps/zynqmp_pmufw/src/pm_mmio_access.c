@@ -61,7 +61,7 @@ static PmMemRange addressTable[] = {
 		.address = BASE_CONFIG_OBJ_START_ADDR,
 		.length = BASE_CONFIG_OBJ_LEN,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 	{
 		/* PmSetConfiguration
@@ -73,7 +73,7 @@ static PmMemRange addressTable[] = {
 		.address = OVERLAY_CONFIG_OBJ_START_ADDR,
 		.length = OVERLAY_CONFIG_OBJ_LEN,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 #endif
 #ifdef ENABLE_MEM_RANGE_PM_SELF_SUSPEND
@@ -85,7 +85,7 @@ static PmMemRange addressTable[] = {
 		.address = SELF_SUSPEND_DDR_START_ADDR,
 		.length = SELF_SUSPEND_DDR_OCM_ADDR_LEN,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 	{
 		/* PmSelfSuspend
@@ -95,7 +95,7 @@ static PmMemRange addressTable[] = {
 		.address = SELF_SUSPEND_OCM_START_ADDR,
 		.length = SELF_SUSPEND_DDR_OCM_ADDR_LEN,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 #endif
 #ifdef ENABLE_MEM_RANGE_PM_REQUEST_WAKEUP
@@ -107,7 +107,7 @@ static PmMemRange addressTable[] = {
 		.address = REQUEST_WAKEUP_OCM_START_ADDR,
 		.length = REQUEST_WAKEUP_OCM_ADDR_LEN,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 #endif
 #ifdef ENABLE_MEM_RANGE_CRYPTO_REQUEST
@@ -119,7 +119,7 @@ static PmMemRange addressTable[] = {
 		.address = DDR_LOW_START_ADDR,
 		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 #endif
 #ifdef ENABLE_MEM_RANGE_SECURE_IMAGE_LOAD
@@ -131,7 +131,7 @@ static PmMemRange addressTable[] = {
 		.address = DDR_LOW_START_ADDR,
 		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 #endif
 #ifdef ENABLE_MEM_RANGE_EFUSE_ACCESS
@@ -143,7 +143,7 @@ static PmMemRange addressTable[] = {
 		.address = DDR_LOW_START_ADDR,
 		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_ANY_ACCESS,
+		.access = (u32)MEM_RANGE_ANY_ACCESS,
 	},
 #endif
 #ifdef ENABLE_MEM_RANGE_PM_FPGA_READ_BACK
@@ -154,13 +154,13 @@ static PmMemRange addressTable[] = {
 		.address = DDR_LOW_START_ADDR,
 		.length = DDR_LOW_END_ADDR - DDR_LOW_START_ADDR + 1U,
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_WRITE_ACCESS,
+		.access = (u32)MEM_RANGE_WRITE_ACCESS,
 	},
 	{
 		.address = DDR_HIGH_START_ADDR,
 		.length = (u32)(DDR_HIGH_END_ADDR - DDR_HIGH_START_ADDR + 1ULL),
 		.ipiMask = IPI_PMU_0_IER_APU_MASK,
-		.access = MEM_RANGE_WRITE_ACCESS,
+		.access = (u32)MEM_RANGE_WRITE_ACCESS,
 	},
 #endif
 };
