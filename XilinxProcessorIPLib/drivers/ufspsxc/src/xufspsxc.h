@@ -33,7 +33,7 @@
 * 1.1   sk  01/13/25 Update the example to enable the LU before
 *                    configuring the Boot LUN ID.
 * 1.2   an  06/09/25 Configure RMMI and M-PHY registers for HS mode
-* 1.3   an  04/09/26 Fix doxygen warnings
+* 1.3   an  04/09/26 Fix doxygen warnings, Fix stale PHY adapt-type
 *
 * </pre>
 *
@@ -694,6 +694,14 @@ enum Task_Tag {
 #define XUFSPSXC_CLK_SEL_26		26000000U	/**< 26 MHz reference clock */
 #define XUFSPSXC_CLK_SEL_38P4	38400000U	/**< 38.4 MHz reference clock */
 #define XUFSPSXC_CLK_SEL_52		52000000U	/**< 52 MHz reference clock */
+/** @} */
+
+/** @name Adapt type values for PA_TxHsAdaptType attribute
+ * @{
+ */
+#define XUFSPSXC_PA_REFRESH_ADAPT	0x00U	/**< Refresh Adapt */
+#define XUFSPSXC_PA_INITIAL_ADAPT	0x01U	/**< Initial Adapt */
+#define XUFSPSXC_PA_NO_ADAPT		0x03U	/**< No Adapt */
 /** @} */
 
 /*****************************************************************************/

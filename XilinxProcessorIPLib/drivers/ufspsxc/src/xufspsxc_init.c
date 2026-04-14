@@ -758,6 +758,7 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 	u32 ReadReg;
 	u32 Lane;
 	u32 RateSel;
+	u32 adapt_val;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
@@ -765,6 +766,7 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 	rx_gear = (u8)SpeedGear;
 	PowerMode = (u8)(SpeedGear >> 8U);
 	Rate = (u8)(SpeedGear >> 16U);
+	adapt_val = XUFSPSXC_PA_NO_ADAPT; /* Default as No Adapt */
 
 	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x1568U << 16U), tx_gear, 0U, XUFSPSXC_DME_SET_OPCODE);	/*  PA_TXGEAR */
 	Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
@@ -860,12 +862,14 @@ u32 XUfsPsxc_ConfigureTxRxAttributes(const XUfsPsxc *InstancePtr, u32 SpeedGear,
 
 		/* Program initial ADAPT for G4 */
 		if (((tx_gear == XUFSPSXC_GEAR4) || (rx_gear == XUFSPSXC_GEAR4)) && (RxLanes == 2U)) {
-			XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x15D4U << 16U), 1U, 0U, XUFSPSXC_DME_SET_OPCODE);	/* PA_TxHsAdaptType */
-			Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
-			if (Status != (u32)XUFSPSXC_SUCCESS) {
-				goto ERROR;
-			}
+			adapt_val = XUFSPSXC_PA_INITIAL_ADAPT;
 		}
+	}
+
+	XUfsPsxc_FillUICCmd(&UicCmd, ((u32)0x15D4U << 16U), adapt_val, 0U, XUFSPSXC_DME_SET_OPCODE);   /* PA_TxHsAdaptType */
+	Status = XUfsPsxc_SendUICCmd(InstancePtr, &UicCmd);
+	if (Status != (u32)XUFSPSXC_SUCCESS) {
+		goto ERROR;
 	}
 
 	/* Configuring one Tx and one Rx */
