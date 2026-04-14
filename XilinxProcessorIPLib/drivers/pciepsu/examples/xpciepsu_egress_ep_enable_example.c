@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -82,7 +82,7 @@ XScuGic INTCinst;
 
 void XPciePsu_EP_IntrHandler(XPciePsu *PciePsuPtr)
 {
-	u32 val, size;
+	u32 val;
 
 	XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
 			DMA0_CHAN_AXI_INTR_STATUS + 0x80,
@@ -93,18 +93,9 @@ void XPciePsu_EP_IntrHandler(XPciePsu *PciePsuPtr)
 
 	if (val == EGRESS_TEST_DONE)
 	{
-		 val = XPciePsu_ReadReg(PciePsuPtr->Config.BrigReg,EGRESS0_CONTROL);
-		if (val & 0x00000001U) {
-			size = (1 << EGRESS_SIZE_ENCODING) * (1 << EGRESS_MIN_SIZE);
-			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
-					DMA_PCIE_INTR_ASSRT_REG_OFFSET + 0x80,
-					PCIE_INTR_STATUS);
-		}
-		else {
-			XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
-					DMA_PCIE_INTR_ASSRT_REG_OFFSET + 0x80,
-					PCIE_INTR_STATUS);
-		}
+		XPciePsu_WriteReg(PciePsuPtr->Config.DmaBaseAddr,
+			DMA_PCIE_INTR_ASSRT_REG_OFFSET + 0x80,
+			PCIE_INTR_STATUS);
 	}
 }
 
@@ -168,7 +159,7 @@ int XPciePsu_EP_InitIntr(void)
 int main()
 {
 	int Status = XST_SUCCESS;
-	int Val;
+	u32 Val;
 
 #ifndef SDT
 	XPciePsu_InitEndPoint(&PciePsuInstance, XPAR_PSU_PCIE_DEVICE_ID);
