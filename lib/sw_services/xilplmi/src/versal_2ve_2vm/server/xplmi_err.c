@@ -31,6 +31,7 @@
 * 2.4   abh  10/17/2025 Fixed MISRA-C violations
 *       pre  03/17/2026 Removed reconfiguration skip for XPLMI_ERROR_OCP_SUBSYS_UPDATE event
 *       vm   03/16/2026 Added ASU update event
+*       gnr  04/07/2026 Added redundancy on checking the errors and carrying out the actions
 *
 * </pre>
 *
@@ -1228,47 +1229,75 @@ static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask)
 static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask)
 {
 	u32 ErrorId;
+	volatile u32 ErrorIdTmp;  /* Temporal redundancy for ErrorId */
+	volatile u8 ActionTmp = XPLMI_EM_ACTION_MAX; /* Temporal redundancy for Error Action */
 	XPlmi_EventType ErrorNodeType = (XPlmi_EventType)XPlmi_EventNodeType(ErrorNodeId);
 	XPlmi_Error_t *ErrTable = XPlmi_GetErrorTable();
 
+	/* Extract ErrorId with temporal redundancy (dual read) */
 	ErrorId = XPlmi_GetErrorId(ErrorNodeId, RegMask);
+	ErrorIdTmp = XPlmi_GetErrorId(ErrorNodeId, RegMask);
 
 	(void)XPlmi_EmDisable(ErrorNodeId, RegMask);
-	switch (ErrTable[ErrorId].Action) {
-	case XPLMI_EM_ACTION_POR:
-		XPlmi_PORHandler();
-		break;
-	case XPLMI_EM_ACTION_SRST:
-		XPlmi_SoftResetHandler();
-		break;
-	case XPLMI_EM_ACTION_ERROUT:
-		/*
-		 * Clear LPD SLCR error and trigger error out using PMC FW_CR error
-		 */
-		(void)XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_INCREMENT);
+
+	/* Verify ErrorId consistency for fault detection */
+	if (ErrorId != ErrorIdTmp) {
+		/* Fault detected - trigger safe response */
+		XPlmi_Printf(DEBUG_GENERAL, "ErrorId mismatch detected: 0x%x vs 0x%x\r\n",
+				ErrorId, ErrorIdTmp);
 		XPlmi_EmClearError(ErrorNodeType, ErrorId);
-		XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
-				PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
-		XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out is triggered due to "
-				"Error ID: 0x%x\r\n", ErrorId);
-		break;
-	case XPLMI_EM_ACTION_CUSTOM:
-	case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
-	case XPLMI_EM_ACTION_SUBSYS_RESTART:
-	case XPLMI_EM_ACTION_PRINT_TO_LOG:
-	case XPLMI_EM_ACTION_SLD:
-	case XPLMI_EM_ACTION_SLD_WITH_IO_TRI:
-		if (ErrTable[ErrorId].Handler != NULL) {
-			ErrTable[ErrorId].Handler(ErrorNodeId, RegMask);
-		}
-		XPlmi_EmClearError(ErrorNodeType, ErrorId);
-		break;
-	default:
-		XPlmi_EmClearError(ErrorNodeType, ErrorId);
-		XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
-				"for errors in LPD SLCR. Error ID: 0x%x\r\n", ErrorId);
-		break;
+		goto END;
 	}
+
+	/* Verify Error Action consistency for fault detection */
+	do
+	{
+		switch (ErrTable[ErrorId].Action) {
+		case XPLMI_EM_ACTION_POR:
+			ActionTmp = XPLMI_EM_ACTION_POR;
+			XPlmi_PORHandler();
+			break;
+		case XPLMI_EM_ACTION_SRST:
+			ActionTmp = XPLMI_EM_ACTION_SRST;
+			XPlmi_SoftResetHandler();
+			break;
+		case XPLMI_EM_ACTION_ERROUT:
+			ActionTmp = XPLMI_EM_ACTION_ERROUT;
+			/*
+			* Clear LPD SLCR error and trigger error out using PMC FW_CR error
+			*/
+			(void)XPlmi_UpdateNumErrOutsCount(XPLMI_UPDATE_TYPE_INCREMENT);
+			XPlmi_EmClearError(ErrorNodeType, ErrorId);
+			XPlmi_Out32(PMC_GLOBAL_PMC_ERR1_TRIG,
+					PMC_GLOBAL_PMC_ERR1_TRIG_FW_CR_MASK);
+			XPlmi_Printf(DEBUG_GENERAL, "FW_CR error out is triggered due to "
+					"Error ID: 0x%x\r\n", ErrorId);
+			break;
+		case XPLMI_EM_ACTION_CUSTOM:
+		case XPLMI_EM_ACTION_SUBSYS_SHUTDN:
+		case XPLMI_EM_ACTION_SUBSYS_RESTART:
+		case XPLMI_EM_ACTION_PRINT_TO_LOG:
+		case XPLMI_EM_ACTION_SLD:
+		case XPLMI_EM_ACTION_SLD_WITH_IO_TRI:
+			ActionTmp = ErrTable[ErrorId].Action;
+			if (ErrTable[ErrorId].Handler != NULL) {
+				ErrTable[ErrorId].Handler(ErrorNodeId, RegMask);
+			}
+			XPlmi_EmClearError(ErrorNodeType, ErrorId);
+			break;
+		default:
+			ActionTmp = ErrTable[ErrorId].Action;
+			XPlmi_EmClearError(ErrorNodeType, ErrorId);
+			XPlmi_Printf(DEBUG_GENERAL, "Invalid Error Action "
+					"for errors in LPD SLCR. Error ID: 0x%x\r\n", ErrorId);
+			break;
+		}
+
+		if (ActionTmp != ErrTable[ErrorId].Action) {
+			XPlmi_Printf(DEBUG_GENERAL, "Error Action mismatch detected for Error ID: 0x%x. "
+					"Expected: %u, Actual: %u\r\n", ErrorId, ActionTmp, ErrTable[ErrorId].Action);
+		}
+	}while (ActionTmp != ErrTable[ErrorId].Action);
 
 	/*
 	 * Reset Action in ErrorTable to XPLMI_EM_ACTION_NONE if previous action is
@@ -1278,6 +1307,7 @@ static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask)
 		(ErrTable[ErrorId].Action != XPLMI_EM_ACTION_CUSTOM)) {
 		ErrTable[ErrorId].Action = XPLMI_EM_ACTION_NONE;
 	}
+END:
 }
 
 
