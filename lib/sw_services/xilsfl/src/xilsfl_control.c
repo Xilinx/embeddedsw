@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -24,6 +24,7 @@
  * 1.1   sb  01/28/25  Add support to read in stig when DMA is not available.
  * 1.1   sb  02/11/25  Add support for x2/x4 operation.
  * 1.2   sb  06/27/25  Copy the flash ID to driver instance irrespective of type of flash.
+ * 1.3   zm  03/09/26  Add support for W25Q128JW Winbond flash.
  *
  * </pre>
  *
@@ -790,6 +791,110 @@ u32 XSfl_FlashSetSDRDDRMode(XSfl_Interface *SflInstancePtr, int Mode){
 
 		/* Set Controller mode in sfl instance */
 		SflInstancePtr->CntrlInfo.SdrDdrMode = Mode;
+	}
+
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * This function enables Quad mode for flashes which require to enable
+ * it before using Quad commands.
+ *
+ * @param   SflInstancePtr is a pointer to the interface driver component to use.
+ * @param   ChipSelNum is the chip select number.
+ *
+ * @return  XST_SUCCESS if successful, else XST_FAILURE.
+ *
+ ******************************************************************************/
+u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum) {
+	u32 Status;
+#ifdef __ICCARM__
+#pragma data_alignment = 4
+	u8  StatusReg = 0U;
+#pragma data_alignment = 4
+	u8  WriteReg  = 0U;
+#pragma data_alignment = 4
+	u32 CmdBuffer[XSFL_BUFFER_ARRAY_LEN];
+#else
+	u8  StatusReg __attribute__((aligned(4))) = 0U;
+	u8  WriteReg  __attribute__((aligned(4))) = 0U;
+	u32 CmdBuffer[XSFL_BUFFER_ARRAY_LEN] __attribute__ ((aligned(4)));
+#endif
+
+	/* Validate the input arguments */
+	Xil_AssertNonvoid(SflInstancePtr != NULL);
+
+	switch (SflInstancePtr->SflFlashInfo.FlashMake) {
+		case XSFL_WINBOND_ID_BYTE0:
+
+			Status = SflInstancePtr->CntrlInfo.SelectFlash(ChipSelNum);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_WB_READ_STATUS_REG2_CMD;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &StatusReg, NULL, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if ((StatusReg & XSFL_WB_QUAD_ENABLE_BIT) != 0) {
+				return XST_SUCCESS;
+			}
+
+			Status = XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_ENABLE_CMD);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			WriteReg = StatusReg | XSFL_WB_QUAD_ENABLE_BIT;
+
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_WB_WRITE_STATUS_REG2_CMD;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, NULL, &WriteReg, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				(void)XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
+				return XST_FAILURE;
+			}
+
+			Status = XSfl_WaitforStatusDone(SflInstancePtr);
+			if (Status != XST_SUCCESS) {
+				(void)XSfl_FlashCmdTransfer(SflInstancePtr, XSFL_WRITE_DISABLE_CMD);
+				return XST_FAILURE;
+			}
+
+			/* Read back the status register to verify Quad mode is enabled */
+			CmdBuffer[XSFL_COMMAND_OFFSET]      = XSFL_WB_READ_STATUS_REG2_CMD;
+			CmdBuffer[XSFL_ADDRESS_OFFSET]      = 0;
+			CmdBuffer[XSFL_ADDRESS_SIZE_OFFSET] = 0;
+			CmdBuffer[XSFL_DUMMY_OFFSET]        = 0;
+
+			Status = XSfl_FlashRegisterReadWrite(SflInstancePtr, &StatusReg, NULL, CmdBuffer, 0);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			if ((StatusReg & XSFL_WB_QUAD_ENABLE_BIT) == 0) {
+#ifdef XSFL_DEBUG
+				xil_printf("Quad Enable bit is not set in status register\r\n");
+#endif
+				return XST_FAILURE;
+			}
+
+			break;
+
+		default:
+			Status = XST_SUCCESS;
+			break;
 	}
 
 	return Status;

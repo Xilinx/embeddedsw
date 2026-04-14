@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -19,6 +19,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
  * 1.0   sb  9/25/24  Add XSfl_FlashNonBlockingReadProcess API.
+ * 1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
  *
  * </pre>
  *
@@ -62,6 +63,7 @@ u32 XSfl_FlashCmdTransfer(XSfl_Interface *SflInstnacePtr,u8 Cmd);
 u32 XSfl_GetRealAddr(XSfl_Interface *SflInstnacePtr, u32 Address);
 u32 XSfl_FlashNonBlockingReadProcess(XSfl_Interface *SflInstancePtr, u32 Address, u32 ByteCount,
                 u8 *ReadBfrPtr, u64 RxAddr64bit);
+u32 XSfl_FlashEnableQuadMode(XSfl_Interface *SflInstancePtr, u8 ChipSelNum);
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/

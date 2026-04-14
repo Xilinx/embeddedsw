@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -20,6 +20,7 @@
  * ----- --- -------- -----------------------------------------------
  * 1.0   sb  8/20/24  Initial release
  * 1.1   sb  02/11/25 Add support for x2/x4 operation.
+ * 1.3   zm  03/09/26 Add support for W25Q128JW Winbond flash.
  *
  * </pre>
  *
@@ -49,6 +50,12 @@
  */
 #define XSFL_FLASH_FREQUENCY_166_MHZ   166000000U
 #define XSFL_FLASH_FREQUENCY_150_MHZ   150000000U
+
+/**
+ * @def XSFL_FLASH_FREQUENCY_133_MHZ
+ * @brief Flash frequency of 133 MHz.
+ */
+#define XSFL_FLASH_FREQUENCY_133_MHZ   133000000U
 
 /**************************** Type Definitions *******************************/
 
