@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -36,11 +36,11 @@
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
-#define XUFSPSXC_MAX_UD0_OFFSET		0x16U
-#define XUFSPSXC_MAX_UD0_LENGTH		0x1AU
-#define XUFSPSXC_HIBERN8_STATE		0x1U
-#define XUFSPSXC_SLEEP_STATE		0x2U
-#define XUFSPSXC_LS_BURST_STATE		0x4U
+#define XUFSPSXC_MAX_UD0_OFFSET		0x16U	/**< Max Unit Descriptor 0 base offset */
+#define XUFSPSXC_MAX_UD0_LENGTH		0x1AU	/**< Max Unit Descriptor length */
+#define XUFSPSXC_HIBERN8_STATE		0x1U	/**< TX/RX FSM Hibernate state */
+#define XUFSPSXC_SLEEP_STATE		0x2U	/**< TX/RX FSM Sleep state */
+#define XUFSPSXC_LS_BURST_STATE		0x4U	/**< TX/RX FSM LS-Burst state */
 
 /************************** Function Prototypes ******************************/
 
