@@ -760,6 +760,22 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		goto done;
 	}
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	/*
+	 * In SSIT devices, DDR modeling data for the primary SLR may be
+	 * replicated in secondary SLR CDOs. The SLR Index field identifies
+	 * which SLR the DDRMC belongs to. Skip if it doesn't match the
+	 * local SLR since the device node won't exist in the local topology.
+	 */
+	u8 CdoSlrIdx = (u8)((Args[1U] >> 20U) & 0xFU);
+	u8 LocalSlrIdx = XPm_PlatGetSlrIndex();
+
+	if (CdoSlrIdx != LocalSlrIdx) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+#endif
+
 	/*
 	 * Current PLD or one of parents from the tree must be in an initializing state
 	 *
