@@ -2527,7 +2527,7 @@ void AxiEthernetErrorFastHandler(void)
 /*****************************************************************************/
 /**
 *
-* Fast Tramsmit Handler which calls TxIntrHandler.
+* Fast Transmit Handler which calls TxIntrHandler.
 *
 * @param	None
 *
