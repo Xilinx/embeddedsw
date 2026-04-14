@@ -251,11 +251,14 @@ static void setApiPermission(const uint32_t apiId, const uint32_t permission)
 	bitOffset = index % WORD_SIZE_BITS;
 
 	if ((permission & PMU_API_SECURE_ACCESS) != 0U) {
-		apiPermissionBitmap[wordIndex] |= (1UL << (bitOffset + 0U));
+		apiPermissionBitmap[wordIndex] |= (1UL << bitOffset);
 	}
 
 	if ((permission & PMU_API_NON_SECURE_ACCESS) != 0U) {
-		apiPermissionBitmap[wordIndex] |= (1UL << (bitOffset + 1U));
+		uint32_t nsIndex = index + 1U;
+		uint32_t nsWordIndex = nsIndex / WORD_SIZE_BITS;
+		uint32_t nsBitOffset = nsIndex % WORD_SIZE_BITS;
+		apiPermissionBitmap[nsWordIndex] |= (1UL << nsBitOffset);
 	}
 }
 
