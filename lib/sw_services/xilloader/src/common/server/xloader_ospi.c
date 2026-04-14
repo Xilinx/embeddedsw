@@ -50,6 +50,8 @@
 * 2.4   abh  12/17/2025 Fixed MISRA-C violations
 *       aa   02/03/2026 Added DDR support for Macronix flash
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in OSPI release
+*       aa   04/14/2026 Skip 4B address mode entry for Spansion flash
+*                       as it supports only in SDR mode
 *
 * </pre>
 *
@@ -546,10 +548,12 @@ END1:
 	 * - Enter 4B address mode.
 	 */
 	if (OspiMode == XOSPIPSV_CONNECTION_MODE_STACKED) {
-		Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
-		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
-			goto END;
+		if (OspiFlashMake != SPANSION_OCTAL_ID_BYTE0) {
+			Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+			if (Status != XST_SUCCESS) {
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
+				goto END;
+			}
 		}
 		Status = (int)XOspiPsv_SelectFlash(&OspiPsvInstance, XOSPIPSV_SELECT_FLASH_CS0);
 		if (Status != XST_SUCCESS) {
@@ -558,9 +562,12 @@ END1:
 			goto END;
 		}
 	}
-	Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
-	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
+
+	if (OspiFlashMake != SPANSION_OCTAL_ID_BYTE0) {
+		Status = XLoader_FlashEnterExit4BAddMode(&OspiPsvInstance, (u32)TRUE);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_4BMODE, Status);
+		}
 	}
 
 END:
