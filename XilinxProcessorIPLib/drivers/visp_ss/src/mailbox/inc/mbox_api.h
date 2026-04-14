@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (C) 2021 VeriSilicon Holdings Co., Ltd.
  *
  * @file mbox.h
@@ -51,6 +51,27 @@ enum ipi_target_code_id {
 
 extern uint32_t dest_cpu_id, src_cpu_id;
 
+static inline void dsb_sync_barrier(void) { __asm__ volatile("dsb sy" : : : "memory"); }
+static inline void dmb_memory_barrier(void) { __asm__ volatile("dmb sy" : : : "memory"); }
+
+/**
+ * @brief Mailbox pair for allocation order
+ */
+typedef struct {
+	MboxCoreId sender;
+	MboxCoreId receiver;
+} MboxPair;
+
+extern const MboxPair default_pairs[];
+
+/**
+ * @brief Macros for Mbox get direction
+ */
+typedef enum {
+	MBOX_SEND = 0,
+	MBOX_RECEIVE = 1
+} MboxDirection;
+
 
 /**
  * @brief Structure of Mbox Control
@@ -59,8 +80,8 @@ typedef struct MboxFifoCtrl {
 	MboxCoreId core_id;
 	MboxCoreId sender_id;
 	MboxCoreId receiver_id;
-	uint32_t buffer_address;
 	FifoControl *fifo;
+	uint8_t *buffer_addresses[MAX_MSGS_PER_BOX];
 } __attribute((aligned(8))) MboxFifoCtrl;
 
 /**

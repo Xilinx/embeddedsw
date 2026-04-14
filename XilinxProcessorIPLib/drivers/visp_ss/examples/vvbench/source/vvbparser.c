@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #include "vvbench.h"
 #include "vvbase.h"
@@ -19,90 +34,95 @@ extern void *mm_malloc(size_t size);
 extern void mm_free(void *ptr);
 #include "submodule_def.h"
 #include "cam_device_api.h"
-#include "cam_device_sensor_api.h"
-/* cam_common_meta_data_api provided by libvisp.a */
+#include "cam_common_meta_data_api.h"
 #include <stdio.h>
 #include "cJSON.h"
 #include <string.h>
 /* t_database.h types provided by libvisp.a */
 
+typedef uintptr_t TDatabaseHandle_t;
+
+
 /* Forward declarations for types from libvisp.a */
 typedef struct {
-	int calibrationLoaded;              // bool_t
-	int imageLoadMetaEn;                // bool_t
+	bool_t calibrationLoaded;
+	bool_t imageLoadMetaEn;
 	CamDeviceSensorModeInfo_t sensorMode;
-	int inputType;                      // CamDeviceInputType_t
-	void *hDatabase;                    // TDatabaseHandle_t
+	CamDeviceInputType_t inputType;
+	TDatabaseHandle_t hDatabase;                    // TDatabaseHandle_t (uintptr_t)
 	struct {
-		int supported;
-		int enable;
-		int sensorType;
+		bool_t supported;
+		bool_t enable;
+		uint16_t sensorType;
 	} hdr;
 	struct {
-		int supported;
-		int enable;
-		int irRawOutEnable;
-		int irBayerPattern;
+		bool_t supported;
+		bool_t enable;
+		bool_t irRawOutEnable;
+		uint16_t irBayerPattern;
 	} rgbir;
+	CamDeviceAwbWorkMode_t  modeAwb;
+	CamDeviceAeWorkMode_t   modeAe;
 } CamCommonContext_t;
 
+
 typedef struct {
-	int enable;                         // bool
-	int id;                             // uint16_t
+	bool enable;
+	uint16_t id;
 	struct {
 		char bayerPattern[10];
-		int bit;                        // uint16_t
-		int crop[4];                    // uint16_t
-		int frames;                     // uint16_t
-		int height;                     // uint16_t
+		uint16_t bit;
+		uint16_t crop[4];
+		uint16_t frames;
+		uint16_t height;
 		char path[10][256];
 		char metadataInfo[256];
-		int startFrame;                 // uint16_t
-		int width;                      // uint16_t
+		uint16_t startFrame;
+		uint16_t width;
 	} input;
-	int nrReloc;                        // bool
+	bool nrReloc;
 	struct {
-		int dumpYuvVideo;               // uint16_t
-		int height;                     // uint16_t
+		uint16_t dumpYuvVideo;
+		uint16_t height;
 		char jpgFile[256];
 		char path[256];
 		char videoFile[256];
-		int width;                      // uint16_t
+		uint16_t width;
 		char yuvFile[256];
 		char format[256];
-		int dataBits;                   // uint16_t
-		int yuvOrder;                   // uint16_t
-		int alpha;                      // uint16_t
+		uint16_t dataBits;
+		uint16_t yuvOrder;
+		uint16_t alpha;
+		uint16_t dumpStatistic;
 	} output;
 } TDatabaseMetaDriver_t;
 
 typedef struct {
 	char autoTable[256];
-	int awbEnable;                      // bool
-	int cacEnable;                      // bool
-	int ccEnable;                       // bool
-	int enable;                         // bool
+	bool awbEnable;
+	bool cacEnable;
+	bool ccEnable;
+	bool enable;
 	float integrationTime;
-	int lscEnable;                      // bool
-	int lscVersion;                     // uint16_t
+	bool lscEnable;
+	uint16_t lscVersion;
 	float sensorGain;
 	char xml[256];
-	int metadataEnable;                 // bool
+	bool metadataEnable;
 	float metadataExposureGain[6];
 	float metadataExposureTime[6];
 	float metadataCCT[6];
 	float metadataAwbGains[6][4];
 	float maxExposureTime;
-	char class_[32];                    // T_DATABASE_CLASS_NAME_LENGTH
+	char class_[20];                    // T_DATABASE_CLASS_NAME_LENGTH = 20
 } TDatabase3AInterface_2_t;
 
 /* Constants from t_database.h */
-#define T_DATABASE_META_DRIVER "MD"
+#define T_DATABASE_META_DRIVER "IOControl"
 #define T_DATABASE_3A_INTERFACE_2 "3AI_2"
 
 /* External functions from libvisp.a */
-extern int TDatabase_query(void* hDatabase, char const *pCategory, void** result);
-
+extern int TDatabase_query(TDatabaseHandle_t handle, const char *pCategory,void **ppData);
 #define LOGTAG "PARSER"
 #define DEFAULT_DATA_BITS 8
 #define DEFAULT_ALPHA 0
@@ -122,10 +142,12 @@ VvbenchRunMode_t _VsiVvbenchRunMode(const VvbenchRunMode_t * const pVvbenchRunMo
 	static VvbenchRunMode_t _vvbenchRunMode = INVALID_MODE;
 	static int unModifiedFlag = 0;//0 is unModified
 	if (NULL == pVvbenchRunMode) {
-		if (0 == unModifiedFlag)
+		if (0 == unModifiedFlag) {
 			return INVALID_MODE;
+		}
 		return _vvbenchRunMode;
-	} else {
+	}
+	else {
 		if (0 == unModifiedFlag) {
 			_vvbenchRunMode = *pVvbenchRunMode;
 			++ unModifiedFlag;
@@ -166,8 +188,9 @@ int VsiVvbenchGetPathInfoFromJson
 	strcpy(pathName, pJsonPathName->valuestring);
 	int bufferNumber = pJsonBufferNumber->valueint;
 
-	if (0 == pathEnable)
+	if (0 == pathEnable) {
 		LOGW("PATH %s closed", pathName);
+	}
 	CamDeviceBufChainId_t bufPath = VsiVvbenchStrToBuffIo(pathName);
 
 	LOGI("Parse Path Cfg of hardware pipeline: %d, pathId: %d(%s)", pInstanceCfgCtx->hpId, bufPath,
@@ -177,16 +200,20 @@ int VsiVvbenchGetPathInfoFromJson
 	pInstanceCfgCtx->instancePath[bufPath].bufferNumber = bufferNumber;
 	LOGI("path: %s, num: %d", pathName, pInstanceCfgCtx->instancePath[bufPath].bufferNumber);
 	cJSON *pathWidth = cJSON_GetObjectItem(pJsonInstancePathCfg, "pathWidth");
-	if (pathWidth)
+	if (pathWidth) {
 		pInstanceCfgCtx->instancePath[bufPath].width = pathWidth->valueint;
+	}
 	cJSON *pathHeight = cJSON_GetObjectItem(pJsonInstancePathCfg, "pathHeight");
-	if (pathHeight)
+	if (pathHeight) {
 		pInstanceCfgCtx->instancePath[bufPath].height = pathHeight->valueint;
+	}
 	cJSON *pathOutType = cJSON_GetObjectItem(pJsonInstancePathCfg, "pathOutType");
-	if (pathOutType)
+	if (pathOutType) {
 		pInstanceCfgCtx->instancePath[bufPath].pathOutType = pathOutType->valueint;
-	else
+	}
+	else {
 		pInstanceCfgCtx->instancePath[bufPath].pathOutType = 0;
+	}
 
 	if (bufPath >= CAMDEV_BUFCHAIN_RDMA) {
 		pInstanceCfgCtx->instancePath[bufPath].layout = pInstanceCfgCtx->pictureCfg.layout;
@@ -196,19 +223,22 @@ int VsiVvbenchGetPathInfoFromJson
 			char formatName[FILE_LEN];
 			strcpy(formatName, format->valuestring);
 			int bufferFormat = VsiVvbenchStrToInputFormat(formatName);
-			if (CAMDEV_INPUT_FMT_MAX <= bufferFormat)
+			if (CAMDEV_INPUT_FMT_MAX <= bufferFormat) {
 				LOGW("case list VsiVvbenchStrToInputFormat invalid format error");
+			}
 			LOGI("path: %s, format(%s): %d", pathName, formatName, bufferFormat);
 			pInstanceCfgCtx->instancePath[bufPath].format = bufferFormat;
 		}
-	} else {
+	}
+	else {
 		cJSON *format = cJSON_GetObjectItem(pJsonInstancePathCfg, "format");
 		if (format) {
 			char formatName[FILE_LEN];
 			strcpy(formatName, format->valuestring);
 			int bufferFormat = VsiVvbenchStrToBuffFormat(formatName);
-			if (CAMDEV_PIX_FMT_MAX <= bufferFormat)
+			if (CAMDEV_PIX_FMT_MAX <= bufferFormat) {
 				LOGW("case list VsiVvbenchStrToBuffFormat invalid format error");
+			}
 			LOGI("path: %s, format(%s): %d", pathName, formatName, bufferFormat);
 			pInstanceCfgCtx->instancePath[bufPath].format = bufferFormat;
 		}
@@ -217,7 +247,8 @@ int VsiVvbenchGetPathInfoFromJson
 	if (yuvOrder) {
 		LOGI("path: %s, yuvOrder: %d", pathName, yuvOrder->valueint);
 		pInstanceCfgCtx->instancePath[bufPath].yuvOrder = yuvOrder->valueint;
-	} else {
+	}
+	else {
 		pInstanceCfgCtx->instancePath[bufPath].yuvOrder = 0;
 		LOGI("path: %s, yuvOrder: 0", pathName);
 	}
@@ -225,7 +256,8 @@ int VsiVvbenchGetPathInfoFromJson
 	if (dataBits) {
 		LOGI("path: %s, dataBits: %d", pathName, dataBits->valueint);
 		pInstanceCfgCtx->instancePath[bufPath].dataBits = dataBits->valueint;
-	} else {
+	}
+	else {
 		pInstanceCfgCtx->instancePath[bufPath].dataBits = DEFAULT_DATA_BITS;
 		LOGI("path: %s, dataBits: %d", pathName, DEFAULT_DATA_BITS);
 	}
@@ -234,7 +266,8 @@ int VsiVvbenchGetPathInfoFromJson
 	if (alpha) {
 		LOGI("path: %s, alpha: %d", pathName, alpha->valueint);
 		pInstanceCfgCtx->instancePath[bufPath].alpha = alpha->valueint;
-	} else {
+	}
+	else {
 		pInstanceCfgCtx->instancePath[bufPath].alpha = DEFAULT_ALPHA;
 		LOGI("path: %s, set default alpha: %d", pathName, DEFAULT_ALPHA);
 	}
@@ -246,7 +279,8 @@ int VsiVvbenchGetPathInfoFromJson
 			pInstanceCfgCtx->instancePath[bufPath].swap.rawSwap = swapRaw->valueint;
 			LOGI("path: %s, swap Test rawSwap is: %d", pathName,
 			     pInstanceCfgCtx->instancePath[bufPath].swap.rawSwap);
-		} else {
+		}
+		else {
 			cJSON *swapY = cJSON_GetObjectItem(swap, "swapY");
 			cJSON *swapU = cJSON_GetObjectItem(swap, "swapU");
 			cJSON *swapV = cJSON_GetObjectItem(swap, "swapV");
@@ -260,7 +294,8 @@ int VsiVvbenchGetPathInfoFromJson
 			LOGI("path: %s, swap config swapv is: %d", pathName,
 			     pInstanceCfgCtx->instancePath[bufPath].swap.yuvSwap.v);
 		}
-	} else {
+	}
+	else {
 		pInstanceCfgCtx->instancePath[bufPath].swap = (CamDeviceMiSwap_u) {DEFAULT_SWAP};
 		LOGI("path: %s, set default swap: %d", pathName, DEFAULT_SWAP);
 	}
@@ -320,13 +355,15 @@ int VsiVvbenchSwSimuSingleParseConfig
 	if (NULL == root) {
 		LOGE("%s parser failed, err: %s", __func__, fileName);
 		result = -1;
-	} else {
+	}
+	else {
 		pRoot = root;
 		cJSON *swSimuCfg = cJSON_GetObjectItem(root, "swSimuCfg");
 		if (NULL == swSimuCfg) {
 			LOGE("%s parser failed", __func__);
 			result = -1;
-		} else {
+		}
+		else {
 			item = cJSON_GetObjectItem(swSimuCfg, "enable");
 			if (item) {
 				vvdevCtx->swSimuCfg.enable = item->valueint;
@@ -343,7 +380,8 @@ int VsiVvbenchSwSimuSingleParseConfig
 		if (NULL == alignMask) {
 			LOGE("%s parser failed", __func__);
 			result = -1;
-		} else {
+		}
+		else {
 			cfgCtx->alignMask = alignMask->valueint;
 			LOGI("alignMask is 0x%x", cfgCtx->alignMask);
 		}
@@ -376,7 +414,8 @@ int VsiVvbenchSwSimuSingleParseConfig
 				     vvdevCtx->swSimuCfg.fineTuneJson);
 				result = VVCASE_EXEC_PARSER_FAIL;
 			}
-		} else {
+		}
+		else {
 			result = VsiVvbenchParseSwSimuInfo(vvdevCtx);
 			if (0 != result) {
 				LOGE("VsiVvbenchParseSwSimuInfo error, simu cfg name: %s,  exit",
@@ -443,12 +482,14 @@ int VsiVvbenchParseConfig
 	if (NULL == root) {
 		LOGE("%s parser failed, err: %s", __func__, fileName);
 		result = -1;
-	} else {
+	}
+	else {
 		cJSON *swSimuCfg = cJSON_GetObjectItem(root, "swSimuCfg");
 		if (NULL == swSimuCfg) {
 			LOGE("%s parser failed", __func__);
 			result = -1;
-		} else {
+		}
+		else {
 			item = cJSON_GetObjectItem(swSimuCfg, "enable");
 			if (item) {
 				swSimuEnable = item->valueint;
@@ -470,7 +511,8 @@ int VsiVvbenchParseConfig
 		if (NULL == alignMask) {
 			LOGE("%s parser failed", __func__);
 			result = -1;
-		} else {
+		}
+		else {
 			cfgCtx->alignMask = alignMask->valueint;
 			LOGI("alignMask is 0x%x", cfgCtx->alignMask);
 		}
@@ -488,8 +530,9 @@ int VsiVvbenchParseConfig
 
 		//count the number of rows
 		while (osFgets(swSimuName, sizeof(swSimuName) - 1, swSimuList) != NULL) {
-			if (swSimuName[0] != '\n')
+			if (swSimuName[0] != '\n') {
 				length++;
+			}
 		}
 		osFclose(swSimuList);
 		swSimuList = NULL;
@@ -512,11 +555,13 @@ int VsiVvbenchParseConfig
 			osFseek(swSimuList, sw_simu_pos, SEEK_SET);
 			if (osFgets(swSimuName, sizeof(swSimuName) - 1, swSimuList) != NULL) {
 				char *comment = strchr(swSimuName, '#');
-				if (comment)
+				if (comment) {
 					continue;
+				}
 				char *find = strrchr(swSimuName, '\n');
-				if (find)
+				if (find) {
 					*find = '\0';
+				}
 				snprintf(vvdevCtx->swSimuCfg.swSimuCfgFile, FILE_LEN, "vvbcfg/load_image/Cfg/%s", swSimuName);
 				LOGI("swSimuCfgFile %d: %s", index, vvdevCtx->swSimuCfg.swSimuCfgFile);
 
@@ -670,23 +715,28 @@ int VsiVvbenchExecuteList
 				if (0 != result) {
 					LOGE("VsiVvbenchParseCase error, case name: %s,  exit", caseName);
 					result = VVCASE_EXEC_PARSER_FAIL;
-				} else
+				}
+				else {
 					result = VsiVvdeviceExecuteCaseline(vvdevCtx, cfgCtx);
+				}
 				if (VVCASE_EXEC_PASS == result) {
 					cJSON_AddItemToObject(subCaseResult, caseName, cJSON_CreateString("PASS"));
 					passCaseCnt++;
 					LOGI("case %s Pass, pass cnt: %d", caseName, passCaseCnt);
-				} else if (VVCASE_EXEC_FAIL == result) {
+				}
+				else if (VVCASE_EXEC_FAIL == result) {
 					cJSON_AddItemToObject(subCaseResult, caseName, cJSON_CreateString("FAILED"));
 					failedFlag = 1;
 					failCaseCnt++;
 					LOGW("case %s Failed, fail cnt: %d", caseName, failCaseCnt);
-				} else if (VVCASE_EXEC_PARSER_FAIL == result) {
+				}
+				else if (VVCASE_EXEC_PARSER_FAIL == result) {
 					cJSON_AddItemToObject(subCaseResult, caseName, cJSON_CreateString("PARSER FAIL"));
 					failedFlag = 1;
 					failCaseCnt++;
 					LOGW("case %s Parser Failed, fail cnt: %d", caseName, failCaseCnt);
-				} else {
+				}
+				else {
 					cJSON_AddItemToObject(subCaseResult, caseName, cJSON_CreateString("UNDEFINED FAIL"));
 					failedFlag = 1;
 					failCaseCnt++;
@@ -701,8 +751,10 @@ int VsiVvbenchExecuteList
 			if (failedFlag) {
 				cJSON_AddItemToObject(failResult, caseName, cJSON_CreateString("FAIL"));
 				nonFullPassCnt++;
-			} else
+			}
+			else {
 				fullPassCnt++;
+			}
 			cJSON_AddItemToArray(caseResult, subCaseResult);
 		}
 		snprintf(reportNameStr, sizeof(reportNameStr), "%2d: Result", count++);
@@ -711,7 +763,8 @@ int VsiVvbenchExecuteList
 			snprintf(reportNameStr, sizeof(reportNameStr), "%2d: Failed Cases List", count++);
 			cJSON_AddItemToObject(caseReport, reportNameStr, cJSON_CreateString("NONE"));
 			cJSON_Delete(failResult);
-		} else {
+		}
+		else {
 			snprintf(reportNameStr, sizeof(reportNameStr), "%2d: Failed Cases List", count++);
 			cJSON_AddItemToObject(caseReport, reportNameStr, failResult);
 		}
@@ -754,7 +807,8 @@ int VsiVvbenchExecuteList
 		cJSON_Delete(caseReport);
 		LOGI("%s Case End", __func__);
 #endif
-	} else {
+	}
+	else {
 		LOGE("list json parse error\r\n");
 		executeListResult = -1;
 	}
@@ -787,8 +841,9 @@ int VsiVvbenchExecuteClose()
 		pVvdevCtx = NULL;
 	}
 
-	if (pRoot != NULL)
+	if (pRoot != NULL) {
 		cJSON_Delete(pRoot);
+	}
 
 	LOGI("%s exit \n", __func__);
 	return result;
@@ -824,7 +879,8 @@ int VsiVvbenchParseCase
 	if (NULL == root) {
 		LOGE("%s parser failed, err: %s", __func__, fileName);
 		result = -1;
-	} else {
+	}
+	else {
 		item = cJSON_GetObjectItem(root, "totalInstance");
 		if (item) {
 			caseCtx->totalInstance = item->valueint;
@@ -851,8 +907,9 @@ int VsiVvbenchParseCase
 			if (!caseCtx->swSimuCfg.enable) {
 				strncpy(caseCtx->caseName, fileName, FILE_LEN - 1);
 				uint8_t index = strlen(fileName) -1;
-				while ((caseCtx->caseName[index] != '.') && (index > 0))
+				while ((caseCtx->caseName[index] != '.') && (index > 0)) {
 					index--;
+				}
 				caseCtx->caseName[index] = '\0';
 			}
 #endif
@@ -884,22 +941,25 @@ int VsiVvbenchParseCase
 			}
 			int inputType = VsiVvbenchStrToInputType(cJSON_GetObjectItem(instanceCfg,
 					"inputType")->valuestring);
-			if (CAMDEV_INPUT_TYPE_INVALID == inputType)
+			if (CAMDEV_INPUT_TYPE_INVALID == inputType) {
 				LOGE("Parse inputType info  error");
+			}
 			caseCtx->instanceCfgCtx[instanceId].inputType = (CamDeviceInputType_t)inputType;
 			LOGI("input type parse: %d", caseCtx->instanceCfgCtx[instanceId].inputType);
 			if (CAMDEV_INPUT_TYPE_IMAGE == inputType) {
 				cJSON *inputInfo = cJSON_GetObjectItem(instanceCfg, "inputInfo");
 				if (NULL != inputInfo) {
 					result = VsiVvbenchParsePicInfo(inputInfo, &(caseCtx->instanceCfgCtx[instanceId].pictureCfg));
-					if (0 != result)
+					if (0 != result) {
 						LOGE("VsiVvbenchParsePicInfo failed");
+					}
 					if (caseCtx->instanceCfgCtx[instanceId].pictureCfg.fileName[0] != '\0') {
 						caseCtx->swSimuCfg.enable = true;
 						caseCtx->swSimuCfg.autoCfg.enable = true;
 					}
 				}
-			} else {
+			}
+			else {
 				//todo: other input type parse
 			}
 			//init CamCommon
@@ -948,20 +1008,25 @@ int VsiVvbenchParseCase
 			caseCtx->instanceCfgCtx[instanceId].streamDuration = streamDuration;
 
 			cJSON *startPathSimultaneous = cJSON_GetObjectItem(instanceCfg, "startPathSimultaneous");
-			if (NULL == startPathSimultaneous)
+			if (NULL == startPathSimultaneous) {
 				caseCtx->instanceCfgCtx[instanceId].startPathSimultaneous = false;
-			else
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].startPathSimultaneous = startPathSimultaneous->valueint;
+			}
 
 			cJSON *stopPathSimultaneous = cJSON_GetObjectItem(instanceCfg, "stopPathSimultaneous");
-			if (NULL == stopPathSimultaneous)
+			if (NULL == stopPathSimultaneous) {
 				caseCtx->instanceCfgCtx[instanceId].stopPathSimultaneous = false;
-			else
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].stopPathSimultaneous = stopPathSimultaneous->valueint;
+			}
 
 			cJSON *instancePathCfgArray = cJSON_GetObjectItem(instanceCfg, "pathCfg");
-			if (cJSON_Array != instancePathCfgArray->type)
+			if (cJSON_Array != instancePathCfgArray->type) {
 				LOGW("case list instancePathCfgArray parser error");
+			}
 
 			//disable all data by default
 			for (int i = 0; i < CAMDEV_BUFCHAIN_MAX; ++i) {
@@ -979,16 +1044,21 @@ int VsiVvbenchParseCase
 			if (sensorInfo) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useSensorFunction = 1;
 				result = VsiVvbenchParseSensorInfo(sensorInfo, &caseCtx->instanceCfgCtx[instanceId].sensorCfg);
-				if (0 != result)
+				if (0 != result) {
 					LOGE("VsiVvbenchParseSensorInfo parser error");
-			} else
+				}
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useSensorFunction = 0;
+			}
 
 			cJSON *isLowPowerMode = cJSON_GetObjectItem(instanceCfg, "isLowPowerMode");
-			if (NULL == isLowPowerMode)
+			if (NULL == isLowPowerMode) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useLowPowerMode = false;
-			else
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useLowPowerMode = isLowPowerMode->valueint;
+			}
 
 			cJSON *fastResetInfo = cJSON_GetObjectItem(instanceCfg, "fastResetInfo");
 			if (fastResetInfo) {
@@ -998,45 +1068,58 @@ int VsiVvbenchParseCase
 					caseCtx->instanceCfgCtx[instanceId].fastResetCfg.fastResetLoop = fastResetLoop->valueint;
 					LOGI("fastResetLoop: %d", fastResetLoop->valueint);
 				}
-			} else
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useFastResetFunction = 0;
+			}
 
 			cJSON *pathSwitch = cJSON_GetObjectItem(instanceCfg, "pathSwitch");
 			if (pathSwitch) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.usePathSwitch = 1;
 				result = VsiVvbenchParsePathSwitchInfo(pathSwitch,
 								       &caseCtx->instanceCfgCtx[instanceId].pathSwitchCfg);
-				if (0 != result)
+				if (0 != result) {
 					LOGE("VsiVvbenchParsePathSwitchInfo parser error");
-			} else
+				}
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.usePathSwitch = 0;
+			}
 
 			cJSON *fusaInfo = cJSON_GetObjectItem(instanceCfg, "fusaInfo");
 			if (fusaInfo) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useFusaFunction = 1;
 				result = VsiVvbenchParseFusaInfo(fusaInfo, &caseCtx->instanceCfgCtx[instanceId].fusaCfg);
-				if (0 != result)
+				if (0 != result) {
 					LOGE("VsiVvbenchParseFusaInfo parser error");
-			} else
+				}
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useFusaFunction = 0;
+			}
 
 			cJSON *tpgInfo = cJSON_GetObjectItem(instanceCfg, "tpgInfo");
 			if (tpgInfo) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useIspTpgFunction = 1;
 				result = VsiVvbenchParseTpgInfo(tpgInfo, &caseCtx->instanceCfgCtx[instanceId].tpgCfg);
-				if (0 != result)
+				if (0 != result) {
 					LOGE("VsiVvbenchParseTpgInfo parser error");
-			} else
+				}
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useIspTpgFunction = 0;
+			}
 
 			cJSON *vi200Info = cJSON_GetObjectItem(instanceCfg, "vi200Info");
 			if (vi200Info) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useVi200Function = 1;
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useVi200MetaWin = 1;
 				result = VsiVvbenchParseVi200Info(vi200Info, &caseCtx->instanceCfgCtx[instanceId].vi200Cfg);
-				if (0 != result)
+				if (0 != result) {
 					LOGE("VsiVvbenchParseVi200Info parser error");
-			} else {
+				}
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useVi200Function = 0;
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useVi200MetaWin = 0;
 			}
@@ -1045,10 +1128,13 @@ int VsiVvbenchParseCase
 			if (dewarpInfo) {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useDewarpFunction = 1;
 				result = VsiVvbenchParseDewarpInfo(dewarpInfo, &caseCtx->instanceCfgCtx[instanceId].dewarpCfg);
-				if (0 != result)
+				if (0 != result) {
 					LOGE("VsiVvbenchParseDewarpInfo parser error");
-			} else
+				}
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.useDewarpFunction = 0;
+			}
 
 			if (CAMDEV_WORK_MODE_RDMA == caseCtx->instanceCfgCtx[instanceId].workCfg.workMode) {
 				VvbenchInstanceSensorCfg_t *pSensorInfo = &(caseCtx->instanceCfgCtx[instanceId].sensorCfg);
@@ -1061,10 +1147,12 @@ int VsiVvbenchParseCase
 						if (CAMDEV_INPUT_TYPE_IMAGE == caseCtx->instanceCfgCtx[instanceId].inputType) {
 							caseCtx->instanceCfgCtx[instanceId].instancePath[i].width =
 								caseCtx->instanceCfgCtx[instanceId].pictureCfg.width;
-						} else if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[instanceId].inputType) {
+						}
+						else if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[instanceId].inputType) {
 							caseCtx->instanceCfgCtx[instanceId].instancePath[i].width =
 								caseCtx->instanceCfgCtx[instanceId].tpgCfg.width;
-						} else {
+						}
+						else {
 							caseCtx->instanceCfgCtx[instanceId].instancePath[i].width =
 								caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorWidth;
 						}
@@ -1073,10 +1161,12 @@ int VsiVvbenchParseCase
 						if (CAMDEV_INPUT_TYPE_IMAGE == caseCtx->instanceCfgCtx[instanceId].inputType) {
 							caseCtx->instanceCfgCtx[instanceId].instancePath[i].height =
 								caseCtx->instanceCfgCtx[instanceId].pictureCfg.height;
-						} else if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[instanceId].inputType) {
+						}
+						else if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[instanceId].inputType) {
 							caseCtx->instanceCfgCtx[instanceId].instancePath[i].height =
 								caseCtx->instanceCfgCtx[instanceId].tpgCfg.height;
-						} else {
+						}
+						else {
 							caseCtx->instanceCfgCtx[instanceId].instancePath[i].height =
 								caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorHeight;
 						}
@@ -1096,18 +1186,21 @@ int VsiVvbenchParseCase
 					"irRawOutEnable")->valueint;
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.sp1IrSelect = cJSON_GetObjectItem(rgbirIrControl,
 					"sp1IrSelect")->valueint;
-			} else {
+			}
+			else {
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.irRawOutEnable = 0;
 				caseCtx->instanceCfgCtx[instanceId].funcCtrl.sp1IrSelect = 0;
 			}
 
 			result = VsiVvbenchParseSubSystemInfo(caseCtx, instanceId);
-			if (0 != result)
+			if (0 != result) {
 				LOGE("VsiVvbenchParseSubSystemInfo parser error");
+			}
 
 			result = VsiVvbenchParseSubmoduleInfo(instanceCfg, caseCtx, instanceId);
-			if (0 != result)
+			if (0 != result) {
 				LOGE("VsiVvbenchParseSubmoduleInfo parser error");
+			}
 			instanceId++;
 			instanceCfg = instanceCfg->next;
 		}
@@ -1129,10 +1222,12 @@ CamDeviceBufMode_t VsiVvbenchStrToBuffMode
 	if (0 == strcmp(bufferString, "userptr")) {
 		LOGI("Input %s equal to %s", bufferString, "userptr");
 		buff_mode_value = CAMDEV_BUFMODE_USERPTR;
-	} else if (0 == strcmp(bufferString, "resmem")) {
+	}
+	else if (0 == strcmp(bufferString, "resmem")) {
 		LOGI("Input %s equal to %s", bufferString, "resmem");
 		buff_mode_value = BUFF_MODE_RESMEM;
-	} else {
+	}
+	else {
 		LOGI("Not supprted buffer mode");
 		buff_mode_value = CAMDEV_BUFMODE_INVALID;
 	}
@@ -1153,28 +1248,36 @@ CamDeviceBufChainId_t VsiVvbenchStrToBuffIo
 	if (0 == strcmp(bufferString, "MP")) {
 		LOGI("Input %s equal to %s", bufferString, "MP");
 		buff_io_value = CAMDEV_BUFCHAIN_MP;
-	} else if (0 == strcmp(bufferString, "SP1")) {
+	}
+	else if (0 == strcmp(bufferString, "SP1")) {
 		LOGI("Input %s equal to %s", bufferString, "SP1");
 		buff_io_value = CAMDEV_BUFCHAIN_SP1;
-	} else if (0 == strcmp(bufferString, "SP2")) {
+	}
+	else if (0 == strcmp(bufferString, "SP2")) {
 		LOGI("Input %s equal to %s", bufferString, "SP2");
 		buff_io_value = CAMDEV_BUFCHAIN_SP2;
-	} else if (0 == strcmp(bufferString, "RAW")) {
+	}
+	else if (0 == strcmp(bufferString, "RAW")) {
 		LOGI("Input %s equal to %s", bufferString, "RAW");
 		buff_io_value = CAMDEV_BUFCHAIN_RAW;
-	} else if (0 == strcmp(bufferString, "HDR_RAW")) {
+	}
+	else if (0 == strcmp(bufferString, "HDR_RAW")) {
 		LOGI("Input %s equal to %s", bufferString, "HDR_RAW");
 		buff_io_value = CAMDEV_BUFCHAIN_HDR_RAW;
-	} else if (0 == strcmp(bufferString, "READ")) {
+	}
+	else if (0 == strcmp(bufferString, "READ")) {
 		LOGI("Input %s equal to %s", bufferString, "READ");
 		buff_io_value = CAMDEV_BUFCHAIN_RDMA;
-	} else if (0 == strcmp(bufferString, "RETIMING")) {
+	}
+	else if (0 == strcmp(bufferString, "RETIMING")) {
 		LOGI("Input %s equal to %s", bufferString, "RETIMING");
 		buff_io_value = CAMDEV_BUFCHAIN_RETIMING;
-	} else if (0 == strcmp(bufferString, "METADATA")) {
+	}
+	else if (0 == strcmp(bufferString, "METADATA")) {
 		LOGI("Input %s equal to %s", bufferString, "METADATA");
 		buff_io_value = CAMDEV_BUFCHAIN_METADATA;
-	} else {
+	}
+	else {
 		LOGI("Not supprted buffeio");
 		buff_io_value = CAMDEV_BUFCHAIN_MAX;
 	}
@@ -1195,55 +1298,72 @@ int VsiVvbenchStrToInputFormat
 	if (0 == strcmp(formatString, "RAW8") || 0 == strcmp(formatString, "8bits")) {
 		LOGI("Input %s equal to %s", formatString, "RAW8");
 		imgFormat = CAMDEV_INPUT_FMT_RAW8;
-	} else if (0 == strcmp(formatString, "RAW10")) {
+	}
+	else if (0 == strcmp(formatString, "RAW10")) {
 		LOGI("Input %s equal to %s", formatString, "RAW10");
 		imgFormat = CAMDEV_INPUT_FMT_RAW10;
-	} else if (0 == strcmp(formatString, "RAW10_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RAW10_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RAW10_MODE0");
 		imgFormat = CAMDEV_INPUT_FMT_RAW10_ALIGNED0;
-	} else if (0 == strcmp(formatString, "RAW10_MODE1") || 0 == strcmp(formatString, "10bits")) {
+	}
+	else if (0 == strcmp(formatString, "RAW10_MODE1") || 0 == strcmp(formatString, "10bits")) {
 		LOGI("Input %s equal to %s", formatString, "RAW10_MODE1");
 		imgFormat = CAMDEV_INPUT_FMT_RAW10_ALIGNED1;
-	} else if (0 == strcmp(formatString, "RAW12")) {
+	}
+	else if (0 == strcmp(formatString, "RAW12")) {
 		LOGI("Input %s equal to %s", formatString, "RAW12");
 		imgFormat = CAMDEV_INPUT_FMT_RAW12;
-	} else if (0 == strcmp(formatString, "RAW12_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RAW12_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RAW12_MODE0");
 		imgFormat = CAMDEV_INPUT_FMT_RAW12_ALIGNED0;
-	} else if (0 == strcmp(formatString, "RAW12_MODE1") || 0 == strcmp(formatString, "12bits")) {
+	}
+	else if (0 == strcmp(formatString, "RAW12_MODE1") || 0 == strcmp(formatString, "12bits")) {
 		LOGI("Input %s equal to %s", formatString, "RAW12_MODE1");
 		imgFormat = CAMDEV_INPUT_FMT_RAW12_ALIGNED1;
-	} else if (0 == strcmp(formatString, "RAW14")) {
+	}
+	else if (0 == strcmp(formatString, "RAW14")) {
 		LOGI("Input %s equal to %s", formatString, "RAW14");
 		imgFormat = CAMDEV_INPUT_FMT_RAW14;
-	} else if (0 == strcmp(formatString, "RAW14_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RAW14_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RAW14_MODE0");
 		imgFormat = CAMDEV_INPUT_FMT_RAW14_ALIGNED0;
-	} else if (0 == strcmp(formatString, "RAW14_MODE1") || 0 == strcmp(formatString, "14bits")) {
+	}
+	else if (0 == strcmp(formatString, "RAW14_MODE1") || 0 == strcmp(formatString, "14bits")) {
 		LOGI("Input %s equal to %s", formatString, "RAW14_MODE1");
 		imgFormat = CAMDEV_INPUT_FMT_RAW14_ALIGNED1;
-	} else if (0 == strcmp(formatString, "RAW16") || 0 == strcmp(formatString, "16bits")) {
+	}
+	else if (0 == strcmp(formatString, "RAW16") || 0 == strcmp(formatString, "16bits")) {
 		LOGI("Input %s equal to %s", formatString, "RAW16");
 		imgFormat = CAMDEV_INPUT_FMT_RAW16;
-	} else if (0 == strcmp(formatString, "RAW20_COMPRESS")) {
+	}
+	else if (0 == strcmp(formatString, "RAW20_COMPRESS")) {
 		LOGI("Input %s equal to %s", formatString, "RAW20_COMPRESS");
 		imgFormat = CAMDEV_INPUT_FMT_RAW20_COMPRESS;
-	} else if (0 == strcmp(formatString, "RAW24")) {
+	}
+	else if (0 == strcmp(formatString, "RAW24")) {
 		LOGI("Input %s equal to %s", formatString, "RAW24");
 		imgFormat = CAMDEV_INPUT_FMT_RAW24;
-	} else if (0 == strcmp(formatString, "RAW24_COMPRESS")) {
+	}
+	else if (0 == strcmp(formatString, "RAW24_COMPRESS")) {
 		LOGI("Input %s equal to %s", formatString, "RAW24_COMPRESS");
 		imgFormat = CAMDEV_INPUT_FMT_RAW24_COMPRESS;
-	} else if (0 == strcmp(formatString, "2DOL")) {
+	}
+	else if (0 == strcmp(formatString, "2DOL")) {
 		LOGI("Input %s equal to %s", formatString, "2DOL");
 		imgFormat = CAMDEV_INPUT_FMT_2DOL;
-	} else if (0 == strcmp(formatString, "3DOL")) {
+	}
+	else if (0 == strcmp(formatString, "3DOL")) {
 		LOGI("Input %s equal to %s", formatString, "3DOL");
 		imgFormat = CAMDEV_INPUT_FMT_3DOL;
-	} else if (0 == strcmp(formatString, "4DOL")) {
+	}
+	else if (0 == strcmp(formatString, "4DOL")) {
 		LOGI("Input %s equal to %s", formatString, "4DOL");
 		imgFormat = CAMDEV_INPUT_FMT_4DOL;
-	} else {
+	}
+	else {
 		LOGI("Not supprted format");
 		imgFormat = CAMDEV_INPUT_FMT_MAX;
 	}
@@ -1264,91 +1384,120 @@ int VsiVvbenchStrToBuffFormat
 	if (0 == strcmp(formatString, "YUV422SP")) {
 		LOGI("Input %s equal to %s", formatString, "YUV422SP");
 		imgFormat = CAMDEV_PIX_FMT_YUV422SP;
-	} else if (0 == strcmp(formatString, "YUV422SP_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "YUV422SP_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "YUV422SP_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_YUV422SP_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "YUV422SP_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "YUV422SP_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "YUV422SP_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_YUV422SP_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "YUV422I")) {
+	}
+	else if (0 == strcmp(formatString, "YUV422I")) {
 		LOGI("Input %s equal to %s", formatString, "YUV422I");
 		imgFormat = CAMDEV_PIX_FMT_YUV422I;
-	} else if (0 == strcmp(formatString, "YUV422I_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "YUV422I_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "YUV422I_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_YUV422I_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "YUV420SP")) {
+	}
+	else if (0 == strcmp(formatString, "YUV420SP")) {
 		LOGI("Input %s equal to %s", formatString, "YUV420SP");
 		imgFormat = CAMDEV_PIX_FMT_YUV420SP;
-	} else if (0 == strcmp(formatString, "YUV420SP_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "YUV420SP_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "YUV420SP_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_YUV420SP_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "YUV420SP_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "YUV420SP_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "YUV420SP_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_YUV420SP_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "YUV444P")) {
+	}
+	else if (0 == strcmp(formatString, "YUV444P")) {
 		LOGI("Input %s equal to %s", formatString, "YUV444P");
 		imgFormat = CAMDEV_PIX_FMT_YUV444P;
-	} else if (0 == strcmp(formatString, "YUV444I")) {
+	}
+	else if (0 == strcmp(formatString, "YUV444I")) {
 		LOGI("Input %s equal to %s", formatString, "YUV444I");
 		imgFormat = CAMDEV_PIX_FMT_YUV444I;
-	} else if (0 == strcmp(formatString, "YUV444I_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "YUV444I_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "YUV444I_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_YUV444I_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "YUV400")) {
+	}
+	else if (0 == strcmp(formatString, "YUV400")) {
 		LOGI("Input %s equal to %s", formatString, "YUV400");
 		imgFormat = CAMDEV_PIX_FMT_YUV400;
-	} else if (0 == strcmp(formatString, "YUV400_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "YUV400_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "YUV400_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_YUV400_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "YUV400_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "YUV400_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "YUV400_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_YUV400_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "RGB888")) {
+	}
+	else if (0 == strcmp(formatString, "RGB888")) {
 		LOGI("Input %s equal to %s", formatString, "RGB888");
 		imgFormat = CAMDEV_PIX_FMT_RGB888;
-	} else if (0 == strcmp(formatString, "RGB888_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RGB888_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RGB888_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_RGB888_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "RGB888P")) {
+	}
+	else if (0 == strcmp(formatString, "RGB888P")) {
 		LOGI("Input %s equal to %s", formatString, "RGB888P");
 		imgFormat = CAMDEV_PIX_FMT_RGB888P;
-	} else if (0 == strcmp(formatString, "RAW8")) {
+	}
+	else if (0 == strcmp(formatString, "RAW8")) {
 		LOGI("Input %s equal to %s", formatString, "RAW8");
 		imgFormat = CAMDEV_PIX_FMT_RAW8;
-	} else if (0 == strcmp(formatString, "RAW10")) {
+	}
+	else if (0 == strcmp(formatString, "RAW10")) {
 		LOGI("Input %s equal to %s", formatString, "RAW10");
 		imgFormat = CAMDEV_PIX_FMT_RAW10;
-	} else if (0 == strcmp(formatString, "RAW10_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RAW10_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RAW10_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_RAW10_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "RAW10_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "RAW10_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "RAW10_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_RAW10_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "RAW12")) {
+	}
+	else if (0 == strcmp(formatString, "RAW12")) {
 		LOGI("Input %s equal to %s", formatString, "RAW12");
 		imgFormat = CAMDEV_PIX_FMT_RAW12;
-	} else if (0 == strcmp(formatString, "RAW12_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RAW12_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RAW12_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_RAW12_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "RAW12_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "RAW12_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "RAW12_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_RAW12_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "RAW14")) {
+	}
+	else if (0 == strcmp(formatString, "RAW14")) {
 		LOGI("Input %s equal to %s", formatString, "RAW14");
 		imgFormat = CAMDEV_PIX_FMT_RAW14;
-	} else if (0 == strcmp(formatString, "RAW14_MODE0")) {
+	}
+	else if (0 == strcmp(formatString, "RAW14_MODE0")) {
 		LOGI("Input %s equal to %s", formatString, "RAW14_MODE0");
 		imgFormat = CAMDEV_PIX_FMT_RAW14_ALIGNED_MODE0;
-	} else if (0 == strcmp(formatString, "RAW14_MODE1")) {
+	}
+	else if (0 == strcmp(formatString, "RAW14_MODE1")) {
 		LOGI("Input %s equal to %s", formatString, "RAW14_MODE1");
 		imgFormat = CAMDEV_PIX_FMT_RAW14_ALIGNED_MODE1;
-	} else if (0 == strcmp(formatString, "RAW16")) {
+	}
+	else if (0 == strcmp(formatString, "RAW16")) {
 		LOGI("Input %s equal to %s", formatString, "RAW16");
 		imgFormat = CAMDEV_PIX_FMT_RAW16;
-	} else if (0 == strcmp(formatString, "RAW24")) {
+	}
+	else if (0 == strcmp(formatString, "RAW24")) {
 		LOGI("Input %s equal to %s", formatString, "RAW24");
 		imgFormat = CAMDEV_PIX_FMT_RAW24;
-	} else {
+	}
+	else {
 		LOGI("Not supprted format");
 		imgFormat = CAMDEV_PIX_FMT_MAX;
 	}
@@ -1410,18 +1559,24 @@ int VsiVvbenchStrToRawMetaInfo
 		return -1;
 	}
 
-	if (0 == strcmp(strList[2], "8bits"))
+	if (0 == strcmp(strList[2], "8bits")) {
 		pRawMetaInfo->bits = 8;
-	else if (0 == strcmp(strList[2], "10bits"))
+	}
+	else if (0 == strcmp(strList[2], "10bits")) {
 		pRawMetaInfo->bits = 10;
-	else if (0 == strcmp(strList[2], "12bits"))
+	}
+	else if (0 == strcmp(strList[2], "12bits")) {
 		pRawMetaInfo->bits = 12;
-	else if (0 == strcmp(strList[2], "14bits"))
+	}
+	else if (0 == strcmp(strList[2], "14bits")) {
 		pRawMetaInfo->bits = 14;
-	else if (0 == strcmp(strList[2], "16bits"))
+	}
+	else if (0 == strcmp(strList[2], "16bits")) {
 		pRawMetaInfo->bits = 16;
-	else if (0 == strcmp(strList[2], "24bits"))
+	}
+	else if (0 == strcmp(strList[2], "24bits")) {
 		pRawMetaInfo->bits = 24;
+	}
 	else {
 		pRawMetaInfo->bits = 0;
 		LOGE("%s input raw meta bits invalid, result is %d", __func__, pRawMetaInfo->bits);
@@ -1431,10 +1586,12 @@ int VsiVvbenchStrToRawMetaInfo
 	pRawMetaInfo->imgFormat = VsiVvbenchStrToInputFormat(strList[2]);
 	pRawMetaInfo->layout = VsiVvbenchStrToPicLayout(strList[3]);
 	VsiVvbenchStrToPicSize(strList[1], &(pRawMetaInfo->height), &(pRawMetaInfo->width));
-	if (8 <= result)
+	if (8 <= result) {
 		pRawMetaInfo->frameNum = atoi(strList[7]);
-	else
+	}
+	else {
 		pRawMetaInfo->frameNum = 1;
+	}
 
 	LOGI("%s exit \n", __func__);
 	return 0;
@@ -1479,13 +1636,16 @@ int VsiVvbenchStrToInputType
 	if (0 == strcmp(inputType, "Sensor")) {
 		LOGI("Input %s equal to %s", inputType, "Sensor");
 		inputTypeFormat = CAMDEV_INPUT_TYPE_SENSOR;
-	} else if (0 == strcmp(inputType, "User")) {
+	}
+	else if (0 == strcmp(inputType, "User")) {
 		LOGI("Input %s equal to %s", inputType, "User");
 		inputTypeFormat = CAMDEV_INPUT_TYPE_IMAGE;
-	} else if (0 == strcmp(inputType, "Tpg")) {
+	}
+	else if (0 == strcmp(inputType, "Tpg")) {
 		LOGI("Input %s equal to %s", inputType, "Tpg");
 		inputTypeFormat = CAMDEV_INPUT_TYPE_TPG;
-	} else {
+	}
+	else {
 		LOGE("Not supprted format");
 		inputTypeFormat = CAMDEV_INPUT_TYPE_INVALID;
 	}
@@ -1506,64 +1666,84 @@ int VsiVvbenchStrToPicLayout
 	if (0 == strcmp(layoutString, "RGGB")) {
 		LOGI("input pic layout pattern is %s ", "RGGB");
 		inputPicLayout = CAMDEV_RAW_RGB_PAT_RGGB;
-	} else if (0 == strcmp(layoutString, "GRBG")) {
+	}
+	else if (0 == strcmp(layoutString, "GRBG")) {
 		LOGI("input pic layout pattern is %s ", "GRBG");
 		inputPicLayout = CAMDEV_RAW_RGB_PAT_GRBG;
-	} else if (0 == strcmp(layoutString, "GBRG")) {
+	}
+	else if (0 == strcmp(layoutString, "GBRG")) {
 		LOGI("input pic layout pattern is %s ", "GBRG");
 		inputPicLayout = CAMDEV_RAW_RGB_PAT_GBRG;
-	} else if (0 == strcmp(layoutString, "BGGR")) {
+	}
+	else if (0 == strcmp(layoutString, "BGGR")) {
 		LOGI("input pic layout pattern is %s ", "BGGR");
 		inputPicLayout = CAMDEV_RAW_RGB_PAT_BGGR;
-	} else if (0 == strcmp(layoutString, "BGGIR")) {
+	}
+	else if (0 == strcmp(layoutString, "BGGIR")) {
 		LOGI("input pic layout pattern is %s ", "BGGIR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_BGGIR;
-	} else if (0 == strcmp(layoutString, "GRIRG")) {
+	}
+	else if (0 == strcmp(layoutString, "GRIRG")) {
 		LOGI("input pic layout pattern is %s ", "GRIRG");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_GRIRG;
-	} else if (0 == strcmp(layoutString, "RGGIR")) {
+	}
+	else if (0 == strcmp(layoutString, "RGGIR")) {
 		LOGI("input pic layout pattern is %s ", "RGGIR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_RGGIR;
-	} else if (0 == strcmp(layoutString, "GBIRG")) {
+	}
+	else if (0 == strcmp(layoutString, "GBIRG")) {
 		LOGI("input pic layout pattern is %s ", "GBIRG");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_GBIRG;
-	} else if (0 == strcmp(layoutString, "GIRRG")) {
+	}
+	else if (0 == strcmp(layoutString, "GIRRG")) {
 		LOGI("input pic layout pattern is %s ", "GIRRG");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_GIRRG;
-	} else if (0 == strcmp(layoutString, "IRGGB")) {
+	}
+	else if (0 == strcmp(layoutString, "IRGGB")) {
 		LOGI("input pic layout pattern is %s ", "IRGGB");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_IRGGB;
-	} else if (0 == strcmp(layoutString, "GIRBG")) {
+	}
+	else if (0 == strcmp(layoutString, "GIRBG")) {
 		LOGI("input pic layout pattern is %s ", "GIRBG");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_GIRBG;
-	} else if (0 == strcmp(layoutString, "IRGGR")) {
+	}
+	else if (0 == strcmp(layoutString, "IRGGR")) {
 		LOGI("input pic layout pattern is %s ", "IRGGR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_IRGGR;
-	} else if (0 == strcmp(layoutString, "RGIRB")) {
+	}
+	else if (0 == strcmp(layoutString, "RGIRB")) {
 		LOGI("input pic layout pattern is %s ", "RGIRB");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_RGIRB;
-	} else if (0 == strcmp(layoutString, "GRBIR")) {
+	}
+	else if (0 == strcmp(layoutString, "GRBIR")) {
 		LOGI("input pic layout pattern is %s ", "GRBIR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_GRBIR;
-	} else if (0 == strcmp(layoutString, "IRBRG")) {
+	}
+	else if (0 == strcmp(layoutString, "IRBRG")) {
 		LOGI("input pic layout pattern is %s ", "IRBRG");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_IRBRG;
-	} else if (0 == strcmp(layoutString, "BIRGR")) {
+	}
+	else if (0 == strcmp(layoutString, "BIRGR")) {
 		LOGI("input pic layout pattern is %s ", "BIRGR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_BIRGR;
-	} else if (0 == strcmp(layoutString, "BGIRR")) {
+	}
+	else if (0 == strcmp(layoutString, "BGIRR")) {
 		LOGI("input pic layout pattern is %s ", "BGIRR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_BGIRR;
-	} else if (0 == strcmp(layoutString, "GBRIR")) {
+	}
+	else if (0 == strcmp(layoutString, "GBRIR")) {
 		LOGI("input pic layout pattern is %s ", "GBRIR");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_GBRIR;
-	} else if (0 == strcmp(layoutString, "IRRBG")) {
+	}
+	else if (0 == strcmp(layoutString, "IRRBG")) {
 		LOGI("input pic layout pattern is %s ", "IRRBG");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_IRRBG;
-	} else if (0 == strcmp(layoutString, "RIRGB")) {
+	}
+	else if (0 == strcmp(layoutString, "RIRGB")) {
 		LOGI("input pic layout pattern is %s ", "RIRGB");
 		inputPicLayout = CAMDEV_RAW_RGBIR_PAT_RIRGB;
-	} else {
+	}
+	else {
 		LOGI("Not supprted format");
 		inputPicLayout = CAMDEV_RAW_PAT_MAX;
 	}
@@ -1599,31 +1779,41 @@ int VsiVvbenchParseTpgInfo
 		tpgCtrl->useCfg = cJSON_GetObjectItem(tpgInfo, "useCfg")->valueint;
 	}
 	if (tpgCtrl->useCfg) {
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "imageType"))
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "imageType")) {
 			tpgCtrl->imageType = cJSON_GetObjectItem(tpgInfo, "imageType")->valueint;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "bayerPattern"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "bayerPattern")) {
 			tpgCtrl->bayerPattern = cJSON_GetObjectItem(tpgInfo, "bayerPattern")->valueint;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "colorDepth"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "colorDepth")) {
 			tpgCtrl->colorDepth = cJSON_GetObjectItem(tpgInfo, "colorDepth")->valueint;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "resolution"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "resolution")) {
 			tpgCtrl->resolution = cJSON_GetObjectItem(tpgInfo, "resolution")->valueint;
+		}
 
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "pixleGap"))
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "pixleGap")) {
 			tpgCtrl->pixleGap = cJSON_GetObjectItem(tpgInfo, "pixleGap")->valueint;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "lineGap"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "lineGap")) {
 			tpgCtrl->lineGap = cJSON_GetObjectItem(tpgInfo, "lineGap")->valueint;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "gapStandard"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "gapStandard")) {
 			tpgCtrl->gapStandard = cJSON_GetObjectItem(tpgInfo, "gapStandard")->valueint;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "randomSeed"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "randomSeed")) {
 			tpgCtrl->randomSeed = cJSON_GetObjectItem(tpgInfo, "randomSeed")->valuedouble;
-		if (NULL != cJSON_GetObjectItem(tpgInfo, "frameNum"))
+		}
+		if (NULL != cJSON_GetObjectItem(tpgInfo, "frameNum")) {
 			tpgCtrl->frameNum = cJSON_GetObjectItem(tpgInfo, "frameNum")->valueint;
+		}
 
 		cJSON *userMode = cJSON_GetObjectItem(tpgInfo, "userMode");
 		if (userMode == NULL || !cJSON_IsObject(userMode)) {
 			LOGW("userMode is not an object or not found!");
 			cJSON_Delete(userMode);
-		} else {
+		}
+		else {
 			cJSON *arrayH = cJSON_GetObjectItem(userMode, "H");
 			cJSON *arrayV = cJSON_GetObjectItem(userMode, "V");
 
@@ -1724,7 +1914,8 @@ int VsiVvbenchParsePathSwitchInfo
 		cJSON_Delete(cropWindowVOffset);
 		cJSON_Delete(cropWindowWidth);
 		cJSON_Delete(cropWindowHeight);
-	} else {
+	}
+	else {
 		pathSwitchCfg->cropWindowLength = cJSON_GetArraySize(cropWindowHOffset);
 
 		for (int i = 0; i < pathSwitchCfg->cropWindowLength; i++) {
@@ -2023,8 +2214,9 @@ int VsiVvbenchParseSensorInfo
 	cJSON *modeIndex = cJSON_GetObjectItem(sensorInfo, "modeIndex");
 	if (NULL != modeIndex) {
 		sensorCfg->modeIndex = modeIndex->valueint;
-		if (sensorCfg->modeIndex)
+		if (sensorCfg->modeIndex) {
 			LOGI("modeIndex: %d", sensorCfg->modeIndex);
+		}
 	}
 
 	cJSON *illumType = cJSON_GetObjectItem(sensorInfo, "illumType");
@@ -2036,79 +2228,90 @@ int VsiVvbenchParseSensorInfo
 	cJSON *resolutionWidth = cJSON_GetObjectItem(sensorInfo, "resolutionWidth");
 	if (NULL != resolutionWidth) {
 		sensorCfg->sensorWidth = resolutionWidth->valueint;
-		if (sensorCfg->sensorWidth)
+		if (sensorCfg->sensorWidth) {
 			LOGI("sensor width: %d", sensorCfg->sensorWidth);
+		}
 	}
 
 	cJSON *resolutionHeight = cJSON_GetObjectItem(sensorInfo, "resolutionHeight");
 	if (NULL != resolutionHeight) {
 		sensorCfg->sensorHeight = resolutionHeight->valueint;
-		if (sensorCfg->sensorHeight)
+		if (sensorCfg->sensorHeight) {
 			LOGI("sensor height: %d", sensorCfg->sensorHeight);
+		}
 	}
 	LOGI("sensor resolution: %dx%d", sensorCfg->sensorWidth, sensorCfg->sensorHeight);
 
 	cJSON *fps = cJSON_GetObjectItem(sensorInfo, "fps");
 	if (NULL != fps) {
 		sensorCfg->fps = fps->valuedouble;
-		if (sensorCfg->fps)
+		if (sensorCfg->fps) {
 			LOGI("sensor fps: %.2f", sensorCfg->fps);
+		}
 	}
 
 	cJSON *otpEnable = cJSON_GetObjectItem(sensorInfo, "otpEnable");
 	if (NULL != otpEnable) {
 		sensorCfg->otpEnable = otpEnable->valueint;
-		if (sensorCfg->otpEnable)
+		if (sensorCfg->otpEnable) {
 			LOGI("sensor otpEnable: %d", sensorCfg->otpEnable);
+		}
 	}
 
 	cJSON *queryEnable = cJSON_GetObjectItem(sensorInfo, "queryEnable");
 	if (NULL != queryEnable) {
 		sensorCfg->queryEnable = queryEnable->valueint;
-		if (sensorCfg->queryEnable)
+		if (sensorCfg->queryEnable) {
 			LOGI("sensor queryEnable: %d", sensorCfg->queryEnable);
+		}
 	}
 
 	cJSON *capsEnable = cJSON_GetObjectItem(sensorInfo, "capsEnable");
 	if (NULL != capsEnable) {
 		sensorCfg->capsEnable = capsEnable->valueint;
-		if (sensorCfg->capsEnable)
+		if (sensorCfg->capsEnable) {
 			LOGI("sensor capsEnable: %d", sensorCfg->capsEnable);
+		}
 	}
 
 	cJSON *useSensorCfg = cJSON_GetObjectItem(sensorInfo, "useSensorCfg");
 	if (NULL != useSensorCfg) {
 		sensorCfg->useSensorCfg = useSensorCfg->valueint;
-		if (sensorCfg->useSensorCfg)
+		if (sensorCfg->useSensorCfg) {
 			LOGI("sensor useSensorCfg: %d", sensorCfg->useSensorCfg);
+		}
 	}
 
 	cJSON *statusEnable = cJSON_GetObjectItem(sensorInfo, "statusEnable");
 	if (NULL != statusEnable) {
 		sensorCfg->statusEnable = statusEnable->valueint;
-		if (sensorCfg->statusEnable)
+		if (sensorCfg->statusEnable) {
 			LOGI("sensor statusEnable: %d", sensorCfg->statusEnable);
+		}
 	}
 
 	cJSON *testPatternEnable = cJSON_GetObjectItem(sensorInfo, "testPatternEnable");
 	if (NULL != testPatternEnable) {
 		sensorCfg->testPatternEnable = testPatternEnable->valueint;
-		if (sensorCfg->testPatternEnable)
+		if (sensorCfg->testPatternEnable) {
 			LOGI("sensor testPatternEnable: %d", sensorCfg->testPatternEnable);
+		}
 	}
 
 	cJSON *driverListEnable = cJSON_GetObjectItem(sensorInfo, "driverListEnable");
 	if (NULL != driverListEnable) {
 		sensorCfg->driverListEnable = driverListEnable->valueint;
-		if (sensorCfg->driverListEnable)
+		if (sensorCfg->driverListEnable) {
 			LOGI("sensor driverListEnable: %d", sensorCfg->driverListEnable);
+		}
 	}
 
 	cJSON *infoEnable = cJSON_GetObjectItem(sensorInfo, "infoEnable");
 	if (NULL != infoEnable) {
 		sensorCfg->infoEnable = infoEnable->valueint;
-		if (sensorCfg->infoEnable)
+		if (sensorCfg->infoEnable) {
 			LOGI("sensor infoEnable: %d", sensorCfg->infoEnable);
+		}
 	}
 
 	cJSON *registerAddress = cJSON_GetObjectItem(sensorInfo, "registerAddress");
@@ -2124,15 +2327,17 @@ int VsiVvbenchParseSensorInfo
 	cJSON *exposurtime = cJSON_GetObjectItem(sensorInfo, "exposurtime");
 	if (NULL != exposurtime) {
 		sensorCfg->exposurtime = exposurtime->valuedouble;
-		if (sensorCfg->exposurtime)
+		if (sensorCfg->exposurtime) {
 			LOGI("sensor exposurtime: %f", sensorCfg->exposurtime);
+		}
 	}
 
 	cJSON *totalGain = cJSON_GetObjectItem(sensorInfo, "totalGain");
 	if (NULL != totalGain) {
 		sensorCfg->totalGain = totalGain->valuedouble;
-		if (sensorCfg->totalGain)
+		if (sensorCfg->totalGain) {
 			LOGI("sensor totalGain: %f", sensorCfg->totalGain);
+		}
 	}
 
 	cJSON *gain = cJSON_GetObjectItem(sensorInfo, "gain");
@@ -2140,30 +2345,35 @@ int VsiVvbenchParseSensorInfo
 		cJSON *aGain = cJSON_GetObjectItem(gain, "aGain");
 		if (NULL != aGain) {
 			sensorCfg->gain.aGain = aGain->valuedouble;
-			if (sensorCfg->gain.aGain)
+			if (sensorCfg->gain.aGain) {
 				LOGI("sensor aGain: %f", sensorCfg->gain.aGain);
+			}
 		}
 		cJSON *dGain = cJSON_GetObjectItem(gain, "dGain");
 		if (NULL != dGain) {
 			sensorCfg->gain.dGain = dGain->valuedouble;
-			if (sensorCfg->gain.dGain)
+			if (sensorCfg->gain.dGain) {
 				LOGI("sensor dGain: %f", sensorCfg->gain.dGain);
+			}
 		}
 	}
 
 	cJSON *useExternalDriver = cJSON_GetObjectItem(sensorInfo, "useExternalDriver");
 	if (NULL != useExternalDriver) {
 		sensorCfg->useExternalDriver = useExternalDriver->valueint;
-		if (sensorCfg->useExternalDriver)
+		if (sensorCfg->useExternalDriver) {
 			LOGI("sensor useExternalDriver: %d", sensorCfg->useExternalDriver);
+		}
 	}
 
 	cJSON *virtualChannelId = cJSON_GetObjectItem(sensorInfo, "virtualChannelId");
 	if (NULL != virtualChannelId) {
 		sensorCfg->virtualChannelId = (uint32_t)virtualChannelId->valueint;
 		LOGI("virtualChannelId: %d", sensorCfg->virtualChannelId);
-	} else
+	}
+	else {
 		sensorCfg->virtualChannelId = 0xFFFFFFFF;
+	}
 	LOGI("%s exit \n", __func__);
 	return result;
 }
@@ -2196,8 +2406,10 @@ int VsiVvbenchParsePicInfo
 	if (NULL != loadIndex) {
 		pictureCfg->loadIndex = loadIndex->valueint;
 		LOGI("loadIndex: %d", pictureCfg->loadIndex);
-	} else
+	}
+	else {
 		pictureCfg->loadIndex = 1;
+	}
 
 	cJSON *PicName = cJSON_GetObjectItem(inputInfo, "PicName");
 	if (NULL != PicName) {
@@ -2540,7 +2752,8 @@ int VsiVvbenchParseSwSimuInfo
 	    (pDbConfig->input.startFrame)) {  // pDbConfig->input.frames now be treat as endFrame
 		LOGE("%s error:endFrame must bigger than startFrame", __func__);
 		return -1;
-	} else {
+	}
+	else {
 		caseCtx->instanceCfgCtx[instanceId].pictureCfg.frameNum = pDbConfig->input.frames -
 			(pDbConfig->input.startFrame);
 
@@ -2600,8 +2813,9 @@ int VsiVvbenchParseSwSimuInfo
 		uint16_t stitchMode = 0;
 
 		stitchMode = pCamCommonCtx->hdr.sensorType;
-		if (stitchMode > 10)
+		if (stitchMode > 10) {
 			stitchMode = 100;
+		}
 
 		switch (stitchMode) {
 			case 0:
@@ -2663,8 +2877,10 @@ int VsiVvbenchParseSwSimuInfo
 				VsiVvbenchStrToPicLayout(inputPattern);
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_RETIMING].stitchMode =
 				(uint32_t)stitchMode;
-		} else
+		}
+		else {
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_RETIMING].pathEnable = false;
+		}
 	}
 
 	osFile *swSimuList = NULL;
@@ -2682,12 +2898,14 @@ int VsiVvbenchParseSwSimuInfo
 		for (int pathId = 0; pathId < sizeof(pDbConfig->input.path) / sizeof(pDbConfig->input.path[0]) ;
 		     pathId++) {
 			if (strcmp(pDbConfig->input.path[pathId], "%d.raw") == 0
-			    || strcmp(pDbConfig->input.path[pathId], "") == 0)
+			    || strcmp(pDbConfig->input.path[pathId], "") == 0) {
 				continue;
+			}
 			else if (strstr(pDbConfig->input.path[pathId], "%d") == NULL) {
 				osFputs(pDbConfig->input.path[pathId], swSimuList);
 				osFputs("\n", swSimuList);
-			} else {
+			}
+			else {
 				snprintf(szBuffer, FILE_LEN, pDbConfig->input.path[pathId], index);
 				osFputs(szBuffer, swSimuList);
 				osFputs("\n", swSimuList);
@@ -2717,8 +2935,10 @@ int VsiVvbenchParseSwSimuInfo
 		if (0 < pDbConfig->output.dataBits) {
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_MP].dataBits =
 				pDbConfig->output.dataBits;
-		} else
+		}
+		else {
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_MP].dataBits = 8;
+		}
 		caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_MP].yuvOrder =
 			pDbConfig->output.yuvOrder;
 	}
@@ -2885,8 +3105,9 @@ int VsiVvbenchParseSwSimuInfoByToolOutput
 		uint16_t stitchMode = 0;
 
 		stitchMode = pCamCommonCtx->hdr.sensorType;
-		if (stitchMode > 10)
+		if (stitchMode > 10) {
 			stitchMode = 100;
+		}
 
 		switch (stitchMode) {
 			case 0:
@@ -2948,8 +3169,10 @@ int VsiVvbenchParseSwSimuInfoByToolOutput
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_RETIMING].layout = inputLayout;
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_RETIMING].stitchMode =
 				(uint32_t)stitchMode;
-		} else
+		}
+		else {
 			caseCtx->instanceCfgCtx[instanceId].instancePath[CAMDEV_BUFCHAIN_RETIMING].pathEnable = false;
+		}
 	}
 
 	osFile *pFSwSimuList = NULL;
@@ -2991,10 +3214,12 @@ int VsiVvbenchParseSubSystemInfo
 		caseCtx->systemId.vi200Id = 0;
 		caseCtx->systemId.ispId = 1;
 		caseCtx->systemId.dewarpId = 2;
-	} else if (caseCtx->instanceCfgCtx[instanceId].vi200Cfg.enable) {
+	}
+	else if (caseCtx->instanceCfgCtx[instanceId].vi200Cfg.enable) {
 		caseCtx->systemId.vi200Id = 0;
 		caseCtx->systemId.ispId = 1;
-	} else if (caseCtx->instanceCfgCtx[instanceId].dewarpCfg.enable) {
+	}
+	else if (caseCtx->instanceCfgCtx[instanceId].dewarpCfg.enable) {
 		caseCtx->systemId.ispId = 0;
 		caseCtx->systemId.dewarpId = 1;
 	}
@@ -3020,220 +3245,251 @@ int VsiVvbenchParseSubmoduleInfo
 	}
 
 	result = VsiVvbenchInitModuleConfig(caseCtx, instanceId);
-	if (0 != result)
+	if (0 != result) {
 		LOGE("VsiVvbenchInitModuleConfig error");
+	}
 
 	cJSON *aeInfo = cJSON_GetObjectItem(instanceCfg, "aeInfo");
 	if (aeInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseAeInfo(aeInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.ae);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseAeInfo parser error");
+		}
 	}
 
 	cJSON *awbInfo = cJSON_GetObjectItem(instanceCfg, "awbInfo");
 	if (awbInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseAwbInfo(awbInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.awb);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseAwbInfo parser error");
+		}
 	}
 
 	cJSON *afInfo = cJSON_GetObjectItem(instanceCfg, "afInfo");
 	if (afInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseAfInfo(afInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.af);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseAfInfo parser error");
+		}
 	}
 
 	cJSON *wbInfo = cJSON_GetObjectItem(instanceCfg, "wbInfo");
 	if (wbInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseWbInfo(wbInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.wb);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseWbInfo parser error");
+		}
 	}
 
 	cJSON *wdrInfo = cJSON_GetObjectItem(instanceCfg, "wdrInfo");
 	if (wdrInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseWdrInfo(wdrInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.wdr);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseWdrInfo parser error");
+		}
 	}
 
 	cJSON *hdrInfo = cJSON_GetObjectItem(instanceCfg, "hdrInfo");
 	if (hdrInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseHdrInfo(hdrInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.hdr);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseHdrInfo parser error");
+		}
 	}
 
 	cJSON *hist64Info = cJSON_GetObjectItem(instanceCfg, "hist64Info");
 	if (hist64Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseHist64Info(hist64Info,
 						   &caseCtx->instanceCfgCtx[instanceId].moduleCfg.hist64);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseHist64Info parser error");
+		}
 	}
 
 	cJSON *hist256Info = cJSON_GetObjectItem(instanceCfg, "hist256Info");
 	if (hist256Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseHist256Info(hist256Info,
 						    &caseCtx->instanceCfgCtx[instanceId].moduleCfg.hist256);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseHist256Info parser error");
+		}
 	}
 
 	cJSON *dnr2Info = cJSON_GetObjectItem(instanceCfg, "2dnrInfo");
 	if (dnr2Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParse2dnrInfo(dnr2Info, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.dnr2);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParse2dnrInfo parser error");
+		}
 	}
 
 	cJSON *dnr3Info = cJSON_GetObjectItem(instanceCfg, "3dnrInfo");
 	if (dnr3Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParse3dnrInfo(dnr3Info, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.dnr3);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParse3dnrInfo parser error");
+		}
 	}
 
 	cJSON *blsInfo = cJSON_GetObjectItem(instanceCfg, "blsInfo");
 	if (blsInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseBlsInfo(blsInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.bls);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseBlsInfo parser error");
+		}
 	}
 
 	cJSON *lscInfo = cJSON_GetObjectItem(instanceCfg, "lscInfo");
 	if (lscInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseLscInfo(lscInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.lsc);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseLscInfo parser error");
+		}
 	}
 
 	cJSON *gcInfo = cJSON_GetObjectItem(instanceCfg, "gcInfo");
 	if (gcInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseGcInfo(gcInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.gc);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VvbenchParseGcInfo parser error");
+		}
 	}
 
 	cJSON *rgbirInfo = cJSON_GetObjectItem(instanceCfg, "rgbirInfo");
 	if (rgbirInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseRgbirInfo(rgbirInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.rgbir);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseRgbirInfo parser error");
+		}
 	}
 
 	cJSON *eeInfo = cJSON_GetObjectItem(instanceCfg, "eeInfo");
 	if (eeInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseEeInfo(eeInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.ee);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseEeInfo parser error");
+		}
 	}
 
 	cJSON *geInfo = cJSON_GetObjectItem(instanceCfg, "geInfo");
 	if (geInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseGeInfo(geInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.ge);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseGeInfo parser error");
+		}
 	}
 
 	cJSON *gtmInfo = cJSON_GetObjectItem(instanceCfg, "gtmInfo");
 	if (gtmInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseGtmInfo(gtmInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.gtm);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseGtmInfo parser error");
+		}
 	}
 
 	cJSON *dpccInfo = cJSON_GetObjectItem(instanceCfg, "dpccInfo");
 	if (dpccInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseDpccInfo(dpccInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.dpcc);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseDpccInfo parser error");
+		}
 	}
 
 	cJSON *dgInfo = cJSON_GetObjectItem(instanceCfg, "dgInfo");
 	if (dgInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseDgInfo(dgInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.dg);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseDgInfo parser error");
+		}
 	}
 
 	cJSON *ccmInfo = cJSON_GetObjectItem(instanceCfg, "ccmInfo");
 	if (ccmInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseCcmInfo(ccmInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.ccm);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseCcmInfo parser error");
+		}
 	}
 
 	cJSON *cpdInfo = cJSON_GetObjectItem(instanceCfg, "cpdInfo");
 	if (cpdInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseCpdInfo(cpdInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.cpd);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseCpdInfo parser error");
+		}
 	}
 
 	cJSON *cprocInfo = cJSON_GetObjectItem(instanceCfg, "cprocInfo");
 	if (cprocInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseCprocInfo(cprocInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.cproc);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseCprocInfo parser error");
+		}
 	}
 
 	cJSON *dmscInfo = cJSON_GetObjectItem(instanceCfg, "dmscInfo");
 	if (dmscInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseDmscInfo(dmscInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.dmsc);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseDmscInfo parser error");
+		}
 	}
 
 	cJSON *cnrInfo = cJSON_GetObjectItem(instanceCfg, "cnrInfo");
 	if (cnrInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseCnrInfo(cnrInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.cnr);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseCnrInfo parser error");
+		}
 	}
 
 
 	cJSON *lut3dInfo = cJSON_GetObjectItem(instanceCfg, "lut3dInfo");
 	if (lut3dInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseLut3dInfo(lut3dInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.lut3d);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseLut3dInfo parser error");
+		}
 	}
 
 	cJSON *pdafInfo = cJSON_GetObjectItem(instanceCfg, "pdafInfo");
 	if (pdafInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParsePdafInfo(pdafInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.pdaf);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParsePdafInfo parser error");
+		}
 	}
 
 	cJSON *expv2Info = cJSON_GetObjectItem(instanceCfg, "expv2Info");
 	if (expv2Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseExpv2Info(expv2Info, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.expv2);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseExpv2Info parser error");
+		}
 	}
 
 	cJSON *expv3Info = cJSON_GetObjectItem(instanceCfg, "expv3Info");
 	if (expv3Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseExpv3Info(expv3Info, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.expv3);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseExpv3Info parser error");
+		}
 	}
 
 	cJSON *afmInfo = cJSON_GetObjectItem(instanceCfg, "afmInfo");
 	if (afmInfo && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseAfmInfo(afmInfo, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.afm);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseAfmInfo parser error");
+		}
 	}
 
 	cJSON *afmv3Info = cJSON_GetObjectItem(instanceCfg, "afmv3Info");
 	if (afmv3Info && (!caseCtx->swSimuCfg.enable)) {
 		result = VsiVvbenchParseAfmv3Info(afmv3Info, &caseCtx->instanceCfgCtx[instanceId].moduleCfg.afmv3);
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchParseAfmv3Info parser error");
+		}
 	}
 
 	LOGI("%s exit \n", __func__);
@@ -3254,13 +3510,16 @@ int VsiVvbenchParseDewarpInfo
 		return -1;
 	}
 
-	if (NULL != cJSON_GetObjectItem(dewarpInfo, "enable"))
+	if (NULL != cJSON_GetObjectItem(dewarpInfo, "enable")) {
 		dewarpCtrl->enable = cJSON_GetObjectItem(dewarpInfo, "enable")->valueint;
+	}
 	if (!dewarpCtrl->enable) {
 		LOGI("dewarp feature not enable!");
 		return result;
-	} else
+	}
+	else {
 		LOGI("dewarp feature enable!");
+	}
 
 #ifdef DWE_VERSION
 	cJSON *map = cJSON_GetObjectItem(dewarpInfo, "map");
@@ -3273,34 +3532,44 @@ int VsiVvbenchParseDewarpInfo
 			if (0 == strcmp(dewarpModeName, "LENS_CORRECTION")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "LENS_CORRECTION");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_LENS_DISTORTION_CORRECTION;
-			} else if (0 == strcmp(dewarpModeName, "FISHEYE_EXPAND")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "FISHEYE_EXPAND")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "FISHEYE_EXPAND");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_FISHEYE_EXPAND;
-			} else if (0 == strcmp(dewarpModeName, "SPLIT_SCREEN")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "SPLIT_SCREEN")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "SPLIT_SCREEN");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_SPLIT_SCREEN;
-			} else if (0 == strcmp(dewarpModeName, "FISHEYE_DEWARP")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "FISHEYE_DEWARP")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "FISHEYE_DEWARP");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_FISHEYE_DEWARP;
-			} else if (0 == strcmp(dewarpModeName, "PERSPECTIVE")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "PERSPECTIVE")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "PERSPECTIVE");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_PERSPECTIVE;
-			} else if (0 == strcmp(dewarpModeName, "FOV")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "FOV")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "FOV");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_FOV;
-			} else if (0 == strcmp(dewarpModeName, "USER_COORDINATE")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "USER_COORDINATE")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "USER_COORDINATE");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_USER_COORDINATE;
-			} else if (0 == strcmp(dewarpModeName, "OMNI_FISHEYE_DEWARP")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "OMNI_FISHEYE_DEWARP")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "OMNI_FISHEYE_DEWARP");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_OMNI_FISHEYE_DEWARP;
-			} else if (0 == strcmp(dewarpModeName, "USER_STITCH")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "USER_STITCH")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "USER_STITCH");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_USER_STITCH;
-			} else if (0 == strcmp(dewarpModeName, "ROTATION")) {
+			}
+			else if (0 == strcmp(dewarpModeName, "ROTATION")) {
 				LOGI("dewarp mode %s equal to %s", dewarpModeName, "ROTATION");
 				dewarpCtrl->dewarpMode = DEWARP_MODEL_ROTATION;
-			} else {
+			}
+			else {
 				LOGE("no dewarp mode, please input dewarp mode\n");
 				return -1;
 			}
@@ -3314,16 +3583,20 @@ int VsiVvbenchParseDewarpInfo
 			if (0 == strcmp(mapSelectName, "16x16")) {
 				LOGI("dewarp map select %s equal to %s", mapSelectName, "16x16");
 				dewarpCtrl->mapSelect = 0;
-			} else if (0 == strcmp(mapSelectName, "1x1")) {
+			}
+			else if (0 == strcmp(mapSelectName, "1x1")) {
 				LOGI("dewarp map select %s equal to %s", mapSelectName, "1x1");
 				dewarpCtrl->mapSelect = 1;
-			} else if (0 == strcmp(mapSelectName, "4x4")) {
+			}
+			else if (0 == strcmp(mapSelectName, "4x4")) {
 				LOGI("dewarp map select %s equal to %s", mapSelectName, "4x4");
 				dewarpCtrl->mapSelect = 2;
-			} else if (0 == strcmp(mapSelectName, "64x64")) {
+			}
+			else if (0 == strcmp(mapSelectName, "64x64")) {
 				LOGI("dewarp map select %s equal to %s", mapSelectName, "64x64");
 				dewarpCtrl->mapSelect = 3;
-			} else {
+			}
+			else {
 				LOGE("no dewarp map select, please input dewarp map select\n");
 				return -1;
 			}
@@ -3344,7 +3617,8 @@ int VsiVvbenchParseDewarpInfo
 	if (cameraMatrix == NULL) {
 		LOGE("cameraMatrix is not an object or not found!");
 		cJSON_Delete(cameraMatrix);
-	} else {
+	}
+	else {
 		if (cJSON_IsArray(cameraMatrix)) {
 			for (uint32_t i = 0; i < CAMERA_MATRIX_NUMBER; i++) {
 				dewarpCtrl->cameraMatrix[i] = cJSON_GetArrayItem(cameraMatrix, i)->valuedouble;
@@ -3357,7 +3631,8 @@ int VsiVvbenchParseDewarpInfo
 	if (distortionCoeff == NULL) {
 		LOGE("distortionCoeff is not an object or not found!");
 		cJSON_Delete(distortionCoeff);
-	} else {
+	}
+	else {
 		if (cJSON_IsArray(distortionCoeff)) {
 			for (uint32_t i = 0; i < DISTORTION_COEFF_NUMBER; i++) {
 				dewarpCtrl->distortionCoeff[i] = cJSON_GetArrayItem(distortionCoeff, i)->valuedouble;

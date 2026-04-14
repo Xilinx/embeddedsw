@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -45,7 +45,7 @@ extern "C"
 
 
 typedef struct CamDeviceCnrConfig_s {
-	uint8_t nop;
+    uint8_t nop;
 } CamDeviceCnrConfig_t;
 
 /******************************************************************************/
@@ -54,118 +54,149 @@ typedef struct CamDeviceCnrConfig_s {
  *
  *****************************************************************************/
 typedef struct CamDeviceCnrStatus_s {
-	bool_t enable;    /**< EE enable status */
-} CamDeviceCnrStatus_t;
+    bool_t enable;    /**< EE enable status */
+}CamDeviceCnrStatus_t;
 
 /*****************************************************************************/
 /**
- * @brief   This function sets the CNR configuration parameters.
+ * @brief   This function sets CNR configuration parameters.
+ * @startuml VsiCamDeviceCnrSetConfig
+ * !include module/VsiCamDeviceCnrSetConfig.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pCnrCfg     Pointer to CNR Configuration
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pEeCfg              This pointer of CNR configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrSetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceCnrConfig_t *pCnrCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceCnrConfig_t *pCnrCfg
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function gets the CNR configuration parameters.
+ * @brief   This function gets CNR configuration parameters.
+ * @startuml VsiCamDeviceCnrGetConfig
+ * !include module/VsiCamDeviceCnrGetConfig.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pCnrCfg     Pointer to CNR Configuration
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pEeCfg              This pointer of CNR configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrGetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceCnrConfig_t *pCnrCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceCnrConfig_t *pCnrCfg
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function enable denoise of C channel.
+ * @brief   This function enables CNR.
+ * @startuml VsiCamDeviceCnrEnable
+ * !include module/VsiCamDeviceCnrEnable.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
- * @retval  RET_SUCCESS         function succeed
- * @retval  RET_WRONG_HANDLE    invalid instance handle
+ * @return  Return the result of the function call.
+ * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrEnable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t   hCamDevice
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function disable denoise of C channel.
+ * @brief   This function disables CNR.
+ * @startuml VsiCamDeviceCnrDisable
+ * !include module/VsiCamDeviceCnrDisable.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
- * @retval  RET_SUCCESS         function succeed
- * @retval  RET_WRONG_HANDLE    invalid instance handle
+ * @return  Return the result of the function call.
+ * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrDisable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t   hCamDevice
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function get CNR status.
+ * @brief   This function gets CNR status.
+ * @startuml VsiCamDeviceCnrGetStatus
+ * !include module/VsiCamDeviceCnrGetStatus.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pStatus     Pointer to CNR status.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pConfig             pointer to the CNR configuration
- *
- * @retval  RET_SUCCESS         function succeed
- * @retval  RET_WRONG_HANDLE    invalid instance handle
+ * @return  Return the result of the function call.
+ * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrGetStatus
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceCnrStatus_t *pStatus
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceCnrStatus_t *pStatus
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function resets CNR.
+ * @startuml VsiCamDeviceCnrReset
+ * !include module/VsiCamDeviceCnrReset.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
- * @retval  RET_SUCCESS         function succeed
- * @retval  RET_WRONG_HANDLE    invalid instance handle
+ * @return  Return the result of the function call.
+ * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrReset
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t    hCamDevice
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function get CNR version.
+ * @brief   This function gets CNR version.
+ * @startuml VsiCamDeviceCnrGetVersion
+ * !include module/VsiCamDeviceCnrGetVersion.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pVersion    Pointer to CNR version
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pVersion            pointer to the CNR version
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @retval  RET_SUCCESS         function succeed
- * @retval  RET_WRONG_HANDLE    invalid instance handle
+ * @return  Return the result of the function call.
+ * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCnrGetVersion
 (
-	CamDeviceHandle_t hCamDevice,
-	uint32_t *pVersion
+    CamDeviceHandle_t hCamDevice,
+    uint32_t *pVersion
 );
 
 #ifdef __cplusplus

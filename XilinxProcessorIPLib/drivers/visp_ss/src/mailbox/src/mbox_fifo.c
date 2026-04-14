@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) <2021> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -13,6 +13,7 @@
 
 
 #include "mbox_fifo.h"
+#include "mbox_api.h"
 #include "sensor_cmd.h"
 
 #include <stdlib.h>
@@ -20,106 +21,189 @@
 
 #include "mbox_error_code.h"
 #include "oslayer.h"
-void fifo_info(FifoControl *fifo)
-{
-	xil_printf("\tbuffer (%x) %x\n", &fifo->buffer, fifo->buffer);
-	xil_printf("\titem_size (%x) %lu\n", &fifo->item_size, fifo->item_size);
-	xil_printf("\titem_total (%x) %lu\n", &fifo->item_total, fifo->item_total);
-	xil_printf("\tbuffer_size (%x) %lu\n", &fifo->buffer_size, fifo->buffer_size);
-	xil_printf("\titem_stored (%x) %lu\n", &fifo->item_stored, fifo->item_stored);
-	xil_printf("\tread_offset (%x) %lu\n", &fifo->read_offset, fifo->read_offset);
-	xil_printf("\twrite_offset (%x) %lu\n", &fifo->write_offset, fifo->write_offset);
+
+/**
+ * @brief Calculate the actual size of a mailbox message
+ * @param msg Pointer to the mailbox message
+ * @return Actual size in bytes (header + variable payload size)
+ */
+static uint32_t get_mbox_message_size(MboxPostMsg *msg) {
+	return sizeof(MboxPostMsg) - MAX_ITEM + msg->payload.payload_size;
 }
 
-int fifo_init(FifoControl *fifo, FifoInitData *init_fifo)
+void fifo_info(MboxFifoCtrl *mbox_fifo)
 {
-	if (fifo == NULL || init_fifo == NULL)
+	FifoControl *fifo = mbox_fifo->fifo;
+	xil_printf("\tfifo_control location (%lx)\n", (unsigned long)fifo);
+	xil_printf("\tbuffer (%lx) %lx\n", (unsigned long)&fifo->buffer, (unsigned long)fifo->buffer);
+	xil_printf("\titem_size (%lx) %lu\n", (unsigned long)&fifo->item_size, fifo->item_size);
+	xil_printf("\titem_total (%lx) %lu\n", (unsigned long)&fifo->item_total, fifo->item_total);
+	xil_printf("\tbuffer_size (%lx) %lu\n", (unsigned long)&fifo->buffer_size, fifo->buffer_size);
+	xil_printf("\twrite_index (%lx) %lu\n", (unsigned long)&fifo->write_offset, fifo->write_offset);
+	xil_printf("\tread_index (%lx) %lu\n", (unsigned long)&fifo->read_offset, fifo->read_offset);
+	uint32_t stored = (fifo->write_offset - fifo->read_offset + fifo->item_total) % fifo->item_total;
+	xil_printf("\tstored_items: %lu\n", stored);
+}
+
+int32_t fifo_init(MboxFifoCtrl *mbox_fifo, FifoInitData *init_fifo)
+{
+	FifoControl *fifo;
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL || init_fifo == NULL)
 		return VPI_ERR_INVALID;
 
+	fifo = mbox_fifo->fifo;
 	fifo->buffer = (void *)(uintptr_t)(init_fifo->buffer_addr);
 	fifo->item_size = init_fifo->item_size;
 	fifo->item_total = init_fifo->item_total;
 	fifo->buffer_size = init_fifo->buffer_size;
-#if 1    //TODO: do not init these values if this devices boots second.... or synchronize the init's to avoid overriding
 	fifo->item_stored = 0;
-	fifo->read_offset = 0;
+	/* Note: only the owner should init its offset.
+	 * Sender inits write_offset, receiver inits read_offset.
+	 * Both are set here for legacy compat; caller may override. */
 	fifo->write_offset = 0;
-#endif
-	//fifo_info(fifo);
+	fifo->read_offset = 0;
+
 	return VPI_SUCCESS;
 }
 
-int fifo_write(MboxPostMsg *msg, FifoControl *fifo)
+int32_t fifo_write(MboxPostMsg *msg, MboxFifoCtrl *mbox_fifo)
 {
-	if (fifo == NULL || msg == NULL)
+	FifoControl *fifo;
+	uint32_t current_write_index, current_read_index, next_write_index;
+	uint8_t *write_pos;
+	uint32_t actual_size;
+
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL || msg == NULL)
 		return VPI_ERR_INVALID;
-	if (fifo->item_stored >= fifo->item_total)
+
+	fifo = mbox_fifo->fifo;
+
+	/* DMB: Ensure we read latest index values from shared memory */
+	dmb_memory_barrier();
+
+	current_write_index = fifo->write_offset;
+	current_read_index = fifo->read_offset;
+	next_write_index = (current_write_index + 1) % fifo->item_total;
+
+	/* Check if FIFO is full (circular buffer: full when next write == read) */
+	if (next_write_index == current_read_index)
 		return VPI_ERR_FULL;
-	// fifo_info(fifo);
-	// xil_printf("APU write msg->size:%d.\r\n", msg->size);
-	memcpy((void *)((0xFFFFFFFF & (unsigned int)fifo->buffer) + fifo->write_offset), msg,
-	       sizeof(MboxPostMsg) - sizeof(Payload_packet) + msg->size);
 
-	fifo->write_offset += fifo->item_size;
-	if (fifo->write_offset >= fifo->buffer_size)
-		fifo->write_offset = 0;
-	fifo->item_stored++;
+	write_pos = mbox_fifo->buffer_addresses[current_write_index];
+	actual_size = get_mbox_message_size(msg);
+	memcpy(write_pos, msg, actual_size);
+
+	/* DMB: Ensure data write completes before updating index */
+	dmb_memory_barrier();
+
+	fifo->write_offset = next_write_index;
+
+	/* DMB: Ensure index update is visible to remote core */
+	dmb_memory_barrier();
+
 	return VPI_SUCCESS;
 }
 
-int fifo_read(MboxPostMsg *msg, FifoControl *fifo)
+int32_t fifo_read(MboxPostMsg *msg, MboxFifoCtrl *mbox_fifo)
 {
+	FifoControl *fifo;
+	uint32_t current_write_index, current_read_index, next_read_index;
+	uint8_t *read_pos;
+	uint32_t actual_size;
 
-	if (fifo == NULL)
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL)
 		return VPI_ERR_INVALID;
-	if (fifo->item_stored == 0)
+
+	fifo = mbox_fifo->fifo;
+
+	/* DMB: Ensure we read latest index values from shared memory */
+	dmb_memory_barrier();
+
+	current_write_index = fifo->write_offset;
+	current_read_index = fifo->read_offset;
+
+	/* Check if FIFO is empty (circular buffer: empty when write == read) */
+	if (current_write_index == current_read_index)
 		return VPI_ERR_EMPTY;
 
-	memcpy(msg, (void *)((0xFFFFFFFF & (unsigned int)fifo->buffer) + fifo->read_offset),
-	       fifo->item_size);
-	fifo->read_offset += fifo->item_size;
-	if (fifo->read_offset >= fifo->buffer_size)
-		fifo->read_offset = 0;
-	fifo->item_stored--;
-	// fifo_info(fifo);
+	read_pos = mbox_fifo->buffer_addresses[current_read_index];
+	actual_size = get_mbox_message_size((MboxPostMsg *)read_pos);
+	memcpy(msg, read_pos, actual_size);
+
+	/* DMB: Ensure data read completes before updating index */
+	dmb_memory_barrier();
+
+	next_read_index = (current_read_index + 1) % fifo->item_total;
+	fifo->read_offset = next_read_index;
+
+	/* DMB: Ensure index update is visible to remote core */
+	dmb_memory_barrier();
+
 	return VPI_SUCCESS;
 }
 
-int fifo_reset(FifoControl *fifo)
+int32_t fifo_reset(MboxFifoCtrl *mbox_fifo)
 {
-	if (fifo == NULL)
+	FifoControl *fifo;
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL)
 		return VPI_ERR_INVALID;
 
-	fifo->item_stored = 0;
-	fifo->read_offset = 0;
+	fifo = mbox_fifo->fifo;
+	/* Reset write_index to 0; read_index is owned by remote core */
 	fifo->write_offset = 0;
 
 	return VPI_SUCCESS;
 }
 
-uint32_t fifo_get_stored(FifoControl *fifo)
+uint32_t fifo_get_stored(MboxFifoCtrl *mbox_fifo)
 {
-	if (fifo == NULL)
+	FifoControl *fifo;
+	uint32_t write_index, read_index;
+
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL)
 		return VPI_ERR_INVALID;
-	return fifo->item_stored;
+
+	fifo = mbox_fifo->fifo;
+	dmb_memory_barrier();
+	write_index = fifo->write_offset;
+	read_index = fifo->read_offset;
+	return (write_index - read_index + fifo->item_total) % fifo->item_total;
 }
 
-bool fifo_is_full(FifoControl *fifo)
+bool fifo_is_full(MboxFifoCtrl *mbox_fifo)
 {
-	return fifo->item_stored >= fifo->item_total ? true : false;
+	FifoControl *fifo;
+	uint32_t write_index, read_index;
+
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL)
+		return true;
+
+	fifo = mbox_fifo->fifo;
+	dmb_memory_barrier();
+	write_index = fifo->write_offset;
+	read_index = fifo->read_offset;
+	return ((write_index + 1) % fifo->item_total) == read_index;
 }
 
-bool fifo_is_empty(FifoControl *fifo)
+bool fifo_is_empty(MboxFifoCtrl *mbox_fifo)
 {
-	//	xil_printf("fifo ctrl addresses %x,%x,%x,%x,->item stroed %x,read offset-> %x \n",&fifo->buffer,&fifo->item_size,&fifo->item_total,
-	//	&fifo->buffer_size,&fifo->item_stored,&fifo->read_offset);
-	return fifo->item_stored == 0 ? true : false;
+	FifoControl *fifo;
+
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL)
+		return true;
+
+	fifo = mbox_fifo->fifo;
+	dmb_memory_barrier();
+	return fifo->write_offset == fifo->read_offset;
 }
 
-int fifo_buffer_free(FifoControl *fifo)
+int32_t fifo_buffer_free(MboxFifoCtrl *mbox_fifo)
 {
-	if (fifo == NULL)
+	FifoControl *fifo;
+	if (mbox_fifo == NULL || mbox_fifo->fifo == NULL)
 		return VPI_ERR_INVALID;
+
+	fifo = mbox_fifo->fifo;
 	osFree(fifo->buffer);
 	return VPI_SUCCESS;
 }

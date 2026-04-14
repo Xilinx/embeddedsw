@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -35,27 +35,49 @@ extern "C"
 {
 #endif
 
+/**
+ * @defgroup 27_cam_device_general VsCamDevice E01C27 Device_GeneralCtrl Definitions
+ * @{
+ *
+ *
+ */
 
 /*****************************************************************************/
 /**
  * @brief   This function loads the calibration parameters into the database of
  *          software stack.
+ * @startuml VsiCamDeviceLoadCalibration
+ * !include E01_External/VsiCamDeviceLoadCalibration.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice     Handle to the VsCamDevice instance.
+ * @param[in]       defCalibIllum  Select the default illumination when
+ *                                 pipeline is connected.
+ * @param[in]       pCalibCfg      Configuration structure for
+ *                                 calibration parameter.
+ * @details This function calls: \ref CamCalibDbRelease, \ref CamCalibDbCreate,
+ * \ref CamCalibDbSetMetaData, \ref CamDeviceLoadHeaderResolutionCalibDb,
+ * \ref CamDeviceLoadSystemDataCalibDb, \ref CamDeviceLoadAwbCalibDb,
+ * \ref CamDeviceLoadLscCalibDb, \ref CamDeviceLoadCcCalibDb,
+ * \ref CamDeviceLoadBlsCalibDb
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance.
- * @param   defCalibIllum       Select the default illumination when pipeline is
- *                              connected.
- * @param   pCalibCfg           Configuration structure for calibration parameter.
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFMEM        Operation failed due to out of memory
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
  *
  *****************************************************************************/
 RESULT VsiCamDeviceLoadCalibration
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceCalibIllumType_t defCalibIllum,
-	CamDeviceCalibCfg_t *pCalibCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceCalibIllumType_t defCalibIllum,
+    CamDeviceCalibCfg_t *pCalibCfg
 );
+
+ /** @} 27_cam_device_general */
 
 #ifdef __cplusplus
 }

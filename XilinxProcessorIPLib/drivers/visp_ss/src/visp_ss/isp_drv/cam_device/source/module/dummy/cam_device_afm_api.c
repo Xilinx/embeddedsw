@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -46,9 +46,8 @@ RESULT VsiCamDeviceAfmGetResult
 
 RESULT VsiCamDeviceAfmSetMeasureWindow
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfmWindowId_t afmWinId,
-	CamDeviceWindow_t *pWindow
+	CamDeviceHandle_t            hCamDevice,
+    CamDeviceAfmWindowConfig_t  *pWindow
 )
 {
 	return RET_SUCCESS;
@@ -57,9 +56,8 @@ RESULT VsiCamDeviceAfmSetMeasureWindow
 
 RESULT VsiCamDeviceAfmGetMeasureWindow
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfmWindowId_t afmWinId,
-	CamDeviceWindow_t *pWindow
+	CamDeviceHandle_t                 hCamDevice,
+    CamDeviceAfmWindowConfig_t       *pWindow
 )
 {
 	return RET_SUCCESS;

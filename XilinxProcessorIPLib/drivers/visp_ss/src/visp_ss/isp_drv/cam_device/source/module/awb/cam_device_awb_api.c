@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -119,6 +119,10 @@ RESULT VsiCamDeviceAwbSetConfig
 	packet.cookie = pCamDevCtx->cookie;
 	packet.type = CMD;
 	packet.payload_size = 0;
+
+	// xil_printf("pConfig->confidenceThreshold: %d \n", (uint32_t)pConfig->confidenceThreshold[0]* 10);
+	// 		xil_printf("pConfig->confoundPointCwfbg: %d \n", (uint32_t)pConfig->confoundPointCwf.bg * 100);
+	// 		xil_printf("pConfig->dampOver: %d \n", (uint32_t)pConfig->nonLinearThd );
 
 	uint8_t *p_data = packet.payload_data;
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
@@ -650,6 +654,94 @@ RESULT VsiCamDeviceAwbGetResult
 		return RET_FAILURE;
 	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
 	memcpy(pCamDeviceAwbResult, p_data, sizeof(CamDeviceAwbResult_t));
+
+	return packet.resp_field.error_subcode_t;
+}
+
+RESULT VsiCamDeviceAwbSetCalibData
+(
+    CamDeviceHandle_t               hCamDevice,
+    const CamDeviceAwbCalibData_t   *pAwbCalib
+)
+{
+	RESULT result = RET_SUCCESS;
+	int ret = 0;
+
+	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
+	if (NULL == pCamDevCtx)
+		return (RET_WRONG_HANDLE);
+	if (NULL == pAwbCalib)
+		return (RET_NULL_POINTER);
+	pCamDevCtx->cookie ++;
+
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+
+	packet.cookie = pCamDevCtx->cookie;
+	packet.type = CMD;
+	packet.payload_size = 0;
+
+	uint8_t *p_data = packet.payload_data;
+	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
+	packet.payload_size += sizeof(uint32_t);
+	p_data += sizeof(uint32_t);
+	memcpy(p_data, pAwbCalib, sizeof(CamDeviceAwbCalibData_t));
+	packet.payload_size += sizeof(CamDeviceAwbCalibData_t);
+
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
+
+	ret = Send_Command(APU_2_RPU_MB_CMD_AWB_SET_CALIB_DATA, &packet, packet.payload_size + payload_extra_size,
+			   dest_cpu_id, src_cpu_id);
+	if (0 != ret)
+		return RET_FAILURE;
+
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie,
+					    packet.payload_data); //replace with wait_response();
+
+	return packet.resp_field.error_subcode_t;
+}
+
+
+RESULT VsiCamDeviceAwbGetCalibData
+(
+    CamDeviceHandle_t         hCamDevice,
+    CamDeviceAwbCalibData_t   *pAwbCalib
+)
+{
+	RESULT result = RET_SUCCESS;
+	int ret = 0;
+
+	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
+	if (NULL == pCamDevCtx)
+		return (RET_WRONG_HANDLE);
+	if (NULL == pAwbCalib)
+		return (RET_NULL_POINTER);
+	pCamDevCtx->cookie ++;
+
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+
+	packet.cookie = pCamDevCtx->cookie;
+	packet.type = CMD;
+	packet.payload_size = 0;
+
+	uint8_t *p_data = packet.payload_data;
+	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
+	packet.payload_size += sizeof(uint32_t);
+	p_data += sizeof(uint32_t);
+	memcpy(p_data, pAwbCalib, sizeof(CamDeviceAwbCalibData_t));
+	packet.payload_size += sizeof(CamDeviceAwbCalibData_t);
+
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
+
+	ret = Send_Command(APU_2_RPU_MB_CMD_AWB_GET_CALIB_DATA, &packet, packet.payload_size + payload_extra_size,
+			   dest_cpu_id, src_cpu_id);
+	if (0 != ret)
+		return RET_FAILURE;
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+	memcpy(pAwbCalib, p_data, sizeof(CamDeviceAwbCalibData_t));
 
 	return packet.resp_field.error_subcode_t;
 }

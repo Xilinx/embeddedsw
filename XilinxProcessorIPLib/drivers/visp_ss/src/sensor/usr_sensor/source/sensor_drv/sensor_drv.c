@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -23,6 +23,8 @@
 
 
 #include "sensor_drv.h"
+#include "sensor_cmd.h"
+#include "mbox_cmd.h"
 
 #include <types.h>
 #include <trace.h>
@@ -37,358 +39,179 @@ extern IsiCamDrvConfig_t virtualSensor_IsiCamDrvConfig;
 
 extern IsiSensorMode_t pox03f10_mode_info[];
 
-// SensorDrvConfigList_t sensorCfgList[] = {
-// {"0x03f10", 0x6c, 2, 1, {0x300a, 0x300b}, 0x5308},
-// };
+RESULT VsiCamDeviceSensorGetNumber
+(
+	uint16_t *pNumber
+)
+{
+	RESULT result = RET_SUCCESS;
 
-// RESULT SensorDrvConfigMapping
-// (
-// const char *pSensorName,
-// IsiCamDrvConfig_t **pSensorConfig
-// )
-// {
+	if (NULL == pNumber)
+		return (RET_NULL_POINTER);
 
-// TRACE( SENSOR_DRV_INFO, "%s: (enter)\n", __func__);
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
 
-// uint8_t i = 0, start = 0, end = 7;
-// char newSensorName[50] = "";
-// char *sptr, *eptr;
-// bool_t apuSensor = BOOL_FALSE;
+	packet.cookie = 0;
+	packet.type = CMD;
+	packet.payload_size = 0;
 
-// if ( pSensorName == NULL ) {
-// return ( RET_NULL_POINTER );
-// }
+	uint8_t *p_data = packet.payload_data;
+	// memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	packet.payload_size += sizeof(uint32_t);
+	memcpy(p_data, pNumber, sizeof(uint16_t));
+	packet.payload_size += sizeof(uint16_t);
 
-// for(i = 0; pSensorName[i] != '\0'; ++i){
-//	newSensorName[i] = pSensorName[i];
-// }
-// newSensorName[i] = '\0';
-// if(i > 8){
-//	sptr = newSensorName + start*sizeof(char);
-//	eptr = newSensorName + end*sizeof(char);
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
 
-//	*eptr = '\0';
-//	if(strcmp(sptr, "virtual") == 0){
-//	TRACE( SENSOR_DRV_INFO, "%s: register sensor driver from APU.\n", __func__);
-//	sptr = eptr + sizeof(char);
-//	apuSensor = BOOL_TRUE;
-//	}
+	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_NUMBER, &packet,
+			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (0 != result)
+		return RET_FAILURE;
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+	memcpy(pNumber, p_data, sizeof(uint16_t));
 
-// }
-// SensorDrvConfig_t sensorConfig[] = {
-//	{"ox03f10", &Ox03f10_IsiCamDrvConfig},
-//	{"ox08b40", &Ox08b40_IsiCamDrvConfig},
-//	{"ox05b1s", &Ox05b1s_IsiCamDrvConfig}
-//	};
+	return packet.resp_field.error_subcode_t;
+}
 
-// if(apuSensor){
-//	*pSensorConfig = &virtualSensor_IsiCamDrvConfig;
-//	for (int i = 0; i < (int)(sizeof(sensorConfig)/sizeof(sensorConfig[0])); i++) {
-//	if (strcmp(sptr, sensorConfig[i].pSensorName) == 0) {
-// 				// for sending back to APU to register
-//	(*pSensorConfig)->cameraDriverID = sensorConfig[i].pSensorConfig->cameraDriverID;
+RESULT VsiCamDeviceSensorGetListInfo
+(
+	CamDeviceSensorListInfo_t *pSensorListInfo,
+    const uint16_t sensorNum
+)
+{
+	RESULT result = RET_SUCCESS;
 
-//	TRACE( SENSOR_DRV_INFO, "%s: i=%d, match sensor name: %s success!!\n", __func__, i, sensorConfig[i].pSensorName);
-//	return RET_SUCCESS;
-//	}
-//	}
+	if (NULL == pSensorListInfo)
+		return (RET_NULL_POINTER);
 
-// }else{
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
 
-//	for (int i = 0; i < (int)(sizeof(sensorConfig)/sizeof(sensorConfig[0])); i++) {
-//	if (strcmp(pSensorName, sensorConfig[i].pSensorName) == 0) {
-//	*pSensorConfig = sensorConfig[i].pSensorConfig;
+	packet.cookie = 1;
+	packet.type = CMD;
+	packet.payload_size = 0;
 
-//	TRACE( SENSOR_DRV_INFO, "%s: i=%d, match sensor name: %s success!!\n", __func__, i, sensorConfig[i].pSensorName);
-//	return RET_SUCCESS;
-//	}
-//	}
-// }
+	uint8_t *p_data = packet.payload_data;
+	// memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	packet.payload_size += sizeof(uint32_t);
 
+	memcpy(p_data, &sensorNum, sizeof(uint16_t));
+	p_data += sizeof(uint16_t);
+	packet.payload_size = sizeof(uint16_t) + sizeof(CamDeviceSensorListInfo_t)* sensorNum;
 
-// TRACE(SENSOR_DRV_ERROR, "%s: Unsupported sensor %s !\n", __func__,pSensorName);
-// return RET_NOTSUPP;
-// }
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
 
+	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_LIST_INFO, &packet,
+			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (0 != result)
+		return RET_FAILURE;
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+	memcpy(pSensorListInfo, p_data, sizeof(CamDeviceSensorListInfo_t));
 
-// RESULT SensorDrvGetSensorNumber
-// (
-// uint16_t    *pNumber
-// )
-// {
-// TRACE( SENSOR_DRV_INFO, "%s: (enter)\n", __func__);
+	return packet.resp_field.error_subcode_t;
+}
 
-// *pNumber = (sizeof(sensorCfgList)/sizeof(sensorCfgList[0]));
+RESULT VsiCamDeviceSensorGetConnectPortInfo
+(
+	uint32_t sensorDrvId,
+	CamDeviceSensorConnectPortInfo_t *pPortInfo
+)
+{
+	RESULT result = RET_SUCCESS;
 
-// TRACE( SENSOR_DRV_INFO, "%s: (exit)\n", __func__);
-// return RET_SUCCESS;
-// }
+	if (NULL == pPortInfo)
+		return (RET_NULL_POINTER);
 
-// RESULT SensorDrvGetConfigList
-// (
-// SensorDrvList_t *pSensorDrvList
-// )
-// {
-// TRACE( SENSOR_DRV_INFO, "%s: (enter)\n", __func__);
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
 
-// if ( pSensorDrvList == NULL ) {
-// return ( RET_NULL_POINTER );
-// }
+	packet.cookie = 2;
+	packet.type = CMD;
+	packet.payload_size = 0;
 
+	uint8_t *p_data = packet.payload_data;
+	memcpy(p_data, &sensorDrvId, sizeof(SensorDrvId_t));
+    packet.payload_size += sizeof(SensorDrvId_t);
 
-// strcpy(pSensorDrvList[0].name, "0x03f10");
-// pSensorDrvList[0].pSensorMode = pox03f10_mode_info;
+    p_data += sizeof(SensorDrvId_t);
+	packet.payload_size += sizeof(CamDeviceSensorConnectPortInfo_t);
 
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
 
-// TRACE( SENSOR_DRV_INFO, "%s: (exit)\n", __func__);
-// return RET_SUCCESS;
-// }
+	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_ConnectPortInfo, &packet,
+			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (0 != result)
+		return RET_FAILURE;
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+	memcpy(pPortInfo, p_data, sizeof(CamDeviceSensorConnectPortInfo_t));
 
-// RESULT SensorDrvGetPortInfo
-// (
-// sensorPortInfo_t *pPortInfo,
-//	uint32_t          sensorDevId
-// )
-// {
-// TRACE( SENSOR_DRV_INFO, "%s: (enter)\n", __func__);
-// RESULT result = RET_SUCCESS;
+	return packet.resp_field.error_subcode_t;
+}
 
-// if ( pPortInfo == NULL ) {
-// return ( RET_NULL_POINTER );
-// }
-
-// int32_t fd = -1;
-// uint8_t busId = (uint8_t)sensorDevId;
-// char pathDevName[32] = {0};
-
-// sprintf(pathDevName, "/dev/i2c-%u", busId);
-// fd = HalOpenI2cDevice(pathDevName);
-// if(fd < 0)
-// {
-// TRACE(SENSOR_DRV_INFO, "%s:Can't open %s!\n", __func__, pathDevName);
-// return RET_FAILURE;
-// }
-
-// for(uint8_t index = 0; index < (sizeof(sensorCfgList)/sizeof(sensorCfgList[0])); index++) {
-// result = HalIoCtl(fd, (sensorCfgList[index].slaveAddr >> 1));
-// if (result < 0)
-// {
-// TRACE(SENSOR_DRV_INFO, "%s:I2C_SLAVE_FORCE error!\n", __func__);
-// continue;
-// }
-
-// uint16_t regVal[3];
-// uint32_t sensorId = 0;
-
-// for(uint8_t i = 0; i < 3; i++) {
-// if(sensorCfgList[index].regAddr[i] == 0) {
-// continue;
-// } else {
-// regVal[i]   = 0;
-// result    = HalSensorDrvReadI2CReg(sensorCfgList[index].slaveAddr,
-// sensorCfgList[index].regWidth,
-// sensorCfgList[index].dataWidth,
-// sensorCfgList[index].regAddr[i], &regVal[i], fd);
-// }
-// }
-
-// if((sensorCfgList[index].regAddr[0] != 0) && (sensorCfgList[index].regAddr[1] == 0) && (sensorCfgList[index].regAddr[2] == 0)) {
-// sensorId |= (regVal[0] & 0xffff);
-// } else if ((sensorCfgList[index].regAddr[0] != 0) && (sensorCfgList[index].regAddr[1] != 0) && (sensorCfgList[index].regAddr[2] == 0)) {
-// sensorId = (regVal[0] & 0xff) << 8;
-// sensorId |= (regVal[1] & 0xff);
-// } else if ((sensorCfgList[index].regAddr[0] != 0) && (sensorCfgList[index].regAddr[1] != 0) && (sensorCfgList[index].regAddr[2] != 0)) {
-// sensorId = (regVal[0] & 0xff) << 16;
-// sensorId |= ((regVal[1] & 0xff) << 8);
-// sensorId |= (regVal[2] & 0xff);
-// }
-
-// if (sensorCfgList[index].sensorId == sensorId) {
-// TRACE(SENSOR_DRV_INFO, "%s: sensorId=%x found in i2c-%u! \n", __func__, sensorId, busId);
-// strcpy(pPortInfo->name, sensorCfgList[index].pSensorName);
-// pPortInfo->chipId = sensorId;
-// break;
-// }
-// }
-
-// HalCloseI2cDevice(fd);
-
-// TRACE( SENSOR_DRV_INFO, "%s: (exit)\n", __func__);
-// return RET_SUCCESS;
-// }
+RESULT VsiCamDeviceSensorMapping
+(
+	const CamDeviceSensorModuleMapCfg_t  *pModuleInfo,
+    CamDeviceSensorDrvHandle_t *pSensorDrvhandle
+)
+{
+	RESULT result = RET_SUCCESS;
+	uint8_t i = 0;
 
 
-//RESULT HalGetSensorName(HalHandle_t HalHandle, char pSensorName[], uint16_t arraySize)
-//{
-// RESULT result;
-// AdaptSensorInfo_t sensorInfo;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || pSensorName == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-//
-// result = AdaptGetSensorInfo(pHalCtx->adaptHandle, &sensorInfo);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: get sensor name error in hal!\n", __func__);
-// return result;
-// }
-//
-// snprintf(pSensorName, arraySize, "%s", sensorInfo.pSensorName);
-// return RET_SUCCESS;
-//}
-//
-//RESULT HalGetSensorDrvName(HalHandle_t HalHandle, char pSensorDrvName[], uint16_t arraySize)
-//{
-// RESULT result;
-// AdaptSensorInfo_t sensorInfo;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || pSensorDrvName == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-//
-// result = AdaptGetSensorInfo(pHalCtx->adaptHandle, &sensorInfo);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: get sensor drv name error in hal!\n", __func__);
-// return result;
-// }
-//
-// snprintf(pSensorDrvName, arraySize, "%s", sensorInfo.pSensorDrvName);
-// return RET_SUCCESS;
-//}
-//
-//RESULT HalGetSensorCalibXmlName(HalHandle_t HalHandle, char pSensorCalibXmlName[], uint16_t arraySize)
-//{
-// RESULT result;
-// AdaptSensorInfo_t sensorInfo;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || pSensorCalibXmlName == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptGetSensorInfo(pHalCtx->adaptHandle, &sensorInfo);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: get sensor calibration XML name error in hal!\n", __func__);
-// return result;
-// }
-//
-// snprintf(pSensorCalibXmlName, arraySize, "%s", sensorInfo.pSensorCalibXmlName);
-// return RET_SUCCESS;
-//
-//}
-//
-//RESULT HalGetSensorDefaultMode(HalHandle_t HalHandle, uint32_t *pMode)
-//{
-// RESULT result;
-// AdaptSensorInfo_t sensorInfo;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || pMode == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptGetSensorInfo(pHalCtx->adaptHandle, &sensorInfo);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: get sensor default mode error in hal!\n", __func__);
-// return result;
-// }
-//
-// *pMode = sensorInfo.sensorDefaultMode;
-// return RET_SUCCESS;
-//}
-//
-//RESULT HalGetSensorCurrMode(HalHandle_t HalHandle, uint32_t *pMode)
-//{
-// RESULT result;
-// AdaptSensorInfo_t sensorInfo;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || pMode == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptGetSensorInfo(pHalCtx->adaptHandle, &sensorInfo);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: get sensor current mode error in hal!\n", __func__);
-// return result;
-// }
-//
-// *pMode = sensorInfo.sensorCurrMode;
-// return RET_SUCCESS;
-//}
-//
-//RESULT HalGetSensorCurrHdrMode(HalHandle_t HalHandle, uint32_t *pMode)
-//{
-// RESULT result;
-// AdaptSensorInfo_t sensorInfo;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || pMode == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptGetSensorInfo(pHalCtx->adaptHandle, &sensorInfo);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: get sensor current hdr mode error in hal!\n", __func__);
-// return result;
-// }
-//
-// *pMode = sensorInfo.sensorHdrEnable;
-// return RET_SUCCESS;
-//}
-//
-//
-//RESULT HalSetSensorMode(HalHandle_t HalHandle, uint32_t mode)
-//{
-// RESULT result;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptSetSensorMode(pHalCtx->adaptHandle, mode);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: set sensor mode error in hal!\n", __func__);
-// return result;
-// }
-// return RET_SUCCESS;
-//}
-//
-//RESULT HalSetSensorCalibXmlName(HalHandle_t HalHandle, const char* CalibXmlName)
-//{
-// RESULT result;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL || CalibXmlName == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptSetSensorCalibXmlName(pHalCtx->adaptHandle, CalibXmlName);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: set sensor CalibXmlName error in hal!\n", __func__);
-// return result;
-// }
-// return RET_SUCCESS;
-//}
-//
-//RESULT HaSensorModeLock(HalHandle_t HalHandle)
-//{
-// RESULT result;
-// HalContext_t *pHalCtx = (HalContext_t *)HalHandle;
-// if(pHalCtx == NULL)
-// {
-// return RET_NULL_POINTER;
-// }
-// result = AdaptSensorModeLock(pHalCtx->adaptHandle);
-// if(result != RET_SUCCESS)
-// {
-// TRACE(HAL_ERROR, "%s: sensor mode lock error in hal!\n", __func__);
-// return result;
-// }
-// return RET_SUCCESS;
-//}
+	if (NULL == pModuleInfo || NULL == pSensorDrvhandle)
+		return (RET_NULL_POINTER);
+
+
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+
+	packet.cookie = 3;
+	packet.type = CMD;
+	packet.payload_size = 0;
+
+	uint8_t *p_data = packet.payload_data;
+	p_data += sizeof(uint32_t);
+    packet.payload_size += sizeof(uint32_t);
+	memcpy(p_data, pModuleInfo->moduleName, SENSOR_MODULE_NAME);
+
+    p_data += SENSOR_MODULE_NAME;
+    packet.payload_size += SENSOR_MODULE_NAME;
+    memcpy(p_data, &pModuleInfo->sensorDevId, sizeof(uint32_t));
+
+    p_data += sizeof(uint32_t);
+    packet.payload_size += sizeof(uint32_t);
+
+    packet.payload_size += sizeof(IsiCamDrvConfigMbox_t);
+
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
+
+	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_MAPPING, &packet,
+			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (0 != result)
+		return RET_FAILURE;
+
+
+	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+
+	*pSensorDrvhandle = (IsiCamDrvConfigMbox_t *)osMalloc(sizeof(IsiCamDrvConfigMbox_t));
+    if(*pSensorDrvhandle == NULL) {
+	printf("APU Failed to allocate memory for sensor mapping.\r\n");
+	return RET_OUTOFMEM;
+    }
+    memcpy(*pSensorDrvhandle, p_data, sizeof(IsiCamDrvConfigMbox_t));
+
+    IsiCamDrvConfigMbox_t *pcamcfg = (IsiCamDrvConfigMbox_t *)*pSensorDrvhandle;
+    printf("Apu mapping end: cameraDriverID: %x \r\n", pcamcfg->cameraDriverID);
+    printf("Apu mapping end: sensorDevId: %d \r\n", pcamcfg->sensorDevId);
+    printf("Apu mapping end: pIsiGetSensorIss: %d \r\n", pcamcfg->pIsiGetSensorIss);
+
+
+	return packet.resp_field.error_subcode_t;
+}

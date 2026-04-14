@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -57,78 +57,91 @@
 #include "cam_device_tpg_api.h"
 #include "cam_device_fusa_api.h"
 
-/**
- * @cond MODULE_CONROL
- *
- * @defgroup cam_device_module Definitions
- * @{
- *
- */
-
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
+/**
+ * @defgroup 27_cam_device_general VsCamDevice E01C27 Device_GeneralCtrl Definitions
+ * @brief Provides interfaces for controlling the ISP pipeline.
+ * @{
+ *
+ */
 
 /******************************************************************************/
 /**
- * @brief   CamDevice module  enumeration.
+ * @brief   VsCamDevice module  enumeration.
  *
  *****************************************************************************/
 typedef enum CamDeviceModuleAutoWorkMode_e {
-	CAMDEV_MODULE_AUTO_GAIN_MODE = 0,      /**< Auto gain interpolation*/
-	CAMDEV_MODULE_AUTO_LUX_INDEX_MODE,     /**< Auto lux index interpolation */
-	CAMDEV_MODULE_AUTO_MODE_MAX,            /**< Auto ctrl mode max index */
-	CAMDEV_DUMMY_044 = 0xDEADFEED
-} CamDeviceModuleAutoWorkMode_t;
+    CAMDEV_MODULE_AUTO_GAIN_MODE = 0,      /**< Auto gain interpolation*/
+    CAMDEV_MODULE_AUTO_LUX_INDEX_MODE,     /**< Auto lux index interpolation */
+    CAMDEV_MODULE_AUTO_MODE_MAX            /**< Auto ctrl mode max index */
+}CamDeviceModuleAutoWorkMode_t;
 
 
 /******************************************************************************/
 /**
- * @brief   CamDevice module configuration.
+ * @brief   VsCamDevice module configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceModuleAutoCtrlConfig_s {
-	CamDeviceModuleAutoWorkMode_t workMode;  /**< Submodule auto ctrl work mode configuration */
-} CamDeviceModuleAutoCtrlConfig_t;
-
+    CamDeviceModuleAutoWorkMode_t workMode;  /**< Submodule auto ctrl work mode configuration */
+}CamDeviceModuleAutoCtrlConfig_t;
 
 /*****************************************************************************/
 /**
  * @brief   This function sets submodule auto control work mode.
+ * @startuml VsiCamDeviceModuleAutoCtrlSetConfig
+ * !include E01_External/VsiCamDeviceModuleAutoCtrlSetConfig.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @param[in]       pConfig     Pointer to auto control Configuration
+ * @details This function calls: \ref CamEngineSetAutoWorkMode
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceModuleAutoCtrlSetConfig
 (
-	CamDeviceHandle_t hCamDevice,
+	CamDeviceHandle_t		         hCamDevice,
 	const CamDeviceModuleAutoCtrlConfig_t	*pConfig
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function gets submodule auto control work mode.
+ * @brief   This function sets submodule auto control work mode.
+ * @startuml VsiCamDeviceModuleAutoCtrlGetConfig
+ * !include E01_External/VsiCamDeviceModuleAutoCtrlGetConfig.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pConfig     Pointer to auto control Configuration
+ * @details This function calls: \ref CamEngineGetAutoWorkMode
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceModuleAutoCtrlGetConfig
 (
-	CamDeviceHandle_t hCamDevice,
+	CamDeviceHandle_t		         hCamDevice,
 	CamDeviceModuleAutoCtrlConfig_t	*pConfig
 );
 
 
-/* @} cam_device_module */
-/* @endcond */
-
+/** @} 27_cam_device_general */
 
 #ifdef __cplusplus
 }

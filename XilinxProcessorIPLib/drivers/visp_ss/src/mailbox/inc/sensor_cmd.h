@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #ifndef _SENSOR_CMD_H_
 #define _SENSOR_CMD_H_
 
@@ -11,7 +11,8 @@ typedef struct VMix_buff {
 } VMix_input_buffer;
 
 
-typedef enum {
+typedef enum
+{
 	MB_CMD_RES_SUCCESS,
 	MB_CMD_GET_SUCCESS,
 	/*---------------------------------------API CMD------------------------------------*/
@@ -44,7 +45,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_ModuleAutoCtrlSetConfig,
 	APU_2_RPU_MB_CMD_ModuleAutoCtrlGetConfig,
 
-	/*--------------------------------------Buffer API CMD----------------------------------*/
+/*--------------------------------------Buffer API CMD----------------------------------*/
 	APU_2_RPU_MB_CMD_INIT_BUF_CHAIN,
 	APU_2_RPU_MB_CMD_DEINIT_BUF_CHAIN,
 	APU_2_RPU_MB_CMD_GET_BUFFER_SIZE,
@@ -56,7 +57,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_ENQUE_BUFFER,
 	APU_2_RPU_MB_CMD_GET_BUFFER_MGMT,
 
-	/*----------------------------------------SENSOR API-------------------------------------*/
+/*----------------------------------------SENSOR API-------------------------------------*/
 	APU_2_RPU_MB_CMD_SENSOR_OPEN,
 	APU_2_RPU_MB_CMD_SENSOR_DRV_HANDLE_REG,
 	APU_2_RPU_MB_CMD_SENSOR_DRV_HANDLE_UNREG,
@@ -90,7 +91,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_SENSOR_SET_WB,
 	APU_2_RPU_MB_CMD_SENSOR_GET_WB,
 
-	/*----------------------------------------FUSA API----------------------------------------*/
+/*----------------------------------------FUSA API----------------------------------------*/
 	APU_2_RPU_MB_CMD_Fusa_FaultInject_Enable,
 	APU_2_RPU_MB_CMD_Fusa_Ecc_Enable,
 	APU_2_RPU_MB_CMD_Fusa_Ecc_Disable,
@@ -110,17 +111,20 @@ typedef enum {
 	APU_2_RPU_MB_CMD_GET_Fusa_Crc,
 	APU_2_RPU_MB_CMD_GET_Fusa_Bist,
 	APU_2_RPU_MB_CMD_Fusa_Register_EventCb,
+	APU_2_RPU_MB_CMD_Fusa_Deregister_EventCb,
+    APU_2_RPU_MB_CMD_Isp_Notifer_Register_EventCb,
+    APU_2_RPU_MB_CMD_Isp_Notifer_Deregister_EventCb,
 	APU_2_RPU_MB_CMD_Fusa_RESET,
 	APU_2_RPU_MB_CMD_Fusa_GET_VERSION,
 
-	/*----------------------------------------TPG API----------------------------------------*/
+/*----------------------------------------TPG API----------------------------------------*/
 	APU_2_RPU_MB_CMD_TPG_SetCfg,
 	APU_2_RPU_MB_CMD_TPG_GetCfg,
 	APU_2_RPU_MB_CMD_TPG_Enable,
 	APU_2_RPU_MB_CMD_TPG_Disable,
 	APU_2_RPU_MB_CMD_TPG_GetVersion,
 
-	/*---------------------------------------2DNR API V5_2-----------------------------------*/
+/*---------------------------------------2DNR API V5_2-----------------------------------*/
 	APU_2_RPU_MB_CMD_2DNR_ENABLE,
 	APU_2_RPU_MB_CMD_2DNR_DISABLE,
 	APU_2_RPU_MB_CMD_2DNR_SET_CONFIG,
@@ -131,9 +135,9 @@ typedef enum {
 	APU_2_RPU_MB_CMD_2DNR_GET_VERSION,
 	APU_2_RPU_MB_CMD_2DNR_RESET,
 
-	/*--------------------------------------------AE API------------------------------------*/
-	RPU_2_APU_MB_CMD_REGISTER_AELIB,
-	RPU_2_APU_MB_CMD_UNREGISTER_AELIB,
+/*--------------------------------------------AE API------------------------------------*/
+	APU_2_RPU_MB_CMD_REGISTER_AELIB,
+	APU_2_RPU_MB_CMD_UNREGISTER_AELIB,
 	APU_2_RPU_MB_CMD_AE_SET_CONFIG,
 	APU_2_RPU_MB_CMD_AE_GET_CONFIG,
 	APU_2_RPU_MB_CMD_AE_SET_MODE,
@@ -148,15 +152,12 @@ typedef enum {
 	APU_2_RPU_MB_CMD_AE_DISABLE,
 	APU_2_RPU_MB_CMD_AE_RESET,
 	APU_2_RPU_MB_CMD_AE_GET_STATUS,
-	APU_2_RPU_MB_CMD_AE_GET_HISTOGRAM,
-	APU_2_RPU_MB_CMD_AE_GET_LUMINANCE,
-	APU_2_RPU_MB_CMD_AE_GET_OBJECT_REGION,
 	APU_2_RPU_MB_CMD_AE_SET_EXP_TBL,
 	APU_2_RPU_MB_CMD_AE_GET_EXP_TBL,
 	APU_2_RPU_MB_CMD_AE_GET_VERSION,
 	APU_2_RPU_MB_CMD_AE_GET_RES,
 
-	/*--------------------------------------------AF API V1-----------------------------------*/
+/*--------------------------------------------AF API V1-----------------------------------*/
 	APU_2_RPU_MB_CMD_AF_REGISTER,
 	APU_2_RPU_MB_CMD_AF_UNREGISTER,
 	APU_2_RPU_MB_CMD_AF_SET_MODE,
@@ -175,7 +176,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_AF_GET_VERSION,
 	APU_2_RPU_MB_CMD_AF_RESET,
 
-	/*--------------------------------------------AFM API -----------------------------------*/
+/*--------------------------------------------AFM API -----------------------------------*/
 	APU_2_RPU_MB_CMD_AFM_SET_THRESHOLD,
 	APU_2_RPU_MB_CMD_AFM_GET_THRESHOLD,
 	APU_2_RPU_MB_CMD_AFM_GET_STATISTICS,
@@ -187,7 +188,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_AFM_GET_VERSION,
 	APU_2_RPU_MB_CMD_AFM_RESET,
 
-	/*---------------------------------------------AWB API--------------------------------------*/
+/*---------------------------------------------AWB API--------------------------------------*/
 	APU_2_RPU_MB_CMD_REGISTER_AWB_LIB,
 	APU_2_RPU_MB_CMD_UNREGISTER_AWB_LIB,
 	APU_2_RPU_MB_CMD_AWB_SET_CONFIG,
@@ -203,8 +204,10 @@ typedef enum {
 	APU_2_RPU_MB_CMD_AWB_GET_ColorTempWeight,
 	APU_2_RPU_MB_CMD_AWB_RESET,
 	APU_2_RPU_MB_CMD_AWB_GET_RES,
+	APU_2_RPU_MB_CMD_AWB_SET_CALIB_DATA,
+	APU_2_RPU_MB_CMD_AWB_GET_CALIB_DATA,
 
-	/*----------------------------------------------BLS API-----------------------------------------*/
+/*----------------------------------------------BLS API-----------------------------------------*/
 	APU_2_RPU_MB_CMD_BLS_SET_CONFIG,
 	APU_2_RPU_MB_CMD_BLS_GET_CONFIG,
 	APU_2_RPU_MB_CMD_BLS_SET_BIT_WIDTH,
@@ -213,7 +216,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_BLS_RESET,
 	APU_2_RPU_MB_CMD_BLS_GET_VERSION,
 
-	/*----------------------------------------------CCM API-----------------------------------------*/
+/*----------------------------------------------CCM API-----------------------------------------*/
 	APU_2_RPU_MB_CMD_CCM_ENABLE,
 	APU_2_RPU_MB_CMD_CCM_DISABLE,
 	APU_2_RPU_MB_CMD_CCM_SET_CONFIG,
@@ -222,17 +225,16 @@ typedef enum {
 	APU_2_RPU_MB_CMD_CCM_RESET,
 	APU_2_RPU_MB_CMD_CCM_GET_VERSION,
 
-	/*-----------------------------------------------CPD API----------------------------------------*/
+/*-----------------------------------------------CPD API----------------------------------------*/
 	APU_2_RPU_MB_CMD_CPD_SET_CONFIG,
 	APU_2_RPU_MB_CMD_CPD_GET_CONFIG,
 	APU_2_RPU_MB_CMD_CPD_EXPAND_ENABLE,
 	APU_2_RPU_MB_CMD_CPD_EXPAND_DISABLE,
 	APU_2_RPU_MB_CMD_CPD_EXPAND_GET_STATUS,
-	APU_2_RPU_MB_CMD_CPD_COMPRESS_GET_STATUS,
 	APU_2_RPU_MB_CMD_CPD_RESET,
 	APU_2_RPU_MB_CMD_CPD_GET_VERSION,
 
-	/*-----------------------------------------------CPROC API---------------------------------------*/
+/*-----------------------------------------------CPROC API---------------------------------------*/
 	APU_2_RPU_MB_CMD_CPROC_SET_CONFIG,
 	APU_2_RPU_MB_CMD_CPROC_GET_CONFIG,
 	APU_2_RPU_MB_CMD_CPROC_SET_RANGE,
@@ -244,7 +246,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_CPROC_RESET,
 	APU_2_RPU_MB_CMD_CPROC_GET_VERSION,
 
-	/*---------------------------------------------DG API-----------------------------------------------*/
+/*---------------------------------------------DG API-----------------------------------------------*/
 	APU_2_RPU_MB_CMD_DG_SET_CONFIG,
 	APU_2_RPU_MB_CMD_DG_GET_CONFIG,
 	APU_2_RPU_MB_CMD_DG_ENABLE,
@@ -253,7 +255,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_DG_RESET,
 	APU_2_RPU_MB_CMD_DG_GET_VERSION,
 
-	/*--------------------------------------------DMSC API--------------------------------------------*/
+/*--------------------------------------------DMSC API--------------------------------------------*/
 	APU_2_RPU_MB_CMD_DMSC_SET_CONFIG,
 	APU_2_RPU_MB_CMD_DMSC_GET_CONFIG,
 	APU_2_RPU_MB_CMD_DMSC_ENABLE,
@@ -273,8 +275,9 @@ typedef enum {
 	APU_2_RPU_MB_CMD_DMSC_GET_STATUS,
 	APU_2_RPU_MB_CMD_DMSC_RESET,
 	APU_2_RPU_MB_CMD_DMSC_GET_VERSION,
+	APU_2_RPU_MB_CMD_DMSC_SUBEN_GETCFG,
 
-	/*--------------------------------------------DPCC API------------------------------------------*/
+/*--------------------------------------------DPCC API------------------------------------------*/
 	APU_2_RPU_MB_CMD_DPCC_SET_CONFIG,
 	APU_2_RPU_MB_CMD_DPCC_GET_CONFIG,
 	APU_2_RPU_MB_CMD_DPCC_ENABLE,
@@ -283,7 +286,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_DPCC_RESET,
 	APU_2_RPU_MB_CMD_DPCC_GET_VERSION,
 
-	/*---------------------------------------------EE API-------------------------------------------*/
+/*---------------------------------------------EE API-------------------------------------------*/
 	APU_2_RPU_MB_CMD_EE_SET_CONFIG,
 	APU_2_RPU_MB_CMD_EE_GET_CONFIG,
 	APU_2_RPU_MB_CMD_EE_GET_CURVE_EN_CONFIG,
@@ -299,7 +302,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_EE_RESET,
 	APU_2_RPU_MB_CMD_EE_GET_VERSION,
 
-	/*-----------------------------------------------EXP V2 API----------------------------------------*/
+/*-----------------------------------------------EXP V2 API----------------------------------------*/
 	APU_2_RPU_MB_CMD_EXP_V2_SET_CONFIG,
 	APU_2_RPU_MB_CMD_EXP_V2_GET_CONFIG,
 	APU_2_RPU_MB_CMD_EXP_V2_ENABLE,
@@ -311,7 +314,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_EXP_V2_GET_VERSION,
 	APU_2_RPU_MB_CMD_EXP_V2_RESET,
 
-	/*----------------------------------------------GC API------------------------------------------*/
+/*----------------------------------------------GC API------------------------------------------*/
 	APU_2_RPU_MB_CMD_GC_SET_CONFIG,
 	APU_2_RPU_MB_CMD_GC_GET_CONFIG,
 	APU_2_RPU_MB_CMD_GC_ENABLE,
@@ -320,7 +323,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_GC_RESET,
 	APU_2_RPU_MB_CMD_GC_GET_VERSION,
 
-	/*-----------------------------------------------GE API-----------------------------------------*/
+/*-----------------------------------------------GE API-----------------------------------------*/
 	APU_2_RPU_MB_CMD_GE_SET_CONFIG,
 	APU_2_RPU_MB_CMD_GE_GET_CONFIG,
 	APU_2_RPU_MB_CMD_GE_ENABLE,
@@ -329,7 +332,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_GE_RESET,
 	APU_2_RPU_MB_CMD_GE_GET_VERSION,
 
-	/*-----------------------------------------------GTM API V_1------------------------------------*/
+/*-----------------------------------------------GTM API V_1------------------------------------*/
 	APU_2_RPU_MB_CMD_GTM_SET_CONFIG,
 	APU_2_RPU_MB_CMD_GTM_GET_CONFIG,
 	APU_2_RPU_MB_CMD_GTM_ENABLE,
@@ -340,9 +343,8 @@ typedef enum {
 	APU_2_RPU_MB_CMD_GTM_GET_STATUS,
 	APU_2_RPU_MB_CMD_GTM_GET_VERSION,
 	APU_2_RPU_MB_CMD_GTM_RESET,
-	APU_2_RPU_MB_CMD_GTM_GETHIST,
 
-	/*---------------------------------------------HIST API ----------------------------------------*/
+/*---------------------------------------------HIST API ----------------------------------------*/
 	APU_2_RPU_MB_CMD_HIST256_SET_CONFIG,
 	APU_2_RPU_MB_CMD_HIST256_GET_CONFIG,
 	APU_2_RPU_MB_CMD_HIST256_ENABLE,
@@ -361,7 +363,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_HIST64_GET_VERSION,
 	APU_2_RPU_MB_CMD_HIST64_RESET,
 
-	/*---------------------------------------------LSC API V3--------------------------------------*/
+/*---------------------------------------------LSC API V3--------------------------------------*/
 	APU_2_RPU_MB_CMD_LSC_SET_CONFIG,
 	APU_2_RPU_MB_CMD_LSC_GET_CONFIG,
 	APU_2_RPU_MB_CMD_LSC_ENABLE,
@@ -370,7 +372,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_LSC_GET_STATUS,
 	APU_2_RPU_MB_CMD_LSC_GET_VERSION,
 
-	/*---------------------------------------------RGBIR API V2------------------------------------*/
+/*---------------------------------------------RGBIR API V2------------------------------------*/
 	APU_2_RPU_MB_CMD_RGBIR_SET_INTERNAL_CONFIG,
 	APU_2_RPU_MB_CMD_RGBIR_SET_CONFIG,
 	APU_2_RPU_MB_CMD_RGBIR_GET_CONFIG,
@@ -388,7 +390,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_RGBIR_GET_VERSION,
 	APU_2_RPU_MB_CMD_RGBIR_RESET,
 
-	/*-------------------------------------------WB API---------------------------*/
+/*-------------------------------------------WB API---------------------------*/
 	APU_2_RPU_MB_CMD_WB_ENABLE,
 	APU_2_RPU_MB_CMD_WB_DISABLE,
 	APU_2_RPU_MB_CMD_WB_SET_CONFIG,
@@ -397,7 +399,7 @@ typedef enum {
 	APU_2_RPU_MB_CMD_WB_RESET,
 	APU_2_RPU_MB_CMD_WB_GET_VERSION,
 
-	/*-------------------------------------------WDR V5_2-----------------------*/
+/*-------------------------------------------WDR V5_2-----------------------*/
 	APU_2_RPU_MB_CMD_WDR_SET_CONFIG,
 	APU_2_RPU_MB_CMD_WDR_GET_CONFIG,
 	APU_2_RPU_MB_CMD_WDR_ENABLE,
@@ -414,6 +416,20 @@ typedef enum {
 	APU_2_RPU_MB_CMB_INIT_FIRMWARE,		/**< init firmware, no command context */
 	APU_2_RPU_MB_CMD_LOADCFG_STREAMING,		/**< load config from sram, no command context */
 	APU_2_RPU_MB_CMD_DEINIT_STREAMING,
+
+	APU_2_RPU_MB_CMD_I2C_INIT,
+	APU_2_RPU_MB_CMD_SLCR_INIT,
+	APU_2_RPU_MB_CMD_IBA_INIT,
+	APU_2_RPU_MB_CMD_OBA_INIT,
+	APU_2_RPU_MB_CMD_SET_ATM,
+	APU_2_RPU_MB_CMD_CONFIG_RESIZER,
+
+	APU_2_RPU_MB_CMD_SOFT_RESET,
+	APU_2_RPU_MB_TIME_DELAY_TEST_CMD,
+
+	APU_2_RPU_MB_LINUX_COMPAT,
+	APU_2_RPU_MB_TEST,
+	APU_2_RPU_MB_CMD_MAX,
 
 
 	/*---------------------------------------------APU SENSOR DRIVER------------------------------------*/
@@ -456,48 +472,20 @@ typedef enum {
 	RPU_2_APU_MB_CMD_REPORT_INTERNAL_FAILURE,
 	RPU_2_APU_MB_CMD_FULL_BUFFER_INFORM,
 	RPU_2_APU_MB_CMD_FUSA_EVENT_CB,
+	RPU_2_APU_MB_CMD_ISP_NOTIFY_EVENT_CB,
+	RPU_2_APU_MB_CMD_ISP_ERR_REPORT,
+    RPU_2_APU_CMD_DISPLAY_BUFFER,
+	RPU_2_APU_CMD_MAX,
 
 	MB_CMD_RES_ERR,
 	MB_CMD_RES_TIMEOUT,
 	MB_CMD_END,
 	MB_CMD_BUF_RET,
-	APU_2_RPU_MB_CMD_I2C_INIT,
-	APU_2_RPU_MB_CMD_SLCR_INIT,
-	APU_2_RPU_MB_CMD_IBA_INIT,
-	APU_2_RPU_MB_CMD_OBA_INIT,
-	APU_2_RPU_MB_CMD_SET_ATM,
-	APU_2_RPU_MB_CMD_CONFIG_RESIZER,
-	RPU_2_APU_MB_CMD_ISP_ERR_REPORT,
-	APU_2_RPU_MB_CMD_SOFT_RESET,
-	APU_2_RPU_MB_TIME_DELAY_TEST_CMD,
-	APU_2_RPU_MB_TEST,
-	RPU_2_APU_CMD_DISPLAY_BUFFER,
-	APU_2_RPU_MB_LINUX_COMPAT,
+
 	DUMMY_MB_CMD = 0xdeadfeed,
 } MBCmdId_E;
 
-typedef enum payload_type {
-	CMD,
-	RESP,
-	dummy_pt = 0xDEADFEED,
-} Payload_type;
-
-
-#define MAX_ITEM 16396
-
-typedef struct response_field {
-	uint32_t processed_cmdid;
-	uint32_t error_subcode_t;
-} response_field_t;
-
-
-typedef struct payload_template {
-	Payload_type type;
-	uint32_t cookie;
-	uint32_t payload_size;
-	response_field_t resp_field;
-	uint8_t payload_data[MAX_ITEM];
-} Payload_packet;
+/* Payload_type, response_field_t, Payload_packet, and MAX_ITEM are now defined in mbox_fifo.h */
 
 struct resource_table {
 	uint8_t rpu0_ready;

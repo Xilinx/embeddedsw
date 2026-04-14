@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -52,7 +52,7 @@ RESULT VsiCamDeviceAfGetMode
 RESULT VsiCamDeviceAfSetConfig
 (
 	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfConfig_t *pConfig
+	const CamDeviceAfConfig_t      *pConfig
 )
 {
 	return RET_SUCCESS;
@@ -96,7 +96,7 @@ RESULT VsiCamDeviceAfDisable
 RESULT VsiCamDeviceAfGetStatus
 (
 	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfState_t *pStatus
+	CamDeviceAfStatus_t       *pStatus
 )
 {
 	return RET_SUCCESS;

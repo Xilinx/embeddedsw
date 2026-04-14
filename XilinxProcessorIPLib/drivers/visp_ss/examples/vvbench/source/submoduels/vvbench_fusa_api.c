@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets of    *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #define LOGTAG "FUSA"
 #include "cJSON.h"
@@ -188,8 +203,25 @@ int VsiVvbenchFusaFunc
 		}
 
 		if (caseCtx->instanceCfgCtx[index].fusaCfg.timeOutEn) {
-			VsiCamDeviceFusaTimeoutEnable(hCamDevice);
-		}
+            int pathEnable = 0;
+            if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_PIPE_OUTPATH_MP].pathEnable) {
+                pathEnable |= CAMDEV_OUT_MP_PATH_MASK;
+            }
+            if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_PIPE_OUTPATH_SP1].pathEnable) {
+                pathEnable |= CAMDEV_OUT_SP1_PATH_MASK;
+            }
+            if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_PIPE_OUTPATH_SP2].pathEnable) {
+                pathEnable |= CAMDEV_OUT_SP2_PATH_MASK;
+            }
+            if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_PIPE_OUTPATH_RAW].pathEnable) {
+                pathEnable |= CAMDEV_OUT_RAW_PATH_MASK;
+            }
+            if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_PIPE_OUTPATH_HDR_RAW].pathEnable) {
+                pathEnable |= CAMDEV_OUT_HDR_RAW_PATH_MASK;
+            }
+
+            VsiCamDeviceFusaTimeoutEnable(hCamDevice, pathEnable);
+        }
 
 		if (caseCtx->instanceCfgCtx[index].fusaCfg.bistEn) {
 			fusaCrcCfg.crcOutRevEn =
@@ -217,27 +249,39 @@ int VsiVvbenchFusaFunc
 		}
 
 		if (caseCtx->instanceCfgCtx[index].fusaCfg.crcEn) {
-			fusaCrcCfg.crcOutRevEn =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcOutRevEn;
-			fusaCrcCfg.crcXorEn = caseCtx->instanceCfgCtx[index].fusaCfg.crcXorEn;
-			fusaCrcCfg.crcInRevEnMode =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcInRevEn;
-			fusaCrcCfg.crcLevel = caseCtx->instanceCfgCtx[index].fusaCfg.crcLevel;
-			fusaCrcCfg.crcMpRoi.crcRoiH =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcMpRoiH;
-			fusaCrcCfg.crcMpRoi.crcRoiV =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcMpRoiV;
-			fusaCrcCfg.crcSp1Roi.crcRoiH =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcSp1RoiH;
-			fusaCrcCfg.crcSp1Roi.crcRoiV =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcSp1RoiV;
-			fusaCrcCfg.crcSp2Roi.crcRoiH =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcSp2RoiH;
-			fusaCrcCfg.crcSp2Roi.crcRoiV =
-				caseCtx->instanceCfgCtx[index].fusaCfg.crcSp2RoiV;
-			VsiCamDeviceFusaCrcEnable(hCamDevice);
-			VsiCamDeviceFusaCrcSetConfig(hCamDevice, &fusaCrcCfg);
-		}
+            fusaCrcCfg.crcOutRevEn =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcOutRevEn;
+            fusaCrcCfg.crcXorEn = caseCtx->instanceCfgCtx[index].fusaCfg.crcXorEn;
+            fusaCrcCfg.crcInRevEnMode =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcInRevEn;
+            fusaCrcCfg.crcLevel = caseCtx->instanceCfgCtx[index].fusaCfg.crcLevel;
+            fusaCrcCfg.crcMpRoi.crcRoiH =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcMpRoiH;
+            fusaCrcCfg.crcMpRoi.crcRoiV =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcMpRoiV;
+            fusaCrcCfg.crcSp1Roi.crcRoiH =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp1RoiH;
+            fusaCrcCfg.crcSp1Roi.crcRoiV =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp1RoiV;
+            fusaCrcCfg.crcSp2Roi.crcRoiH =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp2RoiH;
+            fusaCrcCfg.crcSp2Roi.crcRoiV =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp2RoiV;
+            fusaCrcCfg.crcMpRoi.crcRoiOffH =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcMpRoiOffH;
+            fusaCrcCfg.crcMpRoi.crcRoiOffV =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcMpRoiOffV;
+            fusaCrcCfg.crcSp1Roi.crcRoiOffH =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp1RoiOffH;
+            fusaCrcCfg.crcSp1Roi.crcRoiOffV =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp1RoiOffV;
+            fusaCrcCfg.crcSp2Roi.crcRoiOffH =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp2RoiOffH;
+            fusaCrcCfg.crcSp2Roi.crcRoiOffV =
+                caseCtx->instanceCfgCtx[index].fusaCfg.crcSp2RoiOffV;
+            VsiCamDeviceFusaCrcEnable(hCamDevice);
+            VsiCamDeviceFusaCrcSetConfig(hCamDevice, &fusaCrcCfg);
+        }
 		result = VsiCamDeviceFusaRegisterEventCb(hCamDevice, FusaEventCbFunc, (void *)NULL);
 		if (0 != result) {
 			LOGE("Vvbench register FUSA cb func failed!\n");

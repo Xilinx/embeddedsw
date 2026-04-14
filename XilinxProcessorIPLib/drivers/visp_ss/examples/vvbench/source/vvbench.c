@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2022 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #include "vvbench.h"
 #include "vvbase.h"
@@ -22,8 +37,8 @@ extern int mm_init(void);
 #include "cJSON.h"
 /* vvbench_json_loader provided by libvisp.a */
 #include "xvisp_ss.h"
+#include "cam_device_api.h"
 extern int ATM_ENABLE;
-
 #define LOGTAG "VVBENCH"
 //#include <unistd.h>
 #ifdef PORTING_25
@@ -77,8 +92,9 @@ char *VsiVvbenchLoadFileContent
 	while (NumBytesRead) {
 		Res = f_read(&jsonFile, (void*)readBuf, 256,
 			     &NumBytesRead);
-		if (Res)
+		if (Res) {
 			return XST_FAILURE;
+		}
 		len += NumBytesRead;
 		Res = f_lseek(&jsonFile, len);
 	}
@@ -86,8 +102,9 @@ char *VsiVvbenchLoadFileContent
 	f_lseek(&jsonFile, 0);
 	char *content = mm_malloc(len + 1);
 	Res = f_read(&jsonFile, (void*)content, len, &NumBytesRead);
-	if (Res)
+	if (Res) {
 		return XST_FAILURE;
+	}
 
 	f_close(&jsonFile);
 
@@ -108,8 +125,9 @@ void VsiVvbenchShutDown
 	count++;
 	if (count == 1) {
 		result = VsiVvbenchExecuteClose();
-		if (0 != result)
+		if (0 != result) {
 			LOGE("VsiVvbenchExecuteClose error");
+		}
 		LOGI("%s exit \n", __func__);
 		exit(0);
 	}
@@ -129,19 +147,22 @@ int get_argc(int argc, int min, int max)
 	if (Res != FR_OK) {
 		xil_printf("argc.txt file not present, provide user input\n");
 		user_input = true;
-	} else {
+	}
+	else {
 		Res = f_read(&pFile, (void*)readBuf, 8,
 			     &NumBytesRead); //argc digits in the file are not greater than two digits
 		if (Res != FR_OK) {
 			xil_printf("argc.txt file not present, provide user input\n");
 			user_input = true;
-		} else {
+		}
+		else {
 			new_argc = atoi(readBuf);
 			if (new_argc < min || new_argc > max) {
 				xil_printf("argc.txt input is not in available case list range '%d' and '%d', provide user input\n",
 					   min, max);
 				user_input = true;
-			} else {
+			}
+			else {
 				argc = new_argc;
 				xil_printf("argc.txt is present in SD Card, case selected=%d\n", argc);
 				user_input = false;
@@ -196,10 +217,12 @@ int get_argc(int argc, int min, int max)
 				new_argc += tmp;
 				rd = true;
 				xil_printf("%d", tmp);
-			} else if ((Response == 0xA) || (Response == 0xD)) {
+			}
+			else if ((Response == 0xA) || (Response == 0xD)) {
 				if (rd == true) {
-					if ((new_argc >= min) && (new_argc <= max))
+					if ((new_argc >= min) && (new_argc <= max)) {
 						argc = new_argc;
+					}
 					else {
 						xil_printf("Enter valid case number or press 'Enter' to select default case=%d\n", argc);
 						rd = false;
@@ -207,10 +230,14 @@ int get_argc(int argc, int min, int max)
 						Response = 0;
 						continue;
 					}
-				} else if (rd == false)
+				}
+				else if (rd == false) {
 					xil_printf("'Enter' key input received, running default case=%d\n", argc);
-			} else
+				}
+			}
+			else {
 				xil_printf("Enter numerical input to select case\n");
+			}
 
 		} while ((Response != 0xA) && (Response != 0xD));
 	}
@@ -268,7 +295,7 @@ int main_vvbench(XVisp_Ss *InstancePtr)
 		if (custom_json == 1)
 			vvctx.caseJsonFile = "LIMO_L1_JSON.json";
 		else
-			vvctx.caseJsonFile = "vvbench_sensor_single_ox03f10_sensor_case_list.json";
+			vvctx.caseJsonFile = "vvbcfg/vvbench_sensor_single_ox03f10_sensor_auto_mode_tuning_case_list.json";
 		LOGI("USE default configure file: %s", vvctx.caseJsonFile);
 		LOGI("Parse configuration settings...");
 		result = VsiVvbenchExecuteList(vvctx.caseJsonFile, &vvcfg);
@@ -280,7 +307,7 @@ int main_vvbench(XVisp_Ss *InstancePtr)
 		if (custom_json == 1)
 			vvctx.caseJsonFile = "LILO_L1_JSON.json";
 		else
-			vvctx.caseJsonFile = "vvbcfg/vvbench_sensor_single_ox03f10_sensor_LILO_case_list.json";
+			vvctx.caseJsonFile = "vvbcfg/vvbench_sensor_single_ox03f10_sensor_auto_mode_tuning_case_lilo_list.json";
 		LOGI("USE default configure file: %s", vvctx.caseJsonFile);
 		LOGI("Parse configuration settings...");
 		result = VsiVvbenchExecuteList(vvctx.caseJsonFile, &vvcfg);
@@ -603,6 +630,23 @@ void VsiVvbenchVersion()
 	LOGI("VVBench Version:%s", VVBENCH_VERSION);
 	// LOGI("Build time: %s, %s", __DATE__, __TIME__);
 	LOGI("--------------------------------------");
+}
+
+int loadBinApp()
+{
+	int result = 0;
+	LOGI("@@loadBinApp started@@");
+
+	selectDestinationCore(0);
+
+	result = SendLoadBinStart();
+	if (result != 0){
+		LOGE("SendLoadBinStart failed.");
+		return result;
+	}
+
+	LOGI("@@loadBinApp end@@");
+	return 0;
 }
 
 #ifndef APU_CORE

@@ -2,7 +2,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -582,12 +582,8 @@ typedef struct PicBufCmpInfo_e {
 typedef struct PicBufMetaData_s {
 	PicBufType_t Type;       // type of picture data
 	PicBufLayout_t Layout;     // kind of data layout
-	/**
-	 * @brief Minimum alignment required for color component planes
-	 *        or sub buffer base addresses for this picture buffer.
-	 */
 	uint32_t
-	Align;
+	Align;      // min. alignment required for color component planes or sub buffer base addresses for this picture buffer
 	int64_t TimeStampUs;  // timestamp in us
 	uint32_t pNext3D;   // Reference to PicBufMetaData of the subsequent buffer in a 3D descriptor chain, valid only in 3D mode; set to NULL if last in chain or for 2D mode.
 	// Note: depending on the 3D format in use, the primary buffer holds left image data while the secondary buffer holds right or depth information.

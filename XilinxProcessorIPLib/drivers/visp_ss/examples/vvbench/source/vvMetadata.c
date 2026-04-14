@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 
 #include "vvdevice.h"
@@ -231,8 +246,9 @@ static RESULT AR0820_FirstPaser
 )
 {
 
-	if (pMetaBuffer == NULL || pResultList == NULL)
+	if (pMetaBuffer == NULL || pResultList == NULL) {
 		return RET_NULL_POINTER;
+	}
 
 	uint32_t nReg = 0, index = 0;
 	uint8_t *pBuffer = pMetaBuffer->pBuffer[0];
@@ -248,16 +264,18 @@ static RESULT AR0820_FirstPaser
 		      validBytes);
 	}
 
-	while (pBuffer[index] != START_TAG && index < bufSize)   // find the START TAG
+	while (pBuffer[index] != START_TAG && index < bufSize) { // find the START TAG
 		index ++;
+	}
 
 	index += 1; //Skip 'START_TAG'
 
 	do {
 		// MLOGI("%s: index %d pBuffer: 0x%x  \n", __func__,index, pBuffer[index]);
 
-		while (pBuffer[index] == LINE_EOF && index < bufSize)   //skip 'LINE_EOF'
+		while (pBuffer[index] == LINE_EOF && index < bufSize) { //skip 'LINE_EOF'
 			index ++;
+		}
 
 		decode = AR0820_GetDecode(pBuffer + index);
 		switch ((decode >> 8) & 0xff) {
@@ -274,11 +292,14 @@ static RESULT AR0820_FirstPaser
 					pResultList[nReg].regValue = (decode & 0xff) << 8;
 					pResultList[nReg].bytesOffset = index;
 					isMsb = BOOL_FALSE;
-					if (isNewOffset)
+					if (isNewOffset) {
 						isNewOffset = BOOL_FALSE;
-					else
+					}
+					else {
 						pResultList[nReg].regAddr = (pResultList[nReg - 1].regAddr + 2);
-				} else {
+					}
+				}
+				else {
 					pResultList[nReg++].regValue |= (decode & 0xff);
 					isMsb = BOOL_TRUE;
 				}
@@ -300,10 +321,12 @@ static RESULT AR0820_RepeatPaser
 	uint32_t regNum
 )
 {
-	if (pMetaBuffer == NULL || pResultList == NULL)
+	if (pMetaBuffer == NULL || pResultList == NULL) {
 		return RET_NULL_POINTER;
-	if (regNum == 0)
+	}
+	if (regNum == 0) {
 		return RET_INVALID_PARM;
+	}
 	uint8_t *pBuffer = pMetaBuffer->pBuffer[0];
 	uint32_t index = 0, nReg = 0;
 	uint16_t decode;
@@ -330,10 +353,12 @@ static RESULT AR0820_GetParserReg
 	uint32_t matchNum
 )
 {
-	if (pResultList == NULL || pMatchList == NULL)
+	if (pResultList == NULL || pMatchList == NULL) {
 		return RET_NULL_POINTER;
-	if (resultNum == 0 || matchNum == 0)
+	}
+	if (resultNum == 0 || matchNum == 0) {
 		return RET_INVALID_PARM;
+	}
 
 	uint32_t matchId = 0;
 	for (matchId = 0; matchId < matchNum; matchId ++) {
@@ -346,10 +371,12 @@ static RESULT AR0820_GetParserReg
 		      matchReg);
 
 		while (midReg != matchReg && (max - min) > 1) {
-			if (midReg > matchReg)
+			if (midReg > matchReg) {
 				max = mid;
-			else
+			}
+			else {
 				min = mid;
+			}
 			mid = (max - min) / 2 + min;;
 			midReg = pResultList[mid].regAddr;
 		}
@@ -359,16 +386,19 @@ static RESULT AR0820_GetParserReg
 		if ((max - min) > 1) { // find it
 			pMatchList[matchId].regValue = pResultList[mid].regValue;
 			pMatchList[matchId].bytesOffset = pResultList[mid].bytesOffset;
-		} else {
+		}
+		else {
 			if (pResultList[min].regAddr == matchReg) {
 				pMatchList[matchId].regValue = pResultList[min].regValue;
 				pMatchList[matchId].bytesOffset = pResultList[min].bytesOffset;
 
-			} else if (pResultList[max].regAddr == matchReg) {
+			}
+			else if (pResultList[max].regAddr == matchReg) {
 				pMatchList[matchId].regValue = pResultList[max].regValue;
 				pMatchList[matchId].bytesOffset = pResultList[max].bytesOffset;
 
-			} else {
+			}
+			else {
 				//not find;
 				MLOGI("%s: Not find the match register 0x%x \n", __func__, pMatchList[matchId].regAddr);
 				return RET_NOTAVAILABLE;
@@ -387,8 +417,9 @@ static RESULT AR0820_FillParserData
 	CamDeviceMetadataInfo_t *pParserData
 )
 {
-	if (pMatchList == NULL || matchNum == 0 || pParserData == NULL)
+	if (pMatchList == NULL || matchNum == 0 || pParserData == NULL) {
 		return RET_NULL_POINTER;
+	}
 
 	uint32_t matchId = 0;
 	uint32_t ratio = 0;
@@ -625,25 +656,33 @@ static RESULT AR0820_FillParserData
 				MLOGI("%s: WBGAIN_T4_GB_INDEX regValue: 0x%x\n", __func__, reg.value);
 				break;
 			case DCGAIN_INDEX:
-				if ((regValue & 0x1) == 1)
+				if ((regValue & 0x1) == 1) {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_LONG_FRAME] = 2.9;
-				else
+				}
+				else {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_LONG_FRAME] = 1.0;
+				}
 
-				if ((regValue & 0x2) == 0x2)
+				if ((regValue & 0x2) == 0x2) {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_SHORT_FRAME] = 2.9;
-				else
+				}
+				else {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_SHORT_FRAME] = 1.0;
+				}
 
-				if ((regValue & 0x4) == 0x4)
+				if ((regValue & 0x4) == 0x4) {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_VERY_SHORT_FRAME] = 2.9;
-				else
+				}
+				else {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_VERY_SHORT_FRAME] = 1.0;
+				}
 
-				if ((regValue & 0x8) == 0x8)
+				if ((regValue & 0x8) == 0x8) {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_EXTRA_SHORT_FRAME] = 2.9;
-				else
+				}
+				else {
 					pParserData->dualConvGain[CAMDEV_EXPOSURE_EXTRA_SHORT_FRAME] = 1.0;
+				}
 
 				MLOGI("%s: regValue: 0x%x, Conversion gain L %f, S %f, VS %f, XS %f \n", __func__, regValue,
 				      pParserData->dualConvGain[CAMDEV_EXPOSURE_LONG_FRAME],
@@ -753,8 +792,9 @@ RESULT VsiVvdeviceParserMetadataNew
 
 	pMetaInstance = pVvInstance;
 
-	if (pMetaBuf->pBuffer[0] == NULL)
+	if (pMetaBuf->pBuffer[0] == NULL) {
 		return RET_NULL_POINTER;
+	}
 
 	// MLOGI("%s:instance %d, address: 0x%x, start tag: 0x%x, bufSize:0x%x \n", __func__,
 	// showChannel, pMetaBuf->address[0],*(pMetaBuf->pBuffer[0]),pMetaBuf->bufferSize[0]);
@@ -763,7 +803,8 @@ RESULT VsiVvdeviceParserMetadataNew
 	if (frameNum == 0) {
 		ret = AR0820_FirstPaser(pMetaBuf, resultList, &regNum);
 		ret |= AR0820_GetParserReg(resultList, regNum, matchList, matchNum);
-	} else {
+	}
+	else {
 		MLOGI("%s: Repeat frame %d \n", __func__, frameNum);
 		ret = AR0820_RepeatPaser(pMetaBuf, matchList, matchNum);
 	}
@@ -817,8 +858,9 @@ RESULT VsiVvdeviceParserMetadata
 {
 	MetadataBufInfo_t *pMetaBuf = &(((PicBufMetaData_t *)buffer ->pMetaData)->Data.meta.metaBufInfo);
 	// CamDeviceSensorRegister_t reg;
-	if (pMetaBuf->pBuffer[0] == NULL)
+	if (pMetaBuf->pBuffer[0] == NULL) {
 		return RET_NULL_POINTER;
+	}
 
 	// MLOGI("%s: address: 0x%x, start tag: 0x%x, bufSize:0x%x \n", __func__,
 	// pMetaBuf->address[0],*(pMetaBuf->pBuffer[0]),pMetaBuf->bufferSize[0]);
@@ -929,8 +971,9 @@ RESULT VsiVvdeviceParserTpgMetadata
 {
 	MetadataBufInfo_t *pMetaBuf = &(((PicBufMetaData_t *)buffer->pMetaData)->Data.meta.metaBufInfo);
 
-	if (pMetaBuf->pBuffer[0] == NULL)
+	if (pMetaBuf->pBuffer[0] == NULL) {
 		return RET_NULL_POINTER;
+	}
 
 	// MLOGI("%s: address: 0x%x, start tag: 0x%x, bufSize:0x%x \n", __func__,
 	// pMetaBuf->address[0], *(pMetaBuf->pBuffer[0]), pMetaBuf->bufferSize[0]);

@@ -1072,7 +1072,7 @@ static int I2cClk(u32 InFreq, u32 OutFreq)
 {
 	int Status = XST_FAILURE;
 
-#if defined (XPS_BOARD_VEK280) || defined (XPS_BOARD_VEK385_1)
+#if defined (XPS_BOARD_VEK280) || defined (XPS_BOARD_VEK385)
 	/* VEK280/VEK385: Direct I2C path, no mux select needed, use addr 0x6C */
 	if (OutFreq != 0) {
 		Status = IDT_8T49N24x_I2cClk(&Iic, I2C_CLK_ADDR1,
@@ -1231,7 +1231,7 @@ static void HdmiTx_SetupTxTmdsRefClk(void *InstancePtr)
 	int Status;
 	XV_Tx *XV_TxInst = (XV_Tx *)InstancePtr;
 
-#if !(defined (XPS_BOARD_VEK280) || defined (XPS_BOARD_VEK385_1))
+#if !(defined (XPS_BOARD_VEK280) || defined (XPS_BOARD_VEK385))
 	/* Non-VEK boards: select IDT as TX reference clock source via VFMC */
 	Vfmc_Mezz_HdmiTxRefClock_Sel(&Vfmc[0], VFMC_MEZZ_TxRefclk_From_IDT);
 #endif
@@ -1255,7 +1255,7 @@ static void HdmiTx_SetupTxTmdsRefClk(void *InstancePtr)
 static void HdmiTx_SetupTxFrlRefClk(void *InstancePtr)
 {
 	xil_printf("[VMIX-BRIDGE] SetupTxFrlRefClk\r\n");
-#if !(defined (XPS_BOARD_VEK280) || defined (XPS_BOARD_VEK385_1))
+#if !(defined (XPS_BOARD_VEK280) || defined (XPS_BOARD_VEK385))
 	/* Non-VEK boards: select Si5344 as FRL reference clock source */
 	int Status;
 	Status = Vfmc_Mezz_HdmiTxRefClock_Sel(&Vfmc[0],

@@ -31,10 +31,10 @@
 #include "lilo.h"
 #include "mimo.h"
 #include "image.h"
+#include "vmix_hdmi_bridge.h"
 #include "ext_auto.h"
 #include "ext_manual.h"
-#include "ext_sensor.h"
-#include "vmix_hdmi_bridge.h"
+#include "finetune.h"
 
 #define LOGTAG "MAIN"
 

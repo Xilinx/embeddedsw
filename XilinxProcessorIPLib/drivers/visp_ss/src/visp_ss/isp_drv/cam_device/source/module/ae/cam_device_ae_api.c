@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2022 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -44,7 +44,7 @@ RESULT VsiCamDeviceRegisterAeLib
 	memcpy(p_data, pAeLibHandle, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 
-	ret = Send_Command(RPU_2_APU_MB_CMD_REGISTER_AELIB, &packet,
+	ret = Send_Command(APU_2_RPU_MB_CMD_REGISTER_AELIB, &packet,
 			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 	if (0 != ret)
 		return RET_FAILURE;
@@ -80,7 +80,7 @@ RESULT VsiCamDeviceUnRegisterAeLib
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
 
-	ret = Send_Command(RPU_2_APU_MB_CMD_UNREGISTER_AELIB, &packet,
+	ret = Send_Command(APU_2_RPU_MB_CMD_UNREGISTER_AELIB, &packet,
 			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 	if (0 != ret)
 		return RET_FAILURE;
@@ -114,6 +114,12 @@ RESULT VsiCamDeviceAeSetConfig
 	packet.cookie = pCamDevCtx->cookie;
 	packet.type = CMD;
 	packet.payload_size = 0;
+
+	// xil_printf("pConfig->setPoint: %d \n", (uint32_t)pConfig->setPoint);
+	// 		xil_printf("pConfig->tolerance: %d \n", (uint32_t)pConfig->tolerance);
+	// 		xil_printf("pConfig->dampOver: %d \n", (uint32_t)pConfig->dampOver * 10);
+	// 		xil_printf("pConfig->dampUnder: %d \n", (uint32_t)pConfig->dampUnder * 10);
+	// 		xil_printf("pConfig->histRatioSlope: %d \n", (uint32_t)pConfig->histRatioSlope);
 
 	uint8_t *p_data = packet.payload_data;
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
@@ -519,140 +525,6 @@ RESULT VsiCamDeviceAeGetStatus
 	return packet.resp_field.error_subcode_t;
 }
 
-
-//implementation in aec
-RESULT VsiCamDeviceAeGetHistogram
-(
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAeHistBins_t *pHistogram
-)
-{
-	RESULT result = RET_SUCCESS;
-	int ret = 0;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pHistogram)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	packet.payload_size += sizeof(uint32_t);
-	p_data += sizeof(uint32_t);
-	memcpy(p_data, pHistogram, sizeof(CamDeviceAeHistBins_t));
-	packet.payload_size += sizeof(CamDeviceAeHistBins_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	ret = Send_Command(APU_2_RPU_MB_CMD_AE_GET_HISTOGRAM, &packet,
-			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != ret)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	memcpy(pHistogram, p_data, sizeof(CamDeviceAeHistBins_t));
-
-	return packet.resp_field.error_subcode_t;
-}
-
-
-//implementation in aec
-RESULT VsiCamDeviceAeGetLuminance
-(
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAeMeanLuma_t *pLuma
-)
-{
-	RESULT result = RET_SUCCESS;
-	int ret = 0;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pLuma)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	packet.payload_size += sizeof(uint32_t);
-	p_data += sizeof(uint32_t);
-	memcpy(p_data, pLuma, sizeof(CamDeviceAeMeanLuma_t));
-	packet.payload_size += sizeof(CamDeviceAeMeanLuma_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	ret = Send_Command(APU_2_RPU_MB_CMD_AE_GET_LUMINANCE, &packet,
-			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != ret)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	memcpy(pLuma, p_data, sizeof(CamDeviceAeMeanLuma_t));
-
-	return packet.resp_field.error_subcode_t;
-}
-
-
-//implementation in aec
-RESULT VsiCamDeviceAeGetObjectRegion
-(
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAeMeanLuma_t *pObjectRegion
-)
-{
-	RESULT result = RET_SUCCESS;
-	int ret = 0;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pObjectRegion)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	packet.payload_size += sizeof(uint32_t);
-	p_data += sizeof(uint32_t);
-	memcpy(p_data, pObjectRegion, sizeof(CamDeviceAeMeanLuma_t));
-	packet.payload_size += sizeof(CamDeviceAeMeanLuma_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	ret = Send_Command(APU_2_RPU_MB_CMD_AE_GET_OBJECT_REGION, &packet,
-			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != ret)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	memcpy(pObjectRegion, p_data, sizeof(CamDeviceAeMeanLuma_t));
-
-	return packet.resp_field.error_subcode_t;
-}
 
 RESULT VsiCamDeviceAeSetExpTable
 (

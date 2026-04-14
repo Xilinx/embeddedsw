@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -30,10 +30,15 @@
 
 #include "cam_device_common.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /**
- * @cond DPCC
- *
- * @defgroup cam_device_dpcc CamDevice DPCC Definitions
+ * @defgroup 11_cam_device_dpcc VsCamDevice E01C11 Device_DPCC Definitions
+ * @brief Provides interfaces for controlling the defect pixel cluster correction
+ * module working in the ISP pipeline.
  * @{
  *
  */
@@ -45,185 +50,249 @@
 #define CAMDEV_DPCC_MODE_NUM                  6     /**< Maximum number of auto mode */
 /*******************************************/
 
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
-
-
 /******************************************************************************/
 /**
- * @brief   CamDevice DPCC manual configuration.
+ * @brief   VsCamDevice DPCC manual configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceDpccManualConfig_s {
-	bool_t bptEnable;                                 /**< Bad pixel table enable */
-	uint16_t bptNum;                                  /**< Bad pixel table number */
-	uint8_t bptOutMode;                              /**< Bad pixel table output mode */
-	uint16_t bptPosX[CAMDEV_DPCC_DEFECT_PIXEL_NUM];   /**< Bad pixel table X position */
-	uint16_t bptPosY[CAMDEV_DPCC_DEFECT_PIXEL_NUM];   /**< Bad pixel table Y position */
-	uint8_t lineMadFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Line_mad method used by the RB channel\n */
-	/**< [1][0~2]Represents the three thresholds of Line_mad method used by the G channel */
-	uint8_t lineThresh[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Line_thresh method used by the RB channel\n */
-	/**< [1][0~2]Represents the three thresholds of Line_thresh method used by the G channel */
-	uint16_t methodsSet[CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0] Represents the switch whether the first set of thresholds of the five bad point determination methods are enabled\n */
-	/**< [1] Represents the switch whether the second set of thresholds of the five bad point determination methods are enabled\n */
-	/**< [2] Represents the switch whether the third set of thresholds of the five bad point determination methods are enabled */
-	uint8_t outMode;  /**<Interpolation mode for correction unit. range:[0, 15] */
-	uint8_t pgFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of peak Gradient check method used by the RB channel\n */
-	/**< [1][0~2]Represents the three thresholds of peak Gradient check method used by the G channel */
-	uint8_t rgFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Rank neighbor difference method used by the RB channel\n */
-	/**< [1][0~2]Represents the three thresholds of Rank neighbor difference method used by the G channel */
-	uint8_t rndOffs[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three offsets of Rand Neighbor Difference method used by the RB channel\n */
-	/**< [1][0~2]Represents the three offsets of Rand Neighbor Difference method used by the G channel */
-	uint8_t rndThresh[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Rand Neighbor Difference method used by the RB channel\n */
-	/**< [1][0~2]Represents the three thresholds of Rand Neighbor Difference method used by the G channel */
-	uint8_t roLimits[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Rand Order method used by the RB channel\n */
-	/**< [1][0~2]Represents the three thresholds of Rand Order method used by the G channel */
-	uint8_t setUse; /**< DPCC methods set usage for detection */
-} CamDeviceDpccManualConfig_t;
+    bool_t bptEnable;                                 /**< Bad pixel table enable */
+    uint16_t bptNum;                                  /**< Bad pixel table number */
+    uint8_t bptOutMode;                              /**< Bad pixel table output mode */
+    uint16_t bptPosX[CAMDEV_DPCC_DEFECT_PIXEL_NUM];   /**< Bad pixel table X position */
+    uint16_t bptPosY[CAMDEV_DPCC_DEFECT_PIXEL_NUM];   /**< Bad pixel table Y position */
+    uint8_t lineMadFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Line_mad method used by the RB channel\n */
+                                                                                        /**< [1][0~2]Represents the three thresholds of Line_mad method used by the G channel */
+    uint8_t lineThresh[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Line_thresh method used by the RB channel\n */
+                                                                                        /**< [1][0~2]Represents the three thresholds of Line_thresh method used by the G channel */
+    uint16_t methodsSet[CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0] Represents the switch whether the first set of thresholds of the five bad point determination methods are enabled\n */
+                                                                /**< [1] Represents the switch whether the second set of thresholds of the five bad point determination methods are enabled\n */
+                                                                /**< [2] Represents the switch whether the third set of thresholds of the five bad point determination methods are enabled */
+    uint8_t outMode;  /**<Interpolation mode for correction unit. range:[0, 15] */
+    uint8_t pgFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of peak Gradient check method used by the RB channel\n */
+                                                                                   /**< [1][0~2]Represents the three thresholds of peak Gradient check method used by the G channel */
+    uint8_t rgFac[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Rank neighbor difference method used by the RB channel\n */
+                                                                                   /**< [1][0~2]Represents the three thresholds of Rank neighbor difference method used by the G channel */
+    uint8_t rndOffs[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three offsets of Rand Neighbor Difference method used by the RB channel\n */
+                                                                                     /**< [1][0~2]Represents the three offsets of Rand Neighbor Difference method used by the G channel */
+    uint8_t rndThresh[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Rand Neighbor Difference method used by the RB channel\n */
+                                                                                       /**< [1][0~2]Represents the three thresholds of Rand Neighbor Difference method used by the G channel */
+    uint8_t roLimits[CAMDEV_DPCC_CHANNEL_NUM][CAMDEV_DPCC_METHOD_PARAMETER_TYPE_NUM]; /**< [0][0~2]Represents the three thresholds of Rand Order method used by the RB channel\n */
+                                                                                      /**< [1][0~2]Represents the three thresholds of Rand Order method used by the G channel */
+    uint8_t setUse; /**< DPCC methods set usage for detection */
+}CamDeviceDpccManualConfig_t;
 
 /******************************************************************************/
 /**
- * @brief   CamDevice DPCC auto configuration.
+ * @brief   VsCamDevice DPCC auto configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceDpccAutoConfig_s {
-	uint8_t autoModeSelect;    /**< The auto config level */
+    uint8_t autoModeSelect;    /**< The auto config level */
 } CamDeviceDpccAutoConfig_t;
 
 /******************************************************************************/
 /**
- * @brief   CamDevice DPCC configuration.
+ * @brief   VsCamDevice DPCC configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceDpccConfig_s {
-	CamDeviceConfigMode_t configMode;       /**< The run mode: 0--manual, 1--auto */
-	CamDeviceDpccManualConfig_t manualCfg;  /**< DPCC manual configuration*/
-	CamDeviceDpccAutoConfig_t autoCfg;      /**< DPCC auto configuration*/
-} CamDeviceDpccConfig_t;
+    CamDeviceConfigMode_t configMode;       /**< The run mode: 0--manual, 1--auto */
+    CamDeviceDpccManualConfig_t manualCfg;  /**< DPCC manual configuration*/
+    CamDeviceDpccAutoConfig_t autoCfg;      /**< DPCC auto configuration*/
+}CamDeviceDpccConfig_t;
 
 /******************************************************************************/
 /**
- * @brief   CamDevice DPCC status structure.
+ * @brief   VsCamDevice DPCC status structure.
  *
  *****************************************************************************/
 typedef struct CamDeviceDpccStatus_s {
-	bool_t enable;                          /**< DPCC enable status*/
-	CamDeviceConfigMode_t currentMode;       /**< The run mode: 0--manual, 1--auto */
-	CamDeviceDpccManualConfig_t currentCfg;  /**< DPCC current configuration*/
-} CamDeviceDpccStatus_t;
-
+    bool_t enable;                          /**< DPCC enable status*/
+    CamDeviceConfigMode_t currentMode;       /**< The run mode: 0--manual, 1--auto */
+    CamDeviceDpccManualConfig_t currentCfg;  /**< DPCC current configuration*/
+}CamDeviceDpccStatus_t;
 
 /*****************************************************************************/
 /**
  * @brief   This function sets DPCC configuration parameters.
+ * @startuml VsiCamDeviceDpccSetConfig
+ * !include E01_External/VsiCamDeviceDpccSetConfig.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @param[in]       pDpccCfg    Pointer to DPCC Configuration
+ * @details This function calls: \ref CamDeviceDpccManualSetConfig, \ref CamDeviceDpccAutoSetConfig,
+ * \ref CamEngineDpccSetMode
+ * @details This function is called by: User application, \ref VsiCamDeviceDpccReset
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pDpccCfg            Pointer to DPCC configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccSetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceDpccConfig_t *pDpccCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceDpccConfig_t *pDpccCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets DPCC configuration parameters.
+ * @startuml VsiCamDeviceDpccGetConfig
+ * !include E01_External/VsiCamDeviceDpccGetConfig.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pDpccCfg    Pointer to DPCC configuration.
+ * @details This function calls: \ref CamEngineDpccGetMode, \ref CamDeviceDpccManualGetConfig,
+ * \ref CamDeviceDpccAutoGetConfig
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pDpccCfg            Pointer to DPCC configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccGetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceDpccConfig_t *pDpccCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceDpccConfig_t *pDpccCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function enables DPCC.
+ * @startuml VsiCamDeviceDpccEnable
+ * !include E01_External/VsiCamDeviceDpccEnable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamEngineDpccEnable
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccEnable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function disables DPCC.
+ * @startuml VsiCamDeviceDpccDisable
+ * !include E01_External/VsiCamDeviceDpccDisable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamEngineDpccDisable
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccDisable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets DPCC status.
+ * @startuml VsiCamDeviceDpccGetStatus
+ * !include E01_External/VsiCamDeviceDpccGetStatus.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pStatus     Pointer to DPCC status.
+ * @details This function calls: \ref CamEngineDpccGetStatus
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pStatus         Pointer to DPCC status
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccGetStatus
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceDpccStatus_t *pStatus
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceDpccStatus_t *pStatus
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function resets DPCC.
+ * @startuml VsiCamDeviceDpccReset
+ * !include E01_External/VsiCamDeviceDpccReset.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref VsiCamDeviceDpccSetConfig
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccReset
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function gets the DPCC version.
+ * @brief   This function gets DPCC version.
+ * @startuml VsiCamDeviceDpccGetVersion
+ * !include E01_External/VsiCamDeviceDpccGetVersion.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pVersion    Pointer to DPCC version
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pVersion            Pointer to DPCC version
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDpccGetVersion
 (
-	CamDeviceHandle_t hCamDevice,
-	uint32_t *pVersion
+    CamDeviceHandle_t hCamDevice,
+    uint32_t *pVersion
 );
 
-/* @} cam_device_dpcc */
-/* @endcond */
+/** @} 11_cam_device_dpcc */
 
 #ifdef __cplusplus
 }

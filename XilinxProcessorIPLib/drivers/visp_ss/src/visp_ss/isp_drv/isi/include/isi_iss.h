@@ -2,7 +2,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -225,11 +225,13 @@ typedef struct IsiCamDrvConfig_s {
 	uint32_t instanceId;
 } IsiCamDrvConfig_t;
 
-typedef struct IsiCamDrvConfigMbox_s {
-	uint32_t cameraDriverID;
-	uint32_t pIsiGetSensorIss;
-	uint32_t cameraDevId;
-	uint32_t instanceId;
+typedef struct IsiCamDrvConfigMbox_s
+{
+    uint32_t                     cameraDriverID;
+    uint32_t                     pIsiGetSensorIss;
+    uint8_t                      i2cBusId;
+    uint32_t                     sensorDevId;
+    uint32_t                     instanceID;
 } IsiCamDrvConfigMbox_t;
 
 /*****************************************************************************/
