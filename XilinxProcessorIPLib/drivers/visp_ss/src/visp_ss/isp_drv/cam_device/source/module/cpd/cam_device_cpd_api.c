@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -217,49 +217,6 @@ RESULT VsiCamDeviceCpdExpandGetStatus
 		return RET_OUTOFRANGE;
 
 	result = Send_Command(APU_2_RPU_MB_CMD_CPD_EXPAND_GET_STATUS, &packet,
-			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != result)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	memcpy(pCpdStatus, p_data, sizeof(CamDeviceCpdStatus_t));
-
-	return packet.resp_field.error_subcode_t;
-}
-
-
-RESULT VsiCamDeviceCpdCompressGetStatus
-(
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceCpdStatus_t *pCpdStatus
-)
-{
-	RESULT result = RET_SUCCESS;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pCpdStatus)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	p_data += sizeof(uint32_t);
-	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pCpdStatus, sizeof(CamDeviceCpdStatus_t));
-	packet.payload_size += sizeof(CamDeviceCpdStatus_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	result = Send_Command(APU_2_RPU_MB_CMD_CPD_COMPRESS_GET_STATUS, &packet,
 			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 	if (0 != result)
 		return RET_FAILURE;

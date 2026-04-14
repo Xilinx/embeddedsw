@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -49,7 +49,7 @@ RESULT SendFirmwareCompability()
 
 	RESULT result = RET_SUCCESS;
 	int ret = 0;
-Payload_packet packet;
+	Payload_packet packet;
 	memset(&packet, 0, sizeof(Payload_packet));
 
 	packet.cookie = 0x99;
@@ -67,6 +67,33 @@ Payload_packet packet;
 			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 	if (0 != ret)
 		return ret;
+
+}
+
+RESULT SendLoadBinStart()
+{
+
+	RESULT result = RET_SUCCESS;
+	int ret = 0;
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+
+	packet.cookie = 0x01;
+	packet.type = CMD;
+	packet.payload_size = 0;
+	bool_t loadBinFlag = BOOL_TRUE;
+
+	uint8_t *p_data = packet.payload_data;
+	memcpy(p_data,&loadBinFlag , sizeof(bool_t));
+	packet.payload_size += sizeof(bool_t);
+	/*
+	if (packet.payload_size > MAX_ITEM)
+		return RET_OUTOFRANGE;
+	ret = Send_Command(APU_2_RPU_LOADBIN_START, &packet,
+			   packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
+	if (0 != ret)
+		return ret;
+	*/
 
 }
 
@@ -380,7 +407,7 @@ RESULT VsiCamDeviceLoadCalibration
 	p_data += sizeof(CamDeviceCalibSensorAwbIllumination_t) *
 		  (pCalibCfg->sensor.awb).illuminationNumber;
 
-	pCalibCfg->sensor.lscNumber = 2;
+	// pCalibCfg->sensor.lscNumber = 7;
 
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.lscNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {

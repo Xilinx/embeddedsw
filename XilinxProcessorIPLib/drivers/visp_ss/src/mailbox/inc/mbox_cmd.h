@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (C) 2021 VeriSilicon Holdings Co., Ltd.
  *
  * @file mbox_cmd.h
@@ -24,7 +24,6 @@
 #include "sensor_cmd.h"
 
 
-#define MAX_MSGS_PER_BOX     (12U)
 #define MBOX_FIFO_BLOCK_SIZE (sizeof(FifoControl) + sizeof(MboxPostMsg)*MAX_MSGS_PER_BOX)
 
 /************************* Test Configuration ********************************/

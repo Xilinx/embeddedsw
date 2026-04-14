@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2020 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -37,6 +37,11 @@ RESULT VsiCamDeviceCcmSetConfig
 	packet.cookie = pCamDevCtx->cookie;
 	packet.type = CMD;
 	packet.payload_size = 0;
+
+	// xil_printf("RPU ccm pConfig->configMode: %d \n", (uint32_t)pCcmCfg->configMode);
+	// xil_printf("RPU ccm pConfig->autoCfg.damping: %d \n", (uint32_t)pCcmCfg->autoCfg.damping * 10);
+	// xil_printf("RPU ccm pConfig->autoCfg.gains[0]: %d \n", (uint32_t)pCcmCfg->autoCfg.gains[0] * 10);
+	// xil_printf("RPU ccm pConfig->autoCfg.strength: %d \n", (uint32_t)pCcmCfg->autoCfg.strength[0]);
 
 	uint8_t *p_data = packet.payload_data;
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));

@@ -1,4 +1,4 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 
 # SPDX-License-Identifier: MIT
 
@@ -14,7 +14,7 @@ add_subdirectory(bls)
 
 add_subdirectory(ccm_v1_1)
 
-add_subdirectory(cpd)
+add_subdirectory(cpd_v1_1)
 
 add_subdirectory(cproc)
 
@@ -30,8 +30,6 @@ add_subdirectory(ee_v2)
 
 add_subdirectory(exp_v2)
 
-add_subdirectory(flexa)
-
 add_subdirectory(fusa)
 
 add_subdirectory(gc_v2)
@@ -43,8 +41,6 @@ add_subdirectory(gtm_v1)
 add_subdirectory(hist)
 
 add_subdirectory(lsc_v3)
-
-add_subdirectory(pdaf_v1)
 
 add_subdirectory(rgbir_v2_1)
 

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (C) 2021 VeriSilicon Holdings Co., Ltd.
  *
  * @file mbox_fifo.h
@@ -13,13 +13,45 @@
 #include <stdbool.h>
 #include <sys/_stdint.h>
 
-#define MBOX_MAX_PAYLOAD (16396U+20U)
-#define MAX_ITEM (16396U)
-
 #define payload_extra_size 24
+#define MAX_ITEM (16396U+4U)
+
+#define MAX_MSGS_PER_BOX 30
+
+/* Forward declaration for MboxFifoCtrl */
+struct MboxFifoCtrl;
 
 /**
- * @brief Structure of fifo control
+ * @brief Payload type enum (CMD or RESP)
+ */
+typedef enum payload_type {
+	CMD,
+	RESP,
+	dummy_pt = 0xDEADFEED,
+} Payload_type;
+
+/**
+ * @brief Response field structure
+ */
+typedef struct response_field {
+	uint32_t processed_cmdid;
+	uint32_t error_subcode_t;
+} response_field_t;
+
+/**
+ * @brief Payload packet structure - must match NEW_RPU binary layout
+ */
+typedef struct payload_template {
+	Payload_type type;
+	uint32_t cookie;
+	uint32_t payload_size;
+	uint32_t reserved[1]; /* padding for 8-byte alignment - matches NEW_RPU */
+	response_field_t resp_field;
+	uint8_t payload_data[MAX_ITEM];
+} Payload_packet;
+
+/**
+ * @brief Structure of fifo control (shared memory - must match RPU layout)
  */
 typedef struct FifoControl {
 	uint64_t *buffer; //
@@ -28,8 +60,8 @@ typedef struct FifoControl {
 	uint32_t item_total;
 	uint32_t buffer_size;
 	uint32_t item_stored;
-	uint32_t read_offset;
-	uint32_t write_offset;
+	volatile uint32_t read_offset;
+	volatile uint32_t write_offset;
 } __attribute((aligned(8))) FifoControl;
 
 /**
@@ -43,15 +75,14 @@ typedef struct FifoInitData {
 } FifoInitData;
 
 /**
- * @brief Structure of Mbox post message
+ * @brief Structure of Mbox post message - must match NEW_RPU binary layout
  */
 typedef struct MboxPostMsg {
-	uint8_t group_id;
-	uint8_t ack : 1;
-	uint8_t flags : 7;
-	uint16_t msg_id;
+	uint32_t media_server_flags;
+	uint32_t reserved[3]; /* padding for 8-byte alignment */
+	uint32_t msg_id;
 	uint32_t size;
-	uint8_t payload[MAX_ITEM + payload_extra_size];
+	Payload_packet payload;
 } __attribute((aligned(8))) MboxPostMsg;
 
 /**
@@ -67,68 +98,74 @@ typedef enum MboxIntId {
 
 /**
  * @brief Initialize a Fifo with given input
- * @param fifo FifoControl pointer
- * @param fifodata Fifo init data for construct the fifo
+ * @param mbox_fifo MboxFifoCtrl pointer
+ * @param init_fifo Fifo init data for construct the fifo
  * @return Return result
  * @retval MBOX_SUCCESS for succeed, others for failure
  */
-int fifo_init(FifoControl *fifo, FifoInitData *fifodata/*,int fd*/);
+int32_t fifo_init(struct MboxFifoCtrl *mbox_fifo, FifoInitData *init_fifo);
+
+/**
+ * @brief Print FIFO information
+ * @param mbox_fifo MboxFifoCtrl info pointer
+ */
+void fifo_info(struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief Write a given meg to the fifo
  * @param msg write message
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  * @return Return result
  * @retval MBOX_SUCCESS for succeed, others for failure
  */
-int fifo_write(MboxPostMsg *msg, FifoControl *fifo/*,int fd*/);
+int32_t fifo_write(MboxPostMsg *msg, struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief Read a given meg from the fifo
  * @param msg read message
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  * @return Return result
  * @retval MBOX_SUCCESS for succeed, others for failure
  */
-int fifo_read(MboxPostMsg *msg, FifoControl *fifo/*,int fd*/);
+int32_t fifo_read(MboxPostMsg *msg, struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief Reset the FIFO
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  * @return Return result
  * @retval MBOX_SUCCESS for succeed, others for failure
  */
-int fifo_reset(FifoControl *fifo/*,int fd*/);
+int32_t fifo_reset(struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief Check current FIFO stored number
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  * @return Return result
  * @retval stored numbers, others for failure
  */
-uint32_t fifo_get_stored(FifoControl *fifo/*,int fd*/);
+uint32_t fifo_get_stored(struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief Check current FIFO is full or not
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  * @return Return result
  * @retval true for full, false for failure
  */
-bool fifo_is_full(FifoControl *fifo/*,int fd*/);
+bool fifo_is_full(struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief Check current FIFO is empty or not
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  * @return Return result
  * @retval true for empty, false for failure
  */
-bool fifo_is_empty(FifoControl *fifo/*,int fd*/);
+bool fifo_is_empty(struct MboxFifoCtrl *mbox_fifo);
 
 /**
  * @brief osFree FifoControl buffer data, only used if the buffer is assigned by
  * @brief osMalloc() or similar function
- * @param fifo FifoControl info pointer
+ * @param mbox_fifo MboxFifoCtrl info pointer
  */
-int fifo_buffer_free(FifoControl *fifo);
+int32_t fifo_buffer_free(struct MboxFifoCtrl *mbox_fifo);
 
 #endif //_MBOX_FIFO_H_

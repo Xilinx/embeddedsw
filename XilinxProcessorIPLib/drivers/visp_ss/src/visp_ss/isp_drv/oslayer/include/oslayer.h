@@ -2,7 +2,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -379,7 +379,7 @@ void osUSleep(unsigned int microseconds);
 /**
  *  @brief  Returns a 64-bit timestamp [us]
  *
- *  @param  pEvent         Reference of the timestamp object
+ *  @param  pTimeStamp     Reference of the timestamp object
  *
  *  @return                Status of operation
  *  @retval OSLAYER_OK     Event successfully created
@@ -393,7 +393,7 @@ int32_t osTimeStampUs(int64_t *pTimeStamp);
 /**
  *  @brief  Returns a 64-bit timestamp [ns]
  *
- *  @param  pEvent         Reference of the timestamp object
+ *  @param  pTimeStamp     Reference of the timestamp object
  *
  *  @return                Status of operation
  *  @retval OSLAYER_OK     Event successfully created

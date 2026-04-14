@@ -3,7 +3,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2023 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -289,7 +289,8 @@ RESULT VsiCamDeviceFusaPixelCountGetConfig
 
 RESULT VsiCamDeviceFusaTimeoutEnable
 (
-	CamDeviceHandle_t hCamDevice
+	CamDeviceHandle_t hCamDevice,
+	uint8_t            pathEnable
 )
 {
 	RESULT result = RET_SUCCESS;
@@ -309,6 +310,8 @@ RESULT VsiCamDeviceFusaTimeoutEnable
 	uint8_t *p_data = packet.payload_data;
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	packet.payload_size += sizeof(uint32_t);
+	memcpy(p_data, &pathEnable, sizeof(uint8_t));
+	packet.payload_size += sizeof(uint8_t);
 
 	if (packet.payload_size > MAX_ITEM)
 		return RET_OUTOFRANGE;

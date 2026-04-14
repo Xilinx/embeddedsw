@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2024 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #ifndef __VVDEVICE_H__
 #define __VVDEVICE_H__
@@ -20,13 +35,13 @@
 #endif
 #include "vlog.h"
 
-#include <cam_common_api.h>
+#include "cam_common_api.h"
 
-#include <cam_device_common.h>
-#include <cam_device_buffer_api.h>
-#include <cam_device_common.h>
-#include <cam_device_sensor_api.h>
-#include <cam_device_isp_system_api.h>
+#include "cam_device_api.h"
+#include "cam_device_buffer_api.h"
+#include "cam_device_common.h"
+#include "cam_device_sensor_api.h"
+#include "cam_device_isp_system_api.h"
 
 #ifdef DWE_VERSION
 	#include "dewarp_system_api.h"
@@ -186,6 +201,12 @@ typedef struct VvbenchInstanceFusaCfg_s {
 	uint32_t crcSp1RoiV;
 	uint32_t crcSp2RoiH;
 	uint32_t crcSp2RoiV;
+	uint32_t crcMpRoiOffH;
+    uint32_t crcMpRoiOffV;
+    uint32_t crcSp1RoiOffH;
+    uint32_t crcSp1RoiOffV;
+    uint32_t crcSp2RoiOffH;
+    uint32_t crcSp2RoiOffV;
 
 #ifdef ISP_RDCD
 	bool_t RdcPixLossEn;

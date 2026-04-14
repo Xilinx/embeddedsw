@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -43,9 +43,9 @@
  *
  *****************************************************************************/
 typedef struct CamDeviceHdrConfig_s {
-	/**Interpolation*/
-	uint32_t colorWeight[3]; /**< Weight of ordered color */
-} CamDeviceHdrConfig_t;
+/**Interpolation*/
+    uint32_t colorWeight[3]; /**< Weight of ordered color */
+}CamDeviceHdrConfig_t;
 
 /******************************************************************************/
 /**
@@ -53,140 +53,180 @@ typedef struct CamDeviceHdrConfig_s {
  *
  *****************************************************************************/
 typedef struct CamDeviceHdrStatus_s {
-	bool_t enable;            /**< HDR dummy enable status */
-} CamDeviceHdrStatus_t;
+    bool_t enable;            /**< HDR dummy enable status */
+}CamDeviceHdrStatus_t;
 
 
 /******************************************************************************/
-/**
-* @brief   CamDevice HDR dummy bypass select enumeration.
-*
-*****************************************************************************/
+ /**
+ * @brief   CamDevice HDR dummy bypass select enumeration.
+ *
+ *****************************************************************************/
 typedef enum CamDeviceHdrBypassSelect_e {
-	CAMDEV_HDR_BYPASS_SELECT_L = 0,  /**< 0: HDR output long frame */
-	DUMMY_CAMDEV_0060 = 0xdeadfeed
-} CamDeviceHdrBypassSelect_t;
+    CAMDEV_HDR_BYPASS_SELECT_L = 0,  /**< 0: HDR output long frame */
+}CamDeviceHdrBypassSelect_t;
 
 /*****************************************************************************/
 /**
  * @brief   This function sets HDR dummy configuration parameters.
+ * @startuml VsiCamDeviceHdrSetConfig
+ * !include module/VsiCamDeviceHdrSetConfig.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pHdrCfg     Pointer to Hdr configuration.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pHdrCfg             Pointer to HDR V13 configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrSetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceHdrConfig_t *pHdrCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceHdrConfig_t *pHdrCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets HDR dummy configuration parameters.
+ * @startuml VsiCamDeviceHdrGetConfig
+ * !include module/VsiCamDeviceHdrGetConfig.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pHdrCfg     Pointer to Hdr configuration.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pHdrCfg             Pointer to HDR V13 configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrGetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceHdrConfig_t *pHdrCfg
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceHdrConfig_t *pHdrCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function enables HDR dummy.
+ * @startuml VsiCamDeviceHdrEnable
+ * !include module/VsiCamDeviceHdrEnable.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrEnable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function disables HDR dummy.
+ * @startuml VsiCamDeviceHdrDisable
+ * !include module/VsiCamDeviceHdrDisable.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrDisable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function resets HDR dummy.
+ * @startuml VsiCamDeviceHdrReset
+ * !include module/VsiCamDeviceHdrReset.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrReset
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t             hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets HDR dummy status.
+ * @startuml VsiCamDeviceHdrGetStatus
+ * !include module/VsiCamDeviceHdrGetStatus.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pStatus     Pointer to HDR status.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pHdrStatus          Pointer to HDR V13 status
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrGetStatus
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceHdrStatus_t *pHdrStatus
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceHdrStatus_t *pHdrStatus
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function gets the HDR dummy version.
+ * @brief   This function gets HDR dummy version.
+ * @startuml VsiCamDeviceHdrGetVersion
+ * !include module/VsiCamDeviceHdrGetVersion.plantuml
+ * @enduml
+ * @param[in]    hCamDevice  Handle to the CamDevice instance.
+ * @param[in]    pVersion    Pointer to HDR version
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pVersion            Pointer to HDR dummy version
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceHdrGetVersion
 (
-	CamDeviceHandle_t hCamDevice,
-	uint32_t *pVersion
+    CamDeviceHandle_t hCamDevice,
+    uint32_t *pVersion
 );
 
 /*****************************************************************************/
 /**
  * @brief   (For debug only) This function disables HDR combination mode and sets the HDR bypass frame.
+ * @startuml VsiCamDeviceSetBypassSelectEnable
+ * !include module/VsiCamDeviceSetBypassSelectEnable.plantuml
+ * @enduml
+ * @param[in]    hCamDevice   Handle to the CamDevice instance.
+ * @param[in]    bypassFrame  The selected bypass frame.
+ * @details this function calls: CamDeviceSetIspLowPower
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   bypassFrame         The selected bypass frame
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
  *
  *****************************************************************************/
 RESULT VsiCamDeviceSetBypassSelectEnable
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceHdrBypassSelect_t bypassFrame
+    CamDeviceHandle_t hCamDevice,
+    CamDeviceHdrBypassSelect_t  bypassFrame
 );
 
 /* @} cam_device_hdr dummy */

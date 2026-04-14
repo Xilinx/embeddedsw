@@ -1,6 +1,6 @@
-# Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+# The MIT License (MIT)
+# Copyright (c) 2014-2026 Vivantec Corporation
 
-# SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS submodule_def.h)
 collect (PROJECT_LIB_HEADERS vvbench_2dnr_api.h)

@@ -1,60 +1,72 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #include <stdbool.h>
-#include <stddef.h>
-#include <string.h>
 #define LOGTAG "DEV"
 #include "vvbase.h"
-/* memory_manager functions provided by libvisp.a */
-extern void *mm_malloc(size_t size);
-extern void mm_free(void *ptr);
+#include "memory_manager.h"
 #include "vlog.h"
-#include "xvisp_ss_example.h"
 #include "vvdevice.h"
 #include "vvbparser.h"
 #include "vvpath.h"
 #include "submodule_def.h"
+#include "cam_common_calib_api.h"
+#include "cam_common_submodules.h"
+#include "sensor_drv.h"
 #include "vmix_hdmi_bridge.h"
-/* cam_common_calib_api provided by libvisp.a */
-/* cam_common_submodules types already forward declared */
 #include <stdio.h>
 #include <oslayer.h>
 #include <builtins.h>
 #include <isi_iss.h>
 #include "hal_i2c.h"
-/* vvbench_image_loader provided by libvisp.a */
 #include "xvisp_ss.h"
 extern int tuning_json;
 
 /* Forward declarations for types from libvisp.a */
 typedef struct {
-	int calibrationLoaded;              // bool_t
-	int imageLoadMetaEn;                // bool_t
+	bool_t calibrationLoaded;
+	bool_t imageLoadMetaEn;
 	CamDeviceSensorModeInfo_t sensorMode;
-	int inputType;                      // CamDeviceInputType_t
-	void *hDatabase;                    // TDatabaseHandle_t
+	CamDeviceInputType_t inputType;
+	void *hDatabase;                    // TDatabaseHandle_t (uintptr_t)
 	struct {
-		int supported;
-		int enable;
-		int sensorType;
+		bool_t supported;
+		bool_t enable;
+		uint16_t sensorType;
 	} hdr;
 	struct {
-		int supported;
-		int enable;
-		int irRawOutEnable;
-		int irBayerPattern;
+		bool_t supported;
+		bool_t enable;
+		bool_t irRawOutEnable;
+		uint16_t irBayerPattern;
 	} rgbir;
+	CamDeviceAwbWorkMode_t  modeAwb;
+	CamDeviceAeWorkMode_t   modeAe;
 } CamCommonContext_t;
 
 typedef struct {
@@ -69,33 +81,37 @@ typedef struct {
 } TDatabaseRegister_t;
 
 typedef struct {
-	int enable;                         // bool
-	int id;                             // uint16_t
-	struct {
-		char bayerPattern[10];
-		int bit;                        // uint16_t
-		int crop[4];                    // uint16_t
-		int frames;                     // uint16_t
-		int height;                     // uint16_t
-		char path[10][256];
-		char metadataInfo[256];
-		int startFrame;                 // uint16_t
-		int width;                      // uint16_t
-	} input;
-	int nrReloc;                        // bool
-	struct {
-		int dumpYuvVideo;               // uint16_t
-		int height;                     // uint16_t
-		char jpgFile[256];
-		char path[256];
-		char videoFile[256];
-		int width;                      // uint16_t
-		char yuvFile[256];
-		char format[256];
-		int dataBits;                   // uint16_t
-		int yuvOrder;                   // uint16_t
-		int alpha;                      // uint16_t
-	} output;
+  bool enable;
+  uint16_t id;
+
+  struct {
+    char bayerPattern[10];
+    uint16_t bit;
+    uint16_t crop[4];
+    uint16_t frames;
+    uint16_t height;
+    char path[10][256];
+    char metadataInfo[256];
+    uint16_t startFrame;
+    uint16_t width;
+  } input;
+
+  bool nrReloc;
+
+  struct {
+    uint16_t dumpYuvVideo;
+    uint16_t height;
+    char jpgFile[256];
+    char path[256];
+    char videoFile[256];
+    uint16_t width;
+    char yuvFile[256];
+    char format[256];
+    uint16_t dataBits;
+    uint16_t yuvOrder;
+    uint16_t alpha;
+    uint16_t dumpStatistic;
+  } output;
 } TDatabaseMetaDriver_t;
 
 typedef struct {
@@ -106,7 +122,7 @@ typedef struct {
 
 /* Constants from t_database.h */
 #define T_DATABASE_DUMP "DUMP"
-#define T_DATABASE_META_DRIVER "MD"
+#define T_DATABASE_META_DRIVER "IOControl"
 
 /* External functions from libvisp.a */
 extern int TDatabase_query(void* hDatabase, char const *pCategory, void** result);
@@ -114,6 +130,7 @@ extern const EmbeddedJson *find_image_data(const char* name);
 
 extern XVisp_Ss VispSsInst[XPAR_XVISP_SS_NUM_INSTANCES];
 extern int image_len;
+extern int custom_json;
 
 #ifdef PORTING_25
 	//#include <unistd.h>  //usleep conflicting with local bsp and /proj/xbuilds
@@ -126,6 +143,7 @@ extern int image_len;
 #include "oba.h"
 #include "cam_device_app.h"
 #include "vvbench_gwdr_api.h"
+#include "sensor_cmd.h"
 
 VvbenchInstance_t *pBenchInstance = NULL;
 VvbenchVvdev_t *caseContext = NULL;
@@ -148,7 +166,7 @@ int ISP_ID;
 #endif
 
 volatile uint32_t apuBufferInform[CAMDEV_VIRTUAL_ID_MAX *
-				  CAMDEV_HARDWARE_ID_MAX][CAMDEV_PIPE_OUTPATH_RAW + 1] = {0};
+				   CAMDEV_HARDWARE_ID_MAX][CAMDEV_PIPE_OUTPATH_RAW + 1] = {0};
 
 #ifdef WITH_FLEXA
 	#include <fcntl.h>
@@ -232,8 +250,9 @@ int VsiVvdeviceExecuteCaseline
 	}
 
 	VvbenchInstance_t *pVvbenchInstance = mm_malloc(sizeof(VvbenchInstance_t));
-	if (NULL == pVvbenchInstance)
+	if (NULL == pVvbenchInstance) {
 		return -1;
+	}
 	MEMSET(pVvbenchInstance, 0, sizeof(VvbenchInstance_t));
 
 	pVvbenchInstance->useSubSystem = caseCtx->useSubSystem;
@@ -257,6 +276,7 @@ int VsiVvdeviceExecuteCaseline
 	VsiVvdeviceInstanceInit(pVvbenchInstance, caseCtx);
 	LOGI("%s: after VsiVvdeviceInstanceInit ", __func__);
 
+	bool_t initSwSimuEnable = caseCtx->swSimuCfg.enable;
 	for (int index = 0; index < totalInstance; index++) {
 		if (0 == caseCtx->instanceCfgCtx[index].hCamCommon) {
 			LOGE("%s: invalid cam common handle", __func__);
@@ -264,8 +284,9 @@ int VsiVvdeviceExecuteCaseline
 		}
 		pCamCommonCtx = (CamCommonContext_t *)caseCtx->instanceCfgCtx[index].hCamCommon;
 
-		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0)
+		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0) {
 			continue;
+		}
 
 		uint32_t instanceId = index;
 		LOGI("Testing instance: %d", instanceId);
@@ -297,7 +318,8 @@ int VsiVvdeviceExecuteCaseline
 			camConfig.workCfg.modeCfg.mcm.portId = caseCtx->instanceCfgCtx[index].workCfg.modeCfg.mcm.portId;
 			camConfig.workCfg.modeCfg.mcm.mcmOp = caseCtx->instanceCfgCtx[index].workCfg.modeCfg.mcm.mcmOp;
 			camConfig.workCfg.modeCfg.mcm.mcmSel = caseCtx->instanceCfgCtx[index].workCfg.modeCfg.mcm.mcmSel;
-		} else if (caseCtx->instanceCfgCtx[index].workCfg.workMode == CAMDEV_WORK_MODE_STREAM) {
+		}
+		else if (caseCtx->instanceCfgCtx[index].workCfg.workMode == CAMDEV_WORK_MODE_STREAM) {
 			camConfig.workCfg.modeCfg.stream.portId =
 				caseCtx->instanceCfgCtx[index].workCfg.modeCfg.stream.portId;
 		}
@@ -367,12 +389,12 @@ int VsiVvdeviceExecuteCaseline
 			pVvbenchInstance->mPicCase[index].frameNum = caseCtx->instanceCfgCtx[index].pictureCfg.frameNum;
 			pVvbenchInstance->mPicCase[index].pictureName =
 				caseCtx->instanceCfgCtx[index].pictureCfg.pictureName;
-			//picture file list get status intial
+			//picture file list get status initial
 			pVvbenchInstance->mPicCase[index].currLine = caseCtx->instanceCfgCtx[index].pictureCfg.loadIndex;
 			pVvbenchInstance->mPicCase[index].readLine = 0;
 		}
 		//load config json
-		if (!caseCtx->swSimuCfg.enable) {
+		if (!initSwSimuEnable) {
 			result = VsiVvdeviceLoadSimulatorToDatabase(caseCtx, index);
 			if (0 != result) {
 				LOGE("VsiVvdeviceLoadSimulatorToDatabase failed!");
@@ -392,7 +414,7 @@ int VsiVvdeviceExecuteCaseline
 			return -1;
 		}
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
-			sensor_stream_flag = index; // for disply buffer queueing incase of streming mode
+			sensor_stream_flag = index; // for display buffer queueing in case of streming mode
 			if (caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_MEMORY
 			    || caseCtx->instanceCfgCtx[index].outPutType == CAMDEV_OUTPUT_TYPE_BOTH) {
 				memory_out_flag = index; // for displayincase of dma output type
@@ -404,17 +426,18 @@ int VsiVvdeviceExecuteCaseline
 		pVvbenchInstance->camDevInfo[index].alignMask = cfgCtx->alignMask;
 
 		for (int i = 0; i < CAMDEV_BUFCHAIN_MAX; ++i) {
-			if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0)
+			if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0) {
 				continue;
-			else
+			}
+			else {
 				outPutEnable = 1;
+			}
 		}
 		if (0 == outPutEnable) {
 			LOGE("At least one of INSTANCE_BUFIO need to be enabled\n");
 			mm_free(pVvbenchInstance);
 			return -1;
 		}
-
 		/*******************************PS i2c*******************************/
 
 		HalI2cConfig_t pHalI2cConfig;
@@ -427,35 +450,44 @@ int VsiVvdeviceExecuteCaseline
 
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
 			char sensorName[FILE_LEN];
+			CamDeviceSensorModuleMapCfg_t sensorModule;
 			CamDeviceSensorDrvHandle_t SensorDrvHandle = NULL;
 			uint32_t modeIndex = caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex;
 			bool_t useExternalDriver = caseCtx->instanceCfgCtx[index].sensorCfg.useExternalDriver;
 			if (useExternalDriver == false) {
-				MEMCPY(sensorName, caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
+				MEMCPY(sensorModule.moduleName, caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
 				       sizeof(caseCtx->instanceCfgCtx[index].sensorCfg.sensorName));
 				LOGI("Vsi cam device sensor mapping driver for sensor name:%s, modeIndex:%d",
 				     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
 				     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
-				result = VsiCamDeviceSensorMapping(pVvbenchInstance->hCamDevice[index], sensorName,
-								   &SensorDrvHandle);
+				if (caseCtx->instanceCfgCtx[instanceId].workCfg.workMode == CAMDEV_WORK_MODE_MCM) {
+					if(caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorDevId == -1) {
+						sensorModule.sensorDevId = caseCtx->instanceCfgCtx[instanceId].workCfg.modeCfg.mcm.portId;
+					} else {
+						sensorModule.sensorDevId = caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorDevId;
+					}
+				} else if (caseCtx->instanceCfgCtx[instanceId].workCfg.workMode == CAMDEV_WORK_MODE_STREAM) {
+					if(caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorDevId == -1) {
+						sensorModule.sensorDevId = caseCtx->instanceCfgCtx[instanceId].workCfg.modeCfg.stream.portId;
+					} else {
+						sensorModule.sensorDevId = caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorDevId;
+					}
+				}
+				result = VsiCamDeviceSensorMapping(&sensorModule, &SensorDrvHandle);
 				if (result != 0 || NULL == SensorDrvHandle) {
-					LOGE("Vsi cam device sensor mapping driver failed for sensor name:%s, modeIndex:%d",
-					     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
-					     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
+					LOGE("Vsi cam device sensor mapping driver failed for sensor name:%s, modeIndex:%d", caseContext->instanceCfgCtx[instanceId].sensorCfg.sensorName, caseContext->instanceCfgCtx[instanceId].sensorCfg.modeIndex);
 					mm_free(pVvbenchInstance);
 					return -1;
 				}
 			}
 
-			CamDeviceSensorDrvCfg_t devSensorDrv = {NULL, 0};
-			devSensorDrv.sensorDrvHandle = SensorDrvHandle;
-			devSensorDrv.sensorDevId = caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorDevId;
-			result = VsiCamDeviceSensorDrvHandleRegister(pVvbenchInstance->hCamDevice[index], &devSensorDrv);
+			result = VsiCamDeviceSensorDrvHandleRegister(pVvbenchInstance->hCamDevice[index], SensorDrvHandle);
 			if (result != 0) {
 				LOGE("Vsi cam device sensor driver register failed %s !!", sensorName);
 				mm_free(pVvbenchInstance);
 				return -1;
 			}
+
 
 			CamDeviceSensorQuery_t sensorQuery;
 			MEMSET(&sensorQuery, 0, sizeof(CamDeviceSensorQuery_t));
@@ -465,7 +497,8 @@ int VsiVvdeviceExecuteCaseline
 				     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName, modeIndex);
 				mm_free(pVvbenchInstance);
 				return -1;
-			} else {
+			}
+			else {
 				if (modeIndex >= sensorQuery.number) {
 					LOGE("Vsi cam device sensor modeIndex out of range !");
 					mm_free(pVvbenchInstance);
@@ -518,7 +551,8 @@ int VsiVvdeviceExecuteCaseline
 				     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
 				mm_free(pVvbenchInstance);
 				return -1;
-			} else {
+			}
+			else {
 				caseCtx->instanceCfgCtx[index].sensorCfg.sensorType = sensorModeInfo.sensorType;
 				caseCtx->instanceCfgCtx[index].sensorCfg.bitWidth = sensorModeInfo.bitWidth;
 				caseCtx->instanceCfgCtx[index].sensorCfg.stitchingMode = sensorModeInfo.stitchingMode;
@@ -531,10 +565,12 @@ int VsiVvdeviceExecuteCaseline
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
 			CamDeviceSensorTestPattern_t testPattern;
 
-			if (caseCtx->instanceCfgCtx[index].sensorCfg.testPatternEnable)
+			if (caseCtx->instanceCfgCtx[index].sensorCfg.testPatternEnable) {
 				testPattern.enable = true;
-			else
+			}
+			else {
 				testPattern.enable = false;
+			}
 			result = VsiCamDeviceSensorSetTestPattern(pVvbenchInstance->hCamDevice[index], &testPattern);
 			if (0 != result) {
 				LOGE("VsiCamDeviceSensorSetTestPattern failed!");
@@ -550,8 +586,10 @@ int VsiVvdeviceExecuteCaseline
 						mm_free(pVvbenchInstance);
 						return -1;
 					}
-				} else
+				}
+				else {
 					caseCtx->instanceCfgCtx[index].funcCtrl.useVi200MetaWin = false;
+				}
 			}
 		}
 
@@ -560,13 +598,15 @@ int VsiVvdeviceExecuteCaseline
 			MEMSET(&inFormat, 0, sizeof(CamDevicePipeInFmt_t));
 
 			//TPG metadata judgment
-			if (!caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_METADATA].pathEnable)
+			if (!caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_METADATA].pathEnable) {
 				caseCtx->instanceCfgCtx[index].funcCtrl.useVi200MetaWin = false;
+			}
 
 			if (caseCtx->instanceCfgCtx[index].funcCtrl.useVi200MetaWin) {
 				inFormat.inWidth = caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_RDMA].width;
 				inFormat.inHeight = caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_RDMA].height;
-			} else {
+			}
+			else {
 				inFormat.inWidth = caseCtx->instanceCfgCtx[instanceId].tpgCfg.width;
 				inFormat.inHeight = caseCtx->instanceCfgCtx[instanceId].tpgCfg.height;
 			}
@@ -585,8 +625,9 @@ int VsiVvdeviceExecuteCaseline
 		//InPut Path Create
 		for (int i = CAMDEV_BUFCHAIN_RDMA; i < CAMDEV_BUFCHAIN_MAX; ++i) {
 			bufIo = caseCtx->instanceCfgCtx[instanceId].instancePath[i].path;
-			if (caseCtx->instanceCfgCtx[instanceId].instancePath[i].pathEnable == 0)
+			if (caseCtx->instanceCfgCtx[instanceId].instancePath[i].pathEnable == 0) {
 				continue;
+			}
 			else {
 				result = VsiVvdeviceInputPathCreate(pVvbenchInstance, caseCtx, index, bufIo);
 				if (0 != result) {
@@ -615,8 +656,9 @@ int VsiVvdeviceExecuteCaseline
 		submoduleInitCtrl.subCtrl.gtmEnable = 0;
 		submoduleInitCtrl.subCtrl.wdrEnable = 0;
 		submoduleInitCtrl.subCtrl.lscEnable = 0;
-		if (caseCtx->swSimuCfg.enable)
+		if (caseCtx->swSimuCfg.enable) {
 			submoduleInitCtrl.allCtrl = 0x0;
+		}
 		result = VsiCamDeviceConnectCamera(pVvbenchInstance->hCamDevice[index], &submoduleInitCtrl);
 		if (0 != result) {
 			LOGE("Vsi cam device connect camera failed!");
@@ -627,8 +669,9 @@ int VsiVvdeviceExecuteCaseline
 		//OutPut Path Create
 		for (int i = 0; i <= CAMDEV_BUFCHAIN_METADATA; ++i) {
 			bufIo = caseCtx->instanceCfgCtx[instanceId].instancePath[i].path;
-			if (caseCtx->instanceCfgCtx[instanceId].instancePath[i].pathEnable == 0)
+			if (caseCtx->instanceCfgCtx[instanceId].instancePath[i].pathEnable == 0) {
 				continue;
+			}
 			else {
 				result = VsiVvdeviceOutPutPathCreate(pVvbenchInstance, caseCtx, index, bufIo);
 				if (0 != result) {
@@ -638,6 +681,7 @@ int VsiVvdeviceExecuteCaseline
 				}
 			}
 		}
+
 
 		//FUSA
 		if (caseCtx->instanceCfgCtx[index].funcCtrl.useFusaFunction) {
@@ -703,10 +747,12 @@ int VsiVvdeviceExecuteCaseline
 		iba_vdev->sensorHeight = caseCtx->instanceCfgCtx[index].sensorCfg.sensorHeight;
 		iba_vdev->sensorWidth = caseCtx->instanceCfgCtx[index].sensorCfg.sensorWidth;
 		iba_vdev->virtualChannelId = caseCtx->instanceCfgCtx[index].sensorCfg.virtualChannelId; //2026.1
-		if (iba_vdev->hpId % 2 == 0)
+		if(iba_vdev->hpId%2 == 0) {
 			iba_vdev->ppc = VispSsInst[index].Config.Iba0Ppc;
-		else if (iba_vdev->hpId % 2 == 1)
+		}
+		else if(iba_vdev->hpId%2 == 1) {
 			iba_vdev->ppc = VispSsInst[index].Config.Iba4Ppc;
+		}
 		IBA_init_send_command(pVvbenchInstance->hCamDevice[index], iba_vdev, index);
 
 		///////////////////////////////////////////////////////////////////
@@ -765,8 +811,9 @@ int VsiVvdeviceExecuteCaseline
 #endif
 	for (int index = 0; index < totalInstance; index++) {
 
-		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0)
+		if (caseCtx->instanceCfgCtx[index].instanceEnable == 0) {
 			continue;
+		}
 
 		uint32_t instanceId = index;
 #ifdef APU_CORE
@@ -793,7 +840,8 @@ int VsiVvdeviceExecuteCaseline
 				mm_free(pVvbenchInstance);
 				return -1;
 			}
-		} else {
+		}
+		else {
 			for (int i = 0; i < bufIoArrayCount; i++) {
 				result = VsiVvdevicePathEnable(pVvbenchInstance, caseCtx, index, bufIoArray + i, 1);
 				if (0 != result) {
@@ -808,7 +856,8 @@ int VsiVvdeviceExecuteCaseline
 		//TPG
 		if (caseCtx->instanceCfgCtx[index].funcCtrl.useIspTpgFunction) {
 			if (caseCtx->instanceCfgCtx[index].funcCtrl.useVi200Function) {
-			} else {
+			}
+			else {
 				result = VsiVvbenchTpgFunc(pVvbenchInstance->hCamDevice[index], caseCtx, index);
 				if (0 != result) {
 					LOGE("VsiVvbenchTpgFunc failed!");
@@ -834,7 +883,8 @@ int VsiVvdeviceExecuteCaseline
 					return -1;
 				}
 				LOGI("VsiCamDeviceReadRegister: address:0x%x  value:0x%x !", address, value);
-			} else {
+			}
+			else {
 				result = VsiCamDeviceWriteRegister(pVvbenchInstance->hCamDevice[index], address, value);
 				if (0 != result) {
 					LOGE("VsiCamDeviceWriteRegister failed!");
@@ -887,10 +937,12 @@ int VsiVvdeviceExecuteCaseline
 			uint32_t frameNum, bufferNum, rest_frame_num;
 			CamDeviceInputRawFmt_t rawFmt;
 			CamDeviceBufChainId_t bufferIO;
-			if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_RETIMING].pathEnable)
+			if (caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_RETIMING].pathEnable) {
 				bufferIO = CAMDEV_BUFCHAIN_RETIMING;
-			else
+			}
+			else {
 				bufferIO = CAMDEV_BUFCHAIN_RDMA;
+			}
 
 			int32_t loopCnt = pVvbenchInstance->mPicCase[instanceId].loopCnt;
 			frameNum = pVvbenchInstance->mPicCase[instanceId].frameNum;
@@ -898,8 +950,9 @@ int VsiVvdeviceExecuteCaseline
 			rawFmt = pVvbenchInstance->camDevInfo[instanceId].bufCfg[bufferIO].format;
 			rest_frame_num = frameNum;
 			int coff = 1; // for HDR load (L + S + VS) into one media buffer
-			if (rawFmt >= CAMDEV_INPUT_FMT_2DOL)
+			if (rawFmt >= CAMDEV_INPUT_FMT_2DOL) {
 				coff = (rawFmt - CAMDEV_INPUT_FMT_2DOL + 2);
+			}
 			do {
 
 				ret = VsiCamDeviceDeQueBuffer(pVvbenchInstance->hCamDevice[instanceId], bufferIO, &pMediaBuff);
@@ -910,11 +963,13 @@ int VsiVvdeviceExecuteCaseline
 				}
 				pVvbenchInstance->mPicCase[instanceId].readLine = RDMA_INPUT_PIC_NUM * coff;
 
-				if (pVvbenchInstance->mPicCase[instanceId].readLine / coff > bufferNum)
+				if (pVvbenchInstance->mPicCase[instanceId].readLine / coff > bufferNum) {
 					pVvbenchInstance->mPicCase[instanceId].readLine = bufferNum * coff;
+				}
 
-				if (rest_frame_num * coff > pVvbenchInstance->mPicCase[instanceId].readLine)
+				if (rest_frame_num * coff > pVvbenchInstance->mPicCase[instanceId].readLine) {
 					rest_frame_num -= pVvbenchInstance->mPicCase[instanceId].readLine / coff;
+				}
 				else {
 					pVvbenchInstance->mPicCase[instanceId].readLine = rest_frame_num * coff;
 					rest_frame_num = frameNum;
@@ -932,15 +987,60 @@ int VsiVvdeviceExecuteCaseline
 #if 1
 				{
 					for (int i = CAMDEV_BUFCHAIN_MP; i <= CAMDEV_BUFCHAIN_SP2; i ++) {
-						if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0)
+						if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0) {
 							continue;
+						}
 						else {
 							MediaBuffer_t *pBuf;
+#ifdef APU_CORE
+							uint32_t camDeviceInstanceId = CtrlGetCamDeviceInstanceId(pVvbenchInstance->hCamDevice[index]);
+							/* Wait for RPU to push a completed output buffer */
+							while (apuBufferInform[camDeviceInstanceId][i] == 0) {
+								Apu_Mbox_Check_Command();
+							}
+							apuBufferInform[camDeviceInstanceId][i]--;
+							result = ApuDeQueReceivedBuffer(camDeviceInstanceId, i, &pBuf);
+#else
 							result = VsiCamDeviceDeQueBuffer(pVvbenchInstance->hCamDevice[index], i, &pBuf);
+#endif
 							if (RET_SUCCESS != result) {
 								LOGW("%s DQBUF failed(%d)!", __func__, result);
 								return -1;
 							}
+#ifdef APU_CORE
+							/* Populate PicBufMetaData_t Data fields from APU path config
+							 * since RPU and APU PicBufMetaData_t have different layouts */
+							if (pBuf && pBuf->pMetaData) {
+								VvbenchBufferCfg_t *pBufCfg = &pVvbenchInstance->camDevInfo[index].bufCfg[i];
+								PicBufMetaData_t *pMeta = (PicBufMetaData_t *)(uintptr_t)pBuf->pMetaData;
+								uint32_t w = pBufCfg->width;
+								uint32_t h = pBufCfg->height;
+								uint32_t bits = pBufCfg->dataBits;
+								pMeta->yuvOrder = pBufCfg->yuvOrder;
+								switch (pMeta->Type) {
+								case PIC_BUF_TYPE_RGB888:
+									if (pMeta->Layout == PIC_BUF_LAYOUT_COMBINED) {
+										pMeta->Data.RGB.combined.PicWidthPixel = w;
+										pMeta->Data.RGB.combined.PicHeightPixel = h;
+										pMeta->Data.RGB.combined.PicWidthBytes = w * 3;
+										pMeta->Data.RGB.combined.bitWidth = bits;
+									} else {
+										pMeta->Data.RGB.planar.R.PicWidthPixel = w;
+										pMeta->Data.RGB.planar.R.PicHeightPixel = h;
+										pMeta->Data.RGB.planar.R.PicWidthBytes = w;
+										pMeta->Data.RGB.planar.G.PicWidthPixel = w;
+										pMeta->Data.RGB.planar.G.PicHeightPixel = h;
+										pMeta->Data.RGB.planar.G.PicWidthBytes = w;
+										pMeta->Data.RGB.planar.B.PicWidthPixel = w;
+										pMeta->Data.RGB.planar.B.PicHeightPixel = h;
+										pMeta->Data.RGB.planar.B.PicWidthBytes = w;
+									}
+									break;
+								default:
+									break;
+								}
+							}
+#endif
 							LOGI("the VsiCamDeviceDeQueBuffer is 0x%08x\r\n", pBuf->baseAddress);
 							VsiVvdeviceShowBuffer(pVvbenchInstance, pBuf, index, i);
 							showFrameNum++;
@@ -958,17 +1058,21 @@ int VsiVvdeviceExecuteCaseline
 				if (frameNum == rest_frame_num) {
 					pVvbenchInstance->mPicCase[instanceId].currLine = 0;
 					loopCnt --;
-				} else
+				}
+				else {
 					pVvbenchInstance->mPicCase[instanceId].currLine += pVvbenchInstance->mPicCase[instanceId].readLine;
+				}
 			} while (loopCnt > 0);
-		} else if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[index].inputType) {
+		}
+		else if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[index].inputType) {
 			uint32_t frameNum;
 			frameNum = caseCtx->instanceCfgCtx[index].tpgCfg.frameNum;
 			if (frameNum > 0) {
 				for (int j = 0; j < frameNum; j++) {
 					for (int i = CAMDEV_BUFCHAIN_MP; i <= CAMDEV_BUFCHAIN_SP2; i ++) {
-						if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0)
+						if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0) {
 							continue;
+						}
 						else {
 							MediaBuffer_t *pBuf;
 							result = VsiCamDeviceDeQueBuffer(pVvbenchInstance->hCamDevice[index], i, &pBuf);
@@ -988,7 +1092,8 @@ int VsiVvdeviceExecuteCaseline
 						}
 					}
 				}
-			} else {
+			}
+			else {
 				while (1) {}
 			}
 		}
@@ -1031,16 +1136,18 @@ int VsiVvdeviceExecuteCaseline
 		//	int displayInstance = 0;
 		uint32_t camDeviceInstanceId = 0;
 		for (int index = 0; index < totalInstance; index++) {
-			if (caseCtx->instanceCfgCtx[index].instanceEnable == 0)
+			if (caseCtx->instanceCfgCtx[index].instanceEnable == 0) {
 				continue;
+			}
 #ifdef APU_CORE
 			selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId);
 #endif
 			if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
 				for (int i = CAMDEV_BUFCHAIN_MP; i <= CAMDEV_BUFCHAIN_RAW; i ++) {
 					if (caseCtx->instanceCfgCtx[index].instancePath[i].pathEnable == 0
-					    || (caseCtx->instanceCfgCtx[index].instancePath[i].pathOutType == 1))
+					    || (caseCtx->instanceCfgCtx[index].instancePath[i].pathOutType == 1)) {
 						continue;
+					}
 					else {
 #ifdef APU_CORE
 						camDeviceInstanceId = CtrlGetCamDeviceInstanceId(pVvbenchInstance->hCamDevice[index]);
@@ -1049,14 +1156,123 @@ int VsiVvdeviceExecuteCaseline
 							continue;
 						}
 						apuBufferInform[camDeviceInstanceId][i]--;
-#endif
-
-
+						result = ApuDeQueReceivedBuffer(camDeviceInstanceId, i, &pBuf);
+#else
 						result = VsiCamDeviceDeQueBuffer(pVvbenchInstance->hCamDevice[index], i, &pBuf);
+#endif
 						if (RET_SUCCESS != result) {
 							LOGW("%s DQBUF failed(%d)!", __func__, result);
 							break;
 						}
+#ifdef APU_CORE
+						/* Populate PicBufMetaData_t Data fields from APU path config
+						 * since RPU and APU PicBufMetaData_t have different layouts */
+						if (pBuf && pBuf->pMetaData) {
+							VvbenchBufferCfg_t *pBufCfg = &pVvbenchInstance->camDevInfo[index].bufCfg[i];
+							PicBufMetaData_t *pMeta = pBuf->pMetaData;
+							uint32_t w = pBufCfg->width;
+							uint32_t h = pBufCfg->height;
+							uint32_t fmt = pBufCfg->format;
+							uint32_t bits = pBufCfg->dataBits;
+							pMeta->yuvOrder = pBufCfg->yuvOrder;
+							switch (pMeta->Type) {
+							case PIC_BUF_TYPE_RGB888:
+								if (pMeta->Layout == PIC_BUF_LAYOUT_COMBINED) {
+									pMeta->Data.RGB.combined.PicWidthPixel = w;
+									pMeta->Data.RGB.combined.PicHeightPixel = h;
+									pMeta->Data.RGB.combined.PicWidthBytes = w * 3;
+									pMeta->Data.RGB.combined.bitWidth = bits;
+								} else {
+									pMeta->Data.RGB.planar.R.PicWidthPixel = w;
+									pMeta->Data.RGB.planar.R.PicHeightPixel = h;
+								}
+								break;
+							case PIC_BUF_TYPE_YCbCr422:
+								if (pMeta->Layout == PIC_BUF_LAYOUT_SEMIPLANAR) {
+									pMeta->Data.YCbCr.semiplanar.Y.PicWidthPixel = w;
+									pMeta->Data.YCbCr.semiplanar.Y.PicHeightPixel = h;
+									pMeta->Data.YCbCr.semiplanar.Y.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.semiplanar.Y.bitWidth = bits;
+									pMeta->Data.YCbCr.semiplanar.CbCr.PicWidthPixel = w;
+									pMeta->Data.YCbCr.semiplanar.CbCr.PicHeightPixel = h;
+									pMeta->Data.YCbCr.semiplanar.CbCr.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.semiplanar.CbCr.bitWidth = bits;
+								} else if (pMeta->Layout == PIC_BUF_LAYOUT_PLANAR) {
+									pMeta->Data.YCbCr.planar.Y.PicWidthPixel = w;
+									pMeta->Data.YCbCr.planar.Y.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Y.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.planar.Y.bitWidth = bits;
+									pMeta->Data.YCbCr.planar.Cb.PicWidthPixel = w / 2;
+									pMeta->Data.YCbCr.planar.Cb.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Cb.PicWidthBytes = (w / 2) * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.planar.Cr.PicWidthPixel = w / 2;
+									pMeta->Data.YCbCr.planar.Cr.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Cr.PicWidthBytes = (w / 2) * ((bits > 8) ? 2 : 1);
+								} else if (pMeta->Layout == PIC_BUF_LAYOUT_COMBINED) {
+									pMeta->Data.YCbCr.combined.PicWidthPixel = w;
+									pMeta->Data.YCbCr.combined.PicHeightPixel = h;
+									pMeta->Data.YCbCr.combined.PicWidthBytes = w * 2 * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.combined.bitWidth = bits;
+								}
+								break;
+							case PIC_BUF_TYPE_YCbCr420:
+								if (pMeta->Layout == PIC_BUF_LAYOUT_SEMIPLANAR) {
+									pMeta->Data.YCbCr.semiplanar.Y.PicWidthPixel = w;
+									pMeta->Data.YCbCr.semiplanar.Y.PicHeightPixel = h;
+									pMeta->Data.YCbCr.semiplanar.Y.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.semiplanar.Y.bitWidth = bits;
+									pMeta->Data.YCbCr.semiplanar.CbCr.PicWidthPixel = w;
+									pMeta->Data.YCbCr.semiplanar.CbCr.PicHeightPixel = h / 2;
+									pMeta->Data.YCbCr.semiplanar.CbCr.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.semiplanar.CbCr.bitWidth = bits;
+								} else if (pMeta->Layout == PIC_BUF_LAYOUT_PLANAR) {
+									pMeta->Data.YCbCr.planar.Y.PicWidthPixel = w;
+									pMeta->Data.YCbCr.planar.Y.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Y.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.planar.Y.bitWidth = bits;
+									pMeta->Data.YCbCr.planar.Cb.PicWidthPixel = w / 2;
+									pMeta->Data.YCbCr.planar.Cb.PicHeightPixel = h / 2;
+									pMeta->Data.YCbCr.planar.Cb.PicWidthBytes = (w / 2) * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.planar.Cr.PicWidthPixel = w / 2;
+									pMeta->Data.YCbCr.planar.Cr.PicHeightPixel = h / 2;
+									pMeta->Data.YCbCr.planar.Cr.PicWidthBytes = (w / 2) * ((bits > 8) ? 2 : 1);
+								}
+								break;
+							case PIC_BUF_TYPE_YCbCr444:
+								if (pMeta->Layout == PIC_BUF_LAYOUT_PLANAR) {
+									pMeta->Data.YCbCr.planar.Y.PicWidthPixel = w;
+									pMeta->Data.YCbCr.planar.Y.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Y.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.planar.Y.bitWidth = bits;
+									pMeta->Data.YCbCr.planar.Cb.PicWidthPixel = w;
+									pMeta->Data.YCbCr.planar.Cb.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Cb.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.planar.Cr.PicWidthPixel = w;
+									pMeta->Data.YCbCr.planar.Cr.PicHeightPixel = h;
+									pMeta->Data.YCbCr.planar.Cr.PicWidthBytes = w * ((bits > 8) ? 2 : 1);
+								} else if (pMeta->Layout == PIC_BUF_LAYOUT_COMBINED) {
+									pMeta->Data.YCbCr.combined.PicWidthPixel = w;
+									pMeta->Data.YCbCr.combined.PicHeightPixel = h;
+									pMeta->Data.YCbCr.combined.PicWidthBytes = w * 3 * ((bits > 8) ? 2 : 1);
+									pMeta->Data.YCbCr.combined.bitWidth = bits;
+								}
+								break;
+							case PIC_BUF_TYPE_RAW8:
+							case PIC_BUF_TYPE_RAW10:
+							case PIC_BUF_TYPE_RAW12:
+							case PIC_BUF_TYPE_RAW14:
+							case PIC_BUF_TYPE_RAW16:
+							case PIC_BUF_TYPE_RAW24:
+								pMeta->Data.raw.PicWidthPixel = w;
+								pMeta->Data.raw.PicHeightPixel = h;
+								pMeta->Data.raw.PicWidthBytes = pBuf->baseSize / h;
+								pMeta->Data.raw.bitWidth = bits;
+								break;
+							default:
+								break;
+							}
+						}
+#endif
 						// Increment the dequeue call counter
 						dequeue_call_count++;
 						VsiVvdeviceShowBuffer(pVvbenchInstance, pBuf, index, i);
@@ -1111,7 +1327,7 @@ int VsiVvdeviceExecuteCaseline
 			double elapsed_seconds = (double)elapsed_ticks / freq;
 
 			if (elapsed_seconds >= 5.0) {
-				LOGI("Stream FPS = %dfps", dequeue_call_count / 5);
+				LOGI("Stream FPS = %dfps", dequeue_call_count/5);
 				xil_printf("================================\n");
 				// Reset counters for next second
 				start = GetTime();
@@ -1199,8 +1415,10 @@ int VsiVvdeviceExecuteCaseline
 				if (0 != result) {
 					LOGE("fastReset for instance: %d, VsiCamDeviceSwFastStop failed! result:%d", iInstance, result);
 					return -1;
-				} else
+				}
+				else {
 					LOGI("success call fast reset stop for instance %d", iInstance);
+				}
 			}
 
 			for (int iInstance = 0; iInstance < totalInstance; iInstance++) {
@@ -1212,8 +1430,10 @@ int VsiVvdeviceExecuteCaseline
 				if (0 != result) {
 					LOGE("fastReset VsiCamDeviceHwSystemReset failed! result:%d", result);
 					return -1;
-				} else
+				}
+				else {
 					LOGI("success call fast reset hw system reset for instance %d", iInstance);
+				}
 			}
 
 			for (int iInstance = 0; iInstance < totalInstance; iInstance++) {
@@ -1225,8 +1445,10 @@ int VsiVvdeviceExecuteCaseline
 				if (0 != result) {
 					LOGE("fastReset for instance: %d, VsiCamDeviceSwFastStart failed! result:%d", iInstance, result);
 					return -1;
-				} else
+				}
+				else {
 					LOGI("success call fast reset start for instance %d", iInstance);
+				}
 			}
 			VsiVvdeviceDelay(5);
 		}
@@ -1252,13 +1474,16 @@ int VsiVvdeviceStop(const bool stopImmediately)
 {
 	int result = 0;
 	LOGI("%s enter \n", __func__);
-	if ((!instanceNumber) || isVvdeviceReleased)
+	if ((!instanceNumber) || isVvdeviceReleased) {
 		return 0;
-	else
+	}
+	else {
 		isVvdeviceReleased = true;
+	}
 
-	if (NULL == pBenchInstance || NULL == caseContext)
+	if (NULL == pBenchInstance || NULL == caseContext) {
 		return -1;
+	}
 
 	VsiVvdeviceDelay(1);
 	LOGI("vvbench end of stream");
@@ -1294,7 +1519,8 @@ int VsiVvdeviceStop(const bool stopImmediately)
 				LOGE("VsiVvdevicePathDisable failed");
 				return -1;
 			}
-		} else {
+		}
+		else {
 			for (int i = 0; i < bufIoArrayCount; i++) {
 				result = VsiVvdevicePathDisable(pBenchInstance, caseContext, index, bufIoArray + i, 1);
 				if (result != 0) {
@@ -1335,8 +1561,9 @@ int VsiVvdeviceStop(const bool stopImmediately)
 
 		//deattach buffer chain
 		for (int i = 0; i < CAMDEV_BUFCHAIN_MAX; ++i) {
-			if (caseContext->instanceCfgCtx[index].instancePath[i].pathState == UN_INIT)
+			if (caseContext->instanceCfgCtx[index].instancePath[i].pathState == UN_INIT) {
 				continue;
+			}
 			else {
 				CamDeviceBufChainId_t bufIo = caseContext->instanceCfgCtx[index].instancePath[i].path;
 
@@ -1392,11 +1619,13 @@ int VsiVvdeviceCalibControl
 		    strlen(caseCtx->instanceCfgCtx[index].sensorCfg.calibrationName) != 0) {
 			MEMCPY(fileName, caseCtx->instanceCfgCtx[index].sensorCfg.calibrationName,
 			       sizeof(caseCtx->instanceCfgCtx[index].sensorCfg.calibrationName));
-		} else if (CAMDEV_INPUT_TYPE_IMAGE == caseCtx->instanceCfgCtx[index].inputType &&
-			   strlen(caseCtx->instanceCfgCtx[index].pictureCfg.calibXml) != 0) {
+		}
+		else if (CAMDEV_INPUT_TYPE_IMAGE == caseCtx->instanceCfgCtx[index].inputType &&
+			 strlen(caseCtx->instanceCfgCtx[index].pictureCfg.calibXml) != 0) {
 			MEMCPY(fileName, caseCtx->instanceCfgCtx[index].pictureCfg.calibXml,
 			       sizeof(caseCtx->instanceCfgCtx[index].pictureCfg.calibXml));
-		} else {
+		}
+		else {
 			LOGW("Vsi calib control wrong input type or file null, exit");
 			return 1;
 		}
@@ -1530,6 +1759,8 @@ int VsiVvdeviceLoadSimulatorToDatabase
 	char autoJson[FILE_LEN];
 	if(tuning_json == 0)
 	{
+		strcpy(manualJson, "vvbcfg/project_json_file/manual_ext.json");
+		strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
 		/* Override JSON files based on sensorName */
 		const char *sensorName = caseCtx->instanceCfgCtx[index].sensorCfg.sensorName;
 		if (strcmp(sensorName, "ox05b1s") == 0) {
@@ -1541,11 +1772,6 @@ int VsiVvdeviceLoadSimulatorToDatabase
 			strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
 			strcpy(manualJson, "manual_ext_0x08b40.json");
 			LOGI("Sensor %s detected, using manualJson: %s", sensorName, manualJson);
-		}
-		if (strcmp(sensorName, "ox03f10") == 0) {
-			strcpy(manualJson, "vvbcfg/project_json_file/manual_ext.json");
-			strcpy(autoJson, "vvbcfg/project_json_file/auto.json");
-			LOGI("Sensor %s detected, using manualJson: %s, autoJson: %s", sensorName, manualJson, autoJson);
 		}
 	}
 	else {
@@ -1591,7 +1817,8 @@ int VsiVvdeviceLoadSimulatorToDatabase
 				return result;
 			}
 		}
-	} else {
+	}
+	else {
 		caseCtx->swSimuCfg.enable = caseCtx->fineTuneMode;
 		caseCtx->swSimuCfg.autoCfg.enable = caseCtx->fineTuneMode;
 		caseCtx->swSimuCfg.autoCfg.awbEnable = caseCtx->fineTuneMode;
@@ -1606,7 +1833,8 @@ int VsiVvdeviceLoadSimulatorToDatabase
 				LOGE("Cam Common parse fine tune JSON error, exit");
 				return result;
 			}
-		} else {
+		}
+		else {
 			LOGE("Fine tune JSON file path is empty!");
 			return result;
 		}
@@ -1644,7 +1872,8 @@ int VsiVvdeviceLoadImageJsonToDatabase
 	    (pDbConfig->input.startFrame)) {  // pDbConfig->input.frames now be treat as endFrame
 		LOGE("%s error:endFrame must bigger than startFrame", __func__);
 		return -1;
-	} else {
+	}
+	else {
 		caseCtx->instanceCfgCtx[index].pictureCfg.frameNum = pDbConfig->input.frames -
 			(pDbConfig->input.startFrame);
 
@@ -1668,12 +1897,14 @@ int VsiVvdeviceLoadImageJsonToDatabase
 		for (int pathId = 0; pathId < sizeof(pDbConfig->input.path) / sizeof(pDbConfig->input.path[0]) ;
 		     pathId++) {
 			if (strcmp(pDbConfig->input.path[pathId], "%d.raw") == 0
-			    || strcmp(pDbConfig->input.path[pathId], "") == 0)
+			    || strcmp(pDbConfig->input.path[pathId], "") == 0) {
 				continue;
+			}
 			else if (strstr(pDbConfig->input.path[pathId], "%d") == NULL) {
 				osFputs(pDbConfig->input.path[pathId], swSimuList);
 				osFputs("\n", swSimuList);
-			} else {
+			}
+			else {
 				snprintf(szBuffer, FILE_LEN, pDbConfig->input.path[pathId], index);
 				osFputs(szBuffer, swSimuList);
 				osFputs("\n", swSimuList);
@@ -1733,7 +1964,8 @@ int VsiVvdeviceSubModuleControl
 				return -1;
 			}
 		}
-	} else {
+	}
+	else {
 		if (caseCtx->swSimuCfg.enable) {
 			result = VsiVvbenchPdafFunc(hCamDevice, caseCtx, index);
 			if (0 != result) {
@@ -1993,10 +2225,7 @@ int VsiVvdeviceNrRelocControl
 
 	TDatabaseMetaDriver_t *pMetaConfig = NULL;
 	result = TDatabase_query(pCamCommonCtx->hDatabase, T_DATABASE_META_DRIVER, (void**)&pMetaConfig);
-	if (0 != result) {
-		LOGE("%s: Vvbench TDatabase_query Nr Reloc failed!\n", __func__);
-		return -1;
-	}
+
 	//NR pre-position in ISP
 	if (pMetaConfig->nrReloc) {
 		result = VsiCamDeviceNrRelocEnable(hCamDevice);
@@ -2025,10 +2254,13 @@ int VsiVvdeviceInstanceInit
 		strncpy(temp, caseCtx->caseName, sizeof(temp) - 1);
 		temp[sizeof(temp) - 1] = '\0';
 		sprintf(pVvInstance->caseName, "load_image_case/%s", temp);
-	} else
+	}
+	else {
 		strncpy(pVvInstance->caseName, caseCtx->caseName, sizeof(pVvInstance->caseName));
-	for (int instance = 0; instance < MAX_CAM_NUM; instance++)
+	}
+	for (int instance = 0; instance < MAX_CAM_NUM; instance++) {
 		pVvInstance->frameIndex[instance][CAMDEV_BUFCHAIN_MP] = caseCtx->frameIndex[instance];
+	}
 	pVvInstance->enableDump = false;
 	if (pVvInstance->useTerminal) {
 		pVvInstance->enableDump = false;
@@ -2053,8 +2285,9 @@ int VsiVvdeviceInstanceInit
 					if (caseCtx->instanceCfgCtx[instance].instancePath[bufferIO].pathEnable) {
 						bool allowSkip = false;
 						if (DEFAULT_CASE_LIST == VsiVvbenchGetVvbenchRunMode() &&
-						    (0 != strcmp(caseCtx->instanceCfgCtx[instance].sensorCfg.sensorName, "UserInput")))
+						    (0 != strcmp(caseCtx->instanceCfgCtx[instance].sensorCfg.sensorName, "UserInput"))) {
 							allowSkip = true;
+						}
 						// result = VsiVvdeviceInitDom(pVvInstance, instance,
 						// (CamDeviceBufChainId_t)bufferIO, allowSkip);
 						// if (0 != result) {
@@ -2065,7 +2298,8 @@ int VsiVvdeviceInstanceInit
 				}
 			}
 		}
-	} else {
+	}
+	else {
 		// result = VsiVvdeviceInitDom(pVvInstance, 0, CAMDEV_BUFCHAIN_MP, false);
 		// if (0 != result) {
 		// LOGE("%s: bufio %d init dom failed\n", __func__, CAMDEV_BUFCHAIN_MP);
@@ -2102,34 +2336,43 @@ RESULT VsiVvdeviceGetIllumType
 	int result = 0;
 	LOGI("%s enter \n", __func__);
 
-	if (hCamDevice == NULL || caseCtx == NULL || pllumType == NULL)
+	if (hCamDevice == NULL || caseCtx == NULL || pllumType == NULL) {
 		return -1;
+	}
 
 	if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "A")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_A;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "D50")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "D50")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_D50;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "D65")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "D65")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_D65;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "D75")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "D75")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_D75;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "F2")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "F2")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_F2;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "F11")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "F11")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_F11;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "F12")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "F12")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_F12;
-	} else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "H")) {
+	}
+	else if (0 == strcmp(caseCtx->instanceCfgCtx[index].sensorCfg.illumType, "H")) {
 		LOGI("Illumination type: %s ", caseCtx->instanceCfgCtx[index].sensorCfg.illumType);
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_H;
-	} else {
+	}
+	else {
 		LOGI("Use default Illumination type: D50");
 		*pllumType = CAMDEV_CALIB_ILLUM_TYPE_D50;
 	}
@@ -2169,7 +2412,7 @@ int VsiVvdeviceSensorFunc
 		return -1;
 	}
 	if (result == RET_NOTSUPP) {
-		LOGE("vvbench Sensor Metadata Attr Unsupport!");
+		LOGE("vvbench Sensor Metadata Attr Unsupported!");
 		caseCtx->instanceCfgCtx[index].funcCtrl.useVi200MetaWin = 0;
 		return RET_SUCCESS;
 	}
@@ -2195,8 +2438,9 @@ int VsiVvdeviceSensorFunc
 	}
 #endif
 
-	if (!caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_METADATA].pathEnable)
+	if (!caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_METADATA].pathEnable) {
 		caseCtx->instanceCfgCtx[index].funcCtrl.useVi200MetaWin = false;
+	}
 
 	LOGI("%s exit \n", __func__);
 	return RET_SUCCESS;
@@ -2220,43 +2464,51 @@ int VsiVvdeviceGetStatisticControl
 
 	//EXPV2 is ShowExpv2GetStatistic
 	pVvInstance->isShowExpv2GetStatistic[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.expv2.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.expv2.enable) {
 		pVvInstance->isShowExpv2GetStatistic[index] = true;
+	}
 
 	//EXPV3 is ShowExpv3GetStatistic
 	pVvInstance->isShowExpv3GetStatistic[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.expv3.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.expv3.enable) {
 		pVvInstance->isShowExpv3GetStatistic[index] = true;
+	}
 
 	//AFM is ShowAfmGetStatistic
 	pVvInstance->isShowAfmGetStatistic[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.afm.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.afm.enable) {
 		pVvInstance->isShowAfmGetStatistic[index] = true;
+	}
 
 	//AFM is ShowAfmv3GetStatistic
 	pVvInstance->isShowAfmv3GetStatistic[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.afmv3.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.afmv3.enable) {
 		pVvInstance->isShowAfmv3GetStatistic[index] = true;
+	}
 
 	//AWB is ShowAwbPerFrameInfo
 	pVvInstance->isShowAwbPerFrameInfo[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.awb.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.awb.enable) {
 		pVvInstance->isShowAwbPerFrameInfo[index] = true;
+	}
 
 	//AE is ShowAePerFrameInfo
 	pVvInstance->isShowAePerFrameInfo[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.ae.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.ae.enable) {
 		pVvInstance->isShowAePerFrameInfo[index] = true;
+	}
 
 	//Hist64 is isShowHist64GetStatistic
 	pVvInstance->isShowHist64GetStatistic[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.hist64.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.hist64.enable) {
 		pVvInstance->isShowHist64GetStatistic[index] = true;
+	}
 
 	//Hist256 is ShowHist256GetStatistic
 	pVvInstance->isShowHist256GetStatistic[index] = false;
-	if (caseCtx->instanceCfgCtx[index].moduleCfg.hist256.enable)
+	if (caseCtx->instanceCfgCtx[index].moduleCfg.hist256.enable) {
 		pVvInstance->isShowHist256GetStatistic[index] = true;
+	}
 
 	LOGI("%s exit \n", __func__);
 	return result;
@@ -2463,8 +2715,9 @@ void VsiVvdeviceShowBuffer
 	CamDeviceBufChainId_t bufferIO
 )
 {
-	if (NULL == pVvInstance || NULL == pBuffer)
+	if (NULL == pVvInstance || NULL == pBuffer) {
 		return ;
+	}
 	uint8_t bufferNum = 1;
 
 	for (int iBuf = 0; iBuf < bufferNum; ++iBuf) {
@@ -2492,8 +2745,9 @@ void VsiVvdeviceShowBuffer
 		char typeStr[64];
 
 
-		if (showChannel >= MAX_CAM_NUM)
+		if (showChannel >= MAX_CAM_NUM) {
 			return;
+		}
 
 		bool formatIsVaild = true;
 
@@ -2727,7 +2981,8 @@ void VsiVvdeviceShowBuffer
 						ysize = width * height;
 						offset = ysize % ALIGN_16;
 						sprintf(typeStr, "rgb888p");
-					} else if (pPicBufMetaData->Layout == PIC_BUF_LAYOUT_COMBINED) {
+					}
+					else if (pPicBufMetaData->Layout == PIC_BUF_LAYOUT_COMBINED) {
 						width = pPicBufMetaData->Data.RGB.combined.PicWidthPixel;
 						height = pPicBufMetaData->Data.RGB.combined.PicHeightPixel;
 						widthBytes = pPicBufMetaData->Data.RGB.combined.PicWidthBytes;
@@ -2846,7 +3101,7 @@ void VsiVvdeviceShowBuffer
 				type = 1;
 				break;
 			default:
-				LOGE("type error, unsupport type=%d!", pPicBufMetaData->Type);
+				LOGE("type error, unsupported type=%d!", pPicBufMetaData->Type);
 				return;
 		}
 		if (!formatIsVaild) {
@@ -2874,22 +3129,32 @@ void VsiVvdeviceShowBuffer
 		// LOGI("showbuffer: bufferSize:%d,", bufferSize);
 		// LOGI("showbuffer: Phy_Addr:0x%x,", pNowBuffer->baseAddress);
 		// LOGI("showbuffer: Ipl_Addr:%p", pNowBuffer->pIplAddress);
-		if (pBuffer->pIplAddress == NULL) {
+		if (pBuffer->pIplAddress == NULL && pBuffer->baseAddress == 0) {
 			//LOGE("%s: show buffer pIplAddress error", __func__);
 			return;
 		}
 
-		uint8_t *pReadbuf = (uint8_t *)(pNowBuffer->pIplAddress);
+		/* Reconstruct full 64-bit CPU address from 32-bit ATM address */
+		uint64_t showFullAddr;
+		if (ATM_ENABLE) {
+			showFullAddr = (uint64_t)pNowBuffer->baseAddress | ((uint64_t)0x8 << 32);
+		} else {
+			showFullAddr = (uint64_t)pNowBuffer->pIplAddress;
+		}
+		uint8_t *pReadbuf = (uint8_t *)(uintptr_t)showFullAddr;
 		static uint8_t dolShift = 0;
 		if (bufferIO != CAMDEV_BUFCHAIN_HDR_RAW) {
-		} else {
+		}
+		else {
 			uint32_t bufferSize = pOutBuf->widthBytes * pOutBuf->height;
 			pOutBuf->buff_size = bufferSize;
 			if (dolShift != 0) {
-				if ((pNowBuffer->baseSize - bufferSize * dolShift) < bufferSize)
+				if ((pNowBuffer->baseSize - bufferSize * dolShift) < bufferSize) {
 					dolShift = 0;
-				else
+				}
+				else {
 					pReadbuf += (bufferSize * dolShift);
+				}
 			}
 			dolShift++;
 		}
@@ -2904,12 +3169,14 @@ void VsiVvdeviceShowBuffer
 				snprintf(szFileName, sizeof(szFileName),
 					 "vvbcfg/case/dump_image/%s_dump_%s_instance%d_path%d_frame%lu.yuv", pVvInstance->caseName, typeStr,
 					 showChannel, bufferIO, nowFrameID);
-			} else {  // raw
+			}
+			else {    // raw
 				if (bufferIO != CAMDEV_BUFCHAIN_HDR_RAW) {
 					snprintf(szFileName, sizeof(szFileName),
 						 "vvbcfg/case/dump_image/%s_dump_%s_instance%d_path%d_frame%lu.raw", pVvInstance->caseName, typeStr,
 						 showChannel, bufferIO, nowFrameID);
-				} else {
+				}
+				else {
 					char hdrStr[4][3] = {{"L"}, {"S"}, {"VS"}, {"XS"}};
 					snprintf(szFileName, sizeof(szFileName),
 						 "vvbcfg/case/dump_image/%s_dump_%s_%s_instance%d_path%d_frame%lu.raw",
@@ -2931,30 +3198,34 @@ void VsiVvdeviceShowBuffer
 						++n;
 						pReadbuf = pReadbuf + ysize + (ALIGN_16 - offset);
 					} while (n < 3);
-				} else {
+				}
+				else {
 					osFwrite(pReadbuf, ysize, 1, pFile);
 					pReadbuf = pReadbuf + ysize + (ALIGN_16 - offset);
 					osFwrite(pReadbuf, (bufferSize - ysize), 1, pFile);
 				}
-			} else
+			}
+			else {
 				osFwrite(pReadbuf, bufferSize, 1, pFile);
+			}
 			Xil_DCacheInvalidateRange(pNowBuffer->baseAddress, bufferSize);
 			osFclose(pFile);
 			pFile = NULL;
 #endif
 			LOGI("------------------------------------------------------------\r\n");
-			LOGI(" |            MIMO CASE RUN SUCESSFULLY \r\n");
+			LOGI(" |            MIMO CASE RUN SUCCESSFULLY \r\n");
 			LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
-			LOGI(" |  mrd -bin -file dump.rgb 0x%x 0x%x\r\n\n", pNowBuffer->baseAddress,
+			LOGI(" |  mrd -bin -file dump.rgb 0x%llx 0x%x\r\n\n",
+			     (unsigned long long)showFullAddr,
 			     pNowBuffer->baseSize / 4);
 			LOGI("------------------------------------------------------------\r\n");
-			Xil_DCacheInvalidateRange(pNowBuffer->baseAddress, bufferSize);
 		}
 #else
 		if (0 == type) {  // yuv
 			// LOGI("vvbench not open image dump format-%d-%s", type, typeStr);
 			// LOGI("offset value %d", offset);
-		} else {  // raw
+		}
+		else {    // raw
 			// LOGI("vvbench dump image format-%d-%s", type, typeStr);
 		}
 #endif
@@ -3061,20 +3332,13 @@ int VsiVvdeviceGetInputPicture
 	}
 #endif
 	/*****************************json change ********************/
-	LOGI("[vvbench]--%s: Calling find_image_data...", __func__);
 	const EmbeddedJson* json = find_image_data(pVvInstance->mPicCase[instanceId].pictureName);
-	LOGI("[vvbench]--%s: find_image_data returned: %p", __func__, json);
-	if (!json) {
-		LOGE("[vvbench]--%s: find_image_data failed for '%s'", __func__,
-		     pVvInstance->mPicCase[instanceId].pictureName);
-		return RET_FAILURE;
-	}
-	LOGI("[vvbench]--%s: Copying json data, size=%zu", __func__, json->size);
 	memcpy(imageFile, json->data, json->size);
 	//memcpy(imageFile,&picture_raw_output_format_case_txt[0],picture_raw_output_format_case_txt_len);
 	imageFile[json->size] = '\0';
 	//imageFile[picture_raw_output_format_case_txt_len] = '\0';
-	LOGI("[vvbench]--%s:picture list file loaded successfully", __func__);
+	LOGI("[vvbench]--%s:picture list file path:'%s' ", __func__,
+	     pVvInstance->mPicCase[instanceId].pictureName);
 	/**********************************************************/
 
 	/*get one new buffer for raw picture*/
@@ -3099,10 +3363,12 @@ int VsiVvdeviceGetInputPicture
 			RAW,
 			PGM
 		} rawFormat;
-		if (3 >= strlen(imageFile) || 0 != strncmp(imageFile + strlen(imageFile) - 3, "pgm", 3))
+		if (3 >= strlen(imageFile) || 0 != strncmp(imageFile + strlen(imageFile) - 3, "pgm", 3)) {
 			rawFormat = RAW;
-		else
+		}
+		else {
 			rawFormat = PGM;
+		}
 
 		/*****************************json change ********************/
 
@@ -3146,34 +3412,42 @@ int VsiVvdeviceGetInputPicture
 				++fullHeadCount;
 			}
 			LOGI("%s exit \n", __func__);
-			if (json->size == 4321)
+			if(json->size == 4321)
+			{
 				RawpicLen = image_len - offset;
-			else
+			}
+			else {
 				RawpicLen = json->size - offset;
+			}
 			memset(pRawbuff, 0, RawpicLen);
 			memcpy(pRawbuff, &json->data[offset], RawpicLen);
 
 #if 0
 
 			int32_t offset = VsiVvdeviceGetPGMHead(rawpicture);
-			if (0 >= offset)
+			if (0 >= offset) {
 				LOGE("[vvbench]--%s:pgm picture file head is invalid", __func__);
+			}
 			osFseek(rawpicture, 0, SEEK_END);
 			RawpicLen = osFtell(rawpicture) - offset;
 			memset(pRawbuff, 0, RawpicLen);
 			osFseek(rawpicture, offset, SEEK_SET);
 #endif
 
-		} else {
+		}
+		else {
 			/*step2.get and check raw picture file size*/
 #if 0
 			osFseek(rawpicture, 0, SEEK_END);
 			RawpicLen = osFtell(rawpicture);
 #endif
-			if (json->size == 4321)
+			if(json->size == 4321)
+			{
 				RawpicLen = image_len;
-			else
+			}
+			else {
 				RawpicLen = json->size;
+			}
 
 			if (bufferSize < RawpicLen) {
 				LOGE("[vvbench]--%s:raw picture file size(0x%x) is larger than buffersize(0x%x)", __func__,
@@ -3207,18 +3481,30 @@ int VsiVvdeviceGetInputPicture
 			}
 			LOGD("[vvbench]--%s:media buffer: phybase:0x%x, virtual_ptr:0x%p", __func__, pBuff->baseAddress,
 			     pBuff->pIplAddress);
-			if (pBuff->pIplAddress != NULL) {
+
+			/* Reconstruct the full 64-bit CPU address from the 32-bit ATM address.
+			 * The RPU returns 32-bit addresses; the actual DDR is at 0x800000000+offset.
+			 * pIplAddress is uint32_t and cannot hold 64-bit addr, so reconstruct here. */
+			uint64_t fullAddr;
+			if (ATM_ENABLE) {
+				fullAddr = (uint64_t)pBuff->baseAddress | ((uint64_t)0x8 << 32);
+			} else {
+				fullAddr = (uint64_t)pBuff->pIplAddress;
+			}
+			if (fullAddr != 0) {
 
 				/*step4.sync picture to phybase mapped virtual address*/
-				MEMCPY((uint8_t *)(pBuff->pIplAddress) + (index * coff), (uint8_t *)pRawbuff, RawpicLen);
+				MEMCPY((uint8_t *)(uintptr_t)fullAddr + (index * coff), (uint8_t *)pRawbuff, RawpicLen);
 
-				Xil_DCacheInvalidateRange((UINTPTR)pBuff->pIplAddress, RawpicLen);
+				Xil_DCacheInvalidateRange((UINTPTR)fullAddr, RawpicLen);
 
-			} else {
+			}
+			else {
 				result = RET_FAILURE;
 				break;
 			}
-		} else {
+		}
+		else {
 			LOGE("[vvbench]--%s: read raw picture failed!", __func__);
 			result = RET_FAILURE;
 			break;
@@ -3318,8 +3604,9 @@ int VsiVvdeviceGetInputPictureForTool
 
 	uint32_t singleFrameLen = (pRawMetaInfo->width) * (pRawMetaInfo->height) * ((
 					  pRawMetaInfo->bits + 8 - 1) / 8);
-	if (rawFmt >= CAMDEV_INPUT_FMT_2DOL)
+	if (rawFmt >= CAMDEV_INPUT_FMT_2DOL) {
 		singleFrameLen = (((pRawMetaInfo->width) * (pRawMetaInfo->height) * 12) +8 - 1) / 8;
+	}
 	mm_free(pRawMetaInfo);
 	pRawMetaInfo = NULL;
 
@@ -3354,13 +3641,15 @@ int VsiVvdeviceGetInputPictureForTool
 			     osFtell(rawpicture));
 			LOGD("[vvbench]--%s:media buffer: phybase:0x%x, virtual_ptr:0x%p", __func__, pBuff->baseAddress,
 			     pBuff->pIplAddress);
-			if (pBuff->pIplAddress != NULL)
+			if (pBuff->pIplAddress != NULL) {
 				MEMCPY((uint8_t *)(pBuff->pIplAddress) + (index * coff), (uint8_t *)pRawbuff, singleFrameLen);
+			}
 			else {
 				result = RET_FAILURE;
 				break;
 			}
-		} else {
+		}
+		else {
 			LOGE("[vvbench]--%s: read raw picture failed!", __func__);
 			result = RET_FAILURE;
 			break;
@@ -3392,173 +3681,7 @@ void VsiVvdeviceBufferDwHandleStop
 
 	LOGI("%s exit \n", __func__);
 }
-#if 0
-int VsiVvdeviceMpCallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
 
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-
-#ifndef NO_TERMINAL
-	pVvInstance->terminalFrameCount[showChannel][bufferIO] += 1;
-#endif
-
-	LOGI("%s MP call back in, process buffer", __func__);
-	VsiVvdeviceShowBuffer(pVvInstance, buffer, showChannel, bufferIO);
-
-	return result;
-}
-
-
-int VsiVvdeviceSp1CallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
-
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-#ifndef NO_TERMINAL
-	pVvInstance->terminalFrameCount[showChannel][bufferIO] += 1;
-#endif
-	LOGI("%s SP1 call back in, process buffer", __func__);
-	VsiVvdeviceShowBuffer(pVvInstance, buffer, showChannel, bufferIO);
-
-	return result;
-}
-
-int VsiVvdeviceSp2CallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
-
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-#ifndef NO_TERMINAL
-	pVvInstance->terminalFrameCount[showChannel][bufferIO] += 1;
-#endif
-	LOGI("%s SP2 call back in, process buffer", __func__);
-	VsiVvdeviceShowBuffer(pVvInstance, buffer, showChannel, bufferIO);
-
-	return result;
-}
-
-int VsiVvdeviceMpRawCallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
-
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-#ifndef NO_TERMINAL
-	pVvInstance->terminalFrameCount[showChannel][bufferIO] += 1;
-#endif
-	LOGI("%s MP Raw call back in, process buffer", __func__);
-	VsiVvdeviceShowBuffer(pVvInstance, buffer, showChannel, bufferIO);
-
-	return result;
-}
-
-int VsiVvdeviceHdrRawCallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
-
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-#ifndef NO_TERMINAL
-	pVvInstance->terminalFrameCount[showChannel][bufferIO] += 1;
-#endif
-
-	LOGI("%s HDR Raw call back in, process buffer", __func__);
-	VsiVvdeviceShowBuffer(pVvInstance, buffer, showChannel, bufferIO);
-
-	return result;
-}
-
-int VsiVvdeviceMetaDataCallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
-
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-
-	if (pVvInstance != NULL) {
-		LOGI("%s MetaData call back in, process buffer", __func__);
-		result = VsiVvdeviceParserMetadataNew(pInstance, showChannel, buffer, bufferIO);
-		return result;
-	} else
-		return -1;
-}
-
-int VsiVvdeviceTpgMetaDataCallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGI("%s enter \n", __func__);
-
-	VvbenchInstance_t *pVvInstance = (VvbenchInstance_t *)pInstance;
-
-	if (pVvInstance != NULL) {
-		LOGI("%s VI200 TPG MetaData call back in, process buffer", __func__);
-		result = VsiVvdeviceParserTpgMetadata(buffer);
-		return result;
-	} else
-		return -1;
-}
-
-
-int VsiVvdeviceDummyCallBack
-(
-	void *pInstance,
-	MediaBuffer_t *buffer,
-	int showChannel,
-	CamDeviceBufChainId_t bufferIO
-)
-{
-	int result = 0;
-	LOGW("%s in, process buffer", __func__);
-
-	return result;
-}
-#endif
 int configure_resizer(struct resizer resizer_t)
 {
 
@@ -3578,8 +3701,9 @@ int configure_resizer(struct resizer resizer_t)
 		LOGI("Sizeof resizer structure %d \n", sizeof(resizer_t));
 		result = Send_Command(APU_2_RPU_MB_CMD_CONFIG_RESIZER, &packet, sizeof(packet), dest_cpu_id,
 				      src_cpu_id);
-		if (RET_SUCCESS != result)
+		if (RET_SUCCESS != result) {
 			return RET_FAILURE;
+		}
 
 		apu_wait_for_ACK(packet.cookie, packet.payload_data);
 		LOGI(" %s-EXIT %d\n", __func__, __LINE__);

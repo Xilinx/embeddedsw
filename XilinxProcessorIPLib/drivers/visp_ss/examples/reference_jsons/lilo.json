@@ -2,7 +2,7 @@
 	"totalInstance": 1,
 	"instanceCfg": [
 	{
-		"hpId": 1,
+		"hpId": 0,
 		"instanceEnable": 1,
 		"bufferType": "userptr",
 		"inputType": "Sensor",      "//": "Invalid, Sensor, Image, Tpg, Max",
@@ -14,13 +14,12 @@
 		},
 		"streamDuration": 30, "//": "Second",
 
+		"fineTuneJson": "vvbcfg/project_json_file/ISP8200_V2311_20260305_144649.json",
 		"outPutType" : 2,
-
 		"pathCfg":[
 		{
 			"pathName": "MP",
 			"pathEnable": 1,
-			"pathOutType": 1,
 			"bufferNumber": 6,
 			"pathWidth": 1920,
                         "pathHeight": 1080,
@@ -31,8 +30,7 @@
 		"sensorInfo":
 		{
 			"sensorName": "ox03f10",
-			"sensorDevId": 6 ,
-			"calibrationName": "OX03f10.xml",
+			"sensorDevId": 2 ,
 			"modeIndex": 0,
 			"resolutionWidth": 1920,
 			"resolutionHeight": 1080,
@@ -45,12 +43,47 @@
 			"enable": 1,
 			"usecfg": 1
 		},
+		"gtmInfo":
+		{
+			"enable": 1,
+			"usecfg": 1,
+			"mode": 1
+		},
 		"cpdInfo":
 		{
 			"enable": 1,
 			"usecfg": 1
 		},
 		"dmscInfo":
+		{
+			"enable": 1,
+			"usecfg": 1
+		},
+		"gcInfo":
+		{
+			"enable": 1,
+			"usecfg": 1,
+			"mode": 0
+		},
+		"aeInfo":
+		{
+			"enable": 1,
+			"usecfg": 1,
+			"mode": 1
+		},
+		"awbInfo":
+		{
+			"enable": 1,
+			"usecfg": 1,
+			"mode": 1
+		},
+		"ccmInfo":
+		{
+			"enable": 1,
+			"usecfg": 1,
+			"mode": 1
+		},
+		"wbInfo":
 		{
 			"enable": 1,
 			"usecfg": 1

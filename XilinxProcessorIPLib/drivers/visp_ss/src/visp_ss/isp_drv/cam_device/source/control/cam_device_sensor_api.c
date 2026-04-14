@@ -16,8 +16,9 @@
 #include <cam_device_app.h>
 #include "cam_device_sensor_api.h"
 #include "cam_device_api.h"
-#include <isi_iss.h>"
+#include <isi_iss.h>
 #include "oslayer.h"
+#include "sensor_drv.h"
 
 #define SENSOR_NAME_LEN 20
 
@@ -65,14 +66,14 @@ RESULT VsiCamDeviceSensorOpen
 RESULT VsiCamDeviceSensorDrvHandleRegister
 (
 	CamDeviceHandle_t hCamDevice,
-	const CamDeviceSensorDrvCfg_t *pSensorDrv
+	CamDeviceSensorDrvHandle_t sensorDrvHandle
 )
 {
 	RESULT result = RET_SUCCESS;
 
 
 	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx || NULL == pSensorDrv)
+	if (NULL == pCamDevCtx || NULL == sensorDrvHandle)
 		return (RET_WRONG_HANDLE);
 
 
@@ -86,26 +87,25 @@ RESULT VsiCamDeviceSensorDrvHandleRegister
 	packet.type = CMD;
 	packet.payload_size = 0;
 
-	IsiCamDrvConfigMbox_t *pcamcfg = (IsiCamDrvConfigMbox_t *)(pSensorDrv->sensorDrvHandle);
+	IsiCamDrvConfigMbox_t* pcamcfg = (IsiCamDrvConfigMbox_t *)sensorDrvHandle;
 
-	xil_printf("pSensorDrv->sensorDrvHandle: %x.\r\n", pSensorDrv->sensorDrvHandle);
-	xil_printf("pSensorDrv->sensorDevId: %d.\r\n", pSensorDrv->sensorDevId);
-	xil_printf("\r\n pcamcfg->cameraDriverID: %x.\r\n", pcamcfg->cameraDriverID);
+	xil_printf("pSensorDrv->sensorDrvHandle: %p.\n", sensorDrvHandle);
+	xil_printf("pSensorDrv->sensorDevId: %d.\n", pcamcfg->sensorDevId);
+	xil_printf("pcamcfg->cameraDriverID: %x.\n", pcamcfg->cameraDriverID);
 	xil_printf("pcamcfg->pIsiGetSensorIss: %x.\r\n", pcamcfg->pIsiGetSensorIss);
 
+	pcamcfg->instanceID = pCamDevCtx->instanceId;
+
 	//pass to RPU ISI layer
-	pcamcfg->instanceId = pCamDevCtx->instanceId;
 
 	uint8_t *p_data = packet.payload_data;
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
 
-	memcpy(p_data, pSensorDrv->sensorDrvHandle, sizeof(IsiCamDrvConfigMbox_t));
+	memcpy(p_data, sensorDrvHandle, sizeof(IsiCamDrvConfigMbox_t));
 	p_data += sizeof(IsiCamDrvConfigMbox_t);
 	packet.payload_size += sizeof(IsiCamDrvConfigMbox_t);
-	memcpy(p_data, &pSensorDrv->sensorDevId, sizeof(uint32_t));
-	packet.payload_size += sizeof(uint32_t);
 
 	if (packet.payload_size > MAX_ITEM)
 		return RET_OUTOFRANGE;
@@ -190,68 +190,6 @@ RESULT VsiCamDeviceSensorClose
 		return RET_FAILURE;
 	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie,
 					    packet.payload_data); //replace with wait_response();
-
-	return packet.resp_field.error_subcode_t;
-}
-
-
-RESULT VsiCamDeviceSensorMapping
-(
-	CamDeviceHandle_t hCamDevice,
-	const char *pSensorName,
-	CamDeviceSensorDrvHandle_t *pSensorDrvhandle
-)
-{
-	RESULT result = RET_SUCCESS;
-	uint8_t i = 0;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pSensorName || NULL == pSensorDrvhandle)
-		return (RET_NULL_POINTER);
-
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	p_data += sizeof(uint32_t);
-	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pSensorName, SENSOR_NAME_LEN);
-	p_data += SENSOR_NAME_LEN;
-	packet.payload_size += SENSOR_NAME_LEN;
-	//memcpy(p_data, pSensorDrvhandle, sizeof(uint32_t));
-	packet.payload_size += sizeof(IsiCamDrvConfigMbox_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_MAPPING, &packet,
-			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != result)
-		return RET_FAILURE;
-
-
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-
-	*pSensorDrvhandle = (IsiCamDrvConfigMbox_t *)osMalloc(sizeof(IsiCamDrvConfigMbox_t));
-
-	if (*pSensorDrvhandle == NULL) {
-		xil_printf("APU Failed to allocate memory for sensor mapping.\r\n");
-		return RET_OUTOFMEM;
-	}
-	memcpy(*pSensorDrvhandle, p_data, sizeof(IsiCamDrvConfigMbox_t));
-
-	IsiCamDrvConfigMbox_t camcfg = **(IsiCamDrvConfigMbox_t **)pSensorDrvhandle;
-	xil_printf("APU mapping get cameraDriverID: %d.\r\n", camcfg.cameraDriverID);
-
 
 	return packet.resp_field.error_subcode_t;
 }
@@ -485,7 +423,6 @@ RESULT VsiCamDeviceSensorSetFrameRate
 		return (RET_WRONG_HANDLE);
 	if (NULL == pFps)
 		return (RET_NULL_POINTER);
-	uint32_t fps_as_integer = (uint32_t)(*pFps);
 	pCamDevCtx->cookie ++;
 
 	Payload_packet packet;
@@ -499,8 +436,8 @@ RESULT VsiCamDeviceSensorSetFrameRate
 	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, &fps_as_integer, sizeof(uint32_t));
-	packet.payload_size += sizeof(uint32_t);
+	memcpy(p_data, pFps, sizeof(float));
+	packet.payload_size += sizeof(float);
 
 	if (packet.payload_size > MAX_ITEM)
 		return RET_OUTOFRANGE;
@@ -1116,144 +1053,6 @@ RESULT VsiCamDeviceSensorGetMetadataWin
 		return RET_FAILURE;
 	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
 	memcpy(pMetaWin, p_data, sizeof(CamDeviceSensorMetadataWin_t));
-
-	return packet.resp_field.error_subcode_t;
-}
-
-RESULT VsiCamDeviceSensorGetNumber
-(
-	CamDeviceHandle_t hCamDevice,
-	uint16_t *pNumber
-)
-{
-	RESULT result = RET_SUCCESS;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pNumber)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	p_data += sizeof(uint32_t);
-	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pNumber, sizeof(uint16_t));
-	packet.payload_size += sizeof(uint16_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_NUMBER, &packet,
-			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != result)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	memcpy(pNumber, p_data, sizeof(uint16_t));
-
-	return packet.resp_field.error_subcode_t;
-}
-
-
-RESULT VsiCamDeviceSensorGetListInfo
-(
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceSensorListInfo_t *pSensorListInfo,
-	const uint16_t sensorNum
-)
-{
-	RESULT result = RET_SUCCESS;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pSensorListInfo)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	p_data += sizeof(uint32_t);
-	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, pSensorListInfo, sizeof(CamDeviceSensorListInfo_t));
-	packet.payload_size += sizeof(CamDeviceSensorListInfo_t);
-
-	p_data += sizeof(CamDeviceSensorListInfo_t);
-	memcpy(p_data, &sensorNum, sizeof(uint16_t));
-	packet.payload_size += sizeof(uint16_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_LIST_INFO, &packet,
-			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != result)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	p_data -= sizeof(CamDeviceSensorListInfo_t);
-	memcpy(pSensorListInfo, p_data, sizeof(CamDeviceSensorListInfo_t));
-
-	return packet.resp_field.error_subcode_t;
-}
-
-RESULT VsiCamDeviceSensorGetConnectPortInfo
-(
-	CamDeviceHandle_t hCamDevice,
-	uint32_t portId,
-	CamDeviceSensorConnectPortInfo_t *pPortInfo
-)
-{
-	RESULT result = RET_SUCCESS;
-
-	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
-	if (NULL == pCamDevCtx)
-		return (RET_WRONG_HANDLE);
-	if (NULL == pPortInfo)
-		return (RET_NULL_POINTER);
-	pCamDevCtx->cookie ++;
-
-	Payload_packet packet;
-	memset(&packet, 0, sizeof(Payload_packet));
-
-	packet.cookie = pCamDevCtx->cookie;
-	packet.type = CMD;
-	packet.payload_size = 0;
-
-	uint8_t *p_data = packet.payload_data;
-	memcpy(p_data, &pCamDevCtx->instanceId, sizeof(uint32_t));
-	p_data += sizeof(uint32_t);
-	packet.payload_size += sizeof(uint32_t);
-	memcpy(p_data, &portId, sizeof(uint32_t));
-	packet.payload_size += sizeof(uint32_t);
-
-	p_data += sizeof(uint32_t);
-	memcpy(p_data, pPortInfo, sizeof(CamDeviceSensorConnectPortInfo_t));
-	packet.payload_size += sizeof(CamDeviceSensorConnectPortInfo_t);
-
-	if (packet.payload_size > MAX_ITEM)
-		return RET_OUTOFRANGE;
-
-	result = Send_Command(APU_2_RPU_MB_CMD_SENSOR_GET_ConnectPortInfo, &packet,
-			      packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
-	if (0 != result)
-		return RET_FAILURE;
-	packet.resp_field.error_subcode_t = apu_wait_for_ACK(packet.cookie, packet.payload_data);
-	memcpy(pPortInfo, p_data, sizeof(CamDeviceSensorConnectPortInfo_t));
 
 	return packet.resp_field.error_subcode_t;
 }

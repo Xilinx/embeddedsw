@@ -2,7 +2,7 @@
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -183,14 +183,14 @@ void setoffLineTraceFrameid(uint32_t instanceId, uint32_t i);
 *  @return     No return value.
 *
 ********************************************************************/
-#define OFFLINE_TRACE_ARY(T, F, prefix,varible, isFloat) \
+#define OFFLINE_TRACE_ARY(T, F, prefix,variable, isFloat) \
 	do { \
-		for (int i = 0; i < sizeof(varible)/sizeof(typeof(varible[0])); i++) \
+		for (int i = 0; i < sizeof(variable)/sizeof(typeof(variable[0])); i++) \
 		{ \
 			if (!isFloat) { \
-				OFFLINE_TRACE(T, F, "%s %s[%d] %d\n", prefix, #varible, i, *(varible+i)); \
+				OFFLINE_TRACE(T, F, "%s %s[%d] %d\n", prefix, #variable, i, *(variable+i)); \
 			} else { \
-				OFFLINE_TRACE(T, F, "%s %s[%d] %f\n", prefix, #varible, i, *(varible+i)); \
+				OFFLINE_TRACE(T, F, "%s %s[%d] %f\n", prefix, #variable, i, *(variable+i)); \
 			} \
 		} \
 	}while(0)
@@ -255,7 +255,7 @@ void setoffLineTraceFrameid(uint32_t instanceId, uint32_t i);
 #define DISABLE_OFFLINE_TRACE(T)          (void)0
 #define SET_OFFLINE_TRACE_FILE(I, F)      (void)0
 #define SET_FRAMEID_TRACE(ispId,F)        (void)0
-#define OFFLINE_TRACE_ARY(T, F, prefix,varible, isFloat)    (void)0
+#define OFFLINE_TRACE_ARY(T, F, prefix,variable, isFloat)    (void)0
 
 #endif /* ISP_OFFLINE_TEST */
 

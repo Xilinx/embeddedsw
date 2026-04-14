@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets of    *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #define LOGTAG "AEV4"
 #include "cJSON.h"
@@ -118,47 +133,7 @@ int VsiVvbenchAeGetFunc
 		LOGI("userDefinedPeriodus: %f ", aeMode.antiFlickerMode.userDefinedPeriodus);
 	}
 
-	//AE Histogram
-	CamDeviceAeHistBins_t getAeHistogram;
-	MEMSET(&getAeHistogram, 0, sizeof(CamDeviceAeHistBins_t));
-	result = VsiCamDeviceAeGetHistogram(hCamDevice, &getAeHistogram);
-	if (RET_SUCCESS != result) {
-		LOGE("%s Get AE Histogram failed!\n", __func__);
-		return RET_FAILURE;
-	}
-	else {
-		// for (uint16_t i = 0; i < CAMDEV_AE_HIST_NUM_BINS; ++i) {
-		// LOGI("AeHistBin[%d]: %d", i, getAeHistogram[i]);
-		// }
-	}
 
-	//AE Luminance
-	CamDeviceAeMeanLuma_t getAeLuminance;
-	MEMSET(&getAeLuminance, 0, sizeof(CamDeviceAeMeanLuma_t));
-	result = VsiCamDeviceAeGetLuminance(hCamDevice, &getAeLuminance);
-	if (RET_SUCCESS != result) {
-		LOGE("%s Get AE Luminance failed!\n", __func__);
-		return RET_FAILURE;
-	}
-	else {
-		// for (uint16_t i = 0; i < CAMDEV_AE_EXP_GRID_ITEMS; ++i) {
-		// LOGI("AeLuminance[%d]: %d", i, getAeLuminance[i]);
-		// }
-	}
-
-	//AE Object Region
-	CamDeviceAeObjectRegion_t getAeObjectRegion;
-	MEMSET(&getAeObjectRegion, 0, sizeof(CamDeviceAeObjectRegion_t));
-	result = VsiCamDeviceAeGetObjectRegion(hCamDevice, &getAeObjectRegion);
-	if (RET_SUCCESS != result) {
-		LOGE("%s Get AE Object Region failed!\n", __func__);
-		return RET_FAILURE;
-	}
-	else {
-		// for (uint16_t i = 0; i < CAMDEV_AE_EXP_GRID_ITEMS; ++i) {
-		// LOGI("AeObjectRegion[%d]: %d", i, getAeObjectRegion[i]);
-		// }
-	}
 
 	//AE Get Status
 	result = VsiCamDeviceAeGetStatus(hCamDevice, &aeState);
@@ -194,7 +169,7 @@ int VsiVvbenchAeFunc
 	int result = 0;
 	LOGI("%s enter \n", __func__);
 
-	if (NULL == hCamDevice || 0 == caseCtx->instanceCfgCtx[index].hCamCommon || NULL == caseCtx) {
+	if (NULL == hCamDevice  || 0 == caseCtx->instanceCfgCtx[index].hCamCommon ||NULL == caseCtx) {
 		return -1;
 	}
 

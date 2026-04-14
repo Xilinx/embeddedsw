@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,14 +25,6 @@
  *
  ****************************************************************************/
 
-/**
- * @cond DG
- *
- * @defgroup cam_device_dg CamDevice DG Definitions
- * @{
- *
- */
-
 #ifndef CAMDEV_DG_API_H
 #define CAMDEV_DG_API_H
 
@@ -43,83 +35,121 @@ extern "C"
 {
 #endif
 
+/**
+ * @defgroup 02_cam_device_dg VsCamDevice E01C02 Device_DG Definitions
+ * @brief Provides interfaces for controlling the digital gain module working
+ * in the ISP pipeline.
+ * @{
+ *
+ */
 
 /******************************************************************************/
 /**
- * @brief   CamDevice DG manual configuration.
+ * @brief   VsCamDevice DG manual configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceDgManualConfig_s {
-	float32_t digitalGainB;         /**< Blue DG */
-	float32_t digitalGainGb;        /**< Green blue DG */
-	float32_t digitalGainGr;        /**< Green red DG */
-	float32_t digitalGainR;         /**< Red DG */
-} CamDeviceDgManualConfig_t;
+    float32_t digitalGainB;         /**< Blue DG */
+    float32_t digitalGainGb;        /**< Green blue DG */
+    float32_t digitalGainGr;        /**< Green red DG */
+    float32_t digitalGainR;         /**< Red DG */
+}CamDeviceDgManualConfig_t;
 
 
 /******************************************************************************/
 /**
- * @brief   CamDevice DG configuration.
+ * @brief   VsCamDevice DG configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceDgConfig_s {
-	CamDeviceDgManualConfig_t manualCfg;        /**< DG manual configuration*/
-} CamDeviceDgConfig_t;
+    CamDeviceDgManualConfig_t manualCfg;        /**< DG manual configuration*/
+}CamDeviceDgConfig_t;
 
 
 /******************************************************************************/
 /**
- * @brief   CamDevice DG status structure.
+ * @brief   VsCamDevice DG status structure.
  *
  *****************************************************************************/
 typedef struct CamDeviceDgStatus_s {
-	bool_t enable;              /**< DG enable status*/
-	CamDeviceConfigMode_t currentMode;       /**< The run mode: 0--manual, 1--auto */
-	CamDeviceDgManualConfig_t currentCfg;        /**< DG current configuration*/
-} CamDeviceDgStatus_t;
+    bool_t enable;              /**< DG enable status*/
+    CamDeviceConfigMode_t currentMode;       /**< The run mode: 0--manual, 1--auto */
+    CamDeviceDgManualConfig_t currentCfg;        /**< DG current configuration*/
+}CamDeviceDgStatus_t;
 
 /***************************************************/
-
 
 /*****************************************************************************/
 /**
  * @brief   This function sets DG configuration parameters.
+ * @startuml VsiCamDeviceDgSetConfig
+ * !include E01_External/VsiCamDeviceDgSetConfig.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @param[in]       pDgCfg      Pointer to DG configuration.
+ * @details This function calls: \ref CamEngineDgSetConfig
+ * @details This function is called by: User application, \ref VsiCamDeviceDgReset
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pDgCfg              Pointer to DG configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgSetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	const CamDeviceDgConfig_t *pDgCfg
+    CamDeviceHandle_t    hCamDevice,
+    const CamDeviceDgConfig_t *pDgCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets DG configuration parameters.
+ * @startuml VsiCamDeviceDgGetConfig
+ * !include E01_External/VsiCamDeviceDgGetConfig.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pDgCfg      Pointer to DG configuration.
+ * @details This function calls: \ref CamEngineDgGetConfig
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pDgCfg              Pointer to DG configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgGetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceDgConfig_t *pDgCfg
+    CamDeviceHandle_t    hCamDevice,
+    CamDeviceDgConfig_t *pDgCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function enables DG.
+ * @startuml VsiCamDeviceDgEnable
+ * !include E01_External/VsiCamDeviceDgEnable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamEngineDgEnable
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgEnable
@@ -130,10 +160,18 @@ RESULT VsiCamDeviceDgEnable
 /*****************************************************************************/
 /**
  * @brief   This function disables DG.
+ * @startuml VsiCamDeviceDgDisable
+ * !include E01_External/VsiCamDeviceDgDisable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamEngineDgDisable
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgDisable
@@ -141,55 +179,84 @@ RESULT VsiCamDeviceDgDisable
 	CamDeviceHandle_t hCamDevice
 );
 
-
 /*****************************************************************************/
 /**
  * @brief   This function gets DG status.
+ * @startuml VsiCamDeviceDgGetStatus
+ * !include E01_External/VsiCamDeviceDgGetStatus.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pStatus     Pointer to DG status.
+ * @details This function calls: \ref CamEngineDgGetStatus
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pStatus           Pointer to DG status
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgGetStatus
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceDgStatus_t *pStatus
+    CamDeviceHandle_t    hCamDevice,
+    CamDeviceDgStatus_t *pStatus
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function resets DG.
+ * @startuml VsiCamDeviceDgReset
+ * !include E01_External/VsiCamDeviceDgReset.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref VsiCamDeviceDgSetConfig
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgReset
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets DG version.
+ * @startuml VsiCamDeviceDgGetVersion
+ * !include E01_External/VsiCamDeviceDgGetVersion.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pVersion    Pointer to DG version
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pVersion            Pointer to DG version
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
  *
  *****************************************************************************/
 RESULT VsiCamDeviceDgGetVersion
 (
-	CamDeviceHandle_t hCamDevice,
-	uint32_t *pVersion
+    CamDeviceHandle_t hCamDevice,
+    uint32_t         *pVersion
 );
 
-/* @} cam_device_dg */
-/* @endcond */
+/** @} 02_cam_device_dg */
 
 #ifdef __cplusplus
 }

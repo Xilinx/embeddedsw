@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -30,10 +30,15 @@
 
 #include "cam_device_common.h"
 
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 /**
- * @cond CCM_V1_1
- *
- * @defgroup cam_device_ccm_v1_1 CamDevice CCM V1.1 Definitions
+ * @defgroup 03_cam_device_ccm VsCamDevice E01C03 Device_CCM Definitions
+ * @brief Provides interfaces for controlling the color correction matrix
+ * module working in the ISP pipeline.
  * @{
  *
  */
@@ -41,85 +46,125 @@
 #define CAMDEV_CC_MATRIX_SIZE       9U      /**< Color correction matrix size 3x3*/
 #define CAMDEV_CC_COLOR_CHANNEL_NUM 3U      /**< Color channel number 3*/
 
-
-#ifdef __cplusplus
-extern "C"
-{
-#endif
+/******************************************************************************/
+/**
+ * @brief   VsCamDevice CCM manual configuration.
+ *
+ *****************************************************************************/
+typedef struct CamDeviceCcmAutoConfig_s {
+    uint8_t   autoLevel;                              /**< Auto configuration level > */
+    float32_t gains[CAMDEV_ISO_STRENGTH_NUM];     /**< CCM gains > */
+    float32_t damping;                                /**< damping function >*/
+    float32_t strength[CAMDEV_ISO_STRENGTH_NUM];  /**< CCM strength >*/
+} CamDeviceCcmAutoConfig_t;
 
 
 /******************************************************************************/
 /**
- * @brief   CamDevice CCM manual configuration.
+ * @brief   VsCamDevice CCM manual configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceCcmManualConfig_s {
-	float32_t ccMatrix[CAMDEV_CC_MATRIX_SIZE];          /**< Color correction matrix coefficient*/
-	float32_t ccOffset[CAMDEV_CC_COLOR_CHANNEL_NUM];    /**< Color offset coefficient*/
-} CamDeviceCcmManualConfig_t;
+    float32_t ccMatrix[CAMDEV_CC_MATRIX_SIZE];          /**< Color correction matrix coefficient*/
+    float32_t ccOffset[CAMDEV_CC_COLOR_CHANNEL_NUM];    /**< Color offset coefficient*/
+}CamDeviceCcmManualConfig_t;
 
 /******************************************************************************/
 /**
- * @brief   CamDevice CCM configuration.
+ * @brief   VsCamDevice CCM configuration.
  *
  *****************************************************************************/
 typedef struct CamDeviceCcmConfig_s {
-	CamDeviceCcmManualConfig_t manualCfg;   /**< CCM manual configuration*/
-	CamDeviceConfigMode_t configMode;
-} CamDeviceCcmConfig_t;
+    CamDeviceCcmAutoConfig_t   autoCfg;     /**< CCM auto configuration*/
+    CamDeviceCcmManualConfig_t manualCfg;   /**< CCM manual configuration*/
+    CamDeviceConfigMode_t      configMode;
+}CamDeviceCcmConfig_t;
 
 
 /******************************************************************************/
 /**
- * @brief   CamDevice CCM status structure.
+ * @brief   VsCamDevice CCM status structure.
  *
  *****************************************************************************/
 typedef struct CamDeviceCcmStatus_s {
-	bool_t enable;              /**< CCM enable status*/
-	CamDeviceConfigMode_t currentMode;       /**< The run mode: 0--manual, 1--auto */
-	CamDeviceCcmManualConfig_t currentCfg;   /**< CCM current configuration*/
-} CamDeviceCcmStatus_t;
-
+    bool_t enable;              /**< CCM enable status*/
+    CamDeviceConfigMode_t currentMode;       /**< The run mode: 0--manual, 1--auto */
+    CamDeviceCcmManualConfig_t currentCfg;   /**< CCM current configuration*/
+}CamDeviceCcmStatus_t;
 
 /*****************************************************************************/
 /**
  * @brief   This function sets CCM configuration parameters.
+ * @startuml VsiCamDeviceCcmSetConfig
+ * !include E01_External/VsiCamDeviceCcmSetConfig.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @param[in]       pCcmCfg     Pointer to CCM Configuration
+ * @details This function calls: \ref CamDeviceCcmManualSetConfig, \ref CamDeviceCcmAutoSetConfig,
+ * \ref CamEngineCcmSetMode
+ * @details This function is called by: User application, \ref VsiCamDeviceCcmReset
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pCcmCfg             Pointer to CCM configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmSetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	const CamDeviceCcmConfig_t *pCcmCfg
+    CamDeviceHandle_t     hCamDevice,
+    const CamDeviceCcmConfig_t *pCcmCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets CCM configuration parameters.
+ * @startuml VsiCamDeviceCcmGetConfig
+ * !include E01_External/VsiCamDeviceCcmGetConfig.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pCcmCfg     Pointer to CCM configuration.
+ * @details This function calls: \ref CamDeviceCcmManualGetConfig, \ref CamDeviceCcmAutoGetConfig,
+ * \ref CamEngineCcmGetMode
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pCcmCfg             Pointer to CCM configuration
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmGetConfig
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceCcmConfig_t *pCcmCfg
+    CamDeviceHandle_t     hCamDevice,
+    CamDeviceCcmConfig_t *pCcmCfg
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function enables CCM.
+ * @startuml VsiCamDeviceCcmEnable
+ * !include E01_External/VsiCamDeviceCcmEnable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamEngineCcmEnable
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmEnable
@@ -130,10 +175,17 @@ RESULT VsiCamDeviceCcmEnable
 /*****************************************************************************/
 /**
  * @brief   This function disables CCM.
+ * @startuml VsiCamDeviceCcmDisable
+ * !include E01_External/VsiCamDeviceCcmDisable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamEngineCcmDisable
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmDisable
@@ -141,55 +193,84 @@ RESULT VsiCamDeviceCcmDisable
 	CamDeviceHandle_t hCamDevice
 );
 
-
 /*****************************************************************************/
 /**
  * @brief   This function gets CCM status.
+ * @startuml VsiCamDeviceCcmGetStatus
+ * !include E01_External/VsiCamDeviceCcmGetStatus.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pStatus     Pointer to CCM status.
+ * @details This function calls: \ref CamEngineCcmGetStatus
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pStatus          Pointer to CCM status
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmGetStatus
 (
-	CamDeviceHandle_t hCamDevice,
+	CamDeviceHandle_t     hCamDevice,
 	CamDeviceCcmStatus_t *pStatus
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function resets CCM.
+ * @startuml VsiCamDeviceCcmReset
+ * !include E01_External/VsiCamDeviceCcmReset.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details This function calls: \ref CamCalibDbGetCcProfileByName, \ref VsiCamDeviceCcmSetConfig
+ * @details This function is called by: User application,
+ * \ref CamDeviceEnginePipelineEnable
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_INVALID_PARM    Operation failed due to invalid configuration
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
+ * @retval  RET_WRONG_CONFIG    Operation failed due to given
+ *                              configuration is invalid
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmReset
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function gets CCM version.
+ * @startuml VsiCamDeviceCcmGetVersion
+ * !include E01_External/VsiCamDeviceCcmGetVersion.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pVersion    Pointer to CCM version
+ * @details This function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pVersion            Pointer to CCM version
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
  *
  *****************************************************************************/
 RESULT VsiCamDeviceCcmGetVersion
 (
 	CamDeviceHandle_t hCamDevice,
-	uint32_t *pVersion
+	uint32_t         *pVersion
 );
 
-/* @} cam_device_ccm_v1_1 */
-/* @endcond */
+/** @} 03_cam_device_ccm */
 
 #ifdef __cplusplus
 }

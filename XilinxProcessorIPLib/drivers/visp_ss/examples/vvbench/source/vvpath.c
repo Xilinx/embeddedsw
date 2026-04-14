@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2024 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")  *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #define LOGTAG "DEV"
 #include "vvpath.h"
@@ -204,7 +219,7 @@ int VsiVvdeviceOutPutPathCreate
 
 	if (!caseCtx->useSubSystem) {
 
-		//Intial buffer management for each path
+		//Initial buffer management for each path
 		CamDeviceBufPoolConfig_t config;
 		MEMSET(&config, 0, sizeof(CamDeviceBufPoolConfig_t));
 		uint32_t phyAddr;
@@ -214,12 +229,14 @@ int VsiVvdeviceOutPutPathCreate
 		config.bufMode = buffMode;
 		config.bufSize = allocateBufSize;
 		config.pBaseAddrList = mm_malloc(config.bufNum * sizeof(uint32_t));
-		if (config.pBaseAddrList == NULL)
+		if (config.pBaseAddrList == NULL) {
 			LOGE("Malloc failed at %s-%d\n", __func__, __LINE__);
+		}
 		config.pIplAddrList = mm_malloc(config.bufNum * sizeof(void *));
-		if (config.pIplAddrList == NULL)
+		if (config.pIplAddrList == NULL) {
 			LOGE("Malloc failed at %s-%d\n", __func__, __LINE__);
 
+		}
 		config.is_mapped = BOOL_TRUE;  // to support IMAGA_DUMP
 
 		/** FBWR buffer allocation **/
@@ -233,8 +250,9 @@ int VsiVvdeviceOutPutPathCreate
 			fbwr_flag = 1;
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 			int result = init_fbwr(caseCtx->instanceCfgCtx[instanceId].hpId, bufIo, outFormat, config.bufSize);
-			if (result < 0)
+			if (result < 0) {
 				LOGE("FBWR FAILED \n\n\n\n");
+			}
 #endif
 #ifdef XPAR_XV_MIX_NUM_INSTANCES
 			{
@@ -270,20 +288,11 @@ int VsiVvdeviceOutPutPathCreate
 					mm_free(tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].malloc_ret_addr);
 				}
 
-				phyAddr = tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr
+				phyAddr = (uint32_t)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr
 					  ; //ALIGN_UP(tmpaddr,pVvInstance->camDevInfo[instanceId].alignMask);
 
-				/*else if(buffMode == CAMDEV_BUFMODE_RESMEM){
-				result = VsiCamDeviceAllocResMemory(pVvInstance->hCamDevice[instanceId], allocateBufSize, &phyAddr, (void **)&pIplAddr);
-				if (result != 0) {
-				LOGE("VsiCamDeviceAllocResMemory failed for bifio:%d", bufIo);
-				mm_free(config.pBaseAddrList);
-				mm_free(config.pIplAddrList);
-				return -1;
-				   }
-				} */
-				config.pBaseAddrList[bufIdx] = phyAddr;
-				config.pIplAddrList[bufIdx] = (void**)pIplAddr;
+					config.pBaseAddrList[bufIdx] = phyAddr;
+					config.pIplAddrList[bufIdx] = (void *)(uintptr_t)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr;
 				LOGI("buffer[%d]: Phy_Addr:0x%llx (ATM 32-bit:0x%x), size:0x%x", bufIdx,
 				     (unsigned long long)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr,
 				     config.pBaseAddrList[bufIdx], config.bufSize);
@@ -338,7 +347,8 @@ int VsiVvdeviceOutPutPathCreate
 			if (0 != result) {
 				LOGE("Vsi camdevice get ISP window failed!");
 				return -1;
-			} else {
+			}
+			else {
 				LOGI("ISP crop window hOffset: %d\n", ispWindow.cropWindow.hOffset);
 				LOGI("ISP crop window vOffset: %d\n", ispWindow.cropWindow.vOffset);
 				LOGI("ISP crop window width: %d\n", ispWindow.cropWindow.width);
@@ -394,7 +404,7 @@ int VsiVvdevicePathEnable
 			LOGW("This instance: %d, path: %d is already enabled !", instanceId, bufIo);
 			return 0;
 		}
-		LOGD("Start prepare to enbale path: %d for instance: %d!", bufIo, instanceId);
+		LOGD("Start prepare to enable path: %d for instance: %d!", bufIo, instanceId);
 
 		if (!caseCtx->instanceCfgCtx[instanceId].dewarpCfg.enable) {
 			// register callBack
@@ -422,7 +432,8 @@ int VsiVvdevicePathEnable
 				case CAMDEV_BUFCHAIN_METADATA:
 					if (CAMDEV_INPUT_TYPE_TPG == caseCtx->instanceCfgCtx[instanceId].inputType) {
 						// pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].callBack = VsiVvdeviceTpgMetaDataCallBack;
-					} else {
+					}
+					else {
 						// pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].callBack = VsiVvdeviceMetaDataCallBack;
 					}
 					break;
@@ -430,7 +441,8 @@ int VsiVvdevicePathEnable
 					// pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].callBack = VsiVvdeviceDummyCallBack;
 					break;
 			}
-		} else {
+		}
+		else {
 #ifdef DWE_VERSION
 			pVvInstance->runningFlagDw = 1;
 			pVvInstance->dwCall = VsiVvdeviceDwCallBack;
@@ -448,15 +460,18 @@ int VsiVvdevicePathEnable
 						return -1;
 					}
 				}
-			} else
+			}
+			else {
 				LOGE("##incorrect instance id %d, register failed", instanceId);
+			}
 			caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].pathState = ENABLE;
 		}
-		if ((bufIo >= CAMDEV_BUFCHAIN_MP && bufIo <= CAMDEV_BUFCHAIN_HDR_RAW))
+		if ((bufIo >= CAMDEV_BUFCHAIN_MP && bufIo <= CAMDEV_BUFCHAIN_HDR_RAW)) {
 			config.outPathEnable |= 1 << (bufIo - CAMDEV_BUFCHAIN_MP + CAMDEV_PIPE_OUTPATH_MP);
+		}
 		caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].pathEnable = true;
 		//caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].pathState = ENABLE;
-		LOGD("End prepare to enbale path: %d for instance: %d!", bufIo, instanceId);
+		LOGD("End prepare to enable path: %d for instance: %d!", bufIo, instanceId);
 	}
 	if (caseCtx->useSubSystem) {
 #ifdef USE_SYSTEM
@@ -471,7 +486,8 @@ int VsiVvdevicePathEnable
 			}
 		}
 #endif
-	} else {
+	}
+	else {
 		// Set Path streaming
 		result = VsiCamDeviceSetPathStreaming(pVvInstance->hCamDevice[instanceId], &config);
 		if (0 != result) {
@@ -519,7 +535,7 @@ int VsiVvdevicePathStart
 			LOGW("This instance: %d, path: %d is already enabled !", instanceId, bufIo);
 			return 0;
 		}
-		LOGD("Start prepare to enbale path: %d for instance: %d!", bufIo, instanceId);
+		LOGD("Start prepare to enable path: %d for instance: %d!", bufIo, instanceId);
 		// register callBack
 
 		if (instanceId < caseCtx->totalInstance) {
@@ -533,7 +549,8 @@ int VsiVvdevicePathStart
 						return -1;
 					}
 				}
-			} else {
+			}
+			else {
 				// start the callBack
 				// result = VsiVvdeviceBufferDwHandleStart(pVvInstance, caseCtx, instanceId, bufIo);
 				if (0 != result) {
@@ -541,10 +558,12 @@ int VsiVvdevicePathStart
 					return -1;
 				}
 			}
-		} else
+		}
+		else {
 			LOGE("##incorrect instance id %d, register failed", instanceId);
+		}
 		caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].pathState = ENABLE;
-		LOGI("End prepare to enbale path: %d for instance: %d!", bufIo, instanceId);
+		LOGI("End prepare to enable path: %d for instance: %d!", bufIo, instanceId);
 	}
 
 	LOGI("%s exit \n", __func__);
@@ -593,8 +612,9 @@ int VsiVvdevicePathDisable
 			default:
 				break;
 		}
-		if ((bufIo >= CAMDEV_BUFCHAIN_MP && bufIo <= CAMDEV_BUFCHAIN_HDR_RAW))
+		if ((bufIo >= CAMDEV_BUFCHAIN_MP && bufIo <= CAMDEV_BUFCHAIN_HDR_RAW)) {
 			config.outPathEnable &= ~(0x1 << (bufIo - CAMDEV_BUFCHAIN_MP + CAMDEV_PIPE_OUTPATH_MP));
+		}
 	}
 	// Set Path streaming
 	if (!caseCtx->useSubSystem) {
@@ -608,10 +628,12 @@ int VsiVvdevicePathDisable
 		CamDeviceBufChainId_t bufIo = *(pBufIo + i);
 		// stop the callBack
 
-		if (!caseCtx->instanceCfgCtx[instanceId].dewarpCfg.enable)
+		if (!caseCtx->instanceCfgCtx[instanceId].dewarpCfg.enable) {
 			VsiVvdeviceBufferHandleStop(pVvInstance, instanceId, bufIo);
-		else
+		}
+		else {
 			VsiVvdeviceBufferDwHandleStop(pVvInstance, instanceId, bufIo);
+		}
 
 		VsiVvdeviceDelay(1);
 
@@ -702,7 +724,7 @@ int VsiVvdeviceInputPathCreate
 	inFormat.inHeight = pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].height;
 	inFormat.inFormat = pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].format;
 	inFormat.inPattern = (CamDeviceRawPattern_t)
-			     pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].layout;
+			      pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].layout;
 	inFormat.stitchMode = caseCtx->instanceCfgCtx[instanceId].instancePath[bufIo].stitchMode;
 	result = VsiCamDeviceSetInFormat(pVvInstance->hCamDevice[instanceId], inPath, &inFormat);
 	if (result != 0) {
@@ -741,7 +763,7 @@ int VsiVvdeviceInputPathCreate
 	pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].bufferSize = allocateBufSize;
 
 	if (!caseCtx->useSubSystem) {
-		//Intial buffer management for each path
+		//Initial buffer management for each path
 		CamDeviceBufPoolConfig_t config;
 		MEMSET(&config, 0, sizeof(CamDeviceBufPoolConfig_t));
 		uint32_t phyAddr;
@@ -752,8 +774,9 @@ int VsiVvdeviceInputPathCreate
 		config.bufMode = buffMode;
 		config.bufSize = allocateBufSize;
 		config.pBaseAddrList = mm_malloc(config.bufNum * sizeof(uint32_t));
-		if (config.pBaseAddrList == NULL)
+		if (config.pBaseAddrList == NULL) {
 			LOGE("Malloc failed at %s-%d\n", __func__, __LINE__);
+		}
 		config.pIplAddrList = mm_malloc(config.bufNum * sizeof(void *));
 		config.is_mapped = BOOL_TRUE;  // to support IMAGA_DUMP
 #if 0
@@ -791,17 +814,20 @@ int VsiVvdeviceInputPathCreate
 					mm_free(tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].malloc_ret_addr);
 				}
 
-				phyAddr = tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr
+				phyAddr = (uint32_t)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr
 					  ; //ALIGN_UP(tmpaddr,pVvInstance->camDevInfo[instanceId].alignMask);
 
 				config.pBaseAddrList[bufIdx] = phyAddr;
-				config.pIplAddrList[bufIdx] = (void**)pIplAddr;
-				// LOGI("buffer[%d]: Phy_Addr:0x%x, size:0x%x", bufIdx, config.pBaseAddrList[bufIdx], config.bufSize);
-				// LOGI("buffer[%d]: Ipl_Addr:%p", bufIdx, config.pIplAddrList[bufIdx]);
+				config.pIplAddrList[bufIdx] = (void *)(uintptr_t)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr;
+				LOGI("buffer[%d]: Phy_Addr:0x%llx (ATM 32-bit:0x%x), size:0x%x", bufIdx,
+				     (unsigned long long)tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].aligned_addr,
+				     config.pBaseAddrList[bufIdx], config.bufSize);
+				LOGI("buffer[%d]: Ipl_Addr:%p", bufIdx, config.pIplAddrList[bufIdx]);
 
 
 			}
-		} else if (caseCtx->instanceCfgCtx[instanceId].buffMode == CAMDEV_BUFMODE_RESMEM) {
+		}
+		else if (caseCtx->instanceCfgCtx[instanceId].buffMode == CAMDEV_BUFMODE_RESMEM) {
 			for (int bufIdx = 0; bufIdx < config.bufNum; bufIdx++) {
 				result = VsiCamDeviceAllocResMemory(pVvInstance->hCamDevice[instanceId], allocateBufSize, &phyAddr,
 								    (void **)&pIplAddr);
@@ -895,7 +921,8 @@ int VsiVvdevicePathRelease
 					mm_free(tmp_mp_alloc_arry[instanceId][bufIo][bufIdx].malloc_ret_addr);
 				}
 
-			} else if (caseCtx->instanceCfgCtx[instanceId].buffMode == CAMDEV_BUFMODE_RESMEM) {
+			}
+			else if (caseCtx->instanceCfgCtx[instanceId].buffMode == CAMDEV_BUFMODE_RESMEM) {
 
 				result = VsiCamDeviceFreeResMemory(pVvInstance->hCamDevice[instanceId],
 								   pVvInstance->camDevInfo[instanceId].bufCfg[bufIo].buffer.pBaseAddrList[bufIdx]);

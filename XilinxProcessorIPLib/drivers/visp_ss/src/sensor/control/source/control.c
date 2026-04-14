@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #define LOGTAG "APU_CTRL"
 #include <cam_device_app.h>
 //#include <vvdevice.h>
@@ -8,23 +8,95 @@ extern CamDeviceIspcore_t gCamDevIspcore;
 extern uint32_t apuBufferInform[CAMDEV_VIRTUAL_ID_MAX *
 				CAMDEV_HARDWARE_ID_MAX][CAMDEV_PIPE_OUTPATH_RAW + 1];
 
+#define APU_RECV_BUF_QUEUE_DEPTH 8
+
+static MediaBuffer_t *apuRecvBufQueue[CAMDEV_VIRTUAL_ID_MAX *
+				       CAMDEV_HARDWARE_ID_MAX][CAMDEV_PIPE_OUTPATH_RAW + 1][APU_RECV_BUF_QUEUE_DEPTH];
+static volatile uint32_t apuRecvBufHead[CAMDEV_VIRTUAL_ID_MAX *
+					CAMDEV_HARDWARE_ID_MAX][CAMDEV_PIPE_OUTPATH_RAW + 1];
+static volatile uint32_t apuRecvBufTail[CAMDEV_VIRTUAL_ID_MAX *
+					CAMDEV_HARDWARE_ID_MAX][CAMDEV_PIPE_OUTPATH_RAW + 1];
+
 uint32_t CtrlFullBufferInform(void *data)
 {
-	RESULT ret = RET_SUCCESS;
-	uint32_t instanceId, bufferChain;
-
 	Payload_packet *packet = (Payload_packet *)data;
-
 	uint8_t *p_data = packet->payload_data;
+
+	uint32_t instanceId;
+	uint32_t chainId;
+
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
-
-	memcpy(&bufferChain, p_data, sizeof(uint32_t));
+	memcpy(&chainId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
-	apuBufferInform[instanceId][bufferChain]++;
+	/* Allocate MediaBuffer_t to hold the pre-dequeued buffer from RPU */
+	MediaBuffer_t *pBuf = osMalloc(sizeof(MediaBuffer_t));
+	if (!pBuf)
+		return RET_OUTOFMEM;
+	memset(pBuf, 0, sizeof(MediaBuffer_t));
 
-	return ret;
+	/* Parse buffer fields sent by RPU's CtrlCamDeviceFullBufferQueNotifyCb */
+	memcpy(&pBuf->baseAddress, p_data, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	memcpy(&pBuf->baseSize, p_data, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	memcpy(&pBuf->lockCount, p_data, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	memcpy(&pBuf->isFull, p_data, sizeof(bool_t));
+	p_data += sizeof(bool_t);
+	memcpy(&pBuf->index, p_data, sizeof(uint8_t));
+	p_data += sizeof(uint8_t);
+	memcpy(&pBuf->bufMode, p_data, sizeof(BUFF_MODE));
+	p_data += sizeof(BUFF_MODE);
+	memcpy(&pBuf->pOwner, p_data, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+
+	/* Allocate PicBufMetaData_t - zero-init instead of bulk memcpy
+	 * because RPU and APU have different struct layouts
+	 * (RPU has extra bufOffset/bufStride fields and larger metaInfo).
+	 * Only Type and Layout are at the same offset in both versions.
+	 * Data union fields will be populated by the caller from path config. */
+	pBuf->pMetaData = (uint32_t)(uintptr_t)osMalloc(sizeof(PicBufMetaData_t));
+	if (!pBuf->pMetaData) {
+		osFree(pBuf);
+		return RET_OUTOFMEM;
+	}
+	PicBufMetaData_t *pMeta = (PicBufMetaData_t *)(uintptr_t)pBuf->pMetaData;
+	memset(pMeta, 0, sizeof(PicBufMetaData_t));
+	/* Copy Type (offset 0) and Layout (offset 4) - same in both versions */
+	memcpy(&pMeta->Type, p_data, sizeof(PicBufType_t));
+	memcpy(&pMeta->Layout, p_data + sizeof(PicBufType_t), sizeof(PicBufLayout_t));
+
+	pBuf->pIplAddress = pBuf->baseAddress;
+
+	/* Enqueue into local ring buffer */
+	uint32_t head = apuRecvBufHead[instanceId][chainId];
+	uint32_t next = (head + 1) % APU_RECV_BUF_QUEUE_DEPTH;
+	if (next == apuRecvBufTail[instanceId][chainId]) {
+		/* Queue full - drop buffer */
+		xil_printf("CtrlFullBufferInform: queue full [%d][%d]\n", instanceId, chainId);
+		osFree((void *)(uintptr_t)pBuf->pMetaData);
+		osFree(pBuf);
+		return RET_OUTOFRANGE;
+	}
+	apuRecvBufQueue[instanceId][chainId][head] = pBuf;
+	apuRecvBufHead[instanceId][chainId] = next;
+
+	apuBufferInform[instanceId][chainId]++;
+
+	return RET_SUCCESS;
+}
+
+RESULT ApuDeQueReceivedBuffer(uint32_t instanceId, uint32_t chainId, MediaBuffer_t **ppBuf)
+{
+	uint32_t tail = apuRecvBufTail[instanceId][chainId];
+	if (tail == apuRecvBufHead[instanceId][chainId]) {
+		return RET_FAILURE;
+	}
+	*ppBuf = apuRecvBufQueue[instanceId][chainId][tail];
+	apuRecvBufTail[instanceId][chainId] = (tail + 1) % APU_RECV_BUF_QUEUE_DEPTH;
+	return RET_SUCCESS;
 }
 
 

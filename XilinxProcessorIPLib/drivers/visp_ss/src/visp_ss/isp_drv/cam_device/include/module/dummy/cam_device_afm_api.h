@@ -1,8 +1,8 @@
+﻿// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 /****************************************************************************
  *
  * The MIT License (MIT)
  *
- * Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
  * Copyright (c) 2014-2022 Vivante Corporation
  *
  * Permission is hereby granted, free of charge, to any person obtaining a
@@ -25,245 +25,336 @@
  *
  ****************************************************************************/
 
-/**
- * @cond AFM_DUMMY
- *
- * @defgroup cam_device_afm_dummy CamDevice AFM Dummy Definitions
- * @{
- *
- */
+#ifndef CAMDEV_AFM_V1_API_H
+#define CAMDEV_AFM_V1_API_H
 
-#ifndef CAMDEV_AFM_API_H
-#define CAMDEV_AFM_API_H
+#include "cam_device_common.h"
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-#include "cam_device_common.h"
-
+/**
+ * @defgroup 01_cam_device_afm VsCamDevice E01C01_AFM Definitions
+ * @{
+ *
+ */
 
 /******************************************************************************/
 /**
- *
- * @brief   Enumeration type to identify the Autofocus measuring window.
+ * @brief   Enumeration type to identify the AF measuring window.
  *
  *****************************************************************************/
-typedef enum CamDeviceAfmWindowId_e {
-	CAMDEV_ISP_AFM_WINDOW_INVALID = 0,    /**< lower border (only for an internal evaluation) */
-	DUMMY_CAMDEV_0058 = 0xdeadfeed
+typedef enum CamDeviceAfmWindowId_e
+{
+    CAMDEV_AFM_WINDOW_INVALID  = 0,    /**< Lower border (only for an internal evaluation) */
+    CAMDEV_AFM_WINDOW_A        = 1,    /**< Window A (1st window) */
+    CAMDEV_AFM_WINDOW_B        = 2,    /**< Window B (2nd window) */
+    CAMDEV_AFM_WINDOW_C        = 3,    /**< Window C (3rd window) */
+    CAMDEV_AFM_WINDOW_MAX,             /**< Upper border (only for an internal evaluation) */
 } CamDeviceAfmWindowId_t;
 
 
-/******************************************************************************/
-/**
- * @brief   Enumeration type to identify the Autofocus measuring instance.
- *
- *****************************************************************************/
-typedef enum CamDeviceIspAfmInstanceId_e {
-	CAMDEV_ISP_AFM_INSTANCE_INVALID = 0,    /**< Lower border (only for an internal evaluation) */
-	DUMMY_CAMDEV_0059 = 0xdeadfeed
-} CamDeviceIspAfmInstanceId_t;
-
-
 /*****************************************************************************/
 /**
+ * @brief   VsCamDevice AFM measure results structure.
  *
- * @brief   CamDevice AFM measure results structure.
- *
- */
-/*****************************************************************************/
-typedef struct CamDeviceAfmMeasureResult_s {
-	uint8_t nop;
+*****************************************************************************/
+typedef struct CamDeviceAfmMeasureResult_s
+{
+    uint32_t    sharpnessA;         /**< Sharpness of window A */
+    uint32_t    sharpnessB;         /**< Sharpness of window B */
+    uint32_t    sharpnessC;         /**< Sharpness of window C */
+
+    uint32_t    luminanceA;         /**< Luminance of window A */
+    uint32_t    luminanceB;         /**< Luminance of window B */
+    uint32_t    luminanceC;         /**< Luminance of window C */
+
+    uint32_t    pixelCntA;         /**< Pixel counts of window A */
+    uint32_t    pixelCntB;         /**< Pixel counts of window B */
+    uint32_t    pixelCntC;         /**< Pixel counts of window C */
 } CamDeviceAfmMeasureResult_t;
 
-
-/*****************************************************************************/
+/******************************************************************************/
 /**
- * @brief   CamDevice AF status structure
+ * @brief   VsCamDevice AFM window configuration.
+ *
+ *****************************************************************************/
+typedef struct CamDeviceAfmWindowConfig_s
+{
+    CamDeviceWindow_t  window;    /**< AFM window */
+    CamDeviceAfmWindowId_t id;     /**< AFM window index */
+} CamDeviceAfmWindowConfig_t;
+
+
+/******************************************************************************/
+/**
+ * @brief   VsCamDevice AFM status structure.
  *
  *****************************************************************************/
 typedef struct CamDeviceAfmStatus_s {
-	bool_t enable;  /**< AFM enable*/
+    bool_t enable;    /**< AFM enable status */
 } CamDeviceAfmStatus_t;
-
 
 /*****************************************************************************/
 /**
- *
  * @brief   This function sets the threshold in the AFM module.
+ * @startuml VsiCamDeviceAfmSetThreshold
+ * !include E01_External/VsiCamDeviceAfmSetThreshold.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @param[in]       threshold   Threshold value.
+ * @details this function calls: CamEngineAfmSetThreshold
+ * @details this function is called by: User application, VsiCamDeviceAfmReset
  *
- * @param   hCamDevice     Handle to the CamDevice instance
- * @param   threshold      Threshold value
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmSetThreshold
 (
-	CamDeviceHandle_t hCamDevice,
-	const uint32_t threshold
+    CamDeviceHandle_t  hCamDevice,
+    const uint32_t     threshold
 
 );
 
-
 /*****************************************************************************/
 /**
- *
  * @brief   This function gets the threshold in the AFM module.
+ * @startuml VsiCamDeviceAfmGetThreshold
+ * !include E01_External/VsiCamDeviceAfmGetThreshold.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pThreshold  Threshold value pointer.
+ * @details this function calls: CamEngineAfmGetThreshold
+ * @details this function is called by: User application
  *
- * @param   hCamDevice     Handle to the CamDevice instance
- * @param   threshold      Threshold value pointer
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmGetThreshold
 (
-	CamDeviceHandle_t hCamDevice,
-	uint32_t *pThreshold
+    CamDeviceHandle_t  hCamDevice,
+    uint32_t          *pThreshold
 );
-
 
 /*****************************************************************************/
 /**
+ * @brief   This function gets the AFM statistic result.
+ * @startuml VsiCamDeviceAfmGetStatistics
+ * !include E01_External/VsiCamDeviceAfmGetStatistics.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pResult     Measure results pointer.
+ * @details this function calls: CamEngineAfmGetStatistic
+ * @details this function is called by: User application
  *
- * @brief   This function get the AFM statistic result.
- *
- * @param   hCamDevice       Handle to the CamDevice instance
- * @param   pResult          Measure results pointer
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
-RESULT VsiCamDeviceAfmGetResult
+RESULT VsiCamDeviceAfmGetStatistics
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfmMeasureResult_t *pResult
+    CamDeviceHandle_t              hCamDevice,
+    CamDeviceAfmMeasureResult_t   *pResult
 );
-
 
 /*****************************************************************************/
 /**
+ * @brief   This function sets the AFM statistics window.
+ * @startuml VsiCamDeviceAfmSetMeasureWindow
+ * !include E01_External/VsiCamDeviceAfmSetMeasureWindow.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @param[in]       pWindow     Pointer to window configuration.
+ * @details this function calls: CamEngineAfmSetMeasureWindow, VsiCamDeviceAfmReset
+ * @details this function is called by: User application
  *
- * @brief   This function sets the AFM statistics window
- *
- * @param   hCamDevice   Handle to the CamDevice instance
- * @param   AfmWinId     AFM window item index
- * @param   pWindow      Pointer to window size
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmSetMeasureWindow
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfmWindowId_t afmWinId,
-	CamDeviceWindow_t *pWindow
+    CamDeviceHandle_t            hCamDevice,
+    CamDeviceAfmWindowConfig_t  *pWindow
 );
 
 /*****************************************************************************/
 /**
+ * @brief   This function gets the AFM statistics window.
+ * @startuml VsiCamDeviceAfmGetMeasureWindow
+ * !include E01_External/VsiCamDeviceAfmGetMeasureWindow.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pWindow     Pointer to window configuration.
+ * @details this function calls: CamEngineAfmGetMeasureWindow
+ * @details this function is called by: User application
  *
- * @brief   This function gets the AFM statistics window
- *
- * @param   hCamDevice   Handle to the CamDevice instance
- * @param   AfmWinId     AFM window item index
- * @param   pWindow      Pointer to window size
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmGetMeasureWindow
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfmWindowId_t afmWinId,
-	CamDeviceWindow_t *pWindow
+    CamDeviceHandle_t                 hCamDevice,
+    CamDeviceAfmWindowConfig_t       *pWindow
 );
+
 
 /*****************************************************************************/
 /**
  * @brief   This function enables AFM.
+ * @startuml VsiCamDeviceAfmEnable
+ * !include E01_External/VsiCamDeviceAfmEnable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details this function calls: CamEngineAfmEnable
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmEnable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t  hCamDevice
 );
 
 /*****************************************************************************/
 /**
  * @brief   This function disables AFM.
+ * @startuml VsiCamDeviceAfmDisable
+ * !include E01_External/VsiCamDeviceAfmDisable.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details this function calls: CamEngineAfmDisable
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_WRONG_STATE     Operation failed due to wrong state
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmDisable
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t  hCamDevice
 );
 
 /*****************************************************************************/
 /**
- *
  * @brief   This function gets AFM status.
+ * @startuml VsiCamDeviceAfmGetStatus
+ * !include E01_External/VsiCamDeviceAfmGetStatus.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pStatus     Pointer to the AFM status.
+ * @details this function calls: CamEngineAfmIsEnable
+ * @details this function is called by: User application
  *
- * @param   hCamDevice     Handle to the CamDevice instance
- * @param   pStatus        Pointer to AFM status
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmGetStatus
 (
-	CamDeviceHandle_t hCamDevice,
-	CamDeviceAfmStatus_t *pStatus
+    CamDeviceHandle_t        hCamDevice,
+    CamDeviceAfmStatus_t     *pStatus
 );
 
 /*****************************************************************************/
 /**
- * @brief   This function gets AFM version.
+ * @brief   This function gets the AFM version.
+ * @startuml VsiCamDeviceAfmGetVersion
+ * !include E01_External/VsiCamDeviceAfmGetVersion.plantuml
+ * @enduml
+ * @param[in]       hCamDevice  Handle to the VsCamDevice instance.
+ * @param[inout]    pVersion    Pointer to the AFM version.
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- * @param   pVersion            Pointer to AFM version
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmGetVersion
 (
-	CamDeviceHandle_t hCamDevice,
-	uint32_t *pVersion
+    CamDeviceHandle_t hCamDevice,
+    uint32_t         *pVersion
 );
-
 
 /*****************************************************************************/
 /**
  * @brief   This function resets AFM.
+ * @startuml VsiCamDeviceAfmReset
+ * !include E01_External/VsiCamDeviceAfmReset.plantuml
+ * @enduml
+ * @param[inout]    hCamDevice  Handle to the VsCamDevice instance.
+ * @details this function calls: CamDeviceSetIspLowPower, VsiCamDeviceAfmSetThreshold,
+ * VsiCamDeviceAfmSetMeasureWindow
+ * @details this function is called by: User application
  *
- * @param   hCamDevice          Handle to the CamDevice instance
- *
+ * @return  Return the result of the function call.
  * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_FAILURE         Operation failed
+ * @retval  RET_NULL_POINTER    Operation failed due to invalid pointer(s)
+ * @retval  RET_WRONG_HANDLE    Operation failed due to wrong handle
+ * @retval  RET_OUTOFRANGE      Operation failed due to
+ *                              parameter/variable out of range
+ * @retval  RET_NOTSUPP         Operation aborted due to feature not supported
  *
  *****************************************************************************/
 RESULT VsiCamDeviceAfmReset
 (
-	CamDeviceHandle_t hCamDevice
+    CamDeviceHandle_t             hCamDevice
 );
 
+/** @} 01_cam_device_afm */
 
 #ifdef __cplusplus
 }
 #endif
 
-/* @} cam_device_afm_dummy */
-/* @endcond */
-
-#endif /* CAMDEV_AFM_DUMMY_API_H */
+#endif /*CAMDEV_AFM_V1_API_H*/

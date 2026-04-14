@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) <2021> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -46,10 +46,6 @@
 extern XScuGic Intc;
 extern long int apu_parsecontrolenter;
 
-static MboxFifoCtrl *rpu0_fifo_ctrl = NULL;
-static MboxFifoCtrl *rpu1_fifo_ctrl = NULL;
-static MboxFifoCtrl *rpu2_fifo_ctrl = NULL;
-static MboxFifoCtrl *rpu3_fifo_ctrl = NULL;
 static MboxFifoCtrl *apu_fifo_ctrl = NULL;
 static MboxPostMsg *rmsg_rpu0 = NULL;
 static MboxPostMsg *rmsg_rpu1 = NULL;
@@ -266,15 +262,16 @@ int32_t write_mboxcmd(uint32_t cmdId, void *struct_msg, uint32_t size, MboxCoreI
 	uint32_t ret;
 	int status;
 
-	if (size == 0)
+	if (size == 0) {
 		wmsg->msg_id = cmdId;
-
-	else {
+	} else {
 		wmsg->msg_id = cmdId;
 		wmsg->size = sizeof(Payload_packet) - MAX_ITEM + ((Payload_packet *)
-			     struct_msg)->payload_size; // record valid  Payload_packet size
-		memcpy(wmsg->payload, struct_msg, wmsg->size);
+			     struct_msg)->payload_size;
+		memcpy(&wmsg->payload, struct_msg, wmsg->size);
 	}
+	wmsg->media_server_flags = 0;
+	memset(wmsg->reserved, 0, sizeof(wmsg->reserved));
 
 	if (MBOX_CORE_APU == core_id)
 		ret = vpi_mbox_post(apu_fifo_ctrl, wmsg, receiver_id, apu_postmsg);
@@ -290,7 +287,7 @@ int32_t write_mboxcmd(uint32_t cmdId, void *struct_msg, uint32_t size, MboxCoreI
 
 void Apu_Mbox_Check_Command(void)
 {
-	uint16_t msg_id_;
+	uint32_t msg_id_;
 	uint32_t size_;
 	Payload_packet proc_cmd_packet;
 
@@ -299,7 +296,7 @@ void Apu_Mbox_Check_Command(void)
 		ACK_PROC = false;
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
-		memcpy(&proc_cmd_packet, rmsg_command_to_apu->payload, size_);
+		memcpy(&proc_cmd_packet, &rmsg_command_to_apu->payload, size_);
 		ApuProcessCommand(msg_id_, &proc_cmd_packet, size_, src_cpu_id, dest_cpu_id);
 	}
 }
@@ -307,7 +304,7 @@ void Apu_Mbox_Check_Command(void)
 
 void Apu_Mbox_Check_FusaCommand(void)
 {
-	uint16_t msg_id_;
+	uint32_t msg_id_;
 	uint32_t size_;
 	Payload_packet proc_cmd_packet;
 
@@ -315,7 +312,7 @@ void Apu_Mbox_Check_FusaCommand(void)
 		ACK_PROC_FUSA = false;
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
-		memcpy(&proc_cmd_packet, rmsg_command_to_apu->payload, size_);
+		memcpy(&proc_cmd_packet, &rmsg_command_to_apu->payload, size_);
 		ApuProcessFusaCommand(msg_id_, &proc_cmd_packet, size_, src_cpu_id, dest_cpu_id);
 	}
 }
@@ -324,7 +321,7 @@ void Apu_Mbox_Check_FusaCommand(void)
 uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
 {
 
-	volatile Payload_packet *packet = (Payload_packet *)rmsg_response_to_apu->payload;
+	volatile Payload_packet *packet = &rmsg_response_to_apu->payload;
 
 	while (ACK == false || cookie != payload_ret_cookie) {
 
@@ -333,7 +330,7 @@ uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
 		//	ACK_PROC = false;
 		//	msg_id_ = rmsg_apu->msg_id;
 		//	size_ = rmsg_apu->size;
-		//	memcpy(&proc_cmd_packet, rmsg_apu->payload, size_);
+		//	memcpy(&proc_cmd_packet, &rmsg_apu->payload, size_);
 		//	ApuProcessCommand(msg_id_, &proc_cmd_packet, size_, src_cpu_id,dest_cpu_id);
 		//	}
 		Apu_Mbox_Check_Command();
@@ -357,14 +354,14 @@ void apu_mailbox_read(uint32_t IpiSrcMask)
 
 			//need make sure APU initiative call function to RPU after last function had receive response
 			//to make it is compatitable for apu_wait_for_mb_data and apu_wait_for_ACK function
-			if ((rmsg_apu->msg_id == MB_CMD_RES_SUCCESS) || (rmsg_apu->msg_id == MB_CMD_GET_SUCCESS))
-				memcpy(rmsg_response_to_apu, rmsg_apu,
-				       sizeof(MboxPostMsg) - sizeof(Payload_packet) + rmsg_apu->size);
-
-			else
-				memcpy(rmsg_command_to_apu, rmsg_apu,
-				       sizeof(MboxPostMsg) - sizeof(Payload_packet) + rmsg_apu->size);
-			ParseCommand(rmsg_apu->msg_id, rmsg_apu->payload, rmsg_apu->size, src_cpu_id, dest_cpu_id);
+			if ((rmsg_apu->msg_id == MB_CMD_RES_SUCCESS) || (rmsg_apu->msg_id == MB_CMD_GET_SUCCESS)) {
+				uint32_t copy_size = sizeof(MboxPostMsg) - MAX_ITEM + rmsg_apu->payload.payload_size;
+				memcpy(rmsg_response_to_apu, rmsg_apu, copy_size);
+			} else {
+				uint32_t copy_size = sizeof(MboxPostMsg) - MAX_ITEM + rmsg_apu->payload.payload_size;
+				memcpy(rmsg_command_to_apu, rmsg_apu, copy_size);
+			}
+			ParseCommand(rmsg_apu->msg_id, &rmsg_apu->payload, rmsg_apu->size, src_cpu_id, dest_cpu_id);
 
 		}
 	}
@@ -418,10 +415,11 @@ int32_t mailbox_init(uint32_t cpu)
 		return VPI_ERR_NOMEM;
 	}
 
+	/* Initialize wmsg fields */
+	memset(wmsg, 0, sizeof(MboxPostMsg));
 
 #define MBOX_SECTION_SIZE 0x200000
 #define BLOCK_SIZE_2MB 0x200000U
-#define HAL_RESERVED_MEM_SIZE=0x20000000;
 
 	for (int i = 0; i < (MBOX_SECTION_SIZE / BLOCK_SIZE_2MB); i++) {
 		xil_printf("MBOX_FIFO_BLOCK_SIZE/BLOCK_SIZE_2MB %d, i-%d\r\n",
@@ -435,26 +433,18 @@ int32_t mailbox_init(uint32_t cpu)
 	if (MBOX_CORE_APU == cpu)
 		apu_fifo_ctrl = vpi_mbox_init(MBOX_CORE_APU, mbox_start, MBOX_FIFO_BLOCK_SIZE);
 
-	else if (MBOX_CORE_RPU0 == cpu)
-		rpu0_fifo_ctrl = vpi_mbox_init(MBOX_CORE_RPU0, mbox_start, MBOX_FIFO_BLOCK_SIZE);
+	xil_printf("APU mailbox init done, sizeof(MboxPostMsg)=%u, sizeof(Payload_packet)=%u\r\n",
+		   sizeof(MboxPostMsg), sizeof(Payload_packet));
 
-	else if (MBOX_CORE_RPU1 == cpu)
-		rpu1_fifo_ctrl = vpi_mbox_init(MBOX_CORE_RPU1, mbox_start, MBOX_FIFO_BLOCK_SIZE);
-
-	else if (MBOX_CORE_RPU2 == cpu)
-		rpu2_fifo_ctrl = vpi_mbox_init(MBOX_CORE_RPU2, mbox_start, MBOX_FIFO_BLOCK_SIZE);
-
-	else if (MBOX_CORE_RPU3 == cpu)
-		rpu3_fifo_ctrl = vpi_mbox_init(MBOX_CORE_RPU3, mbox_start, MBOX_FIFO_BLOCK_SIZE);
+	return VPI_SUCCESS;
 }
 
 void mailbox_close()
 {
-	osFree(apu_fifo_ctrl);
-	osFree(rpu0_fifo_ctrl);
-	osFree(rpu1_fifo_ctrl);
-	osFree(rpu2_fifo_ctrl);
-	osFree(rpu3_fifo_ctrl);
+	if (apu_fifo_ctrl)
+		vpi_mbox_destory(apu_fifo_ctrl);
+	apu_fifo_ctrl = NULL;
+
 	osFree(rmsg_rpu0);
 	osFree(rmsg_rpu1);
 	osFree(rmsg_rpu2);
@@ -466,6 +456,7 @@ void mailbox_close()
 	wmsg = NULL;
 	rmsg_apu = NULL;
 	rmsg_response_to_apu = NULL;
+	rmsg_command_to_apu = NULL;
 	rmsg_rpu0 = NULL;
 	rmsg_rpu1 = NULL;
 	rmsg_rpu2 = NULL;
@@ -511,7 +502,6 @@ uint32_t ParseCommand(MBCmdId_E cmd, void *data, uint32_t size,	MboxCoreId core_
 		      MboxCoreId src_cpu)
 {
 	int ret = 0, Status = 0;
-	//Response_packet resp_pckt, *buf_resp = data; //response packet to be sent to APU; //Received response packet
 	Payload_packet *packet = (Payload_packet *)data;
 #if ENABLE_VMIX_MACRO
 	XV_Mix_l2 *MixerPtr = &mix;

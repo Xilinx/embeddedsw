@@ -1,15 +1,30 @@
-/******************************************************************************\
-|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
-|* Copyright (c) 2024 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
-|* All Rights Reserved.                                                       *|
-|*                                                                            *|
-|* The material in this file is confidential and contains trade secrets       *|
-|* of VeriSilicon.  This is proprietary information owned or licensed by      *|
-|* VeriSilicon.  No part of this work may be disclosed, reproduced, copied,   *|
-|* transmitted, or used in any way for any purpose, without the express       *|
-|* written permission of VeriSilicon.                                         *|
-|*                                                                            *|
-\******************************************************************************/
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+/****************************************************************************
+ *
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2014-2026 Vivantec Corporation
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a
+ * copy of this software and associated documentation files (the "Software"),
+ * to deal in the Software without restriction, including without limitation
+ * the rights to use, copy, modify, merge, publish, distribute, sublicense,
+ * and/or sell copies of the Software, and to permit persons to whom the
+ * Software is furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE.
+ *
+ ******************************************************************************/
+
 
 #include "vvformat.h"
 #include "memory_manager.h"
@@ -26,10 +41,12 @@
 
 static void SwapBufferInner(uint8_t *buf, size_t bufLen, PicBufMiDataSwap_t padType)
 {
-	if (NULL == buf)
+	if (NULL == buf) {
 		return;
-	if (PIC_BUF_MI_NO_SWAP == padType)
+	}
+	if (PIC_BUF_MI_NO_SWAP == padType) {
 		return;
+	}
 	else if (PIC_BUF_MI_SWAP_BYTES == padType) {
 		LOGD("%s in SWAP_BYTES", __func__);
 		for (int i = 0; i + 1 < bufLen; i += 2) {
@@ -37,7 +54,8 @@ static void SwapBufferInner(uint8_t *buf, size_t bufLen, PicBufMiDataSwap_t padT
 			buf[i] = buf[i + 1];
 			buf[i + 1] = t;
 		}
-	} else if (padType == PIC_BUF_MI_SWAP_WORDS) {
+	}
+	else if (padType == PIC_BUF_MI_SWAP_WORDS) {
 		LOGD("%s in SWAP_WORDS", __func__);
 		for (int i = 0; i + 3 < bufLen; i += 4) {
 			uint8_t t1 = buf[i];
@@ -47,7 +65,8 @@ static void SwapBufferInner(uint8_t *buf, size_t bufLen, PicBufMiDataSwap_t padT
 			buf[i + 2] = t1;
 			buf[i + 3] = t2;
 		}
-	} else if (padType == PIC_BUF_MI_SWAP_DOUBLE_WORDS) {
+	}
+	else if (padType == PIC_BUF_MI_SWAP_DOUBLE_WORDS) {
 		LOGD("%s in SWAP_DOUBLE_WORDS", __func__);
 		for (int i = 0; i + 7 < bufLen; i += 8) {
 			uint8_t t1 = buf[i];
@@ -63,7 +82,8 @@ static void SwapBufferInner(uint8_t *buf, size_t bufLen, PicBufMiDataSwap_t padT
 			buf[i + 6] = t3;
 			buf[i + 7] = t4;
 		}
-	} else if (padType == PIC_BUF_MI_SWAP_FOUR_WORDS) {
+	}
+	else if (padType == PIC_BUF_MI_SWAP_FOUR_WORDS) {
 		LOGD("%s in SWAP_FOUR_WORDS", __func__);
 		for (int i = 0; i + 15 < bufLen; i += 16) {
 			uint8_t temp[8] = {0};
@@ -80,8 +100,9 @@ RESULT ConvertRawToRGBA
 )
 {
 	RESULT result = RET_SUCCESS;
-	if (NULL == pBuffer)
+	if (NULL == pBuffer) {
 		return RET_NULL_POINTER;
+	}
 	LOGD("%s in", __func__);
 	// allocate local buffer
 	uint8_t *pLocBuf = pBuffer->bufferInstance;
@@ -280,7 +301,7 @@ RESULT ConvertRawToRGBA
 			}
 		default: {
 				result = RET_OUTOFRANGE;
-				LOGE("%s get unsupport type", __func__);
+				LOGE("%s get unsupported type", __func__);
 				break;
 			}
 	}

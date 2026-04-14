@@ -1,5 +1,5 @@
 #include <string.h>
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #include <stdio.h>
 #include "xil_types.h"
 #include "iba.h"
@@ -331,7 +331,6 @@ iba_inst_t IBA_ConfigTable[XPAR_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 		}
 
 	}
-
 };
 
 iba_inst_t *iba_LookupConfig(iba_isp_instance_t isp_no, iba_id_t iba_no)

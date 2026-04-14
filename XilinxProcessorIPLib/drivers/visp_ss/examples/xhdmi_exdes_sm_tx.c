@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 – 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -2093,7 +2093,7 @@ void XV_Tx_HdmiTx_EnterStateConnected(XV_Tx *InstancePtr)
 	/* Disable TX TDMS clock */
 	XHdmiphy1_Clkout1OBufTdsEnable(InstancePtr->VidPhy,
 				       XHDMIPHY1_DIR_TX, (FALSE));
-#if defined (XPS_BOARD_VEK385_1)
+#if defined (XPS_BOARD_VEK385)
 	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi20Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX);
@@ -2449,7 +2449,7 @@ void XV_Tx_HdmiTx_EnterStateStreamOn(XV_Tx *InstancePtr)
 				XHDMIPHY1_DIR_TX, XHDMIPHY1_CHANNEL_ID_CH1);
 #if defined (XPS_BOARD_VCK190) || \
     defined (XPS_BOARD_VEK280) || \
-	defined (XPS_BOARD_VEK385_1)
+	defined (XPS_BOARD_VEK385)
 
 	if ((TxPllType == XHDMIPHY1_PLL_TYPE_LCPLL)) {
 		TxLineRate = XHdmiphy1_GetLineRateHz(XV_Tx_Hdmiphy1Ptr, 0,
@@ -2668,7 +2668,7 @@ void XV_Tx_HdmiTx_EnterStateFrlConfig(XV_Tx *InstancePtr)
 	u64 LineRate = ((u64)(InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.LineRate)) *
 			((u64)(1e9));
 	u8 NChannels = InstancePtr->HdmiTxSs->HdmiTx1Ptr->Stream.Frl.Lanes;
-	/* For addtional information, print out linerate and nchannel,
+	/* For additional information, print out linerate and nchannel,
 	 * xdbg_xv_tx_print("LineRate: %lu, NChannels: %d\r\n",
 	 *			 LineRate, NChannels);
 	 */
@@ -2681,7 +2681,7 @@ void XV_Tx_HdmiTx_EnterStateFrlConfig(XV_Tx *InstancePtr)
 		XHdmiphy1_IBufDsEnable(InstancePtr->VidPhy, 0,
 				XHDMIPHY1_DIR_TX, (TRUE));
 	}
-#if defined (XPS_BOARD_VEK385_1)
+#if defined (XPS_BOARD_VEK385)
 	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi21Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX,
@@ -3000,7 +3000,7 @@ void XV_Tx_HdmiTx_EnterStateTmdsConfig(XV_Tx *InstancePtr)
 	Xil_AssertVoid(InstancePtr);
 
 	xdbg_xv_tx_print("Tmds Config ...\r\n");
-#if defined (XPS_BOARD_VEK385_1)
+#if defined (XPS_BOARD_VEK385)
 	InstancePtr->VidPhy->versal_2ve_2vm = 1;
 #endif
 	XHdmiphy1_Hdmi20Config(InstancePtr->VidPhy, 0, XHDMIPHY1_DIR_TX);
@@ -3008,7 +3008,7 @@ void XV_Tx_HdmiTx_EnterStateTmdsConfig(XV_Tx *InstancePtr)
 	XV_HdmiTx1_SetFrlVidClock(InstancePtr->HdmiTxSs->HdmiTx1Ptr, 0);
 
 	if (InstancePtr->ConfigInfo.IsHdmi == FALSE) {
-		/* If downstream sink only suports DVI, then we must
+		/* If downstream sink only supports DVI, then we must
 		 * set the HDMI mode to DVI.
 		 */
 		XV_HdmiTxSS1_SetDviMode(InstancePtr->HdmiTxSs);

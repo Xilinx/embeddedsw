@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright 2010, Dream Chip Technologies GmbH. used with permission by      *|
 |* VeriSilicon.                                                               *|
 |* Copyright (c) <2020> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
@@ -44,7 +44,7 @@ static Tracer	*tracerListHead = NULL;
 // use macro instead of variable, or build error as "variable length array folded to constant array as an extension"
 #define BUFFSIZE  1024
 
-/*	For some stupid reason beyond my imagination, gccs stdio.h doesn't	*/
+/*	For some stupid reason beyond my imagination, gcc's stdio.h doesn't	*/
 /*	support vsnprintf() in strict c99 mode. Only happens in cygwin.		*/
 #if defined(__GNUC__) && defined(__CYGWIN__) && !defined(PICO)
 	int vsnprintf(char *, size_t, const char *, __VALIST);
