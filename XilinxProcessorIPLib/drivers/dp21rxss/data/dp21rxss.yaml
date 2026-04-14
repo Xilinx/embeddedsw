@@ -251,4 +251,48 @@ examples:
         - xlnx,hdcp-enable: 0
         - xlnx,num-streams: 4
 
+    src/dp21_pt_hdcp/xdprxss_dp21_pt_hdcp.c:
+        - dependency_files:
+            - src/dp21_pt_hdcp/aes256.c
+            - src/dp21_pt_hdcp/aes256.h
+            - src/dp21_pt_hdcp/clk_set.c
+            - src/dp21_pt_hdcp/clk_set.h
+            - src/dp21_pt_hdcp/eeprom.c
+            - src/dp21_pt_hdcp/eeprom.h
+            - src/dp21_pt_hdcp/keygen_config.h
+            - src/dp21_pt_hdcp/keymgmt.c
+            - src/dp21_pt_hdcp/keymgmt_debug.h
+            - src/dp21_pt_hdcp/keymgmt_device.c
+            - src/dp21_pt_hdcp/keymgmt_device.h
+            - src/dp21_pt_hdcp/keymgmt.h
+            - src/dp21_pt_hdcp/keymgmt_keyfile.c
+            - src/dp21_pt_hdcp/keymgmt_keyfile.h
+            - src/dp21_pt_hdcp/keymgmt_loader.c
+            - src/dp21_pt_hdcp/keymgmt_loader.h
+            - src/dp21_pt_hdcp/keymgmt_testkeys.c
+            - src/dp21_pt_hdcp/keys.c
+            - src/dp21_pt_hdcp/main.h
+            - src/dp21_pt_hdcp/menus.c
+            - src/dp21_pt_hdcp/passthrough.c
+            - src/dp21_pt_hdcp/rx.c
+            - src/dp21_pt_hdcp/rx.h
+            - src/dp21_pt_hdcp/sha256.c
+            - src/dp21_pt_hdcp/sha256.h
+            - src/dp21_pt_hdcp/si570.c
+            - src/dp21_pt_hdcp/si570drv.c
+            - src/dp21_pt_hdcp/si570drv.h
+            - src/dp21_pt_hdcp/tx.c
+            - src/dp21_pt_hdcp/tx.h
+            - src/dp21_pt_hdcp/videofmc_defs.h
+            - src/dp21_pt_hdcp/xdp_hdcp_keys.c
+            - src/dp21_pt_hdcp/xdp_hdcp_keys.h
+            - src/dp21_pt_hdcp/xhdcp22_example.c
+            - src/dp21_pt_hdcp/xhdcp22_example.h
+            - src/dp21_pt_hdcp/xvid_clk_gen.c
+            - src/dp21_pt_hdcp/xvidframe_crc.c
+            - src/dp21_pt_hdcp/xvidframe_crc.h
+            - src/platforms/vcu_mb/lscript.ld
+        - xlnx,examplemodes: 1
+        - xlnx,hdcp-enable: 1
+        - xlnx,num-streams: 1
 ...
