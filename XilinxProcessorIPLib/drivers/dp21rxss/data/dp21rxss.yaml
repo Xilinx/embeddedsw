@@ -231,4 +231,24 @@ examples:
         - xlnx,hdcp-enable: 0
         - xlnx,num-streams: 1
 
+    src/dp21_pt_mst/xdprxss_dp21_pt_mst.c:
+        - dependency_files:
+            - src/dp21_pt_mst/main.h
+            - src/dp21_pt_mst/menus.c
+            - src/dp21_pt_mst/passthrough.c
+            - src/dp21_pt_mst/rx.c
+            - src/dp21_pt_mst/rx.h
+            - src/dp21_pt_mst/tx.c
+            - src/dp21_pt_mst/tx.h
+            - src/dp21_pt_mst/videofmc_defs.h
+            - src/dp21_pt_mst/xvid_clk_gen.c
+            - src/dp21_pt_mst/xvidframe_crc.c
+            - src/dp21_pt_mst/xvidframe_crc.h
+            - src/dp21_pt_mst/xvid_pat_gen.c
+            - src/dp21_pt_mst/xvid_pat_gen.h
+            - src/platforms/vcu_mb/lscript.ld
+        - xlnx,examplemodes: 1
+        - xlnx,hdcp-enable: 0
+        - xlnx,num-streams: 4
+
 ...
