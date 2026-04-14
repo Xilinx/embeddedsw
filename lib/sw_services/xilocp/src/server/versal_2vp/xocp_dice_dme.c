@@ -583,6 +583,7 @@ static int XOcp_DmeDecryptPrivKey(u32 DecDmeKeyAddr)
 	XSecure_Aes *AesInstance = XSecure_GetAesInstance();
 	int Status = XST_FAILURE;
 	int ClrStatus = XST_FAILURE;
+	u32 InitVector[XOCP_SECURE_IV_LEN_IN_WORDS] = {0};
 	u32 EncDmePrivKey = 0U;
 	u8 AesBuffer[XOCP_AES_OCP_DATA_LEN_IN_BYTES] = {0};
 	u32 EncryptedZeros[XOCP_AES_OCP_DATA_LEN_IN_WORDS] = {0};
