@@ -645,6 +645,10 @@ static XStatus HandleDeviceEvent(XPm_Node *Node, u32 Event)
 					Device->WfPwrUseCnt = (u8)(Device->Power->UseCount - 1U);
 					Status = Device->Power->HandleEvent(
 						 &Device->Power->Node, (u32)XPM_POWER_EVENT_PWR_DOWN);
+					if (XST_SUCCESS != Status) {
+						DbgErr = XPM_INT_ERR_PWR_STATE_OFF_EVENT;
+						break;
+					}
 					/* Todo: Start timer to poll power node use count */
 					/* Hack */
 					Status = Device->HandleEvent(Node, (u32)XPM_DEVEVENT_TIMER);
@@ -1977,6 +1981,9 @@ XStatus XPmDevice_GetStatus(const u32 SubsystemId,
 		}
 
 		Status = XPm_GetClockState(Device->ClkHandles->Clock->Node.Id, &ClkStatus);
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
 		const XPm_ResetHandle *RstHandle = Device->RstHandles;
 		while (NULL != RstHandle) {
 			Status = XPm_GetResetState(RstHandle->Reset->Node.Id, &RstStatus);
