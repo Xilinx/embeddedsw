@@ -34,6 +34,7 @@
 *                    configuring the Boot LUN ID.
 * 1.2   an  06/09/25 Configure RMMI and M-PHY registers for HS mode
 * 1.3   an  04/09/26 Fix doxygen warnings, Fix stale PHY adapt-type
+*                    Add bRefClkFreq attribute programming
 *
 * </pre>
 *
@@ -400,6 +401,7 @@ enum General_Error_Codes {
 	XUFSPSXC_INVALID_MEMTYPE,
 	XUFSPSXC_INVALID_TRANS_CODE,
 	XUFSPSXC_PHY_NOT_CALIBRATED,
+	XUFSPSXC_INVALID_REFCLKFREQ,
 	XUFSPSXC_FAILURE = 0xFFU
 };
 
@@ -702,6 +704,17 @@ enum Task_Tag {
 #define XUFSPSXC_PA_REFRESH_ADAPT	0x00U	/**< Refresh Adapt */
 #define XUFSPSXC_PA_INITIAL_ADAPT	0x01U	/**< Initial Adapt */
 #define XUFSPSXC_PA_NO_ADAPT		0x03U	/**< No Adapt */
+/** @} */
+
+/** @name bRefClkFreq attribute values
+ * @{
+ */
+#define XUFSPSXC_REF_CLK_FREQ_ATTRID			0x0AU	/**< bRefClkFreq attribute IDN */
+#define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_19_2_MHZ	0U	/**< 19.2 MHz */
+#define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_26_MHZ	1U	/**< 26 MHz */
+#define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_38_4_MHZ	2U	/**< 38.4 MHz */
+#define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_52_MHZ	3U	/**< 52 MHz */
+#define XUFSPSXC_ATTR_VAL_REF_CLK_FREQ_INVAL	0xFFU	/**< Invalid frequency */
 /** @} */
 
 /*****************************************************************************/
