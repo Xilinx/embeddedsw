@@ -132,6 +132,7 @@
 *       sk   09/27/2025 Added defines related to UFS Boot
 *       sk   10/16/2025 Remove conditional declaration for XLoader_MbPmcI2cHandshake
 *       pre  03/12/2026 Added macro needed to validate PCR number
+* 2.01  sk   07/19/2025 Added function declaration for store image info
 * </pre>
 *
 ******************************************************************************/
@@ -490,6 +491,7 @@ int XLoader_ClearATFHandoffParams(XilPdi* PdiPtr);
 int XLoader_LoadImage(XilPdi *PdiPtr);
 int XLoader_GetImageAndPrtnInfo(XilPdi *PdiPtr, u32 ImageId);
 int XLoader_CfiSelectiveRead(XPlmi_Cmd *Cmd);
+int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd);
 
 /* Functions defined in xloader_prtn_load.c */

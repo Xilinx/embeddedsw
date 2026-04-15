@@ -95,6 +95,8 @@
 *       gnr  02/09/2026 Enabled IPI access permissions of XLoader_ConfigureJtagState command for versal_2ve_2vm
 *       gnr  03/12/2026 Fixed integer overflow in length check of XLoader_AddImageStorePdi() and XLoader_WriteImageStorePdi()
 *       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
+*       sk   04/10/2026 Added implementation for set image info command
+*
 * </pre>
 *
 ******************************************************************************/
@@ -160,6 +162,10 @@ static XPlmi_Module XPlmi_Loader;
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_HIGH_INDEX	(0U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DESTADDR_LOW_INDEX	(1U)
 #define XLOADER_CMD_GET_HANDOFF_PARAM_DEST_SIZE_INDEX	(2U)
+#define XLOADER_CMD_ID_SET_IMAGE_INFO_IMGID_INDEX	(0U)
+#define XLOADER_CMD_ID_SET_IMAGE_INFO_UID_INDEX		(1U)
+#define XLOADER_CMD_ID_SET_IMAGE_INFO_PUID_INDEX	(2U)
+#define XLOADER_CMD_ID_SET_IMAGE_INFO_FUNCID_INDEX	(3U)
 #define XLOADER_RESP_CMD_FEATURES_CMD_SUPPORTED	(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_UID_INDEX		(1U)
 #define XLOADER_RESP_CMD_GET_IMG_INFO_PID_INDEX		(2U)
@@ -456,8 +462,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function does nothing but provides a command which is
- * used by bootgen to set the Image Header IDs
+ * @brief	This function stores image info
  *
  * 		Command payload parameters are
  *		- Node ID
@@ -467,16 +472,31 @@ END:
  * @param	Cmd is pointer to the command structure
  *
  * @return
- *		- XST_SUCCESS always.
+ *		- XST_SUCCESS on success and error code on failure
  *
  *****************************************************************************/
 static int XLoader_SetImageInfo(XPlmi_Cmd *Cmd)
 {
+	int Status = XST_FAILURE;
+	XLoader_ImageInfo ImageInfo;
+
+	/**
+	 * Extract the command payload parameters and store in ImageInfo structure to be
+	 * stored in ImageInfoTbl
+	 */
+	ImageInfo.ImgID = Cmd->Payload[XLOADER_CMD_ID_SET_IMAGE_INFO_IMGID_INDEX];
+	ImageInfo.UID = Cmd->Payload[XLOADER_CMD_ID_SET_IMAGE_INFO_UID_INDEX];
+	ImageInfo.PUID = Cmd->Payload[XLOADER_CMD_ID_SET_IMAGE_INFO_PUID_INDEX];
+	ImageInfo.FuncID = Cmd->Payload[XLOADER_CMD_ID_SET_IMAGE_INFO_FUNCID_INDEX];
+
 	XPLMI_EXPORT_CMD(XLOADER_CMD_ID_SET_IMAGE_INFO, XPLMI_MODULE_LOADER_ID,
 		XPLMI_CMD_ARG_CNT_FOUR, XPLMI_CMD_ARG_CNT_FOUR);
-	/* This acts as a placeholder for the implementation done by bootgen */
-	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)XST_SUCCESS;
-	return XST_SUCCESS;
+
+	/** Store the image info */
+	Status = XLoader_StoreImageInfo(&ImageInfo);
+
+	Cmd->Response[XLOADER_RESP_CMD_EXEC_STATUS_INDEX] = (u32)Status;
+	return Status;
 }
 
 /*****************************************************************************/
