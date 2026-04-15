@@ -296,7 +296,7 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		XPm_LockPcsr(NPI_BASEADDR + NPI_NIR_0_OFFSET);
 	}
 
-	if (PM_HOUSECLEAN_CHECK(PLD, NPD_EFUSE)) {
+	if (PM_HOUSECLEAN_CHECK(NPD, NPD_EFUSE)) {
 		Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_NOC);
 	}
 
