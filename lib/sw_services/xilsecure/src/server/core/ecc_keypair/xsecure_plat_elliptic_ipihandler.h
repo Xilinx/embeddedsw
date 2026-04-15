@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_elliptic_ipihandler.h
+* @file server/core/ecc_keypair/xsecure_plat_elliptic_ipihandler.h
 *
 * This file contains the Xilsecure platform IPI handler declaration.
 *
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_ELLIPTIC_IPIHANDLER_H_
 #define XSECURE_PLAT_ELLIPTIC_IPIHANDLER_H_
 
@@ -48,9 +49,9 @@ int XSecure_PlatEllipticIpiHandler(XPlmi_Cmd *Cmd);
 
 #endif /* PLM_ECDSA_EXCLUDE */
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_ELLIPTIC_IPIHANDLER_H_ */
-/** @} */

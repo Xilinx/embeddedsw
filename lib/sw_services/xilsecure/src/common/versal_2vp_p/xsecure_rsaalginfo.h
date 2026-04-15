@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_rsaalginfo.h
+* @file common/versal_2vp_p/xsecure_rsaalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

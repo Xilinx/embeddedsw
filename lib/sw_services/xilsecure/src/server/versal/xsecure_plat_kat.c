@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat.c
+* @file server/versal/xsecure_plat_kat.c
 * This file contains versal specific code for KAT.
 *
 * <pre>
@@ -21,7 +21,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -65,7 +65,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 	u32 *RsaPrivateExpPtr = XSecure_GetKatRsaPrivateExp();
 	u32 RsaOutput[XSECURE_RSA_2048_SIZE_WORDS];
 
-	/** Initialize RSA */
+	/** - Initialize RSA */
 	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulusPtr,
 		(u8 *)RsaModExtPtr, (u8 *)RsaPrivateExpPtr);
 	if (Status != XST_SUCCESS) {
@@ -74,7 +74,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 	}
 
 	Status = XST_FAILURE;
-	/** Perform RSA private decrypt operation */
+	/** - Perform RSA private decrypt operation */
 	Status = XSecure_RsaPrivateDecrypt(&XSecureRsaInstance, (u8 *)RsaExpCtDataPtr,
 		XSECURE_RSA_2048_KEY_SIZE, (u8 *)RsaOutput);
 	if (Status != XST_SUCCESS) {
@@ -82,9 +82,9 @@ int XSecure_RsaPrivateDecryptKat(void)
 		goto END_CLR;
 	}
 
-	/* Initialized to error */
+	/** - Initialized to error */
 	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
-	/** Validate the decrypted data with the expected data provided */
+	/** - Validate the decrypted data with the expected data provided */
 	for (Index = 0U; Index < XSECURE_RSA_2048_SIZE_WORDS; Index++) {
 		if (RsaOutput[Index] != RsaDataPtr[Index]) {
 			Status = (int)XSECURE_RSA_KAT_DECRYPT_DATA_MISMATCH_ERROR;

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_elliptic_client.c
+* @file client/core/ecc_keypair/xsecure_plat_elliptic_client.c
 *
 * This file contains the implementation of elliptic client interface APIs for
 * Versal Net.
@@ -83,8 +83,8 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 	}
 
 	/**
-	 * Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
-	 * Validates the size of the shared memory whether the required size is available or not.
+	 * - Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
+	 *   Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdhParams);
 	if ((EcdhParams == NULL) || (MemSize < sizeof(XSecure_EcdhParams))) {
@@ -102,14 +102,14 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 
 	XSecure_DCacheFlushRange(EcdhParams, sizeof(XSecure_EcdhParams));
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, XSECURE_API_GEN_SHARED_SECRET,
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_GenSharedSecret
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_GenSharedSecret
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

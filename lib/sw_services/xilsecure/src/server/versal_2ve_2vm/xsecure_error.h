@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xsecure_error.h
+ * @file server/versal_2ve_2vm/xsecure_error.h
  *
  * This file contains Xilsecure error codes
  *
@@ -35,10 +35,7 @@
  * </pre>
  *
  ******************************************************************************/
-/**
-* @addtogroup xsecure_error_codes Xilsecure Error Codes
-* @{
-*/
+
 #ifndef XSECURE_ERROR_H_
 #define XSECURE_ERROR_H_
 
@@ -393,9 +390,7 @@ enum {
 
 #define XSECURE_SHA3_FINISH_ERROR		XSECURE_SHA_FINISH_ERROR
 							/**< SHA3 finish error */
-/**
- * @}
-*/
+
 /************************** Function Prototypes ******************************/
 
 #ifdef __cplusplus

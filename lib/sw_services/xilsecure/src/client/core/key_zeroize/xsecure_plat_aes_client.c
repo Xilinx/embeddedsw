@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_aes_client.c
+* @file client/core/key_zeroize/xsecure_plat_aes_client.c
 *
 * This file contains the implementation of AES client interface APIs for
 * Versal Net.
@@ -102,7 +102,7 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 
 	XSecure_DCacheFlushRange(AesParams, sizeof(XSecure_AesDataBlockParams));
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT),
@@ -110,8 +110,8 @@ int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr
 				(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_AesOpNZeroizeKey
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

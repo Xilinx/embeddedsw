@@ -1,14 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_shaclient.h
-* @addtogroup xsecure_sha3_client_apis XilSecure SHA Versal_2Ve_2Vm Client APIs
-* @{
+* @file client/core/sha/sha_pmxc/xsecure_shaclient.h
 * @cond xsecure_internal
 * This file Contains the client function prototypes, defines and macros for
 * the SHA-384 hardware module.
@@ -25,7 +23,10 @@
 * @note
 *
 ******************************************************************************/
-
+/**
+ * @addtogroup xsecure_sha3_client_apis XilSecure SHA Client APIs
+ * @{
+ */
 #ifndef XSECURE_SHACLIENT_H
 #define XSECURE_SHACLIENT_H
 
@@ -66,10 +67,10 @@ int XSecure_Sha2Kat(XSecure_ClientInstance *InstancePtr);
 
 /************************** Variable Definitions *****************************/
 
-/** @endcond */
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_SHACLIENT_H */
-/** @} */
+/** @endcond */

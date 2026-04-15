@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file xsecure_generic.h
+* @file client/core/generic/xsecure_generic.h
 *
 * This file contains declarations for the generic request API that handles both SMC and IPI
 * mailbox communication for xilsecure client library.
@@ -21,6 +21,10 @@
 * </pre>
 *
 **************************************************************************************************/
+/**
+ * @addtogroup xsecure_client_apis XilSecure Client APIs
+ * @{
+ */
 #ifndef XSECURE_GENERIC_H
 #define XSECURE_GENERIC_H
 
@@ -45,6 +49,7 @@ extern "C" {
 int XSecure_SendRequest(const XSecure_ClientInstance *InstancePtr, u32 *PayloadBuf,
 			u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

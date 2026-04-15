@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ellipticcrvs.c
+* @file server/core/ecdsa/xsecure_ellipticcrvs.c
 *
 * This file contains the curve information of all the ECDSA curves supported
 * in Versal.

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_client.c
+* @file client/versal_net/xsecure_plat_client.c
 *
 * This file contains the implementation of platform specific client interface functions
 *
@@ -28,7 +28,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_client_apis Platform specific helper APIs in Xilsecure client
+* @addtogroup xsecure_helper_client_apis Platform specific helper APIs in XilSecure client
 * @{
 */
 /***************************** Include Files *********************************/
@@ -163,12 +163,12 @@ static int XSecure_UpdateCryptoStatus(XSecure_ClientInstance *InstancePtr, XSecu
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ApiId, CryptoStatusOp, CryptoMask);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_UpdateCryptoMask
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_UpdateCryptoMask
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -202,14 +202,14 @@ int XSecure_KeyUnwrap(XSecure_ClientInstance *InstancePtr, XSecure_KeyWrapData *
 	}
 
 	KeyWrapAddr = (u64)(UINTPTR)KeyWrapData;
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, XSECURE_API_KEY_UNWRAP,
 				KeyWrapAddr,
 				(KeyWrapAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_KeyUnwrapIpi
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_KeyUnwrapIpi
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -240,12 +240,12 @@ int XSecure_ReleaseRsaKey(XSecure_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD0(Payload, XSECURE_API_RSA_RELEASE_KEY);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDestroyKeyInUse
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_RsaDestroyKeyInUse
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

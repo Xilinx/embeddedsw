@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ellipticcrvs.h
+* @file server/core/ecdsa/xsecure_ellipticcrvs.h
 *
 * This file contains the macros and types related to elliptic curve information
 *
@@ -31,10 +31,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_ELLIPTICCRVS_H_
 #define XSECURE_ELLIPTICCRVS_H_
 
@@ -75,5 +76,5 @@ u32 XSecure_EllipticCrvsGetCount(void);
 
 #endif /* XSECURE_ELLIPTICCRVS_H */
 
-#endif
 /** @} */
+#endif

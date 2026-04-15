@@ -7,7 +7,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_lmsalginfo.h
+* @file common/versal_2vp_p/xsecure_lmsalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

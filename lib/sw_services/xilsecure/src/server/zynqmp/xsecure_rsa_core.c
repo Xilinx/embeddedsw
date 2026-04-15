@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_core.c
+* @file server/zynqmp/xsecure_rsa_core.c
 *
 * This file contains the implementation of the ZynqMP specific RSA driver.
 * Refer to the header file xsecure_rsa_core.h for more detailed information.
@@ -42,6 +42,10 @@
 * @note
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_rsa_zynqmp_apis XilSecure RSA ZynqMP APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_rsa_core.h"
@@ -149,14 +153,14 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 
 	InstancePtr->EncDec = EncDecFlag;
 	InstancePtr->SizeInWords = Size/XSECURE_WORD_SIZE;
-	/* Put Modulus, exponent, Mod extension in RSA RAM */
+	/** - Put Modulus, exponent, Mod extension in RSA RAM */
 	XSecure_RsaPutData(InstancePtr);
 
-	/* Initialize Digest */
+	/** - Initialize Digest */
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)Input,
 				XSECURE_CSU_RSA_RAM_DIGEST);
 
-	/* Initialize MINV values from Mod. */
+	/** - Initialize MINV values from Mod. */
 	XSecure_RsaMod32Inverse(InstancePtr);
 
 	switch(InstancePtr->SizeInWords) {
@@ -208,7 +212,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		goto END;
 	}
 
-	/* Start the RSA operation. */
+	/** - Start the RSA operation. */
 	if (InstancePtr->ModExt != NULL) {
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_RSA_CONTROL_OFFSET,
@@ -220,7 +224,7 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 				RsaType + XSECURE_CSU_RSA_CONTROL_EXP);
 	}
 
-	/* Check and wait for status */
+	/** - Check and wait for status */
 	do {
 		Status = XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_RSA_STATUS_OFFSET);
@@ -243,11 +247,11 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 		ErrorCode = (u32)XST_FAILURE;
 		goto END;
 	}
-	/* Copy the result */
+	/** - Copy the result */
 	XSecure_RsaGetData(InstancePtr, (u32 *)Result);
 
 END:
-	/* Zeroize and Verify RSA memory space */
+	/** - Zeroize and Verify RSA memory space */
 	if (InstancePtr->EncDec == XSECURE_RSA_SIGN_DEC) {
 		Status = XSecure_RsaZeroize(InstancePtr);
 		ErrorCode |= Status;
@@ -270,19 +274,19 @@ END:
  ******************************************************************************/
 static void XSecure_RsaPutData(XSecure_Rsa *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Initialize Modular exponentiation */
+	/** - Initialize Modular exponentiation */
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExpo,
 					XSECURE_CSU_RSA_RAM_EXPO);
 
-	/* Initialize Modular. */
+	/** - Initialize Modular. */
 	XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->Mod,
 					XSECURE_CSU_RSA_RAM_MOD);
 
 	if (InstancePtr->ModExt != NULL) {
-	/* Initialize Modular extension (R*R Mod M) */
+	/** - Initialize Modular extension (R*R Mod M) */
 		XSecure_RsaWriteMem(InstancePtr, (u32 *)InstancePtr->ModExt,
 					XSECURE_CSU_RSA_RAM_RES_Y);
 	}
@@ -308,7 +312,7 @@ static void XSecure_RsaGetData(XSecure_Rsa *InstancePtr, u32 *RdData)
 	u32 DataOffset;
 	s32 TmpIndex;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	/** Total bits to be read 4096
@@ -360,10 +364,10 @@ END: ;
  ******************************************************************************/
 static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
-	/* Calculate the MINV */
+	/** - Calculate the MINV */
 	u8 Count;
 	u32 *ModPtr = (u32 *)(InstancePtr->Mod);
 	u32 ModVal = Xil_Htonl(ModPtr[InstancePtr->SizeInWords - 1]);
@@ -376,7 +380,7 @@ static void XSecure_RsaMod32Inverse(XSecure_Rsa *InstancePtr)
 
 	Inv = ~Inv + 1U;
 
-	/* Put the value in MINV registers */
+	/** - Put the value in MINV registers */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV0_OFFSET,
 						(Inv & XSECURE_RSA_BYTE_MASK ));
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_RSA_MINV1_OFFSET,
@@ -411,7 +415,7 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 	u32 TmpIndex;
 	u32 Data;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(WrData != NULL);
 
@@ -425,9 +429,9 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 		{
 			TmpIndex = (DataOffset * XSECURE_RSA_MAX_BUFF) + Index;
 			/**
-			* Exponent size is only 4 bytes
-			* and rest of the data needs to be 0
-			*/
+			 * - Exponent size is only 4 bytes
+			 *   and rest of the data needs to be 0
+			 */
 			Data = 0U;
 			if((XSECURE_CSU_RSA_RAM_EXPO == RamOffset) &&
 			   (InstancePtr->EncDec == XSECURE_RSA_SIGN_ENC))
@@ -442,10 +446,10 @@ static void XSecure_RsaWriteMem(XSecure_Rsa *InstancePtr, u32* WrData,
 				if(TmpIndex < InstancePtr->SizeInWords)
 				{
 					/**
-					* The RSA data in Image is in Big Endian.
-					* So reverse it before putting in RSA memory,
-					* because RSA h/w expects it in Little endian.
-					*/
+					 * - The RSA data in Image is in Big Endian.
+					 *   So reverse it before putting in RSA memory,
+					 *   because RSA h/w expects it in Little endian.
+					 */
 					Data = Xil_Htonl(
 					        WrData[(InstancePtr->SizeInWords - 1) - TmpIndex]);
 				}
@@ -485,8 +489,8 @@ static u32 XSecure_RsaZeroize(XSecure_Rsa *InstancePtr)
 	Xil_AssertNonvoid(InstancePtr->RsaState == XSECURE_RSA_INITIALIZED);
 
 	/**
-	 * Each iteration of this loop writes Zero
-	 * in to one of the six RSA Write Buffers
+	 * - Each iteration of this loop writes Zero
+	 *   in to one of the six RSA Write Buffers
 	 */
 
 	for (Index = 0; Index < XSECURE_RSA_MAX_BUFF; Index++) {
@@ -591,8 +595,9 @@ u8* XSecure_RsaGetTPadding(void)
 {
 	u8* Tpadding = (u8 *)XNULL ;
 
-	/* If Silicon version is not 1.0 then use the latest NIST approved SHA-3
-	 * id for padding
+	/**
+	 * - If Silicon version is not 1.0 then use the latest NIST approved SHA-3
+	 *   id for padding
 	 */
 	if(XGetPSVersion_Info() != (u32)XPS_VERSION_1) {
 		Tpadding = (u8*)XSecure_Silicon2_TPadSha3;
@@ -603,3 +608,4 @@ u8* XSecure_RsaGetTPadding(void)
 
 	return Tpadding;
 }
+/** @} */

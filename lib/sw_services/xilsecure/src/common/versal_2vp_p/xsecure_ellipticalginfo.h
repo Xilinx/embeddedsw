@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_ellipticalginfo.h
+* @file common/versal_2vp_p/xsecure_ellipticalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_mldsaclient.h
+* @file client/core/mldsa/xsecure_mldsaclient.h
 *
 * This file Contains the client function prototypes, defines and macros for the MLDSA hardware
 * module.
@@ -21,10 +21,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_mldsa_client_apis XilSecure MLDSA Client APIs
-* @{
-*/
+ * @addtogroup xsecure_mldsa_client_apis XilSecure MLDSA Client APIs
+ * @{
+ */
 #ifndef XSECURE_MLDSA_CLIENT_H
 #define XSECURE_MLDSA_CLIENT_H
 
@@ -47,9 +48,9 @@ extern "C" {
 int XSecure_MldsaSignVerifyClient(XSecure_ClientInstance *InstancePtr, u64 MldsaParamAddr);
 int XSecure_MldsaSignGenerateClient(XSecure_ClientInstance *InstancePtr, u64 MldsaParamAddr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_MLDSA_CLIENT_H */
-/** @} */

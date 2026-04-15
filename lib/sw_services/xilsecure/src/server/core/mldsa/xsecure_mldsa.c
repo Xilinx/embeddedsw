@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_mldsa.c
+* @file server/core/mldsa/xsecure_mldsa.c
 *
 * This file contains the implementation of the interface functions for ML-DSA driver.
 *
@@ -73,7 +73,7 @@ static void XSecure_MldsaMsgTransferToCore(u64 DataAddr, u32 DataLen)
 			       XSecure_In64(DataAddr + (u64)(Index * XSECURE_WORD_SIZE)));
 	}
 
-	/* Handle last partial word if present */
+	/** - Handle last partial word if present */
 	if (RemLen > XSECURE_ZERO) {
 		/**
 		 * - If last message word is not 32-bit aligned, set strobe according to valid
@@ -130,7 +130,7 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	u32 LastWord;
 	u32 AlignedLen;
 
-	/* Validate MLDSA instance pointer */
+	/** - Validate MLDSA instance pointer */
 	if (MldsaParams == NULL) {
 		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
 		goto END;
@@ -142,13 +142,13 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 		goto END;
 	}
 
-	/* Validate ctx length */
+	/** - Validate ctx length */
 	if (MldsaParams->ContextLen > (u32)XSECURE_MLDSA_MAX_CTX_LEN) {
 		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
 		goto END;
 	}
 
-	/** Check that first 64 bytes of signature are not all zeros (CT validation) */
+	/** - Check that first 64 bytes of signature are not all zeros (CT validation) */
 	for (Index = 0U; Index < (u32)XSECURE_MLDSA_CT_LEN; Index += XSECURE_WORD_SIZE) {
 		CtValue |= XSecure_In64(MldsaParams->SignAddr + Index);
 	}
@@ -173,7 +173,7 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	}
 
 	if (MldsaParams->ContextLen > XSECURE_ZERO) {
-		/* Write context length to context config register */
+		/** - Write context length to context config register */
 		XSecure_Out32((XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_CTX_CONFIG_OFFSET),
 			      MldsaParams->ContextLen);
 
@@ -192,12 +192,12 @@ int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams)
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature verification - "
 					      "Writing Signature\r\n");
 
-	/* Transfer word-aligned portion (4624 bytes = 1156 words) */
+	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
 	Xil_MemCpy64((u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
 			 MldsaParams->SignAddr, AlignedLen);
 
-	/* Handle last 3 bytes using intermediate word buffer */
+	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = (u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen);
 	LastWord |= ((u32)XSecure_InByte64(MldsaParams->SignAddr + AlignedLen +
 			XSECURE_VALUE_ONE) << XSECURE_BYTE_IN_BITS);
@@ -301,19 +301,19 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 	u8 SignRnd[XSECURE_MLDSA_SIGN_RND_LEN];
 	u8 Entropy[XSECURE_MLDSA_ENTROPY_LEN];
 
-	/* Validate MLDSA instance pointer */
+	/** - Validate MLDSA instance pointer */
 	if (MldsaParams == NULL) {
 		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
 		goto END;
 	}
 
-	/* Validate secret key length */
+	/** - Validate secret key length */
 	if (MldsaParams->SecretKeyLen != XSECURE_MLDSA_SK_LEN) {
 		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
 		goto END;
 	}
 
-	/* Validate signature buffer length */
+	/** - Validate signature buffer length */
 	if (MldsaParams->SignatureLen < XSECURE_MLDSA_SIGN_LEN) {
 		Status = XSECURE_MLDSA_INVALID_PARAM_ERROR;
 		goto END;
@@ -402,13 +402,13 @@ int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams)
 	/** - Read the generated signature from hardware registers */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "MLDSA signature generation - Reading signature\r\n");
 
-	/* Transfer word-aligned portion (4624 bytes = 1156 words) */
+	/** - Transfer word-aligned portion (4624 bytes = 1156 words) */
 	AlignedLen = XSECURE_MLDSA_SIGN_LEN & ~(XSECURE_WORD_SIZE - XSECURE_VALUE_ONE);
 	Xil_MemCpy64(MldsaParams->SignatureAddr,
 			 (u64)(UINTPTR)(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET),
 			 AlignedLen);
 
-	/* Handle last 3 bytes using intermediate word buffer */
+	/** - Handle last 3 bytes using intermediate word buffer */
 	LastWord = XSecure_In32(XSECURE_MLDSA_BASEADDR + XSECURE_MLDSA_SIGN_0_OFFSET +
 				AlignedLen);
 

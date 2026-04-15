@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa.h
+* @file server/core/slhdsa/xsecure_slhdsa.h
 *
 * This file contains constants and function declarations used in software based SLHDSA operations
 *
@@ -20,10 +20,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_H_
 #define XSECURE_SLH_DSA_H_
 
@@ -50,9 +51,9 @@ extern "C" {
 int XSecure_SlhdsaVerify(XSecure_Sha *ShaInstPtr,
 			 const XSecure_SlhdsaInputParams * const SlhdsaParams);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SLH_DSA_H_ */
-/** @} */

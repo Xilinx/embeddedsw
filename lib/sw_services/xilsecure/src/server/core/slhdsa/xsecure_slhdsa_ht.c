@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_ht.c
+* @file server/core/slhdsa/xsecure_slhdsa_ht.c
 *
 * This file consists of definitions for SLH-DSA hypertree operations
 *
@@ -181,9 +181,9 @@
  * @param	M		Message to verify (FORS public key, 32 bytes).
  * @param	SignHtAddr	64-bit address of hypertree signature (19,200 bytes for SHAKE-256s).
  * @param	PublicKeyAddr	64-bit address of public key buffer (PK.seed || PK.root, 64 bytes).
- * @param	HtIndices	Pointer to structure containing hypertree indices:
- *				- IdxTree: Tree index for hypertree verification
- *				- IdxLeaf: Leaf index for hypertree verification
+ * @param	HtIndices	Pointer to structure containing hypertree indices
+ *				(IdxTree: tree index for hypertree verification,
+ *				IdxLeaf: leaf index for hypertree verification)
  *
  * @return
  *		- XST_SUCCESS if signature verification succeeds.
@@ -205,18 +205,18 @@ int XSecure_SlhdsaHtVerify(const u8* const M,
 	u64 IdxLeaf = HtIndices->IdxLeaf;
 	u64 SignHtPtrAddr = SignHtAddr;
 
-	/* Step 1: ADRS <- toByte(0, 32) */
+	/** - Step 1: ADRS <- toByte(0, 32) */
 	XSecure_SlhdsaClearAddress(InstancePtr->Addr);
 
-	/* Step 2: ADRS.setTreeAddress(idxtree) */
+	/** - Step 2: ADRS.setTreeAddress(idxtree) */
 	XSecure_SlhdsaSetTreeAddress(InstancePtr->Addr, IdxTree);
 
-	/* Step 3: SIGtmp <- SIG_HT.getXMSSSignature(0) */
+	/** - Step 3: SIGtmp <- SIG_HT.getXMSSSignature(0) */
 	Offset = (InstancePtr->Param->ChecksumParams.InputLenInDigits +
 		  InstancePtr->Param->ChecksumParams.ChecksumLenInDigits +
 		  (u32)InstancePtr->Param->hprime) * (u32)InstancePtr->Param->n;
 
-	/* Step 4: node <- xmss_pkFromSig(idxleaf, SIGtmp, M, PK.seed, ADRS) */
+	/** - Step 4: node <- xmss_pkFromSig(idxleaf, SIGtmp, M, PK.seed, ADRS) */
 	XSECURE_TEMPORAL_CHECK(END,
 		Status,
 		XSecure_SlhdsaXmssPkFromSign,
@@ -226,25 +226,25 @@ int XSecure_SlhdsaHtVerify(const u8* const M,
 		PublicKeyAddr,					/* [in] Public key seed address */
 		Node);						/* [out] Computed XMSS public key */
 
-	/* Step 5: for LevelIdx from 1 to d-1 do */
+	/** - Step 5: for LevelIdx from 1 to d-1 do */
 	for (LevelIdx = 1U; LevelIdx < (u32)InstancePtr->Param->d; LevelIdx++) {
-		/* Step 6: idxleaf <- idxtree mod 2^h', h' least significant bits from idxtree */
+		/** - Step 6: idxleaf <- idxtree mod 2^h', h' least significant bits from idxtree */
 		IdxLeaf = IdxTree & (u64)((XSECURE_VALUE_ONE << (u32)InstancePtr->Param->hprime) -
 				XSECURE_VALUE_ONE);
 
-		/* Step 7: idxtree <- idxtree >> h', removing least significant h' bits from idxtree */
+		/** - Step 7: idxtree <- idxtree >> h', removing least significant h' bits from idxtree */
 		IdxTree >>= (u32)InstancePtr->Param->hprime;
 
-		/* Step 8: ADRS.setLayerAddress(LevelIdx) */
+		/** - Step 8: ADRS.setLayerAddress(LevelIdx) */
 		XSecure_SlhdsaSetLayerAddress(InstancePtr->Addr, LevelIdx);
 
-		/* Step 9: ADRS.setTreeAddress(idxtree) */
+		/** - Step 9: ADRS.setTreeAddress(idxtree) */
 		XSecure_SlhdsaSetTreeAddress(InstancePtr->Addr, IdxTree);
 
-		/* Step 10: SIGtmp <- SIG_HT.getXMSSSignature(LevelIdx) */
+		/** - Step 10: SIGtmp <- SIG_HT.getXMSSSignature(LevelIdx) */
 		SignHtPtrAddr += Offset;
 
-		/* Step 11: node <- xmss_pkFromSig(idxleaf, SIGtmp, node, PK.seed, ADRS) */
+		/** - Step 11: node <- xmss_pkFromSig(idxleaf, SIGtmp, node, PK.seed, ADRS) */
 		XSECURE_TEMPORAL_CHECK(END,
 			Status,
 			XSecure_SlhdsaXmssPkFromSign,
@@ -260,9 +260,9 @@ int XSecure_SlhdsaHtVerify(const u8* const M,
 		goto END;
 	}
 
-	/* Step 12: end for */
+	/** - Step 12: end for */
 
-	/* Step 13: if node == PK.root then */
+	/** - Step 13: if node == PK.root then */
 	Status = XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR;
 	for (Idx = 0U; Idx < (u32)InstancePtr->Param->n; Idx++) {
 		if (Node[Idx] != XSecure_InByte64(PublicKeyAddr + (u64)InstancePtr->Param->n +
@@ -271,7 +271,7 @@ int XSecure_SlhdsaHtVerify(const u8* const M,
 				       "root[%d] %x, Computed node[%d] %x\n\r", Idx,
 				       XSecure_InByte64(PublicKeyAddr + (u64)InstancePtr->Param->n
 							+ Idx), Idx, Node[Idx]);
-			/* Step 15: else */
+			/** - Step 15: else */
 			Status = XSECURE_SLHDSA_PK_ROOT_MISMATCH_ERROR;
 			goto END;
 		}
@@ -280,12 +280,12 @@ int XSecure_SlhdsaHtVerify(const u8* const M,
 	if (Idx != (u32)InstancePtr->Param->n) {
 		Status = XSECURE_ERR_GLITCH_DETECTED;
 	} else {
-		/* Step 14: return true */
+		/** - Step 14: return true */
 		Status = XST_SUCCESS;
 	}
 
 END:
-	/* Step 16/17: return false/end if */
+	/** - Step 16/17: return false/end if */
 	return Status;
 }
 /** @} */

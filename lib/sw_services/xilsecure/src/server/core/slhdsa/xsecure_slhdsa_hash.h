@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_hash.h
+* @file server/core/slhdsa/xsecure_slhdsa_hash.h
 *
 * This file contains function declarations for SLH-DSA hash operations including message hashing,
 * F function, chain operations, and other cryptographic hash computations required by the SLH-DSA
@@ -22,10 +22,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_HASH_H_
 #define XSECURE_SLH_DSA_HASH_H_
 
@@ -61,6 +62,7 @@ int XSecure_SlhdsaShake256sHashTl(const u64 PublicKeyAddr, const u8 * const Inpu
 int XSecure_SlhdsaShake256sHashH(const u64 PublicKeyAddr, const u64 Data1Addr,
 				 const u64 Data2Addr, u8 * const Output);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

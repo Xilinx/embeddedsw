@@ -1,11 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat_ipihandler.h
+* @file server/versal_2ve_2vm/xsecure_plat_kat_ipihandler.h
 *
 * This file contains the Xilsecure KAT platform IPI handler declaration.
 *
@@ -19,10 +19,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KAT_IPIHANDLER_H_
 #define XSECURE_PLAT_KAT_IPIHANDLER_H_
 
@@ -41,9 +42,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_KAT_IPIHANDLER_H_ */
-/** @} */

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_ipihandler.c
+* @file server/versal/xsecure_plat_ipihandler.c
 * This file contains versal specific code for xilsecure server ipi handler.
 *
 * <pre>
@@ -24,7 +24,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /***************************** Include Files *********************************/
@@ -52,7 +52,7 @@ static int XSecure_RsaDecrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  If the handler execution is successful
@@ -69,11 +69,11 @@ int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** Call the respective API handler according to API ID */
+	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
-		/**   - @ref XSecure_RsaDecrypt */
+		/**   - XSecure_RsaDecrypt */
 		Status = XSecure_RsaDecrypt(Cmd->SubsystemId, Cmd->Payload[0], Cmd->Payload[1],
 						Cmd->Payload[2], Cmd->Payload[3]);
 		break;
@@ -128,7 +128,7 @@ static int XSecure_RsaDecrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, RsaParams.Size * XSECURE_SIZE_DOUBLE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);

@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_ellipticclient.h
+* @file client/core/ecdsa/xsecure_ellipticclient.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the ECDSA hardware module.
@@ -26,10 +26,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
-* @{
-*/
+ * @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
+ * @{
+ */
 #ifndef XSECURE_ELLIPTIC_CLIENT_H
 #define XSECURE_ELLIPTIC_CLIENT_H
 
@@ -57,9 +58,9 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveType, u64 HashAddr, u32 Size,
                         u64 PubKeyAddr, u64 SignAddr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_ELLIPTIC_CLIENT_H */
-/** @} */

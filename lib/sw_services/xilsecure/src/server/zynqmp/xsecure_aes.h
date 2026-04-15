@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,9 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes.h
-* @addtogroup xsecure_aes_zynqmp_apis XilSecure AES ZynqMP APIs
-* @{
+* @file server/zynqmp/xsecure_aes.h
 * @cond xsecure_internal
 * This file contains hardware interface related information for CSU AES device
 *
@@ -78,6 +76,10 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xsecure_aes_zynqmp_apis XilSecure AES ZynqMP APIs
+ * @{
+ */
 #ifndef XSECURE_CSU_AES_H
 #define XSECURE_CSU_AES_H
 
@@ -233,7 +235,7 @@ typedef struct {
 /*****************************************************************************/
 /**
  * @brief
- * This macro waits for AES engine completes configured operation.
+ * This macro waits for AES engine to complete configured operation.
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
@@ -291,13 +293,11 @@ void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 /* Zerioze the Aes key */
 u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr);
 
-/** @}
-@endcond */
+/** @endcond */
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_AES_H_ */
-
-/**@}*/

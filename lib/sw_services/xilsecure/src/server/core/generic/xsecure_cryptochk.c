@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_cryptochk.c
+* @file server/core/generic/xsecure_cryptochk.c
 * This file contains functions common for AES, SHA, RSA and ECDSA for Versal.
 *
 * <pre>
@@ -59,8 +59,8 @@ int XSecure_CryptoCheck(void)
 		XSECURE_CRP_RST_PS_PS_SRST_MASK;
 
 	/**
-	 * Validate export efuse control bit is programmed, to confirm
-	 * crypto accelerator is enabled.
+	 * - Validate export efuse control bit is programmed, to confirm
+	 *   crypto accelerator is enabled.
 	 */
 	if ((ExportControl == XSECURE_EFUSE_CACHE_IP_DISABLE0_EXPORT_MASK) &&
 		((CfuApbEos == XSECURE_CFU_APB_CFU_FGCR_EOS_MASK) || (PsSrst == 0U))) {

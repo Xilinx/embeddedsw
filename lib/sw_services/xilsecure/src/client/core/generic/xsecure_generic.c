@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
 *
-* @file xsecure_generic.c
+* @file client/core/generic/xsecure_generic.c
 *
 * This file contains the implementation of the generic request API that handles both SMC and IPI
 * mailbox communication for xilsecure client library.
@@ -69,31 +69,31 @@ int XSecure_SendRequest(const XSecure_ClientInstance *InstancePtr, u32 *PayloadB
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
 #if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	/** For AArch64 EL1 non-secure, use SMC call */
+	/** - For AArch64 EL1 non-secure, use SMC call */
 	(void)InstancePtr; /**< Mark InstancePtr as unused to avoid compiler warning */
 
-	/** Perform SMC call for EL1 non-secure AArch64 applications */
+	/** - Perform SMC call for EL1 non-secure AArch64 applications */
 	Status = XSecure_SmcCall(PayloadBuf, PayloadLen, ResponseBuf, ResponseLen);
 #else
-	/** Validate mailbox pointer for IPI communication */
+	/** - Validate mailbox pointer for IPI communication */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Send request through IPI mailbox */
+	/** - Send request through IPI mailbox */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, PayloadBuf, PayloadLen);
 
 	/**
-	 * Note: For mailbox path, response is not directly returned.
-	 * The caller should handle response retrieval if needed.
+	 * - Note: For mailbox path, response is not directly returned.
+	 *   The caller should handle response retrieval if needed.
 	 */
 	(void)ResponseBuf; /* Unused in mailbox path */
 	(void)ResponseLen; /* Unused in mailbox path */

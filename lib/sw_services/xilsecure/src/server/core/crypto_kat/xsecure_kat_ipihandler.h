@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat_ipihandler.h
+* @file server/core/crypto_kat/xsecure_kat_ipihandler.h
 *
 * This file contains the Xilsecure KAT IPI handler declaration.
 *
@@ -23,10 +23,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_KAT_IPIHANDLER_H_
 #define XSECURE_KAT_IPIHANDLER_H_
 
@@ -45,9 +46,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_KAT_IPIHANDLER_H_ */
-/** @} */

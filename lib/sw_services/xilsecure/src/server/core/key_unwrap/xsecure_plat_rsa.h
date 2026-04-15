@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_rsa.h
+* @file server/core/key_unwrap/xsecure_plat_rsa.h
 *
 * This file contains hardware interface related information for RSA device
 *
@@ -32,10 +32,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_rsa_server_apis Xilsecure RSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_RSA_H_
 #define XSECURE_PLAT_RSA_H_
 
@@ -175,8 +176,7 @@ int XSecure_RsaDestroyKeyInUse(void);
 /**< API to add key pair generation to scheduler */
 int XSecure_AddRsaKeyPairGenerationToScheduler(void);
 
-/** @} */
-
 #endif	/* PLM_RSA_EXCLUDE_H_ */
 
+/** @} */
 #endif /* XSECURE_PLAT_RSA_H_ */

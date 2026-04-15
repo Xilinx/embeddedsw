@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_defs.h
+* @file common/core/xsecure_defs.h
 *
 * This file contains the xsecure API IDs
 *

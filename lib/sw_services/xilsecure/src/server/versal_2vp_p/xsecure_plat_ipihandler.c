@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_plat_ipihandler.c
+* @file server/versal_2vp_p/xsecure_plat_ipihandler.c
 *
 * This file contains the Xilsecure Versal_2vp_p IPI handlers implementation.
 *
@@ -22,7 +22,7 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /**************************************** Include Files *******************************************/

@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.h
+* @file server/versal/xsecure_plat.h
 * This file contains versal specific code for xilsecure server.
 *
 * <pre>
@@ -25,10 +25,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
-* @{
-*/
+ * @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
+ * @{
+ */
 #ifndef XSECURE_PLAT_H
 #define XSECURE_PLAT_H
 
@@ -132,9 +133,9 @@ static inline void XSecure_SetRsaCryptoStatus(void)
 
 /***************************** Variable Prototypes  ***************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /** XSECURE_PLAT_H */
-/** @} */

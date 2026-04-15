@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_ipihandler.c
+* @file server/core/rsa/xsecure_rsa_ipihandler.c
 *
 * This file contains the Xilsecure RSA IPI handlers implementation.
 *
@@ -60,7 +60,7 @@ static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful
@@ -80,7 +80,7 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd)
 
 	Pload = Cmd->Payload;
 
-	/** Call the respective API handler according to API ID */
+	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 		/**    - XSecure_RsaEncrypt */
@@ -140,7 +140,7 @@ static int XSecure_RsaEncrypt(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh,
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, XSECURE_RSA_KEY_ADDR_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -193,7 +193,7 @@ static int XSecure_RsaSignVerify(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
 		goto END;
 	}
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SignParams.SignAddr, SignParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, SignParams.HashAddr, SignParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);

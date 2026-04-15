@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_plat_elliptic_client.h
+* @file client/core/ecc_keypair/xsecure_plat_elliptic_client.h
 *
 * This file contains the function prototypes for the elliptic client APIs for
 * Versal Net.
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
-* @{
-*/
+ * @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_ELLIPTIC_CLIENT_H
 #define XSECURE_PLAT_ELLIPTIC_CLIENT_H
 
@@ -47,9 +48,9 @@ extern "C" {
 int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, const u8* PrivateKey,
 	const u8* PublicKey, u8 *SharedSecret);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_PLAT_ELLIPTIC_CLIENT_H */
-/** @} */

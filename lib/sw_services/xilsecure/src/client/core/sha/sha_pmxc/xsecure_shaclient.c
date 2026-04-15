@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_shaclient.c
+* @file client/core/sha/sha_pmxc/xsecure_shaclient.c
 *
 * This file contains the implementation of the client interface functions for
 * SHA driver.
@@ -25,7 +25,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_sha3_client_apis XilSecure SHA Versal_2ve_2vm Client APIs
+* @addtogroup xsecure_sha3_client_apis XilSecure SHA Client APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -62,22 +62,22 @@ int XSecure_Sha3Operation(XSecure_ClientInstance *InstancePtr, XSecure_ShaOpPara
 	u64 Sha3ParamsAddr = (u64)(UINTPTR)Sha3Params;
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (Sha3Params == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, XSECURE_API_SHA3_OPERATION,
 				Sha3ParamsAddr,
 				(Sha3ParamsAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
+	 *   Wait for IPI response from PLM with a timeout.
+	 *   If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
@@ -110,21 +110,21 @@ int XSecure_Sha2Operation(XSecure_ClientInstance *InstancePtr, XSecure_ShaOpPara
 	u64 Sha2ParamsAddr = (u64)(UINTPTR)Sha2Params;
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (Sha2Params == NULL)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, XSECURE_API_SHA2_OPERATION,
 				Sha2ParamsAddr,
 				(Sha2ParamsAddr >> XSECURE_ADDR_HIGH_SHIFT));
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
-	 * Wait for IPI response from PLM with a timeout.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_ShaOperation api.
+	 *   Wait for IPI response from PLM with a timeout.
+	 *   If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 	if (Status != XST_SUCCESS) {
@@ -158,13 +158,13 @@ int XSecure_Sha2Kat(XSecure_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_KAT), XSECURE_API_SHA2_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_ShaKat
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_ShaKat
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

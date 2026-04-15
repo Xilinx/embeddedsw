@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.c
+* @file server/versal_net/xsecure_plat.c
 *
 * This file contains Versal Net specific code for Xilsecure server.
 *
@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /***************************** Include Files *********************************/
@@ -206,7 +206,7 @@ void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
 		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_SHA3_384_MASK, (XPLMI_SECURE_SHA3_384_MASK & ~Op));
 	}
 	else {
-		/* Do Nothing */
+		/** - Do Nothing */
 	}
 #else
 	(void)BaseAddress;
@@ -234,7 +234,7 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
 		}
 	}
 	else {
-		/* Clear both RSA and ECDSA bits */
+		/** - Clear both RSA and ECDSA bits */
 		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_ECDSA_MASK, 0U);
 		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_RSA_MASK, 0U);
 	}
@@ -261,10 +261,10 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 	int Status = XST_FAILURE;
 
 	/**
-	  * AES engine expect all intermediate updates shall be
-	  * 16-byte aligned when it is not last chunk of data.
-	  * Throw an error if it is not 16 byte aligned.
-	  */
+	 * - AES engine expect all intermediate updates shall be
+	 *   16-byte aligned when it is not last chunk of data.
+	 *   Throw an error if it is not 16 byte aligned.
+	 */
 	if ((IsLastChunk != TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
@@ -302,7 +302,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 	u32 AesMode;
 	static u32 NonQWordDataAligned = 0U;
 
-	/* Validate input parameters*/
+	/** - Validate input parameters */
 	if ((PmcDmaPtr == NULL) || (AesDmaCfg == NULL) || (Size == 0U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -310,9 +310,9 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 
 	AesMode = XSecure_ReadReg(BaseAddress, XSECURE_AES_MODE_OFFSET);
 	LastChunkSrc = AesDmaCfg->IsLastChunkSrc;
-	/* Transfers QWord aligned data */
+	/** - Transfers QWord aligned data */
 	if (Size >= XSECURE_QWORD_SIZE) {
-		/* Set the src lastchunk to 0 if size of data is non-qword aligned */
+		/** - Set the src lastchunk to 0 if size of data is non-qword aligned */
 		if ((Size % XSECURE_QWORD_SIZE) != 0U) {
 			AesDmaCfg->IsLastChunkSrc = 0U;
 		}
@@ -321,7 +321,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 			goto END;
 		}
 	}
-	/* Transfers remaining extra bytes when size of the data(AAD/Paylod) is non-qword aligned*/
+	/** - Transfers remaining extra bytes when size of the data(AAD/Paylod) is non-qword aligned */
 	if ((Size % XSECURE_QWORD_SIZE) != 0U) {
 		AesDmaCfg->IsLastChunkSrc = (u8)LastChunkSrc;
 		Status = XSecure_AesPmcDmaByteXfer(PmcDmaPtr, AesDmaCfg, Size, BaseAddress);
@@ -332,16 +332,16 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		/* Wait for the DEST DMA completion. */
+		/** - Wait for the DEST DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 
-		/* Change the endianness of extra bytes if data(AAD/Payload) is non-qword aligned*/
+		/** - Change the endianness of extra bytes if data(AAD/Payload) is non-qword aligned */
 		if ((Size % XSECURE_QWORD_SIZE) != 0U) {
 			/*
 			 * If payload is non-qword aligned, GCM Tag will be generated with changed endianness.
@@ -356,9 +356,9 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 			XSecure_AesDataEndiannessChange((AesDmaCfg->DestDataAddr +
 				(u64)(UINTPTR)(Size - ExtraBytes)), ExtraBytes);
 		}
-		/* If Payload size is non-qword aligned */
+		/** - If Payload size is non-qword aligned */
 		if (NonQWordDataAligned == (u32)TRUE) {
-			/* Change the endianness for GCM Tag*/
+			/** - Change the endianness for GCM Tag */
 			if ((AesDmaCfg->DestChannelCfg == TRUE) && (AesDmaCfg->SrcChannelCfg == FALSE)) {
 				XSecure_AesDataEndiannessChange(AesDmaCfg->DestDataAddr, Size);
 				NonQWordDataAligned = (u32)FALSE;
@@ -389,7 +389,7 @@ static int XSecure_AesPmcDmaWordXfer(XPmcDma *PmcDmaPtr,
 	const XSecure_AesDmaCfg *AesDmaCfg, u32 Size)
 {
 	int Status = XST_FAILURE;
-	/* Enable PMC DMA Src and Dst channels for byte swapping */
+	/** - Enable PMC DMA Src and Dst channels for byte swapping */
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
@@ -401,7 +401,7 @@ static int XSecure_AesPmcDmaWordXfer(XPmcDma *PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL, XSECURE_ENABLE_BYTE_SWAP);
 	}
 
-	/* Transfer the data for src and dest channels as per configuration */
+	/** - Transfer the data for src and dest channels as per configuration */
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XPmcDma_64BitTransfer(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
@@ -416,14 +416,14 @@ static int XSecure_AesPmcDmaWordXfer(XPmcDma *PmcDmaPtr,
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		/* Wait for the SRC DMA completion. */
+		/** - Wait for the SRC DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
 	}
@@ -512,7 +512,7 @@ static int XSecure_AesPmcDmaByteXfer(XPmcDma *PmcDmaPtr,
 		RevIndex--;
 	}
 
-	/* Transfer the data for src and dest channels as per configuration */
+	/** - Transfer the data for src and dest channels as per configuration */
 	if ((AesDmaCfg->DestChannelCfg == TRUE)
 			&& ((u32) AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
 		XCsuDma_ByteAlignedTransfer(PmcDmaPtr,
@@ -527,7 +527,7 @@ static int XSecure_AesPmcDmaByteXfer(XPmcDma *PmcDmaPtr,
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		/* Wait for the SRC DMA completion.*/
+		/** - Wait for the SRC DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
@@ -550,12 +550,8 @@ END:
  * 		of PMC DMA
  *
  * @param	InstancePtr	Pointer to the XPmcDma instance
- * @param	Channel		Channel type
- *				- XPMCDMA_SRC_CHANNEL
- *				- XPMCDMA_DST_CHANNEL
- * @param	EndianType	Endianness type
- *				- 1 : Enable Byte Swapping
- *				- 0 : Disable Byte Swapping
+ * @param	Channel		Channel type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL)
+ * @param	EndianType	Endianness type: 1 to enable byte swapping, 0 to disable byte swapping
  *
  ******************************************************************************/
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
@@ -563,13 +559,13 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 {
 	XPmcDma_Configure ConfigValues = {0U};
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
 
-	/* Updates the XPmcDma_Configure structure with PmcDma's channel values */
+	/** - Updates the XPmcDma_Configure structure with PmcDma's channel values */
 	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
 	ConfigValues.EndianType = EndianType;
-	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
+	/** - Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
 
@@ -577,7 +573,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 /**
  * @brief	This function generates Random number of given size
  *
- * @param	Output	is pointer to the output buffer
+ * @param	Output	is a pointer to the output buffer
  * @param	Size	is the number of random bytes to be read
  *
  * @return
@@ -608,7 +604,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 		TotalSize -= RandBufSize;
 	}
 
-	/* Verify loop index is within expected bounds */
+	/** - Verify loop index is within expected bounds */
 	if (Index != NoOfGenerates) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}
@@ -692,3 +688,4 @@ int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Lengt
 END:
 	return Status;
 }
+/** @} */

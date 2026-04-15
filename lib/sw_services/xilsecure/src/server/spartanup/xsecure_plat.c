@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.c
+* @file server/spartanup/xsecure_plat.c
 * This file contains versal specific code for spartan ultrascale plus.
 *
 * <pre>
@@ -28,6 +28,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_sss.h"
@@ -51,7 +55,7 @@
 
 const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
-	/* BH_KEY */
+	/** - BH_KEY */
 	[0U] = {
 		.RegOffset = XSECURE_AES_BH_KEY_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_KEY,
@@ -61,7 +65,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_KEY_MASK
 	},
 
-	/* BH_RED_KEY */
+	/** - BH_RED_KEY */
 	[1U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_RD_KEY,
@@ -71,7 +75,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK
 	},
 
-	/* EFUSE_KEY */
+	/** - EFUSE_KEY */
 	[2U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_KEY,
@@ -81,7 +85,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK
 	},
 
-	/* EFUSE_RED_KEY */
+	/** - EFUSE_RED_KEY */
 	[3U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_RED_KEY,
@@ -91,7 +95,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK
 	},
 
-	/* KUP_KEY */
+	/** - KUP_KEY */
 	[4U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_KUP_KEY,
@@ -101,7 +105,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
 	},
 
-	/* FAMILY_KEY */
+	/** - FAMILY_KEY */
 	[5U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_FAMILY_KEY,
@@ -111,7 +115,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_INVALID_CFG
 	},
 
-	/* PUF_KEY */
+	/** - PUF_KEY */
 	[6U] = {
 		.RegOffset = XSECURE_AES_INVALID_CFG,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_PUF_KEY,
@@ -121,7 +125,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK
 	},
 
-	/* USER_KEY_0 */
+	/** - USER_KEY_0 */
 	[7U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_0_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_0,
@@ -131,7 +135,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK
 	},
 
-	/* USER_KEY_1 */
+	/** - USER_KEY_1 */
 	[8U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_1_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_1,
@@ -141,7 +145,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK
 	},
 
-	/* USER_KEY_2 */
+	/** - USER_KEY_2 */
 	[9U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_2_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_2,
@@ -151,7 +155,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK
 	},
 
-	/* USER_KEY_3 */
+	/** - USER_KEY_3 */
 	[10U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_3_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_3,
@@ -161,7 +165,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK
 	},
 
-	/* USER_KEY_4 */
+	/** - USER_KEY_4 */
 	[11U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_4_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_4,
@@ -171,7 +175,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK
 	},
 
-	/* USER_KEY_5 */
+	/** - USER_KEY_5 */
 	[12U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_5_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_5,
@@ -181,7 +185,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK
 	},
 
-	/* USER_KEY_6 */
+	/** - USER_KEY_6 */
 	[13U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_6_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_6,
@@ -191,7 +195,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 		.KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK
 	},
 
-	/* USER_KEY_7 */
+	/** - USER_KEY_7 */
 	[14U] = {
 		.RegOffset = XSECURE_AES_USER_KEY_7_0_OFFSET,
 		.KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_7,
@@ -287,12 +291,12 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the Size */
+	/** - Validate the Size */
 	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
 	}
-	/* Validate the size based on last chunk */
+	/** - Validate the size based on last chunk */
 	if ((IsLastChunk != (u8)TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
@@ -342,28 +346,28 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == (u8)TRUE) {
-		/* Wait for the SRC DMA completion. */
+		/** - Wait for the SRC DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
 	}
 
 	if ((AesDmaCfg->DestChannelCfg == (u8)TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		/* Wait for the DEST DMA completion. */
+		/** - Wait for the DEST DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
 	}
@@ -378,12 +382,8 @@ END:
  * 		of PMC DMA
  *
  * @param	InstancePtr  Pointer to the XPmcDma instance
- * @param	Channel 	 Channel Type
- *			- XPMCDMA_SRC_CHANNEL
- *			 -XPMCDMA_DST_CHANNEL
- * @param	EndianType
- *			- 1 : Enable Byte Swapping
- *			- 0 : Disable Byte Swapping
+ * @param	Channel 	 Channel Type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL)
+ * @param	EndianType   1 to enable byte swapping, 0 to disable byte swapping
  *
  *
  ******************************************************************************/
@@ -392,13 +392,13 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 {
 	XPmcDma_Configure ConfigValues = {0U};
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
 
-	/* Updates the XPmcDma_Configure structure with PmcDma's channel values */
+	/** - Updates the XPmcDma_Configure structure with PmcDma's channel values */
 	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
 	ConfigValues.EndianType = EndianType;
-	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
+	/** - Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
 
@@ -406,8 +406,8 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 /**
  * @brief	This function validates the SHA Mode and initialize SHA instance.
  *
- * @param	InstancePtr - Pointer to the SHA instance.
- * @param	ShaMode - SHA Mode.
+ * @param	InstancePtr  Pointer to the SHA instance.
+ * @param	ShaMode  SHA Mode.
  *
  * @return
  *		XST_SUCCESS - Upon Success.
@@ -420,25 +420,22 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	volatile int Status = XST_FAILURE;
 	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
-	/** Initializes the SHA instance based on SHA Mode */
+	/** - Initializes the SHA instance based on SHA Mode */
 	switch(ShaMode) {
         case XSECURE_SHA3_256:
             ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
             ShaPlatConfig->ShaMode = (u32)SHA256;
             break;
-		/** SHAKE-256 Mode */
 		case XSECURE_SHAKE_256:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
 			ShaPlatConfig->ShaMode = SHAKE256;
 			break;
 #ifdef SPARTANUPLUSAES1
-		/** SHA3-384 Mode */
 		case XSECURE_SHA3_384:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
 #endif
-		/** SHA invalid mode */
 		case XSECURE_SHA_INVALID_MODE:
 		default:
 			Status = (int)XSECURE_SHA_INVALID_PARAM;
@@ -561,8 +558,8 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 	}
 
 	/**
-	 * Store remaining data (< BlockLen) in PartialData for the next
-	 * call or for NIST padding in ShaFinish.
+	 * - Store remaining data (< BlockLen) in PartialData for the next
+	 *   call or for NIST padding in ShaFinish.
 	 */
 	if ((RemainingDataLen > 0U) &&
 	    ((u64)(UINTPTR)&PartialData[PrevPartialLen] != InDataAddr)) {
@@ -619,7 +616,7 @@ int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance)
  ******************************************************************************/
 int XSecure_CryptoCheck(void)
 {
-	/* Not applicable for spartan ultrascal plus */
+	/** - Not applicable for spartan ultrascal plus */
 	return XST_SUCCESS;
 }
 
@@ -651,14 +648,14 @@ int XSecure_ECCRandInit(void)
 			goto END;
 		}
 
-	/* Initialize the TRNGPSX driver so that it is ready to use. */
+	/** - Initialize the TRNGPSX driver so that it is ready to use. */
 		Status = XTrngpsx_CfgInitialize(TrngInstance, Config, Config->BaseAddress);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 	}
 
-	/* Perform health tests if TRNG is not healthy */
+	/** - Perform health tests if TRNG is not healthy */
 	if(!XSecure_TrngIsHealthy(TrngInstance)) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_PreOperationalSelfTests, TrngInstance);
 		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
@@ -667,7 +664,7 @@ int XSecure_ECCRandInit(void)
 		}
 	}
 
-	/* Initialize the TRNG in HRNG mode if it is not initialized */
+	/** - Initialize the TRNG in HRNG mode if it is not initialized */
 	if (((XSecureTrng_Mode)TrngInstance->UserCfg.Mode != XSECURE_TRNG_HRNG_MODE) ||
 		(XSecure_TrngIsUninitialized(TrngInstance))) {
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_TrngInitNCfgMode,
@@ -752,3 +749,4 @@ void XSecure_UpdateTrngCryptoStatus(u32 Op)
 	(void)Op;
 }
 #endif /** SPARTANUPLUSAES1 */
+/** @} */

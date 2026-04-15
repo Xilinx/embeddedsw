@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_elliptic_ipihandler.c
+* @file server/core/ecdsa/xsecure_elliptic_ipihandler.c
 *
 * This file contains the Xilsecure elliptic IPI handlers implementation.
 *
@@ -72,7 +72,7 @@ static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful
@@ -92,7 +92,7 @@ int XSecure_EllipticIpiHandler(XPlmi_Cmd *Cmd)
 
 	Pload = Cmd->Payload;
 
-	/** Call the respective API handler according to API ID */
+	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 		/**   - XSecure_EllipticGenKey */
@@ -229,7 +229,7 @@ static int XSecure_EllipticGenSign(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrH
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, sizeof(SignAddr), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.HashAddr, EcdsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -339,7 +339,7 @@ static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.HashAddr, EcdsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, EcdsaParams.PubKeyAddr, Size * XSECURE_SIZE_DOUBLE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -355,7 +355,7 @@ static int XSecure_EllipticVerifySignature(u32 SubsystemId, u32 SrcAddrLow, u32 
 	SignAddr.SignS = (EcdsaParams.SignAddr + (u64)Size);
 
 	Status = XST_FAILURE;
-	/** Verify the signature for the provided hash, key and curve type */
+	/** - Verify the signature for the provided hash, key and curve type */
 	Status = XSecure_EllipticVerifySign_64Bit(
 			(XSecure_EllipticCrvTyp)EcdsaParams.CurveType,
 			(XSecure_EllipticHashData *) &HashInfo,

@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_instance.h
+* @file server/core/slhdsa/xsecure_slhdsa_instance.h
 *
 * This file contains structures, constants and declarations used in SLH-DSA instance management and
 * provides interface to SLH-DSA verification operations
@@ -21,10 +21,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_INSTANCE_H_
 #define XSECURE_SLH_DSA_INSTANCE_H_
 
@@ -273,9 +274,9 @@ typedef struct {
 /**************************************** Function Prototypes *************************************/
 XSecure_SlhdsaInstance* XSecure_SlhdsaGetInstance(void);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SLH_DSA_INSTANCE_H_ */
-/** @} */

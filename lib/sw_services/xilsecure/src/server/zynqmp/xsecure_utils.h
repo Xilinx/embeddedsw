@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_utils.h
+* @file server/zynqmp/xsecure_utils.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -42,6 +42,10 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xsecure_utils_apis XilSecure Utility APIs
+ * @{
+ */
 #ifndef XSECURE_UTILS_H_
 #define XSECURE_UTILS_H_
 
@@ -223,6 +227,7 @@ void XSecure_SetReset(u32 BaseAddress, u32 Offset);
 void XSecure_ReleaseReset(u32 BaseAddress, u32 Offset);
 void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

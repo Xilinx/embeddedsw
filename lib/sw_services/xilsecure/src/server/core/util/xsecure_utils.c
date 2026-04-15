@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_utils.c
+* @file server/core/util/xsecure_utils.c
 * This file contains common functionalities required for xilsecure Versalnet library
 *
 * <pre>
@@ -49,7 +49,7 @@ void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset)
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_UNSET);
 
-	/* Set bit when crypto is in use */
+	/** - Set bit when crypto is in use */
 	XSecure_UpdateCryptoStatus(BaseAddress, XSECURE_SET_BIT);
 }
 
@@ -65,7 +65,7 @@ void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset)
 {
 	XSecure_WriteReg(BaseAddress, Offset, XSECURE_RESET_SET);
 
-	/* Clear bit when crypto is not in use */
+	/** - Clear bit when crypto is not in use */
 	XSecure_UpdateCryptoStatus(BaseAddress, XSECURE_CLEAR_BIT);
 }
 /** @} */

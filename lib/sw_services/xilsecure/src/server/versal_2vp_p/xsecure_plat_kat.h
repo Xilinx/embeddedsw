@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_plat_kat.h
+* @file server/versal_2vp_p/xsecure_plat_kat.h
 *
 *
 * This file contains KAT interface APIs for Versal_2vp_p
@@ -22,9 +22,9 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KAT_H_
 #define XSECURE_PLAT_KAT_H_
 
@@ -58,9 +58,9 @@ int XSecure_HssShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_KAT_H_ */
-/** @} */

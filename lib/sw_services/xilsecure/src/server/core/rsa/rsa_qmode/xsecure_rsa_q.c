@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_q.c
+* @file server/core/rsa/rsa_qmode/xsecure_rsa_q.c
 * This file contains Versal Net specific code for Xilsecure rsa quiet mode server.
 *
 * <pre>
@@ -75,20 +75,20 @@ int XSecure_RsaExpCRT(u8 *Hash, u8 *P, u8 *Q, u8 *Dp, u8 *Dq, u8 *Qinv, u8 *Pub,
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((Hash == NULL) || (P == NULL) || (Q == NULL) || (Dp == NULL) ||
 		(Dq == NULL) || (Qinv == NULL) || (Res == NULL)) {
 		Status = (int)XSECURE_RSA_EXPONENT_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Release the RSA engine from reset */
+	/** - Release the RSA engine from reset */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
 
-	/** Perform the RSA exponentiation using CRT */
+	/** - Perform the RSA exponentiation using CRT */
 	Status = RSA_ExpCrtQ(Hash, P, Q, Dp, Dq, Qinv, Pub, Mod, Len, Res);
 
-	/** Reset the RSA engine */
+	/** - Reset the RSA engine */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
 
 END:
@@ -121,19 +121,19 @@ int XSecure_RsaExp(u8 *Hash, u8 *Exp, u8 *Mod, u8 *P, u8 *Q, u8 *Pub, u8 *Tot,
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((Hash == NULL) || (Exp == NULL) || (Mod == NULL) || (Res == NULL)) {
 		Status = (int)XSECURE_RSA_EXPONENT_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Release the RSA engine from reset */
+	/** - Release the RSA engine from reset */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
 
-	/** Perform the RSA exponentiation */
+	/** - Perform the RSA exponentiation */
 	Status = RSA_ExpQ(Hash, Exp, Mod, P, Q, Pub, Tot, Len, Res);
 
-	/** Reset the RSA engine */
+	/** - Reset the RSA engine */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
 
 END:
@@ -168,20 +168,20 @@ int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q,
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate input parameters */
+	/** - Validate input parameters */
 	if ((Hash == NULL) || (Exp == NULL) || (Mod == NULL) || (Res == NULL) || (RN == NULL)
 		|| (RRN == NULL)) {
 		Status = (int)XSECURE_RSA_EXPONENT_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Release the RSA engine from reset */
+	/** - Release the RSA engine from reset */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
 
-	/** Perform the RSA exponentiation with pre-calculated modulus */
+	/** - Perform the RSA exponentiation with pre-calculated modulus */
 	Status = RSA_ExpoptQ(Hash, Exp, Mod, RN, RRN, P, Q, Pub, Tot, Len, Res);
 
-	/** Reset the RSA engine */
+	/** - Reset the RSA engine */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
 
 END:

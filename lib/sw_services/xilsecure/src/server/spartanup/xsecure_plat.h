@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.h
+* @file server/spartanup/xsecure_plat.h
 * This file contains versal specific code for spartan ultrascale plus.
 *
 * <pre>
@@ -25,9 +25,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Xilsecure Helper Server APIs
-* @{
-*/
+ * @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
+ * @{
+ */
 #ifndef XSECURE_PLAT_H
 #define XSECURE_PLAT_H
 
@@ -88,42 +88,61 @@ extern "C" {
  */
 /**< AES_KEY_CLEAR register offset and definitions */
 #define XSECURE_AES_KEY_CLEAR_OFFSET			(0x00000014U)
+							/**< AES Key Clear register offset */
 
 #define XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK		(0x00200000U)
+							/**< PUF key clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK		(0x00080000U)
+							/**< BH Red key clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_BH_KEY_MASK		(0x00040000U)
+							/**< BH key clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK	(0x00008000U)
+							/**< eFUSE Red key clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK		(0x00001000U)
+							/**< eFUSE key clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_7_MASK		(0x00000800U)
+							/**< User key 7 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK		(0x00000400U)
+							/**< User key 6 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK		(0x00000200U)
+							/**< User key 5 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK		(0x00000100U)
+							/**< User key 4 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK		(0x00000080U)
+							/**< User key 3 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK		(0x00000040U)
+							/**< User key 2 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK		(0x00000020U)
+							/**< User key 1 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK		(0x00000010U)
+							/**< User key 0 clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK		(0x00000002U)
+							/**< KUP key clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK	(0x00000001U)
+							/**< AES key zeroize mask */
 
 #define XSECURE_AES_KEY_CLR_REG_CLR_MASK		(0x00000000U)
+							/**< Key clear register clear mask */
 
 #define XSECURE_AES_KEY_CLEAR_ALL_KEYS_MASK		(0x003FFFF3U)
+							/**< Clear all keys mask */
 
 #define XSECURE_AES_KEY_CLEAR_PUF_RED_EXPANDED_KEYS_MASK	(0x00288003U)
+							/**< PUF Red expanded keys clear mask */
 
 /** Combined mask to clear KUP key and expanded (zeroize) key simultaneously */
 #define XSECURE_AES_KEY_CLEAR_KUP_AND_EXP_KEYS_MASK	(XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK | \
@@ -237,9 +256,9 @@ int XSecure_ECCRandInit(void);
 
 /***************************** Variable Prototypes  ***************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /** XSECURE_PLAT_H */
-/** @} */

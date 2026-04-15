@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_plat.c
+* @file server/versal_2vp/xsecure_plat.c
 * This file contains versal_2vp specific code for xilsecure server.
 *
 * <pre>
@@ -24,7 +24,7 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /*************************************** Include Files ********************************************/
@@ -96,7 +96,7 @@ const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES] =
 	u32 Mask = 0U;
 	u32 RegVal = Value;
 
-	/** Update SSS mask value */
+	/** - Update SSS mask value */
 	if ((InputSrc == XSECURE_SSS_DMA0) || (OutputSrc == XSECURE_SSS_DMA0)) {
 		if ((RegVal & XSECURE_SSS_SBI_MASK) == XSECURE_SSS_SBI_DMA0_VAL) {
 			Mask |= XSECURE_SSS_SBI_MASK;
@@ -147,12 +147,12 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 {
 	int Status = XST_FAILURE;
 
-	/** Validate the size is 4-byte aligned or not */
+	/** - Validate the size is 4-byte aligned or not */
 	if ((Size % XSECURE_WORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
 	}
-	/** Validate the size is 16-byte aligned when it is last chunk */
+	/** - Validate the size is 16-byte aligned when it is last chunk */
 	if ((IsLastChunk != TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
@@ -206,7 +206,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
-	/** Enable PMC DMA Src and Dst channels for byte swapping.*/
+	/** - Enable PMC DMA Src and Dst channels for byte swapping. */
 	if ((AesDmaCfg->SrcChannelCfg == TRUE) &&
 		(InstancePtr->DmaSwapEn == XSECURE_ENABLE_BYTE_SWAP)) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
@@ -214,8 +214,8 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 	}
 
 	/**
-	 * Sets the start address and size for both src and dest channels
-	 * as per the configuration
+	 * - Sets the start address and size for both src and dest channels
+	 *   as per the configuration
 	 */
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 			(InstancePtr->DmaSwapEn == XSECURE_ENABLE_BYTE_SWAP) &&
@@ -238,25 +238,25 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, const XSecure_AesDmaCfg 
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		/* Wait for the SRC DMA completion. */
+		/** - Wait for the SRC DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
 
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		/* Wait for the DEST DMA completion. */
+		/** - Wait for the DEST DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr, XPMCDMA_DST_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 	}
 
@@ -269,12 +269,8 @@ END:
  * @brief	This is a helper function to enable/disable byte swapping feature of PMC DMA.
  *
  * @param	InstancePtr	Pointer to the XPmcDma instance.
- * @param	Channel		Channel Type
- *				- XPMCDMA_SRC_CHANNEL
- *				- XPMCDMA_DST_CHANNEL
- * @param	EndianType
- *			- 1 : Enable Byte Swapping.
- *			- 0 : Disable Byte Swapping.
+ * @param	Channel		Channel Type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL)
+ * @param	EndianType	1 to enable byte swapping, 0 to disable byte swapping
  *
  **************************************************************************************************/
 void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
@@ -282,13 +278,13 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 {
 	XPmcDma_Configure ConfigValues = {0U};
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
 
-	/* Updates the XPmcDma_Configure structure with PmcDma's channel values */
+	/** - Updates the XPmcDma_Configure structure with PmcDma's channel values */
 	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
 	ConfigValues.EndianType = EndianType;
-	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
+	/** - Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
 
@@ -296,7 +292,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 /**
  * @brief	This function generates Random number of given size
  *
- * @param	Output	is pointer to the output buffer
+ * @param	Output	is a pointer to the output buffer
  * @param	Size	is the number of random bytes to be read
  *
  * @return
@@ -338,7 +334,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 		TotalSize -= RandBufSize;
 	}
 
-	/* Verify loop index is within expected bounds */
+	/** - Verify loop index is within expected bounds */
 	if (Index != (NoOfGenerates - 1U)) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}

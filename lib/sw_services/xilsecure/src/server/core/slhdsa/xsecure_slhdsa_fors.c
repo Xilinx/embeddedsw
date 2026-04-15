@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_fors.c
+* @file server/core/slhdsa/xsecure_slhdsa_fors.c
 *
 * This file contains definitions for SLH-DSA FORS operations
 *
@@ -56,27 +56,27 @@ void XSecure_SlhdsaBase2b(u32 * const BaseB, const u8 * const X, const u32 b, co
 	u32 Total = XSECURE_ZERO;     /* Step 3: total <- 0 */
 	volatile u32 Out;
 
-	/* Step 4: for out from 0 to out_len - 1 do */
+	/** - Step 4: for out from 0 to out_len - 1 do */
 	for (Out = 0U; Out < OutLen; Out++) {
-		/* Step 5: while bits < b do */
+		/** - Step 5: while bits < b do */
 		while (Bits < b) {
-			/* Step 6: total <- (total << 8) + X[in] */
+			/** - Step 6: total <- (total << 8) + X[in] */
 			Total = ((Total << XSECURE_BYTE_IN_BITS) + X[In]);
-			/* Step 7: in <- in+1 */
+			/** - Step 7: in <- in+1 */
 			In++;
-			/* Step 8: bits <- bits + 8 */
+			/** - Step 8: bits <- bits + 8 */
 			Bits += XSECURE_BYTE_IN_BITS;
 		}
-		/* Step 9: end while */
+		/** - Step 9: end while */
 
-		/* Step 10: bits <- bits - b */
+		/** - Step 10: bits <- bits - b */
 		Bits -= b;
 
-		/* Step 11: baseb[out] <- (total >> bits) mod 2^b */
+		/** - Step 11: baseb[out] <- (total >> bits) mod 2^b */
 		BaseB[Out] = ((Total >> Bits) & ((XSECURE_VALUE_ONE << b) - XSECURE_VALUE_ONE));
 	}
-	/* Step 12: end for */
-	/* Step 13: return baseb (implicit through BaseB output parameter) */
+	/** - Step 12: end for */
+	/** - Step 13: return baseb (implicit through BaseB output parameter) */
 }
 
 /**************************************************************************************************/
@@ -228,26 +228,26 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 	volatile u32 NodeIdx;
 	u64 SignPtrAddr = SignForsAddr;
 	/**
-	 * Used to represent Global lead address across all FORS Trees, range: 0 to 360,448; 0 to
-	 * 16,383 for first tree
+	 * - Used to represent Global lead address across all FORS Trees, range: 0 to 360,448; 0 to
+	 *   16,383 for first tree
 	 */
 	u32 Idx;
 
-	/* Step 1: indices <- base_2b(md, a, k) */
+	/** - Step 1: indices <- base_2b(md, a, k) */
 	(void)XSecure_SlhdsaBase2b(InstancePtr->Data4, Md, (u32)InstancePtr->Param->a,
 				   (u32)InstancePtr->Param->k);
 
-	/* 2: for i from 0 to k - 1 do */
+	/** - 2: for i from 0 to k - 1 do */
 	for (TreeIdx = 0; TreeIdx < (u32)InstancePtr->Param->k; TreeIdx++) {
 
-		/* Step 4: ADRS.setTreeHeight(0) */
+		/** - Step 4: ADRS.setTreeHeight(0) */
 		XSecure_SlhdsaSetTreeHeight(InstancePtr->Addr, XSECURE_ZERO);
 
-		/* Step 5: ADRS.setTreeIndex(TreeIdx * 2^a + indices[TreeIdx]) */
+		/** - Step 5: ADRS.setTreeIndex(TreeIdx * 2^a + indices[TreeIdx]) */
 		Idx = ((TreeIdx << (u32)InstancePtr->Param->a) + InstancePtr->Data4[TreeIdx]);
 		XSecure_SlhdsaSetTreeIndex(InstancePtr->Addr, Idx);
 
-		/* Step 6: node[0] <- F(PK.seed, ADRS, sk = current location of signature) */
+		/** - Step 6: node[0] <- F(PK.seed, ADRS, sk = current location of signature) */
 		XSECURE_TEMPORAL_CHECK(END,
 			Status,
 			XSecure_SlhdsaShake256sHashF,
@@ -257,9 +257,9 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 
 		SignPtrAddr += (u64)InstancePtr->Param->n;
 
-		/* Step 8: for NodeIdx from 0 to a-1 do */
+		/** - Step 8: for NodeIdx from 0 to a-1 do */
 		for (NodeIdx = 0U; NodeIdx < (u32)InstancePtr->Param->a; NodeIdx++) {
-			/* Step 9: ADRS.setTreeHeight(NodeIdx+1) */
+			/** - Step 9: ADRS.setTreeHeight(NodeIdx+1) */
 			XSecure_SlhdsaSetTreeHeight(InstancePtr->Addr, NodeIdx + XSECURE_VALUE_ONE);
 
 			/*
@@ -269,9 +269,9 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 			XSecure_SlhdsaSetTreeIndex(InstancePtr->Addr, Idx >> (NodeIdx +
 						XSECURE_VALUE_ONE));
 
-			/* Step 10/13: even/odd index logic */
+			/** - Step 10/13: even/odd index logic */
 			if (!XSECURE_IS_ODD((u32)(InstancePtr->Data4[TreeIdx] >> NodeIdx))) {
-				/* Step 12: node[1] <- H(PK.seed, ADRS, node[0] || auth[NodeIdx]) */
+				/** - Step 12: node[1] <- H(PK.seed, ADRS, node[0] || auth[NodeIdx]) */
 				XSECURE_TEMPORAL_CHECK(END,
 					Status,
 					XSecure_SlhdsaShake256sHashH,
@@ -280,7 +280,7 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 					SignPtrAddr,		/* [in] Auth path element address */
 					NodePtr);		/* [out] Updated node value */
 			} else {
-				/* Step 15: node[1] <- H(PK.seed, ADRS, auth[NodeIdx] || node[0]) */
+				/** - Step 15: node[1] <- H(PK.seed, ADRS, auth[NodeIdx] || node[0]) */
 				XSECURE_TEMPORAL_CHECK(END,
 					Status,
 					XSecure_SlhdsaShake256sHashH,
@@ -289,7 +289,7 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 					(u64)(UINTPTR)NodePtr,	/* [in] Current node value address */
 					NodePtr);		/* [out] Updated node value */
 			}
-			/* Step 17: node[0] <- node[1] (NodePtr already updated) */
+			/** - Step 17: node[0] <- node[1] (NodePtr already updated) */
 			SignPtrAddr += (u64)InstancePtr->Param->n;
 		}
 
@@ -298,7 +298,7 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 			goto END;
 		}
 
-		/* Step 19: root[TreeIdx] <- node[0] (NodePtr points to root for this tree) */
+		/** - Step 19: root[TreeIdx] <- node[0] (NodePtr points to root for this tree) */
 		NodePtr += (u32)InstancePtr->Param->n;
 	}
 
@@ -309,14 +309,14 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 
 	XSecure_SlhdsaSetTypeClearNotKp(InstancePtr->Addr, XSECURE_SLH_DSA_ADRS_TYPE_FORS_ROOTS);
 
-	/* Step 24: pk <- T_k(PK.seed, forspkADRS, root) */
+	/** - Step 24: pk <- T_k(PK.seed, forspkADRS, root) */
 	XSECURE_TEMPORAL_CHECK(END,
 		Status,
 		XSecure_SlhdsaShake256sHashTl,
 		PublicKeySeedAddr,				/* [in] Public key seed address */
 		InstancePtr->Data1,				/* [in] FORS roots array */
 		((u32)InstancePtr->Param->k * (u32)InstancePtr->Param->n),
-								/* [in] Length of roots data */
+								/** - [in] Length of roots data */
 		PkFors);					/* [out] FORS public key output */
 
 END:

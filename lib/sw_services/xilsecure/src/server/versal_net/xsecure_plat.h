@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.h
+* @file server/versal_net/xsecure_plat.h
 *
 * This file contains Versal Net specific code for Xilsecure server.
 *
@@ -30,9 +30,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
-* @{
-*/
+ * @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
+ * @{
+ */
 #ifndef XSECURE_PLAT_H
 #define XSECURE_PLAT_H
 
@@ -137,9 +137,9 @@ int XSecure_ECCRandInit(void);
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 /***************************** Variable Prototypes  ***************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /** XSECURE_PLAT_H */
-/** @} */

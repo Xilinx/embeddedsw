@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file slhdsa/xsecure_slhdsa_ipihandler.c
+* @file server/core/slhdsa/xsecure_slhdsa_ipihandler.c
 *
 * This file contains the xilsecure SLHDSA IPI handlers implementation.
 *
@@ -66,7 +66,7 @@ int XSecure_SlhdsaIpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** SHA IPI event handling */
+	/** - SHA IPI event handling */
 	Status = XSecure_IpiEventHandling(Cmd, Core);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);

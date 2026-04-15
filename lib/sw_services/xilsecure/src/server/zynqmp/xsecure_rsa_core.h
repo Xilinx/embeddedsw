@@ -1,15 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_core.h
-* @addtogroup xsecure_rsa_zynqmp_apis XilSecure RSA ZynqMP APIs
-* @{
+* @file server/zynqmp/xsecure_rsa_core.h
 * @cond xsecure_internal
 * This file contains zynqmp specific RSA core APIs.
 *
@@ -32,6 +30,10 @@
 *
 * @endcond
 ******************************************************************************/
+/**
+ * @addtogroup xsecure_rsa_zynqmp_apis XilSecure RSA ZynqMP APIs
+ * @{
+ */
 #ifndef XSECURE_RSA_CORE_H
 #define XSECURE_RSA_CORE_H
 
@@ -130,6 +132,7 @@ extern "C" {
  * The Status Register(SR) indicates the current state of RSA device.
  *
  * Status Register Bit Definition
+ * @{
  */
 #define XSECURE_CSU_RSA_STATUS_DONE	(0x1U) /**< Operation Done */
 #define XSECURE_CSU_RSA_STATUS_BUSY	(0x2U) /**< RSA busy */
@@ -172,10 +175,9 @@ u32 XSecure_RsaOperation(XSecure_Rsa *InstancePtr, u8 *Input,
 /* ZynqMP specific function for selection of PKCS padding */
 u8* XSecure_RsaGetTPadding(void);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
-
-/** @} */

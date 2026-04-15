@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_utils.h
+* @file server/core/util/xsecure_utils.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -25,10 +25,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
-* @{
-*/
+ * @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+ * @{
+ */
 #ifndef XSECURE_UTILS_H_
 #define XSECURE_UTILS_H_
 
@@ -222,9 +223,9 @@ static inline void XSecure_OutByte64(u64 Addr, u8 Data)
 void XSecure_SetReset(UINTPTR BaseAddress, u32 Offset);
 void XSecure_ReleaseReset(UINTPTR BaseAddress, u32 Offset);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_UTILS_H_ */
-/** @} */

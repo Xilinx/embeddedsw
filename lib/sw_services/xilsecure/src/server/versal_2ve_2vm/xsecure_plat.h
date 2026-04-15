@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.h
+* @file server/versal_2ve_2vm/xsecure_plat.h
 *
 * This file contains Versal_2Ve_2Vm specific code for Xilsecure server.
 *
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
-* @{
-*/
+ * @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
+ * @{
+ */
 #ifndef XSECURE_PLAT_H
 #define XSECURE_PLAT_H
 
@@ -174,10 +175,9 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 int XSecure_MemCpyAndChangeEndianness(u64 DestAddress, u64 SrcAddress, u32 Length);
 /***************************** Variable Prototypes  ***************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /** XSECURE_PLAT_H */
-
-/** @} */

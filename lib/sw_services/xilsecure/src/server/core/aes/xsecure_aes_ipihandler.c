@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes_ipihandler.c
+* @file server/core/aes/xsecure_aes_ipihandler.c
 *
 * This file contains the Xilsecure AES IPI handlers implementation.
 *
@@ -96,7 +96,7 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful
@@ -116,7 +116,7 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** Handle the present command based on AES core status */
+	/** - Handle the present command based on AES core status */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_AES_CORE);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -125,57 +125,57 @@ int XSecure_AesIpiHandler(XPlmi_Cmd *Cmd)
 
 	Pload = Cmd->Payload;
 
-	/** Call the respective API handler according to API ID */
+	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_INIT):
-		/**   - @ref XSecure_AesInit */
+		/**   - XSecure_AesInit */
 		Status = XST_SUCCESS;
 		break;
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
-		/**   - @ref XSecure_AesOperationInit */
+		/**   - XSecure_AesOperationInit */
 		Status = XSecure_AesOperationInit(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_UPDATE_AAD):
-		/**   - @ref XSecure_AesAadUpdate */
+		/**   - XSecure_AesAadUpdate */
 		Status = XSecure_AesAadUpdate(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_UPDATE):
-		/**   - @ref XSecure_AesEncUpdate */
+		/**   - XSecure_AesEncUpdate */
 		Status = XSecure_AesEncUpdate(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_FINAL):
-		/**   - @ref XSecure_AesEncFinal */
+		/**   - XSecure_AesEncFinal */
 		Status = XSecure_AesEncFinal(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_UPDATE):
-		/**   - @ref XSecure_AesDecUpdate */
+		/**   - XSecure_AesDecUpdate */
 		Status = XSecure_AesDecUpdate(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_FINAL):
-		/**   - @ref XSecure_AesDecFinal */
+		/**   - XSecure_AesDecFinal */
 		Status = XSecure_AesDecFinal(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEY_ZERO):
-		/**   - @ref XSecure_AesKeyZeroize */
+		/**   - XSecure_AesKeyZeroize */
 		Status = XSecure_AesKeyZeroize(Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
-		/**   - @ref XSecure_AesKeyWrite */
+		/**   - XSecure_AesKeyWrite */
 		Status = XSecure_AesKeyWrite(Cmd->SubsystemId, (u8)Pload[0], (u8)Pload[1], Pload[2],
 				Pload[3]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
-		/**   - @ref XSecure_AesDecryptKek */
+		/**   - XSecure_AesDecryptKek */
 		Status = XSecure_AesDecryptKek(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-		/**   - @ref XSecure_AesSetDpaCmConfig */
+		/**   - XSecure_AesSetDpaCmConfig */
 		Status = XSecure_AesSetDpaCmConfig((u8)Pload[0]);
 		break;
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
-		/**   - @ref XSecure_AesPerformOperation */
+		/**   - XSecure_AesPerformOperation */
 		Status = XSecure_AesPerformOperation(Cmd->SubsystemId, Pload[0], Pload[1]);
 		break;
 	default:
@@ -213,7 +213,7 @@ int XSecure_AesInit(void)
 		goto END;
 	}
 
-	/** Initialize the Aes driver so that it's ready to use */
+	/** - Initialize the Aes driver so that it's ready to use */
 	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
 
 END:
@@ -250,7 +250,7 @@ static int XSecure_AesOperationInit(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddr
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
@@ -285,8 +285,8 @@ static int XSecure_AesAadUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
 	/**
-	 * Update GMAC configuration as per the user input and
-	 * calculate AAD if GMAC is enabled.
+	 * - Update GMAC configuration as per the user input and
+	 *   calculate AAD if GMAC is enabled.
 	 */
 	Status = XSecure_AesGmacCfg(XSecureAesInstPtr, IsGmacEn);
 	if (Status != XST_SUCCESS) {
@@ -369,7 +369,7 @@ static int XSecure_AesEncFinal(u32 SubsystemId, u32 DstAddrLow, u32 DstAddrHigh)
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, XSECURE_SECURE_GCM_TAG_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	/* Generates GCM tag */
+	/** - Generates GCM tag */
 	Status = XSecure_AesEncryptFinal(XSecureAesInstPtr, Addr);
 
 #ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
@@ -415,7 +415,7 @@ static int XSecure_AesDecUpdate(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, InParams.InDataAddr, InParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	/** Update data in AES engine which needs to be decrypted. */
+	/** - Update data in AES engine which needs to be decrypted. */
 	Status = XSecure_AesDecryptUpdate(XSecureAesInstPtr, InParams.InDataAddr,
 				DstAddr, InParams.Size, (u8)InParams.IsLast);
 
@@ -448,7 +448,7 @@ static int XSecure_AesDecFinal(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh)
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, Addr, XSECURE_SECURE_GCM_TAG_SIZE, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	/** Verify the GCM tag provided for the data decrypted */
+	/** - Verify the GCM tag provided for the data decrypted */
 	Status = XSecure_AesDecryptFinal(XSecureAesInstPtr, Addr);
 
 #ifndef PLM_ENABLE_ADDR_RANGE_VALIDATION
@@ -476,7 +476,7 @@ int XSecure_AesKeyZeroize(u32 KeySrc)
 	volatile int Status = XST_FAILURE;
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	/** Validate key source to allow clearing of keysources other than device keys */
+	/** - Validate key source to allow clearing of keysources other than device keys */
 	if ((KeySrc == (u32)XSECURE_AES_KUP_KEY) ||
 		(KeySrc == (u32)XSECURE_AES_EXPANDED_KEYS) ||
 		((KeySrc >= (u32)XSECURE_AES_USER_KEY_0) &&
@@ -517,7 +517,7 @@ int XSecure_AesKeyWrite(u32 SubsystemId, u8 KeySize, u8 KeySrc,
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyAddr, KeySize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	/* User not allowed to write key in boot header */
+	/** - User not allowed to write key in boot header */
 	if ((KeySrc == (u32)XSECURE_AES_BH_KEY) ||
 		(KeySrc == (u32)XSECURE_AES_BH_RED_KEY)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
@@ -525,7 +525,7 @@ int XSecure_AesKeyWrite(u32 SubsystemId, u8 KeySize, u8 KeySrc,
 	}
 
 	Status = XST_FAILURE;
-	/** Writes the key provided into the specified AES key registers */
+	/** - Writes the key provided into the specified AES key registers */
 	Status = XSecure_AesWriteKey(XSecureAesInstPtr,
 				(XSecure_AesKeySrc)KeySrc,
 				(XSecure_AesKeySize)KeySize, KeyAddr);
@@ -562,7 +562,7 @@ static int XSecure_AesDecryptKek(u32 SubsystemId, u32 KeyInfo, u32 IvAddrLow, u3
 
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	/* Check for valid decryption key source */
+	/** - Check for valid decryption key source */
 	if ((DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_0) &&
 		(DecKeySrc != XSECURE_AES_EFUSE_USER_KEY_1)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
@@ -631,7 +631,7 @@ int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.IvAddr, XSECURE_AES_IV_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.InDataAddr, AesParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -641,14 +641,14 @@ int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 		XPLMI_VERIFY_ADDR_RANGE(SubsystemId, AesParams.AadAddr, AesParams.AadSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	}
 
-	/** Validate key source and initialise AES to encryption/decryption */
+	/** - Validate key source and initialise AES to encryption/decryption */
 	Status = XSecure_AesConfig(AesParams.OperationId, AesParams.KeySrc, AesParams.KeySize, AesParams.IvAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	if (AesParams.IsUpdateAadEn == TRUE) {
-		/** Update AAD */
+		/** - Update AAD */
 	Status = XSecure_AesAadUpdate(SubsystemId, (u32)AesParams.AadAddr, (u32)(AesParams.AadAddr >> 32U),
 								 AesParams.AadSize, AesParams.IsGmacEnable);
 		if (Status != XST_SUCCESS) {
@@ -656,7 +656,7 @@ int XSecure_AesPerformOperation(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHigh
 		}
 	}
 
-	/** Based on user's choice GCM/GMAC encryption/decryption is performed */
+	/** - Based on user's choice GCM/GMAC encryption/decryption is performed */
 	if (AesParams.OperationId == (u32)XSECURE_ENCRYPT) {
 		if (AesParams.IsGmacEnable == FALSE) {
 			Status = XSecure_AesEncryptData(XSecureAesInstPtr, AesParams.InDataAddr,
@@ -717,7 +717,7 @@ END:
 /**
  * @brief	This function is used to validate key source and initialise the encryption/decryption
  *
- * @param	OperationId	Decides whether oepration is encryption/decryption
+ * @param	OperationId	Decides whether operation is encryption/decryption
  * @param	KeySrc	Aes key source
  * @param	KeySize	Aes key size
  * @param	IvAddr	Iv address
@@ -741,7 +741,7 @@ static int XSecure_AesConfig(u32 OperationId, u32 KeySrc, u32 KeySize, u64 IvAdd
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
 
-	/** Selecting the AES Encryption/Decryption operation */
+	/** - Selecting the AES Encryption/Decryption operation */
 	if (OperationId == (u32)XSECURE_ENCRYPT) {
 		Status = XSecure_AesEncryptInit(XSecureAesInstPtr,
 					(XSecure_AesKeySrc)KeySrc,

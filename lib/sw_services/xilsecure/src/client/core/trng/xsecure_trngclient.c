@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_trngclient.c
+* @file client/core/trng/xsecure_trngclient.c
 *
 * This file contains the implementation of the client interface functions for
 * TRNG core.
@@ -65,15 +65,15 @@ int XSecure_TrngGenerateRandNum(XSecure_ClientInstance *InstancePtr, u64 RandBuf
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD3(Payload, XSECURE_API_TRNG_GENERATE,
 				RandBufAddr,
 				(RandBufAddr >> XSECURE_ADDR_HIGH_SHIFT),
 				Size);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_TrngGenerateRandNum
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_TrngGenerateRandNum
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

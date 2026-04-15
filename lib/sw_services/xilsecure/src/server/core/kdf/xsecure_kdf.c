@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_kdf.c
+* @file server/core/kdf/xsecure_kdf.c
 * This file contains the implementation of the HMAC based Key Derivation Function (HKDF).
 *
 *
@@ -40,7 +40,7 @@
  * @brief
  * This function performs the HMAC based KDF.
  *
- * @param	InDataPtr is pointer to the XSecure_KdfParams instance.
+ * @param	InDataPtr is a pointer to the XSecure_KdfParams instance.
  *		one should initialize the structure with following parameters
  *		before calling this API.
  *		- Key - Is a pointer to the key
@@ -66,14 +66,14 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 	volatile u32 KdfIndex = 0U;
 	XSecure_HmacRes Hmac;
 
-	/** Validate input parameters. */
+	/** - Validate input parameters. */
 	if (InDataPtr == NULL) {
 		Status = XSECURE_ERR_HKDF_INVALID_PARAM;
 		goto END;
 	}
 
 	/**
-	 * Calculate number of iterations based on HKDF output key length and SHA hash length.
+	 * - Calculate number of iterations based on HKDF output key length and SHA hash length.
 	 */
 	Iterations = (u32)(((u64)KdfOutLen + (u64)XSECURE_SHA_384_HASH_SIZE_IN_BYTES - 1ULL) /
 			(u64)XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
@@ -89,7 +89,7 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 
 	for(KdfIndex = 0U; KdfIndex < Iterations; KdfIndex++)
 	{
-		/* Calculate HMAC and form KdfInput */
+		/** - Calculate HMAC and form KdfInput */
 		Status = XSecure_HmacInit(&HmacInstance, Sha3InstPtr, (u64)(UINTPTR)InDataPtr->Key,
 				InDataPtr->KeyLen);
 		if (Status != XST_SUCCESS) {
@@ -108,7 +108,7 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 			goto END;
 		}
 
-		/* Update Context */
+		/** - Update Context */
 		Status = XST_FAILURE;
 		Status = XSecure_HmacUpdate(&HmacInstance, (u64)(UINTPTR)InDataPtr->Context,
 				InDataPtr->ContextLen);
@@ -118,7 +118,7 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 		}
 
 		Status = XST_FAILURE;
-		/* Get final HMAC */
+		/** - Get final HMAC */
 		Status = XSecure_HmacFinal(&HmacInstance, &Hmac);
 		if (Status != XST_SUCCESS) {
 			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -152,7 +152,7 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 
 	}
 
-	/* Verify loop index is within expected bounds */
+	/** - Verify loop index is within expected bounds */
 	if (KdfIndex != Iterations) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}

@@ -6,7 +6,7 @@
 /*************************************************************************************************/
 /**
  *
- * @file xsecure_smc.h
+ * @file client/core/smc/xsecure_smc.h
  *
  * This file Contains the SMC function prototypes, defines and macros for xilsecure client library.
  *
@@ -21,6 +21,10 @@
  *
  *************************************************************************************************/
 
+/**
+ * @addtogroup xsecure_client_apis XilSecure Client APIs
+ * @{
+ */
 #ifndef XSECURE_SMC_H
 #define XSECURE_SMC_H
 
@@ -71,4 +75,5 @@ int XSecure_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 Respo
 
 #endif /* defined (__aarch64__) && (EL1_NONSECURE == 1) */
 
+/** @} */
 #endif  /* XSECURE_SMC_H */

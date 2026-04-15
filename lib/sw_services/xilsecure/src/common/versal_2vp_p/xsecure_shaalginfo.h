@@ -7,7 +7,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_shaalginfo.h
+* @file common/versal_2vp_p/xsecure_shaalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

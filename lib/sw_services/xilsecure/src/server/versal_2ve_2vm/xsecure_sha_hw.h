@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_hw.h
+* @file server/versal_2ve_2vm/xsecure_sha_hw.h
 * This file contains SHA3/SHA2 core hardware definitions for versal_2ve_2vm.
 *
 * <pre>
@@ -66,7 +66,7 @@ extern "C" {
 #define XSECURE_SHA3_RESET_OFFSET 	XSECURE_SHA_RESET_OFFSET
 #define XSECURE_SHA_DONE_OFFSET		(0x08U) /**< SHA Done Register */
 #define XSECURE_SHA_DIGEST_0_OFFSET	(0x10U)	/**< SHA Digest: Reg 0 */
-/* @} */
+/** @} */
 
 #ifdef __cplusplus
 }

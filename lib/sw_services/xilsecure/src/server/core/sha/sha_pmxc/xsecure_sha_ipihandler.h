@@ -1,14 +1,12 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_ipihandler.h
-* @addtogroup xsecure_apis XilSecure Versal_2Ve_2Vm APIs
-* @{
+* @file server/core/sha/sha_pmxc/xsecure_sha_ipihandler.h
 * @cond xsecure_internal
 * This file contains the xilsecure SHA IPI handler declaration.
 *
@@ -26,6 +24,10 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xsecure_apis XilSecure Server APIs
+ * @{
+ */
 #ifndef XSECURE_SHA_IPIHANDLER_H_
 #define XSECURE_SHA_IPIHANDLER_H_
 
@@ -39,9 +41,9 @@ extern "c" {
 /************************** Constant Definitions *****************************/
 int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SHA_IPIHANDLER_H_ */
-/** @} */

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_hmac.h
+* @file server/core/hmac/xsecure_hmac.h
 *
 * This file contains APIs which calculate the HMAC on provided data and key.
 *
@@ -23,11 +23,11 @@
 * </pre>
 *
 ******************************************************************************/
-/**
-* @addtogroup xsecure_hmac_apis Xilsecure HMAC APIs
-* @{
-*/
 /**@cond xsecure_internal
+ * @{
+ */
+/**
+ * @addtogroup xsecure_hmac_apis XilSecure HMAC APIs
  * @{
  */
 #ifndef XSECURE_HMAC_H
@@ -67,13 +67,13 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len);
 int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac);
 
+/** @} */
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* XSECURE_HMAC_H_ */
 /**
  * @}
  * @endcond
  */
-#ifdef __cplusplus
-extern "C" }
-#endif
-
-#endif /* XSECURE_HMAC_H_ */
-/** @} */

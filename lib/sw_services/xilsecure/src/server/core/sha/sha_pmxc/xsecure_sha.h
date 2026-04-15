@@ -5,9 +5,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha.h
-* @addtogroup xsecure_sha_versal_2ve_2vm_apis XilSecure SHA Versal_2Ve_2Vm Server APIs
-* @{
+* @file server/core/sha/sha_pmxc/xsecure_sha.h
 * @cond xsecure_internal
 *
 * This file Contains the function prototypes, defines and macros for
@@ -38,6 +36,10 @@
 * @endcond
 *
 ******************************************************************************/
+/**
+ * @addtogroup xsecure_apis XilSecure Server APIs
+ * @{
+ */
 #ifndef XSECURE_SHA_H_
 #define XSECURE_SHA_H_
 
@@ -90,9 +92,9 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 
 			      u32 ReqHashSize);
 u32 XSecure_ShaGetBlockLen(XSecure_ShaMode HashAlgo);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /** XSECURE_SHA_H_ */
-/** @} */

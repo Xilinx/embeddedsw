@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *
- * @file xsecure_init.h
+ * @file server/core/generic/xsecure_init.h
  *
  * Header file for xsecure_init.c
  *
@@ -29,10 +29,11 @@
  * </pre>
  *
  ******************************************************************************/
+
 /**
-* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
-* @{
-*/
+ * @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+ * @{
+ */
 #ifndef XSECURE_INIT_H_
 #define XSECURE_INIT_H_
 
@@ -75,9 +76,9 @@ XSecure_Sha *XSecure_GetShaInstance(u32 DeviceId);
 XSecure_Rsa *XSecure_GetRsaInstance(void);
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_INIT_H_ */
-/** @} */

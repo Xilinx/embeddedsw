@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_ipihandler.h
+* @file server/core/rsa/xsecure_rsa_ipihandler.h
 *
 * This file contains the Xilsecure RSA IPI Handler declaration.
 *
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_RSA_IPIHANDLER_H_
 #define XSECURE_RSA_IPIHANDLER_H_
 
@@ -49,9 +50,9 @@ int XSecure_RsaIpiHandler(XPlmi_Cmd *Cmd);
 
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_RSA_IPIHANDLER_H_ */
-/** @} */

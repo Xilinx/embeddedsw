@@ -1,12 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2025, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
- *
- * @file xsecure_resourcehandling.h
+ * @file server/core/generic/xsecure_resourcehandling.h
  *
  *
  * <pre>
@@ -22,10 +21,11 @@
  * </pre>
  *
  ******************************************************************************/
+
 /**
-* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
-* @{
-*/
+ * @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+ * @{
+ */
 #ifndef XSECURE_RESOURCEHANDLING_H_
 #define XSECURE_RESOURCEHANDLING_H_
 
@@ -65,9 +65,10 @@ int XSecure_GetShaAndAesSts(XSecure_ResourceSts *ResourceSts);
 int XSecure_MakeResFree(XPlmi_CoreType Core);
 int XSecure_IpiEventHandling(XPlmi_Cmd *Cmd, XPlmi_CoreType Core);
 int XSecure_SetDataContextLost(XPlmi_CoreType Core);
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_RESOURCEHANDLING_H_ */
-/** @} */

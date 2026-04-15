@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_trng_versal_net.c
+* @file server/core/trng/trngpsx/xsecure_trng.c
 * This file implements function to use TRNGPSX
 *
 * This header file contains function declaration to get random number.
@@ -24,7 +24,7 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
+* @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
 * @{
 */
 
@@ -95,7 +95,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);
 	}
 
-	/* Initiate TRNG */
+	/** - Initiate TRNG */
 	UsrCfg.SeedLife = XSECURE_TRNG_USER_CFG_SEED_LIFE ;
 	UsrCfg.IsBlocking = FALSE;
 	if (XSecureTrngMode == (int)XSECURE_TRNG_HRNG_MODE) {

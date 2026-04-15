@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_mgf.c
+* @file server/versal_net/xsecure_mgf.c
 * This file contains code related to mask generate function.
 *
 * <pre>
@@ -217,8 +217,8 @@ XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaMode Shatype)
  *		mask using cryptographic hash function. i.e. Mask Generation Function(MGF).
  *
  * @param	ShaType		is of type XSecure_ShaMode.
- * @param	InstancePtr	is pointer to the sha instance.
- * @param	MgfInput	is pointer to XSecure_MgfInput instance.
+ * @param	InstancePtr	is a pointer to the sha instance.
+ * @param	MgfInput	is a pointer to XSecure_MgfInput instance.
  *
  * @return
  *		 - XST_SUCCESS  On success.

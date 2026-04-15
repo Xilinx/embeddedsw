@@ -5,7 +5,7 @@
 
 /**************************************************************************************************/
 /**
-* @file versal_2vp/xsecure_plat_katclient.h
+* @file client/versal_2vp/xsecure_plat_katclient.h
 *
 * This file contains the client function prototypes, defines and macros for the KAT APIs.
 *
@@ -20,9 +20,9 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KATCLIENT_H
 #define XSECURE_PLAT_KATCLIENT_H
 

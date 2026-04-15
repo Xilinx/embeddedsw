@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa.c
+* @file server/core/slhdsa/xsecure_slhdsa.c
 *
 * This file contains the software implementation of the signature verification functionality for
 * SLHDSA driver.
@@ -93,9 +93,9 @@ static int XSecure_SlhdsaVerifyInternal(void)
 	 */
 	const u32 idTreeSize = XSecure_SlhCeilDivU32(((u32)InstancePtr->Param->h -
 				(u32)InstancePtr->Param->hprime), XSECURE_BYTE_IN_BITS);
-	/* Pointer to digest buffer location where TmpIdxTree value starts */
+	/** - Pointer to digest buffer location where TmpIdxTree value starts */
 	const u8* TmpIdxTree;
-	/* Resultant IdxTree Value */
+	/** - Resultant IdxTree Value */
 	u64 IdxTree;
 
 	/*
@@ -104,9 +104,9 @@ static int XSecure_SlhdsaVerifyInternal(void)
 	 */
 	const u32 idLeafSize = XSecure_SlhCeilDivU32((u32)InstancePtr->Param->h,
 				(XSECURE_BYTE_IN_BITS * (u32)InstancePtr->Param->d));
-	/* Pointer to digest buffer location where TmpIdxLeaf value starts */
+	/** - Pointer to digest buffer location where TmpIdxLeaf value starts */
 	const u8* TmpIdxLeaf;
-	/* Resultant IdxLeaf Value */
+	/** - Resultant IdxLeaf Value */
 	u64 IdxLeaf;
 
 	/*
@@ -116,13 +116,13 @@ static int XSecure_SlhdsaVerifyInternal(void)
 	 * = (1 + 22*(1+ 14) + 64 + 8*67)*32 = 29792 bytes
 	 */
 	if (InstancePtr->Param->SignLen != InstancePtr->SignatureLen) {
-		/* Step 2: return false */
+		/** - Step 2: return false */
 		Status = XSECURE_SLHDSA_SIGN_LEN_ERROR;
 		goto END;
-		/* Step 3: end if */
+		/** - Step 3: end if */
 	}
 
-	/* Step 4: ADRS <- toByte(0, 32) */
+	/** - Step 4: ADRS <- toByte(0, 32) */
 	XSecure_SlhdsaClearAddress(InstancePtr->Addr);
 
 	/*
@@ -132,7 +132,7 @@ static int XSecure_SlhdsaVerifyInternal(void)
 	 */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_SlhdsaShake256sHashMsg);
 
-	/* Step 10: tmp_idxtree <- digest[ceil(k*a/8) : ceil(k*a/8) + ceil((h-h/d)/8)] */
+	/** - Step 10: tmp_idxtree <- digest[ceil(k*a/8) : ceil(k*a/8) + ceil((h-h/d)/8)] */
 	TmpIdxTree = &InstancePtr->Data2[mdSize];
 
 	/*
@@ -155,17 +155,17 @@ static int XSecure_SlhdsaVerifyInternal(void)
 	IdxLeaf = XSecure_ModPow2U64(XSecure_BytesToU64(TmpIdxLeaf, idLeafSize),
 			((u32)InstancePtr->Param->h / (u32)InstancePtr->Param->d));
 
-	/* Step 14: ADRS.setTreeAddress(idxtree) */
+	/** - Step 14: ADRS.setTreeAddress(idxtree) */
 	XSecure_SlhdsaSetTreeAddress(InstancePtr->Addr, IdxTree);
 
-	/* Step 15: ADRS.setTypeAndClear(FORS_TREE) */
+	/** - Step 15: ADRS.setTypeAndClear(FORS_TREE) */
 	XSecure_SlhdsaSetTypeAndClear(InstancePtr->Addr, XSECURE_SLH_DSA_ADRS_TYPE_FORS_TREE);
 
-	/* Step 16: ADRS.setKeyPairAddress(idxleaf) */
+	/** - Step 16: ADRS.setKeyPairAddress(idxleaf) */
 	XSecure_SlhdsaSetKeyPairAddress(InstancePtr->Addr, (u32)IdxLeaf);
 
-	/* Step 17: PK_FORS <- fors_pkFromSig(SIG_FORS, md, PK.seed, ADRS) */
-	/* Pass u64 addresses for IPC compatibility */
+	/** - Step 17: PK_FORS <- fors_pkFromSig(SIG_FORS, md, PK.seed, ADRS) */
+	/** - Pass u64 addresses for IPC compatibility */
 	XSECURE_TEMPORAL_CHECK(END,
 			Status,
 			XSecure_SlhdsaForsPkFromSig,
@@ -174,7 +174,7 @@ static int XSecure_SlhdsaVerifyInternal(void)
 			InstancePtr->PublicKeyAddr,			/* [in] PK.seed address */
 			InstancePtr->Data3);				/* [out] PK_FORS */
 
-	/* Step 18: return ht_verify(PK_FORS, SIG_HT, PK.seed, idxtree, idxleaf, PK.root) */
+	/** - Step 18: return ht_verify(PK_FORS, SIG_HT, PK.seed, idxtree, idxleaf, PK.root) */
 	HtIndices.IdxTree = IdxTree;
 	HtIndices.IdxLeaf = IdxLeaf;
 
@@ -187,7 +187,7 @@ static int XSecure_SlhdsaVerifyInternal(void)
 			&HtIndices);				/* [in] Hypertree indices */
 
 END:
-	/* Clear Data1 */
+	/** - Clear Data1 */
 	ClrStatus = Xil_SecureZeroize((u8 *)(UINTPTR)InstancePtr->Data1,
 			XSECURE_SLHDSA_MAX_DATA1_LEN_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (ClrStatus != XST_SUCCESS)) {
@@ -195,28 +195,28 @@ END:
 	}
 	InstancePtr->Data1Len = XSECURE_ZERO;
 
-	/* Clear Data2 */
+	/** - Clear Data2 */
 	ClrStatus = Xil_SecureZeroize((u8 *)(UINTPTR)InstancePtr->Data2,
 			XSECURE_SLHDSA_MAX_DATA2_LEN_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (ClrStatus != XST_SUCCESS)) {
 		Status = ClrStatus;
 	}
 
-	/* Clear Data3 */
+	/** - Clear Data3 */
 	ClrStatus = Xil_SecureZeroize((u8 *)(UINTPTR)InstancePtr->Data3,
 			XSECURE_SLHDSA_MAX_DATA3_LEN_IN_BYTES);
 	if ((Status == XST_SUCCESS) && (ClrStatus != XST_SUCCESS)) {
 		Status = ClrStatus;
 	}
 
-	/* Clear Data4 */
+	/** - Clear Data4 */
 	ClrStatus = Xil_SecureZeroize((u8 *)(UINTPTR)InstancePtr->Data4,
 			XSECURE_SLHDSA_MAX_DATA4_LEN_IN_WORDS * XSECURE_WORD_LEN);
 	if ((Status == XST_SUCCESS) && (ClrStatus != XST_SUCCESS)) {
 		Status = ClrStatus;
 	}
 
-	/* Clear address structure for security */
+	/** - Clear address structure for security */
 	ClrStatus = Xil_SecureZeroize((u8 *)(UINTPTR)InstancePtr->Addr, sizeof(ADRS));
 	if ((Status == XST_SUCCESS) && (ClrStatus != XST_SUCCESS)) {
 		Status = ClrStatus;
@@ -281,13 +281,13 @@ int XSecure_SlhdsaVerify(XSecure_Sha *ShaInstPtr,
 		goto END;
 	}
 
-	/* Step 1: if |ctx| > 255 then */
+	/** - Step 1: if |ctx| > 255 then */
 	if (SlhdsaParams->ContextLen > XSECURE_SLH_DSA_CTX_MAX_LEN_BYTES) {
-		/* Step 2: return false */
+		/** - Step 2: return false */
 		Status = XSECURE_SLHDSA_CTX_LEN_ERROR;
 		goto END;
 	}
-	/* Step 3: end if */
+	/** - Step 3: end if */
 
 	/*
 	 * Step 4: M' <- toByte(0,1) || toByte(|ctx|, 1) || ctx || M
@@ -296,25 +296,25 @@ int XSecure_SlhdsaVerify(XSecure_Sha *ShaInstPtr,
 	InstancePtr->Data1[XSECURE_SLH_DSA_VERIFY_PREFIX_OFFSET_DS] = XSECURE_SLH_DSA_PURE_SLH_VERIFY_DS;
 	InstancePtr->Data1Len = XSECURE_SLH_DSA_DS_LEN_BYTES;
 
-	/* Store context length as a single byte (Algorithm 24, step 4) */
+	/** - Store context length as a single byte (Algorithm 24, step 4) */
 	InstancePtr->Data1[XSECURE_SLH_DSA_VERIFY_PREFIX_OFFSET_CTXLEN] = (u8)SlhdsaParams->ContextLen;
 	InstancePtr->Data1Len += XSECURE_SLH_DSA_CTX_LEN_FIELD_LEN_BYTES;
 
-	/* Copy context string to buffer using XSecure_InByte64() for IPC compatibility */
+	/** - Copy context string to buffer using XSecure_InByte64() for IPC compatibility */
 	for (Idx = 0U; Idx < SlhdsaParams->ContextLen; Idx++) {
 		InstancePtr->Data1[XSECURE_SLH_DSA_VERIFY_PREFIX_OFFSET_CTX + Idx] =
 			XSecure_InByte64(SlhdsaParams->ContextAddr + Idx);
 	}
 	InstancePtr->Data1Len += Idx;
 
-	/* Store addresses in instance for IPC compatibility */
+	/** - Store addresses in instance for IPC compatibility */
 	InstancePtr->DataAddr = SlhdsaParams->DataAddr;
 	InstancePtr->DataLen = SlhdsaParams->DataLen;
 	InstancePtr->SignatureAddr = SlhdsaParams->SignatureAddr;
 	InstancePtr->PublicKeyAddr = SlhdsaParams->PublicKeyAddr;
 	InstancePtr->SignatureLen = SlhdsaParams->SignatureLen;
 
-	/* Step 5: return slh_verify_internal(M', SIG, PK) */
+	/** - Step 5: return slh_verify_internal(M', SIG, PK) */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_SlhdsaVerifyInternal);
 
 END:

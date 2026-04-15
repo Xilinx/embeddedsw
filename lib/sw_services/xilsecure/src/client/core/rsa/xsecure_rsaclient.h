@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_rsaclient.h
+* @file client/core/rsa/xsecure_rsaclient.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the RSA hardware module.
@@ -26,10 +26,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_rsa_client_apis XilSecure RSA Client APIs
-* @{
-*/
+ * @addtogroup xsecure_rsa_client_apis XilSecure RSA Client APIs
+ * @{
+ */
 #ifndef XSECURE_RSA_CLIENT_H
 #define XSECURE_RSA_CLIENT_H
 
@@ -57,9 +58,9 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 SignAddr, const u64 HashAddr,
 				const u32 Size);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_RSA_CLIENT_H */
-/** @} */

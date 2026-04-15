@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_cryptochk.c
+* @file server/zynqmp/xsecure_cryptochk.c
 * This file contains functions common for AES, SHA and RSA for ZynqMP.
 *
 * <pre>
@@ -21,6 +22,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_cryptochk_apis XilSecure Crypto Check APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_cryptochk.h"
@@ -63,3 +68,4 @@ u32 XSecure_CryptoCheck(void)
 
 	return Status;
 }
+/** @} */

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha3alginfo.h
+* @file common/versal/xsecure_sha3alginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

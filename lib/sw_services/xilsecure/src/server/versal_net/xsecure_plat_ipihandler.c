@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_ipihandler.c
+* @file server/versal_net/xsecure_plat_ipihandler.c
 *
 * This file contains the Xilsecure Versal Net IPI handlers implementation.
 *
@@ -36,7 +36,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /***************************** Include Files *********************************/
@@ -68,7 +68,7 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param	Cmd	is pointer to the command structure
+ * @param	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  If the handler execution is successful
@@ -196,7 +196,7 @@ static int XSecure_KeyUnwrapIpi(u32 SubsystemId, u32 KeyWrapAddrLow, u32 KeyWrap
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, KeyWrapData.KeyWrapAddr, KeyWrapData.TotalWrappedKeySize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
@@ -253,7 +253,7 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);

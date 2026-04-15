@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-*******************************************************************************/
+******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_plat_client.h
+* @file client/versal_net/xsecure_plat_client.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the platform specific client APIs.
@@ -27,9 +27,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_client_apis Platform specific helper APIs in Xilsecure client
-* @{
-*/
+ * @addtogroup xsecure_helper_client_apis Platform specific helper APIs in XilSecure client
+ * @{
+ */
 #ifndef XSECURE_PLAT_CLIENT_H
 #define XSECURE_PLAT_CLIENT_H
 

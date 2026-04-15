@@ -1,12 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_aesalginfo.h
+* @file common/versal_2vp/xsecure_aesalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

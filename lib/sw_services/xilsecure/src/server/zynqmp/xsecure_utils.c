@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_utils.c
+* @file server/zynqmp/xsecure_utils.c
 * This file contains common functionalities required for xilsecure library
 * like functions to read/write hardware registers, SSS switch configurations.
 *
@@ -34,6 +34,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_utils_apis XilSecure Utility APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_utils.h"
@@ -103,3 +107,4 @@ void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 		Count -= 1U;
 	}
 }
+/** @} */

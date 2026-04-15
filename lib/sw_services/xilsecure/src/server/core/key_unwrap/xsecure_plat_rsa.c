@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_rsa.c
+* @file server/core/key_unwrap/xsecure_plat_rsa.c
 * This file contains Versal Net specific code for Xilsecure rsa server.
 *
 * <pre>
@@ -36,7 +36,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_rsa_server_apis Xilsecure RSA Server APIs
+* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -91,7 +91,7 @@ static int XSecure_GenerateRsaKeyPair(void* arg);
  *		RSA Optimal Asymmetric Encryption Padding scheme.
  *		EM = 0x00 || maskedSeed || maskedDB
  *
- * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
+ * @param	OaepParam	is a pointer to the XSecure_RsaOaepParam instance.
  * @param	OutputAddr	is address where the encoded data is stored.
  *
  * @return
@@ -125,7 +125,7 @@ static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr
 		goto END;
 	}
 
-	/* Get the actual message length based on the hash algorithm */
+	/** - Get the actual message length based on the hash algorithm */
 	if (HashPtr->HashLen > XSECURE_SHA3_HASH_LENGTH_IN_BYTES) {
 		DiffHashLen = (HashPtr->HashLen - XSECURE_SHA3_HASH_LENGTH_IN_BYTES);
 	} else {
@@ -171,7 +171,7 @@ static int XSecure_RsaOaepEncode(XSecure_RsaOaepParam *OaepParam, u64 OutputAddr
 		Seed[Index] ^= 	SeedMask[Index];
 	}
 
-	/* Encode the message in to OutputAddr */
+	/** - Encode the message in to OutputAddr */
 	XSecure_OutByte64(OutputAddr, 0x00U);
 	XSecure_MemCpy64((OutputAddr + 1U), (u64)(UINTPTR)Seed, HashPtr->HashLen);
 	XSecure_MemCpy64((OutputAddr + HashPtr->HashLen + 1U), (u64)(UINTPTR)DB, DBLen);
@@ -185,7 +185,7 @@ END:
  *		RSA Optimal Asymmetric Encryption Padding scheme i.e.
  *		EM = 0x00 || maskedSeed || maskedDB
  *
- * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
+ * @param	OaepParam	is a pointer to the XSecure_RsaOaepParam instance.
  * @param	InputDataAddr	is the address where decrypted output data is stored.
  *
  * @return
@@ -298,8 +298,8 @@ END:
 /**
  * @brief	This function encodes the given message using RSA OAEP and encrypts it.
  *
- * @param	InstancePtr	is pointer to the XSecure_Rsa instance.
- * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
+ * @param	InstancePtr	is a pointer to the XSecure_Rsa instance.
+ * @param	OaepParam	is a pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
  *		 - XST_SUCCESS - On success.
@@ -334,8 +334,8 @@ END:
 /**
  * @brief	This function decodes the given message and decrypts it using RSA OAEP.
  *
- * @param	PrivKey	is pointer to the XSecure_RsaPrivKey instance.
- * @param	OaepParam	is pointer to the XSecure_RsaOaepParam instance.
+ * @param	PrivKey	is a pointer to the XSecure_RsaPrivKey instance.
+ * @param	OaepParam	is a pointer to the XSecure_RsaOaepParam instance.
  *
  * @return
  *		 - XST_SUCCESS - On success.
@@ -360,7 +360,7 @@ int XSecure_RsaOaepDecrypt(XSecure_RsaPrivKey *PrivKey, XSecure_RsaOaepParam *Oa
 		goto END_RST;
 	}
 
-	/* Reverse Output of CRT function */
+	/** - Reverse Output of CRT function */
 	Status = Xil_SReverseData(Output, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -417,7 +417,7 @@ static int XSecure_RemoveRsaKeyPairGenerationFromScheduler(void)
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Remove key pair generation task from scheduler */
+	/** - Remove key pair generation task from scheduler */
 	Status = XPlmi_SchedulerRemoveTask(XPLMI_MODULE_XILSECURE_ID,
 			XSecure_GenerateRsaKeyPair, 0U, NULL);
 	if (XST_SUCCESS != Status) {
@@ -484,12 +484,12 @@ static int XSecure_RsaKeyGenInit(XSecure_RsaKeyGenParam* RsaParam, XSecure_RsaKe
 
 	KeyPairState->E = (u8*)(UINTPTR)RsaParam->KeyPair.PubKey->PubExp;
 
-	/** Release the RSA engine from reset */
+	/** - Release the RSA engine from reset */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
 
 	Status = rsaprvkeyinit_Q(RsaKeyLen * XSECURE_BYTE_IN_BITS, NULL, KeyPairState);
 
-	/** Reset the RSA engine */
+	/** - Reset the RSA engine */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
 
 END:
@@ -500,7 +500,7 @@ END:
 /**
  * @brief	This function performs the RSA key generation in steps.
  *
- * @param	KeyPairState	is pointer to the XSecure_RsaKeyPtr.
+ * @param	KeyPairState	is a pointer to the XSecure_RsaKeyPtr.
  * @param	QuantSize	Size of the key generation steps in terms of quant size
  *				i.e. Half-size RSA key.
  *
@@ -519,12 +519,12 @@ static int XSecure_RsaKeyGenerate(XSecure_RsaKeyPtr *KeyPairState, u32 QuantSize
 		goto END;
 	}
 
-	/** Release the RSA engine from reset */
+	/** - Release the RSA engine from reset */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 0U);
 
 	Status = rsaprvkeystep_Q(QuantSize, KeyPairState);
 
-	/** Reset the RSA engine */
+	/** - Reset the RSA engine */
 	XSecure_Out32(XSECURE_ECDSA_RSA_SOFT_RESET, 1U);
 
 END:
@@ -629,12 +629,13 @@ static int XSecure_GenerateRsaKeyPair(void* arg)
 
 	(void)arg;
 
-	/* State machine for RSA key generation
-	 * Note: RSA key generation operation is non-reentrant
-	 * hence state is maintained for whole operation
+	/**
+	 * - State machine for RSA key generation
+	 *   Note: RSA key generation operation is non-reentrant
+	 *   hence state is maintained for whole operation
 	 */
 	if (RsaKeyGenState == XSECURE_RSA_KEY_DEFAULT_STATE) {
-		/* Get free RSA key param */
+		/** - Get free RSA key param */
 		RsaKeyParam = XSecure_GetRsaKeyGenParam();
 		if (RsaKeyParam == NULL) {
 			Status = XSecure_RemoveRsaKeyPairGenerationFromScheduler();
@@ -675,7 +676,7 @@ static int XSecure_GenerateRsaKeyPair(void* arg)
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
-		/* RSA pair wise consistency test */
+		/** - RSA pair wise consistency test */
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK(XSECURE_KAT_MAJOR_ERROR, Status, StatusTmp,
 			XSecure_RsaPwct, RsaKeyParam->KeyPair.PrivKey, RsaKeyParam->KeyPair.PubKey,
 			NULL, XSECURE_SHA2_384);
@@ -692,7 +693,7 @@ static int XSecure_GenerateRsaKeyPair(void* arg)
 
 		RsaKeyGenState = XSECURE_RSA_KEY_DEFAULT_STATE;
 	} else {
-		/* for MISRA-C violation */
+		/** - for MISRA-C violation */
 	}
 
 END:
@@ -720,6 +721,8 @@ static XSecure_RsaKeyMgmt* XSecure_GetRsaKeyMgmtInstance(void) {
 /*****************************************************************************/
 /**
  * @brief	This function returns RSA private key.
+ *
+ * @param	RsaIdx	Index of the RSA key to retrieve.
  *
  * @return
  * 		 - Pointer to XSecure_RsaPrivKey or NULL otherwise.
@@ -761,7 +764,7 @@ XSecure_RsaPubKey* XSecure_GetRsaPublicKey(u32 RsaIdx)
 /**
  * @brief	This function returns RSA key index based on RsaKeyStatus.
  *
- * @param	RsaKeyIdx	is pointer to the variable containing RSA free index.
+ * @param	RsaKeyIdx	is a pointer to the variable containing RSA free index.
  * @param	RsaKeyStatus	Key status to be checked.
  *
  * @return

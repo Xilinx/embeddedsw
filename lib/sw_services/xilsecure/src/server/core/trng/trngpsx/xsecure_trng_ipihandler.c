@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_trng_ipihandler.c
+* @file server/core/trng/trngpsx/xsecure_trng_ipihandler.c
 *
 * This file contains the xilsecure TRNG IPI handlers implementation.
 *
@@ -33,7 +33,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
+* @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -53,7 +53,7 @@ static int XSecure_TrngGenerateRandNum(u32 SrcAddrLow, u32 SrcAddrHigh, u32 Size
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful

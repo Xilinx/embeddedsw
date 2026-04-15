@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa.h
+* @file server/core/rsa/xsecure_rsa.h
 * This file contains hardware interface related information for RSA device
 *
 * This driver supports the following features:
@@ -68,10 +68,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_RSA_H_
 #define XSECURE_RSA_H_
 
@@ -125,6 +126,7 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	u32 Size, u64 Result);
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_xmss.h
+* @file server/core/slhdsa/xsecure_slhdsa_xmss.h
 *
 * This file contains structures, constants and declarations used in SLH-DSA XMSS and provides
 * interface to SLH-DSA XMSS operations
@@ -21,10 +21,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_XMSS_H_
 #define XSECURE_SLH_DSA_XMSS_H_
 
@@ -40,6 +41,7 @@ extern "C" {
 int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 				 u64 PublicKeyAddr, u8* Node);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

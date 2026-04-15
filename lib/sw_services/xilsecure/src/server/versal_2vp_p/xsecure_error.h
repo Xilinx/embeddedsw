@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
  *
- * @file versal_2vp_p/xsecure_error.h
+ * @file server/versal_2vp_p/xsecure_error.h
  *
  * This file contains Xilsecure error codes
  *
@@ -23,10 +23,6 @@
  * </pre>
  *
  **************************************************************************************************/
-/**
-* @addtogroup xsecure_error_codes Xilsecure Error Codes
-* @{
-*/
 #ifndef XSECURE_ERROR_H_
 #define XSECURE_ERROR_H_
 

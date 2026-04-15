@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha.h
+* @file server/core/sha/sha_pmx/xsecure_sha.h
 *
 * This file Contains the function prototypes, defines and macros for
 * the SHA-384 hardware module.
@@ -55,10 +55,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SHA_H
 #define XSECURE_SHA_H
 
@@ -149,6 +150,7 @@ int XSecure_ShaLookupConfig(XSecure_Sha *InstancePtr, u32 DeviceId);
 
 /***************************** Variable Prototypes ***************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

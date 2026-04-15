@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_init.c
+* @file server/core/generic/xsecure_init.c
 *
 * This file contains the initialization functions to be called by PLM. This
 * file will only be part of XilSecure when it is compiled with PLM.
@@ -90,14 +90,14 @@ int XSecure_AesShaInit(void)
 #ifndef PLM_SECURE_EXCLUDE
 	XSecure_Aes *XSecureAesInstPtr = XSecure_GetAesInstance();
 
-	/** Initializes AES structure */
+	/** - Initializes AES structure */
 	Status = XSecure_AesInitialize(XSecureAesInstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 #endif
 
-	/* Initializes SHA structure for operating the SHA3 engine */
+	/** - Initializes SHA structure for operating the SHA3 engine */
 	Status = XSecure_ShaInitialize(XSecureShaInstPtr, PmcDmaInstPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -150,7 +150,7 @@ int XSecure_Init(XSecure_PartialPdiEventParams *PpdiEventParamsPtr)
 		}
 
 #if (defined(PLM_ENABLE_SHA_AES_EVENTS_QUEUING) && defined(XPLMI_IPI_DEVICE_ID))
-	/** AES & SHA IPI event queues and free resource task initialization */
+	/** - AES & SHA IPI event queues and free resource task initialization */
 	Status = XSecure_QueuesAndTaskInit(PpdiEventParamsPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;

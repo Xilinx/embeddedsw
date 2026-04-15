@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_trng.h
+* @file server/core/trng/trngpsv/xsecure_trng.h
 *
 * This file contains function declarations to use trngpsv.
 *
@@ -25,10 +25,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
-* @{
-*/
+ * @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
+ * @{
+ */
 #ifndef XSECURE_TRNG_H
 #define XSECURE_TRNG_H
 
@@ -66,7 +67,9 @@ extern "C" {
 typedef XTrngpsv XSecure_TrngInstance;			 /**< typedef XTrngpsv as
 							  * XSecure_TrngInstance for compatibility */
 
-/* This typedef contains mode information on which TRNG operates */
+/**
+ * @brief This typedef contains mode information on which TRNG operates
+ */
 typedef enum {
 	XSECURE_TRNG_HRNG_MODE = 0U,	/**< HRNG mode for TRNG */
 	XSECURE_TRNG_DRNG_MODE,		/**< DRNG mode for TRNG */
@@ -160,8 +163,8 @@ END:
 	return Status;
 }
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 #endif /** XSECURE_TRNG_H */
-/** @} */

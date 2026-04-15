@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file trngpsv/xsecure_trng_ipihandler.c
+* @file server/core/trng/trngpsv/xsecure_trng_ipihandler.c
 *
 * This file contains the xilsecure TRNG IPI handlers implementation.
 *
@@ -21,7 +21,7 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
+* @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
 * @{
 */
 /****************************************** Include Files *****************************************/

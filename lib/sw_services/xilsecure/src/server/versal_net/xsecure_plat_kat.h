@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat.h
+* @file server/versal_net/xsecure_plat_kat.h
 *
 * This file contains KAT interface APIs for Versal Net
 *
@@ -27,9 +27,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KAT_H_
 #define XSECURE_PLAT_KAT_H_
 
@@ -62,9 +62,9 @@ int XSecure_RsaPwct(XSecure_RsaPrivKey *PrivKey, XSecure_RsaPubKey *PubKey, void
 int XSecure_RsaPrivateDecryptKat(void);
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_KAT_H_ */
-/** @} */

@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_aesclient.h
+* @file client/core/aes/xsecure_aesclient.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the AES hardware module.
@@ -32,10 +32,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
-* @{
-*/
+ * @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
+ * @{
+ */
 #ifndef XSECURE_AES_CLIENT_H
 #define XSECURE_AES_CLIENT_H
 
@@ -113,9 +114,9 @@ int XSecure_AesPerformOperation(const XSecure_ClientInstance *InstancePtr,
 		const XSecure_AesDataBlockParams *AesDataParams);
 int XSecure_AesGmacUpdateAad(XSecure_ClientInstance *InstancePtr, u64 AadAddr, u32 AadSize, u32 IsLastChunkSrc);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_AES_CLIENT_H */
-/** @} */

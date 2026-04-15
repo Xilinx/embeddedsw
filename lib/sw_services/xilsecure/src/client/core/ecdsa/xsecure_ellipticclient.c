@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ellipticclient.c
+* @file client/core/ecdsa/xsecure_ellipticclient.c
 *
 * This file contains the implementation of the client interface functions for
 * ECDSA driver.
@@ -73,15 +73,15 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/**
-	 * Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
-	 * Validates the size of the shared memory whether the required size is available or not.
+	 * - Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
+	 *   Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
@@ -98,7 +98,7 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignGenParams));
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_GENERATE_SIGN),
 				Buffer,
@@ -107,8 +107,8 @@ int XSecure_EllipticGenerateSign(XSecure_ClientInstance *InstancePtr, u32 CurveT
 				(SignAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
@@ -139,14 +139,14 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD5(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_GENERATE_KEY),
 				CurveType,
@@ -156,8 +156,8 @@ int XSecure_EllipticGenerateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 				(PubKeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
@@ -184,14 +184,14 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
 		goto END;
 	}
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_VALIDATE_KEY),
 				CurveType,
@@ -199,8 +199,8 @@ int XSecure_EllipticValidateKey(XSecure_ClientInstance *InstancePtr, u32 CurveTy
 				(KeyAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 END:
@@ -235,15 +235,15 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 	volatile u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/**
-	 * Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
-	 * Validates the size of the shared memory whether the required size is available or not.
+	 * - Link shared memory of size EcdsaParams to EcdsaParams structure for IPI usage.
+	 *   Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&EcdsaParams);
 
@@ -260,15 +260,15 @@ int XSecure_EllipticVerifySign(XSecure_ClientInstance *InstancePtr, u32 CurveTyp
 
 	XSecure_DCacheFlushRange(EcdsaParams, sizeof(XSecure_EllipticSignVerifyParams));
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_ELLIPTIC_VERIFY_SIGN),
 				Buffer,
 				(Buffer >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, (u32 *)Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 

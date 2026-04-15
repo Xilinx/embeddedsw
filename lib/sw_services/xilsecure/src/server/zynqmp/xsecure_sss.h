@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sss.h
+* @file server/zynqmp/xsecure_sss.h
 *
 * This file contains macros and functions required for the SSS configuration
 * for Zynqmp
@@ -24,8 +24,12 @@
 * 5.2   ng      07/05/23 Added support for system device tree flow
 *
 * </pre>
-* @endcond
-******************************************************************************/
+*
+*******************************************************************************/
+/**
+ * @addtogroup xsecure_sss_apis XilSecure SSS APIs
+ * @{
+ */
 #ifndef XSECURE_SSS_H
 #define XSECURE_SSS_H
 
@@ -43,7 +47,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */
-#define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length is bits */
+#define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length in bits */
 #define XSECURE_CSU_REG_BASE_ADDR	(0xFFCA0000U)
 					/**< CSU base address */
 #define XSECURE_SSS_ADDRESS		(0xFFCA0008U)/**< SSS base address */
@@ -86,9 +90,10 @@ u32 XSecure_SssPcap(XSecure_Sss *InstancePtr, u16 DmaId);
 #endif
 
 /** @endcond */
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SSS_H_ */
-/** @} */

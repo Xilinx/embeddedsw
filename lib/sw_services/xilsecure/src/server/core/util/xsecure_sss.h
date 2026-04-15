@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sss.h
+* @file server/core/util/xsecure_sss.h
 *
 * This file contains macros and functions required for SSS configuration for
 * Versal
@@ -29,10 +29,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
-* @{
-*/
+ * @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+ * @{
+ */
 #ifndef XSECURE_SSS_H
 #define XSECURE_SSS_H
 
@@ -46,7 +47,7 @@ extern "C" {
 
 /************************** Constant Definitions ****************************/
 /** @cond xsecure_internal */
-#define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length is bits */
+#define XSECURE_SSS_CFG_LEN_IN_BITS	(4U) /**< Length in bits */
 
 /***************************** Type Definitions******************************/
 /**
@@ -74,9 +75,9 @@ extern const u8 XSecure_SssLookupTable[XSECURE_SSS_MAX_SRCS][XSECURE_SSS_MAX_SRC
 
 /** @endcond */
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SSS_H_ */
-/** @} */

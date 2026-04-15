@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_q.h
+* @file server/core/rsa/rsa_qmode/xsecure_rsa_q.h
 *
 * This file contains hardware interface related information for RSA quite mode
 *
@@ -20,10 +20,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_rsa_qmode_apis Xilsecure RSA QMODE Server APIs
-* @{
-*/
+ * @addtogroup xsecure_rsa_qmode_apis Xilsecure RSA QMODE Server APIs
+ * @{
+ */
 #ifndef XSECURE_RSA_Q_H_
 #define XSECURE_RSA_Q_H_
 
@@ -83,4 +84,5 @@ int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q,
 
 #endif	/* PLM_RSA_EXCLUDE_H_ */
 
+/** @} */
 #endif /* XSECURE_RSA_Q_H_ */

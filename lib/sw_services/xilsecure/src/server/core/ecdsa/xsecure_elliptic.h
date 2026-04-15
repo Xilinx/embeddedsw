@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_elliptic.h
+* @file server/core/ecdsa/xsecure_elliptic.h
 * This file contains the interface functions for ECC engine.
 *
 * <pre>
@@ -41,10 +41,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_ecdsa_server_apis XilSecure ECDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_ELLIPTIC_H_
 #define XSECURE_ELLIPTIC_H_
 
@@ -147,9 +148,9 @@ u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType);
  */
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif
-/** @} */

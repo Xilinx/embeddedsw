@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_common.h
+* @file server/core/sha/xsecure_sha_common.h
 *
 * This file contains the common defines, structures between different SHA
 * platforms
@@ -27,10 +27,7 @@
 * </pre>
 *
 ******************************************************************************/
-/**
-* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
-* @{
-*/
+
 #ifndef XSECURE_SHA_COMMON_H
 #define XSECURE_SHA_COMMON_H
 

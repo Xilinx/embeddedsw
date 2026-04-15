@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_plat_aes_client.h
+* @file client/core/key_zeroize/xsecure_plat_aes_client.h
 * This file contains the function prototypes for the AES client APIs for
 * Versal Net.
 *
@@ -21,10 +21,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
-* @{
-*/
+ * @addtogroup xsecure_aes_client_apis XilSecure AES Client APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_AES_CLIENT_H
 #define XSECURE_PLAT_AES_CLIENT_H
 
@@ -46,9 +47,9 @@ extern "C" {
 /************************** Function Definitions *****************************/
 int XSecure_AesPerformOperationAndZeroizeKey(XSecure_ClientInstance *InstancePtr, u64 KeyAddr, const XSecure_AesDataBlockParams *AesDataParams);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_PLAT_AES_CLIENT_H */
-/** @} */

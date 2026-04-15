@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_trng.c
+* @file server/core/trng/trngpsv/xsecure_trng.c
 * This file contains function declaration to get random number.
 *
 * This header file contains function declaration to get random number.
@@ -25,7 +25,7 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
+* @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
 * @{
 */
 
@@ -93,7 +93,7 @@ int XSecure_TrngInitNCfgMode(int XSecureTrngMode, u8 *Seed, u32 SeedLength, u8 *
 		}
 	}
 
-	/* Initiate TRNG */
+	/** - Initiate TRNG */
 	UsrCfg.DFDisable = XTRNGPSV_FALSE;
 	UsrCfg.PredResistanceEn = XTRNGPSV_FALSE;
 
@@ -161,7 +161,7 @@ int XSecure_PreOperationalSelfTests(XSecure_TrngInstance *TrngInstance)
 	volatile int Status = XST_FAILURE;
 	XTrngpsv *InstancePtr = TrngInstance;
 
-	/* Reset the TRNG state */
+	/** - Reset the TRNG state */
 	if (!XSecure_TrngIsUninitialized(TrngInstance)){
 		Status = XTrngpsv_Uninstantiate(InstancePtr);
 		if (Status != XST_SUCCESS) {

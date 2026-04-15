@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_defs.h
+* @file common/versal_2ve_2vm/xsecure_plat_defs.h
 *
 * This file contains the xsecure API IDs for versal_2ve_2vm
 *

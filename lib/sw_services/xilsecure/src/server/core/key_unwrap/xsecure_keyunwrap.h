@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_keyunwrap.h
+* @file server/core/key_unwrap/xsecure_keyunwrap.h
 *
 * This file contains APIs related to key unwrap
 *
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_keyunwrap_server_apis XilSecure Key Unwrap Server APIs
-* @{
-*/
+ * @addtogroup xsecure_keyunwrap_server_apis XilSecure Key Unwrap Server APIs
+ * @{
+ */
 #ifndef XSECURE_KEY_UNWRAP_H_
 #define XSECURE_KEY_UNWRAP_H_
 
@@ -56,9 +57,9 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData);
 
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_KEY_UNWRAP_H_ */
-/** @} */

@@ -1,12 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_hw.h
+* @file server/zynqmp/xsecure_sha_hw.h
 * This file contains SHA3 core hardware definitions.
 *
 * <pre>
@@ -21,8 +22,7 @@
 *                     related code
 * </pre>
 *
-* @endcond
-******************************************************************************/
+*******************************************************************************/
 
 #ifndef XSECURE_SHA_HW_H
 #define XSECURE_SHA_HW_H
@@ -50,7 +50,7 @@ extern "C" {
 					/**< SHA3 Digest: Reg 0 */
 #define XSECURE_CSU_SHA3_DIGEST_11_OFFSET (0x3CU)
 					/**< SHA3 Digest: Last Register */
-/* @} */
+/** @} */
 
 #ifdef __cplusplus
 }
