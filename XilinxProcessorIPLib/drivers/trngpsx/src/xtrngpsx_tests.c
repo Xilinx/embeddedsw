@@ -8,7 +8,7 @@
 /**
  *
  * @file xtrngpsx_tests.c
- * @addtogroup Overview
+ * @addtogroup trngpsx_api TRNGPSX APIs
  * @{
  *
  * Contains Known Answer Tests and Health Tests for the TRNGPSV component.
@@ -212,7 +212,7 @@ END:
 int XTrngpsx_PreOperationalSelfTests(XTrngpsx_Instance *InstancePtr) {
 	volatile int Status = XST_FAILURE;
 
-	/* Reset the TRNG state */
+	/** - Reset the TRNG state */
 	Status = XTrngpsx_Uninstantiate(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;

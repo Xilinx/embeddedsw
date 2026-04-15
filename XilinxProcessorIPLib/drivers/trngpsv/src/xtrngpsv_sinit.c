@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xtrngpsv_sinit.c
- * @addtogroup Overview
+ * @addtogroup trngpsv_api TRNGPSV APIs
  * @{
  *
  * This file contains static initialization method for Xilinx TRNG driver
@@ -62,10 +62,10 @@ XTrngpsv_Config *XTrngpsv_LookupConfig(u16 DeviceId)
 	XTrngpsv_Config *CfgPtr = NULL;
 	u32 Index;
 
-	/* Checking for device id for which instance it is matching */
+	/** - Checking for device id for which instance it is matching */
 	for (Index = 0U; Index < (u32)(XPAR_XTRNGPSV_NUM_INSTANCES); Index++) {
 
-		/* Assigning address of config table if both device ids are matched */
+		/** - Assigning address of config table if both device ids are matched */
 		if (XTrngpsv_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XTrngpsv_ConfigTable[Index];
 			break;
@@ -80,7 +80,7 @@ XTrngpsv_Config *XTrngpsv_LookupConfig(UINTPTR BaseAddress)
 	XTrngpsv_Config *CfgPtr = NULL;
 	u32 Index;
 
-	/* Checks all the instances */
+	/** - Checks all the instances */
 	for (Index = 0U; XTrngpsv_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XTrngpsv_ConfigTable[Index].BaseAddress == BaseAddress) ||
 			 !BaseAddress) {

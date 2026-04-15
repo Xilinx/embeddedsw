@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xtrngpsv_df.c
- * @addtogroup Overview
+ * @addtogroup trngpsv_api TRNGPSV APIs
  * @{
  *
  * Implements the DF functionality, calls the functions that implement core algorithm for the
@@ -95,10 +95,10 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 			16U, 17U, 18U, 19U, 20U, 21U, 22U, 23U,
 			24U, 25U, 26U, 27U, 28U, 29U, 30U, 31U};
 
-	/*
-	 * EntropyData member of DFInputis already populated by calling functions, remaining members
-	 * of this data structure to be filled here. Block cipher algorithm expects data to be
-	 * present in a specific format which is the XTrngpsv_DFInput format
+	/**
+	 * - EntropyData member of DFInputis already populated by calling functions, remaining members
+	 *   of this data structure to be filled here. Block cipher algorithm expects data to be
+	 *   present in a specific format which is the XTrngpsv_DFInput format
 	 */
 
 	if (PersStrPtr == NULL) {
@@ -128,7 +128,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	if (DF_Flag == DF_SEED) {
 		InstancePtr->DFInput.PostDfLen = XTRNGPSV_SWAP_ENDIAN(XTRNGPSV_PERS_STR_LEN_BYTES);
 	}
-	else { /* DF_RAND */
+	else { /** - DF_RAND */
 		InstancePtr->DFInput.PostDfLen = XTRNGPSV_SWAP_ENDIAN(XTRNGPSV_GEN_LEN_BYTES);
 	}
 
@@ -149,14 +149,15 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 				+ (u32)sizeof(InstancePtr->DFInput.PadData);
 	}
 
-	/* Below is optional step just to make sure that remaining bytes (beyond what is given
-	 * as input to DF) is cleared with 0s
+	/**
+	 * - Below is optional step just to make sure that remaining bytes (beyond what is given
+	 *   as input to DF) is cleared with 0s
 	 */
 	DiffSize = (u32)(SrcAddr - DestAddr);
 	RemDataAddr = (UINTPTR)&InstancePtr->DFInput + (u32)sizeof(InstancePtr->DFInput) - DiffSize;
 
 	if (DiffSize > 0U) {
-		/* Move the block up */
+		/** - Move the block up */
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemMove, (u8*)DestAddr, TransferSize,
 				(u8*)SrcAddr, TransferSize, TransferSize);
 		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
@@ -164,7 +165,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 			goto SET_ERR;
 		}
 
-		/* Fill the remaining memory (after moving) with 0s */
+		/** - Fill the remaining memory (after moving) with 0s */
 		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, Xil_SMemSet, (u8*)RemDataAddr, DiffSize,
 				0U, DiffSize);
 		if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
@@ -173,7 +174,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 		}
 	}
 
-	/* Perform first part of the DF algorithm */
+	/** - Perform first part of the DF algorithm */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, aesSetupKey, DFKey, (s32)sizeof(DFKey));
 	if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
 		Status = (s32)XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED;
@@ -198,7 +199,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 		goto SET_ERR;
 	}
 
-	/* Perform second part of the DF algorithm (final update to DFOutput) */
+	/** - Perform second part of the DF algorithm (final update to DFOutput) */
 	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, aesSetupKey, (u8*)InstancePtr->DFOutput, (s32)sizeof(DFKey));
 	if ((Status != XTRNGPSV_SUCCESS) || (StatusTmp != XTRNGPSV_SUCCESS)) {
 		Status = (s32)XTRNGPSV_ERROR_DF_SETUP_KEY_FAILED;
@@ -225,7 +226,7 @@ s32 XTrngpsv_DF(XTrngpsv *InstancePtr, u8 *DFOutput, u32 DF_Flag, const u8 *Pers
 	}
 
 SET_ERR1:
-	/* Clear the aes key schedule once DF operation is done */
+	/** - Clear the aes key schedule once DF operation is done */
 	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, aesSetupKey, DFKey, (s32)sizeof(DFKey));
 	if ((SStatus != XTRNGPSV_SUCCESS) || (SStatusTmp != XTRNGPSV_SUCCESS)) {
 		if ((Status == XTRNGPSV_SUCCESS) || (StatusTmp == XTRNGPSV_SUCCESS)) {

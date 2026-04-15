@@ -8,7 +8,7 @@
 /**
  *
  * @file xtrngpsv_hw.h
- * @addtogroup Overview
+ * @addtogroup trngpsv_api TRNGPSV APIs
  * @{
  *
  * This header file contains identifiers and register-level core functions (or macros) that can be
@@ -84,7 +84,7 @@ extern "C" {
  */
 
 /* Register: TRNG_PER_STRNG_0 */
-#define TRNG_PER_STRNG_0    0x00000080U  /**< TRNG personalization string 0 offset */
+#define TRNG_PER_STRNG_0    0x00000080U  /**< - TRNG personalization string 0 offset */
 /**
  * Below registers are not directly referenced in driver but are accessed accessed with offset
  * from TRNG_PER_STRNG_0
@@ -103,7 +103,7 @@ extern "C" {
  */
 
 /* Register: TRNG_CORE_OUTPUT */
-#define TRNG_CORE_OUTPUT    0x000000C0U  /**< TRNG core output offset */
+#define TRNG_CORE_OUTPUT    0x000000C0U  /**< - TRNG core output offset */
 
 /* Register: TRNG_RESET */
 #define TRNG_RESET              0x000000D0U  /**< TRNG reset offset */
