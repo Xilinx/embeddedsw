@@ -26,7 +26,6 @@
 
 /***************************** Include Files *********************************/
 
-#include <assert.h>
 #include "xemacps_hw.h"
 #include "xparameters.h"
 
@@ -124,8 +123,7 @@ u32 XEmacPs_GetQxOffset(XEmacPs_QxRegOffset RegName, u8 Queue)
 		XEMACPS_INTQ3_IDR_OFFSET }}; /* INTQI_IDR */
 
 	/* Assert when Queue passed is greater than Max Queues Possible */
-	assert(Queue <= MAX_QUEUES_FEASIBLE && \
-		"ERROR: Specified Queue exceeds the Max Queue!");
+	Xil_AssertNonvoid(Queue <= MAX_QUEUES_FEASIBLE);
 
 	return Map[RegName][Queue];
 }
