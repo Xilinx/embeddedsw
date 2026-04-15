@@ -155,8 +155,8 @@ typedef enum {
 		/**<0x28 Error glitch detected */
 	XLOADER_SEC_ENC_DATA_NOT_ALIGNED_ERROR,
 		/**<0x29 Error encrypted data is not 128 bit aligned */
-	XLOADER_SEC_KAT_FAILED_ERROR,
-		/**<0x30 Secure KAT failed error */
+	XLOADER_ERR_RESERVED_30,
+		/**< 0x30 XLOADER_ERR_RESERVED_30 */
 	XLOADER_SEC_KEY_CLEAR_FAILED_ERROR,
 		/**<0x31 Error when RED key clear failed */
 	XLOADER_SEC_STATE_CONFIG_MEASUREMENT_ERROR,

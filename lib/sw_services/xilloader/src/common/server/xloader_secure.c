@@ -164,6 +164,7 @@
 #include "xloader_plat.h"
 #include "xloader_plat_secure.h"
 #include "xsecure_resourcehandling.h"
+#include "xloader_kat.h"
 
 /************************** Constant Definitions ****************************/
 

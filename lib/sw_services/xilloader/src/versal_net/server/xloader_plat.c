@@ -101,6 +101,7 @@
 #include "xsecure_plat.h"
 #include "xsecure_trng.h"
 #include "xloader_auth_jtag.h"
+#include "xloader_kat.h"
 
 /************************** Constant Definitions *****************************/
 #define XLOADER_IMAGE_INFO_VERSION	(1U) /**< Image version information */

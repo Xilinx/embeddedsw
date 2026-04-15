@@ -125,7 +125,6 @@ extern "C" {
 /**< Masks are used to determine if KAT for the respective crypto hardware
  * has already been run or not.
  */
-#define XLOADER_PPDI_KAT_MASK		    (0x03U) /**< PPDI KAT mask */
 
 #define XLOADER_PPDI_RED_KEY_CLR_MASK	(0x0CU) /**< Red key clear mask */
 
@@ -902,7 +901,6 @@ int XLoader_ProcessAuthEncPrtn(XLoader_SecureParams *SecurePtr, u64 DestAddr,
 #ifndef PLM_RSA_EXCLUDE
 int XLoader_RsaPssSignVerify(u8 *MsgHash, XSecure_Rsa *RsaInstPtr, u8 *Signature, u32 KeySize);
 #endif
-void XLoader_ClearKatOnPPDI(XilPdi *PdiPtr, u32 PlmKatMask);
 int XLoader_IsPpkValid(const u8 *PpkHash);
 int XLoader_ClearAesKey(u32 *DecKeySrc);
 int XLoader_IsPpkRevoked(u32 PpkInvldMask);
@@ -933,7 +931,6 @@ int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize);
 int XLoader_VerifyRevokeId(u32 RevokeId);
 #endif
 int XLoader_AuthKat(XLoader_SecureParams *SecurePtr);
-int XLoader_Sha3Kat(XilPdi *PdiPtr);
 
 #ifdef __cplusplus
 }

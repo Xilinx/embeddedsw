@@ -370,10 +370,10 @@ typedef struct {
 	u8 DelayHandoff; /**< Delay handoff is enabled if set */
 	u8 DelayLoad; /**< Delay Load is enabled if set */
 	u8 IsSubsystemRestart; /** TRUE if Subsystem restart when triggered from ImageStore or IPI */
-#ifndef PLM_SECURE_EXCLUDE
 	u32 PlmKatStatus; /**< PLM Known Answer Test Status */
-	u32 DecKeySrc; /**< Decryption Key Source */
 	u32 PpdiKatStatus; /**< PPDI Known Answer Test Status */
+#ifndef PLM_SECURE_EXCLUDE
+	u32 DecKeySrc; /**< Decryption Key Source */
 #endif
 	u32 DigestIndex; 	/**< Digest index for data measurement */
 	u32 ImagePrtnId; /**< Partition number in the Image */

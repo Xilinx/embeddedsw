@@ -49,6 +49,7 @@
 #include "xplmi_err.h"
 #include "xloader_ddr.h"
 #include "xilpdi.h"
+#include "xloader_kat.h"
 #ifdef PLM_OCP
 #include "xsecure_trng.h"
 #include "xocp.h"
