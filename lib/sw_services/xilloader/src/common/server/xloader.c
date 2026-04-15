@@ -905,6 +905,11 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	}
 #endif
 
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+	/** Assign the function pointer to copy hash block */
+	SecureParams.CopyHashBlock = XLoader_CopyHashBlock;
+#endif
+
 	/**
 	 * Read and verify image headers and partition headers
 	 */
