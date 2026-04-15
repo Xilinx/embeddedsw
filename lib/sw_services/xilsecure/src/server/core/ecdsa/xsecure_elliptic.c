@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_elliptic.c
+* @file server/core/ecdsa/xsecure_elliptic.c
 *
 * This file contains the implementation of the interface functions for ECC
 * engine.
@@ -158,23 +158,23 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	}
 #endif
 
-	/* Store Priv key to local buffer */
+	/** - Store Priv key to local buffer */
 	XSecure_PutData(Size, (u8*)D, DAddr);
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
 	Key.Qy = (u8 *)(UINTPTR)(PubKey + OffSet);
 
-	/* Place the hardware core into the reset */
+	/** - Place the hardware core into the reset */
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
 	Status = XST_FAILURE;
-	/** Generate public key with provided private key and curve type */
+	/** - Generate public key with provided private key and curve type */
 	Status = Ecdsa_GeneratePublicKey(Crv, D, (EcdsaKey *)&Key);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_GEN_KEY_ERR;
 	}
-	/* Store key to destination address */
+	/** - Store key to destination address */
 	XSecure_GetData(Size, (u8 *)PubKey, KeyAddr->Qx);
 			XSecure_GetData(Size,
 					(u8 *)(PubKey + OffSet),
@@ -229,7 +229,7 @@ int XSecure_EllipticGenerateKey(XSecure_EllipticCrvTyp CrvType, const u8* D,
 	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
 	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
-	/** Generate public key with provided private key and curve type */
+	/** - Generate public key with provided private key and curve type */
 	Status = XSecure_EllipticGenerateKey_64Bit(CrvType, (u64)(UINTPTR)D,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
 
@@ -330,7 +330,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	/* Store Hash,D,K to local buffers */
+	/** - Store Hash,D,K to local buffers */
 	XSecure_PutData(HashInfo->Len, (u8 *)PaddedHash, HashInfo->Addr);
 	XSecure_PutData(Size, (u8 *)D, DAddr);
 	XSecure_PutData(Size, (u8 *)K, KAddr);
@@ -342,8 +342,8 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
 	/**
-	 * Generate signature with provided hash, private key, ephemeral key
-	 * and curve type.
+	 * - Generate signature with provided hash, private key, ephemeral key
+	 *   and curve type.
 	 */
 	XSECURE_TEMPORAL_IMPL(GenStatus, GenStatusTmp, Ecdsa_GenerateSign,
 		Crv, PaddedHash, Crv->Bits, D, K, (EcdsaSign *)&Sign);
@@ -363,14 +363,14 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 		Status = XST_FAILURE;
 	}
 	else {
-		/* Store Sign to destination address */
+		/** - Store Sign to destination address */
 		XSecure_GetData(Size, (u8 *)Signature, SignAddr->SignR);
 		XSecure_GetData(Size, (u8 *)(Signature + OffSet), SignAddr->SignS);
 		Status = XST_SUCCESS;
 	}
 
 END:
-	/* Zeroize local key copy */
+	/** - Zeroize local key copy */
 	ClearStatus = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)D, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	if (Status == XST_SUCCESS) {
@@ -444,8 +444,8 @@ int XSecure_EllipticGenerateSignature(XSecure_EllipticCrvTyp CrvType,
 	HashInfo.Len = HashLen;
 
 	/**
-	 * Generate signature with provided hash, private key, ephemeral key
-	 * and curve type
+	 * - Generate signature with provided hash, private key, ephemeral key
+	 *   and curve type
 	 */
 	Status = XSecure_EllipticGenerateSignature_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
@@ -510,7 +510,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 		OffSet += XSECURE_ECDSA_P521_ALIGN_BYTES;
 	}
 
-	/* Store Pub key(Qx,Qy) to local buffer */
+	/** - Store Pub key(Qx,Qy) to local buffer */
 	XSecure_PutData(Size, (u8 *)PubKey, KeyAddr->Qx);
 	XSecure_PutData(Size, (u8 *)(PubKey + OffSet), KeyAddr->Qy);
 
@@ -520,7 +520,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	/** Validate the public key for a given curve type */
+	/** - Validate the public key for a given curve type */
 	XSECURE_TEMPORAL_IMPL(ValidateStatus, ValidateStatusTmp,
 		Ecdsa_ValidateKey, Crv, (EcdsaKey *)&Key);
 
@@ -585,7 +585,7 @@ int XSecure_EllipticValidateKey(XSecure_EllipticCrvTyp CrvType,
 	KeyAddr.Qx = (u64)(UINTPTR)Key->Qx;
 	KeyAddr.Qy = (u64)(UINTPTR)Key->Qy;
 
-	/** Validate the public key for a given curve type */
+	/** - Validate the public key for a given curve type */
 	Status = XSecure_EllipticValidateKey_64Bit(CrvType,
 			(XSecure_EllipticKeyAddr *) &KeyAddr);
 
@@ -673,7 +673,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	/* Store Pub key(Qx,Qy) and Sign(SignR, SignS) to local buffers */
+	/** - Store Pub key(Qx,Qy) and Sign(SignR, SignS) to local buffers */
 	XSecure_PutData(Size, (u8 *)PubKey, KeyAddr->Qx);
 	XSecure_PutData(Size, (u8 *)(PubKey + OffSet), KeyAddr->Qy);
 
@@ -682,7 +682,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 			SignAddr->SignS);
 
 
-	/* Store Hash to local buffer */
+	/** - Store Hash to local buffer */
 	XSecure_PutData(HashInfo->Len, (u8 *)PaddedHash, HashInfo->Addr);
 
 	Key.Qx = (u8 *)(UINTPTR)PubKey;
@@ -694,7 +694,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 		XSECURE_ECDSA_RSA_RESET_OFFSET);
 
-	/** Verify signature with provided hash, public key and curve type */
+	/** - Verify signature with provided hash, public key and curve type */
 	XSECURE_TEMPORAL_IMPL(VerifyStatus, VerifyStatusTmp, Ecdsa_VerifySign,
 		Crv, PaddedHash, Crv->Bits, (EcdsaKey *)&Key, (EcdsaSign *)&Sign);
 
@@ -788,7 +788,7 @@ int XSecure_EllipticVerifySign(XSecure_EllipticCrvTyp CrvType, const u8 *Hash,
 	HashInfo.Addr = (u64)(UINTPTR)Hash;
 	HashInfo.Len = HashLen;
 
-	/** Verify signature with provided hash, public key and curve type */
+	/** - Verify signature with provided hash, public key and curve type */
 	Status = XSecure_EllipticVerifySign_64Bit(CrvType,
 			(XSecure_EllipticHashData *) &HashInfo,
 			(XSecure_EllipticKeyAddr *) &KeyAddr,
@@ -822,7 +822,7 @@ EcdsaCrvInfo* XSecure_EllipticGetCrvData(XSecure_EllipticCrvTyp CrvTyp)
 		goto END;
 	}
 
-	/** Get the curve data */
+	/** - Get the curve data */
 	for (Index = 0U; Index < TotalCurves; Index++) {
 		if (XSecure_EllipticCrvsDb[Index].CrvType == (EcdsaCrvTyp)CrvTyp) {
 			Crv = &XSecure_EllipticCrvsDb[Index];
@@ -850,8 +850,8 @@ void XSecure_PutData(const u32 Size, u8 *Dst, const u64 SrcAddr)
 	s32 RIndex = (s32)Size - 1;
 
 	/**
-	 * Copies data from provided address to local buffer based on the
-	 * endianness configured
+	 * - Copies data from provided address to local buffer based on the
+	 *   endianness configured
 	 */
 	for (Index = 0U; (Index < Size) && (RIndex >= 0); Index++, RIndex--) {
 		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
@@ -879,8 +879,8 @@ void XSecure_GetData(const u32 Size, const u8 *Src, const u64 DstAddr)
 	s32 RIndex = (s32)Size - 1;
 
 	/**
-	 * Copies data to provided address from local buffer based on the
-	 * endianness configured
+	 * - Copies data to provided address from local buffer based on the
+	 *   endianness configured
 	 */
 	for (Index = 0U; (Index < Size) && (RIndex >= 0); Index++, RIndex--) {
 		if (XSECURE_ELLIPTIC_ENDIANNESS == XSECURE_ELLIPTIC_LITTLE_ENDIAN) {
@@ -963,7 +963,7 @@ u32 XSecure_EllipticGetCrvSize(const XSecure_EllipticCrvTyp CrvType)
 	u32 CrvSize = 0U;
 	const EcdsaCrvInfo* CrvInfo = (EcdsaCrvInfo *)XSecure_EllipticGetCrvData(CrvType);
 
-	/** Get curve size */
+	/** - Get curve size */
 	if (CrvInfo != NULL) {
 		CrvSize = (u32)CrvInfo->Bits / XSECURE_ECDSA_BITS_IN_BYTES;
 		CrvSize += (CrvSize % XSECURE_ECDSA_ALGN_CRV_SIZE_IN_BYTES);

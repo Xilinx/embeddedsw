@@ -1,11 +1,11 @@
 /******************************************************************************
-* Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024-2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat.h
+* @file server/versal_2ve_2vm/xsecure_plat_kat.h
 *
 *
 * This file contains KAT interface APIs for Versal_2Ve_2Vm
@@ -20,10 +20,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KAT_H_
 #define XSECURE_PLAT_KAT_H_
 
@@ -58,9 +59,9 @@ int XSecure_HssShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 int XSecure_LmsSha2256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 int XSecure_LmsShake256Kat(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_KAT_H_ */
-/** @} */

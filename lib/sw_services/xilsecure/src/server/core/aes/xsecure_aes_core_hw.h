@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes_core_hw.h
+* @file server/core/aes/xsecure_aes_core_hw.h
 * This file contains AES core hardware definitions of versal.
 *
 * <pre>
@@ -27,8 +27,9 @@
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
+/** @cond xsecure_internal
+*/
 
 #ifndef XSECURE_AES_CORE_HW_H
 #define XSECURE_AES_CORE_HW_H
@@ -211,3 +212,4 @@ extern "C" {
 #endif
 
 #endif /* XSECURE_AES_CORE_HW_H */
+/** @endcond */

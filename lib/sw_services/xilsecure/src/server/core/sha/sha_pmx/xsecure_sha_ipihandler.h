@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_ipihandler.h
+* @file server/core/sha/sha_pmx/xsecure_sha_ipihandler.h
 *
 * This file contains the Xilsecure SHA3 IPI handler declaration.
 *
@@ -23,10 +23,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SHA_IPIHANDLER_H_
 #define XSECURE_SHA_IPIHANDLER_H_
 
@@ -40,6 +41,7 @@ extern "c" {
 /************************** Constant Definitions *****************************/
 int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

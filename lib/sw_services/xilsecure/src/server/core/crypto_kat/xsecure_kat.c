@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat.c
+* @file server/core/crypto_kat/xsecure_kat.c
 *
 * This file contains known answer tests common for both Versal and VersalNet
 *
@@ -581,7 +581,7 @@ u8* XSecure_GetKatEccPrivateKey(XSecure_EllipticCrvClass CrvClass) {
 u8* XSecure_GetKatEccEphemeralKey(XSecure_EllipticCrvTyp CrvType) {
 	static u8 *K;
 
-	/* select ephemeral key as per the curve*/
+	/** - select ephemeral key as per the curve */
 	if (CrvType == XSECURE_ECC_NIST_P384) {
 		K = (u8*)K_P384;
 	}
@@ -657,7 +657,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/** Perform KAT on AES engine to know performance integrity */
+	/** - Perform KAT on AES engine to know performance integrity */
 	Status = XSecure_AesDpaCmDecryptData(AesInstance, Key0, Data0, Output0);
 	if (Status != XST_SUCCESS) {
 		goto END_CLR;
@@ -713,7 +713,7 @@ int XSecure_AesDecryptCmKat(const XSecure_Aes *AesInstance)
 	Status = XST_SUCCESS;
 
 END_CLR:
-	/* Zeroize the AES key storage register */
+	/** - Zeroize the AES key storage register */
 	SStatus = XSecure_AesKeyZero(AesInstance, XSECURE_AES_USER_KEY_7);
 	if((Status == XST_SUCCESS) && (Status == XST_SUCCESS)) {
 		Status = SStatus;
@@ -803,7 +803,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/** Write AES key */
+	/** - Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesKey);
 	if (Status != XST_SUCCESS) {
@@ -813,7 +813,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
-	/** Configure AES engine to decryption */
+	/** - Configure AES engine to decryption */
 	Status = XST_FAILURE;
 	Status = XSecure_AesDecryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesIv);
@@ -822,7 +822,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/** Update AAD */
+	/** - Update AAD */
 	Status = XST_FAILURE;
 	Status = XSecure_AesUpdateAad(AesInstance, (UINTPTR)AesAadData,
 			XSECURE_KAT_AAD_SIZE_IN_BYTES);
@@ -831,7 +831,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/** Update input and output addresses to AES engine */
+	/** - Update input and output addresses to AES engine */
 	Status = XSecure_AesDecryptUpdate(AesInstance, (UINTPTR)AesCt,
 			(UINTPTR)DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -839,7 +839,7 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/** Verify the GCM Tag */
+	/** - Verify the GCM Tag */
 	Status = XST_FAILURE;
 	Status =  XSecure_AesDecryptFinal(AesInstance, (UINTPTR)AesGcmTag);
 	if (Status != XST_SUCCESS) {
@@ -847,12 +847,12 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/* Initialized to error */
+	/** - Initialized to error */
 	Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
-	/** Validate the decrypted data with expected data provided */
+	/** - Validate the decrypted data with expected data provided */
 	for (Index = 0U; Index < XSECURE_KAT_MSG_LEN_IN_WORDS; Index++) {
 		if (DstVal[Index] != AesExpPt[Index]) {
-			/* Comparison failure of decrypted data */
+			/** - Comparison failure of decrypted data */
 			Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
 			goto END_CLR;
 		}
@@ -923,7 +923,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END;
 	}
 
-	/** Write AES key */
+	/** - Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesKey);
 	if (Status != XST_SUCCESS) {
@@ -933,7 +933,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	XSecure_ConfigureDmaByteSwap(XSECURE_ENABLE_BYTE_SWAP);
 #endif
-	/** Configure AES engine to encryption */
+	/** - Configure AES engine to encryption */
 	Status = XST_FAILURE;
 	Status = XSecure_AesEncryptInit(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)AesIv);
@@ -942,7 +942,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/** Update AAD */
+	/** - Update AAD */
 	Status = XST_FAILURE;
 	Status = XSecure_AesUpdateAad(AesInstance, (UINTPTR)AesAadData,
 			XSECURE_KAT_AAD_SIZE_IN_BYTES);
@@ -951,7 +951,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/** Update input and output addresses to AES engine */
+	/** - Update input and output addresses to AES engine */
 	Status = XSecure_AesEncryptUpdate(AesInstance, (UINTPTR)AesPt,
 			(UINTPTR)DstVal, XSECURE_KAT_MSG_LEN_IN_BYTES, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -959,7 +959,7 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/** Update output address to AES engine to store GCM Tag */
+	/** - Update output address to AES engine to store GCM Tag */
 	Status = XST_FAILURE;
 	Status =  XSecure_AesEncryptFinal(AesInstance, (UINTPTR)GcmTag);
 	if (Status != XST_SUCCESS) {
@@ -967,18 +967,18 @@ int XSecure_AesEncryptKat(XSecure_Aes *AesInstance)
 		goto END_CLR;
 	}
 
-	/* Initialized to error */
+	/** - Initialized to error */
 	Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
-	/** Validate the encrypted data with expected data provided */
+	/** - Validate the encrypted data with expected data provided */
 	for (Index = 0U; Index < XSECURE_KAT_MSG_LEN_IN_WORDS; Index++) {
 		if (DstVal[Index] != AesExpCt[Index]) {
-			/* Comparison failure of encrypted data */
+			/** - Comparison failure of encrypted data */
 			Status = (int)XSECURE_AES_KAT_DATA_MISMATCH_ERROR;
 			goto END_CLR;
 		}
 	}
 
-	/** Validate the GCM Tag */
+	/** - Validate the GCM Tag */
 	if (Index == XSECURE_KAT_MSG_LEN_IN_WORDS) {
 		Status = (int)XSECURE_KAT_GCM_TAG_MISMATCH_ERROR;
 		Status = Xil_SMemCmp_CT(GcmTag, sizeof(GcmTag), AesGcmTag, XSECURE_SECURE_GCM_TAG_SIZE,
@@ -1040,7 +1040,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 		goto END;
 	}
 
-	/** Configure SSS and start SHA-3 engine */
+	/** - Configure SSS and start SHA-3 engine */
 	Status = XSecure_ShaStart(SecureSha3, XSECURE_SHA3_384);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -1053,7 +1053,7 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
         }
 #endif
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-	/** Update SHA3 engine with input data */
+	/** - Update SHA3 engine with input data */
 	Status = XSecure_ShaUpdate(SecureSha3, (UINTPTR)KatMessage,
 			XSECURE_KAT_MSG_LEN_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -1062,14 +1062,14 @@ int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3)
 	}
 
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
-	/** Update SHA3 engine with padded data if required and reads the hash */
+	/** - Update SHA3 engine with padded data if required and reads the hash */
 	Status = XSecure_ShaFinish(SecureSha3, (u64)(UINTPTR)&OutVal, sizeof(OutVal));
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA3_FINISH_ERROR;
 		goto END_RST;
 	}
 
-	/** Validate the generated hash with the provided expected hash */
+	/** - Validate the generated hash with the provided expected hash */
 	Status = (int)XSECURE_SHA3_KAT_FAILED_ERROR;
 	for(Index = 0U; Index < XSECURE_SHA_384_HASH_SIZE_IN_BYTES; Index++) {
 		if (OutVal.Hash[Index] != ExpSha3Hash[Index]) {
@@ -1116,7 +1116,7 @@ int XSecure_RsaPublicEncryptKat(void)
 	u32 RsaOutput[XSECURE_RSA_2048_SIZE_WORDS];
 	u32 PubExp = XSECURE_KAT_RSA_PUB_EXP;
 
-	/** Initialize the RSA instance */
+	/** - Initialize the RSA instance */
 	Status = XSecure_RsaInitialize(&XSecureRsaInstance, (u8 *)RsaModulus,
 		(u8*)RsaModExt, (u8 *)&PubExp);
 	if (Status != XST_SUCCESS) {
@@ -1124,7 +1124,7 @@ int XSecure_RsaPublicEncryptKat(void)
 		goto END;
 	}
 
-	/** Perform the public encrypt operation */
+	/** - Perform the public encrypt operation */
 	Status = XST_FAILURE;
 	Status = XSecure_RsaPublicEncrypt(&XSecureRsaInstance, (u8 *)RsaData,
 		XSECURE_RSA_2048_KEY_SIZE, (u8 *)RsaOutput);
@@ -1133,9 +1133,9 @@ int XSecure_RsaPublicEncryptKat(void)
 		goto END_CLR;
 	}
 
-	/* Initialized to error */
+	/** - Initialized to error */
 	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
-	/** Validate the encrypted data with the expected data provided */
+	/** - Validate the encrypted data with the expected data provided */
 	for (Index = 0U; Index < XSECURE_RSA_2048_SIZE_WORDS; Index++) {
 		if (RsaOutput[Index] != RsaExpCtData[Index]) {
 			Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
@@ -1234,8 +1234,8 @@ int XSecure_EllipticSignGenerateKat(XSecure_EllipticCrvClass CrvClass) {
 	GeneratedSign.SignS = &Sign[Size];
 
 	/**
-	 * Generates signature for the provided hash and curve type
-	 * and then perform KAT using that signature.
+	 * - Generates signature for the provided hash and curve type
+	 *   and then perform KAT using that signature.
 	 */
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P384, (u8*)&ExpEccSha3Hash[0U],
 				Size, D, K, &GeneratedSign);
@@ -1286,7 +1286,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	u8 *K = XSecure_GetKatEccEphemeralKey(Curvetype);
 	u8 Size = 0U;
 
-	/** Get size as per the curve type */
+	/** - Get size as per the curve type */
 	if (Curvetype == XSECURE_ECC_NIST_P384) {
 		Size = XSECURE_ECC_P384_SIZE_IN_BYTES;
 	}
@@ -1312,7 +1312,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	GeneratedSignAddr.SignR = (u64)(UINTPTR)&Sign[0U];
 	GeneratedSignAddr.SignS = (u64)(UINTPTR)&Sign[Size];
 
-	/** Generate signature for given Hash and curve type */
+	/** - Generate signature for given Hash and curve type */
 	Status = XSecure_EllipticGenerateSignature_64Bit(Curvetype, &HashInfo,
 				DAddr, (u64)(UINTPTR)K, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
@@ -1321,7 +1321,7 @@ int XSecure_EllipticPwct(XSecure_EllipticCrvTyp Curvetype, u64 DAddr, XSecure_El
 	}
 
 	Status = XST_FAILURE;
-	/** Verify the signature*/
+	/** - Verify the signature */
 	Status = XSecure_EllipticVerifySign_64Bit(Curvetype, &HashInfo, PubKeyAddr, &GeneratedSignAddr);
 	if (Status != XST_SUCCESS) {
 		Status = (int)XSECURE_ELLIPTIC_KAT_64BIT_SIGN_VERIFY_ERROR;

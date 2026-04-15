@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
  *
- * @file xsecure_sha1.c
+ * @file server/core/softsha1/xsecure_sha1.c
  *
  * This file contains SHA1 driver as per FIPS PUB 180-1.
  *
@@ -189,7 +189,7 @@ s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 	}
 	Idx = RemianingData;
 
-	/* Available bytes for padding in last block */
+	/** - Available bytes for padding in last block */
 	AvailableBytes = XSECURE_SHA1_HASH_BLK_SIZE - RemianingData;
 
 	PaddingSize = AvailableBytes;
@@ -231,7 +231,7 @@ s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 *const Hash)
 		Status = XSECURE_SHA1_TRANSFORM_ERROR;
 		goto END;
 	}
-	/** Read hash */
+	/** - Read hash */
 	Status = XSecure_ReadHash(&Ctx, Hash);
 
 END:
@@ -252,7 +252,7 @@ END:
  **************************************************************************************************/
 static void XSecure_Sha1Init (XSecure_Sha1Ctx* Ctx)
 {
-	/* Set the initial state of the context */
+	/** - Set the initial state of the context */
 	Ctx->State[0] = H0;
 	Ctx->State[1] = H1;
 	Ctx->State[2] = H2;
@@ -290,14 +290,14 @@ static s32 XSecure_Sha1Transform(XSecure_Sha1Ctx *const Ctx, const u8 *const Buf
 		goto END;
 	}
 
-	/* Copy context->state[] to working variables */
+	/** - Copy context->state[] to working variables */
 	W0 = Ctx->State[0];
 	W1 = Ctx->State[1];
 	W2 = Ctx->State[2];
 	W3 = Ctx->State[3];
 	W4 = Ctx->State[4];
 
-	/* Loop unrolled. 80 iteration are unrolled for 4 rounds of 20 operations each. */
+	/** - Loop unrolled. 80 iteration are unrolled for 4 rounds of 20 operations each. */
 	R0(W0, W1, W2, W3, W4,  0U); R0(W4, W0, W1, W2, W3,  1U); R0(W3, W4, W0, W1, W2,  2U); R0(W2, W3, W4, W0, W1,  3U);
 	R0(W1, W2, W3, W4, W0,  4U); R0(W0, W1, W2, W3, W4,  5U); R0(W4, W0, W1, W2, W3,  6U); R0(W3, W4, W0, W1, W2,  7U);
 	R0(W2, W3, W4, W0, W1,  8U); R0(W1, W2, W3, W4, W0,  9U); R0(W0, W1, W2, W3, W4, 10U); R0(W4, W0, W1, W2, W3, 11U);
@@ -319,14 +319,14 @@ static s32 XSecure_Sha1Transform(XSecure_Sha1Ctx *const Ctx, const u8 *const Buf
 	R4(W3, W4, W0, W1, W2, 72U); R4(W2, W3, W4, W0, W1, 73U); R4(W1, W2, W3, W4, W0, 74U); R4(W0, W1, W2, W3, W4, 75U);
 	R4(W4, W0, W1, W2, W3, 76U); R4(W3, W4, W0, W1, W2, 77U); R4(W2, W3, W4, W0, W1, 78U); R4(W1, W2, W3, W4, W0, 79U);
 
-	/* Store the working context */
+	/** - Store the working context */
 	Ctx->State[0] += W0;
 	Ctx->State[1] += W1;
 	Ctx->State[2] += W2;
 	Ctx->State[3] += W3;
 	Ctx->State[4] += W4;
 
-	/* Clear intermediate variables */
+	/** - Clear intermediate variables */
 	W0 = 0U;
 	W1 = 0U;
 	W2 = 0U;
@@ -357,14 +357,14 @@ static s32 XSecure_ReadHash (const XSecure_Sha1Ctx* Ctx, u8 * const Hash)
 	volatile s32 Status = XST_FAILURE;
 	volatile u32 Idx;
 
-	/** Read SHA1 hash */
+	/** - Read SHA1 hash */
 	for (Idx = 0; Idx < (XSECURE_SHA1_HASH_SIZE / sizeof(u32)); Idx++) {
 		Hash[Idx * sizeof(u32)] = GET_BYTE_FROM_U32(Ctx->State[Idx], 3U);
 		Hash[(Idx * sizeof(u32)) + 1U] = GET_BYTE_FROM_U32(Ctx->State[Idx], 2U);
 		Hash[(Idx * sizeof(u32)) + 2U] = GET_BYTE_FROM_U32(Ctx->State[Idx], 1U);
 		Hash[(Idx * sizeof(u32)) + 3U] = GET_BYTE_FROM_U32(Ctx->State[Idx], 0U);
 	}
-	/** Check if all bytes are read */
+	/** - Check if all bytes are read */
 	if (Idx == (XSECURE_SHA1_HASH_SIZE / sizeof(u32))) {
 		Status = XST_SUCCESS;
 	}

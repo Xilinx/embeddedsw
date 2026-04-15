@@ -6,7 +6,7 @@
 /******************************************************************************/
 /**
 *
-* @file xsecure_lms_ots.h
+* @file server/core/lms_hss/xsecure_lms_ots.h
 *
 * This file contains structures, constants and defines used in LMS OTS and
 * provides interface to LMS OTS operations
@@ -24,6 +24,10 @@
 * @note
 *
 *******************************************************************************/
+/**
+ * @addtogroup xsecure_lms_server_apis XilSecure LMS Server APIs
+ * @{
+ */
 #ifndef XSECURE_LMS_OTS_H_
 #define XSECURE_LMS_OTS_H_
 
@@ -50,8 +54,8 @@
 						o/p length match */
 #define XSECURE_LMS_C_FIELD_SIZE		(32U) /**< 32 byte random value for
 						every msg to be authenticated */
-#define XSECURE_LMS_D_MESG_FIELD_SIZE		(2U) /**< Size of @ref XSECURE_D_MESG */
-#define XSECURE_LMS_D_PBLC_FIELD_SIZE		(2U) /**< Size of @ref XSECURE_D_PBLC */
+#define XSECURE_LMS_D_MESG_FIELD_SIZE		(2U) /**< Size of XSECURE_D_MESG */
+#define XSECURE_LMS_D_PBLC_FIELD_SIZE		(2U) /**< Size of XSECURE_D_PBLC */
 
 /** Digest and Checksum related */
 #define XSECURE_LMS_DIGEST_SIZE			(XSECURE_LMS_N_FIELD_SIZE)
@@ -302,7 +306,7 @@ typedef union XSecure_LmsOtsPublicKey_ {
 	u8 Buff[XSECURE_LMS_OTS_PUB_KEY_TOTAL_SIZE];
 	struct {
 		/**
-		 * @brief Type @ref XSecure_LmsOtsType
+		 * @brief Type XSecure_LmsOtsType
 		 * Size - 4 bytes, 0 to 3 bytes in public key
 		 */
 		XSecure_LmsOtsType Type;
@@ -320,7 +324,7 @@ typedef union XSecure_LmsOtsPublicKey_ {
 		 * @brief K - H(I || u32str(q) || u16str(D_PBLC) || y[0] || ... || y[p-1])
 		 * H is a hash function, ROM supports only SHA2-256 and SHAKE-256 both are of 32Byte output len
 		 * I & q remain same as described above
-		 * D_PBLC is a constant @ref XSECURE_D_PBLC
+		 * D_PBLC is a constant XSECURE_D_PBLC
 		 * y[0] to y[p-1] is calculated from private key
 		 */
 		u8 K[XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE];
@@ -395,7 +399,7 @@ typedef union XSecure_LmsOtsSignToPubKeyHash_ {
 		 */
 		u32 q;
 		/**
-		 * D_PBLC - @ref XSECURE_D_PBLC
+		 * D_PBLC - XSECURE_D_PBLC constant
 		 * Size - 2 Bytes, 20 to 21 bytes
 		 */
 		u8 D_PBLC[2U];
@@ -415,7 +419,7 @@ typedef union XSecure_LmsOtsSignToPubKeyHash_ {
  */
 typedef struct XSecure_LmsOtsSignature_ {
 	/**
-	 * @brief Type @ref XSecure_LmsOtsType
+	 * @brief Type XSecure_LmsOtsType
 	 * Size - 4 bytes, 0 to 3 bytes in LMS OTS signature
 	 */
 	XSecure_LmsOtsType Type;
@@ -451,7 +455,7 @@ typedef union XSecure_LmsDataDigestFixedFields_ {
 		 */
 		u32 q;
 		/**
-		 * D_MESG - @ref XSECURE_D_MESG
+		 * D_MESG - XSECURE_D_MESG constant
 		 * Size - 2 Bytes, 20 to 21 bytes
 		 */
 		u8 D_MESG[XSECURE_LMS_D_MESG_FIELD_SIZE];
@@ -491,5 +495,5 @@ int XSecure_LmsOtsComputeChecksum(const u8* const Array, const u32 ArrayLen,
 int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 	XSecure_LmsOtsParam** Parameters);
 
-#endif /* XSECURE_LMS_OTS_H_ */
 /** @} */
+#endif /* XSECURE_LMS_OTS_H_ */

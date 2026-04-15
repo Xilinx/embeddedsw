@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat.c
+* @file server/versal_2ve_2vm/xsecure_plat.c
 * This file contains Versal_2Ve_2Vm specific code for Xilsecure server.
 *
 * <pre>
@@ -29,7 +29,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /***************************** Include Files *********************************/
@@ -194,7 +194,7 @@ void XSecure_UpdateCryptoStatus(UINTPTR BaseAddress, u32 Op)
 		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_SHA3_384_MASK, (XPLMI_SECURE_SHA3_384_MASK & ~Op));
 	}
 	else {
-		/* Do Nothing */
+		/** - Do Nothing */
 	}
 #else
 	(void)BaseAddress;
@@ -222,7 +222,7 @@ static void XSecure_UpdateEcdsaCryptoStatus(u32 Op)
 		}
 	}
 	else {
-		/* Clear both RSA and ECDSA bits */
+		/** - Clear both RSA and ECDSA bits */
 		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_ECDSA_MASK, 0U);
 		XPlmi_UpdateCryptoStatus(XPLMI_SECURE_RSA_MASK, 0U);
 	}
@@ -261,10 +261,10 @@ int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk)
 	int Status = XST_FAILURE;
 
 	/**
-	  * AES engine expect all intermediate updates shall be
-	  * 16-byte aligned when it is not last chunk of data.
-	  * Throw an error if it is not 16 byte aligned.
-	  */
+	 * - AES engine expect all intermediate updates shall be
+	 *   16-byte aligned when it is not last chunk of data.
+	 *   Throw an error if it is not 16 byte aligned.
+	 */
 	if ((IsLastChunk != TRUE) &&
 		((Size % XSECURE_QWORD_SIZE) != 0x00U)) {
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
@@ -304,7 +304,7 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
-	/* Enable PMC DMA Src and Dst channels for byte swapping.*/
+	/** - Enable PMC DMA Src and Dst channels for byte swapping. */
 	if ((AesDmaCfg->SrcChannelCfg == TRUE) &&
 		(InstancePtr->DmaSwapEn == XSECURE_DISABLE_BYTE_SWAP)) {
 		XSecure_AesPmcDmaCfgEndianness(PmcDmaPtr,
@@ -330,28 +330,28 @@ int XSecure_AesPlatPmcDmaCfgAndXfer(XPmcDma *PmcDmaPtr, XSecure_AesDmaCfg *AesDm
 	}
 
 	if (AesDmaCfg->SrcChannelCfg == TRUE) {
-		/* Wait for the SRC DMA completion. */
+		/** - Wait for the SRC DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_SRC_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
 	}
 
 	if ((AesDmaCfg->DestChannelCfg == TRUE) &&
 		((u32)AesDmaCfg->DestDataAddr != XSECURE_AES_NO_CFG_DST_DMA)) {
-		/* Wait for the DEST DMA completion. */
+		/** - Wait for the DEST DMA completion. */
 		Status = XPmcDma_WaitForDoneTimeout(PmcDmaPtr,
 			XPMCDMA_DST_CHANNEL);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XPmcDma_IntrClear(PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 			XPMCDMA_IXR_DONE_MASK);
 	}
@@ -366,11 +366,8 @@ END:
  * 		of PMC DMA
  *
  * @param	InstancePtr	Pointer to the XPmcDma instance
- * @param	Channel		Channel Type
- *				- XPMCDMA_SRC_CHANNEL
- *			 	- XPMCDMA_DST_CHANNEL
- * @param	EndianType	1 : Enable Byte Swapping
- *				0 : Disable Byte Swapping
+ * @param	Channel		Channel Type (XPMCDMA_SRC_CHANNEL or XPMCDMA_DST_CHANNEL)
+ * @param	EndianType	1 to enable byte swapping, 0 to disable byte swapping
  *
  *
  ******************************************************************************/
@@ -379,13 +376,13 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 {
 	XPmcDma_Configure ConfigValues = {0U};
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertVoid(InstancePtr != NULL);
 
-	/* Updates the XPmcDma_Configure structure with PmcDma's channel values */
+	/** - Updates the XPmcDma_Configure structure with PmcDma's channel values */
 	XPmcDma_GetConfig(InstancePtr, Channel, &ConfigValues);
 	ConfigValues.EndianType = EndianType;
-	/* Updates the PmcDma's channel with XPmcDma_Configure structure values */
+	/** - Updates the PmcDma's channel with XPmcDma_Configure structure values */
 	XPmcDma_SetConfig(InstancePtr, Channel, &ConfigValues);
 }
 
@@ -505,10 +502,10 @@ int XSecure_InitiateASUKeyTransfer(void)
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Initiate the key transfer */
+	/** - Initiate the key transfer */
 	XSecure_Out32(XSECURE_AES_KTE_GO_ADDRESS, XSECURE_AES_KTE_GO_ENABLE);
 
-	/** Wait for 4msec for AES KTE DONE bit to set */
+	/** - Wait for 4msec for AES KTE DONE bit to set */
         Status = (int)Xil_WaitForEvent(XSECURE_AES_KTE_DONE_ADDRESS,
 		XSECURE_AES_KTE_DONE_MASK, XSECURE_AES_KTE_DONE_MASK, XSECURE_AES_KTE_DONE_POLL_TIMEOUT);
 		if (Status != XST_SUCCESS) {
@@ -521,7 +518,7 @@ int XSecure_InitiateASUKeyTransfer(void)
 	Status =  XST_SUCCESS;
 
 END:
-	/** Disable the key transfer */
+	/** - Disable the key transfer */
 	XSecure_Out32(XSECURE_AES_KTE_GO_ADDRESS, XSECURE_AES_KTE_GO_DISABLE);
 	return Status;
 }
@@ -544,46 +541,46 @@ int XSecure_ShaValidateModeAndCfgInstance(XSecure_Sha * const InstancePtr,
 	volatile int Status = XST_FAILURE;
 	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
-	/** Initializes the SHA instance based on SHA Mode */
+	/** - Initializes the SHA instance based on SHA Mode */
 	switch(ShaMode) {
-		/** SHA2-256 Mode */
+		/** - SHA2-256 Mode */
 		case XSECURE_SHA2_256:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA2_256_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA256;
 			break;
-		/** SHA2-384 Mode */
+		/** - SHA2-384 Mode */
 		case XSECURE_SHA2_384:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA2_384_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
-		/** SHA2-512 Mode */
+		/** - SHA2-512 Mode */
 		case XSECURE_SHA2_512:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA512;
 			break;
-		/** SHA3-256 Mode */
+		/** - SHA3-256 Mode */
 		case XSECURE_SHA3_256:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_256_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA256;
 			break;
-		/** SHA3-384 Mode */
+		/** - SHA3-384 Mode */
 		case XSECURE_SHA3_384:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA3_384_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA384;
 			break;
-		/** SHAKE-512 Mode */
+		/** - SHAKE-512 Mode */
 		case XSECURE_SHA3_512:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHA_512_HASH_LEN;
 			ShaPlatConfig->ShaMode = (u32)SHA512;
 			break;
-		/** SHAKE-256 Mode */
+		/** - SHAKE-256 Mode */
 		case XSECURE_SHAKE_256:
 			ShaPlatConfig->ShaDigestSize = (u32)XSECURE_SHAKE_256_HASH_LEN;
 			ShaPlatConfig->ShaMode = SHAKE256;
 			break;
-		/** SHAKE-256 SLH-DSA chaining Mode is not supported for Versal_2ve_2vm */
+		/** - SHAKE-256 SLH-DSA chaining Mode is not supported for Versal_2ve_2vm */
 		case XSECURE_SHAKE_256_SLH_DSA_CHAIN:
-		/** SHA invalid mode */
+		/** - SHA invalid mode */
 		case XSECURE_SHA_INVALID_MODE:
 		default:
 			Status = (int)XSECURE_SHA_INVALID_PARAM;
@@ -632,14 +629,14 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 	XPmcDma_ByteAlignedTransfer(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, DataAddr,
 				(u32)Size, (u8)IsLastUpdate);
 
-	/** Wait for PMC DMA done bit to be set. */
+	/** - Wait for PMC DMA done bit to be set. */
 	Status = XPmcDma_WaitForDoneTimeout(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
 		goto END;
 	}
 
-	/** Acknowledge the transfer has completed. */
+	/** - Acknowledge the transfer has completed. */
 	XPmcDma_IntrClear(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
 
 END:

@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_mldsaclient.c
+* @file client/core/mldsa/xsecure_mldsaclient.c
 *
 * This file contains the implementation of the client interface functions for MLDSA driver.
 *
@@ -45,22 +45,22 @@ int XSecure_MldsaSignVerifyClient(XSecure_ClientInstance *InstancePtr, u64 Mldsa
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_MLDSA_SIGN_VERIFY),
 				MldsaParamAddr,
 				(MldsaParamAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignVerify
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignVerify
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)Payload, PAYLOAD_ARG_CNT);
 
@@ -86,22 +86,22 @@ int XSecure_MldsaSignGenerateClient(XSecure_ClientInstance *InstancePtr, u64 Mld
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_MLDSA_SIGN_GENERATE),
 				MldsaParamAddr,
 				(MldsaParamAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignGenerate
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_MldsaSignGenerate
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_ipihandler.c
+* @file server/core/sha/sha_pmx/xsecure_sha_ipihandler.c
 *
 * This file contains the XilSecure SHA3 IPI Handler definition.
 *
@@ -76,7 +76,7 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd);
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param	Cmd	is pointer to the command structure
+ * @param	Cmd	is a pointer to the command structure
  *
  * @return
  *		- XST_SUCCESS - If the handler execution is successful
@@ -96,14 +96,14 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** SHA IPI event handling */
+	/** - SHA IPI event handling */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA3_CORE);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
-	/** Call the API handler according to API ID */
+	/** - Call the API handler according to API ID */
 	if ((Cmd->CmdId & XSECURE_API_ID_MASK) ==
 		XSECURE_API(XSECURE_API_SHA3_UPDATE)) {
 		Status = XSecure_ShaOperation(Cmd);
@@ -180,7 +180,7 @@ static int XSecure_Sha3UpdateIpi(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
 	XSecure_Sha3Hash Hash = {0U};
 
 	if ((InputSize & XSECURE_IPI_FIRST_PACKET_MASK) != 0x0U) {
-		/* Initializes and starts the sha3 engine */
+		/** - Initializes and starts the sha3 engine */
 		Status = XSecure_Sha3Init();
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -199,7 +199,7 @@ static int XSecure_Sha3UpdateIpi(u32 SubsystemId, u32 SrcAddrLow, u32 SrcAddrHig
 				&Hash);
 		if (XST_SUCCESS == Status) {
 			XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, XSECURE_SHA_384_HASH_SIZE_IN_BYTES, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
-			/* copy hash to provided destination address using DMA */
+			/** - copy hash to provided destination address using DMA */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
 		}
@@ -215,7 +215,7 @@ END:
  * @brief	This function is used for single sha3digest or for multiple sha3 updates
  * 		based on the First packet bit and Continue bit in the command
  *
- * @param	Cmd	is pointer to the command structure
+ * @param	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the sha Update/Finish/Digest is successful
@@ -241,11 +241,11 @@ static int XSecure_ShaOperation(const XPlmi_Cmd *Cmd)
 
 		InputSize = InputSize & (~XSECURE_IPI_CONTINUE_MASK) &
 			(~XSECURE_IPI_FIRST_PACKET_MASK);
-		/** Calculate the SHA-3 digest on the given input data */
+		/** - Calculate the SHA-3 digest on the given input data */
 		Status = XSecure_Sha3Digest(XSecureSha3InstPtr, DataAddr, InputSize,
 				(XSecure_Sha3Hash *)&Hash);
 		if (XST_SUCCESS == Status) {
-			/* Initiate and complete the DMA to DMA transfer */
+			/** - Initiate and complete the DMA to DMA transfer */
 			Status = XPlmi_DmaXfr((u64)(UINTPTR)(Hash.Hash), DstAddr,
 				XSECURE_SHA3_HASH_LENGTH_IN_WORDS, XPLMI_PMCDMA_0);
 		}

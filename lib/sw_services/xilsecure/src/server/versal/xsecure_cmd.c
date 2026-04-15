@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_cmd.c
+* @file server/versal/xsecure_cmd.c
 *
 * This file contains the xilsecure IPI handler implementation.
 *
@@ -124,7 +124,7 @@ static XPlmi_Module XPlmi_Secure =
 /**
  * @brief	This function calls the handler for invalid commands
  *
- * @param	Payload	is pointer to IPI payload data
+ * @param	Payload	is a pointer to IPI payload data
  *
  * @param	RespBuf	Buffer to store response of slaves
  *
@@ -156,8 +156,8 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	int Status = XST_INVALID_PARAM;
 
 	/**
-	 * Verify if the provided API ID is supported based
-	 * on export control bit or not
+	 * - Verify if the provided API ID is supported based
+	 *   on export control bit or not
 	 */
 	switch (ApiId) {
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
@@ -226,7 +226,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 
 	Pload = Cmd->Payload;
 
-	/** Call the respective API handler according to API ID */
+	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
 		/**   - @ref XSecure_FeaturesCmd */
@@ -299,7 +299,7 @@ void XSecure_CmdsInit(void)
 {
 	u32 Idx;
 
-	/* Register command handlers with XilPlmi */
+	/** - Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Secure.CmdCnt; Idx++) {
 		XSecure_Cmds[Idx].Handler = XSecure_ProcessCmd;
 	}

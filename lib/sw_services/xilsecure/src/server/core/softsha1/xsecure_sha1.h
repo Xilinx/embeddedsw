@@ -1,12 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
 /**************************************************************************************************/
 /**
  *
- * @file xsecure_sha1.h
+ * @file server/core/softsha1/xsecure_sha1.h
  *
  * This file contains SHA1 driver function prototype.
  *
@@ -23,6 +23,10 @@
  * </pre>
  *
  **************************************************************************************************/
+/**
+ * @addtogroup xsecure_sha_server_apis XilSecure SHA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SHA1_H
 #define XSECURE_SHA1_H
 
@@ -39,6 +43,7 @@ extern "C" {
 /***************************** Function Prototypes ************************************************/
 s32 XSecure_Sha1Digest(const u8 * const Data, u32 Len, u8 * const Hash);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

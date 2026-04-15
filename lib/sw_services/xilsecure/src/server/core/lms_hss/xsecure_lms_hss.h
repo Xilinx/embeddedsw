@@ -5,10 +5,8 @@
 /******************************************************************************/
 /**
 *
-* @file xsecure_lms_hss.h
+* @file server/core/lms_hss/xsecure_lms_hss.h
 
-* @addtogroup LMS
-* @{
 * @details
 * This file contains structures, constants and defines used in HSS
 * provides interface to LMS operations
@@ -89,4 +87,3 @@ typedef struct {
 #endif
 
 #endif /* XSECURE_LMS_HSS_H_ */
-/** @} */

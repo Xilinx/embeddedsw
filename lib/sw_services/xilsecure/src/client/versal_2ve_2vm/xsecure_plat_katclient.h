@@ -1,12 +1,12 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
-* @file xsecure_plat_katclient.h
+* @file client/versal_2ve_2vm/xsecure_plat_katclient.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the KAT APIs.
@@ -22,9 +22,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_client_apis XilSecure KAT Client APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KATCLIENT_H
 #define XSECURE_PLAT_KATCLIENT_H
 

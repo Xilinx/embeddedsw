@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_cryptochk.h
+* @file server/core/generic/xsecure_cryptochk.h
 *
 * This file contains macros and functions common to AES, SHA ,RSA and ECDSA
 * for Versal.
@@ -25,10 +25,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
-* @{
-*/
+ * @addtogroup xsecure_generic_server_apis XilSecure Generic Server APIs
+ * @{
+ */
 #ifndef XSECURE_CRYPTOCHK_H
 #define XSECURE_CRYPTOCHK_H
 
@@ -76,9 +77,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XSecure_CryptoCheck(void);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_CRYPTOCHK_H_ */
-/** @} */

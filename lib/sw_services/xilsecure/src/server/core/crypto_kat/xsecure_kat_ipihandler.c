@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat_ipihandler.c
+* @file server/core/crypto_kat/xsecure_kat_ipihandler.c
 *
 * This file contains the Xilsecure KAT IPI handlers implementation.
 *
@@ -69,7 +69,7 @@ static int XSecure_ShaKat(void);
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful
@@ -106,45 +106,45 @@ int XSecure_KatIpiHandler(XPlmi_Cmd *Cmd)
 	}
 #endif
 
-	/** Call the respective API handler according to API ID */
+	/** - Call the respective API handler according to API ID */
 	switch (ApiId) {
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_KAT):
-		/**   - @ref XSecure_AesDecKat */
+		/**   - XSecure_AesDecKat */
 		Status = XSecure_AesDecKat();
 		break;
 	case XSECURE_API(XSECURE_API_AES_DECRYPT_CM_KAT):
-		/**   - @ref XSecure_AesDecCmKat */
+		/**   - XSecure_AesDecCmKat */
 		Status = XSecure_AesDecCmKat();
 		break;
 	case XSECURE_API(XSECURE_API_AES_ENCRYPT_KAT):
-		/**   - @ref XSecure_AesEncKat */
+		/**   - XSecure_AesEncKat */
 		Status = XSecure_AesEncKat();
 		break;
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PUB_ENC_KAT):
-		/**   - @ref XSecure_RsaPubEncKat */
+		/**   - XSecure_RsaPubEncKat */
 		Status = XSecure_RsaPubEncKat();
 		break;
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DEC_KAT):
-		/**   - @ref XSecure_RsaPrivateDecKat */
+		/**   - XSecure_RsaPrivateDecKat */
 		Status = XSecure_RsaPrivateDecKat();
 		break;
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_VERIFY_KAT):
-		/**   - @ref XSecure_EllipticSignVerifyKat */
+		/**   - XSecure_EllipticSignVerifyKat */
 		Status = XSecure_EllipticSignVerifyKat((XSecure_EccCrvClass)Pload[1U]);
 		break;
 	case XSECURE_API(XSECURE_API_ELLIPTIC_SIGN_GEN_KAT):
-		/**   - @ref XSecure_EllipticSignGenKat */
+		/**   - XSecure_EllipticSignGenKat */
 		Status = XSecure_EllipticSignGenKat((XSecure_EccCrvClass)Pload[1U]);
 		break;
 #endif
 #endif
 	case XSECURE_API(XSECURE_API_SHA3_KAT):
-		/**   - @ref XSecure_ShaKat */
-		/** SHA IPI event handling */
+		/**   - XSecure_ShaKat */
+		/** - SHA IPI event handling */
 		Status = XSecure_IpiEventHandling(Cmd, XPLMI_SHA3_CORE);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -195,7 +195,7 @@ static int XSecure_AesDecKat(void)
 
 	Status = XSecure_AesDecryptKat(XSecureAesInstPtr);
 
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_DEC_KAT_MASK);
 	}
@@ -223,7 +223,7 @@ static int XSecure_AesDecCmKat(void)
 
 	Status = XSecure_AesDecryptCmKat(XSecureAesInstPtr);
 
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_CMKAT_MASK);
 	}
@@ -251,7 +251,7 @@ static int XSecure_AesEncKat(void)
 
 	Status = XSecure_AesEncryptKat(XSecureAesInstPtr);
 
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_AES_ENC_KAT_MASK);
 	}
@@ -307,7 +307,7 @@ static int XSecure_EllipticSignGenKat(XSecure_EccCrvClass CurveClass)
 
 	Status = XSecure_EllipticSignGenerateKat((XSecure_EllipticCrvClass)CurveClass);
 
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_ECC_SIGN_GEN_SHA3_384_KAT_MASK);
 	}
@@ -389,7 +389,7 @@ static int XSecure_ShaKat(void)
 
 	Status = XSecure_Sha3Kat(ShaInstPtr);
 
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_SHA3_KAT_MASK);
 	}

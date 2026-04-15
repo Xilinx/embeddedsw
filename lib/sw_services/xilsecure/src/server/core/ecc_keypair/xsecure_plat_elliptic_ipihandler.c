@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_elliptic_ipihandler.c
+* @file server/core/ecc_keypair/xsecure_plat_elliptic_ipihandler.c
 *
 * This file contains the Xilsecure versalnet IPI handlers implementation.
 *
@@ -48,7 +48,7 @@ static int XSecure_GenSharedSecret(u32 SrcAddrLow, u32 SrcAddrHigh);
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param	Cmd	is pointer to the command structure
+ * @param	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful

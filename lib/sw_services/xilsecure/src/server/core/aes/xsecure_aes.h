@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes.h
+* @file server/core/aes/xsecure_aes.h
 *
 * This file contains AES hardware interface APIs
 *
@@ -52,10 +52,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
-* @{
-*/
+ * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+ * @{
+ */
 #ifndef XSECURE_AES_H_
 #define XSECURE_AES_H_
 
@@ -231,9 +232,9 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 
 int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_AES_H_ */
-/** @} */

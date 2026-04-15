@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_ht.h
+* @file server/core/slhdsa/xsecure_slhdsa_ht.h
 *
 * This file contains function declarations for SLH-DSA hypertree signature verification operations
 *
@@ -20,10 +20,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_HT_H_
 #define XSECURE_SLH_DSA_HT_H_
 
@@ -49,9 +50,9 @@ int XSecure_SlhdsaHtVerify(const u8* const M,
 			   const u64 SignHtAddr, const u64 PublicKeyAddr,
 			   const XSecure_SlhdsaHtIndices * const HtIndices);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SLH_DSA_HT_H_ */
-/** @} */

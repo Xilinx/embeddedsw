@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsaclient.h
+* @file client/core/slhdsa/xsecure_slhdsaclient.h
 *
 * This file contains the client function prototypes, defines and macros for the SLHDSA
 * operations.
@@ -22,9 +22,9 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_slhdsa_client_apis XilSecure SLHDSA Client APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_client_apis XilSecure SLHDSA Client APIs
+ * @{
+ */
 #ifndef XSECURE_SLHDSA_CLIENT_H
 #define XSECURE_SLHDSA_CLIENT_H
 

@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_aesalginfo.h
+* @file common/versal_2vp_p/xsecure_aesalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

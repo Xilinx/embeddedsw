@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file slhdsa/xsecure_slhdsa_ipihandler.h
+* @file server/core/slhdsa/xsecure_slhdsa_ipihandler.h
 *
 * This file contains the Xilsecure SLHDSA IPI handler declaration.
 *
@@ -20,10 +20,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLHDSA_IPIHANDLER_H_
 #define XSECURE_SLHDSA_IPIHANDLER_H_
 
@@ -41,9 +42,9 @@ extern "C" {
 /************************************** Function Prototypes ***************************************/
 int XSecure_SlhdsaIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SLHDSA_IPIHANDLER_H_ */
-/** @} */

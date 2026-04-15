@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_wots.h
+* @file server/core/slhdsa/xsecure_slhdsa_wots.h
 *
 * This file consists of declarations for SLH-DSA WOTS+ operations
 *
@@ -20,10 +20,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_WOTS_H_
 #define XSECURE_SLH_DSA_WOTS_H_
 
@@ -38,9 +39,9 @@ extern "C" {
 /*************************************** Function Prototypes **************************************/
 int XSecure_SlhdsaWotsPkFromSign(u64 WotsSignAddr, u64 MAddr, u64 PublicKeyAddr, u8 * const WotsPk);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_SLH_DSA_WOTS_H_ */
-/** @} */

@@ -6,8 +6,8 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_ipihandler.c
-* @addtogroup xsecure_apis XilSecure Versal_2Ve_2Vm APIs
+* @file server/core/sha/sha_pmxc/xsecure_sha_ipihandler.c
+* @addtogroup xsecure_apis XilSecure Server APIs
 * @{
 * @cond xsecure_internal
 * This file contains the XilSecure SHA IPI Handler definition.
@@ -61,7 +61,7 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 /**
  * @brief       This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd is pointer to the command structure
+ * @param 	Cmd is a pointer to the command structure
  *
  * @return
  *		- XST_SUCCESS - If the handler execution is successful
@@ -90,7 +90,7 @@ int XSecure_ShaIpiHandler(XPlmi_Cmd *Cmd)
 		Core = XPLMI_SHA2_CORE;
 	}
 
-	/** SHA IPI event handling */
+	/** - SHA IPI event handling */
 	Status = XSecure_IpiEventHandling(Cmd, Core);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -157,12 +157,12 @@ static int XSecure_ShaOperation(u32 SubsystemId, XSecure_Sha *XSecureShaInstPtr,
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.DataAddr, ShaParams.DataSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, ShaParams.HashAddr, ShaParams.HashBufSize, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 
-	/* Validate Operation Flags */
+	/** - Validate Operation Flags */
 	if (((ShaParams.OperationFlags & XSECURE_SHA_VALID_OP_FLAGS) == XSECURE_SHA_NONE) ||
 		((ShaParams.OperationFlags & ~XSECURE_SHA_VALID_OP_FLAGS) != XSECURE_SHA_NONE)) {
 		Status = XST_INVALID_PARAM;

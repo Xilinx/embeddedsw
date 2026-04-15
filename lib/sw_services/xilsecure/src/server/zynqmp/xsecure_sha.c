@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha.c
+* @file server/zynqmp/xsecure_sha.c
 *
 * This file contains the implementation of the interface functions for SHA
 * driver. Refer to the header file xsecure_sha.h for more detailed information.
@@ -55,9 +55,15 @@
 * 5.2   ng   07/05/23 add SDT support
 *	ss   04/05/24 Fixed doxygen warnings
 *
+* </pre>
+*
 * @note
 *
-******************************************************************************/
+*******************************************************************************/
+/**
+* @addtogroup xsecure_sha3_zynqmp_apis XilSecure SHA3 ZynqMP APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_sha_hw.h"
@@ -74,11 +80,11 @@
 	(XSECURE_CSU_SHA3_HASH_LENGTH_IN_BITS / 32U) /**< CSU SHA3 hash length in
                                                       words */
 
-/** Keccak and Nist padding masks */
+/** Keccak and NIST padding masks */
 #define XSECURE_CSU_SHA3_START_KECCAK_PADDING_MASK    (0x01U) /**< CSU SHA3 start Keccak padding mask */
 #define XSECURE_CSU_SHA3_END_KECCAK_PADDING_MASK      (0x80U) /**< CSU SHA3 end Keccak padding mask */
-#define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U) /**< CSU SHA3 start Nist padding mask */
-#define XSECURE_CSU_SHA3_END_NIST_PADDING_MASK        (0x80U) /**< CSU SHA3 end Nist padding mask */
+#define XSECURE_CSU_SHA3_START_NIST_PADDING_MASK      (0x06U) /**< CSU SHA3 start NIST padding mask */
+#define XSECURE_CSU_SHA3_END_NIST_PADDING_MASK        (0x80U) /**< CSU SHA3 end NIST padding mask */
 
 /**************************** Type Definitions *******************************/
 
@@ -145,7 +151,7 @@ s32 XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XCsuDma* CsuDmaPtr)
 		goto END;
 	}
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
 
@@ -170,9 +176,9 @@ END:
  * while calculating the hash.
  *
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
- * @param	Sha3PadType 	Type of SHA3 padding to be used.
- * 			 - For NIST SHA-3 padding - XSECURE_CSU_NIST_SHA3
- * 			 - For KECCAK SHA-3 padding - XSECURE_CSU_KECCAK_SHA3
+ * @param	Sha3PadType 	Type of SHA3 padding to be used (XSECURE_CSU_NIST_SHA3
+ *                  for NIST SHA-3 padding or XSECURE_CSU_KECCAK_SHA3 for KECCAK
+ *                  SHA-3 padding)
  *
  * @return	XST_SUCCESS if pad selection is successful.
  * 		XST_FAILURE if pad selection is failed.
@@ -187,14 +193,14 @@ END:
 {
 	s32 Status;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((Sha3PadType == XSECURE_CSU_NIST_SHA3)
 			|| (Sha3PadType == XSECURE_CSU_KECCAK_SHA3));
 	Xil_AssertNonvoid((InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED) ||
 					(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED));
 
-	/* If operation is in between can't be modified */
+	/** - If operation is in between can't be modified */
 	if (InstancePtr->Sha3Len != 0x00U) {
 		Status = (s32)XST_FAILURE;
 		goto END;
@@ -244,7 +250,7 @@ s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
 		u32 MsgLen)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgLen != 0U);
 
@@ -268,7 +274,7 @@ static void XSecure_Sha3KeccakPadd(XSecure_Sha3 *InstancePtr, u8 *Dst,
  ******************************************************************************/
 static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(MsgLen != 0U);
 
@@ -283,13 +289,10 @@ static void XSecure_Sha3NistPadd(XSecure_Sha3 *InstancePtr, u8 *Dst, u32 MsgLen)
  *
  * @param	InstancePtr 	Pointer to the XSecure_Sha3 instance.
  *
- * @return	None
- *
- *
  ******************************************************************************/
 void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
-	/* Asserts validate the input arguments */
+	/** - Asserts validate the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->Sha3State == XSECURE_SHA3_INITIALIZED);
 
@@ -298,11 +301,11 @@ void XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 	InstancePtr->PartialLen = 0U;
 	(void)memset(InstancePtr->PartialData, 0, XSECURE_SHA3_BLOCK_LEN);
 
-	/* Reset SHA3 engine. */
+	/** - Reset SHA3 engine. */
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_RESET_OFFSET);
 
-	/* Start SHA3 engine. */
+	/** - Start SHA3 engine. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_SHA3_START_OFFSET,
 			XSECURE_CSU_SHA3_START_START);
@@ -329,7 +332,7 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	u32 TransferredBytes;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Asserts validate the input arguments */
+	/** - Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
 
@@ -356,7 +359,7 @@ u32 XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u8 *Data,
 				DataSize, (u8)InstancePtr->IsLastUpdate);
 END:
 	if (Status != XST_SUCCESS) {
-		/* Set SHA under reset on failure condition */
+		/** - Set SHA under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
 		InstancePtr->Sha3State = XSECURE_SHA3_INITIALIZED;
@@ -386,7 +389,7 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 	u32 Status = (u32)XST_FAILURE;
 	u32 Size;
 
-	/* Asserts validate the input arguments */
+	/** - Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Hash != NULL);
 	Xil_AssertNonvoid(InstancePtr->Sha3State == XSECURE_SHA3_ENGINE_STARTED);
@@ -423,13 +426,13 @@ u32 XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, u8 *Hash)
 			goto END;
 		}
 	}
-	/* Check the SHA3 DONE bit. */
+	/** - Check the SHA3 DONE bit. */
 	Status = XSecure_Sha3WaitForDone(InstancePtr);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
-	/* If requested, read out the Hash in reverse order.  */
+	/** - If requested, read out the Hash in reverse order. */
 	if (Hash != NULL)
 	{
 		XSecure_Sha3_ReadHash(InstancePtr, Hash);
@@ -438,7 +441,7 @@ END:
 	if (Size > 0X0U) {
 		(void)memset((void*)InstancePtr->PartialData, 0, Size);
 	}
-	/* Set SHA under reset */
+	/** - Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_CSU_SHA3_RESET_OFFSET);
 
@@ -466,7 +469,7 @@ u32 XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u8 *In, const u32 Size,
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Asserts validate the input arguments */
+	/** - Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Out != NULL);
 
@@ -493,8 +496,6 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Sha3 instance.
  * @param	Hash		Pointer to a buffer in which read hash will be
  *		stored.
- *
- * @return	None
  *
  ******************************************************************************/
 void XSecure_Sha3_ReadHash(XSecure_Sha3 *InstancePtr, u8 *Hash)
@@ -533,10 +534,10 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Asserts validate the input arguments */
+	/** - Asserts validate the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
-	/* Configure the SSS for SHA3 hashing. */
+	/** - Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
 								InstancePtr->CsuDmaPtr->Config.DmaType);
 	if (Status != (u32)XST_SUCCESS){
@@ -545,13 +546,13 @@ static u32 XSecure_Sha3DmaTransfer(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)Data, (u32)Size/4U, IsLast);
 
-	/* Checking the CSU DMA done bit should be enough. */
+	/** - Checking the CSU DMA done bit should be enough. */
 	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto ENDF;
 	}
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 ENDF:
@@ -595,7 +596,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 	IsLast = FALSE;
 	while(RemainingDataLen >= XSECURE_SHA3_BLOCK_LEN)
 	{
-		/* Handle Partial data and non dword aligned data address */
+		/** - Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
 		    (((UINTPTR)DataPtr & XCSUDMA_ADDR_LSB_MASK) != 0U)) {
 			XSecure_MemCpy((void *)&PartialData[PrevPartialLen],
@@ -607,7 +608,7 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 			RemainingDataLen = RemainingDataLen - DmableDataLen;
 		}
 		else {
-			/* Process data of size in multiple of dwords */
+			/** - Process data of size in multiple of dwords */
 			DmableData = DataPtr;
 			DmableDataLen = RemainingDataLen -
 				(RemainingDataLen % XSECURE_SHA3_BLOCK_LEN);
@@ -629,8 +630,10 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 		PrevPartialLen = 0U;
 	}
 
-	/* Handle remaining data during processing of next data chunk or during
-	   data padding */
+	/**
+	 * - Handle remaining data during processing of next data chunk or during
+	 *   data padding
+	 */
 	if(RemainingDataLen > 0U) {
 		XSecure_MemCpy((void *)(PartialData + PrevPartialLen), (void *)DataPtr,
 		                     (RemainingDataLen - PrevPartialLen));
@@ -642,3 +645,4 @@ static u32 XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr, const u8 *Data,
 END:
 	return Status;
 }
+/** @} */

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha.c
+* @file server/core/sha/sha_pmx/xsecure_sha.c
 *
 * This file contains the implementation of the interface functions for SHA
 * driver. Refer to the header file xsecure_sha.h for more detailed information.
@@ -129,7 +129,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 {
 	int Status = XST_FAILURE;
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (DmaPtr == NULL) ||
 		(DmaPtr->IsReady != (u32)XIL_COMPONENT_IS_READY)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
@@ -137,7 +137,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 	}
 
 	if (DmaPtr->Config.DmaType == XPMCDMA_DMATYPEIS_INVALID) {
-		/* Error out if the dma type is invalid. */
+		/** - Error out if the dma type is invalid. */
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
@@ -155,7 +155,7 @@ int XSecure_Sha3Initialize(XSecure_Sha3 *InstancePtr, XPmcDma* DmaPtr)
 	InstancePtr->DmaPtr = DmaPtr;
 	InstancePtr->IsLastUpdate = FALSE;
 
-	/** Initialize SSS Instance */
+	/** - Initialize SSS Instance */
 	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -188,7 +188,7 @@ int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
@@ -200,7 +200,7 @@ int XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr)
 		goto END;
 	}
 
-	/** Update IsLastUpdate flag to TRUE */
+	/** - Update IsLastUpdate flag to TRUE */
 	InstancePtr->IsLastUpdate = TRUE;
 
 	Status = XST_SUCCESS;
@@ -226,7 +226,7 @@ static int XSecure_Sha3NistPadd(u8 *Dst, u32 MsgLen)
 {
 	int Status = XST_FAILURE;
 
-	/* Validates the input arguments */
+	/** - Validates the input arguments */
 	if (MsgLen == 0U) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
@@ -269,7 +269,7 @@ int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 		goto END;
 	}
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
@@ -290,11 +290,11 @@ int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 		goto END;
 	}
 
-	/* Reset SHA3 engine. */
+	/** - Reset SHA3 engine. */
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
 
-	/** Start SHA3 engine. */
+	/** - Start SHA3 engine. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_SHA3_START_OFFSET,
 			XSECURE_SHA3_START_START);
@@ -330,7 +330,7 @@ int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 	u32 DataSize;
 	u32 TransferredBytes;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
@@ -351,7 +351,7 @@ int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 	 * at a time .So if the data sent more than that will be handled
 	 * in the next update internally
 	 */
-	/** Update input data to SHA3 engine */
+	/** - Update input data to SHA3 engine */
 	while (DataSize > XSECURE_PMC_DMA_MAX_TRANSFER) {
 		Status = XSecure_Sha3DataUpdate(InstancePtr,
 				(InDataAddr + TransferredBytes),
@@ -373,7 +373,7 @@ int XSecure_Sha3Update64Bit(XSecure_Sha3 *InstancePtr, u64 InDataAddr,
 	InstancePtr->ShaState = XSECURE_SHA_UPDATE_IN_PROGRESS;
 END_RST:
 	if (Status != XST_SUCCESS) {
-		/* Set SHA under reset on failure condition */
+		/** - Set SHA under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
 		InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
@@ -402,7 +402,7 @@ END:
 int XSecure_Sha3Update(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
 						const u32 Size)
 {
-	/** Update input data to SHA3 engine */
+	/** - Update input data to SHA3 engine */
 	return XSecure_Sha3Update64Bit(InstancePtr, InDataAddr, Size);
 }
 
@@ -430,7 +430,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	u32 PadLen;
 	u32 Size = 0U;
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
@@ -443,7 +443,7 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 	}
 
 	PadLen = InstancePtr->Sha3Len % XSECURE_SHA3_BLOCK_LEN;
-	/** Perform SHA3 padding based on IsLastUpdate flag */
+	/** - Perform SHA3 padding based on IsLastUpdate flag */
 	if (InstancePtr->IsLastUpdate != TRUE) {
 		PadLen = (PadLen == 0U)?(XSECURE_SHA3_BLOCK_LEN) :
 			(XSECURE_SHA3_BLOCK_LEN - PadLen);
@@ -470,19 +470,19 @@ int XSecure_Sha3Finish(XSecure_Sha3 *InstancePtr, XSecure_Sha3Hash *Sha3Hash)
 		}
 	}
 
-	/* Status Reset */
+	/** - Status Reset */
 	Status = XST_FAILURE;
 
-	/* Check the SHA3 DONE bit. */
+	/** - Check the SHA3 DONE bit. */
 	Status = XSecure_Sha3WaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
 
-	/* Status Reset */
+	/** - Status Reset */
 	Status = XST_FAILURE;
 
-	/** Read out the Hash in reverse order.  */
+	/** - Read out the Hash in reverse order. */
 	Status = XSecure_Sha3ReadHash(InstancePtr, Sha3Hash);
 
 END_RST:
@@ -492,7 +492,7 @@ END_RST:
 			Status = SStatus;
 		}
 	}
-	/* Set SHA under reset */
+	/** - Set SHA under reset */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
 
@@ -525,29 +525,29 @@ int XSecure_Sha3Digest(XSecure_Sha3 *InstancePtr, const u64 InDataAddr,
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Start SHA3 engine */
+	/** - Start SHA3 engine */
 	Status = XSecure_Sha3Start(InstancePtr);
 	if (Status != XST_SUCCESS){
 		goto END;
 	}
 
-	/* Status Reset */
+	/** - Status Reset */
 	Status = XST_FAILURE;
-	/** Update SHA3 engine */
+	/** - Update SHA3 engine */
 	Status = XSecure_Sha3Update(InstancePtr, InDataAddr, Size);
 	if (Status != XST_SUCCESS){
 		goto END;
 	}
 
-	/* Status Reset */
+	/** - Status Reset */
 	Status = XST_FAILURE;
-	/** Perform padding and read out the hash */
+	/** - Perform padding and read out the hash */
 	Status = XSecure_Sha3Finish(InstancePtr, Sha3Hash);
 
 END:
@@ -579,7 +579,7 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 	u32 RegVal;
 	u32 *HashPtr;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Sha3Hash == NULL)) {
 		Status = (int)XSECURE_SHA3_INVALID_PARAM;
 		goto END;
@@ -587,7 +587,7 @@ int XSecure_Sha3ReadHash(const XSecure_Sha3 *InstancePtr,
 
 	HashPtr = (u32 *)Sha3Hash->Hash;
 
-	/** Read the hash from the registers and store in the local buffer in reverse order */
+	/** - Read the hash from the registers and store in the local buffer in reverse order */
 	for (Index = 0U; Index < XSECURE_SHA3_HASH_LENGTH_IN_WORDS; Index++)
 	{
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -622,10 +622,10 @@ static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
 {
 	int Status = XST_FAILURE;
 
-	/* Asserts validate the input arguments */
+	/** - Asserts validate the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 
-	/* Configure the SSS for SHA3 hashing. */
+	/** - Configure the SSS for SHA3 hashing. */
 	Status = XSecure_SssSha(&(InstancePtr->SssInstance),
 					(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0),
 					InstancePtr->ShaConfig->SssShaCfg);
@@ -635,14 +635,14 @@ static int XSecure_Sha3DmaTransfer(const XSecure_Sha3 *InstancePtr,
 	XPmcDma_Transfer(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
 		InDataAddr, (u32)Size/XSECURE_WORD_SIZE, IsLastUpdate);
 
-	/* Checking the PMC DMA done bit should be enough. */
+	/** - Checking the PMC DMA done bit should be enough. */
 	Status = XPmcDma_WaitForDoneTimeout(InstancePtr->DmaPtr,
 						XPMCDMA_SRC_CHANNEL);
 	if (Status != XST_SUCCESS) {
 		goto ENDF;
 	}
 
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(InstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
 				XPMCDMA_IXR_DONE_MASK);
 
@@ -687,7 +687,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 	IsLast = FALSE;
 	while(RemainingDataLen >= XSECURE_SHA3_BLOCK_LEN)
 	{
-		/* Handle Partial data and non dword aligned data address */
+		/** - Handle Partial data and non dword aligned data address */
 		if ((PrevPartialLen != 0U) ||
 		    ((InDataAddr & (u64)XPMCDMA_ADDR_LSB_MASK) != 0U)) {
 			XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen], DataAddr,
@@ -698,7 +698,7 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 			RemainingDataLen = RemainingDataLen - DmableDataLen;
 		}
 		else {
-			/* Process data of size in multiple of dwords */
+			/** - Process data of size in multiple of dwords */
 			DmableDataAddr = DataAddr;
 			DmableDataLen = RemainingDataLen -
 				(RemainingDataLen % XSECURE_SHA3_BLOCK_LEN);
@@ -721,8 +721,10 @@ static int XSecure_Sha3DataUpdate(XSecure_Sha3 *InstancePtr,
 		PrevPartialLen = 0U;
 	}
 
-	/* Handle remaining data during processing of next data chunk or during
-	   data padding */
+	/**
+	 * - Handle remaining data during processing of next data chunk or during
+	 *   data padding
+	 */
 	if(RemainingDataLen > 0U) {
 		XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
 			DataAddr, RemainingDataLen - PrevPartialLen);

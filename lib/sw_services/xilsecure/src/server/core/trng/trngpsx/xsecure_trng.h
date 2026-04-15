@@ -1,13 +1,13 @@
 /***************************************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_trng.h
+* @file server/core/trng/trngpsx/xsecure_trng.h
 *
 * This header file contains function declarations to use trngpsx.
 *
@@ -30,10 +30,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
-* @{
-*/
+ * @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
+ * @{
+ */
 #ifndef XSECURE_TRNG_H
 #define XSECURE_TRNG_H
 
@@ -70,7 +71,9 @@ extern "C" {
 typedef XTrngpsx_Instance XSecure_TrngInstance;  /**< typedef XTrngpsx_Instance as
 						  * XSecure_TrngInstance for compatibility */
 
-/* This typedef contains mode information on which TRNG operates */
+/**
+ * @brief This typedef contains mode information on which TRNG operates
+ */
 typedef enum {
 	XSECURE_TRNG_DRNG_MODE = 1U,	/**< DRNG mode for TRNG */
 	XSECURE_TRNG_PTRNG_MODE,	/**< PTRNG mode for TRNG */
@@ -116,8 +119,8 @@ static inline u8 XSecure_TrngIsHealthy(XSecure_TrngInstance *TrngInstance)
 	return (TrngInstance->ErrorState == XTRNGPSX_HEALTHY);
 }
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 #endif /** XSECURE_TRNG_H */
-/** @} */

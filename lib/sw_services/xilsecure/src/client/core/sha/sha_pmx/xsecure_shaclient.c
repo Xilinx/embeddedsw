@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_shaclient.c
+* @file client/core/sha/sha_pmx/xsecure_shaclient.c
 *
 * This file contains the implementation of the client interface functions for
 * SHA driver.
@@ -98,15 +98,15 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
 		goto END;
 	}
 
 	/**
-	 * Validate Sha3state. Return XST_FAILURE if the state is not XSECURE_SHA_UNINITIALIZED
+	 * - Validate Sha3state. Return XST_FAILURE if the state is not XSECURE_SHA_UNINITIALIZED
 	 */
 	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
 		(Sha3State != XSECURE_SHA_UPDATE)) {
@@ -118,15 +118,15 @@ int XSecure_Sha3Update(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 		Sha3InitializeMask = ((u32)1U) << XSECURE_SHA_FIRST_PACKET_SHIFT;
 	}
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD3(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
 				InDataAddr,
 				(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
 				(((u32)1U << XSECURE_SHA_UPDATE_CONTINUE_SHIFT) | (Sha3InitializeMask) | Size));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 	if (Status != XST_SUCCESS) {
@@ -160,15 +160,15 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
 		goto END;
 	}
 
 	/**
-	 * Validate Sha3state. Return XST_FAILURE if the state is XSECURE_SHA_UNINITIALIZED
+	 * - Validate Sha3state. Return XST_FAILURE if the state is XSECURE_SHA_UNINITIALIZED
 	 */
 	if ((Sha3State != XSECURE_SHA_INITIALIZED) &&
 		(Sha3State != XSECURE_SHA_UPDATE)) {
@@ -176,7 +176,7 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 		goto END;
 	}
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD5(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
 				XSECURE_IPI_UNUSED_PARAM,
 				XSECURE_IPI_UNUSED_PARAM,
@@ -185,8 +185,8 @@ int XSecure_Sha3Finish(XSecure_ClientInstance *InstancePtr, const u64 OutDataAdd
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 	if (Status != XST_SUCCESS) {
@@ -223,15 +223,15 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
-	 * are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters
+	 *   are invalid
 	 */
 	if (InstancePtr == NULL) {
 		goto END;
 	}
 
 	/**
-	 * Initialize SHA3
+	 * - Initialize SHA3
 	 */
 	Status = XSecure_Sha3Initialize();
 	if (Status != XST_SUCCESS) {
@@ -240,7 +240,7 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 
 	Sha3InitializeMask = ((u32)1U) << XSECURE_SHA_FIRST_PACKET_SHIFT;
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD5(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT) | XSECURE_API_SHA3_UPDATE),
 				InDataAddr,
 				(InDataAddr >> XSECURE_ADDR_HIGH_SHIFT),
@@ -249,8 +249,8 @@ int XSecure_Sha3Digest(XSecure_ClientInstance *InstancePtr, const u64 InDataAddr
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 

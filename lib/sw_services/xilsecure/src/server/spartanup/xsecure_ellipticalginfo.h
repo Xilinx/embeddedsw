@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_ellipticalginfo.h
+* @file server/spartanup/xsecure_ellipticalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:

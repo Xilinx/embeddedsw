@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file mldsa/xsecure_mldsa_ipihandler.c
+* @file server/core/mldsa/xsecure_mldsa_ipihandler.c
 *
 * This file contains the xilsecure MLDSA IPI handlers implementation.
 *

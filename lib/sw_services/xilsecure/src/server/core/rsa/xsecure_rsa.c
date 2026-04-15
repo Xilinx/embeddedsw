@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa.c
+* @file server/core/rsa/xsecure_rsa.c
 *
 * This file contains the implementation of the interface functions for RSA
 * driver.
@@ -90,11 +90,9 @@
  *
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  * @param	Mod		Address of the key Modulus of key size
- * @param	ModExt		Address of the pre-calculated exponential
- *				(R^2 Mod N) value
- *				- 0 - if user doesn't have pre-calculated
- *				R^2 Mod N value, control will take care
- *				of this calculation internally
+ * @param	ModExt		Address of the pre-calculated exponential (R^2 Mod N) value,
+ *			or 0 if user doesn't have pre-calculated R^2 Mod N value (control
+ *			will take care of this calculation internally)
  * @param	ModExpo		Address of the buffer which contains key exponent
  *
  * @return
@@ -111,13 +109,13 @@ int XSecure_RsaInitialize_64Bit(XSecure_Rsa *InstancePtr, u64 Mod, u64 ModExt,
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Mod == 0x00U) || (ModExpo == 0x00U)) {
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Stores the base address of RSA core registers */
+	/** - Stores the base address of RSA core registers */
 	Status = (int)XSecure_RsaCfgInitialize(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -150,11 +148,9 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  * @param	Mod		A character Pointer which contains the key
  *				Modulus of key size
- * @param	ModExt		A Pointer to the pre-calculated exponential
- *				(R^2 Mod N) value
- *				- NULL - if user doesn't have pre-calculated
- *					R^2 Mod N value, control will take care
- *					of this calculation internally
+ * @param	ModExt		A Pointer to the pre-calculated exponential (R^2 Mod N) value,
+ *			or NULL if user doesn't have pre-calculated R^2 Mod N value (control
+ *			will take care of this calculation internally)
  * @param	ModExpo	Pointer to the buffer which contains key exponent
  *
  * @return
@@ -201,7 +197,7 @@ int XSecure_RsaSignVerification_64Bit(const u64 Signature, const u64 Hash,
 	volatile u32 SignIndex;
 	u64 PadIndex = Signature;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((Signature == 0x00U) || (Hash == 0x00U) ||
 		(HashLen != XSECURE_HASH_TYPE_SHA3)) {
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
@@ -298,11 +294,9 @@ int XSecure_RsaSignVerification(const u8 *Signature, const u8 *Hash,
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  * @param	Input		Address of the buffer which contains the input
  *				data to be encrypted
- * @param	Size		Key size in bytes, Input size also should be
- * 				same as Key size mentioned. Inputs supported are
- * 				- XSECURE_RSA_4096_KEY_SIZE
- * 				- XSECURE_RSA_2048_KEY_SIZE
- * 				- XSECURE_RSA_3072_KEY_SIZE
+ * @param	Size		Key size in bytes, Input size also should be same as Key size
+ * 				mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE,
+ * 				XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE
  * @param	Result		Address of buffer where resultant decrypted
  *				data to be stored
  *
@@ -320,7 +314,7 @@ int XSecure_RsaPublicEncrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Result == 0x00U) || (Input == 0x00U) ||
 		(Size == 0x00U)) {
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
@@ -354,11 +348,9 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  * @param	Input		Pointer to the buffer which contains the input
  *				data to be encrypted
- * @param	Size		Key size in bytes, Input size also should be
- * 				same as Key size mentioned. Inputs supported are
- * 				- XSECURE_RSA_4096_KEY_SIZE
- * 				- XSECURE_RSA_2048_KEY_SIZE
- * 				- XSECURE_RSA_3072_KEY_SIZE
+ * @param	Size		Key size in bytes, Input size also should be same as Key size
+ * 				mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE,
+ * 				XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE
  * @param	Result		Pointer to the buffer where resultant decrypted
  *				data to be stored
  *
@@ -388,11 +380,9 @@ int XSecure_RsaPublicEncrypt(XSecure_Rsa *InstancePtr, u8 *Input,
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  * @param	Input		Address of the buffer which contains the input
  *				data to be decrypted
- * @param	Size		Key size in bytes, Input size also should be same as
- * 				Key size mentioned. Inputs supported are
- * 				- XSECURE_RSA_4096_KEY_SIZE,
- * 				- XSECURE_RSA_2048_KEY_SIZE
- * 				- XSECURE_RSA_3072_KEY_SIZE
+ * @param	Size		Key size in bytes, Input size also should be same as Key size
+ * 				mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE,
+ * 				XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE
  * @param	Result		Address of buffer where resultant decrypted
  *				data to be stored
  *
@@ -415,7 +405,7 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 	u32 ModData;
 	u64 ModAddr;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Result == 0x00U) || (Input == 0x00U) ||
 		(Size == 0x00U)) {
 		Status = (int)XSECURE_RSA_INVALID_PARAM;
@@ -469,11 +459,9 @@ END:
  * @param	InstancePtr	Pointer to the XSecure_Rsa instance
  * @param	Input		Pointer to the buffer which contains the input
  *				data to be decrypted
- * @param	Size		Key size in bytes, Input size also should be same as
- * 				Key size mentioned. Inputs supported are
- * 				- XSECURE_RSA_4096_KEY_SIZE,
- * 				- XSECURE_RSA_2048_KEY_SIZE
- * 				- XSECURE_RSA_3072_KEY_SIZE
+ * @param	Size		Key size in bytes, Input size also should be same as Key size
+ * 				mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE,
+ * 				XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE
  * @param	Result		Pointer to the buffer where resultant decrypted
  *				 data to be stored
  *

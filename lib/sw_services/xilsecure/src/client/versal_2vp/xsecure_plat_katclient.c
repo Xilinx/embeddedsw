@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/xsecure_plat_katclient.c
+* @file client/versal_2vp/xsecure_plat_katclient.c
 *
 * This file contains the implementation of the client interface functions for KAT.
 *
@@ -62,12 +62,12 @@ int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, XSECURE_API_KAT, XSECURE_API_TRNG_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat API and
-	 * returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat API and
+	 *   returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 

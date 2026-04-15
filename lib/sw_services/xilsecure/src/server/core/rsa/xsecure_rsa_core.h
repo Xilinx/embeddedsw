@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_core.h
+* @file server/core/rsa/xsecure_rsa_core.h
 *
 * This file contains Versal specific RSA core APIs.
 *
@@ -36,10 +36,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_rsa_server_apis XilSecure RSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_RSA_CORE_H
 #define XSECURE_RSA_CORE_H
 
@@ -116,10 +117,11 @@ extern "C" {
  * The Status Register(SR) indicates the current state of RSA device.
  *
  * Status Register Bit Definition
+ * @{
  */
 #define XSECURE_RSA_STATUS_DONE		(0x1U) 	/**< Operation Done */
 #define XSECURE_RSA_STATUS_ERROR	(0x4U) 	/**< Error */
-/* @}*/
+/** @} */
 
 /** Used for setting the state of RSA operation. */
 typedef enum {
@@ -167,9 +169,9 @@ int XSecure_RsaZeroize(const XSecure_Rsa *InstancePtr);
 int XSecure_RsaEcdsaZeroizeAndVerifyRam(u32 BaseAddress);
 #endif
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_RSA_CORE_H */
-/** @} */

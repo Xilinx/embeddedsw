@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_instance.c
+* @file server/core/slhdsa/xsecure_slhdsa_instance.c
 *
 * This file contains definitions used in SLH-DSA instance management and provides interface to
 * SLH-DSA verification operations
@@ -52,8 +52,8 @@ XSecure_SlhdsaInstance* XSecure_SlhdsaGetInstance(void)
 {
 	static XSecure_SlhdsaParam XSecure_SlhdsaParams = {
 		/**
-		 * SLH-DSA-SHAKE-256s (see FIPS 205 Table 2)
-		 * Formula calculations: n=32, lgw=4, len1=ceil(8*32/4)=64, len2=3, len=67
+		 * - SLH-DSA-SHAKE-256s (see FIPS 205 Table 2)
+		 *   Formula calculations: n=32, lgw=4, len1=ceil(8*32/4)=64, len2=3, len=67
 		 */
 		.n = XSECURE_SLH_DSA_N_32,         	/* n = 32 bytes */
 		.h = XSECURE_SLH_DSA_H_64,         	/* h = 64 */
@@ -68,15 +68,19 @@ XSecure_SlhdsaInstance* XSecure_SlhdsaGetInstance(void)
 		.ChecksumParams = {
 			.DigitWidth = XSECURE_SLH_DSA_LGW_4,		/* lgw = 4 bits per digit */
 			.InputLenInDigits = XSECURE_SLHDSA_CSUM_INPUT_LEN_IN_DIGITS,
-									/* len1 = ceil(8*n/lgw) =
-									   ceil(8*32/4) = 64 */
+									/**
+									 * - len1 = ceil(8*n/lgw) =
+									 *   ceil(8*32/4) = 64
+									 */
 			.ChecksumLenInDigits = XSECURE_SLHDSA_CSUM_LEN_IN_DIGITS,
-									/* len2 = 3 checksum digits */
+									/** - len2 = 3 checksum digits */
 			.ChecksumShift = XSECURE_SLHDSA_CSUM_SHIFT,	/* CkShift = ((8-((len2*lgw)
 									   mod 8)) mod 8) = 4 */
 			.ChecksumSizeInBytes = XSECURE_SLHDSA_CSUM_SIZE_IN_BYTES
-									/* ceil((len2*lgw)/8) =
-									   ceil(12/8) = 2 bytes */
+									/**
+									 * - ceil((len2*lgw)/8) =
+									 *   ceil(12/8) = 2 bytes
+									 */
 		}
 	};
 	static u8 Data1[XSECURE_SLHDSA_MAX_DATA1_LEN_IN_BYTES] __attribute__ ((aligned(16U)));

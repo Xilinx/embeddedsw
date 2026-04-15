@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_ipihandler.c
+* @file server/versal_2ve_2vm/xsecure_plat_ipihandler.c
 *
 * This file contains the Xilsecure Versal_2Ve_2Vm IPI handlers implementation.
 *
@@ -24,7 +24,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server.
+* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
 * @{
 */
 /***************************** Include Files *********************************/
@@ -132,7 +132,7 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 	}
 
 	/**
-	 * Validate internal address fields in the copied structure
+	 * - Validate internal address fields in the copied structure
 	 */
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, DstAddr, RsaParams.Size, Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
 	XPLMI_VERIFY_ADDR_RANGE(SubsystemId, RsaParams.KeyAddr, sizeof(XSecure_RsaKeyParam), Status, XSECURE_ERR_INVALID_ADDR_RANGE, END);
@@ -218,8 +218,8 @@ static int XSecure_RsaPrivateOperationIpi(u32 SubsystemId, u32 RsaParamAddrLow, 
 
 	if ((RsaKeyParam.IsPrimeAvail == TRUE) || (RsaKeyParam.OpMode == XSECURE_RSA_CRT_MODE)) {
 		/**
-		 * Validate prime sizes: In RSA, the modulus N = P × Q, where P and Q are prime factors.
-		 * Therefore, each prime (P and Q) must be exactly half the size of the modulus.
+		 * - Validate prime sizes: In RSA, the modulus N = P × Q, where P and Q are prime factors.
+		 *   Therefore, each prime (P and Q) must be exactly half the size of the modulus.
 		 */
 		if ((RsaKeyParam.PSize != (RsaParams.Size / XSECURE_RSA_PRIME_SIZE_DIVISOR)) ||
 			(RsaKeyParam.QSize != (RsaParams.Size / XSECURE_RSA_PRIME_SIZE_DIVISOR))) {

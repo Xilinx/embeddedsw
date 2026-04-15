@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha_hw.h
+* @file server/spartanup/xsecure_sha_hw.h
 * This file contains SHA3 core hardware definitions for spartan ultrascale plus.
 *
 * <pre>
@@ -21,8 +21,9 @@
 *
 * </pre>
 *
-* @endcond
 ******************************************************************************/
+/** @cond xsecure_internal
+*/
 
 #ifndef XSECURE_SHA_HW_H
 #define XSECURE_SHA_HW_H
@@ -63,3 +64,4 @@ extern "C" {
 #endif
 
 #endif /* XSECURE_SHA_HW_H */
+/** @endcond */

@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha.c
+* @file server/core/sha/sha_pmxc/xsecure_sha.c
 *
 * This file contains the implementation of the interface functions for SHA2/3
 * driver. Refer to the header file xsecure_sha.h for more detailed information.
@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_apis XilSecure Versal_2Ve_2Vm Server APIs
+* @addtogroup xsecure_apis XilSecure Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -47,14 +47,14 @@
 /************************** Constant Definitions **************************************************/
 
 #define XSECURE_TYPE_PMC_DMA0			(1U) /**< DMA0 type */
-#define XSECURE_SHA2_START_NIST_PADDING_MASK	(0x80U)	/**< Nist start padding masks */
-#define XSECURE_SHA3_START_NIST_PADDING_MASK	(0x06U)	/**< Nist Stat padding mask */
-#define XSECURE_SHAKE_START_NIST_PADDING_MASK	(0x1FU)	/**<Nist Start padding mask */
-#define XSECURE_SHA3_END_NIST_PADDING_MASK	(0x80U)	/**<Nist End Padding mask  */
+#define XSECURE_SHA2_START_NIST_PADDING_MASK	(0x80U)	/**< NIST start padding mask */
+#define XSECURE_SHA3_START_NIST_PADDING_MASK	(0x06U)	/**< NIST start padding mask */
+#define XSECURE_SHAKE_START_NIST_PADDING_MASK	(0x1FU)	/**< NIST start padding mask */
+#define XSECURE_SHA3_END_NIST_PADDING_MASK	(0x80U)	/**< NIST end padding mask  */
 #define XSECURE_MAX_PADDING_LENGTH		(144U)	/**< Maximum padding length for SHA */
 #define XSECURE_SHA2_256_LENGTH_FIELD_SIZE	(8U)	/**< SHA2-256 length field size */
 #define XSECURE_SHA2_384_512_LENGTH_FIELD_SIZE	(16U)	/**< SHA2 384 and 512 length field size */
-#define XSECURE_SHA_PADDING_BYTE		(1U)	/**< padding Byte for SHA */
+#define XSECURE_SHA_PADDING_BYTE		(1U)	/**< Padding byte for SHA */
 #define XSECURE_BYTES_TO_BITS_CONVERSION_SHIFT	(3U)	/**< Bytes to bits conversion value */
 #define XSECURE_SHA2_384_512_BLOCK_LEN		(128U)	/**< SHA2 384 and 512 block length */
 #define XSECURE_SHA2_256_BLOCK_LEN		(64U)	/**< SHA2 256 block length */
@@ -113,7 +113,7 @@ static const XSecure_ShaConfig *XSecure_ShaLookupConfig(u32 DeviceId)
 	const XSecure_ShaConfig *CfgPtr = NULL;
 	u32 Index;
 
-	/** Checks all the instances */
+	/** - Checks all the instances */
 	for (Index = 0x0U; Index < (u32)XSECURE_SHA_NUM_OF_INSTANCES; Index++) {
 		if (ShaConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &ShaConfigTable[Index];
@@ -143,7 +143,7 @@ int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr)
 	int Status = XST_FAILURE;
 	const XSecure_ShaConfig *CfgPtr = NULL;
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if((InstancePtr == NULL) || (DmaPtr == NULL)) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
@@ -176,7 +176,7 @@ int XSecure_ShaInitialize(XSecure_Sha* const InstancePtr, XPmcDma* DmaPtr)
 	InstancePtr->DmaPtr = DmaPtr;
 	InstancePtr->IsLastUpdate = (u32)FALSE;
 
-	/** Initializes the secure stream switch instance */
+	/** - Initializes the secure stream switch instance */
 	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -220,7 +220,7 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 		goto END;
 	}
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if(InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
@@ -228,19 +228,19 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 
 	ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
-	/** Validate SHA platform configs. */
+	/** - Validate SHA platform configs. */
 	if (ShaPlatConfig == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate SHA state is initialized or not */
+	/** - Validate SHA state is initialized or not */
 	if(InstancePtr->ShaState != XSECURE_SHA_INITIALIZED) {
 		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/** Validate the SHA mode and initialize SHA instance based on SHA mode. */
+	/** - Validate the SHA mode and initialize SHA instance based on SHA mode. */
 	Status = XSecure_ShaValidateModeAndCfgInstance(InstancePtr, ShaMode);
 	if(Status != XST_SUCCESS) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
@@ -252,20 +252,20 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	InstancePtr->Sha3Len = 0U;
 	InstancePtr->PartialLen = 0U;
 
-	/** Release Reset SHA2/3 engine. */
+	/** - Release Reset SHA2/3 engine. */
 	XSecure_ReleaseReset((UINTPTR)InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 
-	/** Select SHA Mode based on SHA type. */
+	/** - Select SHA Mode based on SHA type. */
 	Xil_Out32((InstancePtr->BaseAddress + ShaPlatConfig->ModeOffset), ShaPlatConfig->ShaMode);
 
-	/** Enable Auto Hardware Padding. */
+	/** - Enable Auto Hardware Padding. */
 	Xil_Out32((InstancePtr->BaseAddress + ShaPlatConfig->AutoPaddingOffset),
 				XSECURE_SHA_AUTO_MODE_ENABLE);
 
 #ifdef XSECURE_SHA_CHAIN_MODE_EN
 	if (ShaPlatConfig->ShaMode == SHAKE256_SLH_DSA_CHAIN) {
 		if (InstancePtr->DoChainConfig == (u32)TRUE) {
-			/** Configure Chain start index and chain iteration count */
+			/** - Configure Chain start index and chain iteration count */
 			Xil_Out32((InstancePtr->BaseAddress + XSECURE_SHA3_CHAIN_OFFSET),
 				  ((u32)InstancePtr->ChainItr << XSECURE_SHA3_CHAIN_STEPS_BIT_POS) |
 				  (u32)InstancePtr->StartIdx);
@@ -276,7 +276,7 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	}
 #endif
 
-	/** Start SHA Engine. */
+	/** - Start SHA Engine. */
 	Xil_Out32(InstancePtr->BaseAddress, XSECURE_SHA_START_VALUE);
 	InstancePtr->ShaState = XSECURE_SHA_ENGINE_STARTED;
 
@@ -349,26 +349,26 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Da
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate the input arguments. */
+	/** - Validate the input arguments. */
 	if(InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate SHA state is started or not. */
+	/** - Validate SHA state is started or not. */
 	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
 		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS)) {
 			Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/** If the input data is of 0 length, do not initiate DMA transfer */
+	/** - If the input data is of 0 length, do not initiate DMA transfer */
 	if (DataSize == 0U) {
 		Status = XST_SUCCESS;
 		goto END;
 	}
 
-	/** Transfer input data to SHA engine using DMA */
+	/** - Transfer input data to SHA engine using DMA */
 	Status = XSecure_ShaDmaTransfer(InstancePtr, DataAddr, DataSize, InstancePtr->IsLastUpdate);
 
 	if (Status != XST_SUCCESS) {
@@ -379,9 +379,9 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Da
 	InstancePtr->Sha3Len += DataSize;
 
 	/**
-	 * Set UPDATE_DONE only when IsLastUpdate is TRUE and all data
-	 * has been DMA'd (PartialLen == 0). If partial data remains,
-	 * SW NIST padding in ShaFinish will handle the final transfer.
+	 * - Set UPDATE_DONE only when IsLastUpdate is TRUE and all data
+	 *   has been DMA'd (PartialLen == 0). If partial data remains,
+	 *   SW NIST padding in ShaFinish will handle the final transfer.
 	 */
 	if ((InstancePtr->IsLastUpdate == (u32)TRUE) &&
 	    (InstancePtr->PartialLen == 0U)) {
@@ -393,7 +393,7 @@ int XSecure_ShaUpdate(XSecure_Sha* const InstancePtr, u64 DataAddr, const u32 Da
 
 END_RST:
 	if(Status != XST_SUCCESS) {
-		/** Set SHA2/3 under reset on failure condition */
+		/** - Set SHA2/3 under reset on failure condition */
 		XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 		InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 	}
@@ -441,25 +441,25 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 	u64 LastHashAddr;
 	XSecure_ShaPlatConfig *ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
-	/** Validate the input arguments. */
+	/** - Validate the input arguments. */
 	if(InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate Hash buffer size to avoid buffer overflow. */
+	/** - Validate Hash buffer size to avoid buffer overflow. */
 	if(HashBufSize < ReqHashSize) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate SHA state */
+	/** - Validate SHA state */
 	if (InstancePtr->ShaState == XSECURE_SHA_INITIALIZED) {
 		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/** Validate SHA platform configs. */
+	/** - Validate SHA platform configs. */
 	if (ShaPlatConfig == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
@@ -476,7 +476,7 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 		Xil_Out32((InstancePtr->BaseAddress + ShaPlatConfig->AutoPaddingOffset),
 				XSECURE_SHA_AUTO_PADDING_MODE_DISABLE);
 
-		/** Perform NIST padding and send to SHA engine */
+		/** - Perform NIST padding and send to SHA engine */
 		Status = XSecure_TransferNistPad(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_SHA_NIST_PADDING_ERROR;
@@ -484,7 +484,7 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 		}
 	}
 
-	/** Check the SHA2/3 DONE bit. */
+	/** - Check the SHA2/3 DONE bit. */
 	Status = XSecure_ShaWaitForDone(InstancePtr);
 	if(Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -495,7 +495,7 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 		ShaDigestSizeInWords = ReqHashSize / XSECURE_WORD_SIZE;
 		RemBytes = ReqHashSize % XSECURE_WORD_SIZE;
 
-		/* Read the Hash (word-aligned) and store in Hash Buffer. */
+		/** - Read the Hash (word-aligned) and store in Hash Buffer. */
 		for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
 			RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 					(u16)(XSECURE_SHA_DIGEST_OFFSET +
@@ -506,7 +506,7 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 
 		LastHashAddr = HashAddr +
 				(ShaDigestSizeInWords * XSECURE_WORD_SIZE);
-		/* Handle last partial word if present */
+		/** - Handle last partial word if present */
 		if (RemBytes > 0U) {
 			RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 					(u16)(XSECURE_SHA_DIGEST_OFFSET +
@@ -523,7 +523,7 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 	}
 
 END_RST:
-	/** Set SHA2/3 under reset. */
+	/** - Set SHA2/3 under reset. */
 	XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 	InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 
@@ -554,7 +554,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 	u32 RegVal;
 	XSecure_ShaPlatConfig *ShaPlatConfig;
 
-	/** Validate the input arguments. */
+	/** - Validate the input arguments. */
 	if(InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
@@ -562,19 +562,19 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 
 	ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
-	/** Validate SHA platform configs. */
+	/** - Validate SHA platform configs. */
 	if(ShaPlatConfig == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate Hash buffer size to avoid buffer overflow. */
+	/** - Validate Hash buffer size to avoid buffer overflow. */
 	if(HashBufSize < ShaPlatConfig->ShaDigestSize) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate SHA state */
+	/** - Validate SHA state */
 	if (InstancePtr->ShaState == XSECURE_SHA_INITIALIZED) {
 		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
@@ -589,7 +589,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 		Xil_Out32((InstancePtr->BaseAddress + ShaPlatConfig->AutoPaddingOffset),
 				XSECURE_SHA_AUTO_PADDING_MODE_DISABLE);
 
-		/** Perform NIST padding and send to SHA engine */
+		/** - Perform NIST padding and send to SHA engine */
 		Status = XSecure_TransferNistPad(InstancePtr);
 		if (Status != XST_SUCCESS) {
 			Status = XSECURE_SHA_NIST_PADDING_ERROR;
@@ -597,7 +597,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 		}
 	}
 
-	/** Check the SHA2/3 DONE bit. */
+	/** - Check the SHA2/3 DONE bit. */
 	Status = XSecure_ShaWaitForDone(InstancePtr);
 	if(Status != XST_SUCCESS) {
 		Status = XST_FAILURE;
@@ -606,7 +606,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 
 	ShaDigestSizeInWords = ShaPlatConfig->ShaDigestSize / XSECURE_WORD_SIZE;
 
-	/** Read out the Hash and store in Hash Buffer. */
+	/** - Read out the Hash and store in Hash Buffer. */
 	for (Index = 0U; Index < ShaDigestSizeInWords; Index++) {
 		RegVal = XSecure_ReadReg(InstancePtr->BaseAddress,
 			(u16)(XSECURE_SHA_DIGEST_OFFSET + (Index * XSECURE_WORD_SIZE)));
@@ -618,7 +618,7 @@ int XSecure_ShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr, u32 HashBufS
 	}
 
 END_RST:
-	/** Set SHA2/3 under reset. */
+	/** - Set SHA2/3 under reset. */
 	XSecure_SetReset(InstancePtr->BaseAddress, XSECURE_SHA_RESET_OFFSET);
 	InstancePtr->ShaState = XSECURE_SHA_INITIALIZED;
 
@@ -668,7 +668,7 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 		goto END;
 	}
 
-	/** Determine LengthFieldSize based on hash algorithm */
+	/** - Determine LengthFieldSize based on hash algorithm */
 	switch (ShaPlatConfig->HashAlgo) {
 		case XSECURE_SHA2_256:
 			LengthFieldSize = XSECURE_SHA2_256_LENGTH_FIELD_SIZE;
@@ -687,20 +687,20 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 	PartialData = InstancePtr->PartialData;
 	PadBufOffset = InstancePtr->PartialLen;
 
-	/** Calculate padding bytes */
+	/** - Calculate padding bytes */
 	TotalLen = InstancePtr->Sha3Len + XSECURE_SHA_PADDING_BYTE + LengthFieldSize;
 	PadLen = TotalLen % BlockLen;
 	PadLen = (PadLen == 0U) ? 0U : (BlockLen - PadLen);
 	PadLen += XSECURE_SHA_PADDING_BYTE + LengthFieldSize;
 
-	/** Zeroize the padding area in PartialData after the buffered data */
+	/** - Zeroize the padding area in PartialData after the buffered data */
 	Status = Xil_SMemSet(&PartialData[PadBufOffset], PadLen, 0U, PadLen);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_SHA_PADDING_BUFFER_INIT_ERROR;
 		goto END;
 	}
 
-	/** Build NIST padding at PartialData[PadBufOffset] */
+	/** - Build NIST padding at PartialData[PadBufOffset] */
 	if ((ShaPlatConfig->HashAlgo == XSECURE_SHAKE_256) ||
 	     (ShaPlatConfig->HashAlgo == XSECURE_SHAKE_256_SLH_DSA_CHAIN)) {
 		PartialData[PadBufOffset] = XSECURE_SHAKE_START_NIST_PADDING_MASK;
@@ -729,13 +729,13 @@ static int XSecure_TransferNistPad(XSecure_Sha* const InstancePtr)
 	}
 
 	/**
-	 * Reset PartialLen before sending, since the combined data is
-	 * already assembled in PartialData and XSecure_ShaDmaXfer manages
-	 * PartialLen internally on platforms that require staging.
+	 * - Reset PartialLen before sending, since the combined data is
+	 *   already assembled in PartialData and XSecure_ShaDmaXfer manages
+	 *   PartialLen internally on platforms that require staging.
 	 */
 	InstancePtr->PartialLen = 0U;
 
-	/** Send combined partial data + NIST padding to SHA engine */
+	/** - Send combined partial data + NIST padding to SHA engine */
 	Status = XSecure_ShaDmaTransfer(InstancePtr,
 			(u64)(UINTPTR)PartialData,
 			PadBufOffset + PadLen, (u32)TRUE);
@@ -768,7 +768,7 @@ static int XSecure_ShaDmaTransfer(XSecure_Sha* const InstancePtr, u64 DataAddr, 
 {
 	volatile int Status = XST_FAILURE;
 
-	/**  Configure the SSS for SHA2/3 hashing. */
+	/** - Configure the SSS for SHA2/3 hashing. */
 	Status = XSecure_SssSha(&InstancePtr->SssInstance,
 							(u16)(InstancePtr->DmaPtr->Config.DmaType - XSECURE_TYPE_PMC_DMA0),
 							InstancePtr->SssShaCfg);
@@ -777,7 +777,7 @@ static int XSecure_ShaDmaTransfer(XSecure_Sha* const InstancePtr, u64 DataAddr, 
 		goto END;
 	}
 
-	/** Push Data to SHA2/3 engine. */
+	/** - Push Data to SHA2/3 engine. */
 	Status = XSecure_ShaDmaXfer(InstancePtr, DataAddr, Len, (u8)IsLastUpdate);
 	if (Status != XST_SUCCESS) {
 		Status = XSECURE_SHA_DMA_TRANSFER_ERROR;
@@ -812,7 +812,7 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 	volatile int Status = XST_FAILURE;
 	XSecure_ShaPlatConfig *ShaPlatConfig;
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
@@ -820,7 +820,7 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 
 	ShaPlatConfig = (XSecure_ShaPlatConfig *)InstancePtr->ShaPlatConfig;
 
-	/** Validate SHA platform configs. */
+	/** - Validate SHA platform configs. */
 	if (ShaPlatConfig == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
@@ -831,32 +831,32 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 		goto END;
 	}
 
-	/** Validate SHA state */
+	/** - Validate SHA state */
 	if(InstancePtr->ShaState != XSECURE_SHA_INITIALIZED) {
 		Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/** Configure SSS and start the SHA engine. */
+	/** - Configure SSS and start the SHA engine. */
 	Status = XSecure_ShaStart(InstancePtr, ShaMode);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Configure Sha last update. */
+	/** - Configure Sha last update. */
 	Status = XSecure_ShaLastUpdate(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Update input data to SHA Engine to calculate Hash. */
+	/** - Update input data to SHA Engine to calculate Hash. */
 	Status = XST_FAILURE;
 	Status = XSecure_ShaUpdate(InstancePtr, DataAddr, DataSize);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Calculate and read the final hash of input data. */
+	/** - Calculate and read the final hash of input data. */
 	Status = XST_FAILURE;
 	Status = XSecure_ShaFinish(InstancePtr, HashAddr, HashBufSize);
 
@@ -881,20 +881,20 @@ int XSecure_ShaLastUpdate(XSecure_Sha *InstancePtr)
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate the input arguments. */
+	/** - Validate the input arguments. */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Validate SHA state */
+	/** - Validate SHA state */
 	if ((InstancePtr->ShaState != XSECURE_SHA_ENGINE_STARTED) &&
 		(InstancePtr->ShaState != XSECURE_SHA_UPDATE_IN_PROGRESS)) {
 			Status = (int)XSECURE_SHA_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/** Make IsLastUpdate to TRUE */
+	/** - Make IsLastUpdate to TRUE */
 	InstancePtr->IsLastUpdate = (u32)TRUE;
 
 	Status = XST_SUCCESS;
@@ -915,7 +915,7 @@ END:
 ******************************************************************************/
 static int XSecure_ShaWaitForDone(const XSecure_Sha *InstancePtr)
 {
-	/** Check for SHA operation is completed with in Timeout(10sec) or not */
+	/** - Check for SHA operation is completed with in Timeout(10sec) or not */
 	return (int)Xil_WaitForEvent(InstancePtr->BaseAddress + XSECURE_SHA_DONE_OFFSET,
 			XSECURE_SHA_DONE_VALUE,
 			XSECURE_SHA_DONE_VALUE,

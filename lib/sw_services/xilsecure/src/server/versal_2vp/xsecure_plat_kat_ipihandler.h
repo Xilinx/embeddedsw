@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/xsecure_plat_kat_ipihandler.h
+* @file server/versal_2vp/xsecure_plat_kat_ipihandler.h
 *
 * This file contains the Xilsecure KAT platform IPI handler declaration.
 *
@@ -21,9 +21,9 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_KAT_IPIHANDLER_H_
 #define XSECURE_PLAT_KAT_IPIHANDLER_H_
 
@@ -42,9 +42,9 @@ extern "C" {
 /**************************************** Function Prototypes *************************************/
 int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_KAT_IPIHANDLER_H_ */
-/** @} */

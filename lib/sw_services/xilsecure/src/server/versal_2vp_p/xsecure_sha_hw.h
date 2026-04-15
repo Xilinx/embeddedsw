@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_sha_hw.h
+* @file server/versal_2vp_p/xsecure_sha_hw.h
 *
 * This file contains SHA3/SHA2 core hardware definitions for versal_2vp_p
 *

@@ -5,7 +5,7 @@
 /******************************************************************************/
 /**
 *
-* @file xsecure_lms.h
+* @file server/core/lms_hss/xsecure_lms.h
 *
 * This file contains structures, constants and defines used in LMS and HSS
 * provides interface to LMS operations
@@ -23,6 +23,10 @@
 * @note
 *
 *******************************************************************************/
+/**
+ * @addtogroup xsecure_lms_server_apis XilSecure LMS Server APIs
+ * @{
+ */
 #ifndef XSECURE_LMS_H_
 #define XSECURE_LMS_H_
 
@@ -149,12 +153,12 @@ typedef union XSecure_LmsPublicKey_ {
 	u8 Buff[XSECURE_LMS_PUB_KEY_TOTAL_SIZE];
 	struct {
 		/**
-		 * @brief LmsType @ref XSecure_LmsType
+		 * @brief LmsType XSecure_LmsType
 		 * Size - 4 bytes, 0 to 3 in public key
 		 */
 		XSecure_LmsType LmsType;
 		/**
-		 * @brief OtsType @ref XSecure_LmsOtsType
+		 * @brief OtsType XSecure_LmsOtsType
 		 * Size - 4 bytes, 4 to 7 bytes in public key
 		 */
 		XSecure_LmsOtsType OtsType;
@@ -171,7 +175,7 @@ typedef union XSecure_LmsPublicKey_ {
 		 *
 		 * 'r' is the node number, same as 'q', goes from 0 on left most
 		 * leaf to right most (2^h -1), in a single tree
-		 * D_INTR is a constant @ref XSECURE_D_INTR
+		 * D_INTR is a constant XSECURE_D_INTR
 		 */
 		u8 T[XSECURE_LMS_PUB_KEY_T_FIELD_SIZE];
 	}__attribute__((__packed__)) Fields;	/**< Fields of the public key structure */
@@ -197,7 +201,7 @@ typedef union XSecure_LmsPubKeyTmp_ {
 		 */
 		u32 half_node_number;
 		/**
-		 * D	- @ref XSECURE_D_INTR or @ref XSECURE_D_PLEAF
+		 * D	- XSECURE_D_INTR or XSECURE_D_PLEAF constant
 		 * Size - 2 bytes, 21st & 22nd byte
 		 */
 		u8	D[XSECURE_LMS_D_FIELD_SIZE];
@@ -213,5 +217,5 @@ typedef union XSecure_LmsPubKeyTmp_ {
 /***************************** Function Prototypes ******************************************/
 int XSecure_LmsLookupParamSet(XSecure_LmsType Type, XSecure_LmsParam** Parameters);
 
-#endif /* XSECURE_LMS_H_ */
 /** @} */
+#endif /* XSECURE_LMS_H_ */

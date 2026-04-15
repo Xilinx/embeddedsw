@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_wots.c
+* @file server/core/slhdsa/xsecure_slhdsa_wots.c
 *
 * This file consists of definitions for SLH-DSA WOTS+ operations
 *
@@ -57,36 +57,36 @@ static void XSecure_ComputeChecksum(const XSecure_ChecksumParam * const Checksum
 {
 	u32 Csum = XSECURE_ZERO;  /* Step 1: csum <- 0 */
 	volatile u32 Idx;
-	/* Buffer to hold checksum as bytes (max 4 bytes needed) */
+	/** - Buffer to hold checksum as bytes (max 4 bytes needed) */
 	u8 ChecksumBytes[XSECURE_SLHDSA_CSUM_SIZE_IN_BYTES * XSECURE_VALUE_TWO] = {0U};
 
-	/* Step 2: msg <- base_2b(M, lgw, len1) - Convert message to base-w */
+	/** - Step 2: msg <- base_2b(M, lgw, len1) - Convert message to base-w */
 	XSecure_SlhdsaBase2b(Output, M, ChecksumParams->DigitWidth, ChecksumParams->InputLenInDigits);
 
-	/* Step 3-5: Compute checksum */
-	/* for i from 0 to len1 - 1 do */
+	/** - Step 3-5: Compute checksum */
+	/** - for i from 0 to len1 - 1 do */
 	for (Idx = 0U; Idx < ChecksumParams->InputLenInDigits; Idx++) {
-		/* Step 4: csum <- csum + w - 1 - msg[i] */
-		/* w = 2^lgw, so w-1 = (1 << lgw) - 1 */
+		/** - Step 4: csum <- csum + w - 1 - msg[i] */
+		/** - w = 2^lgw, so w-1 = (1 << lgw) - 1 */
 		Csum += ((u32)((XSECURE_VALUE_ONE << ChecksumParams->DigitWidth) -
 					XSECURE_VALUE_ONE) - Output[Idx]);
 	}
-	/* Step 5: end for */
+	/** - Step 5: end for */
 
-	/* Step 6: csum <- csum << ((8 - ((len2 * lgw) mod 8)) mod 8) */
-	/* For lgw=4, this shifts left by 4 bits */
+	/** - Step 6: csum <- csum << ((8 - ((len2 * lgw) mod 8)) mod 8) */
+	/** - For lgw=4, this shifts left by 4 bits */
 	Csum = (Csum << ChecksumParams->ChecksumShift);
 
-	/* Convert checksum to bytes for base_2b conversion */
-	/* toByte(csum, ceil(len2*lgw/8)) */
+	/** - Convert checksum to bytes for base_2b conversion */
+	/** - toByte(csum, ceil(len2*lgw/8)) */
 	for (Idx = 0U; Idx < ChecksumParams->ChecksumSizeInBytes; Idx++) {
-		/* Store checksum in big-endian format */
+		/** - Store checksum in big-endian format */
 		ChecksumBytes[ChecksumParams->ChecksumSizeInBytes - XSECURE_VALUE_ONE - Idx] =
 			(u8)((Csum >> (Idx * XSECURE_BYTE_IN_BITS)) & 0xFFU);
 	}
 
-	/* Step 7: msg <- msg || base_2b(toByte(csum, ceil(len2*lgw/8)), lgw, len2) */
-	/* Convert checksum to base-w and append to message array */
+	/** - Step 7: msg <- msg || base_2b(toByte(csum, ceil(len2*lgw/8)), lgw, len2) */
+	/** - Convert checksum to base-w and append to message array */
 	XSecure_SlhdsaBase2b(&Output[ChecksumParams->InputLenInDigits], ChecksumBytes,
 			     ChecksumParams->DigitWidth, ChecksumParams->ChecksumLenInDigits);
 }
@@ -221,18 +221,18 @@ int XSecure_SlhdsaWotsPkFromSign(u64 WotsSignAddr, u64 MAddr,
 	u32 TotalLength;
 	XSecure_SlhdsaChainConfig ChainConfig;
 
-	/* Step 1: csum <- 0 (handled inside WotsCheckSum) */
-	/* Step 2: msg <- base_2b(M, lgw, len1) (handled inside WotsCheckSum) */
-	/* Step 3-7: Compute checksum and append to msg (handled inside WotsCheckSum) */
+	/** - Step 1: csum <- 0 (handled inside WotsCheckSum) */
+	/** - Step 2: msg <- base_2b(M, lgw, len1) (handled inside WotsCheckSum) */
+	/** - Step 3-7: Compute checksum and append to msg (handled inside WotsCheckSum) */
 	XSecure_ComputeChecksum(&InstancePtr->Param->ChecksumParams, (const u8 *)(UINTPTR)MAddr,
 			InstancePtr->Data4);
 
-	/* Step 8: for i from 0 to len-1 do */
-	/* Use embedded parameter for total length instead of direct Param->len */
+	/** - Step 8: for i from 0 to len-1 do */
+	/** - Use embedded parameter for total length instead of direct Param->len */
 	TotalLength = InstancePtr->Param->ChecksumParams.InputLenInDigits +
 			InstancePtr->Param->ChecksumParams.ChecksumLenInDigits;
 	for (Idx = 0U; Idx < TotalLength; Idx++) {
-		/* Step 9: ADRS.setChainAddress(i) */
+		/** - Step 9: ADRS.setChainAddress(i) */
 		XSecure_SlhdsaSetChainAddress(InstancePtr->Addr, Idx);
 
 		/*
@@ -252,10 +252,10 @@ int XSecure_SlhdsaWotsPkFromSign(u64 WotsSignAddr, u64 MAddr,
 
 		TmpPtr += (u32)InstancePtr->Param->n;
 	}
-	/* Step 11: end for */
+	/** - Step 11: end for */
 
-	/* Step 12: wotspkADRS <- ADRS (current ADRS used) */
-	/* Step 13: wotspkADRS.setTypeAndClear(WOTS_PK) */
+	/** - Step 12: wotspkADRS <- ADRS (current ADRS used) */
+	/** - Step 13: wotspkADRS.setTypeAndClear(WOTS_PK) */
 	XSecure_SlhdsaSetTypeClearNotKp(InstancePtr->Addr, XSECURE_SLH_DSA_ADRS_TYPE_WOTS_PK);
 
 	/*
@@ -275,7 +275,7 @@ int XSecure_SlhdsaWotsPkFromSign(u64 WotsSignAddr, u64 MAddr,
 		TmpPtr,					/* [in] Size of input data */
 		WotsPk);				/* [out] WOTS+ public key output buffer */
 
-	/* Step 16: return pksig */
+	/** - Step 16: return pksig */
 
 END:
 	return Status;

@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sss.c
+* @file server/core/util/xsecure_sss.c
 * This file contains functions for SSS switch configurations.
 *
 * <pre>
@@ -68,7 +68,7 @@ int XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	/* Validates the input arguments */
+	/** - Validates the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
@@ -105,7 +105,7 @@ int XSecure_SssAes(const XSecure_Sss *InstancePtr,
 	u32 Mask = 0U;
 	u32 RegVal;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_SSS_INVALID_PARAM;
 		goto END;
@@ -164,7 +164,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 	u32 Mask = 0U;
 	u32 RegVal;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) ||
 		((DmaId != (u16)XSECURE_SSS_DMA0) &&
 			(DmaId != (u16)XSECURE_SSS_DMA1))) {
@@ -187,7 +187,7 @@ int XSecure_SssSha(const XSecure_Sss *InstancePtr, u16 DmaId,
 	}
 
 	Status = XST_FAILURE;
-	/* configure the secure stream switch */
+	/** - configure the secure stream switch */
 	Status = XSecure_SssCfg(InstancePtr, Resource, InputSrc,
 			XSECURE_SSS_INVALID);
 
@@ -214,7 +214,7 @@ int XSecure_SssDmaLoopBack(const XSecure_Sss *InstancePtr, u16 DmaId)
 	volatile int Status = XST_FAILURE;
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) ||
 		((DmaId != (u16)XSECURE_SSS_DMA0) &&
 			(DmaId != (u16)XSECURE_SSS_DMA1))) {
@@ -253,7 +253,7 @@ static int XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 {
 	int Status = XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(Resource != NULL);
 	XSecure_AssertNonvoid((DmaId == 0U) || (DmaId == 1U));
 
@@ -303,7 +303,7 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 	u32 InputShift;
 	u32 OutputShift;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 	XSecure_AssertNonvoid((InputSrc >= XSECURE_SSS_DMA0) &&
 		(InputSrc <= XSECURE_SSS_INVALID));
@@ -329,7 +329,7 @@ static int XSecure_SssCfg (const XSecure_Sss *InstancePtr,
 	OutputSrcCfg = (u32) XSecure_SssLookupTable [OutputSrc][Resource] <<
 		OutputShift;
 
-	/* Recalculating to verify values */
+	/** - Recalculating to verify values */
 	InputSrcCfgRedundant = (u32) XSecure_SssLookupTable [Resource][InputSrc] <<
 		InputShift;
 

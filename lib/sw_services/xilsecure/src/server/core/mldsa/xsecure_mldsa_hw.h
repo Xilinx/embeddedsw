@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_mldsa_hw.h
+* @file server/core/mldsa/xsecure_mldsa_hw.h
 *
 * This file contains hardware register offsets for MLDSA core
 *
@@ -21,10 +21,7 @@
 * </pre>
 *
 ***************************************************************************************************/
-/**
-* @addtogroup xsecure_mldsa_server_apis XilSecure MLDSA Server APIs
-* @{
-*/
+
 #ifndef XSECURE_MLDSA_HW_H_
 #define XSECURE_MLDSA_HW_H_
 
@@ -94,4 +91,3 @@ extern "C" {
 #endif
 
 #endif /* XSECURE_MLDSA_HW_H_ */
-/** @} */

@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_mailbox.h
+* @file client/core/mailbox/xsecure_mailbox.h
 *
 * This file contains declarations of xilmailbox generic interface APIs
 *
@@ -39,10 +39,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
-* @{
-*/
+ * @addtogroup xsecure_mailbox_apis XilSecure Mailbox APIs
+ * @{
+ */
 #ifndef XSECURE_MAILBOX_H
 #define XSECURE_MAILBOX_H
 
@@ -163,9 +164,9 @@ static inline int XSecure_SetSlrIndex(XSecure_ClientInstance *InstancePtr, u32 S
 int XSecure_ProcessMailbox(XMailbox *MailboxPtr, u32 *MsgPtr, u32 MsgLen);
 int XSecure_ClientInit(XSecure_ClientInstance* const InstancePtr, XMailbox* const MailboxPtr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XSECURE_MAILBOX_H */
-/** @} */

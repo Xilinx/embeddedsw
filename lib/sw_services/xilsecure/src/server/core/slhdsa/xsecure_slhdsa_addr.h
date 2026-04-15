@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_addr.h
+* @file server/core/slhdsa/xsecure_slhdsa_addr.h
 *
 * This file contains the SLH-DSA address structure (ADRS) and manipulation functions.
 * The ADRS provides domain separation for hash functions across different SLH-DSA operations
@@ -25,10 +25,7 @@
 * All multi-byte values are stored in big-endian order within the ADRS structure.
 *
 ***************************************************************************************************/
-/**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+
 #ifndef XSECURE_SLH_DSA_ADDR_H_
 #define XSECURE_SLH_DSA_ADDR_H_
 
@@ -319,4 +316,3 @@ static inline u64 XSecure_ModPow2U64(u64 x, u64 k)
 #endif
 
 #endif /* XSECURE_SLH_DSA_ADDR_H_ */
-/** @} */

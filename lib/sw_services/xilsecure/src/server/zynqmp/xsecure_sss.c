@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sss.c
+* @file server/zynqmp/xsecure_sss.c
 * This file contains functions for SSS switch configurations.
 *
 * <pre>
@@ -23,6 +24,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_sss_apis XilSecure SSS APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_sss.h"
@@ -60,7 +65,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
  *****************************************************************************/
 void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->Address = XSECURE_SSS_ADDRESS;
@@ -85,7 +90,7 @@ void XSecure_SssInitialize (XSecure_Sss *InstancePtr)
 u32 XSecure_SssAes(XSecure_Sss *InstancePtr,
 		XSecure_SssSrc InputSrc, XSecure_SssSrc OutputSrc)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((InputSrc >= XSECURE_SSS_PCAP) &&
 		(InputSrc < XSECURE_SSS_INVALID));
@@ -114,7 +119,7 @@ u32 XSecure_SssSha(XSecure_Sss *InstancePtr, u16 DmaId)
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DmaId == 0U);
 
@@ -149,7 +154,7 @@ u32 XSecure_SssPcap(XSecure_Sss *InstancePtr, u16 DmaId)
 	u32 Status = (u32)XST_FAILURE;
 	XSecure_SssSrc InputSrc = XSECURE_SSS_INVALID;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DmaId == 0U);
 
@@ -183,7 +188,7 @@ u32 XSecure_SssDmaLoopBack(XSecure_Sss *InstancePtr, u16 DmaId)
 	XSecure_SssSrc Resource = XSECURE_SSS_INVALID;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(DmaId == 0U);
 
@@ -216,7 +221,7 @@ static u32 XSecure_SssDmaSrc(u16 DmaId, XSecure_SssSrc *Resource)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(Resource != NULL);
 
 	if (DmaId == 0U) {
@@ -253,7 +258,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	u32 SssCfg = 0x00;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid((InputSrc >= XSECURE_SSS_PCAP) &&
 		(InputSrc <= XSECURE_SSS_INVALID));
@@ -277,7 +282,7 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 	OutputSrcCfg = (u32) XSecure_SssLookupTable [OutputSrc][Resource] <<
 			(XSECURE_SSS_CFG_LEN_IN_BITS * (u32)OutputSrc);
 
-	/* Recalculating to verify values */
+	/** - Recalculating to verify values */
 	InputSrcCfgRedundant = (u32) XSecure_SssLookupTable [Resource][InputSrc] <<
                 (XSECURE_SSS_CFG_LEN_IN_BITS * (u32)Resource);
 
@@ -292,3 +297,4 @@ static u32 XSecure_SssCfg (XSecure_Sss *InstancePtr, XSecure_SssSrc Resource,
 
 	return Status;
 }
+/** @} */

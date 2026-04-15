@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_katclient.c
+* @file client/versal_net/xsecure_plat_katclient.c
 *
 * This file contains the implementation of the client interface functions for
 * KAT.
@@ -68,12 +68,12 @@ int XSecure_TrngKat(XSecure_ClientInstance *InstancePtr)
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD1(Payload, XSECURE_API_KAT, XSECURE_API_TRNG_KAT);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat
-	 * API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to call XSecure_TrngKat
+	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 
@@ -239,7 +239,7 @@ static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-	/* Fill IPI Payload */
+	/** - Fill IPI Payload */
 	XSECURE_PACK_PAYLOAD(Payload, HEADER((XSECURE_KAT_HDR_LEN + KatMaskLen), ApiId),
 				KatOp,
 				((KatMaskLen > 0U) ? KatMask[0U] : 0U),
@@ -248,8 +248,8 @@ static int XSecure_UpdateKatStatus(XSecure_ClientInstance *InstancePtr,
 				0U);
 
 	/**
-	 * Send an IPI request to the PLM by using the CDO command to update Kat status in
-	 * XSecure_UpdateKatStatusIpiHandler API and returns the status of the IPI response.
+	 * - Send an IPI request to the PLM by using the CDO command to update Kat status in
+	 *   XSecure_UpdateKatStatusIpiHandler API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
 END:

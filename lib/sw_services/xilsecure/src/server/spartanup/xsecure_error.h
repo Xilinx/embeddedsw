@@ -6,7 +6,7 @@
 /*****************************************************************************/
 /**
  *
- * @file xsecure_error.h
+ * @file server/spartanup/xsecure_error.h
  *
  * This file contains xilsecure error codes
  *
@@ -259,10 +259,6 @@ enum {
 
 #define XSECURE_SHA3_FINISH_ERROR		XSECURE_SHA_FINISH_ERROR
 						/**< SHA3 finish error */
-/**
- * @}
-*/
-/************************** Function Prototypes ******************************/
 
 #ifdef __cplusplus
 }

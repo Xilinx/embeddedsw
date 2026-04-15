@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes.c
+* @file server/zynqmp/xsecure_aes.c
 *
 * This file contains the implementation of the interface functions for AES
 * driver. Refer to the header file xsecure_aes.h for more detailed information.
@@ -68,6 +68,10 @@
 * @note
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_aes_zynqmp_apis XilSecure AES ZynqMP APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_aes.h"
@@ -83,7 +87,7 @@
 /*****************************************************************************/
 /**
  * @brief
- * This macro waits for AES engine completes key loading.
+ * This macro waits for AES engine to complete key loading.
  *
  * @param	InstancePtr Pointer to the XSecure_Aes instance.
  *
@@ -121,8 +125,8 @@ static s32 XSecure_PassChunkToAes(XCsuDma *InstancePtr, const u8* SrcAddr,
  * @param	InstancePtr	Pointer to the XSecure_Aes instance.
  * @param	CsuDmaPtr	Pointer to the XCsuDma instance.
  * @param	KeySel		Key source for decryption, can be KUP/device key
- *		- XSECURE_CSU_AES_KEY_SRC_KUP :For KUP key
- *		- XSECURE_CSU_AES_KEY_SRC_DEV :For Device Key
+ *              (XSECURE_CSU_AES_KEY_SRC_KUP for KUP key or
+ *              XSECURE_CSU_AES_KEY_SRC_DEV for Device Key)
  * @param	IvPtr		Pointer to the Initialization Vector
  *		for decryption
  * @param	KeyPtr		Pointer to Aes key in case KUP
@@ -153,7 +157,7 @@ s32 XSecure_AesInitialize(XSecure_Aes *InstancePtr, XCsuDma *CsuDmaPtr,
 		goto END;
 	}
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(CsuDmaPtr != NULL);
 	Xil_AssertNonvoid(IvPtr != NULL);
@@ -208,27 +212,27 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 Status = (u32)XST_FAILURE;
 	u32 KeyClearStatus;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Size != (u32)0x0);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
-	/* Configure the SSS for AES.*/
+	/** - Configure the SSS for AES. */
 	Status = XSecure_SssAes(&InstancePtr->SssInstance, XSECURE_SSS_DMA0,
 						XSECURE_SSS_DMA0);
 	if(Status != (u32)XST_SUCCESS){
 		goto END;
 	}
-	/* Clear AES contents by resetting it. */
+	/** - Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
-	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
+	/** - Clear AES_KEY_CLEAR bits to avoid clearing of key */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
 
 	if(InstancePtr->KeySel != XSECURE_CSU_AES_KEY_SRC_DEV) {
 		for(Count = 0U; Count < 8U; Count++) {
-			/* Helion AES block expects the key in big-endian. */
+			/** - Helion AES block expects the key in big-endian. */
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
 			Addr = InstancePtr->BaseAddress +
 				XSECURE_CSU_AES_KUP_0_OFFSET
@@ -241,22 +245,22 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		goto END;
 	}
 
-	/* Configure the AES for Encryption.*/
+	/** - Configure the AES for Encryption. */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
 					XSECURE_CSU_AES_CFG_ENC);
-	/* Start the message.*/
+	/** - Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_CSU_AES_START_MSG_OFFSET, XSECURE_CSU_AES_START_MSG);
 
-	/* Enable CSU DMA Src channel for byte swapping.*/
+	/** - Enable CSU DMA Src channel for byte swapping. */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 	                                 XCSUDMA_SRC_CHANNEL, 1U);
 
-	/* Enable CSU DMA Dst channel for byte swapping.*/
+	/** - Enable CSU DMA Dst channel for byte swapping. */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 	                                 XCSUDMA_DST_CHANNEL, 1U);
 
-	/* Push IV into the AES engine.*/
+	/** - Push IV into the AES engine. */
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
@@ -266,16 +270,16 @@ u32 XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		goto END;
 	}
 
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 
-	/* Configure the CSU DMA Tx/Rx.*/
+	/** - Configure the CSU DMA Tx/Rx. */
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 			(UINTPTR)EncData,
 			(Size + XSECURE_SECURE_GCM_TAG_SIZE)/4U, 0);
 
-	/* Update the size of data */
+	/** - Update the size of data */
 	InstancePtr->SizeofData = Size;
 	InstancePtr->AesState = XSECURE_AES_ENCRYPT_INITIALIZED;
 END:
@@ -318,7 +322,7 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 	u32 Status = (u32)XST_FAILURE;
 	u32 KeyClearStatus;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Size <= InstancePtr->SizeofData);
 	Xil_AssertNonvoid(InstancePtr->AesState == XSECURE_AES_ENCRYPT_INITIALIZED);
@@ -329,44 +333,44 @@ u32 XSecure_AesEncryptUpdate(XSecure_Aes *InstancePtr, const u8 *Data, u32 Size)
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				(UINTPTR) Data,	Size/4U, IsFinal);
 
-	/* Wait for Src DMA done. */
+	/** - Wait for Src DMA done. */
 	Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
 
 
 	if (IsFinal == TRUE) {
-		/* Wait for Dst DMA done. */
+		/** - Wait for Dst DMA done. */
 		Status = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 							XCSUDMA_DST_CHANNEL);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_DST_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
-		/* Disable CSU DMA Dst channel for byte swapping. */
+		/** - Disable CSU DMA Dst channel for byte swapping. */
 		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		                                 XCSUDMA_DST_CHANNEL, 0U);
 
-		/* Disable CSU DMA Src channel for byte swapping. */
+		/** - Disable CSU DMA Src channel for byte swapping. */
 		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		                                 XCSUDMA_SRC_CHANNEL, 0U);
 
-		/* Wait for AES encryption completion.*/
+		/** - Wait for AES encryption completion. */
 		Status = XSecure_AesWaitForDone(InstancePtr);
 		if (Status != (u32)XST_SUCCESS) {
 			goto END;
 		}
 	}
-	/* Update the size of instance */
+	/** - Update the size of instance */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
 	Status = (u32)XST_SUCCESS;
 END:
@@ -452,13 +456,13 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	u32 Status = (u32)XST_FAILURE;
 	u32 KeyClearStatus;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(((Size/4U) != 0x00U) && ((Size%4U) == 0x00U));
 	Xil_AssertNonvoid(GcmTagAddr != NULL);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
-	/* Configure the SSS for AES. */
+	/** - Configure the SSS for AES. */
 	if (DecData == (u8*)XSECURE_DESTINATION_PCAP_ADDR) {
 		Status = XSecure_SssAes(&InstancePtr->SssInstance, XSECURE_SSS_DMA0,
 				XSECURE_SSS_PCAP);
@@ -474,20 +478,20 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		}
 	}
 
-	/* Clear AES contents by resetting it. */
+	/** - Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
-	/* Configure AES for Decryption */
+	/** - Configure AES for Decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
 					 XSECURE_CSU_AES_CFG_DEC);
 
-	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
+	/** - Clear AES_KEY_CLEAR bits to avoid clearing of key */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_AES_KEY_CLR_OFFSET, (u32)0x0U);
 
 	if (InstancePtr->KeySel != XSECURE_CSU_AES_KEY_SRC_DEV) {
 		for (Count = 0U; Count < 8U; Count++) {
-			/* Helion AES block expects the key in big-endian. */
+			/** - Helion AES block expects the key in big-endian. */
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
 			Addr = InstancePtr->BaseAddress +
 					XSECURE_CSU_AES_KUP_0_OFFSET
@@ -501,24 +505,24 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 		goto END;
 	}
 
-	/* Enable CSU DMA Src channel for byte swapping.*/
+	/** - Enable CSU DMA Src channel for byte swapping. */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 	                                 XCSUDMA_SRC_CHANNEL, 1U);
 
 	if (DecData != (u8*)XSECURE_DESTINATION_PCAP_ADDR) {
 		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 	                                     XCSUDMA_DST_CHANNEL, 1U);
-		/* Configure the CSU DMA Tx/Rx for the incoming Block */
+		/** - Configure the CSU DMA Tx/Rx for the incoming Block */
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr,
 					XCSUDMA_DST_CHANNEL,
 					(UINTPTR)DecData, Size/4U, 0);
 	}
-	/* Start the message. */
+	/** - Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_START_MSG_OFFSET,
 				XSECURE_CSU_AES_START_MSG);
 
-	/* Push IV into the AES engine. */
+	/** - Push IV into the AES engine. */
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
@@ -527,7 +531,7 @@ u32 XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, u8 * DecData,
 	if (Status != (u32)XST_SUCCESS) {
 		goto END;
 	}
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 
@@ -585,12 +589,12 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	u32 NextBlkLen = 0U;
 	u32 KeyClearStatus;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Size <= InstancePtr->SizeofData);
 	Xil_AssertNonvoid(InstancePtr->AesState == XSECURE_AES_DECRYPT_INITIALIZED);
 
-	/* Check if this is final update */
+	/** - Check if this is final update */
 	if (InstancePtr->SizeofData == Size) {
 		IsFinalUpdate = TRUE;
 	}
@@ -598,7 +602,7 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr,
 				XCSUDMA_SRC_CHANNEL,
 				(UINTPTR)EncData, Size/4U, IsFinalUpdate);
-	/* Wait for the Src DMA completion. */
+	/** - Wait for the Src DMA completion. */
 	GcmStatus = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL);
 	if (GcmStatus != (u32)XST_SUCCESS) {
@@ -610,23 +614,23 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		XSecure_PcapWaitForDone();
 	}
 
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 							XCSUDMA_IXR_DONE_MASK);
 
-	/* If this is the last update for the data */
+	/** - If this is the last update for the data */
 	if (IsFinalUpdate == TRUE) {
 		XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 			(UINTPTR)InstancePtr->GcmTagAddr,
 			XSECURE_SECURE_GCM_TAG_SIZE/4U, IsFinalUpdate);
 
-		/* Wait for the Src DMA completion. */
+		/** - Wait for the Src DMA completion. */
 		GcmStatus = XCsuDma_WaitForDoneTimeout(InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
 		if (GcmStatus != (u32)XST_SUCCESS) {
 			 goto END;
 		}
-		/* Acknowledge the transfer has completed */
+		/** - Acknowledge the transfer has completed */
 		XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 		if (InstancePtr->Destination ==
@@ -634,24 +638,24 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 			XSecure_PcapWaitForDone();
 		}
 
-		/* Disable CSU DMA Src channel for byte swapping. */
+		/** - Disable CSU DMA Src channel for byte swapping. */
 		XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		                                 XCSUDMA_SRC_CHANNEL, 0U);
 
 		if (InstancePtr->Destination !=
 				(u8 *)XSECURE_DESTINATION_PCAP_ADDR) {
-			/* Disable CSU DMA Dst channel for byte swapping. */
+			/** - Disable CSU DMA Dst channel for byte swapping. */
 			XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 			                                 XCSUDMA_DST_CHANNEL, 0U);
 		}
 
-		/* Wait for AES Decryption completion. */
+		/** - Wait for AES Decryption completion. */
 		GcmStatus = XSecure_AesWaitForDone(InstancePtr);
 		if (GcmStatus != (u32)XST_SUCCESS) {
 			goto END;
 		}
 
-		/* Get the AES status to know if GCM check passed. */
+		/** - Get the AES status to know if GCM check passed. */
 		GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_STS_OFFSET) &
 					XSECURE_CSU_AES_STS_GCM_TAG_OK;
@@ -659,7 +663,7 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 		if (GcmStatus == 0U) {
 			if (InstancePtr->Destination !=
 					(u8 *)XSECURE_DESTINATION_PCAP_ADDR) {
-				/* Zeroize the decrypted data*/
+				/** - Zeroize the decrypted data */
 				GcmStatus = XSecure_Zeroize(InstancePtr->Destination,
 							InstancePtr->TotalSizeOfData);
 				if (GcmStatus != (u32)XST_SUCCESS) {
@@ -673,12 +677,13 @@ s32 XSecure_AesDecryptUpdate(XSecure_Aes *InstancePtr, u8 *EncData, u32 Size)
 								XSECURE_CSU_AES_IV_3_OFFSET)) * 4U;
 	}
 
-	/* Update the size of data */
+	/** - Update the size of data */
 	InstancePtr->SizeofData = InstancePtr->SizeofData - Size;
 	GcmStatus = (u32)XST_SUCCESS;
 END:
-	/* Aes engine is set under reset when GCM tag is failed or
-	 * when the next block length of decryption is zero
+	/**
+	 * - Aes engine is set under reset when GCM tag is failed or
+	 *   when the next block length of decryption is zero
 	 */
 	if(((IsFinalUpdate == TRUE) && (NextBlkLen == 0U)) ||
 		(GcmStatus != (u32)XST_SUCCESS)) {
@@ -715,11 +720,11 @@ static u32 XSecure_Zeroize(u8 *DataPtr, u32 Length)
 	u32 *DataAddr = (u32 *)DataPtr;
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Clear the decrypted data */
+	/** - Clear the decrypted data */
 	(void)memset(DataPtr, 0, Length);
 	WordLen = Length/4U;
 
-	/* Read it back to verify*/
+	/** - Read it back to verify */
 	 for (Index = 0U; Index < WordLen; Index++) {
 		if(*DataAddr != 0x00U) {
 			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR;
@@ -793,7 +798,7 @@ END:
  ******************************************************************************/
 void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	InstancePtr->IsChunkingEnabled = Chunking;
@@ -830,11 +835,11 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking)
 void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
 				u32 ChunkSize, u32(*DeviceCopy)(u32, UINTPTR, u32))
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(DeviceCopy != NULL);
 	Xil_AssertVoid(ChunkSize != 0U);
-	/* Chunk Size has to be multiple of words */
+	/** - Chunk Size has to be multiple of words */
 	Xil_AssertVoid((ChunkSize % 4U) == 0U);
 
 	InstancePtr->ReadBuffer = ReadBuffer;
@@ -849,13 +854,10 @@ void XSecure_AesSetChunkConfig(XSecure_Aes *InstancePtr, u8 *ReadBuffer,
  *
  * @param	InstancePtr is a pointer to the XSecure_Aes instance.
  *
- * @return	None
- *
- *
  ******************************************************************************/
 void XSecure_AesReset(XSecure_Aes *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XSecure_ReleaseReset(InstancePtr->BaseAddress,
@@ -875,7 +877,7 @@ void XSecure_AesReset(XSecure_Aes *InstancePtr)
  ******************************************************************************/
 u32 XSecure_AesKeyZero(XSecure_Aes *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	volatile u32 RegStatus;
@@ -930,7 +932,7 @@ u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 {
 	u32 Status = (u32)XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 
 	if(InstancePtr->KeySel == XSECURE_CSU_AES_KEY_SRC_DEV)
@@ -945,12 +947,12 @@ u32 XSecure_AesKeySelNLoad(XSecure_Aes *InstancePtr)
 				XSECURE_CSU_AES_KEY_SRC_KUP);
 	}
 
-	/* Trig loading of key. */
+	/** - Trig loading of key. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_KEY_LOAD_OFFSET,
 					XSECURE_CSU_AES_KEY_LOAD);
 
-	/* Wait for AES key loading.*/
+	/** - Wait for AES key loading. */
 	Status = XSecure_AesWaitKeyLoad(InstancePtr);
 
 	return Status;
@@ -982,7 +984,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	u32 Index;
 	u32 StartAddrByte = 0U;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Len != 0U);
 	Xil_AssertNonvoid(InstancePtr->ChunkSize != 0U);
@@ -1050,7 +1052,7 @@ static s32 XSecure_AesChunkDecrypt(XSecure_Aes *InstancePtr, const u8 *Src,
 	u32 StartAddrByte = 0U;
 	u32 TransferredLen;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Len != 0U);
 	Xil_AssertNonvoid(InstancePtr->ChunkSize != 0U);
@@ -1188,17 +1190,17 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 	u32 GcmStatus;
 	u32 StartAddrByte = 0U;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Tag != NULL);
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
-	/* Start the message. */
+	/** - Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_START_MSG_OFFSET,
 				XSECURE_CSU_AES_START_MSG);
 
-	/* Push IV into the AES engine. */
+	/** - Push IV into the AES engine. */
 	XCsuDma_Transfer(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 		(UINTPTR)InstancePtr->Iv, XSECURE_SECURE_GCM_TAG_SIZE/4U, 0);
 
@@ -1208,11 +1210,11 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 		goto END;
 	}
 
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XCsuDma_IntrClear(InstancePtr->CsuDmaPtr, XCSUDMA_SRC_CHANNEL,
 				XCSUDMA_IXR_DONE_MASK);
 
-	/* Enable CSU DMA Src channel for byte swapping.*/
+	/** - Enable CSU DMA Src channel for byte swapping. */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 	                                 XCSUDMA_SRC_CHANNEL, 1U);
 
@@ -1228,7 +1230,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 			                                 XCSUDMA_DST_CHANNEL, 1U);
 
-			/* Configure the CSU DMA Tx/Rx for the incoming Block. */
+			/** - Configure the CSU DMA Tx/Rx for the incoming Block. */
 			XCsuDma_Transfer(InstancePtr->CsuDmaPtr,
 						XCSUDMA_DST_CHANNEL,
 						(UINTPTR)Dst, Len/4U, 0);
@@ -1243,7 +1245,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 
 			if (Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 			{
-				/* Wait for the Dst DMA completion. */
+				/** - Wait for the Dst DMA completion. */
 				Status = (s32)XCsuDma_WaitForDoneTimeout(
 							InstancePtr->CsuDmaPtr,
 							XCSUDMA_DST_CHANNEL);
@@ -1255,13 +1257,13 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 							XCSUDMA_DST_CHANNEL,
 							XCSUDMA_IXR_DONE_MASK);
 
-				/* Disable CSU DMA Dst channel for byte swapping */
+				/** - Disable CSU DMA Dst channel for byte swapping */
 				XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 												 XCSUDMA_DST_CHANNEL, 0U);
 			}
 			else
 			{
-				/* Wait for the Src DMA completion. */
+				/** - Wait for the Src DMA completion. */
 				Status = (s32)XCsuDma_WaitForDoneTimeout(
 							InstancePtr->CsuDmaPtr,
 							XCSUDMA_SRC_CHANNEL);
@@ -1272,20 +1274,20 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 				XSecure_PcapWaitForDone();
 			}
 
-			/* Acknowledge the transfers have completed */
+			/** - Acknowledge the transfers have completed */
 			XCsuDma_IntrClear(InstancePtr->CsuDmaPtr,
 						XCSUDMA_SRC_CHANNEL,
 						XCSUDMA_IXR_DONE_MASK);
 		}
 		else
 		{
-			/* Copy all the chunks to OCM, decrypt & send to PCAP */
+			/** - Copy all the chunks to OCM, decrypt & send to PCAP */
 			Status = XSecure_AesChunkDecrypt(InstancePtr, Src, Len);
 			if (XST_SUCCESS != Status)
 			{
 				goto END;
 			}
-			/* update address to point to incoming secure header */
+			/** - update address to point to incoming secure header */
 			StartAddrByte += Len;
 		}
 	}
@@ -1298,7 +1300,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 			XSECURE_CSU_AES_KUP_WR_OFFSET,
 			XSECURE_CSU_AES_IV_WR | XSECURE_CSU_AES_KUP_WR);
 #ifdef XSECURE_TPM_ENABLE
-	/* Push the Secure header/footer for decrypting next blocks KEY and IV. */
+	/** - Push the Secure header/footer for decrypting next blocks KEY and IV. */
 	if (InstancePtr->IsPlDecryptToMemEnabled ==
 		XSECURE_PL_DEC_TO_MEM_ENABLED) {
 		Status = XSecure_PassChunkToAes(InstancePtr->CsuDmaPtr,
@@ -1311,7 +1313,7 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 #endif
 	if (InstancePtr->IsChunkingEnabled == XSECURE_CSU_AES_CHUNKING_ENABLED)
 	{
-		/* Copy the secure header and GCM tag from flash to OCM */
+		/** - Copy the secure header and GCM tag from flash to OCM */
 		Status = XSecure_ReadNPassChunkToAes(InstancePtr,
 			&Src[StartAddrByte], InstancePtr->ReadBuffer,
 			XSECURE_SECURE_HDR_SIZE, 1U);
@@ -1327,11 +1329,11 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 #ifdef XSECURE_TPM_ENABLE
 	}
 #endif
-	/* Restore Key write register to 0. */
+	/** - Restore Key write register to 0. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_KUP_WR_OFFSET, 0x0U);
 #ifdef XSECURE_TPM_ENABLE
-	/* Push the GCM tag. */
+	/** - Push the GCM tag. */
 	if (InstancePtr->IsPlDecryptToMemEnabled ==
 		XSECURE_PL_DEC_TO_MEM_ENABLED) {
 		Status = XSecure_PassChunkToAes(InstancePtr->CsuDmaPtr,
@@ -1357,17 +1359,17 @@ s32 XSecure_AesDecryptBlk(XSecure_Aes *InstancePtr, u8 *Dst,
 		goto END;
 	}
 
-	/* Disable CSU DMA Src channel for byte swapping. */
+	/** - Disable CSU DMA Src channel for byte swapping. */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 		XCSUDMA_SRC_CHANNEL, 0U);
 
-	/* Wait for AES Decryption completion. */
+	/** - Wait for AES Decryption completion. */
 	Status = (s32)XSecure_AesWaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Get the AES status to know if GCM check passed. */
+	/** - Get the AES status to know if GCM check passed. */
 	GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_CSU_AES_STS_OFFSET) &
 				XSECURE_CSU_AES_STS_GCM_TAG_OK;
@@ -1448,16 +1450,16 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	u32 KeyClearStatus;
 	u32 DecryptStatus;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(Length != 0U);
-	/* Chunking is only for bitstream partitions */
+	/** - Chunking is only for bitstream partitions */
 	Xil_AssertNonvoid(((Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR)
 				|| (InstancePtr->IsChunkingEnabled
 					== XSECURE_CSU_AES_CHUNKING_DISABLED)));
 	Xil_AssertNonvoid(InstancePtr->AesState != XSECURE_AES_UNINITIALIZED);
 
-	/* Configure the SSS for AES. */
+	/** - Configure the SSS for AES. */
 #ifdef XSECURE_TPM_ENABLE
 	if ((Dst == (u8*)XSECURE_DESTINATION_PCAP_ADDR) &&
 		(InstancePtr->IsPlDecryptToMemEnabled ==
@@ -1481,7 +1483,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		}
 	}
 
-	/* Configure AES for Decryption */
+	/** - Configure AES for Decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_CSU_AES_CFG_OFFSET,
 					 XSECURE_CSU_AES_CFG_DEC);
 
@@ -1491,10 +1493,10 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 	SrcAddr = (u8 *)Src ;
 	GcmTagAddr = SrcAddr + XSECURE_SECURE_HDR_SIZE;
 
-	/* Clear AES contents by resetting it. */
+	/** - Clear AES contents by resetting it. */
 	XSecure_AesReset(InstancePtr);
 
-	/* Clear AES_KEY_CLEAR bits to avoid clearing of key */
+	/** - Clear AES_KEY_CLEAR bits to avoid clearing of key */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_CSU_AES_KEY_CLR_OFFSET,
 			(u32)XSECURE_AES_DISABLE_KEY_CLEAR_OP);
@@ -1505,7 +1507,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		u32 Addr;
 		for(Count = 0U; Count < 8U; Count++)
 		{
-			/* Helion AES block expects the key in big-endian. */
+			/** - Helion AES block expects the key in big-endian. */
 			Value = Xil_Htonl(InstancePtr->Key[Count]);
 
 			Addr = InstancePtr->BaseAddress +
@@ -1521,24 +1523,24 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		goto ENDF;
 	}
 
-	/* Enable CSU DMA Src channel for byte swapping.*/
+	/** - Enable CSU DMA Src channel for byte swapping. */
 	XSecure_AesCsuDmaConfigureEndiannes(InstancePtr->CsuDmaPtr,
 									 XCSUDMA_SRC_CHANNEL, 1U);
 
-	/* First block is always secure header */
+	/** - First block is always secure header */
 	BlockType = XSECURE_CSU_AES_BLK_TYPE_SECURE_HEADER;
 	do
 	{
 		PrevBlkLen = NextBlkLen;
 
-		/* Start decryption of Secure-Header/Block/Footer. */
+		/** - Start decryption of Secure-Header/Block/Footer. */
 
 		Status = (u32)XSecure_AesDecryptBlk(InstancePtr, DestAddr,
 						(const u8 *)SrcAddr,
 						((const u8 *)GcmTagAddr),
 						NextBlkLen, BlockType);
 
-		/* If decryption failed then return error. */
+		/** - If decryption failed then return error. */
 		if(Status != (u32)XST_SUCCESS)
 		{
 			goto ENDF;
@@ -1551,7 +1553,7 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		NextBlkLen = Xil_Htonl(XSecure_ReadReg(InstancePtr->BaseAddress,
 					XSECURE_CSU_AES_IV_3_OFFSET)) * 4U;
 
-		/* Update the current image size. */
+		/** - Update the current image size. */
 		CurrentImgLen += NextBlkLen;
 
 		if(0U == NextBlkLen)
@@ -1580,8 +1582,9 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 			goto ENDF;
 		}
 
-		/* After secure header, rest of the blocks are  data blocks
-		 *  (image blocks)
+		/**
+		 * - After secure header, rest of the blocks are  data blocks
+		 *    (image blocks)
 		 */
 		BlockType = XSECURE_CSU_AES_BLK_TYPE_DATA_BLOCK;
 
@@ -1603,12 +1606,12 @@ s32 XSecure_AesDecrypt(XSecure_Aes *InstancePtr, u8 *Dst, const u8 *Src,
 		if (Status != (u32)XST_SUCCESS) {
 			goto ENDF;
 		}
-		/* Point IV to the CSU IV register. */
+		/** - Point IV to the CSU IV register. */
 		InstancePtr->Iv = (u32 *)(InstancePtr->BaseAddress +
 					(UINTPTR)XSECURE_CSU_AES_IV_0_OFFSET);
 
 
-		/* Update the GcmTagAddr to get GCM-TAG for next block. */
+		/** - Update the GcmTagAddr to get GCM-TAG for next block. */
 		GcmTagAddr = SrcAddr + NextBlkLen + XSECURE_SECURE_HDR_SIZE;
 
 	} while(1);
@@ -1617,7 +1620,7 @@ ENDF:
 	if ((Status != (u32)XST_SUCCESS) &&
 		(Dst != (u8*)XSECURE_DESTINATION_PCAP_ADDR)) {
 		DecryptStatus = Status;
-		/* Zeroize the decrypted data*/
+		/** - Zeroize the decrypted data */
 		Status = (u32)XSecure_Zeroize(Dst,ImageLen);
 		if (Status != (u32)XST_SUCCESS) {
 			Status = (u32)XSECURE_CSU_AES_ZEROIZATION_ERROR |
@@ -1659,7 +1662,7 @@ static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
 {
 	XCsuDma_Configure ConfigValues = {0};
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	Xil_AssertVoid(InstancePtr != NULL);
 
 	XCsuDma_GetConfig(InstancePtr, Channel, &ConfigValues);
@@ -1674,10 +1677,10 @@ static void XSecure_AesCsuDmaConfigureEndiannes(XCsuDma *InstancePtr,
  * This API reads bitstream from flash device to destination address. This API
  * should be called while loading bitstream in chunks.
  *
- * @param	InstancePtr is pointer to the XSecure_Aes instance
+ * @param	InstancePtr is a pointer to the XSecure_Aes instance
  * @param	SrcAddr is address of encrypted data source location
  * @param	DestAddr is address of location where data will get copied
- * @param	Length is length of data to be copied in bytes
+ * @param	Length Length of data to be copied in bytes
  * @param	EnLastFlag is to indicate end of data
  *
  * @return	returns XST_SUCCESS if successful, or the relevant errorcode
@@ -1722,9 +1725,9 @@ END:
  * This API triggers DMA at source address. This API should be called while
  * loading bitstream in chunks.
  *
- * @param	InstancePtr is pointer to the XCsuDma instance
+ * @param	InstancePtr is a pointer to the XCsuDma instance
  * @param	SrcAddr is address of encrypted data source location
- * @param	Length is length of data to be copied in bytes
+ * @param	Length Length of data to be copied in bytes
  * @param	EnLastFlag is to indicate end of data
  *
  * @return	returns XST_SUCCESS if successful, or the relevant errorcode
@@ -1746,10 +1749,11 @@ static s32 XSecure_PassChunkToAes(XCsuDma *InstancePtr, const u8* SrcAddr,
 		goto END;
 	}
 
-	/* Acknowledge the transfers has completed */
+	/** - Acknowledge the transfers has completed */
 	XCsuDma_IntrClear(InstancePtr, XCSUDMA_SRC_CHANNEL,
 		XCSUDMA_IXR_DONE_MASK);
 
 END:
 	return Status;
 }
+/** @} */

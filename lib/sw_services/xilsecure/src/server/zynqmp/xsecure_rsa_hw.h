@@ -1,12 +1,13 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2020 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_rsa_hw.h
+* @file server/zynqmp/xsecure_rsa_hw.h
 * This file contains ZynqMP RSA hardware core register offsets.
 * <pre>
 * MODIFICATION HISTORY:
@@ -77,7 +78,7 @@ extern "C" {
 #define XSECURE_CSU_RSA_RD_ADDR_OFFSET		(0x60U)
 						/**< Read address in RSA RAM */
 #define XSECURE_RSA_CTRL_CLR_DATA_BUF_MASK	(1U) /**< RSA BUF Clr value */
-/* @} */
+/** @} */
 
 #ifdef __cplusplus
 }

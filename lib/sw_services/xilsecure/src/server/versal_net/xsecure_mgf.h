@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_mgf.h
+* @file server/versal_net/xsecure_mgf.h
 *
 * This file contains function declarations and enums related to mask generate function
 *
@@ -24,9 +24,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_mgf_server_apis XilSecure MGF Server APIs
-* @{
-*/
+ * @addtogroup xsecure_mgf_server_apis XilSecure MGF Server APIs
+ * @{
+ */
 #ifndef XSECURE_MGF_H_
 #define XSECURE_MGF_H_
 
@@ -71,9 +71,9 @@ int XSecure_MaskGenFunc(XSecure_ShaMode ShaType,
 /** Get Hash Instance function */
 XSecure_HashAlgInfo *XSecure_GetHashInstance(XSecure_ShaMode Shatype);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_MGF_H_ */
-/** @} */

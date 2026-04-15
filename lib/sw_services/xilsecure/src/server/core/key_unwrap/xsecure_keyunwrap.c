@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_keyunwrap.c
+* @file server/core/key_unwrap/xsecure_keyunwrap.c
 * This file contains Versal Net specific code for Xilsecure key unwrap.
 *
 * <pre>
@@ -111,28 +111,28 @@ static int XSecure_UpdateKeySlotStatusAddr(void)
 	u32 KeySlotCnt = 0U;
 	u32 KeySlotStatus = 0U;
 
-	/* Check if the key store size is valid */
+	/** - Check if the key store size is valid */
 	if ((KeyStoreSize > XSECURE_MAX_KEY_STORE_CAPACTIY) || (KeyStoreSize == 0U)) {
 		Status = (int)XSECURE_ERR_KEY_STORE_SIZE;
 		goto END;
 	}
 
-	/* Calculate the starting address of the free key slot status */
+	/** - Calculate the starting address of the free key slot status */
 	KeySlotStatusAddr = (u64)(XSECURE_KEY_SLOT_KEY_STATUS_ADDR +
 					(UpdatedFreeKeySlot * XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE));
 
-	/* Iterate through the key slots to find a free slot */
+	/** - Iterate through the key slots to find a free slot */
 	while (KeySlotCnt < KeyStoreSize) {
 		KeySlotStatus = XSecure_In64(KeySlotStatusAddr);
 		if (KeySlotStatus != XSECURE_AES_KEY_SLOT_STATUS_FULL) {
 			break;
 		}
 
-		/* Move to the next slot */
+		/** - Move to the next slot */
 		KeySlotStatusAddr = KeySlotStatusAddr + XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE;
 		UpdatedFreeKeySlot++;
 
-		/* Wrap around if the end of the key store is reached */
+		/** - Wrap around if the end of the key store is reached */
 		if (UpdatedFreeKeySlot >= KeyStoreSize) {
 			UpdatedFreeKeySlot = 0U;
 			KeySlotStatusAddr = (u64)XSECURE_KEY_SLOT_KEY_STATUS_ADDR;
@@ -172,7 +172,7 @@ static void XSecure_MarkKeySlotOccupied(u64 KeySlotStatusAddr)
  * @brief	This function unwraps the given wrapped key and stores it along
  *              with metadata in Shared address between PMC and secure shell.
  *
- * @param	KeyWrapData is pointer to the XSecure_KeyWrapData instance.
+ * @param	KeyWrapData is a pointer to the XSecure_KeyWrapData instance.
  *
  * @return
  *		 - XST_SUCCESS - On success.
@@ -219,14 +219,14 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData)
 
 	KeyWrapAddr = KeyWrapData->KeyWrapAddr;
 
-	/** Check for free key slot and update Key slot status address */
+	/** - Check for free key slot and update Key slot status address */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_UpdateKeySlotStatusAddr);
 
-	/* Get destination key slot address by using free key slot value */
+	/** - Get destination key slot address by using free key slot value */
 	DstKeySlotAddr = (u64)(XSECURE_KEY_SLOT_KEY_ADDR + (UpdatedFreeKeySlot * XSECURE_KEY_STORE_KEY_WRAP_DATA_SIZE));
 	KeySlotStatusAddr = DstKeySlotAddr - XSECURE_KEY_STORE_KEY_OFFSET;
 
-	/* Copy wrapped rsa key to local buffer */
+	/** - Copy wrapped rsa key to local buffer */
 	Status = XSecure_MemCpyAndChangeEndianness((u64)(UINTPTR)WrapRsaKey, KeyWrapAddr, XSECURE_RSA_KEY_GEN_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -257,13 +257,13 @@ int XSecure_KeyUnwrap(XSecure_KeyWrapData *KeyWrapData)
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesKeyUnwrap, AesInstPtr, EphAesKey,
 			       AesKeySize, WrapAesKey, DstKeySlotAddr, EncryptedKeySize);
 
-	/** Update the key slot with metadata */
+	/** - Update the key slot with metadata */
 	DstKeySlotAddr += (u64)(EncryptedKeySize - XSECURE_AES_64BIT_BLOCK_SIZE);
 	XSecure_MemCpy64(DstKeySlotAddr, (u64)(UINTPTR)&KeyWrapData->KeyMetaData, sizeof(XSecure_KeyMetaData));
 	XSecure_MarkKeySlotOccupied(KeySlotStatusAddr);
 
 END:
-	/** Clear the ephemeral AES key after the usage */
+	/** - Clear the ephemeral AES key after the usage */
 	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SecureZeroize, EphAesKey, XSECURE_AES_KEY_SIZE_256BIT_BYTES);
 	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
 		if (Status == XST_SUCCESS) {
@@ -271,7 +271,7 @@ END:
 		}
 	}
 
-		/* Clear the ephemeral AES key after the usage */
+		/** - Clear the ephemeral AES key after the usage */
 	XSECURE_TEMPORAL_IMPL(SStatus, SStatusTmp, Xil_SecureZeroize, WrapAesKey, XSECURE_AES_256BIT_KEY_BLOCK_SIZE);
 	if ((SStatus != XST_SUCCESS) || (SStatusTmp != XST_SUCCESS)) {
 		if (Status == XST_SUCCESS) {

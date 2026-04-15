@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_plat_ipihandler.h
+* @file server/versal_2vp_p/xsecure_plat_ipihandler.h
 *
 * This file contains the Xilsecure platform IPI handler declaration.
 *
@@ -21,9 +21,9 @@
 *
 ***************************************************************************************************/
 /**
-* @addtogroup xsecure_helper_server_apis Platform specific helper APIs in Xilsecure server
-* @{
-*/
+ * @addtogroup xsecure_helper_server_apis Platform specific helper APIs in XilSecure server
+ * @{
+ */
 #ifndef XSECURE_PLAT_IPIHANDLER_H_
 #define XSECURE_PLAT_IPIHANDLER_H_
 
@@ -41,9 +41,9 @@ extern "C" {
 /************************************* Function Prototypes ****************************************/
 int XSecure_PlatIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_IPIHANDLER_H_ */
-/** @} */

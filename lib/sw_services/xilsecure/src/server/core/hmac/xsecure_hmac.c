@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_hmac.c
+* @file server/core/hmac/xsecure_hmac.c
 *
 * This file contains the implementation of the HMAC APIs.
 *
@@ -28,7 +28,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_hmac_apis Xilsecure HMAC APIs
+* @addtogroup xsecure_hmac_apis XilSecure HMAC APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -94,11 +94,11 @@ int XSecure_HmacInit(XSecure_Hmac *InstancePtr,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/* Calculate K0 xor ipad  */
+	/** - Calculate K0 xor ipad */
 	XSecure_HmacXor((const u32 *)K0, XSECURE_HMAC_IPAD_VALUE,
 					(u32 *)InstancePtr->IPadRes);
 
-	/* Calculate K0 Xor Opad */
+	/** - Calculate K0 Xor Opad */
 	XSecure_HmacXor((const u32 *)K0, XSECURE_HMAC_OPAD_VALUE,
 					(u32 *)InstancePtr->OPadRes);
 
@@ -117,7 +117,7 @@ END:
 								XSECURE_SHA3_BLOCK_LEN);
 		Status |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 								XSECURE_SHA3_BLOCK_LEN);
-		/* Set SHA under reset */
+		/** - Set SHA under reset */
 		XSecure_SetReset(Sha3InstancePtr->BaseAddress,
 					XSECURE_SHA3_RESET_OFFSET);
 	}
@@ -161,7 +161,7 @@ int XSecure_HmacUpdate(XSecure_Hmac *InstancePtr, u64 DataAddr, u32 Len)
 								XSECURE_SHA3_BLOCK_LEN);
 		Status |= Xil_SMemSet((void *)InstancePtr->OPadRes, XSECURE_SHA3_BLOCK_LEN, 0U,
 								XSECURE_SHA3_BLOCK_LEN);
-		/* Set SHA under reset */
+		/** - Set SHA under reset */
 		XSecure_SetReset(InstancePtr->Sha3InstPtr->BaseAddress,
 			XSECURE_SHA3_RESET_OFFSET);
 	}
@@ -202,7 +202,7 @@ int XSecure_HmacFinal(XSecure_Hmac *InstancePtr, XSecure_HmacRes *Hmac)
 
 	Sha3InstancePtr = InstancePtr->Sha3InstPtr;
 
-	/* Calculate final hash on IPAD || MSG */
+	/** - Calculate final hash on IPAD || MSG */
 	Status = XSecure_ShaFinish(InstancePtr->Sha3InstPtr,
 				(u64)(UINTPTR)&IntHash, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Status != XST_SUCCESS) {
@@ -273,7 +273,7 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 	volatile int Status = XST_FAILURE;
 	u8 *K0 = (u8 *)(UINTPTR)KeyOut;
 
-	/* KDF uses this path, for UDS 48 bytes key in DICE */
+	/** - KDF uses this path, for UDS 48 bytes key in DICE */
 	if (KeyLen < KeyOutLen) {
 		/*
 		 * if Key provided is less than SHA 3 block length
@@ -302,7 +302,7 @@ static int XSecure_PreProcessKey(XSecure_Hmac *InstancePtr,
 							  KeyOutLen - XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	}
 	else {
-		/* if Key provided is of SHA 3 block length */
+		/** - if Key provided is of SHA 3 block length */
 		XSecure_MemCpy64((u64)(UINTPTR)K0, KeyAddr, KeyOutLen);
 		Status = XST_SUCCESS;
 	}

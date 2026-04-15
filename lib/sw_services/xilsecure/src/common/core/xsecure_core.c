@@ -1,12 +1,12 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
-******************************************************************************/
+*****************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_core.c
+* @file common/core/xsecure_core.c
 * This file contains core specific common code for versalgen.
 *
 * <pre>
@@ -22,7 +22,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @addtogroup xsecure_common_apis XilSecure Common Apis
 * @{
 */
 /***************************** Include Files *********************************/
@@ -38,7 +38,7 @@
 /** This lookup table array defines properties of Key sources.*/
 const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 {
-	/* BBRAM_KEY */
+	/** - BBRAM_KEY */
 	[0U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_BBRAM_KEY,
@@ -48,7 +48,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_INVALID_CFG
 	},
 
-	/* BBRAM_RED_KEY */
+	/** - BBRAM_RED_KEY */
 	[1U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_BBRAM_RD_KEY,
@@ -58,7 +58,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_BBRAM_RED_KEY_MASK
 	},
 
-	/* BH_KEY */
+	/** - BH_KEY */
 	[2U] = {
 	  .RegOffset = XSECURE_AES_BH_KEY_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_KEY,
@@ -68,7 +68,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_KEY_MASK
 	},
 
-	/* BH_RED_KEY */
+	/** - BH_RED_KEY */
 	[3U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_BH_RD_KEY,
@@ -78,7 +78,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_BH_RED_KEY_MASK
 	},
 
-	/* EFUSE_KEY */
+	/** - EFUSE_KEY */
 	[4U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_KEY,
@@ -88,7 +88,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_KEY_MASK
 	},
 
-	/* EFUSE_RED_KEY */
+	/** - EFUSE_RED_KEY */
 	[5U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_RED_KEY,
@@ -98,7 +98,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_RED_KEY_MASK
 	},
 
-	/* EFUSE_USER_KEY_0 */
+	/** - EFUSE_USER_KEY_0 */
 	[6U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_USR_KEY0,
@@ -108,7 +108,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_0_MASK
 	},
 
-	/* EFUSE_USER_KEY_1 */
+	/** - EFUSE_USER_KEY_1 */
 	[7U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_USR_KEY1,
@@ -118,7 +118,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_USER_KEY_1_MASK
 	},
 
-	/* EFUSE_USER_RED_KEY_0 */
+	/** - EFUSE_USER_RED_KEY_0 */
 	[8U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY0,
@@ -128,7 +128,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_0_MASK
 	},
 
-	/* EFUSE_USER_RED_KEY_1 */
+	/** - EFUSE_USER_RED_KEY_1 */
 	[9U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_EFUSE_USR_RD_KEY1,
@@ -138,7 +138,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_EFUSE_USER_RED_KEY_1_MASK
 	},
 
-	/* KUP_KEY */
+	/** - KUP_KEY */
 	[10U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_KUP_KEY,
@@ -148,7 +148,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_KUP_KEY_MASK
 	},
 
-	/* PUF_KEY */
+	/** - PUF_KEY */
 	[11U] = {
 	  .RegOffset = XSECURE_AES_INVALID_CFG,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_PUF_KEY,
@@ -158,7 +158,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_PUF_KEY_MASK
 	},
 
-	/* USER_KEY_0 */
+	/** - USER_KEY_0 */
 	[12U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_0_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_0,
@@ -168,7 +168,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_0_MASK
 	},
 
-	/* USER_KEY_1 */
+	/** - USER_KEY_1 */
 	[13U] {
 	  .RegOffset = XSECURE_AES_USER_KEY_1_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_1,
@@ -178,7 +178,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_1_MASK
 	},
 
-	/* USER_KEY_2 */
+	/** - USER_KEY_2 */
 	[14U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_2_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_2,
@@ -188,7 +188,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_2_MASK
 	},
 
-	/* USER_KEY_3 */
+	/** - USER_KEY_3 */
 	[15U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_3_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_3,
@@ -198,7 +198,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_3_MASK
 	},
 
-	/* USER_KEY_4 */
+	/** - USER_KEY_4 */
 	[16U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_4_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_4,
@@ -208,7 +208,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_4_MASK
 	},
 
-	/* USER_KEY_5 */
+	/** - USER_KEY_5 */
 	[17U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_5_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_5,
@@ -218,7 +218,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_5_MASK
 	},
 
-	/* USER_KEY_6 */
+	/** - USER_KEY_6 */
 	[18U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_6_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_6,
@@ -228,7 +228,7 @@ const XSecure_AesKeyLookup AesKeyLookupTbl [XSECURE_MAX_KEY_SOURCES] =
 	  .KeyClearVal = XSECURE_AES_KEY_CLEAR_USER_KEY_6_MASK
 	},
 
-	/* USER_KEY_7 */
+	/** - USER_KEY_7 */
 	[19U] = {
 	  .RegOffset = XSECURE_AES_USER_KEY_7_0_OFFSET,
 	  .KeySrcSelVal = XSECURE_AES_KEY_SEL_USR_KEY_7,

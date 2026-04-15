@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_aes_ipihandler.h
+* @file server/core/key_zeroize/xsecure_plat_aes_ipihandler.c
 * This file contains the Xilsecure Versal Net IPI Handler APIs
 *
 * <pre>
@@ -49,7 +49,7 @@ static int XSecure_AesPerformOperationAndZeroizeKey(u32 SubsystemId, u32 AesPara
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS - If the handler execution is successful.
@@ -69,7 +69,7 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 		goto END;
 	}
 
-	/** Handle the present command based on AES core status */
+	/** - Handle the present command based on AES core status */
 	Status = XSecure_IpiEventHandling(Cmd, XPLMI_AES_CORE);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);

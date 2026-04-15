@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_trngclient.h
+* @file client/core/trng/xsecure_trngclient.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the TRNG hardware module.
@@ -26,9 +26,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_trng_client_apis XilSecure TRNG Client APIs
-* @{
-*/
+ * @addtogroup xsecure_trng_client_apis XilSecure TRNG Client APIs
+ * @{
+ */
 #ifndef XSECURE_TRNGCLIENT_H
 #define XSECURE_TRNGCLIENT_H
 

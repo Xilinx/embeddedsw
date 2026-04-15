@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_shaclient.h
+* @file client/core/sha/sha_pmx/xsecure_shaclient.h
 *
 * This file Contains the client function prototypes, defines and macros for
 * the SHA-384 hardware module.
@@ -29,9 +29,9 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_sha_client_apis XilSecure SHA Client APIs
-* @{
-*/
+ * @addtogroup xsecure_sha_client_apis XilSecure SHA Client APIs
+ * @{
+ */
 #ifndef XSECURE_SHACLIENT_H
 #define XSECURE_SHACLIENT_H
 

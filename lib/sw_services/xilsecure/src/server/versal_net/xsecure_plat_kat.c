@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat.c
+* @file server/versal_net/xsecure_plat_kat.c
 *
 * This file contains known answer tests for Versal Net
 *
@@ -35,7 +35,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -337,7 +337,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 		RsaOutput[Index] = DataVal;
 	}
 
-	/* Initialized to error */
+	/** - Initialized to error */
 	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
 	for (Index = 0U; Index < XSECURE_RSA_2048_KEY_SIZE; Index++) {
 		if (RsaOutput[Index] != RsaData[Index]) {

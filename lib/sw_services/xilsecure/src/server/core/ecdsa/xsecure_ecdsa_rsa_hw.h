@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ecdsa_rsa_hw.h
+* @file server/core/ecdsa/xsecure_ecdsa_rsa_hw.h
 *
 * This header file contains RSA ECDSA core hardware register offsets of versal.
 *

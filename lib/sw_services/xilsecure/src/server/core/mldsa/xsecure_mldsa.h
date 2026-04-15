@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_mldsa.h
+* @file server/core/mldsa/xsecure_mldsa.h
 *
 * This file contains constants and function declarations used in ML-DSA to provides interface to
 * MLDSA operations
@@ -22,10 +22,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_mldsa_server_apis XilSecure MLDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_mldsa_server_apis XilSecure MLDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_MLDSA_H_
 #define XSECURE_MLDSA_H_
 
@@ -85,9 +86,9 @@ extern "C" {
 int XSecure_MldsaSignVerify(const XSecure_MldsaSignVerifyParams *MldsaParams);
 int XSecure_MldsaSignGenerate(XSecure_MldsaSignGenParams *MldsaParams);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_MLDSA_H_ */
-/** @} */

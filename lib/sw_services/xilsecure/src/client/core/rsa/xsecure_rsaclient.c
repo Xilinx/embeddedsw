@@ -6,7 +6,7 @@
 
 /*****************************************************************************/
 /**
-* @file xsecure_rsaclient.c
+* @file client/core/rsa/xsecure_rsaclient.c
 *
 * This file contains the implementation of the client interface functions for
 * RSA driver.
@@ -51,11 +51,9 @@
  * @param	InstancePtr	Pointer to the client instance
  * @param	KeyAddr		Address of the Key
  * @param	InDataAddr	Address of the data which has to be decrypted
- * @param	Size		Key size in bytes, Input size also should be
- * 				same as key size mentioned. Inputs supported are
- *				- XSECURE_RSA_4096_KEY_SIZE,
- *				- XSECURE_RSA_2048_KEY_SIZE
- *				- XSECURE_RSA_3072_KEY_SIZE
+ * @param	Size		Key size in bytes, Input size also should be same as key size
+ *				mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE,
+ *				XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE
  * @param	OutDataAddr	Address of the buffer where resultant decrypted
  *				data to be stored
  *
@@ -74,15 +72,15 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/**
-	 * Link shared memory of size RsaParams to RsaParams structure for IPI usage.
-	 * Validates the size of the shared memory whether the required size is available or not.
+	 * - Link shared memory of size RsaParams to RsaParams structure for IPI usage.
+	 *   Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
@@ -97,7 +95,7 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_RSA_PRIVATE_DECRYPT),
 				BufferAddr,
@@ -106,8 +104,8 @@ int XSecure_RsaPrivateDecrypt(XSecure_ClientInstance *InstancePtr, const u64 Key
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
@@ -124,11 +122,9 @@ END:
  * @param	KeyAddr		Address of the Key
  * @param	InDataAddr	Address of the data which has to be encrypted
  * 				with public key
- * @param	Size		Key size in bytes, Input size also should be
- * 				same as key size mentioned. Inputs supported are
- *				- XSECURE_RSA_4096_KEY_SIZE,
- *				- XSECURE_RSA_2048_KEY_SIZE
- *				- XSECURE_RSA_3072_KEY_SIZE
+ * @param	Size		Key size in bytes, Input size also should be same as key size
+ *				mentioned. Inputs supported are XSECURE_RSA_4096_KEY_SIZE,
+ *				XSECURE_RSA_2048_KEY_SIZE, or XSECURE_RSA_3072_KEY_SIZE
  * @param	OutDataAddr	Address of the buffer where resultant decrypted
  *							data to be stored
  *
@@ -147,15 +143,15 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 	u32 Payload[PAYLOAD_ARG_CNT];
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/**
-	 * Link shared memory of size RsaParams to RsaParams structure for IPI usage.
-	 * Validates the size of the shared memory whether the required size is available or not.
+	 * - Link shared memory of size RsaParams to RsaParams structure for IPI usage.
+	 *   Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&RsaParams);
 
@@ -170,7 +166,7 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 
 	XSecure_DCacheFlushRange(RsaParams, sizeof(XSecure_RsaInParam));
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD4(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_RSA_PUBLIC_ENCRYPT),
 				BufferAddr,
@@ -179,8 +175,8 @@ int XSecure_RsaPublicEncrypt(XSecure_ClientInstance *InstancePtr, const u64 KeyA
 				(OutDataAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
@@ -215,15 +211,15 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 	volatile u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/**
-	 * Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
+	 * - Perform input parameter validation on InstancePtr. Return XST_FAILURE if input parameters are invalid
 	 */
 	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
 		goto END;
 	}
 
 	/**
-	 * Link shared memory of size SignParams to SignParams structure for IPI usage.
-	 * Validates the size of the shared memory whether the required size is available or not.
+	 * - Link shared memory of size SignParams to SignParams structure for IPI usage.
+	 *   Validates the size of the shared memory whether the required size is available or not.
 	 */
 	MemSize = XMailbox_GetSharedMem(InstancePtr->MailboxPtr, (u64**)(UINTPTR)&SignParams);
 
@@ -238,15 +234,15 @@ int XSecure_RsaSignVerification(XSecure_ClientInstance *InstancePtr, const u64 S
 
 	XSecure_DCacheFlushRange(SignParams, sizeof(XSecure_RsaSignParams));
 
-	/* Fill Payload */
+	/** - Fill Payload */
 	XSECURE_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XSECURE_SLR_INDEX_SHIFT)
 				| XSECURE_API_RSA_SIGN_VERIFY),
 				BufferAddr,
 				(BufferAddr >> XSECURE_ADDR_HIGH_SHIFT));
 
 	/**
-	 * Send request to PLM through generic request API.
-	 * This internally handles SMC or IPI mailbox based on build configuration.
+	 * - Send request to PLM through generic request API.
+	 *   This internally handles SMC or IPI mailbox based on build configuration.
 	 */
 	Status = XSecure_SendRequest(InstancePtr, (u32 *)Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 

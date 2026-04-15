@@ -1,12 +1,12 @@
 /******************************************************************************ed.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_aes.h
+* @file server/core/key_unwrap/xsecure_plat_aes.h
 *
 * This file contains Versal Net specific code for Xilsecure aes server.
 *
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
-* @{
-*/
+ * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_AES_H
 #define XSECURE_PLAT_AES_H
 
@@ -54,9 +55,9 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 
 /***************************** Variable Prototypes  ***************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_AES_H */
-/** @} */

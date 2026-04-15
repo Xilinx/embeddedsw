@@ -5,7 +5,7 @@
 /******************************************************************************/
 /**
 *
-* @file xsecure_lms_ots.c
+* @file server/core/lms_hss/xsecure_lms_ots.c
 *
 * This file consists definitions for LMS OTS operations
 *
@@ -136,7 +136,7 @@ int XSecure_LmsOtsComputeChecksum(const u8* const Array,
 		Sum += (MaxDigitValue - XSecure_LmsOtsCoeff(Array, Index, w));
 	}
 
-	/* If loop counter is glitched, the signature verification fails */
+	/** - If loop counter is glitched, the signature verification fails */
 
 	*Checksum = (u32)(XSECURE_LOWER_16_BIT_MASK & (Sum << ls));
 	Status = XST_SUCCESS;
@@ -163,10 +163,10 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 	int Status = XST_FAILURE;
 
 	/**
-	 * @brief lookup table for 'n', 'w', 'p', 'ls' & Signature lengths
+	 * - Lookup table for 'n', 'w', 'p', 'ls' & Signature lengths
 	 */
 	static XSecure_LmsOtsParam XSecure_LmsOtsParamLookup[XSECURE_LMS_OTS_TYPE_MAX_SUPPORTED] = {
-		/* XSECURE_LMS_OTS_RESERVED, XSECURE_LMS_OTS_NOT_SUPPORTED, default*/
+		/** - XSECURE_LMS_OTS_RESERVED, XSECURE_LMS_OTS_NOT_SUPPORTED, default */
 		[0U] = {
 			.H = XSECURE_SHA_INVALID_MODE,
 			.n = 0U,
@@ -178,7 +178,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			.NoOfInvSign = 0U,
 			.SignLen = 0U
 		},
-		/* XSECURE_LMS_OTS_SHA256_N32_W2 */
+		/** - XSECURE_LMS_OTS_SHA256_N32_W2 */
 		[1U] = {
 			.H = XSECURE_SHA2_256,
 			.n = XSECURE_SHA2_256_HASH_LEN,
@@ -190,7 +190,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			.NoOfInvSign = 3U,
 			.SignLen = (XSECURE_LMS_OTS_TYPE_SIZE + (XSECURE_LMS_N_FIELD_SIZE * ((u32)XSECURE_LMS_OTS_W2_P + 1U)))	/* 4292U */
 		},
-		/* XSECURE_LMS_OTS_SHA256_N32_W4 */
+		/** - XSECURE_LMS_OTS_SHA256_N32_W4 */
 		[2U] = {
 			.H = XSECURE_SHA2_256,
 			.n = XSECURE_SHA2_256_HASH_LEN,
@@ -202,7 +202,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			.NoOfInvSign = 15U,
 			.SignLen = (XSECURE_LMS_OTS_TYPE_SIZE + (XSECURE_LMS_N_FIELD_SIZE * ((u32)XSECURE_LMS_OTS_W4_P + 1U)))	/* 2180U */
 		},
-		/* XSECURE_LMS_OTS_SHA256_N32_W8 */
+		/** - XSECURE_LMS_OTS_SHA256_N32_W8 */
 		[3U] = {
 			.H = XSECURE_SHA2_256,
 			.n = XSECURE_SHA2_256_HASH_LEN,
@@ -214,7 +214,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			.NoOfInvSign = 255U,
 			.SignLen = (XSECURE_LMS_OTS_TYPE_SIZE + (XSECURE_LMS_N_FIELD_SIZE * ((u32)XSECURE_LMS_OTS_W8_P + 1U)))	/* 1124U */
 		},
-		/* XSECURE_LMS_OTS_SHAKE_N32_W2 */
+		/** - XSECURE_LMS_OTS_SHAKE_N32_W2 */
 		[4U] = {
 			.H = XSECURE_SHAKE_256,
 			.n = XSECURE_SHAKE_256_HASH_LEN,
@@ -226,7 +226,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			.NoOfInvSign = 3U,
 			.SignLen = (XSECURE_LMS_OTS_TYPE_SIZE + (XSECURE_LMS_N_FIELD_SIZE * ((u32)XSECURE_LMS_OTS_W2_P + 1U)))	/* 4292U */
 		},
-		/* XSECURE_LMS_OTS_SHAKE_N32_W4 */
+		/** - XSECURE_LMS_OTS_SHAKE_N32_W4 */
 		[5U] = {
 			.H = XSECURE_SHAKE_256,
 			.n = XSECURE_SHAKE_256_HASH_LEN,
@@ -238,7 +238,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			.NoOfInvSign = 15U,
 			.SignLen = (XSECURE_LMS_OTS_TYPE_SIZE + (XSECURE_LMS_N_FIELD_SIZE * ((u32)XSECURE_LMS_OTS_W4_P + 1U)))	/* 2180U */
 		},
-		/* XSECURE_LMS_OTS_SHAKE_N32_W8 */
+		/** - XSECURE_LMS_OTS_SHAKE_N32_W8 */
 		[6U] = {
 			.H = XSECURE_SHAKE_256,
 			.n = XSECURE_SHAKE_256_HASH_LEN,
@@ -252,14 +252,14 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 		}
 	};
 
-	/* Redundant type for temporal check */
+	/** - Redundant type for temporal check */
 	volatile XSecure_LmsOtsType TmpType = (XSecure_LmsOtsType)XSECURE_ALLFS;
 	*Parameters = (XSecure_LmsOtsParam*)&XSecure_LmsOtsParamLookup[0U];
 
-	/* 'w' = 1' variations and 24 bit hash outputs are not supported in this library */
+	/** - 'w' = 1' variations and 24 bit hash outputs are not supported in this library */
 
 	switch (Type) {
-		/* SHA-256 options */
+		/** - SHA-256 options */
 		case XSECURE_LMS_OTS_SHA256_N32_W2: {
 			*Parameters = (XSecure_LmsOtsParam*)&XSecure_LmsOtsParamLookup[1U];
 			TmpType = XSECURE_LMS_OTS_SHA256_N32_W2;
@@ -276,7 +276,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			break;
 		}
 
-		/* SHAKE 256 options */
+		/** - SHAKE 256 options */
 		case XSECURE_LMS_OTS_SHAKE_N32_W2: {
 			*Parameters = (XSecure_LmsOtsParam*)&XSecure_LmsOtsParamLookup[4U];
 			TmpType = XSECURE_LMS_OTS_SHAKE_N32_W2;
@@ -293,7 +293,7 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 			break;
 		}
 
-		/* default, and other not supported options */
+		/** - default, and other not supported options */
 		case XSECURE_LMS_OTS_RESERVED: {
 			*Parameters = (XSecure_LmsOtsParam*)&XSecure_LmsOtsParamLookup[0U];
 			TmpType = XSECURE_LMS_OTS_RESERVED;
@@ -313,10 +313,12 @@ int XSecure_LmsOtsLookupParamSet(XSecure_LmsOtsType Type,
 		}
 	}
 
-	/* Two possible glitches, replacing this condition with a NOP, we will update error and exit
-		flipping condition, we update error and exit, so both cases it is OK. */
+	/**
+	 * - Two possible glitches, replacing this condition with a NOP, we will update error and exit
+	 *   flipping condition, we update error and exit, so both cases it is OK.
+	 */
 	if(TmpType != Type) {
-		/* Update register to be taken care by caller */
+		/** - Update register to be taken care by caller */
 		Status = (u32)XSECURE_LMS_OTS_TYPE_LOOKUP_GLITCH_ERROR;
 		goto END;
 	}

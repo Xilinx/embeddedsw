@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_ellipticplat.c
+* @file server/core/ecc_keypair/xsecure_ellipticplat.c
 *
 * This file contains the implementation of the interface functions for ECC
 * engine specific to Versal Net platform.
@@ -88,17 +88,18 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	volatile int Status = (int)XSECURE_ECC_PRVT_KEY_GEN_ERR;
 	volatile int ClearStatus = XST_FAILURE;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
-	/* The random ephimeral/Private key should be between 1 to ecc order
-	 * of the curve. EK can be obtained by using mod operation over
-	 * 384-bits random number. However to reduce bias associated with mod
-	 * operation, standard recommends of using additional 64-bits i.e.
-	 * 384 + 64 = 448-bits. Third-Party library has option to perform 448-bit
-	 * mod operation however it treats MSB as sign bit. So to overcome the
-	 * issue, new function added to third-party library uses next available
-	 * large number operation that hardware can handle is selected,
-	 * 480-bits (60 bytes).
-	 * Below code takes 448 bits from random number generated remaining
-	 * MSB bits are set to 0x00.
+	/**
+	 * - The random ephimeral/Private key should be between 1 to ecc order
+	 *   of the curve. EK can be obtained by using mod operation over
+	 *   384-bits random number. However to reduce bias associated with mod
+	 *   operation, standard recommends of using additional 64-bits i.e.
+	 *   384 + 64 = 448-bits. Third-Party library has option to perform 448-bit
+	 *   mod operation however it treats MSB as sign bit. So to overcome the
+	 *   issue, new function added to third-party library uses next available
+	 *   large number operation that hardware can handle is selected,
+	 *   480-bits (60 bytes).
+	 *   Below code takes 448 bits from random number generated remaining
+	 *   MSB bits are set to 0x00.
 	 */
 	u8 RandBuf[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
 	u8 RandBufEndianChange[XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN] = {0x00};
@@ -130,7 +131,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/* Take ECDSA core out if reset */
+	/** - Take ECDSA core out if reset */
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
 
@@ -144,7 +145,7 @@ int XSecure_EllipticPrvtKeyGenerate(XSecure_EllipticCrvTyp CrvType,
 	for (Index = 0U; (Index < XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN) && (RIndex >= 0); Index++, RIndex--) {
 		XSecure_OutByte64((u64)(UINTPTR)(RandBufEndianChange + Index), (RandBuf[RIndex]));
 	}
-	/* Third-Party library expects MSB bit to be 0 always */
+	/** - Third-Party library expects MSB bit to be 0 always */
 	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBufEndianChange, (u8 *)(UINTPTR)PrvtKey);
 	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)PrvtKey, PrivateKey->KeyOutPutAddr);
 
@@ -198,7 +199,7 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_GetRandomNum, RandBuf, XSECURE_ECC_TRNG_RANDOM_NUM_GEN_LEN);
 
-	/* Take ECDSA core out if reset */
+	/** - Take ECDSA core out if reset */
 	XSecure_ReleaseReset(XSECURE_ECDSA_RSA_BASEADDR,
 			XSECURE_ECDSA_RSA_RESET_OFFSET);
 
@@ -208,7 +209,7 @@ int XSecure_EllipticGenerateEphemeralKey(XSecure_EllipticCrvTyp CrvType,
 		goto END;
 	}
 
-	/* Third-Party library expects MSB bit to be 0 always */
+	/** - Third-Party library expects MSB bit to be 0 always */
 	XSECURE_TEMPORAL_CHECK(END, Status, Ecdsa_ModEccOrder, Crv, RandBuf, (u8 *)(UINTPTR)EphimeralKey);
 	XSecure_GetData(XSECURE_ECC_P384_SIZE_IN_BYTES, (u8*)EphimeralKey, EphemeralKeyAddr);
 
@@ -258,7 +259,7 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 	}
 
 	/**
-	 * Generate Ephemeral Key using TRNG for generating ECDSA signature
+	 * - Generate Ephemeral Key using TRNG for generating ECDSA signature
 	 */
 	Status = XSecure_EllipticGenerateEphemeralKey(CrvType,
 							(UINTPTR)&EphemeralKey);
@@ -267,14 +268,14 @@ int XSecure_EllipticGenEphemeralNSign(XSecure_EllipticCrvTyp CrvType,
 	}
 
 	/**
-	 * Generate Signature using Private Key to the provided hash
+	 * - Generate Signature using Private Key to the provided hash
 	 */
 	Status = XSecure_EllipticGenerateSignature(CrvType, Hash,
 		XSECURE_ECC_P384_SIZE_IN_BYTES, PrvtKey, EphemeralKey, &Sign);
 
 CLEAR:
 	/**
-	 * Clear ephemeral key and private key
+	 * - Clear ephemeral key and private key
 	 */
 	ClearStatus = Xil_SecureZeroize(EphemeralKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize(EphemeralKey, XSECURE_ECC_P384_SIZE_IN_BYTES);
@@ -377,7 +378,7 @@ int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 P
 
 END:
 	/**
-	 * Zeroize local copy of key
+	 * - Zeroize local copy of key
 	 */
 	ClearStatus = Xil_SecureZeroize((u8*)PrivKey, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)PrivKey, XSECURE_ECC_P521_SIZE_IN_BYTES);
@@ -386,7 +387,7 @@ END:
 	}
 
 	/**
-	 * Zeroize local copy of shared secret
+	 * - Zeroize local copy of shared secret
 	 */
 	ClearStatus = Xil_SecureZeroize((u8*)SharedSecret, XSECURE_ECC_P521_SIZE_IN_BYTES);
 	ClearStatusTmp = Xil_SecureZeroize((u8*)SharedSecret, XSECURE_ECC_P521_SIZE_IN_BYTES);

@@ -5,7 +5,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat.c
+* @file server/versal_2ve_2vm/xsecure_plat_kat.c
 *
 * This file contains known answer tests for Versal_2Ve_2Vm
 *
@@ -23,7 +23,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -1500,7 +1500,7 @@ int XSecure_RsaPrivateDecryptKat(void)
 		goto END_CLR;
 	}
 
-	/* Initialized to error */
+	/** - Initialized to error */
 	Status = (int)XSECURE_RSA_KAT_ENCRYPT_DATA_MISMATCH_ERROR;
 	for (Index = 0U; Index < XSECURE_RSA_2048_SIZE_WORDS; Index++) {
 		if (RsaOutput[Index] != RsaData[Index]) {
@@ -1554,7 +1554,7 @@ int XSecure_Sha2256Kat(XSecure_Sha *SecureSha2)
 		goto END_RST;
 	}
 
-	/* Comparison of expected hash */
+	/** - Comparison of expected hash */
 	for (Index = 0U; Index < XSECURE_SHA2_256_HASH_LEN; Index++) {
 		if (Sha2Hash[Index] != ExpSha256Hash[Index]) {
 			Status = XST_FAILURE;

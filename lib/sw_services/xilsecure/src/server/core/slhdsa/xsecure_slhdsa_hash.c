@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_hash.c
+* @file server/core/slhdsa/xsecure_slhdsa_hash.c
 *
 * This file consists definitions for SLH-DSA hash operations
 *
@@ -61,7 +61,7 @@ int XSecure_SlhdsaShake256sHashMsg(void)
 		InstancePtr->ShaInstance,	/* [in] SHA instance pointer */
 		XSECURE_SHAKE_256);		/* [in] SHA mode (SHAKE-256) */
 
-	/* For R <- SIG.getR(), R = SIG[0 : n] - access from instance address */
+	/** - For R <- SIG.getR(), R = SIG[0 : n] - access from instance address */
 	XSECURE_TEMPORAL_CHECK(END,
 		Status,
 		XSecure_ShaUpdate,
@@ -69,16 +69,16 @@ int XSecure_SlhdsaShake256sHashMsg(void)
 		InstancePtr->SignatureAddr,	/* [in] R value from signature (first n bytes) */
 		(u32)InstancePtr->Param->n);	/* [in] Length of R in bytes */
 
-	/* For PK.seed [0:n] and PK.root [n:2n] - access from instance address */
+	/** - For PK.seed [0:n] and PK.root [n:2n] - access from instance address */
 	XSECURE_TEMPORAL_CHECK(END,
 		Status,
 		XSecure_ShaUpdate,
 		InstancePtr->ShaInstance,	/* [in] SHA instance pointer */
 		InstancePtr->PublicKeyAddr,	/* [in] Public key (seed||root) */
 		((u32)InstancePtr->Param->n * XSECURE_VALUE_TWO));
-						/* [in] Length of public key in bytes */
+						/** - [in] Length of public key in bytes */
 
-	/* M' <- toByte(0,1) || toByte(|ctx|, 1) || ctx || M, here we send all prefix data before M */
+	/** - M' <- toByte(0,1) || toByte(|ctx|, 1) || ctx || M, here we send all prefix data before M */
 	XSECURE_TEMPORAL_CHECK(END,
 		Status,
 		XSecure_ShaUpdate,
@@ -87,7 +87,7 @@ int XSecure_SlhdsaShake256sHashMsg(void)
 		InstancePtr->Data1Len);			/* [in] Length of prefix data in bytes */
 
 	if (InstancePtr->DataLen != (u32)XSECURE_ZERO) {
-		/* M, actual data - access from instance address */
+		/** - M, actual data - access from instance address */
 		XSECURE_TEMPORAL_CHECK(END,
 				Status,
 				XSecure_ShaLastUpdate,

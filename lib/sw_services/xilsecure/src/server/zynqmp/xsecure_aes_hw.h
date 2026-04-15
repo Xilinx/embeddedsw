@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes_hw.h
+* @file server/zynqmp/xsecure_aes_hw.h
 *
 * This is the header file which contains ZynqMP AES core hardware definitions.
 *
@@ -72,7 +72,7 @@ extern "C" {
 #define XSECURE_CSU_AES_IV_1_OFFSET	(0x44U) /**< AES IV 1 */
 #define XSECURE_CSU_AES_IV_2_OFFSET	(0x48U) /**< AES IV 2 */
 #define XSECURE_CSU_AES_IV_3_OFFSET	(0x4CU) /**< AES IV 3 */
-/* @} */
+/** @} */
 
 /**************************** Type Definitions *******************************/
 

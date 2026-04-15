@@ -5,7 +5,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_lms_core.h
+* @file server/core/lms_hss/xsecure_lms_core.h
 *
 * This file contains the interface for LMS authentication methods
 *
@@ -22,6 +22,10 @@
 * @note
 *
 *******************************************************************************/
+/**
+ * @addtogroup xsecure_lms_server_apis XilSecure LMS Server APIs
+ * @{
+ */
 #ifndef XSECURE_LMS_CORE_H_
 #define XSECURE_LMS_CORE_H_
 
@@ -71,9 +75,9 @@ int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_HssInitParams *HssInitParams, u8 *Data, u32 DataLen);
 int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode *SignAlgo);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_LMS_CORE_H_ */
-/** @} */

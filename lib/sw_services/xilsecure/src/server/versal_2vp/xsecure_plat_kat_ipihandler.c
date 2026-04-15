@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/xsecure_plat_kat_ipihandler.c
+* @file server/versal_2vp/xsecure_plat_kat_ipihandler.c
 *
 * This file contains the Xilsecure KAT IPI handlers implementation.
 *
@@ -75,7 +75,7 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 #endif
 		break;
 	default:
-		/* Common IPI handler for versal devices */
+		/** - Common IPI handler for versal devices */
 		Status = XSecure_KatIpiHandler(Cmd);
 		break;
 	}
@@ -100,7 +100,7 @@ static int XSecure_TrngKat(void)
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	Status = XSecure_PreOperationalSelfTests(TrngInstance);
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);
 	}

@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
  *
- * @file xsecure_error.h
+ * @file server/versal/xsecure_error.h
  *
  * This file contains xilsecure error codes
  *
@@ -43,10 +43,7 @@
  * </pre>
  *
  ******************************************************************************/
-/**
-* @addtogroup xsecure_error_codes Xilsecure Error Codes
-* @{
-*/
+
 #ifndef XSECURE_ERROR_H_
 #define XSECURE_ERROR_H_
 
@@ -213,4 +210,3 @@ enum {
 #endif
 
 #endif /* XSECURE_ERROR_H_ */
-/** @} */

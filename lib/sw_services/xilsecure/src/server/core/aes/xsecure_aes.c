@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_aes.c
+* @file server/core/aes/xsecure_aes.c
 *
 * This file contains AES hardware interface APIs
 *
@@ -184,7 +184,7 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (PmcDmaPtr == NULL)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -195,7 +195,7 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 		goto END;
 	}
 
-	/** Initialize the instance */
+	/** - Initialize the instance */
 	InstancePtr->BaseAddress = XSECURE_AES_BASEADDR;
 	InstancePtr->PmcDmaPtr = PmcDmaPtr;
 	InstancePtr->NextBlkLen = 0U;
@@ -205,11 +205,11 @@ int XSecure_AesInitialize(XSecure_Aes *InstancePtr, XPmcDma *PmcDmaPtr)
 #endif
 	InstancePtr->DmaSwapEn = XSECURE_DISABLE_BYTE_SWAP;
 
-	/* Clear all key zeroization register */
+	/** - Clear all key zeroization register */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_KEY_CLEAR_OFFSET, XSECURE_AES_KEY_CLR_REG_CLR_MASK);
 
-	/** Initialize SSS Instance */
+	/** - Initialize SSS Instance */
 	Status = XSecure_SssInitialize(&(InstancePtr->SssInstance));
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -229,10 +229,9 @@ END:
  * 		based on user input
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
- * @param	DpaCmCfg	User choice to enable/disable DPA CM
- *				- TRUE - to enable AES DPA counter measure
- *					(Default setting)
- *				- FALSE - to disable AES DPA counter measure
+ * @param	DpaCmCfg	User choice to enable/disable DPA CM. Set to TRUE to
+ * 				enable AES DPA counter measure (Default setting) or FALSE
+ * 				to disable AES DPA counter measure
  *
  * @return
  *		 - XST_SUCCESS - If configuration is success
@@ -250,7 +249,7 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 	volatile u32 DpaCmCfgEn = DpaCmCfg;
 	volatile u32 DpaCmCfgEnTmp = DpaCmCfg;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -261,11 +260,11 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 		goto END;
 	}
 
-	/* Chip has DPA CM support */
+	/** - Chip has DPA CM support */
 	if ((XSecure_In32(XSECURE_EFUSE_SECURITY_MISC1) &
 		XSECURE_EFUSE_DPA_CM_DIS_MASK) != XSECURE_EFUSE_DPA_CM_DIS_MASK) {
 
-		/** Set DPA counter measures as per the user input */
+		/** - Set DPA counter measures as per the user input */
 		if ((DpaCmCfgEn != (u32)FALSE) || (DpaCmCfgEnTmp != (u32)FALSE)) {
 			DpaCmCfgEn = (u32)TRUE;
 			DpaCmCfgEnTmp = (u32)TRUE;
@@ -273,7 +272,7 @@ int XSecure_AesSetDpaCm(const XSecure_Aes *InstancePtr, u32 DpaCmCfg)
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 						XSECURE_AES_CM_EN_OFFSET, (DpaCmCfgEn | DpaCmCfgEnTmp));
 
-		/* Verify status of CM */
+		/** - Verify status of CM */
 		ReadReg = XSecure_ReadReg(InstancePtr->BaseAddress,
 				XSECURE_AES_STATUS_OFFSET);
 		ReadReg = (ReadReg & XSECURE_AES_STATUS_CM_ENABLED_MASK) >>
@@ -296,21 +295,16 @@ END:
  *		AES key registers
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
- * @param	KeySrc		Key Source to be selected to which provided
- *				key should be updated by
- *				- XSECURE_AES_USER_KEY_0
- *				- XSECURE_AES_USER_KEY_1
- *				- XSECURE_AES_USER_KEY_2
- *				- XSECURE_AES_USER_KEY_3
- *				- XSECURE_AES_USER_KEY_4
- *				- XSECURE_AES_USER_KEY_5
- *				- XSECURE_AES_USER_KEY_6
- *				- XSECURE_AES_USER_KEY_7
- *				- XSECURE_AES_BH_KEY
- * @param	KeySize		A variable of type XSecure_AesKeySize, which holds
- *				the size of the input key to be written by
- *				- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySrc		Key Source to be selected to which provided key should be
+ * 				updated: XSECURE_AES_USER_KEY_0, XSECURE_AES_USER_KEY_1,
+ * 				XSECURE_AES_USER_KEY_2, XSECURE_AES_USER_KEY_3,
+ * 				XSECURE_AES_USER_KEY_4, XSECURE_AES_USER_KEY_5,
+ * 				XSECURE_AES_USER_KEY_6, XSECURE_AES_USER_KEY_7, or
+ * 				XSECURE_AES_BH_KEY
+ * @param	KeySize		A variable of type XSecure_AesKeySize, which holds the size
+ * 				of the input key to be written: XSECURE_AES_KEY_SIZE_128
+ * 				for 128 bit key size or XSECURE_AES_KEY_SIZE_256 for
+ * 				256 bit key size
  * @param	KeyAddr		Address of a buffer which should contain the key
  * 				to be written
  *
@@ -332,7 +326,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	u32 Key[XSECURE_AES_KEY_SIZE_256BIT_WORDS];
 	u32 KeySizeInWords = 0U;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -385,7 +379,7 @@ int XSecure_AesWriteKey(const XSecure_Aes *InstancePtr,
 	Offset = Offset + (KeySizeInWords * XSECURE_WORD_SIZE) -
 				XSECURE_WORD_SIZE;
 
-	/** Write key into the specified AES key registers */
+	/** - Write key into the specified AES key registers */
 	for (Index = 0U; Index < KeySizeInWords; Index++) {
 		XSecure_WriteReg(InstancePtr->BaseAddress, Offset,
 					Xil_Htonl(Key[Index]));
@@ -433,7 +427,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	int Status = XST_FAILURE;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (AadAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -445,18 +439,18 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	}
 
 #ifndef VERSAL_NET
-	/* Validate Aad Size for versal*/
+	/** - Validate Aad Size for versal */
 	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 #endif
-	/* Validate AES state */
+	/** - Validate AES state */
 	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
-	/** Enable AAD by writing to the register */
+	/** - Enable AAD by writing to the register */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_ENABLE);
 
@@ -476,7 +470,7 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 #endif
 	}
 
-	/** Configure DMA and transfer AAD to AES engine */
+	/** - Configure DMA and transfer AAD to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
 		goto CLEAR;
@@ -489,13 +483,13 @@ int XSecure_AesUpdateAad(XSecure_Aes *InstancePtr, u64 AadAddr, u32 AadSize)
 	InstancePtr->IsGmacEn = (u32)FALSE;
 CLEAR:
 #ifndef VERSAL_2VE_2VM
-	/* Clear endianness */
+	/** - Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 		XPMCDMA_DST_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 #endif
-	/* Disable AAD */
+	/** - Disable AAD */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_DISABLE);
 
@@ -521,10 +515,9 @@ END:
  * 				updated
  * @param	IvAddr		Address of IV holding buffer for decryption
  * 				of the key
- * @param	KeySize		A variable of type XSecure_AesKeySize, which
- * 				specifies the size of the key to be
- *				- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		A variable of type XSecure_AesKeySize, which specifies
+ * 				the size of the key: XSECURE_AES_KEY_SIZE_128 for 128 bit
+ * 				key size or XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  *
  * @return
  *		 - XST_SUCCESS - On successful key decryption
@@ -541,7 +534,7 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_AesKeySrc KeySrc;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -582,18 +575,18 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 
 	Status = XST_FAILURE;
 
-	/** Load AES key to registers from PUF key */
+	/** - Load AES key to registers from PUF key */
 	Status = XSecure_AesKeyLoad(InstancePtr, KeySrc, KeySize);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
 	}
 
-	/* Start the message. */
+	/** - Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_START_MSG_OFFSET,
 			XSECURE_AES_START_MSG_VAL_MASK);
 
-	/* Enable Byte swap */
+	/** - Enable Byte swap */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
@@ -612,11 +605,11 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 
-	/** Configure the AES engine for Key decryption and starts operation */
+	/** - Configure the AES engine for Key decryption and starts operation */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_KEY_DEC_OFFSET, XSECURE_AES_KEY_DEC_MASK);
 
-	/* Decrypt selection */
+	/** - Decrypt selection */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 		XSECURE_AES_KEY_DEC_SEL_OFFSET,
 		AesKeyLookupTbl[DstKeySrc].KeyDecSrcSelVal);
@@ -625,17 +618,17 @@ int XSecure_AesKekDecrypt(const XSecure_Aes *InstancePtr,
 		XSECURE_AES_KEY_SEL_OFFSET,
 		AesKeyLookupTbl[DecKeySrc].KeySrcSelVal);
 
-	/** Trigger key decryption operation */
+	/** - Trigger key decryption operation */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_DEC_TRIG_OFFSET, XSECURE_KEK_DEC_ENABLE);
 
 	Status = XST_FAILURE;
 
-	/** Wait for AES Decryption completion. */
+	/** - Wait for AES Decryption completion. */
 	Status = XSecure_AesKekWaitForDone(InstancePtr);
 
 END_RST:
-	/* Select key decryption */
+	/** - Select key decryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_DEC_OFFSET, XSECURE_AES_KEY_DEC_RESET_MASK);
 
@@ -652,9 +645,9 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	KeySrc		Key Source for decryption of the data
- * @param	KeySize		Size of the AES key to be used for decryption is
- *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		Size of the AES key to be used for decryption (XSECURE_AES_KEY_SIZE_128
+ * 				for 128 bit key size or XSECURE_AES_KEY_SIZE_256 for 256 bit
+ * 				key size)
  * @param	IvAddr		Address to the buffer holding IV
  *
  * @return
@@ -685,10 +678,9 @@ int XSecure_AesDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
  * @param	OutDataAddr	Address of output buffer where the decrypted
  *				  to be updated
  * @param	Size		Size of data to be decrypted in bytes, whereas number of bytes shall be
- *				aligned as below for Versal
- *				- 16 byte aligned when it is not the last chunk
- *				- 4 byte aligned when the data is the last chunk
- *				For Versal Net, byte aligned data is accepted
+ * 				aligned as follows for Versal: 16 byte aligned when it is not the last
+ * 				chunk or 4 byte aligned when the data is the last chunk. For Versal Net,
+ * 				byte aligned data is accepted
  * @param	IsLastChunk	If this is the last update of data to be decrypted,
  *				  this parameter should be set to TRUE otherwise FALSE
  *
@@ -732,7 +724,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	volatile u32 RegValTmp;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -760,7 +752,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
 	AesDmaCfg.IsLastChunkSrc = (u8)FALSE;
 
-	/** Update AES engine with the GCM Tag data to verify the GCM Tag */
+	/** - Update AES engine with the GCM Tag data to verify the GCM Tag */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
@@ -769,7 +761,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 
 	Status = XST_FAILURE;
 
-	/* Wait for AES Decryption completion. */
+	/** - Wait for AES Decryption completion. */
 	Status = XSecure_AesWaitForDone(InstancePtr);
 	if (Status != XST_SUCCESS) {
 		goto END_RST;
@@ -784,7 +776,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	RegVal &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
 	RegValTmp &= XSECURE_AES_STATUS_GCM_TAG_PASS_MASK;
 
-	/** Verify whether GCM Tag is matched or not */
+	/** - Verify whether GCM Tag is matched or not */
 	if ((RegVal != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK) ||
 	   (RegValTmp != XSECURE_AES_STATUS_GCM_TAG_PASS_MASK)) {
 		Status = (int)XSECURE_AES_GCM_TAG_MISMATCH;
@@ -798,7 +790,7 @@ int XSecure_AesDecryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 END_RST:
 	InstancePtr->IsGmacEn = (u32)FALSE;
 #ifndef VERSAL_2VE_2VM
-	/* Clear endianness */
+	/** - Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		XSECURE_DISABLE_BYTE_SWAP);
 #endif
@@ -854,7 +846,7 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -880,7 +872,7 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	/** Update AES engine with encrypted data and get the decrypted data output */
+	/** - Update AES engine with encrypted data and get the decrypted data output */
 	Status = XSecure_AesDecryptUpdate(InstancePtr, InDataAddr, OutDataAddr,
 						Size, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
@@ -889,7 +881,7 @@ int XSecure_AesDecryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	Status = XST_FAILURE;
 
-	/** Verify GCM tag */
+	/** - Verify GCM tag */
 	Status = XSecure_AesDecryptFinal(InstancePtr, GcmTagAddr);
 
 END:
@@ -902,9 +894,9 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	KeySrc		Key Source for encryption
- * @param	KeySize		Size of the AES key to be used for encryption is
- *			 	- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		Size of the AES key to be used for encryption (XSECURE_AES_KEY_SIZE_128
+ * 				for 128 bit key size or XSECURE_AES_KEY_SIZE_256 for 256 bit
+ * 				key size)
  * @param	IvAddr		Address to the buffer holding IV
  *
  * @return
@@ -927,18 +919,15 @@ int XSecure_AesEncryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 /*****************************************************************************/
 /**
  * @brief	This function is used to update the AES engine for encryption with
- * 		provided data and stores the decrypted data at specified address
+ * 		provided data and stores the encrypted data at specified address
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
- * @param	InDataAddr	Address of the encrypted data which needs to be
- *				  encrypted
+ * @param	InDataAddr	Address of the data which needs to be encrypted
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *				  to be updated
- * @param	Size		Size of data to be decrypted in bytes, whereas number of bytes shall be
- *				aligned as below for Versal
- *				- 16 byte aligned when it is not the last chunk
- *				- 4 byte aligned when the data is the last chunk
- *				For Versal Net, byte aligned data is acceptable
+ * @param	Size		Size of data to be encrypted in bytes. For Versal, data shall
+ * 				be 16 byte aligned for non-last chunks and 4 byte aligned for
+ * 				the last chunk. For Versal Net, byte aligned data is acceptable
  * @param	IsLastChunk	If this is the last update of data to be encrypted,
  *				this parameter should be set to TRUE otherwise FALSE
  *
@@ -977,7 +966,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -999,7 +988,7 @@ int XSecure_AesEncryptFinal(XSecure_Aes *InstancePtr, u64 GcmTagAddr)
 		goto END;
 	}
 
-	/* Copying from local buffer which is already stored during encrypt update. */
+	/** - Copying from local buffer which is already stored during encrypt update. */
 	XSecure_MemCpy64(GcmTagAddr, (u64)(UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 
 	Status = XST_SUCCESS;
@@ -1050,7 +1039,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 {
 	volatile int Status = XST_FAILURE;
 
-	/** Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1076,7 +1065,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 		goto END;
 	}
 
-	/** Update the data to AES engine */
+	/** - Update the data to AES engine */
 	Status = XSecure_AesEncryptUpdate(InstancePtr, InDataAddr, OutDataAddr,
 					Size, (u8)TRUE);
 	if (Status != XST_SUCCESS) {
@@ -1085,7 +1074,7 @@ int XSecure_AesEncryptData(XSecure_Aes *InstancePtr, u64 InDataAddr,
 
 	Status = XST_FAILURE;
 
-	/** Get the GCM Tag */
+	/** - Get the GCM Tag */
 	Status = XSecure_AesEncryptFinal(InstancePtr, GcmTagAddr);
 
 END:
@@ -1114,13 +1103,13 @@ int XSecure_AesCfgKupKeyNIv(const XSecure_Aes *InstancePtr, u8 Config)
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Enable/disable the KUP and IV update as per the configuration provided */
+	/** - Enable/disable the KUP and IV update as per the configuration provided */
 	if ((Config != XSECURE_AES_DISABLE_KUP_IV_UPDATE) &&
 		 (Config != XSECURE_AES_ENABLE_KUP_IV_UPDATE)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
@@ -1172,7 +1161,7 @@ int XSecure_AesGetNxtBlkLen(const XSecure_Aes *InstancePtr, u32 *Size)
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (Size == NULL)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1213,7 +1202,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 	u32 Mask;
 	u32 RstState = XSECURE_RESET_UNSET;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1255,7 +1244,7 @@ int XSecure_AesKeyZero(const XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc)
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-	/** Zeroize the specified key source */
+	/** - Zeroize the specified key source */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_CLEAR_OFFSET,
 					 Mask);
 
@@ -1325,11 +1314,11 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	XSecure_ReleaseReset(AesInstance->BaseAddress,
 				XSECURE_AES_SOFT_RST_OFFSET);
 
-	/** Configure AES for Encryption */
+	/** - Configure AES for Encryption */
 	XSecure_WriteReg(AesInstance->BaseAddress,
 		XSECURE_AES_MODE_OFFSET, XSECURE_AES_MODE_ENC);
 
-	/** Configure AES engine in split mode to update data and key to aes core */
+	/** - Configure AES engine in split mode to update data and key to aes core */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
 		(XSECURE_AES_SPLIT_CFG_KEY_SPLIT |
 		XSECURE_AES_SPLIT_CFG_DATA_SPLIT));
@@ -1342,14 +1331,14 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_CM_EN_OFFSET,
 		XSECURE_AES_CM_EN_VAL_MASK);
 
-	/** Write Key mask value */
+	/** - Write Key mask value */
 	for (Index = 0U; Index < XSECURE_AES_KEY_SIZE_256BIT_WORDS; Index++) {
 		XSecure_WriteReg(AesInstance->BaseAddress,
 			XSECURE_AES_KEY_MASK_INDEX + (u32)(Index * XSECURE_WORD_SIZE),
 			0x0U);
 	}
 
-	/** Write AES key */
+	/** - Write AES key */
 	Status = XSecure_AesWriteKey(AesInstance, XSECURE_AES_USER_KEY_7,
 			XSECURE_AES_KEY_SIZE_256, (UINTPTR)KeyPtr);
 	if (Status != XST_SUCCESS) {
@@ -1375,22 +1364,22 @@ int XSecure_AesDpaCmDecryptData(const XSecure_Aes *AesInstance,
 		goto END;
 	}
 
-	/** Start the message. */
+	/** - Start the message. */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_START_MSG_OFFSET,
 		XSECURE_AES_START_MSG_VAL_MASK);
 
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_DATA_SWAP_OFFSET,
 		XSECURE_AES_DATA_SWAP_VAL_MASK);
 #ifndef VERSAL_2VE_2VM
-	/* Enable PMC DMA Src channel for byte swapping.*/
+	/** - Enable PMC DMA Src channel for byte swapping. */
 	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
 
-	/* Enable PMC DMA Dst channel for byte swapping.*/
+	/** - Enable PMC DMA Dst channel for byte swapping. */
 	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
 		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_MASK);
 #endif
-	/** Configure the PMC DMA Tx/Rx for the incoming Block. */
+	/** - Configure the PMC DMA Tx/Rx for the incoming Block. */
 	XPmcDma_Transfer(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 		(u64)(UINTPTR)OutputPtr, XSECURE_AES_DMA_SIZE,
 		XSECURE_AES_DMA_LAST_WORD_DISABLE);
@@ -1420,26 +1409,26 @@ END:
 	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_DST_CHANNEL,
 		XPMCDMA_IXR_DONE_MASK);
 
-	/* Acknowledge the transfer has completed */
+	/** - Acknowledge the transfer has completed */
 	XPmcDma_IntrClear(AesInstance->PmcDmaPtr, XPMCDMA_SRC_CHANNEL,
 		XPMCDMA_IXR_DONE_MASK);
 #ifndef VERSAL_2VE_2VM
 	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
 		XPMCDMA_SRC_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 
-	/* Disable PMC DMA Dst channel for byte swapping. */
+	/** - Disable PMC DMA Dst channel for byte swapping. */
 	XSecure_AesPmcDmaCfgEndianness(AesInstance->PmcDmaPtr,
 		XPMCDMA_DST_CHANNEL, XSECURE_AES_DATA_SWAP_VAL_DISABLE);
 #endif
-	/* Configure AES in split mode */
+	/** - Configure AES in split mode */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_SPLIT_CFG_OFFSET,
 		XSECURE_AES_SPLIT_CFG_DATA_KEY_DISABLE);
 
-	/* Copy the initial status of DPACM */
+	/** - Copy the initial status of DPACM */
 	XSecure_WriteReg(AesInstance->BaseAddress, XSECURE_AES_CM_EN_OFFSET,
 		ReadReg);
 
-	/* AES reset */
+	/** - AES reset */
 	XSecure_SetReset(AesInstance->BaseAddress, XSECURE_AES_SOFT_RST_OFFSET);
 
 	return Status;
@@ -1447,7 +1436,7 @@ END:
 
 /*****************************************************************************/
 /**
- * @brief	This function waits for AES engine completes key loading
+ * @brief	This function waits for AES engine to complete key loading
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  *
@@ -1458,7 +1447,7 @@ END:
  ******************************************************************************/
 static int XSecure_AesWaitKeyLoad(const XSecure_Aes *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 	return (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
 					XSECURE_AES_STATUS_OFFSET),
@@ -1487,14 +1476,14 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 {
 	int Status = XST_FAILURE;
 
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 	XSecure_AssertNonvoid((KeySrc < XSECURE_MAX_KEY_SOURCES) &&
 		(KeySrc >= XSECURE_AES_BBRAM_KEY));
 	XSecure_AssertNonvoid((KeySize == XSECURE_AES_KEY_SIZE_128) ||
 			  (KeySize == XSECURE_AES_KEY_SIZE_256));
 
-	/* Load Key Size */
+	/** - Load Key Size */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_KEY_SIZE_OFFSET,
 		(u32)KeySize);
 
@@ -1502,12 +1491,12 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
 			XSECURE_AES_KEY_SEL_OFFSET,
 			AesKeyLookupTbl[KeySrc].KeySrcSelVal);
 
-	/* Trig loading of key. */
+	/** - Trig loading of key. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_KEY_LOAD_OFFSET,
 			XSECURE_AES_KEY_LOAD_VAL_MASK);
 
-	/* Wait for AES key loading.*/
+	/** - Wait for AES key loading. */
 	Status = XSecure_AesWaitKeyLoad(InstancePtr);
 
 	return Status;
@@ -1526,7 +1515,7 @@ static int XSecure_AesKeyLoad(const XSecure_Aes *InstancePtr,
  ******************************************************************************/
 static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	return (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
@@ -1549,7 +1538,7 @@ static int XSecure_AesWaitForDone(const XSecure_Aes *InstancePtr)
  ******************************************************************************/
 static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
 {
-	/* Assert validates the input arguments */
+	/** - Assert validates the input arguments */
 	XSecure_AssertNonvoid(InstancePtr != NULL);
 
 	return (int)Xil_WaitForEvent(((InstancePtr)->BaseAddress +
@@ -1565,9 +1554,9 @@ static int XSecure_AesKekWaitForDone(const XSecure_Aes *InstancePtr)
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	KeySrc		Key Source for decryption of the data
- * @param	KeySize		Size of the AES key to be used for decryption
- *				- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		Size of the AES key to be used for decryption:
+ *				XSECURE_AES_KEY_SIZE_128 for 128 bit key size or
+ *				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	IvAddr		Address to the buffer holding IV
  *
  * @return
@@ -1585,7 +1574,7 @@ static int XSecure_AesKeyLoadandIvXfer(const XSecure_Aes *InstancePtr,
 		goto END;
 	}
 
-	/* Start the message. */
+	/** - Start the message. */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_START_MSG_OFFSET,
 			XSECURE_AES_START_MSG_VAL_MASK);
@@ -1619,7 +1608,7 @@ static int XSecure_AesIvXfer(const XSecure_Aes *InstancePtr, u64 IvAddr)
 	volatile int Status = XST_FAILURE;
 	XSecure_AesDmaCfg AesDmaCfg = {0U};
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (IvAddr == 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1657,7 +1646,7 @@ static int XSecure_AesPmcDmaCfgAndXfer(const XSecure_Aes *InstancePtr,
 {
 	int Status = XST_FAILURE;
 
-	/* Configure the SSS for AES. */
+	/** - Configure the SSS for AES. */
 	Status = XSecure_CfgSssAes(InstancePtr->PmcDmaPtr, &InstancePtr->SssInstance);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1692,7 +1681,7 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn)
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1708,7 +1697,7 @@ int XSecure_AesGmacCfg(XSecure_Aes *InstancePtr, u32 IsGmacEn)
 		goto END;
 	}
 
-	/** Enable/disable GMAC configuration */
+	/** - Enable/disable GMAC configuration */
 	InstancePtr->IsGmacEn = IsGmacEn;
 	Status = XST_SUCCESS;
 
@@ -1755,7 +1744,7 @@ static int XSecureAesUpdate(const XSecure_Aes *InstancePtr, u64 InDataAddr,
 	}
 
 #ifndef VERSAL_2VE_2VM
-	/* Clear endianness */
+	/** - Clear endianness */
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
 				XPMCDMA_SRC_CHANNEL, XSECURE_DISABLE_BYTE_SWAP);
 	XSecure_AesPmcDmaCfgEndianness(InstancePtr->PmcDmaPtr,
@@ -1794,25 +1783,25 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
         volatile u32 GcmStatus = 0U;
         volatile u32 GcmStatusTmp = 0U;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if ((InstancePtr == NULL) || (AadAddr == 0x00U)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Validate Aad Size for versal*/
+	/** - Validate Aad Size for versal */
 	if ((AadSize % XSECURE_QWORD_SIZE) != 0x00U) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
 	}
 
-	/* Validate AES state */
+	/** - Validate AES state */
 	if (InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/* Enable AAD */
+	/** - Enable AAD */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_ENABLE);
 
@@ -1820,21 +1809,21 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
 	AesDmaCfg.IsLastChunkSrc = (u8)TRUE;
 
-	/* Push the AAD to AES engine */
+	/** - Push the AAD to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg, AadSize);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END_RST;
 	}
 
-	/* Disable AAD */
+	/** - Disable AAD */
 	XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_AAD_OFFSET,
 		XSECURE_AES_AAD_DISABLE);
 
 	AesDmaCfg.SrcDataAddr = GcmTagAddr;
 	AesDmaCfg.SrcChannelCfg = (u8)TRUE;
 	AesDmaCfg.IsLastChunkSrc = (u8)FALSE;
-	/* Push the GCM TAG to AES engine */
+	/** - Push the GCM TAG to AES engine */
 	Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, &AesDmaCfg,
 		XSECURE_SECURE_GCM_TAG_SIZE);
 	if (Status != XST_SUCCESS) {
@@ -1843,7 +1832,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 	}
 
 	Status = XSECURE_AES_GCM_TAG_MISMATCH;
-	/* Check Gcm Tag matching status */
+	/** - Check Gcm Tag matching status */
 	GcmStatus = XSecure_ReadReg(InstancePtr->BaseAddress,
 			XSECURE_AES_STATUS_OFFSET);
 	GcmStatusTmp = XSecure_ReadReg(InstancePtr->BaseAddress,
@@ -1858,7 +1847,7 @@ int XSecure_AesUpdateAadAndValidate(XSecure_Aes *InstancePtr, u64 AadAddr,
 
 END_RST:
 	InstancePtr->AesState = XSECURE_AES_INITIALIZED;
-	/* Soft Reset Aes*/
+	/** - Soft Reset Aes */
 	XSecure_SetReset(InstancePtr->BaseAddress,
 			XSECURE_AES_SOFT_RST_OFFSET);
 
@@ -1872,15 +1861,14 @@ END:
  * @brief	This function validates and updates the mode of the AES and loads
  *           key and transfers IV to the AES engine.
  *
- * @param	InstancePtr	- Pointer to the XSecure_Aes instance
- * @param	KeySrc		- Key Source for decryption of the data
- * @param	KeySize		- Size of the AES key to be used for decryption is
- *				- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
- * @param	IvAddr		- Address to the buffer holding IV
- * @param	Mode		- AES operation mode
- *				- XSECURE_AES_MODE_ENC for encryption
- *				- XSECURE_AES_MODE_DEC for decryption
+ * @param	InstancePtr	Pointer to the XSecure_Aes instance
+ * @param	KeySrc		Key Source for decryption of the data
+ * @param	KeySize		Size of the AES key to be used for decryption:
+ *				XSECURE_AES_KEY_SIZE_128 for 128 bit key size or
+ *				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	IvAddr		Address to the buffer holding IV
+ * @param	Mode		AES operation mode (XSECURE_AES_MODE_ENC for encryption
+ *				or XSECURE_AES_MODE_DEC for decryption)
  *
  * @return
  *		- XST_SUCCESS - On successful init
@@ -1900,7 +1888,7 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END;
 	}
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1930,7 +1918,7 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 		goto END;
 	}
 
-	/* Validate Mode */
+	/** - Validate Mode */
 	if((Mode != XSECURE_AES_MODE_ENC) && (Mode != XSECURE_AES_MODE_DEC)) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1941,7 +1929,7 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 			XSECURE_AES_SOFT_RST_OFFSET);
 	}
 
-	/* Configure AES for decryption/encryption */
+	/** - Configure AES for decryption/encryption */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_MODE_OFFSET, Mode);
 
@@ -1968,9 +1956,9 @@ END:
  *				  encrypted
  * @param	OutDataAddr	Address of output buffer where the encrypted data
  *				  to be updated
- * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
- *                  - 16 byte aligned when it is not the last chunk
- *                  - 4 byte aligned when the data is the last chunk
+ * @param	Size    Size of data to be decrypted in bytes, whereas number of bytes shall be
+ *                  aligned as follows: 16 byte aligned when it is not the last chunk or
+ *                  4 byte aligned when the data is the last chunk
  * @param	IsLastChunk	 If this is the last update of data to be encrypted,
  *		 		  this parameter should be set to TRUE otherwise FALSE
  *
@@ -1987,7 +1975,7 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -1997,17 +1985,17 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 		Status = (int)XSECURE_AES_UNALIGNED_SIZE_ERROR;
 		goto END;
 	}
-	/* Validate the size for last chunk */
+	/** - Validate the size for last chunk */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_AesValidateSize, Size, IsLastChunk);
 
-	/* Validate the AES state */
+	/** - Validate the AES state */
 	if ((InstancePtr->AesState != XSECURE_AES_OPERATION_INITIALIZED) &&
 		(InstancePtr->AesState != XSECURE_AES_UPDATE_IN_PROGRESS)) {
 		Status = (int)XSECURE_AES_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
-	/* Enable AES Data swap */
+	/** - Enable AES Data swap */
 	XSecure_WriteReg(InstancePtr->BaseAddress,
 			XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_ENABLE_BYTE_SWAP);
 
@@ -2022,7 +2010,7 @@ static int XSecure_ValidateAndUpdateData(XSecure_Aes *InstancePtr, u64 InDataAdd
 	}
 
 	if ((XSecure_AesIsEcbModeEn(InstancePtr) == (u32)TRUE) && (IsLastChunk == (u8)TRUE)) {
-		/* Wait for AES Done for last chunk in ECB mode */
+		/** - Wait for AES Done for last chunk in ECB mode */
 		Status = XSecure_AesWaitForDone(InstancePtr);
 		InstancePtr->AesState = XSECURE_AES_INITIALIZED;
 
@@ -2079,7 +2067,7 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 		AesDmaCfg->SrcChannelCfg = (u8)FALSE;
 
 #if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)) && !(defined(__RISCV__)))
-		/* Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 and RISCV processors */
+		/** - Invalidate Cache before and after dma transfer to ensure cache coherency for a72 and r5 and RISCV processors */
 		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 #endif
 		Status = XSecure_AesPmcDmaCfgAndXfer(InstancePtr, AesDmaCfg,
@@ -2091,10 +2079,10 @@ static int XSecure_AesCopyGcmTag(const XSecure_Aes *InstancePtr,
 #if(!defined(VERSAL_PLM) && !(defined(__MICROBLAZE__)) && !(defined(__RISCV__)))
 		Xil_DCacheInvalidateRange((UINTPTR)InstancePtr->GcmTag, XSECURE_SECURE_GCM_TAG_SIZE);
 #endif
-		/* Wait for AES Operation completion. */
+		/** - Wait for AES Operation completion. */
 		Status = XSecure_AesWaitForDone(InstancePtr);
 
-		/* Zeroize the keys after AES operation completion */
+		/** - Zeroize the keys after AES operation completion */
 		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_KUP_AND_EXPANDED_KEYS);
 		if (Status == XST_SUCCESS) {
 			Status = SStatus;

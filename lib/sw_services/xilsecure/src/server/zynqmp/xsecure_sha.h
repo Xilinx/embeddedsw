@@ -1,15 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2014 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha.h
-* @addtogroup xsecure_sha3_zynqmp_apis XilSecure SHA3 ZynqMP APIs
-* @{
+* @file server/zynqmp/xsecure_sha.h
 * @cond xsecure_internal
 * This file Contains the function prototypes, defines and macros for
 * the SHA-384 hardware module.
@@ -59,6 +57,10 @@
 * @endcond
 *
 ******************************************************************************/
+/**
+ * @addtogroup xsecure_sha3_zynqmp_apis XilSecure SHA3 ZynqMP APIs
+ * @{
+ */
 #ifndef XSECURE_SHA_H
 #define XSECURE_SHA_H
 
@@ -99,8 +101,8 @@ extern "C" {
 
 /* SHA3 type selection */
 typedef enum {
-	XSECURE_CSU_NIST_SHA3, /**< NIST sha3 */
-	XSECURE_CSU_KECCAK_SHA3 /**< Keccak sha3 */
+	XSECURE_CSU_NIST_SHA3, /**< NIST SHA3 */
+	XSECURE_CSU_KECCAK_SHA3 /**< Keccak SHA3 */
 }XSecure_Sha3PadType;
 
 /* Sha3 driver states */
@@ -161,10 +163,9 @@ s32 XSecure_Sha3LastUpdate(XSecure_Sha3 *InstancePtr);
 /** SHA3 Wait To Complete Function */
 u32 XSecure_Sha3WaitForDone(XSecure_Sha3 *InstancePtr);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /** XSECURE_SHA_H */
-
-/* @} */

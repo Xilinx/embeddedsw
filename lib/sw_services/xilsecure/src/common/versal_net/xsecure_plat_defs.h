@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_defs.h
+* @file common/versal_net/xsecure_plat_defs.h
 *
 * This file contains the xsecure API IDs for versalnet
 *

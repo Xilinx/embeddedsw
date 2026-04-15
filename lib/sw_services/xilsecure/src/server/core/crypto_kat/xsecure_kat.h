@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_kat.h
+* @file server/core/crypto_kat/xsecure_kat.h
 *
 * This file contains KAT interface APIs for Versal and Versal Net
 *
@@ -24,10 +24,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
-* @{
-*/
+ * @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
+ * @{
+ */
 #ifndef XSECURE_KAT_H_
 #define XSECURE_KAT_H_
 
@@ -82,9 +83,9 @@ int XSecure_AesDecryptKat(XSecure_Aes *AesInstance);
 int XSecure_AesEncryptKat(XSecure_Aes *AesInstance);
 int XSecure_Sha3Kat(XSecure_Sha3 *SecureSha3);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_KAT_H_ */
-/** @} */

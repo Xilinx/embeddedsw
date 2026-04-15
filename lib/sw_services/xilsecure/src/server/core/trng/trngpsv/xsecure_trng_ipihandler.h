@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file trngpsv/xsecure_trng_ipihandler.h
+* @file server/core/trng/trngpsv/xsecure_trng_ipihandler.h
 *
 * This file contains the Xilsecure TRNG IPI handler declaration.
 *
@@ -20,10 +20,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_trng_server_apis Xilsecure TRNG Server APIs
-* @{
-*/
+ * @addtogroup xsecure_trng_server_apis XilSecure TRNG Server APIs
+ * @{
+ */
 #ifndef XSECURE_TRNG_IPIHANDLER_H_
 #define XSECURE_TRNG_IPIHANDLER_H_
 
@@ -41,9 +42,9 @@ extern "C" {
 /************************************** Function Prototypes ***************************************/
 int XSecure_TrngIpiHandler(XPlmi_Cmd *Cmd);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_TRNG_IPIHANDLER_H_ */
-/** @} */

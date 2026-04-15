@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_aes.c
+* @file server/core/key_unwrap/xsecure_plat_aes.c
 * This file contains Versal Net specific code for Xilsecure aes server.
 *
 * <pre>
@@ -56,9 +56,9 @@ static int XSecure_AesEcbDecryptInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	KeySrc		Key Source for decryption of the data
- * @param	KeySize		Size of the AES key to be used for decryption is
- *		 		- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		Size of the AES key to be used for decryption:
+ *		 		XSECURE_AES_KEY_SIZE_128 for 128 bit key size or
+ *				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  *
  * @return
  *		 - XST_SUCCESS - On Success
@@ -97,7 +97,7 @@ int XSecure_AesEcbCfg(XSecure_Aes *InstancePtr, u32 EcbModeFlag)
 {
 	int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (InstancePtr == NULL) {
 		Status = (int)XSECURE_AES_INVALID_PARAM;
 		goto END;
@@ -129,16 +129,16 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	KeyAddr		Address of the key to be programmed in XSECURE_AES_USER_KEY_7
- * @param	KeySize		Size of the AES key to be used for decryption is
- *				- XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				- XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		Size of the AES key to be used for decryption:
+ *				XSECURE_AES_KEY_SIZE_128 for 128 bit key size or
+ *				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	InDataAddr	Address of the encrypted data which needs to be
  *				decrypted
  * @param	OutDataAddr	Address of output buffer where the decrypted data
  *				to be updated
- * @param	Size		Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
- *				- 16 byte aligned when it is not the last chunk
- *				- 4 byte aligned when the data is the last chunk
+ * @param	Size		Size of data to be decrypted in bytes. Data shall be
+ *				16 byte aligned for non-last chunks and 4 byte aligned
+ *				when it is the last chunk
  *
  * @return
  *		 - XST_SUCCESS - On Success
@@ -151,13 +151,13 @@ int XSecure_AesEcbDecrypt(XSecure_Aes *InstancePtr, u64 KeyAddr, XSecure_AesKeyS
 	volatile int Status = XST_FAILURE;
 	volatile int SStatus = XST_FAILURE;
 
-	/* Validate input arguments and write AES key */
+	/** - Validate input arguments and write AES key */
 	Status = XSecure_AesWriteKey(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize, KeyAddr);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/* Validate and put AES in ECB and decryption mode */
+	/** - Validate and put AES in ECB and decryption mode */
 	Status = XSecure_AesEcbDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -170,7 +170,7 @@ END:
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				 XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 		XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_ECB_OFFSET, XSECURE_AES_ECB_MODE_DIS);
-		/* Clear AES Key */
+		/** - Clear AES Key */
 		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_USER_KEY_7);
 		if (Status == XST_SUCCESS) {
 			Status = SStatus;
@@ -190,16 +190,16 @@ END:
  *
  * @param	InstancePtr	Pointer to the XSecure_Aes instance
  * @param	EphAesKey	Address of the key to be programmed in XSECURE_AES_USER_KEY_7
- * @param	KeySize		Size of the AES key to be used for decryption is
- *		 		XSECURE_AES_KEY_SIZE_128 for 128 bit key size
- *				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
+ * @param	KeySize		Size of the AES key to be used for decryption:
+ * 				XSECURE_AES_KEY_SIZE_128 for 128 bit key size or
+ * 				XSECURE_AES_KEY_SIZE_256 for 256 bit key size
  * @param	AesWrapKey	Address of the wrapped key which needs to be
  *				decrypted
  * @param	OutDataAddr	Address of output buffer where the decrypted data
  *				to be updated
- * @param	Size		Size of data to be decrypted in bytes, whereas number of bytes shall be aligned as below
- *				- 16 byte aligned when it is not the last chunk
- *				- 4 byte aligned when the data is the last chunk
+ * @param	Size		Size of data to be decrypted in bytes. Data shall be
+ *				16 byte aligned for non-last chunks and 4 byte aligned
+ *				when it is the last chunk
  *
  * @return
  *		 - XST_SUCCESS - On success.
@@ -231,14 +231,14 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 		goto END;
 	}
 
-	/* Validate input arguments and write AES key */
+	/** - Validate input arguments and write AES key */
 	Status = XSecure_AesWriteKey(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize, (u64)(UINTPTR)EphAesKey);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
-	/* Copy initial value*/
+	/** - Copy initial value */
 	Status = XPlmi_MemCpy64((u64)(UINTPTR)InitValue, (u64)(UINTPTR)AesWrapKey, XSECURE_AES_64BIT_BLOCK_SIZE);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -249,7 +249,7 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	for (AesRoundNum = (int)XSECURE_AES_KEY_WRAP_MAX_ROUNDS; AesRoundNum >= 0; AesRoundNum--) {
 		for (AesBlkRoundNum = MaxRounds; AesBlkRoundNum >= 1U; AesBlkRoundNum--) {
 			RoundVal = (u64)(XSECURE_AES_256BIT_MAX_KEY_BLOCK_ROUNDS * (u32)AesRoundNum + AesBlkRoundNum);
-			/* XOR initial value with Round value*/
+			/** - XOR initial value with Round value */
 			for (Temp = 0U; Temp < 8U; Temp++) {
 				InitValue[Temp] = (u8)(InitValue[Temp] ^ (RoundVal >> (8U * (7U - Temp)) & 0xFFU));
 			}
@@ -264,7 +264,7 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 				goto END;
 			}
 
-			/* Validate and put AES in ECB and decryption mode */
+			/** - Validate and put AES in ECB and decryption mode */
 			Status = XSecure_AesEcbDecryptInit(InstancePtr, XSECURE_AES_USER_KEY_7, KeySize);
 			if (Status != XST_SUCCESS) {
 				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -297,7 +297,7 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	 * After normal completion, counter should be -1 (one less than termination value 0)
 	 */
 	if ((AesRoundNum + 1) != 0) {
-		/* Loop counter mismatch indicates potential fault injection attack */
+		/** - Loop counter mismatch indicates potential fault injection attack */
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
@@ -309,7 +309,7 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 		goto END;
 	}
 
-	/* Copy key to destination */
+	/** - Copy key to destination */
 	Status = XPlmi_MemCpy64(OutDataAddr, (u64)(UINTPTR)(AesWrapKey + XSECURE_AES_64BIT_BLOCK_SIZE), XSECURE_AES_64BIT_BLOCK_SIZE *
 								MaxRounds);
 
@@ -318,7 +318,7 @@ END:
 		XSecure_WriteReg(InstancePtr->BaseAddress,
 				 XSECURE_AES_DATA_SWAP_OFFSET, XSECURE_DISABLE_BYTE_SWAP);
 		XSecure_WriteReg(InstancePtr->BaseAddress, XSECURE_AES_ECB_OFFSET, XSECURE_AES_ECB_MODE_DIS);
-		/* Clear AES Key */
+		/** - Clear AES Key */
 		SStatus = XSecure_AesKeyZero(InstancePtr, XSECURE_AES_USER_KEY_7);
 		if (Status == XST_SUCCESS) {
 			Status = SStatus;

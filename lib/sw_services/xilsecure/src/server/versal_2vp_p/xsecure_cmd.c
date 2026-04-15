@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/xsecure_cmd.c
+* @file server/versal_2vp_p/xsecure_cmd.c
 *
 * This file contains the Xilsecure IPI handler implementation.
 *
@@ -286,7 +286,7 @@ void XSecure_CmdsInit(void)
 {
 	u32 Idx;
 
-	/* Register command handlers with XilPlmi */
+	/** - Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Secure.CmdCnt; Idx++) {
 		XSecure_Cmds[Idx].Handler = XSecure_ProcessCmd;
 	}

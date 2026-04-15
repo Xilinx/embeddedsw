@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure.h
+* @file server/zynqmp/xsecure.h
 *
 * This is the header file which contains secure library interface function prototype
 * for authentication and decryption of images.
@@ -46,6 +46,10 @@
 *
 ******************************************************************************/
 
+/**
+ * @addtogroup xsecure_apis XilSecure Server APIs
+ * @{
+ */
 #ifndef XSECURE_H
 #define XSECURE_H
 
@@ -380,6 +384,7 @@ u32 XSecure_SecureImage(u32 AddrHigh, u32 AddrLow,
 XCsuDma* Xsecure_GetCsuDma(void);
 /*****************************************************************************/
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

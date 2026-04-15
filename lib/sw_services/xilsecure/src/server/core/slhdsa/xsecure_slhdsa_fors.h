@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_fors.h
+* @file server/core/slhdsa/xsecure_slhdsa_fors.h
 *
 * This file contains functions and defines for FORS (Forest Of Random Subsets) operations used in
 * SLH-DSA signature verification
@@ -21,10 +21,11 @@
 * </pre>
 *
 ***************************************************************************************************/
+
 /**
-* @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
-* @{
-*/
+ * @addtogroup xsecure_slhdsa_server_apis XilSecure SLHDSA Server APIs
+ * @{
+ */
 #ifndef XSECURE_SLH_DSA_FORS_H_
 #define XSECURE_SLH_DSA_FORS_H_
 
@@ -42,6 +43,7 @@ void XSecure_SlhdsaBase2b(u32 * const BaseB, const u8 * const X, const u32 b, co
 int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 				const u64 PublicKeySeedAddr, u8 * const PkFors);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

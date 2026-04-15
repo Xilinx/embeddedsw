@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_cryptochk.h
+* @file server/zynqmp/xsecure_cryptochk.h
 *
 * This file contains macros and functions common to AES, SHA and RSA
 * for Zynqmp
@@ -21,8 +22,12 @@
 * 4.7   am      11/26/21 Resolved doxygen warning
 *
 * </pre>
-* @endcond
-******************************************************************************/
+*
+*******************************************************************************/
+/**
+ * @addtogroup xsecure_cryptochk_apis XilSecure Crypto Check APIs
+ * @{
+ */
 #ifndef XSECURE_CRYPTOCHK_H
 #define XSECURE_CRYPTOCHK_H
 
@@ -47,9 +52,9 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 u32 XSecure_CryptoCheck(void);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_CRYPTOCHK_H_ */
-/**@}*/

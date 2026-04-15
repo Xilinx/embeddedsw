@@ -1,12 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_kdf.c
+* @file server/core/kdf/xsecure_kdf.h
 * This file contains declarations for xsecure_kdf.c file.
 *
 *
@@ -20,11 +20,11 @@
 * </pre>
 *
 ***************************************************************************************************/
-/**
-* @addtogroup xsecure_kdf_server_apis Xilsecure KDF Server APIs
-* @{
-*/
 
+/**
+ * @addtogroup xsecure_kdf_server_apis Xilsecure KDF Server APIs
+ * @{
+ */
 #ifndef XSECURE_KDF_H
 #define XSECURE_KDF_H
 
@@ -51,6 +51,7 @@ typedef struct {
 
 int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *Kdfout, u32 KdfOutLen);
 
+/** @} */
 #ifdef __cplusplus
 }
 #endif

@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024, Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_utils.c
+* @file server/spartanup/xsecure_utils.c
 * This file contains common functionalities required for xilsecure Versalnet library
 *
 * <pre>
@@ -20,6 +20,10 @@
 * </pre>
 *
 ******************************************************************************/
+/**
+* @addtogroup xsecure_utils_apis XilSecure Utility APIs
+* @{
+*/
 
 /***************************** Include Files *********************************/
 #include "xsecure_utils.h"
@@ -89,3 +93,4 @@ void XSecure_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 		Count -= 1U;
 	}
 }
+/** @} */

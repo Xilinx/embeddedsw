@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2024 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_aes_ipihandler.h
+* @file server/core/key_zeroize/xsecure_plat_aes_ipihandler.h
 * This file contains the Xilsecure Versal Net IPI Handler APIs
 *
 * <pre>
@@ -22,10 +22,11 @@
 * </pre>
 *
 ******************************************************************************/
+
 /**
-* @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
-* @{
-*/
+ * @addtogroup xsecure_aes_server_apis XilSecure AES Server APIs
+ * @{
+ */
 #ifndef XSECURE_PLAT_AES_IPIHANDLER_H_
 #define XSECURE_PLAT_AES_IPIHANDLER_H_
 
@@ -43,9 +44,10 @@ extern "C" {
 /************************** Function Prototypes ******************************/
 int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd);
 #endif
+/** @} */
+
 #ifdef __cplusplus
 }
 #endif
 
 #endif /* XSECURE_PLAT_AES_IPIHANDLER_H_ */
-/** @} */

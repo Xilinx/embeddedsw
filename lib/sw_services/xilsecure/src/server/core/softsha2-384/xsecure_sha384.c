@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file xsecure_sha384.c
+* @file server/core/softsha2-384/xsecure_sha384.c
 *
 * This file contains the implementation of the interface functions for SHA2-384
 * driver.
@@ -57,7 +57,7 @@ int XSecure_Sha384Digest(u8* Data, u32 Size, u8* Hash)
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (Hash == NULL) {
 		Status = (int)XSECURE_SHA384_INVALID_PARAM;
 		goto END;
@@ -97,7 +97,7 @@ int XSecure_Sha384Update(u8* Data, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (Data == NULL) {
 		Status = (int)XSECURE_SHA384_INVALID_PARAM;
 		goto END;
@@ -126,7 +126,7 @@ int XSecure_Sha384Finish(XSecure_Sha2Hash *ResHash)
 {
 	volatile int Status = XST_FAILURE;
 
-	/* Validate the input arguments */
+	/** - Validate the input arguments */
 	if (ResHash == NULL) {
 		Status = (int)XSECURE_SHA384_INVALID_PARAM;
 		goto END;

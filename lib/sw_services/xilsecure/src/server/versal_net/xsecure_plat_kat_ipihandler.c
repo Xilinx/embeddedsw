@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file xsecure_plat_kat_ipihandler.c
+* @file server/versal_net/xsecure_plat_kat_ipihandler.c
 *
 * This file contains the Xilsecure KAT IPI handlers implementation.
 *
@@ -32,7 +32,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_kat_server_apis Xilsecure KAT Server APIs
+* @addtogroup xsecure_kat_server_apis XilSecure KAT Server APIs
 * @{
 */
 /***************************** Include Files *********************************/
@@ -62,7 +62,7 @@ static int XSecure_TrngKat(void);
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param 	Cmd	is pointer to the command structure
+ * @param 	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  If the handler execution is successful
@@ -89,7 +89,7 @@ int XSecure_KatPlatIpiHandler(XPlmi_Cmd *Cmd)
 		break;
 #endif
 	default:
-		/* Common IPI handler for versal devices */
+		/** - Common IPI handler for versal devices */
 		Status = XSecure_KatIpiHandler(Cmd);
 		break;
 	}
@@ -113,7 +113,7 @@ static int XSecure_TrngKat(void)
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	Status = XSecure_PreOperationalSelfTests(TrngInstance);
-	/* Update KAT status in to RTC area */
+	/** - Update KAT status in to RTC area */
 	if (Status != XST_SUCCESS) {
 		XSECURE_REDUNDANT_IMPL(XPlmi_ClearKatMask, XPLMI_SECURE_TRNG_KAT_MASK);
 	}
@@ -129,7 +129,7 @@ static int XSecure_TrngKat(void)
 /**
  * @brief	This function calls respective IPI handler based on the API_ID
  *
- * @param	Cmd	is pointer to the command structure
+ * @param	Cmd	is a pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  On Success

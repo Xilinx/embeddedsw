@@ -6,7 +6,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file xsecure_slhdsa_xmss.c
+* @file server/core/slhdsa/xsecure_slhdsa_xmss.c
 *
 * This file contains definitions for SLH-DSA XMSS operations
 *
@@ -196,16 +196,16 @@ int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 					InstancePtr->Param->ChecksumParams.ChecksumLenInDigits) *
 					(u32)InstancePtr->Param->n);
 
-	/* Step 1: ADRS.setTypeAndClear(WOTS_HASH) -> compute WOTS+ pk from WOTS+ sig */
+	/** - Step 1: ADRS.setTypeAndClear(WOTS_HASH) -> compute WOTS+ pk from WOTS+ sig */
 	XSecure_SlhdsaSetTypeClearNotKp(InstancePtr->Addr, XSECURE_SLH_DSA_ADRS_TYPE_WOTS_HASH);
 
-	/* Step 2: ADRS.setKeyPairAddress(idx) */
+	/** - Step 2: ADRS.setKeyPairAddress(idx) */
 	XSecure_SlhdsaSetKeyPairAddress(InstancePtr->Addr, (u32)IdxLeaf);
 
-	/* Step 3: sig <- SIG_XMSS.getWOTSSig() (implicit: SignTmp points to WOTS+ sig) */
-	/* Step 4: AUTH <- SIG_XMSS.getXMSSAUTH() (implicit: SignXmssOffset points to AUTH) */
+	/** - Step 3: sig <- SIG_XMSS.getWOTSSig() (implicit: SignTmp points to WOTS+ sig) */
+	/** - Step 4: AUTH <- SIG_XMSS.getXMSSAUTH() (implicit: SignXmssOffset points to AUTH) */
 
-	/* Step 5: node[0] <- wots_pkFromSig(sig, M, PK.seed, ADRS) */
+	/** - Step 5: node[0] <- wots_pkFromSig(sig, M, PK.seed, ADRS) */
 	XSECURE_TEMPORAL_CHECK(END,
 		Status,
 		XSecure_SlhdsaWotsPkFromSign,
@@ -214,12 +214,12 @@ int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 		PublicKeyAddr,				/* [in] Public key address */
 		Node);					/* [out] WOTS+ public key output */
 
-	/* Step 6: ADRS.setTypeAndClear(TREE) -> compute root from WOTS+ pk and AUTH */
+	/** - Step 6: ADRS.setTypeAndClear(TREE) -> compute root from WOTS+ pk and AUTH */
 	XSecure_SlhdsaSetTypeAndClear(InstancePtr->Addr, XSECURE_SLH_DSA_ADRS_TYPE_TREE);
 
-	/* Step 8: for k from 0 to h' - 1 do */
+	/** - Step 8: for k from 0 to h' - 1 do */
 	for (k = 0; k < (u32)InstancePtr->Param->hprime; k++) {
-		/* Step 9: ADRS.setTreeHeight(k + 1) */
+		/** - Step 9: ADRS.setTreeHeight(k + 1) */
 		XSecure_SlhdsaSetTreeHeight(InstancePtr->Addr, (u32)(k + XSECURE_VALUE_ONE));
 		/*
 		 * XMSS/SLH-DSA Tree Addressing: Uniform Node Methodology
@@ -248,10 +248,10 @@ int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 		XSecure_SlhdsaSetTreeIndex(InstancePtr->Addr, (u32)((IdxLeaf >> (k +
 							XSECURE_VALUE_ONE))));
 
-		/* Step 10: if floor(idx/2^k) is odd then */
+		/** - Step 10: if floor(idx/2^k) is odd then */
 		if (XSECURE_IS_ODD((u32)((IdxLeaf >> k)))) {
-			/* Step 14: ADRS.setTreeIndex((ADRS.getTreeIndex() - 1)/2) (implicit) */
-			/* Step 15: node[1] <- H(PK.seed, ADRS, AUTH[k] || node[0]) */
+			/** - Step 14: ADRS.setTreeIndex((ADRS.getTreeIndex() - 1)/2) (implicit) */
+			/** - Step 15: node[1] <- H(PK.seed, ADRS, AUTH[k] || node[0]) */
 			XSECURE_TEMPORAL_CHECK(END,
 				Status,
 				XSecure_SlhdsaShake256sHashH,
@@ -260,8 +260,8 @@ int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 				(u64)(UINTPTR)Node,			/* [in] Current node value address */
 				Node);					/* [out] Updated node value */
 		} else {
-			/* Step 11: ADRS.setTreeIndex(ADRS.getTreeIndex()/2) (implicit in logic) */
-			/* Step 12: node[1] <- H(PK.seed, ADRS, node[0] || AUTH[k]) */
+			/** - Step 11: ADRS.setTreeIndex(ADRS.getTreeIndex()/2) (implicit in logic) */
+			/** - Step 12: node[1] <- H(PK.seed, ADRS, node[0] || AUTH[k]) */
 			XSECURE_TEMPORAL_CHECK(END,
 				Status,
 				XSecure_SlhdsaShake256sHashH,
@@ -270,12 +270,12 @@ int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 				SignXmssOffset,				/* [in] Authentication path element address */
 				Node);					/* [out] Updated node value */
 		}
-		/* Step 17: node[0] <- node[1] (Node already updated in-place) */
+		/** - Step 17: node[0] <- node[1] (Node already updated in-place) */
 		SignXmssOffset += (u64)InstancePtr->Param->n;
 	}
-	/* Step 18: end for */
+	/** - Step 18: end for */
 
-	/* Step 19: return node[0] */
+	/** - Step 19: return node[0] */
 	if (k != (u32)InstancePtr->Param->hprime) {
 		Status = XSECURE_ERR_GLITCH_DETECTED;
 	} else {

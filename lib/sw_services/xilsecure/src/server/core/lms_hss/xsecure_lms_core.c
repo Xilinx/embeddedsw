@@ -5,7 +5,7 @@
 /******************************************************************************/
 /**
 *
-* @file xsecure_lms_core.c
+* @file server/core/lms_hss/xsecure_lms_core.c
 *
 * This file consists definitions of LMS authentication routines
 *
@@ -122,8 +122,8 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	static XSecure_LmsOtsHashPerDigit TmpHashPerDigitBuff;
 	static const u8 XSECURE_D_PBLC[2U] = { 0x80U, 0x80U };
 
-	/* Computed root to be copied here,
-	 * assumed to have enough room, created and checked by caller,
+	/**
+	 * - Computed root to be copied here, assumed to have enough room, created and checked by caller,
 	 * also should be cleared by caller
 	 */
 	if (NULL == Kc) {
@@ -176,20 +176,22 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - Signature length 0x%x\n\r", LmsOtsSignParam->SignLen);
 
 	/* ****************************************************************************************** */
-	/* Message processing - sequence-2 */
+	/** - Message processing - sequence-2 */
 	/* ****************************************************************************************** */
 	/**
-	 * Now the message's digest needs to be calculated and checksum needs to be appended
-	 * Q = H(I || u32str(q) || u16str(D_MESG) || C || message)
-	 * a = (Q || checksum(Q))
+	 * - Now the message's digest needs to be calculated and checksum needs to be appended
+	 *   Q = H(I || u32str(q) || u16str(D_MESG) || C || message)
+	 *   a = (Q || checksum(Q))
 	 */
 
-	 /* If message is pre hashed skip digest calculation, the same buffer is used to pass digest,
-		else calculate digest */
+	 /**
+	 * - If message is pre hashed skip digest calculation, the same buffer is used to pass digest,
+	 * else calculate digest
+	 */
 	if ((u32)FALSE == PreHashedMsg) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - Data to be hashed\n\r");
 
-		/** Extracting C, Big Endian to Big Endian */
+		/** - Extracting C, Big Endian to Big Endian */
 		Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.C, XSECURE_LMS_C_FIELD_SIZE,
 			(void*)&LmsOtsSignatureBuff[XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET],
 			XSECURE_LMS_C_FIELD_SIZE, XSECURE_LMS_C_FIELD_SIZE);
@@ -199,7 +201,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			goto END;
 		}
 
-		/* initialize HASH to calculate digest */
+		/** - Initialize HASH to calculate digest */
 		Status = XSecure_ShaInitialize(ShaInstPtr, DmaPtr);
 		if (Status != XST_SUCCESS) {
 			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -210,7 +212,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			LmsOtsSignParam->H);
 	}
 
-	/* Append checksum at end of buffer */
+	/** - Append checksum at end of buffer */
 	Status = XSecure_LmsOtsComputeChecksum(DigestChecksum.Fields.Digest, XSECURE_LMS_DIGEST_SIZE,
 			(u32)LmsOtsSignParam->w, (u32)LmsOtsSignParam->ls, (u32* const)&Checksum);
 	if (Status != XST_SUCCESS) {
@@ -221,17 +223,16 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - Checksum computed 0x%x\n\r", Checksum);
 
-	/* Little Endian to Big Endian */
+	/** - Little Endian to Big Endian */
 	DigestChecksum.Fields.Checksum[1u] = (u8)(Checksum & 0x00FF);
 	DigestChecksum.Fields.Checksum[0U] = (u8)((Checksum >> 8U) & 0x00FF);
 
 	/* ****************************************************************************************** */
-	/* Signature processing - sequence-2 */
+	/** - Signature processing - sequence-2 */
 	/* ****************************************************************************************** */
 
 	/**
 	 * All params are extracted from public key, now proceed to parse signature
-	 * 4b.3
 	 * Q = H(I || u32str(q) || u16str(D_MESG) || C || message)
 	 * a = (Q || checksum(Q))
 	 *  for ( i = 0; i < p; i = i + 1 ) {
@@ -246,10 +247,12 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	 *                                z[0] || z[1] || ... || z[p-1])
 	 */
 
-	 /** Fill @ref XSecure_LmsOtsHashPerDigit fields, we copy early so that during internal loop we
-		 reduce operations during loop */
+	 /**
+	  * - Fill XSecure_LmsOtsHashPerDigit fields, we copy early so that during internal loop we
+	  * reduce operations during loop
+	  */
 
-	/* Copy 'I' from public key, Big Endian to Big Endian copy */
+	/** - Copy 'I' from public key, Big Endian to Big Endian copy */
 	Status = Xil_SMemCpy((void*)&TmpHashPerDigitBuff.Fields.I[0U], XSECURE_LMS_I_FIELD_SIZE,
 		(void*)DigestPrefixFields.Fields.I, XSECURE_LMS_I_FIELD_SIZE,
 		XSECURE_LMS_I_FIELD_SIZE);
@@ -259,15 +262,17 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		goto END;
 	}
 
-	/* Copy 'q' from public key, Little Endian to Big Endian copy */
+	/** - Copy 'q' from public key, Little Endian to Big Endian copy */
 	TmpHashPerDigitBuff.Fields.q = Xil_Htonl(CurrentLmsQ);
 
-	/** Fill XSecure_LmsOtsSignToPubKeyHash fields, we copy early so that during internal loop
-		we reduce operations during loop
-		as PMCRAM is cleared, we do clear first OTS op is complete, again used for lower level tree
-		OTS op, then cleared again. */
+	/**
+	 * - Fill XSecure_LmsOtsSignToPubKeyHash fields, we copy early so that during internal loop
+	 *   we reduce operations during loop
+	 *   as PMCRAM is cleared, we do clear first OTS op is complete, again used for lower level tree
+	 *   OTS op, then cleared again.
+	 */
 
-	/* Copy 'I' from public key, Big Endian to Big Endian copy */
+	/** - Copy 'I' from public key, Big Endian to Big Endian copy */
 	Status = Xil_SMemCpy((void*)&LmsOtsSignVerifBuff.Buff[XSECURE_LMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_I_OFFSET],
 		XSECURE_LMS_I_FIELD_SIZE,
 		(void*)DigestPrefixFields.Fields.I,
@@ -279,19 +284,18 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 	}
 
 
-	/* Copy 'q' from public key, Little Endian to Big Endian copy */
+	/** - Copy 'q' from public key, Little Endian to Big Endian copy */
 	LmsOtsSignVerifBuff.Fields.q = Xil_Htonl(CurrentLmsQ);
 
-	/* Big Endian to Big Endian */
+	/** - Big Endian to Big Endian */
 	LmsOtsSignVerifBuff.Fields.D_PBLC[0U] = XSECURE_D_PBLC[0U];
 	LmsOtsSignVerifBuff.Fields.D_PBLC[1U] = XSECURE_D_PBLC[1U];
 
 	SignToOtsBuffIndex = XSECURE_LMS_OTS_SIGN_Y_FIELD_OFFSET;
 
-	/*
-	 * Loop through each digit in (Digest || checksum)
+	/**
+	 * - Loop through each digit in (Digest || checksum)
 	 * Here 'p' can be from signature or public key
-	 * covers 4b.2e & 4b.3 step
 	 */
 	for (DigitIndex = 0U, IntToOutLoopBuffIndex = 0U;
 		 DigitIndex < (u16)LmsOtsSignParam->p;
@@ -299,14 +303,14 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		SignToOtsBuffIndex += XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - outer loop 0x%x\n\r", DigitIndex);
 
-		/* Extract digit value from (Digest || checksum) */
+		/** - Extract digit value from (Digest || checksum) */
 		DigitVal = XSecure_LmsOtsCoeff(DigestChecksum.Buff, DigitIndex, LmsOtsSignParam->w);
 
-		/* Copy i, Little Endian to Big Endian */
+		/** - Copy i, Little Endian to Big Endian */
 		TmpHashPerDigitBuff.Fields.i = (u16)(DigitIndex);
 		TmpHashPerDigitBuff.Fields.i = Xil_Htons(TmpHashPerDigitBuff.Fields.i);
 
-		/* 'j' will be copied in inner loop, copy y[i], Big Endian to Big Endian */
+		/** - 'j' will be copied in inner loop, copy y[i], Big Endian to Big Endian */
 		Status = Xil_SMemCpy((void*)&TmpHashPerDigitBuff.Fields.y[0U],
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE,
 			(void*)&LmsOtsSignatureBuff[SignToOtsBuffIndex],
@@ -318,14 +322,14 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 			goto END;
 		}
 
-		/* Forward the hash chain to get to public key */
+		/** - Forward the hash chain to get to public key */
 		for (ChainIter = DigitVal; ChainIter < (LmsOtsSignParam->NoOfInvSign); ChainIter++) {
 			XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS OTS - Inner loop 0x%x\n\r", ChainIter);
 
-			/* Copy 'j', just a byte, no endianness */
+			/** - Copy 'j', just a byte, no endianness */
 			TmpHashPerDigitBuff.Fields.j = (u8)(ChainIter);
 
-			/* Compute digest for this iteration */
+			/** - Compute digest for this iteration */
 			XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
 					(u64)(UINTPTR)&TmpHashPerDigitBuff.Buff[XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_I_OFFSET],
 					XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE,
@@ -333,7 +337,7 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 					XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE);
 		}
 
-		/* Copy to overall buffer, later all values concatenated used to calculate LMS OTS public key */
+		/** - Copy to overall buffer, later all values concatenated used to calculate LMS OTS public key */
 		Status = Xil_SMemCpy((void*)&LmsOtsSignVerifBuff.Fields.z[IntToOutLoopBuffIndex],
 			XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_SIZE,
 			(void*)&TmpHashPerDigitBuff.Buff[XSECURE_LMS_OTS_SIGN_VERIF_TMP_BUFF_Y_OFFSET],
@@ -352,17 +356,19 @@ static int XSecure_LmsOtsSignatureCompute(XSecure_Sha *ShaInstPtr,
 		goto END;
 	}
 
-	/* At this point all the hash chains for n byte arrays in signature are completed, we have to
-	   complete the final step of signature verification
-	   Kc = H(I || u32str(q) || u16str(D_PBLC) || z[0] || z[1] || ... || z[p-1]) */
+	/**
+	 * - At this point all the hash chains for n byte arrays in signature are completed, we have to
+	 *   complete the final step of signature verification
+	 *   Kc = H(I || u32str(q) || u16str(D_PBLC) || z[0] || z[1] || ... || z[p-1])
+	 */
 
 	/**
-	 * All prior checks have passed. ReturnStatus is only set to success here.
-	 * Any goto END before this point returns XST_GLITCH_ERROR (initial value of ReturnStatus),
-	 * hardening against a glitch on any inner Status assignment: even if Status is left
-	 * as XST_SUCCESS from a prior op when goto END fires, ReturnStatus is still XST_GLITCH_ERROR.
-	 * Note: a glitch on a goto END instruction itself (rather than the Status assignment)
-	 * would reach here and produce incorrect Kc; the caller's Kc comparison detects this.
+	 * - All prior checks have passed. ReturnStatus is only set to success here.
+	 *   Any goto END before this point returns XST_GLITCH_ERROR (initial value of ReturnStatus),
+	 *   hardening against a glitch on any inner Status assignment: even if Status is left
+	 *   as XST_SUCCESS from a prior op when goto END fires, ReturnStatus is still XST_GLITCH_ERROR.
+	 *   Note: a glitch on a goto END instruction itself (rather than the Status assignment)
+	 *   would reach here and produce incorrect Kc; the caller's Kc comparison detects this.
 	 */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
 			(u64)(UINTPTR)LmsOtsSignVerifBuff.Buff,
@@ -427,7 +433,6 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	const u8* Path = NULL;
 	const XSecure_LmsParam* LmsSignParam = NULL;
 	u32 CurrentNodeNum = 0U;
-	/** Used to find 32 byte value from LMS signature array */
 	volatile u32 PathIndex = 0U;
 	volatile u32 Index = 0U;
 	static u8 TmpBuff[XSECURE_LMS_M_BYTE_FIELD_SIZE];
@@ -437,15 +442,13 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	static const u8 XSECURE_D_INTR[2U] = {0x83U, 0x83U};
 
 	/* ****************************************************************************************** */
-	/* Expected public key processing - sequence - 1*/
+	/** - Expected public key processing - sequence - 1 */
 	/* ****************************************************************************************** */
 
 	/**
-	 *  6. Public key checks
-	 *  1, 2a, 2b - Length should be at least 8 bytes to be able to fetch Type of algo used for
-	 * 		LMS & LMS OTS
-	 *  2c  - Once Type is extracted, set m
-	 *  2d - Public key should be == 24 + m otherwise stop process and raise error
+	 * -  - Public key checks
+	 *    Length should be at least 8 bytes to be able to fetch Type of algo used for LMS & LMS OTS.
+	 *    Once Type is extracted, set m. Public key should be == 24 + m otherwise stop process and raise error.
 	 */
 	if (NULL == LmsSignVerifyParams->ExpectedPubKey) {
 		Status = XSECURE_LMS_INVALID_PARAM;
@@ -454,7 +457,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/** 6.1: Standard recommends less than 8 is not valid, this check covers 4a.1 */
+	/** - Standard recommends less than 8 is not valid */
 	if ((XSECURE_LMS_TYPE_SIZE + XSECURE_LMS_OTS_TYPE_SIZE) > LmsSignVerifyParams->PubKeyLen) {
 		Status = XSECURE_LMS_INVALID_PARAM;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -463,18 +466,18 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/** 6.2a Extracting Public key LMS Type, Big Endian to Little Endian */
+	/** - Extracting Public key LMS Type, Big Endian to Little Endian */
 	PubKeyLmsType = (XSecure_LmsType)XSecure_SwapBytes((const void*)&LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
 		XSECURE_LMS_TYPE_SIZE);
 
-	/** 6.2b Extracting Public key LMS OTS Type, Big Endian to Little Endian */
+	/** - Extracting Public key LMS OTS Type, Big Endian to Little Endian */
 	PubKeyLmsOtsType = (XSecure_LmsOtsType)XSecure_SwapBytes(
 			(const void*)&LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET],
 			XSECURE_LMS_OTS_TYPE_SIZE);
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - expected public key Type 0x%x\n\r", PubKeyLmsType);
 
-	/* 6.2c, Fetch the Type of public key, if not a valid/supported Type return error, also covers 4a.2 */
+	/** - Fetch the Type of public key, if not a valid/supported Type return error */
 	Status = XSecure_LmsLookupParamSet(PubKeyLmsType,
 			(XSecure_LmsParam**)&LmsPubKeyParam);
 	if (Status != XST_SUCCESS) {
@@ -483,7 +486,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/** 6.2d: Length of key check, should be equal to 24 + m, covers 4a.2b */
+	/** - Length of key check, should be equal to 24 + m */
 	if ((XSECURE_LMS_PUB_KEY_FIXED_FIELD_SIZE + LmsPubKeyParam->m) != LmsSignVerifyParams->PubKeyLen) {
 		Status = XSECURE_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -495,22 +498,21 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - public key length 0x%x\n\r", LmsSignVerifyParams->PubKeyLen);
 
 	/* ****************************************************************************************** */
-	/* Signature processing - sequence - 1*/
+	/** - Signature processing - sequence - 1 */
 	/* ****************************************************************************************** */
 
 	/**
-	 * 6a. Signature checks
-	 * 1 	- Length should be at least 8 bytes long
-	 * 2a 	- Parse 'q', OTS 'Type'
-	 * 2b,2c - OTS 'Type' should match with pub key OTS 'Type'
-	 * 2d 	- Set 'n', 'p' from signature OTS 'Type',
-	 * 2d 	- Length should be AT LEAST (12 + n * (p + 1)), this is to check if signature has enough
-	 * 			  for OTS signature component
-	 * 2e,2f - OTS signature [4 to (7 + n (p + 1))]
-	 * 2g 	- Set LMS signature Type [(8 + n (p + 1)) to (11 + n (p + 1)) bytes], LMS signature
-	 * 			  Type should match with LMS public 'Type'
-	 * 2h 	- Set 'm', 'h' according to LMS signature Type
-	 * 2i 	- 'q' >= 2^h or LMS signature Length != 12 + n * (p + 1) + m * h) then error
+	 * - Signature checks
+	 *   Length should be at least 8 bytes long
+	 * 	 Parse 'q', OTS 'Type'
+	 *   OTS 'Type' should match with pub key OTS 'Type'
+	 *   Set 'n', 'p' from signature OTS 'Type',
+	 *   Length should be AT LEAST (12 + n * (p + 1)), this is to check if signature has enough for OTS signature component.
+	 *   OTS signature [4 to (7 + n (p + 1))]
+	 *   Set LMS signature Type [(8 + n (p + 1)) to (11 + n (p + 1)) bytes], LMS signature
+	 *   Type should match with LMS public 'Type'
+	 *   Set 'm', 'h' according to LMS signature Type
+	 *   'q' >= 2^h or LMS signature Length != 12 + n * (p + 1) + m * h) then error
 	 */
 
 	if (NULL == LmsSignVerifyParams->LmsSign) {
@@ -520,7 +522,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/** 6a.1 Length should be at least 8 bytes */
+	/** - Length should be at least 8 bytes */
 	if ((XSECURE_LMS_Q_FIELD_SIZE + XSECURE_LMS_OTS_TYPE_SIZE) > LmsSignVerifyParams->LmsSignLen) {
 		Status = XSECURE_LMS_SIGN_LEN_1_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -529,10 +531,12 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/* If a message is not pre-hashed, we need to compute the digest for authentication, prefetch q,
-	   I before*/
+	/**
+	 * - If a message is not pre-hashed, we need to compute the digest for authentication, prefetch q,
+	 *   I before
+	 */
 	if ((u32)FALSE == LmsSignVerifyParams->PreHashedMsg) {
-		/** 6a.2a parse q from LMS signature, Big Endian to Little Endian */
+		/** - Parse q from LMS signature, Big Endian to Little Endian */
 		CurrentLmsQ = XSecure_SwapBytes(&LmsSignVerifyParams->LmsSign[XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET],
 			XSECURE_LMS_Q_FIELD_SIZE);
 		DigestPrefixFields.Fields.q = Xil_Htonl(CurrentLmsQ);
@@ -540,7 +544,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 			"LMS signature verification - 'q' extracted !!!!! 0x%x\n\r",
 			CurrentLmsQ);
 
-		/** 6.2e parse I from LMS Public key */
+		/** - Parse I from LMS Public key */
 		Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.I,
 				XSECURE_LMS_I_FIELD_SIZE,
 				(void*)&LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_I_OFFSET],
@@ -553,18 +557,20 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		}
 	}
 
-	/* 6a.2b, Read LMS OTS type, Big Endian to Little Endian */
+	/** - Read LMS OTS type, Big Endian to Little Endian */
 	SignLmsOtsType = (XSecure_LmsOtsType)XSecure_SwapBytes(
 			&LmsSignVerifyParams->LmsSign[XSECURE_LMS_SIGNATURE_OTS_FIELD_OFFSET + XSECURE_LMS_OTS_SIGN_TYPE_FIELD_OFFSET],
 			XSECURE_LMS_OTS_TYPE_SIZE);
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - signature addr 0x%x\n\r", LmsSignVerifyParams->LmsSign);
 
-	/* Extract LMS OTS signature from buffer */
+	/** - Extract LMS OTS signature from buffer */
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - OTS Signature Type 0x%x\n\r", SignLmsOtsType);
 
-	/* Covers 6a.2c in standard, If LMS OTS signature Type doesn't match with LMS pub key Type,
-	   both are in Little Endian */
+	/**
+	 * - Covers 6a.2c in standard, If LMS OTS signature Type doesn't match with LMS pub key Type,
+	 *   both are in Little Endian c
+	 */
 	if (PubKeyLmsOtsType != SignLmsOtsType) {
 		Status = XSECURE_LMS_OTS_PUB_KEY_LMS_OTS_SIGN_TYPE_MISMATCH_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -582,8 +588,8 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	}
 
 	/**
-	 * 6a.2d: Total signature length check, should have at least LMS OTS signature required Length
-	 * to proceed
+	 * - Total signature length check, should have at least LMS OTS signature required Length
+	 * 	 to proceed
 	 */
 	if ((LmsOtsSignParam->SignLen + XSECURE_LMS_Q_FIELD_SIZE) > LmsSignVerifyParams->LmsSignLen) {
 		Status = XSECURE_LMS_SIGN_LEN_2_ERROR;
@@ -594,12 +600,12 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	}
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - signature Length 0x%x\n\r", LmsSignVerifyParams->LmsSignLen);
 
-	/* 6a.2f Extract LMS signature Type from buffer, Big Endian to Little Endian */
+	/** - Extract LMS signature Type from buffer, Big Endian to Little Endian */
 	SignLmsType = (XSecure_LmsType)XSecure_SwapBytes(
 			(const void*)&LmsSignVerifyParams->LmsSign[(LmsOtsSignParam->SignLen + XSECURE_LMS_Q_FIELD_SIZE)],
 			XSECURE_LMS_TYPE_SIZE);
 
-	/* 6a.2g, Comparing Public key's LMS type & Signature's LMS type, both are in Little Endian */
+	/** - Comparing Public key's LMS type & Signature's LMS type, both are in Little Endian */
 	if (PubKeyLmsType != SignLmsType) {
 		Status = XSECURE_LMS_PUB_KEY_LMS_SIGN_TYPE_MISMATCH_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -610,8 +616,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - LMS Type matched 0x%x\n\r", SignLmsType);
 
 	/**
-	 * 6a.2h: Fetch the params for LMS signature from Type of signature, if not a valid/supported
-	 * Type return error
+	 * - Fetch the params for LMS signature from Type of signature, if not a valid/supported type return error
 	 */
 	Status = XSecure_LmsLookupParamSet(SignLmsType,
 			(XSecure_LmsParam**)&LmsSignParam);
@@ -622,8 +627,8 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	}
 
 	/**
-	 * 6a.2i: Leaf nodes for a tree range from [0 to (2^h - 1)], to be a valid node number
-	 * LMS signature length should be 12 + (n * (p + 1)) + (m * h) bytes
+	 * - Leaf nodes for a tree range from [0 to (2^h - 1)], to be a valid node number
+	 *   LMS signature length should be 12 + (n * (p + 1)) + (m * h) bytes
 	 */
 	if ((u32)(1U << LmsSignParam->h) <= CurrentLmsQ) {
 		Status = XSECURE_LMS_SIGN_INVALID_NODE_NUMBER_ERROR;
@@ -635,7 +640,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - node used 0x%x\n\r", CurrentLmsQ);
 
-	/* 6a.2i, Size of 'q' + size of LMS OTS signature + LMS signature Type size + (m * h) */
+	/** - Size of 'q' + size of LMS OTS signature + LMS signature Type size + (m * h) */
 	if (LmsSignVerifyParams->LmsSignLen != (LmsOtsSignParam->SignLen +
 		XSECURE_LMS_Q_FIELD_SIZE +
 		XSECURE_LMS_TYPE_SIZE +
@@ -653,7 +658,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - Initiating OTS verification\n\r");
 
-	/** 6a.3: LMS OTS candidate public key 'Kc' */
+	/** - LMS OTS candidate public key 'Kc' */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsOtsSignatureCompute, ShaInstPtr, DmaPtr,
 			LmsSignVerifyParams->Data, LmsSignVerifyParams->DataLen,
 			LmsSignVerifyParams->PreHashedMsg,
@@ -662,11 +667,11 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - OTS operation Complete\n\r");
 
-	/* 6a.2j, Extract LMS signature from buffer */
+	/** - Extract LMS signature from buffer */
 	Path = (const u8*)& LmsSignVerifyParams->LmsSign[(LmsOtsSignParam->SignLen + XSECURE_LMS_Q_FIELD_SIZE + XSECURE_LMS_TYPE_SIZE)];
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - path addr 0x%x\n\r", Path);
 
-	/* copy I, Big Endian to Big Endian */
+	/** - Copy I, Big Endian to Big Endian */
 	Status = Xil_SMemCpy((void*)LmsPubKeyTmpBuff.Fields.I,
 		XSECURE_LMS_I_FIELD_SIZE,
 		(void*)&LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_I_OFFSET],
@@ -678,17 +683,17 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/* Node number = (2 ^ h) + q */
+	/** - Node number = (2 ^ h) + q */
 	CurrentNodeNum = (1U << LmsSignParam->h) + CurrentLmsQ;
 
-	/* Copy node number - Little Endian to Big Endian */
+	/** - Copy node number - Little Endian to Big Endian */
 	LmsPubKeyTmpBuff.Fields.half_node_number = Xil_Htonl(CurrentNodeNum);
 
-	/* Copy constant - Big Endian to Big Endian */
+	/** - Copy constant - Big Endian to Big Endian */
 	LmsPubKeyTmpBuff.Fields.D[0U] = XSECURE_D_LEAF[0U];
 	LmsPubKeyTmpBuff.Fields.D[1U] = XSECURE_D_LEAF[1U];
 
-	/* Copy LMS OTS output to buffer - Big Endian to Big Endian */
+	/** - Copy LMS OTS output to buffer - Big Endian to Big Endian */
 	Status = Xil_SMemCpy((void*)&LmsPubKeyTmpBuff.Fields.Tmp[0U],
 		XSECURE_LMS_OTS_PUB_KEY_K_FIELD_SIZE,
 		(void*)&ExpectedPublicKey[0U],
@@ -700,10 +705,12 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/* Now a total of 16 + 4 + 2 + 56 bytes are in buffer, which needs to be processed,
-	   During LMS OTS HASH hw has been used, need to start again for public key calculation */
+	/**
+	 * - Now a total of 16 + 4 + 2 + 56 bytes are in buffer, which needs to be processed,
+	 *   During LMS OTS HASH hw has been used, need to start again for public key calculation
+	 */
 
-	/* Start till finish HASH to calculate digest */
+	/** - Start till finish HASH to calculate digest */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
 			(u64)(UINTPTR)&LmsPubKeyTmpBuff.Buff[0U],
 			XSECURE_LMS_PUB_KEY_TMP_BUFFER_LEAF_TOTAL_SIZE,
@@ -712,25 +719,27 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS signature verification - completed node's operations\n\r");
 
-	/* For preparing for loop, we need I (which is already copied), node numbers needs to be copied
-	   inside loop, D_INTR (to be copied before loop), then hashes according to odd or even nodes */
+	/**
+	 * - For preparing for loop, we need I (which is already copied), node numbers needs to be copied
+	 * inside loop, D_INTR (to be copied before loop), then hashes according to odd or even nodes
+	 */
 
-	/* Copy constant - Big Endian to Big Endian */
+	/** - Copy constant - Big Endian to Big Endian */
 	LmsPubKeyTmpBuff.Fields.D[0U] = XSECURE_D_INTR[0U];
 	LmsPubKeyTmpBuff.Fields.D[1U] = XSECURE_D_INTR[1U];
 
 
 	while (CurrentNodeNum > 1U) {
-		/* Copy node number - Little Endian to Big Endian */
+		/** - Copy node number - Little Endian to Big Endian */
 		LmsPubKeyTmpBuff.Fields.half_node_number = Xil_Htonl((CurrentNodeNum) / 2U);
 
 		if (XSECURE_IS_ODD(CurrentNodeNum)) {
-			/* Odd: 	H(I||u32str(node_num/2)||u16str(D_INTR)||path[i]||tmp) */
+			/** - Odd: H(I||u32str(node_num/2)||u16str(D_INTR)||path[i]||tmp) */
 			XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"LMS signature verification - odd 0x%x\n\r",
 				CurrentNodeNum);
 
-			/* Copy path[i], then output of previous HASH - Big Endian to Big Endian */
+			/** - Copy path[i], then output of previous HASH - Big Endian to Big Endian */
 			Status = Xil_SMemCpy((void*)LmsPubKeyTmpBuff.Fields.Tmp,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE,
 				(void*)&Path[PathIndex],
@@ -757,12 +766,12 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 			LoopError = (u32)XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_ODD_FAILED_ERROR;
 		}
 		else {
-			/* Even: 	H(I||u32str(node_num/2)||u16str(D_INTR)||tmp||path[i]) */
+			/** - Even: H(I||u32str(node_num/2)||u16str(D_INTR)||tmp||path[i]) */
 			XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"LMS signature verification - even 0x%x\n\r",
 				CurrentNodeNum);
 
-			/* Copy output of previous HASH then path[i] - Big Endian to Big Endian */
+			/** - Copy output of previous HASH then path[i] - Big Endian to Big Endian */
 			Status = Xil_SMemCpy((void*)LmsPubKeyTmpBuff.Fields.Tmp,
 				XSECURE_LMS_M_BYTE_FIELD_SIZE,
 				(void*)TmpBuff,
@@ -788,7 +797,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 			LoopError = (u32)XSECURE_LMS_SIGN_VERIF_SHA_DIGEST_INTR_EVEN_FAILED_ERROR;
 		}
 
-		/* Start till finish HASH to calculate digest */
+		/** - Start till finish HASH to calculate digest */
 		{
 			volatile int StatusTmp = XST_FAILURE;
 			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
@@ -809,14 +818,14 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 		CurrentNodeNum = CurrentNodeNum / 2U;
 
-		/* If following operation is glitched, we will end up with wrong root value which can be detected */
+		/** - If following operation is glitched, we will end up with wrong root value which can be detected */
 		PathIndex += XSECURE_LMS_M_BYTE_FIELD_SIZE;
 	}
 
 	/**
-	 * 6.4, Now that we have arrived at root value, compare with expected to see if it matches,
-	 * comparison should be single glitch resistant.
-	 * Status is pre-set to failure to guard against glitches on the inner assignment.
+	 * - Now that we have arrived at root value, compare with expected to see if it matches,
+	 *   comparison should be single glitch resistant.
+	 *   Status is pre-set to failure to guard against glitches on the inner assignment.
 	 */
 	Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_T_FIELD_SIZE; Index++) {
@@ -892,10 +901,10 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 
 
 	/* ****************************************************************************************** */
-	/* Public key processing - sequence */
+	/** - Public key processing - sequence */
 	/* ****************************************************************************************** */
 
-	/* Length should have at least levels information */
+	/** - Length should have at least levels information */
 	if (XSECURE_LMS_HSS_LEVELS_FIELD_SIZE > HssInitParams->PublicKeyLen) {
 		Status = XSECURE_LMS_INVALID_PARAM;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -904,14 +913,14 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* Extracting Levels information from HSS public key, Big Endian to Little Endian */
+	/** - Extracting Levels information from HSS public key, Big Endian to Little Endian */
 	TotalLevelsInHssPublicKey = XSecure_SwapBytes(
 				&HssInitParams->PublicKey[XSECURE_HSS_PUBLIC_KEY_LEVEL_FIELD_OFFSET],
 				XSECURE_LMS_HSS_LEVELS_FIELD_SIZE);
 
 	TmpPublicKeyPtr = (const u8*)&HssInitParams->PublicKey[XSECURE_HSS_PUBLIC_KEY_LMS_FIELD_OFFSET];
 
-	/* Length check - excluding levels field, it should match the Length of LMS public key of that size */
+	/** - Length check - excluding levels field, it should match the Length of LMS public key of that size */
 	if (XSECURE_HSS_PUBLIC_KEY_TOTAL_SIZE != HssInitParams->PublicKeyLen) {
 		Status = XSECURE_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -924,10 +933,10 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		(u8 *)(UINTPTR)&AuthenticatedKey.Buff[0U], sizeof(XSecure_LmsPublicKey));
 
 	/* ****************************************************************************************** */
-	/* Signature processing - sequence */
+	/** - Signature processing - sequence */
 	/* ****************************************************************************************** */
 
-	/* Length should have at least levels mentioned */
+	/** - Length should have at least levels mentioned */
 	if (XSECURE_LMS_HSS_LEVELS_FIELD_SIZE > HssInitParams->SignatureLen) {
 		Status = XSECURE_LMS_INVALID_PARAM;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -936,15 +945,15 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* tracking signature usage location in pointer */
+	/** - Tracking signature usage location in pointer */
 	TmpSignaturePtr = (const u8*)HssInitParams->SignBuff;
 
-	/* HSS levels mentioned in signature list, Big Endian to Little Endian */
+	/** - HSS levels mentioned in signature list, Big Endian to Little Endian */
 	TotalLevelsInSignature = (XSecure_SwapBytes(
 			&HssInitParams->SignBuff[XSECURE_HSS_SIGN_LIST_LEVEL_FIELD_OFFSET],
 			XSECURE_LMS_HSS_LEVELS_FIELD_SIZE) + 1U);
 
-	/* Track usage */
+	/** - Track usage */
 	TmpSignaturePtr += XSECURE_LMS_HSS_LEVELS_FIELD_SIZE;
 	SignatureLengthConsumed += XSECURE_LMS_HSS_LEVELS_FIELD_SIZE;
 
@@ -965,31 +974,31 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* Now we have to parse through 0 to (Levels - 1) and verify the public keys
-	   using signatures at each level, but PLM only supports 2 levels, so need to run the verification
-	   only once */
 	/**
-	 * Signature structure
-	 * u32str(Nspk) || signed_pub_key[0] || ... || signed_pub_key[Nspk-1] || sig[Nspk]
-	 * u32str(Nspk) || sig[0] || pub[1] || ... || sig[Nspk-1] || pub[Nspk] || sig[Nspk]
-	 *
-	 * Public key of lower level is used as a message to be authenticated, and signature of that
-	 * level to back calculate the public key at that level. if this is happening for top most
-	 * tree then value will be HSS public key saved as PPK or SPK, in turn all the levels above
-	 * [levels - 1] are verified, so when the actual message is verified using lowest tree's
-	 * leaf node, as the public key for that tree (lowest) is already verified, message is
-	 * authenticated.
-	 *
-	 * PLM Supports two levels trees, level-0 & 1 namely.
-	 * For KAT, only 1 levels is required, which
-	 * is level-0. for KAT the following condition is skipped
+	 * - Now we have to parse through 0 to (Levels - 1) and verify the public keys
+	 *   using signatures at each level, but PLM only supports 2 levels, so need to run the verification
+	 *   only once
+	 */
+	/**
+	 * - Signature structure
+	 *   u32str(Nspk) || signed_pub_key[0] || ... || signed_pub_key[Nspk-1] || sig[Nspk]
+	 *   u32str(Nspk) || sig[0] || pub[1] || ... || sig[Nspk-1] || pub[Nspk] || sig[Nspk]
+	 *   Public key of lower level is used as a message to be authenticated, and signature of that
+	 *   level to back calculate the public key at that level. if this is happening for top most
+	 *   tree then value will be HSS public key saved as PPK or SPK, in turn all the levels above
+	 *   [levels - 1] are verified, so when the actual message is verified using lowest tree's
+	 *   leaf node, as the public key for that tree (lowest) is already verified, message is
+	 *   authenticated.
+	 *   PLM Supports two levels trees, level-0 & 1 namely.
+	 *   For KAT, only 1 levels is required, which is level-0. for KAT the following condition is skipped
 	 */
 
 	for (Index = 0U; Index < (TotalLevelsInSignature - 1U); Index++) {
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - Loop iteration - 0x%x\n\r", Index);
 
-		/* Extracting Current level Public key's LMS Type & LMS OTS Type,
-		 * Big Endian to Little Endian
+		/**
+		 * - Extracting Current level Public key's LMS Type & LMS OTS Type,
+		 *   Big Endian to Little Endian
 		 */
 		PublicKeyLmsType = (XSecure_LmsType)XSecure_SwapBytes(
 				&TmpPublicKeyPtr[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
@@ -999,12 +1008,14 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 				XSECURE_LMS_OTS_TYPE_SIZE);
 
 		/**
-		 * Parse HSS/Current level's public key provided,
-		 * determine the expected signature length of sig[0]
+		 * - Parse HSS/Current level's public key provided,
+		 *   determine the expected signature length of sig[0]
 		 */
 
-		/* Fetch the type of public key,
-		 * if not a valid/supported type return error */
+		/**
+		 * - Fetch the type of public key,
+		 *   if not a valid/supported type return error
+		 */
 		Status = XSecure_LmsLookupParamSet(PublicKeyLmsType,
 			(XSecure_LmsParam**)&PubKeyLmsParam);
 		if (Status != XST_SUCCESS) {
@@ -1013,7 +1024,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			goto END;
 		}
 
-		/* Fetch the Type of public key, if not a valid/supported Type return error */
+		/** - Fetch the Type of public key, if not a valid/supported Type return error */
 		Status = XSecure_LmsOtsLookupParamSet(PublicKeyLmsOtsType,
 			(XSecure_LmsOtsParam**)&PubKeyLmsOtsParam);
 		if (Status != XST_SUCCESS) {
@@ -1022,9 +1033,11 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			goto END;
 		}
 
-		/* Before we proceed to LMS OTS, we also need to check if SHA algo selected in BH matches the
-		   type selected in signature,
-		   currently we do not support combinations of HASH algorithm */
+		/**
+		 * - Before we proceed to LMS OTS, we also need to check if SHA algo selected in BH matches the
+		 *   type selected in signature,
+		 *   currently we do not support combinations of HASH algorithm
+		 */
 		if ((PubKeyLmsParam->H != PubKeyLmsOtsParam->H) ||
 			(ShaPlatConfig->HashAlgo != PubKeyLmsOtsParam->H)) {
 			Status = XSECURE_LMS_SIGN_VERIFY_BH_AND_TYPE_SHA_ALGO_MISMATCH_L0_ERROR;
@@ -1040,9 +1053,9 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 			"LMS HSS Init - Current Level %u signature length - 0x%x\n\r",
 			Index,
 			CurrentLevelSignLen);
-		/*
-		 * Signature Length should be equal or more than required,
-		 * should have at least sig[0] + pub[1] Length
+		/**
+		 * - Signature Length should be equal or more than required,
+		 *   should have at least sig[0] + pub[1] Length
 		 */
 		if (HssInitParams->SignatureLen < (XSECURE_LMS_HSS_LEVELS_FIELD_SIZE +
 				CurrentLevelSignLen +
@@ -1064,20 +1077,23 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		LmsSignVerifyParams.ExpectedPubKey = (u8 *)TmpPublicKeyPtr;
 		LmsSignVerifyParams.PubKeyLen = XSECURE_LMS_PUB_KEY_TOTAL_SIZE;
 
-		/* Now that we have checked if signature has sig[0] & pub[1] contents verify pub[1] as data to
-		   be authenticated, with sig[0], output of operation should match with HSS public key (either spk
-		   or ppk in case of ROM) */
+		/**
+		 * - Now that we have checked if signature has sig[0] & pub[1] contents verify pub[1] as data to
+		 *   be authenticated, with sig[0], output of operation should match with HSS public key (either spk
+		 *   or ppk in case of ROM)
+		 */
 		XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsSignatureVerification,
 			ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 
-		/* At this point the signature has a valid Length signature
-		 * for a valid Length public key for a lower level tree,
-		 * which is all verified
+		/**
+		 * - At this point the signature has a valid Length signature
+		 *   for a valid Length public key for a lower level tree,
+		 *   which is all verified
 		 */
 
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - LMS verification complete for tree at level 0x%x\n\r", Index);
 
-		/* Updating signature pointer for next loop, current signature length + public key length */
+		/**	- Updating signature pointer for next loop, current signature length + public key length */
 		TmpPublicKeyPtr = (TmpSignaturePtr + CurrentLevelSignLen);
 		TmpSignaturePtr += (CurrentLevelSignLen + XSECURE_LMS_PUB_KEY_TOTAL_SIZE);
 		SignatureLengthConsumed += (CurrentLevelSignLen + XSECURE_LMS_PUB_KEY_TOTAL_SIZE);
@@ -1094,16 +1110,17 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/*
-	* Copy authenticated key
-	* 	- If Incrementing Index is glitched, we re-copy same location
-	* 	- If copy fails, read back and check will catch it
-	*/
+	/**
+	 * - Copy authenticated key
+	 *   If Incrementing Index is glitched, we re-copy same location
+	 *   or if copy fails, read back and check will catch it
+	 */
 
-	/* As T field of pub[1]/pub[Npsk] is authenticated, now let's copy rest of pub[1] contents for further use.
-	 * Pre-set Status to failure so that a glitch on the inner copy mismatch check still results in failure
-	 * when goto END is taken. Status will be overwritten by subsequent operations once both the copy loop
-	 * and glitch counter check pass.
+	/**
+	 * - As T field of pub[1]/pub[Npsk] is authenticated, now let's copy rest of pub[1] contents for further use.
+	 *   Pre-set Status to failure so that a glitch on the inner copy mismatch check still results in failure
+	 *   when goto END is taken. Status will be overwritten by subsequent operations once both the copy loop
+	 *   and glitch counter check pass.
 	 */
 	Status = XSECURE_LMS_PUB_OP_FAILED_ERROR;
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_TOTAL_SIZE; Index++) {
@@ -1119,14 +1136,16 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* Extract 'q' from lowest level Signature Npsk, for use in Data's pre-processing before authentication,
-	   Big Endian to Little Endian */
+	/**
+	 * - Extract 'q' from lowest level Signature Npsk, for use in Data's pre-processing before authentication,
+	 *   Big Endian to Little Endian
+	 */
 	CurrentLmsQ = XSecure_SwapBytes(&TmpSignaturePtr[XSECURE_LMS_SIGNATURE_Q_FIELD_OFFSET],
 		XSECURE_LMS_Q_FIELD_SIZE);
 	DigestPrefixFields.Fields.q = Xil_Htonl(CurrentLmsQ);
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - 'q' extracted from Signature Npsk 0x%x\n\r", CurrentLmsQ);
 
-	/* Extract 'I' from latest authenticated public key, for use in Data's pre-processing before authentication */
+	/** - Extract 'I' from latest authenticated public key, for use in Data's pre-processing before authentication */
 	Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.I,
 		XSECURE_LMS_I_FIELD_SIZE,
 		(void*)AuthenticatedKey.Fields.I,
@@ -1138,7 +1157,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* Extract 'C' from lowest level Signature Npsk, for use in Data's pre-processing before authentication */
+	/** - Extract 'C' from lowest level Signature Npsk, for use in Data's pre-processing before authentication */
 	Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.C,
 		XSECURE_LMS_C_FIELD_SIZE,
 		(void*)&TmpSignaturePtr[XSECURE_LMS_SIGNATURE_OTS_FIELD_OFFSET + XSECURE_LMS_OTS_SIGN_C_FIELD_OFFSET],
@@ -1150,13 +1169,13 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* Extracting LMS & LMS OTS Type from Public key, Big Endian to Little Endian */
+	/** - Extracting LMS & LMS OTS Type from Public key, Big Endian to Little Endian */
 	PublicKeyLmsType = (XSecure_LmsType)XSecure_SwapBytes((const void*)&AuthenticatedKey.Buff[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
 		XSECURE_LMS_TYPE_SIZE);
 	PublicKeyLmsOtsType = (XSecure_LmsOtsType)XSecure_SwapBytes(&TmpPublicKeyPtr[XSECURE_LMS_PUB_KEY_OTS_TYPE_OFFSET],
 		XSECURE_LMS_OTS_TYPE_SIZE);
 
-	/* Fetch the Type of public key, if not a valid/supported Type return error */
+	/** - Fetch the Type of public key, if not a valid/supported Type return error */
 	Status = XSecure_LmsLookupParamSet(PublicKeyLmsType,
 			(XSecure_LmsParam**)&PubKeyLmsParam);
 	if (Status != XST_SUCCESS) {
@@ -1165,7 +1184,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 		goto END;
 	}
 
-	/* Fetch the Type of public key, if not a valid/supported Type return error */
+	/** - Fetch the Type of public key, if not a valid/supported Type return error */
 	Status = XSecure_LmsOtsLookupParamSet(PublicKeyLmsOtsType,
 			(XSecure_LmsOtsParam**)&PubKeyLmsOtsParam);
 	if (Status != XST_SUCCESS) {
@@ -1176,7 +1195,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - SHA mode init for data authentication 0x%x\n\r", PubKeyLmsParam->H);
 
-	/* Initialize HASH to calculate digest */
+	/** - Initialize HASH to calculate digest */
 	Status = XSecure_ShaInitialize(ShaInstPtr, DmaPtr);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -1215,18 +1234,18 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	int Status = XST_FAILURE;
 	static const u8 XSECURE_D_MESG[2U] = { 0x81U, 0x81U };
 
-	/* Process @ref XSECURE_D_MESG, to be sent in Big Endian - XSECURE_D_MESG value is same*/
+	/** - Process XSECURE_D_MESG, to be sent in Big Endian - XSECURE_D_MESG value is same */
 	DigestPrefixFields.Fields.D_MESG[0U] = XSECURE_D_MESG[0U];
 	DigestPrefixFields.Fields.D_MESG[1U] = XSECURE_D_MESG[1U];
 
-	/* Start SHA to calculate digest */
+	/** - Start SHA to calculate digest */
 	Status = XSecure_ShaStart(ShaInstPtr, Mode);
 	if (Status != XST_SUCCESS) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 		goto END;
 	}
 
-	/* Process prefix */
+	/** - Process prefix */
 	if (DataLen == 0U) {
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
@@ -1243,7 +1262,7 @@ int XSecure_LmsHashMessage(XSecure_Sha *ShaInstPtr,
 	}
 
 	if (0U != DataLen) {
-		/* Process data now */
+		/** - Process data now */
 		Status = XSecure_ShaLastUpdate(ShaInstPtr);
 		if (Status != XST_SUCCESS) {
 			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
@@ -1308,7 +1327,7 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Finish - LMS Type from public key 0x%x\n\r", PublicKeyLmsType);
 	XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Finish - LMS OTS Type from public key 0x%x\n\r", PublicKeyLmsOtsType);
 
-	/* Fetch the Type of public key, if not a valid/supported Type return error */
+	/** - Fetch the Type of public key, if not a valid/supported Type return error */
 	Status = XSecure_LmsLookupParamSet(PublicKeyLmsType,
 			(XSecure_LmsParam**)&PskPubKeyLmsParam);
 	if (Status != XST_SUCCESS) {
@@ -1317,7 +1336,7 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 		goto END;
 	}
 
-	/* Fetch the Type of public key, if not a valid/supported Type return error */
+	/** - Fetch the Type of public key OTS, if not a valid/supported Type return error */
 	Status = XSecure_LmsOtsLookupParamSet(PublicKeyLmsOtsType,
 			(XSecure_LmsOtsParam**)&PskPubKeyLmsOtsParam);
 	if (Status != XST_SUCCESS) {
@@ -1326,7 +1345,7 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 		goto END;
 	}
 
-	/** Signature Length should be at least 4 bytes */
+	/** - Signature Length should be at least 4 bytes */
 	if (XSECURE_LMS_OTS_TYPE_SIZE > Sign1Len) {
 		Status = XSECURE_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Finish - Level 1 signature error 1 0x%x\n\r", Sign1Len);
@@ -1334,16 +1353,16 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	}
 
 	/* ****************************************************************************************** */
-	/* Signature checks */
+	/** - Signature checks */
 	/* ****************************************************************************************** */
 
-	/* After pub[Npsk], sig[Npsk] fields start, from there the following is check for length required */
+	/** - After pub[Npsk], sig[Npsk] fields start, from there the following is check for length required */
 	SignNpskLen = (PskPubKeyLmsOtsParam->SignLen +
 		XSECURE_LMS_Q_FIELD_SIZE +
 		XSECURE_LMS_TYPE_SIZE +
 		PskPubKeyLmsParam->mh);
 
-	/* Signature Length should be equal to sig[0] + pub[Npsk] Length + sig[Npsk] */
+	/** - Signature Length should be equal to sig[0] + pub[Npsk] Length + sig[Npsk] */
 	if (Sign1Len != SignNpskLen) {
 		Status = XSECURE_LMS_HSS_L1_SIGN_INVALID_LEN_2_ERROR;
 		XSecure_Printf(XSECURE_DEBUG_GENERAL,
@@ -1362,8 +1381,9 @@ int XSecure_HssFinish(XSecure_Sha *ShaInstPtr,
 	LmsSignVerifyParams.PubKeyLen = XSECURE_LMS_PUB_KEY_TOTAL_SIZE;
 
 
-	/* Now that we have checked if signature has sig[Npsk],
-	 * verify the already authenticated and stored public key and data
+	/**
+	 * - Now that we have checked if signature has sig[Npsk],
+	 *   verify the already authenticated and stored public key and data
 	 */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsSignatureVerification,
 		ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
@@ -1416,13 +1436,13 @@ int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 
 	/**
 	 * - Validate public key and signature structure; authenticate upper-level
-	 * tree public keys for multi-level HSS
+	 *   tree public keys for multi-level HSS
 	 */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_HssInit, ShaInstPtr, DmaPtr, HssInitParams);
 
 	/**
 	 * - Determine the hash algorithm from the authenticated bottom-level
-	 * public key's LMS type
+	 *   public key's LMS type
 	 */
 	PublicKeyLmsType = (XSecure_LmsType)XSecure_SwapBytes(
 		(const void *)&AuthenticatedKey.Buff[XSECURE_LMS_PUB_KEY_TYPE_OFFSET],
@@ -1436,15 +1456,11 @@ int XSecure_HssSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		goto END;
 	}
 
-	/**
-	 * - Compute the message digest to be verified against the LMS signature
-	 */
+	/** - Compute the message digest to be verified against the LMS signature */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_LmsHashMessage, ShaInstPtr, Data, DataLen,
 		PubKeyLmsParam->H);
 
-	/**
-	 * - Verify the bottom-level LMS signature against the message digest
-	 */
+	/** - Verify the bottom-level LMS signature against the message digest */
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_HssFinish, ShaInstPtr, DmaPtr,
 		HssInitParams->SignBuff, HssInitParams->SignatureLen);
 
@@ -1500,9 +1516,9 @@ int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode 
 {
 	int Status = XST_FAILURE;
 
-	/** Public key's LMS type */
+	/** - Public key's LMS type */
 	XSecure_LmsType PublicKeyLmsType = XSECURE_LMS_NOT_SUPPORTED;
-	/** LMS Parameters extracted from Public Key */
+	/** - LMS Parameters extracted from Public Key */
 	const XSecure_LmsParam* PubKeyLmsParam = NULL;
 
 	if(XSECURE_PUB_ALGO_LMS_HSS == PubAlgo) {
@@ -1519,7 +1535,7 @@ int XSecure_GetLmsHashAlgo(u32 PubAlgo, const u8* const PubKey, XSecure_ShaMode 
 		goto END;
 	}
 
-	/* Fetch the Type of public key, if not a valid/supported Type return error */
+	/** - Fetch the Type of public key, if not a valid/supported Type return error */
 	Status = XSecure_LmsLookupParamSet(PublicKeyLmsType,
 			(XSecure_LmsParam**)&PubKeyLmsParam);
 	if (Status != XST_SUCCESS) {
