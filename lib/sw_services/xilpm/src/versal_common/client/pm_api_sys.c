@@ -251,27 +251,11 @@ u32 XPm_GetRegisterNotifierVersionServer(void)
  *         configuration.
  *
  ****************************************************************************/
-static XStatus XPm_GenericRequest(u32 ApiId, u32 NumArgs, u32 *Response, ...)
+#if defined(XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+static XStatus XPm_GenericRequest_Smc(u32 ApiId, u32 NumArgs,
+				      u32 *Response, u32 *Args)
 {
 	XStatus Status = (s32)XST_FAILURE;
-	va_list arg_list;
-	u32 Args[MAX_PAYLOAD_ARG] = {0};
-	u32 i;
-
-	/* Validate argument count */
-	if (NumArgs > MAX_PAYLOAD_ARG) {
-		Status = (s32)XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Extract arguments from va_list */
-	va_start(arg_list, Response);
-	for (i = 0; i < NumArgs; i++) {
-		Args[i] = va_arg(arg_list, u32);
-	}
-	va_end(arg_list);
-
-#if defined  (XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
 	XSmc_OutVar Out;
 	u64 SmcFid;
 	u64 SmcArgs1;
@@ -311,53 +295,43 @@ static XStatus XPm_GenericRequest(u32 ApiId, u32 NumArgs, u32 *Response, ...)
 	 * - x4: Args[5]
 	 * Supports 6 payload arguments and 6 response values
 	 */
-
-	/* Construct PLM header with module ID, API ID, and length */
 	PlmHeader = HEADER(NumArgs, ApiId);
-
-	/* Fixed SMC ID for extended format */
 	SmcFid = PASS_THROUGH_FW_CMD_SMC_FID;
 
-	/* Pack arguments: PLM header in lower 32 bits of x1 */
 	SmcArgs1 = ((u64)Args[0] << 32) | ((u64)PlmHeader);
 	SmcArgs2 = ((u64)Args[2] << 32) | ((u64)Args[1]);
 	SmcArgs3 = ((u64)Args[4] << 32) | ((u64)Args[3]);
 	SmcArgs4 = (u64)Args[5];
 
-	/* Make SMC call with extended format */
 	Out = Xil_Smc(SmcFid, SmcArgs1, SmcArgs2, SmcArgs3, SmcArgs4, 0, 0, 0);
 
-	/* Extract response values from extended format (6 values) */
 	if (NULL != Response) {
-		Response[0] = upper_32_bits(Out.Arg0); /* ret_payload0 */
-		Response[1] = lower_32_bits(Out.Arg1); /* ret_payload1 */
-		Response[2] = upper_32_bits(Out.Arg1); /* ret_payload2 */
-		Response[3] = lower_32_bits(Out.Arg2); /* ret_payload3 */
-		Response[4] = upper_32_bits(Out.Arg2); /* ret_payload4 */
-		Response[5] = lower_32_bits(Out.Arg3); /* ret_payload5 */
+		Response[0] = upper_32_bits(Out.Arg0);
+		Response[1] = lower_32_bits(Out.Arg1);
+		Response[2] = upper_32_bits(Out.Arg1);
+		Response[3] = lower_32_bits(Out.Arg2);
+		Response[4] = upper_32_bits(Out.Arg2);
+		Response[5] = lower_32_bits(Out.Arg3);
 	}
 
-	/* Status is in lower 32 bits of Arg0 */
 	Status = lower_32_bits(Out.Arg0);
 
+done:
+	return Status;
+}
 #else
+static XStatus XPm_GenericRequest_Ipi(u32 ApiId, u32 NumArgs,
+				      u32 *Response, u32 *Args)
+{
+	XStatus Status = (s32)XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	struct XPm_Proc *Proc;
 
 	/*
-	 * Special handling for PM_SELF_SUSPEND in IPI path:
-	 *
-	 * PM_SELF_SUSPEND requires using the processor's own IPI channel (not PrimaryProc)
-	 * because:
-	 * 1. The DeviceId (Args[0]) identifies which processor is suspending itself
-	 * 2. Each processor has its own IPI channel for communication with PLM
-	 * 3. The suspend request must be sent from the suspending processor's IPI channel
-	 *    so PLM can correctly identify and manage that specific processor's state
-	 * 4. XPm_ClientSuspend() performs processor-specific pre-suspend operations like
-	 *    saving context and preparing for WFI execution
-	 *
-	 * For all other PM APIs, we use PrimaryProc since they are general requests
-	 * that don't require processor-specific IPI channels.
+	 * PM_SELF_SUSPEND requires using the processor's own IPI channel
+	 * because the DeviceId identifies which processor is suspending
+	 * and PLM uses the source IPI to track that processor's state.
+	 * XPm_ClientSuspend() disables interrupts and sets CPUPWRDWNREQ.
 	 */
 	if (ApiId == PM_SELF_SUSPEND) {
 		Proc = XPm_GetProcByDeviceId(Args[0]);
@@ -366,33 +340,57 @@ static XStatus XPm_GenericRequest(u32 ApiId, u32 NumArgs, u32 *Response, ...)
 			Status = (s32)XST_INVALID_PARAM;
 			goto done;
 		}
-
 		XPm_ClientSuspend(Proc);
 	} else {
 		Proc = PrimaryProc;
 	}
 
-
 	/*
-	 * Pack payload with correct NumArgs in header. IPI buffer holds
-	 * 1 header + 5 arguments; Args[5] cannot be transmitted via IPI
-	 * and is silently dropped (only the SMC path carries all 6 args).
+	 * IPI buffer holds 1 header + 5 arguments; Args[5] cannot be
+	 * transmitted via IPI and is silently dropped.
 	 */
-	PACK_PAYLOAD(Payload, HEADER(NumArgs, ApiId), Args[0], Args[1], Args[2], Args[3], Args[4]);
+	PACK_PAYLOAD(Payload, HEADER(NumArgs, ApiId),
+		     Args[0], Args[1], Args[2], Args[3], Args[4]);
 
-	/* Send request to the target module */
 	Status = XPm_IpiSend(Proc, Payload);
 	if (XST_SUCCESS != Status) {
 		goto done;
 	}
 
-	/* Return result from IPI return buffer */
 	if (NULL != Response) {
-		Status = Xpm_IpiReadBuff32(Proc, &Response[0], &Response[1], &Response[2]);
+		Status = Xpm_IpiReadBuff32(Proc, &Response[0], &Response[1],
+					   &Response[2]);
 	} else {
 		Status = Xpm_IpiReadBuff32(Proc, NULL, NULL, NULL);
 	}
 
+done:
+	return Status;
+}
+#endif
+
+static XStatus XPm_GenericRequest(u32 ApiId, u32 NumArgs, u32 *Response, ...)
+{
+	XStatus Status = (s32)XST_FAILURE;
+	va_list arg_list;
+	u32 Args[MAX_PAYLOAD_ARG] = {0};
+	u32 i;
+
+	if (NumArgs > MAX_PAYLOAD_ARG) {
+		Status = (s32)XST_INVALID_PARAM;
+		goto done;
+	}
+
+	va_start(arg_list, Response);
+	for (i = 0; i < NumArgs; i++) {
+		Args[i] = va_arg(arg_list, u32);
+	}
+	va_end(arg_list);
+
+#if defined(XPM_SUPPORT) && (__aarch64__) && (EL1_NONSECURE == 1)
+	Status = XPm_GenericRequest_Smc(ApiId, NumArgs, Response, Args);
+#else
+	Status = XPm_GenericRequest_Ipi(ApiId, NumArgs, Response, Args);
 #endif
 
 done:
@@ -449,9 +447,53 @@ done:
  *
  *
  ****************************************************************************/
-enum XPmBootStatus XPm_GetBootStatus(void)
+static enum XPmBootStatus XPm_GetBootStatus_Common(void)
 {
 	u32 PwrDwnReq;
+	enum XPmBootStatus Ret;
+
+	PwrDwnReq = XPm_Read(PrimaryProc->PwrCtrl);
+	if (0U != (PwrDwnReq & PrimaryProc->PwrDwnMask)) {
+		PwrDwnReq &= ~PrimaryProc->PwrDwnMask;
+		XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReq);
+		Ret = PM_RESUME;
+		goto done;
+	}
+
+	Ret = PM_INITIAL_BOOT;
+
+done:
+	return Ret;
+}
+
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+static enum XPmBootStatus XPm_GetBootStatus_Psci(void)
+{
+	enum XPmBootStatus Ret;
+
+	/*
+	 * In the PSCI path, TF-A clears the CPUPWRDWNREQ bit on resume
+	 * (via pm_client_wakeup in pwr_domain_suspend_finish), so we
+	 * cannot use it for resume detection. Instead, check the
+	 * RAM-based flag set by XPm_ClientSuspendFinalize() before
+	 * the PSCI CPU_SUSPEND call. The flag is placed in .data via
+	 * section attribute so it survives the BSP _start .bss clear.
+	 */
+	if (XPm_PsciSuspendFlag != 0U) {
+		XPm_PsciSuspendFlag = 0U;
+		Ret = PM_RESUME;
+		goto done;
+	}
+
+	Ret = XPm_GetBootStatus_Common();
+
+done:
+	return Ret;
+}
+#endif
+
+enum XPmBootStatus XPm_GetBootStatus(void)
+{
 	enum XPmBootStatus Ret;
 	XStatus Status = (s32)XST_FAILURE;
 
@@ -460,40 +502,16 @@ enum XPmBootStatus XPm_GetBootStatus(void)
 		XPm_Err("%s: Error in setting primary proc: %x\r\n", __func__, Status);
 	}
 
-	/* Error out if primary proc is not defined */
 	if (NULL == PrimaryProc) {
 		Ret = PM_BOOT_ERROR;
 		goto done;
 	}
 
 #if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
-	{
-		/*
-		 * In the PSCI path, TF-A clears the CPUPWRDWNREQ bit on resume
-		 * (via pm_client_wakeup in pwr_domain_suspend_finish), so we
-		 * cannot use it for resume detection. Instead, check the
-		 * RAM-based flag set by XPm_ClientSuspendFinalize() before
-		 * the PSCI CPU_SUSPEND call. The flag is placed in .data via
-		 * section attribute so it survives the BSP _start .bss clear.
-		 */
-		if (XPm_PsciSuspendFlag != 0U) {
-			XPm_PsciSuspendFlag = 0U;
-			Ret = PM_RESUME;
-			goto done;
-		}
-	}
+	Ret = XPm_GetBootStatus_Psci();
+#else
+	Ret = XPm_GetBootStatus_Common();
 #endif
-
-	PwrDwnReq = XPm_Read(PrimaryProc->PwrCtrl);
-	if (0U != (PwrDwnReq & PrimaryProc->PwrDwnMask)) {
-		PwrDwnReq &= ~PrimaryProc->PwrDwnMask;
-		XPm_Write(PrimaryProc->PwrCtrl, PwrDwnReq);
-		Ret = PM_RESUME;
-		goto done;
-	} else {
-		Ret = PM_INITIAL_BOOT;
-		goto done;
-	}
 
 done:
 	return Ret;

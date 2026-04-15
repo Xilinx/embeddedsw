@@ -234,23 +234,56 @@ void XPm_ClientWakeUp(const struct XPm_Proc *const Proc)
 }
 
 #ifndef __microblaze__
-void XPm_ClientSuspendFinalize(void)
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+static void XPm_ClientSuspendFinalize_Psci(void)
+{
+	u32 CtrlReg;
+	XSmc_OutVar PsciOut;
+	u64 ResumeAddr;
+
+	XpmDisableInterrupts();
+	XPm_PsciSuspendFlag = 1U;
+
+	CtrlReg = (u32)mfcp(SCTLR_EL1);
+	if (0U != (XREG_CONTROL_DCACHE_BIT & CtrlReg)) {
+		Xil_DCacheFlush();
+	}
+
+	/*
+	 * Use VBAR_EL1 as the PSCI resume entry point. On power-down
+	 * resume, TF-A saves this NS entry address and ERETs back to
+	 * EL1 at it. The BSP boot.S programs VBAR_EL1 to the vector
+	 * table base during initialization and executes _start from
+	 * there on warm boot, reinitializing the EL1 environment.
+	 */
+	ResumeAddr = mfcp(VBAR_EL1);
+
+	XPm_Dbg("PSCI CPU_SUSPEND: pstate=0x%x addr=0x%x%08x\n",
+		PSCI_CPU_PWRDN_STATE,
+		(u32)(ResumeAddr >> 32),
+		(u32)ResumeAddr);
+
+	PsciOut = Xil_Smc(PSCI_CPU_SUSPEND_AARCH64,
+			  (u64)PSCI_CPU_PWRDN_STATE,
+			  ResumeAddr, 0, 0, 0, 0, 0);
+
+	/*
+	 * On success PSCI CPU_SUSPEND does not return (CPU powers
+	 * down). If we reach here, the call failed — restore the
+	 * interrupt state and clear the resume flag so
+	 * XPm_GetBootStatus() does not falsely report PM_RESUME.
+	 */
+	XPm_PsciSuspendFlag = 0U;
+	XpmEnableInterrupts();
+	XPm_Err("PSCI CPU_SUSPEND returned 0x%x\r\n", (u32)PsciOut.Arg0);
+}
+#else
+static void XPm_ClientSuspendFinalize_Wfi(void)
 {
 	u32 CtrlReg;
 
-	/* Disable interrupts and set resume flag before cache flush */
-#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
-	XpmDisableInterrupts();
-	XPm_PsciSuspendFlag = 1U;
-#endif
-
-	/* Flush the data cache only if it is enabled */
 #ifdef __aarch64__
-#if defined(XPM_SUPPORT) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
-	CtrlReg = (u32)mfcp(SCTLR_EL1);
-#else
 	CtrlReg = (u32)mfcp(SCTLR_EL3);
-#endif
 	if (0U != (XREG_CONTROL_DCACHE_BIT & CtrlReg)) {
 		Xil_DCacheFlush();
 	}
@@ -262,42 +295,18 @@ void XPm_ClientSuspendFinalize(void)
 #endif
 
 	XPm_Dbg("Going to WFI...\n");
-#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
-	{
-		XSmc_OutVar PsciOut;
-		/*
-		 * Use VBAR_EL1 as the PSCI resume entry point. On power-down
-		 * resume, TF-A saves this NS entry address and ERETs back to
-		 * EL1 at it. The BSP boot.S programs VBAR_EL1 to the vector
-		 * table base during initialization and executes _start from
-		 * there on warm boot, reinitializing the EL1 environment.
-		 */
-		u64 ResumeAddr = mfcp(VBAR_EL1);
-
-		XPm_Dbg("PSCI CPU_SUSPEND: pstate=0x%x addr=0x%x%08x\n",
-			PSCI_CPU_PWRDN_STATE,
-			(u32)(ResumeAddr >> 32),
-			(u32)ResumeAddr);
-
-		PsciOut = Xil_Smc(PSCI_CPU_SUSPEND_AARCH64,
-				  (u64)PSCI_CPU_PWRDN_STATE,
-				  ResumeAddr, 0, 0, 0, 0, 0);
-
-		/*
-		 * On success PSCI CPU_SUSPEND does not return (CPU powers
-		 * down). If we reach here, the call failed — restore the
-		 * interrupt state and clear the resume flag so
-		 * XPm_GetBootStatus() does not falsely report PM_RESUME.
-		 */
-		XPm_PsciSuspendFlag = 0U;
-		XpmEnableInterrupts();
-		XPm_Err("PSCI CPU_SUSPEND returned 0x%x\r\n",
-			(u32)PsciOut.Arg0);
-	}
-#else
 	WFI;
-#endif
 	XPm_Dbg("WFI exit...\n");
+}
+#endif
+
+void XPm_ClientSuspendFinalize(void)
+{
+#if defined(XPM_SUPPORT) && defined(__aarch64__) && defined(EL1_NONSECURE) && (EL1_NONSECURE == 1)
+	XPm_ClientSuspendFinalize_Psci();
+#else
+	XPm_ClientSuspendFinalize_Wfi();
+#endif
 }
 #endif
 
