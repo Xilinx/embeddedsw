@@ -168,8 +168,8 @@ enum {
 	/** 0x9 - Error if the Ipi Access permission is not set properly */
 	XPLMI_ERR_SET_IPI_ACCESS_PERM_NOT_SET,
 
-	/** 0xA - Error if the Api Id received during IPI request only supports non-secure request */
-	XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS,
+	/** 0xA - Reserved */
+	XPLMI_ERR_MINOR_RESERVED_A,
 
 	/** 0xB - Error if the module id or ipi source index is not valid during ipi validation */
 	XPLMI_ERR_VALIDATE_IPI_INVALID_ID,
