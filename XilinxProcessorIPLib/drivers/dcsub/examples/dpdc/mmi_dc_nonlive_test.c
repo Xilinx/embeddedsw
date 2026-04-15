@@ -90,14 +90,14 @@ XDc_VideoTiming VidTiming_640_480 = { .HTotal = 800, .HSWidth = 96, .HRes = 640,
  *
  * @param	RunCfgPtr is a pointer to the application configuration structure.
  *
- * @return	None.
+ * @return	XST_SUCCESS if audio/video settings are valid, otherwise XST_FAILURE.
  *
  * @note	Cursor blend and partial plane blend are configured here
 
  *		before hardware init (XDcSub_ConfigureDcVideo).
  *
 *******************************************************************************/
-void XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr)
+u32 XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr)
 {
 	XDc *DcPtr = RunCfgPtr->DcSubPtr->DcPtr;
 	const XVidC_VideoTimingMode *Vtm;
@@ -201,14 +201,24 @@ void XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr)
 
 	if(RunCfgPtr->AudioEnable)
 	{
+		u8 AudioChannels = RunCfgPtr->AudioChannels;
+		u32 Status;
+
 		XDcSub_SetAudInterfaceMode(RunCfgPtr->DcSubPtr,XDC_AUD_FUNCTIONAL);
 		XDcSub_SetInputAudioSelect(RunCfgPtr->DcSubPtr, XDC_AUDSTREAM_NONLIVE);
 		XDcSub_EnableAudio(RunCfgPtr->DcSubPtr);
 		XDcSub_AudClkSelect(RunCfgPtr->DcSubPtr,0);
 
-		/* default values expected as per spec(non-segmented) */
 		XDcSub_AudioChannelSelect(RunCfgPtr->DcSubPtr, 7, 0x1FF);
 		XDcSub_EnableAudioBuffer(RunCfgPtr->DcSubPtr, 1, 15);
+
+		/* Set the audio channels count value */
+		Status = XDcSub_SetAudioChCtrl(RunCfgPtr->DcSubPtr, AudioChannels);
+		if (Status != XST_SUCCESS) {
+			xil_printf("ERROR: Failed to program audio channel count (status=0x%X)\r\n",
+				   Status);
+			return Status;
+		}
 	}
 
 	/* Initialize cursor blend if enabled (BEFORE hardware init) */
@@ -221,6 +231,7 @@ void XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr)
 		XDpDc_ConfigurePartialPlaneBlend(RunCfgPtr);
 	}
 
+	return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -267,7 +278,11 @@ u32 XDpDc_InitializeRunConfig(RunConfig *RunCfgPtr)
 	RunCfgPtr->DcDmaBaseAddr = DCDMA_BASEADDR;
 
 	XDpDc_InitFrames(RunCfgPtr);
-	XDpDc_InitDcSubPtr(RunCfgPtr);
+	Status = XDpDc_InitDcSubPtr(RunCfgPtr);
+	if (Status != XST_SUCCESS) {
+		xil_printf("ERROR: Invalid DC/Audio configuration\r\n");
+		return Status;
+	}
 
 	return Status;
 
