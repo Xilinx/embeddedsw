@@ -30,6 +30,9 @@
 #include "xdc.h"
 #include "xdcsub.h"
 
+#define XDCSUB_AUD_CH_SELECT_MASK	0x00FFU
+#define XDCSUB_AUD_CH_STATUS_SHIFT	8U
+
 /******************************************************************************/
 /**
  * This function intializes the configuration of all instances part of DC
@@ -1265,26 +1268,36 @@ u32 XDcSub_DisableAudio(XDcSub *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function allows user to disable channelX preamble and status.
- * Set 1 to disable, 0 to enable at bits 0-7 for corresponding channel.
- * Set bit 8 to load user_bit adn channel status.
+ * This function sets audio channel-control bits from active channel count.
  *
  * @param       InstancePtr is a pointer to the XDc instance.
+ * @param       AudioChannels is active channel count (1 to 8).
  *
  * @return      XST_SUCCESS or XST_FAILURE.
  *
  *
 *******************************************************************************/
-u32 XDcSub_SetAudioChCtrl(XDcSub *InstancePtr, u16 AudChCtrl)
+u32 XDcSub_SetAudioChCtrl(XDcSub *InstancePtr, u8 AudioChannels)
 {
 	XDc *DcConfigPtr;
+	u16 AudioChannelsControl;
 
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->DcPtr != NULL);
+	Xil_AssertNonvoid((AudioChannels >= XDCSUB_AUDIO_CHANNELS_MIN) &&
+			  (AudioChannels <= XDCSUB_AUDIO_CHANNELS_MAX));
 
 	DcConfigPtr = InstancePtr->DcPtr;
 
-	DcConfigPtr->AudChCtrl = AudChCtrl;
+	if (AudioChannels < XDCSUB_AUDIO_CHANNELS_MIN ||
+	    AudioChannels > XDCSUB_AUDIO_CHANNELS_MAX)
+		return XST_INVALID_PARAM;
+
+	AudioChannelsControl = ((~((1U << AudioChannels) - 1U)) &
+				XDCSUB_AUD_CH_SELECT_MASK) |
+			       (1U << XDCSUB_AUD_CH_STATUS_SHIFT);
+	DcConfigPtr->AudChCtrl = AudioChannelsControl;
+	XDc_SetAudioChCtrl(DcConfigPtr);
 
 	return XST_SUCCESS;
 
