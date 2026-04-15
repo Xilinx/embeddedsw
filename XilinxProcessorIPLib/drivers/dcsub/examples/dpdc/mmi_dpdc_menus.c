@@ -23,6 +23,7 @@
 
 #include "mmi_dpdc_menus.h"
 #include "xil_printf.h"
+#include "xdcsub.h"
 #include "xdc.h"
 #include "xmmidp.h"
 #include <string.h>
@@ -385,7 +386,7 @@ void XDpDc_MainHelpMenu(void)
     xil_printf("  o - Configure Output Format\r\n");
     xil_printf("  c - Toggle Cursor Enable (with Position & Size config)\r\n");
     xil_printf("  x - Configure Cursor Position & Size\r\n");
-    xil_printf("  a - Toggle Audio Enable\r\n");
+    xil_printf("  a - Toggle Audio Enable (and select channels 1-8)\r\n");
     xil_printf("  p - Toggle Partial Plane Blend Enable\r\n");
     xil_printf("  b - Configure Partial Plane Blend Parameters\r\n");
     xil_printf("  l - Configure DP Link (Lane Count & Link Rate)\r\n");
@@ -425,6 +426,9 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
         xil_printf("  Cursor Size:          %d x %d\r\n", config->cursor_size_x, config->cursor_size_y);
     }
     xil_printf("Audio Enable:           %s\r\n", config->audio_enable ? "Yes" : "No");
+    if (config->audio_enable) {
+        xil_printf("Audio Channels:         %d\r\n", config->audio_channels);
+    }
     xil_printf("Partial Plane Blend:    %s\r\n", config->partial_plane_blend_enable ? "Yes" : "No");
     if (config->partial_plane_blend_enable) {
         xil_printf("  Source Stream:        %s\r\n", config->ppb_stream_select == 1 ? "Stream1" : "Stream2");
@@ -985,6 +989,25 @@ void XDpDc_MenuLoop(InitRunConfig *config)
             case 'A':
                 config->audio_enable = !config->audio_enable;
                 xil_printf("Audio Enable: %s\r\n", config->audio_enable ? "Yes" : "No");
+                if (config->audio_enable) {
+                    u32 channels;
+
+                    xil_printf("Enter Number of audio channels (1-8): ");
+                    channels = read_uint();
+                    if (channels < XDCSUB_AUDIO_CHANNELS_MIN ||
+                        channels > XDCSUB_AUDIO_CHANNELS_MAX) {
+                        xil_printf("ERROR: Invalid channel count %d. Audio disabled.\r\n",
+                                   channels);
+                        config->audio_enable = 0;
+                        config->audio_channels = 0;
+                    } else {
+                        config->audio_channels = (u8)channels;
+                        xil_printf("Audio Channels: %d\r\n", config->audio_channels);
+                    }
+                } else {
+                    config->audio_channels = 0;
+                    xil_printf("Audio Channels: %d\r\n", config->audio_channels);
+                }
                 break;
 
             case 'p':
@@ -1198,6 +1221,7 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     config->output_format = RGB_8BPC;
     config->cursor_enable = 0;
     config->audio_enable = 0;
+    config->audio_channels = 0;
     config->partial_plane_blend_enable = 0;
     /* Default to Stream1 as source */
     config->ppb_stream_select = 1;
@@ -1222,5 +1246,6 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     xil_printf("  Stream1/2 Format: RGBA8888\r\n");
     xil_printf("  Output Format: RGB_8BPC\r\n");
     xil_printf("  Cursor: Disabled, Position (50,50), Size (128x128)\r\n");
+    xil_printf("  Audio: Disabled, Channels: %d\r\n", config->audio_channels);
     xil_printf("  DP Link: Auto (sink max)\r\n");
 }

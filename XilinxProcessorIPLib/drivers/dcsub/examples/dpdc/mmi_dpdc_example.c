@@ -258,6 +258,8 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
 
     /* Set audio enable */
     runConfig->AudioEnable = userConfig->audio_enable ? XDC_AUD_ENABLE : XDC_AUD_DISABLE;
+    runConfig->AudioChannels = userConfig->audio_enable ?
+                               userConfig->audio_channels : 0;
 
     /* Set partial plane blend enable and parameters */
     if (userConfig->partial_plane_blend_enable) {
@@ -295,6 +297,9 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
         xil_printf("  CursorSize:           %d x %d\r\n", runConfig->CursorSizeX, runConfig->CursorSizeY);
     }
     xil_printf("AudioEnable:            %s\r\n", runConfig->AudioEnable ? "ENABLED" : "DISABLED");
+    if (runConfig->AudioEnable) {
+        xil_printf("AudioChannels:          %d\r\n", runConfig->AudioChannels);
+    }
     xil_printf("Stream1 PartialBlend:   %s\r\n", runConfig->Stream1PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");
     xil_printf("Stream2 PartialBlend:   %s\r\n", runConfig->Stream2PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");
     xil_printf("=========================================\r\n\r\n");
