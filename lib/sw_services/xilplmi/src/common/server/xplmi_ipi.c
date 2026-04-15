@@ -740,8 +740,6 @@ int XPlmi_IpiPollForAck(u32 DestCpuMask, u32 TimeOutCount)
 		is greater than the maximum supported commands in the module.
 		- XPLMI_ERR_VALIDATE_IPI_NO_IPI_ACCESS if the Api Id received
 		during IPI request doesn't have IPI access.
-		- XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS if the Api Id received
-		during IPI request only supports non-secure request
 		- XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS if the Api Id
 		received during IPI request only supports secure request
  *
@@ -794,11 +792,6 @@ int XPlmi_ValidateIpiCmd(XPlmi_Cmd *Cmd, u32 SrcIndex)
 		if ((Cmd->IpiReqType == XPLMI_CMD_NON_SECURE) &&
 				(AccessPerm == XPLMI_SECURE_IPI_ACCESS)) {
 			Status = XPLMI_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS | XPLMI_WARNING_MINOR_MASK;
-			goto END;
-		}
-		if ((Cmd->IpiReqType == XPLMI_CMD_SECURE) &&
-				(AccessPerm == XPLMI_NON_SECURE_IPI_ACCESS)) {
-			Status = XPLMI_ERR_VALIDATE_IPI_NO_SECURE_ACCESS | XPLMI_WARNING_MINOR_MASK;
 			goto END;
 		}
 	}
