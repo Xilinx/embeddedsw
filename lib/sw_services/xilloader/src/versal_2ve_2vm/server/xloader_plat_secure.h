@@ -95,6 +95,7 @@ extern "C" {
 		/**< Mask to enable required instructions in Instruction Mask 0 register */
 #define XLOADER_PMC_TAP_INST_MASK_1_ENABLE_MASK		(0x070BFF91U)
 		/**< Mask to enable required instructions in Instruction Mask 1 register */
+
 /**************************** Type Definitions *******************************/
 /**
  * Structure to hold SEC error codes
@@ -146,8 +147,8 @@ typedef enum {
 			/**< 0x17 AES Operation failed */
 	XLOADER_SEC_DPA_CM_ERR,
 			/**< 0x18 DPA CM Cfg Error */
-	XLOADER_SEC_PUF_REGN_ERRR,
-			/**< 0x19 PUF regeneration error */
+	XLOADER_ERR_RESERVED_19,
+			/**< 0x19 XLOADER_ERR_RESERVED_19 */
 	XLOADER_SEC_AES_KEK_DEC,
 			/**< 0x1A AES KEK decryption */
 	XLOADER_SEC_RSA_PSS_ENC_BC_VALUE_NOT_MATCHED,

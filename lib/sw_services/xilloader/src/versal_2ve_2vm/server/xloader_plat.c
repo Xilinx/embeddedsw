@@ -114,6 +114,7 @@
 #include "xpm_rpucore.h"
 #include "xpm_apucore.h"
 #include "xloader_auth_jtag.h"
+#include "xloader_secure.h"
 #ifdef PLM_TPM
 #include "xtpm.h"
 #endif

@@ -90,6 +90,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xloader.h"
 #include "xsecure_sha_common.h"
+#include "xilpdi.h"
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa.h"
@@ -274,8 +275,6 @@ extern "C" {
 #define XLOADER_REVOCATION_IDMAX			(0xFFU)
 			/**< Maximum value of Revocation ID */
 
-#define XLOADER_PUF_HD_BHDR				(0x3U)
-			/**< Value of PUF HD stored in bootheader */
 #define XLOADER_PUF_HD_EFUSE				(0x0U)
 			/**< Value of PUF HD stored in efuse */
 
@@ -441,6 +440,8 @@ extern "C" {
 	/**< User Fuse offset for PPK1 to store upper 128 bits of Digest */
 #define XLOADER_EFUSE_PPK2_USER_START_OFFSET	(0xF12502F0U)
 	/**< User Fuse offset for PPK2 to store upper 128 bits of Digest */
+#endif
+#endif
 #define XLOADER_HB_PPDI_PRTN_HASH_IDX_OFFSET	(1U)
 	/**< Partition Hash index offset in HashBlock for partial PDI */
 
@@ -539,9 +540,10 @@ extern "C" {
 #define XLOADER_SLHDSA_MAX_DATA4_LEN_IN_WORDS	(67U)
 	/**< Maximum SLHDSA data4 length in words */
 #endif
-#endif
+#define XLOADER_PUF_HD_BHDR				(0x3U)
+			/**< Value of PUF HD stored in bootheader */
 
-
+#ifndef PLM_SECURE_EXCLUDE
 /**************************** Type Definitions *******************************/
 /**< RSA Key */
 typedef struct {
@@ -574,13 +576,6 @@ typedef struct {
 } XLoader_AuthCertificate;
 
 #else
-
-/**
- * Hash Block structure containing partition hashes
- */
-typedef struct {
-	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U] __attribute__ ((aligned(32U))); /**< HashBlock containing partition hashes */
-} XLoader_HashBlock;
 
 #ifdef VERSAL_2VE_2VM
 /**
@@ -649,6 +644,8 @@ typedef struct {
 	u32 TotalAuthSignSize;	/**< Total authentication signature size */
 } XLoader_HBSignParams;
 #endif
+typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
+#endif
 
 /**
  * Structure for Hash Block AES Parameters
@@ -659,10 +656,6 @@ typedef struct {
 	XSecure_AesKeySrc KeySrc;	/**< AES Key Source */
 	u8 *IvPtr;	/**< Pointer to IV */
 } XLoader_HBAesParams;
-
-typedef XLoader_HBAuthCertificate XLoader_AuthCertificate;
-
-#endif
 
 /**< Authentication Type */
 typedef enum {
@@ -759,7 +752,14 @@ typedef struct {
 }XLoader_AuthJtagData;
 
 #endif /**< end of VERSAL_2VE_2VM */
-#endif
+#endif /**< PLM_SECURE_EXCLUDE */
+
+/**
+ * Structure to hold secure data
+ */
+typedef struct {
+	XilPdi_PrtnHashInfo HashData[XIH_MAX_PRTNS + 1U] __attribute__ ((aligned(32U))); /**< HashBlock containing partition hashes */
+} XLoader_HashBlock;
 
 /**
  * Structure to hold secure parameters
@@ -770,9 +770,10 @@ typedef struct XLoader_SecureParams {
 	u8 IsCheckSumEnabled;	/**< Checksum enabled or disabled */
 	u8 IsCdo; /**< CDO or Elf */
 	XilPdi *PdiPtr;		/**< PDI pointer */
+	u8 IsEncrypted;		/**< Encryption enabled or disabled */
+	u32 ChunkAddr;		/**< Chunk address */
 	XilPdi_PrtnHdr *PrtnHdr;/**< Partition header */
 	u64 NextBlkAddr;	/**< Next block address */
-	u32 ChunkAddr;		/**< Chunk address */
 	u32 NextChunkAddr;	/**< Next chunk address */
 	/* Verified data is at */
 	u32 SecureData;		/**< Secure data */
@@ -787,6 +788,10 @@ typedef struct XLoader_SecureParams {
 	int (*ProcessPrtn)(struct XLoader_SecureParams *SecurePtr, u64 DestAddr,
 				u32 BlockSize, u8 Last); /**< Function pointer to process
 				                          * partition chunk */
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+	int (*CopyHashBlock)(u32 TotalHBSize, XilPdi_HashBlock *SrcHB);
+					/**< Function pointer to copy hash block */
+#endif
 	u16 DmaFlags;    /**< Flags indicate mode of copying */
 #ifndef PLM_SECURE_EXCLUDE
 	XLoader_AuthType SigType;	/**< Signature type */
@@ -794,7 +799,6 @@ typedef struct XLoader_SecureParams {
 	XSecure_Aes *AesInstPtr;	/**< AES instance pointer */
 	XLoader_AuthJtagMessage* AuthJtagMessagePtr;
 					/**< Auth JTAG message pointer */
-	u8 IsEncrypted;		/**< Encryption enabled or disabled */
 	u8 IsAuthenticated;	/**< Authentication enabled or disabled */
 	u32 NoLoad;		/**< No Load */
 #endif
@@ -919,9 +923,6 @@ int XLoader_ImgHdrTblAuth(XLoader_SecureParams *SecurePtr);
 int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 #else
-int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
-int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
-XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
 int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
 #endif
 #ifndef PLM_SECURE_EXCLUDE

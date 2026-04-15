@@ -409,7 +409,7 @@ int XPlmi_PufOnDemandRegeneration(u8* StatusFlag)
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_INFO, "Failed at PUF regeneration with status "
 			"%0x\n\r", Status);
-		Status = XLoader_UpdateMinorErr(XLOADER_SEC_PUF_REGN_ERRR, Status);
+		XPLMI_STATUS_GLITCH_DETECT(Status);
 		*StatusFlag = XST_FAILURE;
 	} else {
 		*StatusFlag = XST_SUCCESS;

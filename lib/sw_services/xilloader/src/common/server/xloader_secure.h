@@ -105,6 +105,7 @@ extern "C" {
 			/**< Misc CTRL register */
 #define XLOADER_BBRAM_CL_INCREMENT_COUNT		(0xFFFFFFFFU)  /**< Flag to indicate if counter in Configuration Limiter should be incremented */
 #define XLOADER_BBRAM_CL_DECREMENT_COUNT		(0x0U)  /**< Flag to indicate if counter in Configuration Limiter should be decremented */
+#define XLOADER_ENTRY_SIZE_IN_HASHBLOCK                        (52U)	/**< Each entry size in HashBlock */
 
 /**************************** Type Definitions *******************************/
 /**
@@ -132,6 +133,12 @@ int XLoader_SetSecureState(void);
 XLoader_SecureTempParams* XLoader_GetTempParams(void);
 int XLoader_VerifyHashNUpdateNext(XLoader_SecureParams *SecurePtr,
         u64 DataAddr, u32 Size, u8 Last);
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+int XLoader_ValidateMHHashBlockIntegrity(XLoader_SecureParams *SecurePtr);
+int XLoader_ValidateMetaHdrIntegrity(XLoader_SecureParams *SecurePtr);
+XLoader_HashBlock* XLoader_GetHashBlockInstance(void);
+int XLoader_CopyHashBlock(u32 TotalHBSize, XilPdi_HashBlock *SrcHB);
+#endif
 
 #ifdef __cplusplus
 }
