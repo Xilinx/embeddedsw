@@ -209,6 +209,9 @@
 *       sd  03/03/2026 Added redundant check for XLoader_ValidateMHHashBlockIntegrity
 *       aa  03/10/2026 Added check to restrict USB as primary boot
 *       tvp 03/13/2026 Modify Image Header Table Details prints for VERSAL_2VP_P
+*       pre 04/10/2026 Store image info before loading the image so that the child invalidation
+*                      does not incorrectly remove entries that were legitimately added via Set
+*                      Image Info commands.
 *
 * </pre>
 *
@@ -289,7 +292,6 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_GetChildRelation(u32 ChildImgID, u32 ParentImgID, u32 *IsChild);
 static int XLoader_InvalidateChildImgInfo(u32 ParentImgID, u32 *ChangeCount);
 static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID);
-static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo);
 static int XLoader_ClearKeys(XilPdi * PdiPtr);
 static int XLoader_ReadIHsAndPHs(XLoader_SecureParams *SecurePtr);
 static int XLoader_VerifyIHsAndPHs(XLoader_SecureParams *SecurePtr);
@@ -1368,7 +1370,7 @@ END:
  * 			- XPLMI_ERR_MEMCPY_IMAGE_INFO if failed to copy image info to memory.
  *
  *****************************************************************************/
-static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
+int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 {
 	int Status = XST_FAILURE;
 	XLoader_ImageInfo *ImageEntry;
@@ -1381,7 +1383,6 @@ static int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 	ChangeCount = ((XPlmi_In32(XPLMI_RTCFG_IMGINFOTBL_LEN_ADDR) &
 			XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_MASK)
 			>> XPLMI_RTCFG_IMGINFOTBL_CHANGE_CTR_SHIFT);
-
 	if ((ImageInfo->UID != XLOADER_INVALID_UID) &&
 		(XLoader_IsDFxApplicable(NodeId) == (u8)TRUE)) {
 		/**
@@ -1645,6 +1646,16 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 		XPlmi_Out32(XPLMI_RTCFG_USR_ACCESS_ADDR, PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].FuncID);
 	}
 
+	if ((PdiPtr->DelayLoad == (u8)FALSE) &&
+		(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID !=
+		XLOADER_INVALID_IMG_ID)) {
+		Status = XLoader_StoreImageInfo((const XLoader_ImageInfo *)
+		&PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+	}
+
 	Status = XLoader_MeasureNLoad(PdiPtr);
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -1656,15 +1667,6 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 		goto END;
 	}
 
-	if ((PdiPtr->DelayLoad == (u8)FALSE) &&
-		(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID !=
-		XLOADER_INVALID_IMG_ID)) {
-		Status = XLoader_StoreImageInfo((const XLoader_ImageInfo *)
-		&PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
-	}
 	/* Log the image load to the Trace Log buffer */
 	XPlmi_TraceLog3(XPLMI_TRACE_LOG_LOAD_IMAGE,
 		PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
