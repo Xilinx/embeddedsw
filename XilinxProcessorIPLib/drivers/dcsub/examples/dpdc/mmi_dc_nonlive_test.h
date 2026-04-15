@@ -109,6 +109,7 @@ typedef struct {
 	XDc_VideoFormat OutStreamFormat;
 	XDc_CursorBlend CursorEnable;
 	XDc_AudEn AudioEnable;
+	u8 AudioChannels;
 	XDc_PartialBlendEn Stream1PbEnable;
 	XDc_PartialBlendEn Stream2PbEnable;
 
@@ -134,7 +135,7 @@ typedef struct {
 
 u32 XDpDc_MmiDcNonliveTest(RunConfig *RunCfgPtr);
 u32 XDpDc_InitializeRunConfig(RunConfig *RunCfgPtr);
-void XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr);
+u32 XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr);
 
 #ifdef __cplusplus
 }
