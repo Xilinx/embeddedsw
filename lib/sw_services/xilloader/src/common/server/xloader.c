@@ -254,6 +254,7 @@
 #include "xtpm.h"
 #endif
 #include "xloader_auth_jtag.h"
+#include "xloader_kat.h"
 
 /************************** Constant Definitions *****************************/
 

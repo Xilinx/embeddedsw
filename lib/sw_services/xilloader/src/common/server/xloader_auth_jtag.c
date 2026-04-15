@@ -41,6 +41,7 @@
 #include "xloader_plat.h"
 #include "xplmi.h"
 #include "xplmi_scheduler.h"
+#include "xloader_kat.h"
 
 /************************** Constant Definitions *****************************/
 #ifdef PLM_AUTH_JTAG_PPK_SPK

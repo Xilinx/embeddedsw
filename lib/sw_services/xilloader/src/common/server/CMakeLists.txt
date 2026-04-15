@@ -1,4 +1,4 @@
-# Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024 - 2026, Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xloader_auth_enc.h)
@@ -11,6 +11,7 @@ collect (PROJECT_LIB_HEADERS xloader_sd.h)
 collect (PROJECT_LIB_HEADERS xloader_secure.h)
 collect (PROJECT_LIB_HEADERS xloader_usb.h)
 collect (PROJECT_LIB_HEADERS xloader_auth_jtag.h)
+collect (PROJECT_LIB_HEADERS xloader_kat.h)
 
 collect (PROJECT_LIB_SOURCES xloader.c)
 collect (PROJECT_LIB_SOURCES xloader_auth_enc.c)
@@ -28,3 +29,4 @@ collect (PROJECT_LIB_SOURCES xloader_secure.c)
 collect (PROJECT_LIB_SOURCES xloader_usb.c)
 collect (PROJECT_LIB_SOURCES xloader_ddr_init.c)
 collect (PROJECT_LIB_SOURCES xloader_auth_jtag.c)
+collect (PROJECT_LIB_SOURCES xloader_kat.c)
