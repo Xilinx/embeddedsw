@@ -54,6 +54,8 @@
 #define XMMIDP_VID_STREAM_ENABLE	0x1
 
 /* Default audio stream parameters */
+#define XMMIDP_AUD_CH_PER_DATA_INPUT	2U
+#define XMMIDP_AUD_DATA_INPUT_LSB	0x1U
 #define XMMIDP_AUD_DATA_INPUT_ALL	0xF
 #define XMMIDP_AUD_HBR_MODE_DISABLE	0x0
 #define XMMIDP_AUD_TIMESTAMP_VER	0x12
@@ -348,12 +350,28 @@ void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr)
 void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr)
 {
 	XMmiDp *InstancePtr = RunCfgPtr->DpPsuPtr;
+	u8 ActiveDataInput;
+	u8 EnabledDataInputs;
+	u8 NumChannels;
+
+	NumChannels = RunCfgPtr->AudioChannels;
+
+	/*
+	 * Enable one I2S data input per stereo pair and expand to contiguous mask.
+	 * Example: 1 input -> 0x1, 2 inputs -> 0x3, 3 inputs -> 0x7, 4 inputs -> 0xF.
+	 */
+	EnabledDataInputs = (NumChannels + (XMMIDP_AUD_CH_PER_DATA_INPUT - 1U)) /
+			    XMMIDP_AUD_CH_PER_DATA_INPUT;
+	ActiveDataInput = (u8)((XMMIDP_AUD_DATA_INPUT_LSB << EnabledDataInputs) -
+			       XMMIDP_AUD_DATA_INPUT_LSB);
+	if (ActiveDataInput > XMMIDP_AUD_DATA_INPUT_ALL)
+		ActiveDataInput = XMMIDP_AUD_DATA_INPUT_ALL;
 
 	XMmiDp_SetAudStreamInterfaceSel(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUD_INF_I2S);
-	XMmiDp_SetAudDataInputEn(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUD_DATA_INPUT_ALL);
+	XMmiDp_SetAudDataInputEn(InstancePtr, XMMIDP_STREAM_ID1, ActiveDataInput);
 	XMmiDp_SetAudDataWidth(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUDIO_INPUT_16_BIT);
 	XMmiDp_SetAudHbrModeEn(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUD_HBR_MODE_DISABLE);
-	XMmiDp_SetAudNumChannels(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUDIO_8_CHANNEL);
+	XMmiDp_SetAudNumChannels(InstancePtr, XMMIDP_STREAM_ID1, NumChannels - 1);
 	XMmiDp_SetAudMuteFlag(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_CLEAR_AUDIOMUTE);
 	XMmiDp_SetAudTimeStampVerNum(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUD_TIMESTAMP_VER);
 	XMmiDp_SetAudClkMultFs(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_AUDIO_CLK_512FS);
@@ -365,7 +383,6 @@ void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr)
 	XMmiDp_SetSdpHorAudTimeStampEn(InstancePtr, XMMIDP_STREAM_ID1, XMMIDP_SDP_STREAM_ENABLE);
 
 	XMmiDp_ConfigureAudioController(InstancePtr, XMMIDP_STREAM_ID1);
-
 }
 
 static const char *XDpDc_LinkBwToStr(u8 LinkBW, u32 *RateMbps)

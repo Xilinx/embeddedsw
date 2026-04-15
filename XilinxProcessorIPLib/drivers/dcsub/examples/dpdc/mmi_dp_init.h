@@ -24,6 +24,7 @@ void XMmiDp_SinkPowerDown(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerUp(XMmiDp *DpPsuPtr);
 void XMmiDp_SinkPowerCycle(XMmiDp *DpPsuPtr);
 void XMmiDp_SetupVideoStream(RunConfig *RunCfgPtr);
+void XMmiDp_SetupAudioStream(RunConfig *RunCfgPtr);
 u32 XDpDc_InitDpPsuSubsystem(RunConfig *RunCfgPtr);
 u32 XMmiDp_InitDpCore(XMmiDp *DpPsuPtr);
 u32 XMmiDp_StartFullLinkTrainingCapped(XMmiDp *InstancePtr,
