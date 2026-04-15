@@ -14,6 +14,7 @@
 #include <xil_printf.h>
 #include <xil_types.h>
 
+#include "mmi_dc_setup_frames.h"
 #include "mmi_dc_nonlive_test.h"
 #include "mmi_dc_cursor.h"
 #include "mmi_dc_generate_frames.h"
@@ -535,6 +536,8 @@ void XDpDc_InitFrames(RunConfig *RunCfgPtr)
 		Aud6_FbInfo.Size = 0x30000;
 		Aud7_FbInfo.Address = CH6_BUFFER_ADDR_7;
 		Aud7_FbInfo.Size = 0x30000;
+
+		XDpDc_SetupAudioDescriptors(RunCfgPtr);
 	}
 }
 

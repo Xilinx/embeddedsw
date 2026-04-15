@@ -57,6 +57,8 @@ void XDpDc_HpdHotplugHandler(void *CallbackRef)
 	}
 
 	XMmiDp_SetupVideoStream(RunCfgPtr);
+	if (RunCfgPtr->AudioEnable)
+		XMmiDp_SetupAudioStream(RunCfgPtr);
 
 	xil_printf("[HPD] Connect sequence complete\r\n");
 }
@@ -156,6 +158,8 @@ void XDpDc_HpdIrqHandler(void *CallbackRef)
 		}
 
 		XMmiDp_SetupVideoStream(RunCfgPtr);
+		if (RunCfgPtr->AudioEnable)
+			XMmiDp_SetupAudioStream(RunCfgPtr);
 		xil_printf("[HPD] Retrain complete, video restored\r\n");
 	} else {
 		xil_printf("[HPD] Link status OK\r\n");
