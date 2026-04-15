@@ -1,5 +1,6 @@
 /**************************************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
  *
  * @file xtrngpsv_tests.c
- * @addtogroup Overview
+ * @addtogroup trngpsv_api TRNGPSV APIs
  * @{
  *
  * Contains Known Answer Tests and Health Tests for the TRNGPSV component.
@@ -86,7 +87,7 @@ s32 XTrngpsv_RunHealthTest(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
-	/* Populate user config parameters of TRNGPSV driver */
+	/** - Populate user config parameters of TRNGPSV driver */
 
 	UsrCfgTests.Mode = XTRNGPSV_HRNG;
 	UsrCfgTests.SeedLife = HEALTH_TEST_SEEDLIFE;
@@ -96,20 +97,21 @@ s32 XTrngpsv_RunHealthTest(XTrngpsv *InstancePtr)
 	UsrCfgTests.PersStrPresent = XTRNGPSV_FALSE;
 	UsrCfgTests.InitSeedPresent = XTRNGPSV_FALSE;
 
-	/* Invoke Instantiate (which includes reseed) operation */
+	/** - Invoke Instantiate (which includes reseed) operation */
 	Status = XTrngpsv_Instantiate(InstancePtr, &UsrCfgTests);
 	if (Status != XTRNGPSV_SUCCESS) {
 		goto SET_ERR;
 	}
 
-	/* Status Reset */
+	/** - Status Reset */
 	Status = XTRNGPSV_FAILURE;
 
-	/* CTF is not being monitored explicitly here since that is done as part of Reseeding
-	 * during Instantiation
+	/**
+	 * - CTF is not being monitored explicitly here since that is done as part of Reseeding
+	 *   during Instantiation
 	 */
 
-	/* Uninstantiate driver instance after Health Tests */
+	/** - Uninstantiate driver instance after Health Tests */
 	Status = XTrngpsv_Uninstantiate(InstancePtr);
 
 SET_ERR:
@@ -191,7 +193,7 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
-	/* Populate user config parameters of TRNGPSV driver */
+	/** - Populate user config parameters of TRNGPSV driver */
 
 	UsrCfgTests.Mode = XTRNGPSV_DRNG;
 	UsrCfgTests.SeedLife = KAT_SEEDLIFE;
@@ -220,7 +222,7 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 		}
 	}
 
-	/* Invoke Instantiate (which includes reseed), (explicit) Reseed and Generate operations */
+	/** - Invoke Instantiate (which includes reseed), (explicit) Reseed and Generate operations */
 
 	Status = XTrngpsv_Instantiate(InstancePtr, &UsrCfgTests);
 	if (Status != XTRNGPSV_SUCCESS) {
@@ -238,8 +240,8 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
-	/* If the generated Random data doesn't match with reference,
-	 * error out
+	/**
+	 * - If the generated Random data doesn't match with reference, error out.
 	 */
 	Result = Xil_SMemCmp(RandBufOut, XTRNGPSV_GEN_LEN_BYTES, ExpectedOutput,
 				XTRNGPSV_GEN_LEN_BYTES, XTRNGPSV_GEN_LEN_BYTES);
@@ -248,7 +250,7 @@ s32 XTrngpsv_RunKAT(XTrngpsv *InstancePtr)
 		goto SET_ERR;
 	}
 
-	/* Uninstantiate driver instance after KAT */
+	/** - Uninstantiate driver instance after KAT */
 	Status = XTrngpsv_Uninstantiate(InstancePtr);
 
 SET_ERR:

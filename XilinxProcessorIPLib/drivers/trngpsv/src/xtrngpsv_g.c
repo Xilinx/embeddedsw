@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,7 +8,7 @@
 /**
 *
 * @file xtrngpsv_g.c
-* @addtogroup Overview
+* @addtogroup trngpsv_api TRNGPSV APIs
 * @{
 *
 * This file contains a configuration table that specifies the configuration of

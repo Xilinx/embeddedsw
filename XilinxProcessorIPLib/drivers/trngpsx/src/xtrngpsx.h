@@ -9,7 +9,7 @@
 *
 * @file xtrngpsx.h
 * This file contains trng definitions of VersalNet.
-* @addtogroup Overview
+* @addtogroup trngpsx_api TRNGPSX APIs
 * @{
 *
 * This header file contains structure definitions, function declarations and macros
@@ -50,28 +50,28 @@ extern "C" {
 #define XTRNGPSX_SEC_STRENGTH_IN_BYTES	32U	/**< security strength in Bytes */
 
 #if !defined(XTRNGPSX_USER_CFG_SEED_LIFE)
-#define XTRNGPSX_USER_CFG_SEED_LIFE 256U
+#define XTRNGPSX_USER_CFG_SEED_LIFE 256U	/**< Default seed life configuration */
 #endif
 
 #if !defined(XTRNGPSX_USER_CFG_DF_LENGTH)
-#define XTRNGPSX_USER_CFG_DF_LENGTH 7U
+#define XTRNGPSX_USER_CFG_DF_LENGTH 7U	/**< Default DF (Derivation Function) length */
 #endif
 
 #if !defined(XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF)
-#define XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF 645U
+#define XTRNGPSX_USER_CFG_ADAPT_TEST_CUTOFF 645U	/**< Default adaptive proportion test cutoff value */
 #endif
 
 #if !defined(XTRNGPSX_USER_CFG_REP_TEST_CUTOFF)
-#define XTRNGPSX_USER_CFG_REP_TEST_CUTOFF 66U
+#define XTRNGPSX_USER_CFG_REP_TEST_CUTOFF 66U	/**< Default repetition count test cutoff value */
 #endif
 
 /**************************** Type Definitions *******************************/
 
-/* This typedef contains mode information on which TRNG operates */
+/** This typedef contains mode information on which TRNG operates */
 typedef enum {
-	XTRNGPSX_DRNG_MODE = 1,
-	XTRNGPSX_PTRNG_MODE,
-	XTRNGPSX_HRNG_MODE
+	XTRNGPSX_DRNG_MODE = 1,	/**< Deterministic Random Number Generator mode */
+	XTRNGPSX_PTRNG_MODE,	/**< Physical True Random Number Generator mode */
+	XTRNGPSX_HRNG_MODE	/**< Hybrid Random Number Generator mode */
 } XTrngpsx_Mode;
 
 /** This typedef contains configuration information for the device */
@@ -87,29 +87,29 @@ typedef struct {
 /** This typedef contains user configuration related to TRNG */
 typedef struct {
 	XTrngpsx_Mode Mode; /**< TRNG mode */
-	u32 SeedLife;            /**< seed life */
+	u32 SeedLife;            /**< Seed life */
 	u16 AdaptPropTestCutoff; /**< Adaptive test cutoff */
-	u16 RepCountTestCutoff;  /**< Repititive test cutoff */
-	u8 DFLength;	/**< df length */
-	u8 PredResistance; /**< prediction resistance */
+	u16 RepCountTestCutoff;  /**< Repetitive test cutoff */
+	u8 DFLength;	/**< DF length */
+	u8 PredResistance; /**< Prediction resistance */
 	u8 IsBlocking; /**< Blocking or Non-Blocking reseed */
 } XTrngpsx_UserConfig;
 
 /** This typedef contains status related to TRNG */
 typedef struct {
-	u32 ElapsedSeedLife; /**< elapsed seed life */
+	u32 ElapsedSeedLife; /**< Elapsed seed life */
 } XTrngpsx_Status;
 
 /** This typedef contains different states of TRNG */
 typedef enum {
-	XTRNGPSX_UNHEALTHY = 1, /**< unhealthy state */
-	XTRNGPSX_HEALTHY,       /**< healthy state */
-	XTRNGPSX_CATASTROPHIC,  /**< catastrophic state */
-	XTRNGPSX_ERROR,         /**< error state */
-	XTRNGPSX_STARTUP_TEST   /**< startup test */
+	XTRNGPSX_UNHEALTHY = 1,	/**< Unhealthy state */
+	XTRNGPSX_HEALTHY,	/**< Healthy state */
+	XTRNGPSX_CATASTROPHIC,	/**< Catastrophic state */
+	XTRNGPSX_ERROR,		/**< Error state */
+	XTRNGPSX_STARTUP_TEST	/**< Startup test state */
 } XTrngpsx_ErrorState;
 
-/* This typedef contains trng driver state */
+/** This typedef contains trng driver state */
 typedef enum {
 	XTRNGPSX_UNINITIALIZED_STATE = 1,	/**< Default state */
 	XTRNGPSX_INSTANTIATE_STATE,		/**< Instantiate state */
@@ -119,11 +119,11 @@ typedef enum {
 
 /** This typedef contains all the information related to TRNG driver */
 typedef struct {
-	XTrngpsx_Config Config;   /**< device configuration */
-	XTrngpsx_UserConfig UserCfg;/**< user configuration */
-	XTrngpsx_Status Stats;      /**< Trng status */
-	XTrngpsx_ErrorState ErrorState;/**< Trng error state */
-	XTrngpsx_State State;   /**< Trng driver state */
+	XTrngpsx_Config Config;   /**< Device configuration */
+	XTrngpsx_UserConfig UserCfg;/**< User configuration */
+	XTrngpsx_Status Stats;      /**< TRNG status */
+	XTrngpsx_ErrorState ErrorState;/**< TRNG error state */
+	XTrngpsx_State State;   /**< TRNG driver state */
 } XTrngpsx_Instance;
 
 typedef enum {

@@ -1,6 +1,6 @@
 /**************************************************************************************************
 * Copyright (c) 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -8,7 +8,7 @@
 /**
  *
  * @file xtrngpsx_sinit.c
- * @addtogroup Overview
+ * @addtogroup trngpsx_api TRNGPSX APIs
  * @{
  *
  * This file contains static initialization method for Xilinx versalnet TRNG driver
@@ -50,8 +50,9 @@
  *
  * @param	DeviceId is the unique device ID of the device being lookedup.
  *
- * @return	XTrngpsx_LookupConfig returns a reference to a config record in the configuration
- * 		table (in xtrngpsx.c) corresponding to DeviceId, or NULL if no match is found.
+ * @return
+ *		- XTrngpsx_LookupConfig returns a reference to a config record in the configuration
+ *		table (in xtrngpsx.c) corresponding to DeviceId, or NULL if no match is found.
  *
  **************************************************************************************************/
 #ifndef SDT
@@ -60,10 +61,10 @@ XTrngpsx_Config *XTrngpsx_LookupConfig(u16 DeviceId)
 	XTrngpsx_Config *CfgPtr = NULL;
 	u32 Index;
 
-	/* Checking for device id for which instance it is matching */
+	/** - Checking for device id for which instance it is matching */
 	for (Index = 0U; Index < (u32)(XPAR_XTRNGPSX_NUM_INSTANCES); Index++) {
 
-		/* Assigning address of config table if both device ids are matched */
+		/** - Assigning address of config table if both device ids are matched */
 		if (XTrngpsx_ConfigTable[Index].DeviceId == DeviceId) {
 			CfgPtr = &XTrngpsx_ConfigTable[Index];
 			break;
@@ -78,7 +79,7 @@ XTrngpsx_Config *XTrngpsx_LookupConfig(UINTPTR BaseAddress)
 	XTrngpsx_Config *CfgPtr = NULL;
 	u32 Index;
 
-	/* Checks all the instances */
+	/** - Checks all the instances */
 	for (Index = 0U; XTrngpsx_ConfigTable[Index].Name != NULL; Index++) {
 		if ((XTrngpsx_ConfigTable[Index].BaseAddress == BaseAddress) || !BaseAddress) {
 			CfgPtr = &XTrngpsx_ConfigTable[Index];
