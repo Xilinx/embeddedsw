@@ -93,7 +93,7 @@ enum {
 						module */
 	XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, /**< 0x0AU - Invalid command is received from
 						client */
-	RESERVED1, /**< 0x0BU - Reserved */
+	XASUFW_ERR_RESERVED_0B, /**< 0x0BU - Reserved */
 	XASUFW_SSS_INVALID_INPUT_PARAMETERS, /**< 0x0CU - Received invalid input parameters to SSS
 						configuration APIs */
 	XASUFW_IOMODULE_INIT_FAILED, /**< 0x0DU - IOModule initialization failed */
@@ -180,16 +180,16 @@ enum {
 	XASUFW_SHA2_MODULE_REGISTRATION_FAILED, /**< 0x5CU - Module registration failed for SHA2
 						module */
 	XASUFW_SHA2_INIT_FAILED, /**< 0x5DU - SHA2 initialization failed */
-	RESERVED2, /**< 0x5EU - Reserved */
-	RESERVED3, /**< 0x5FU - Reserved */
-	RESERVED4, /**< 0x60U - Reserved */
+	XASUFW_ERR_RESERVED_5E, /**< 0x5EU - Reserved */
+	XASUFW_ERR_RESERVED_5F, /**< 0x5FU - Reserved */
+	XASUFW_ERR_RESERVED_60, /**< 0x60U - Reserved */
 	XASUFW_SHA2_HASH_COMPARISON_FAILED, /**< 0x61U - SHA2 hash comparison failed */
 	XASUFW_SHA3_MODULE_REGISTRATION_FAILED, /**< 0x62U - Module registration failed for SHA3
 						module */
 	XASUFW_SHA3_INIT_FAILED, /**< 0x63U - SHA3 initialization failed */
-	RESERVED5, /**< 0x64U - Reserved */
-	RESERVED6, /**< 0x65U - Reserved */
-	RESERVED7, /**< 0x66U - Reserved */
+	XASUFW_ERR_RESERVED_64, /**< 0x64U - Reserved */
+	XASUFW_ERR_RESERVED_65, /**< 0x65U - Reserved */
+	XASUFW_ERR_RESERVED_66, /**< 0x66U - Reserved */
 	XASUFW_SHA3_HASH_COMPARISON_FAILED, /**< 0x67U - SHA3 hash comparison failed */
 	XASUFW_TRNG_MODULE_REGISTRATION_FAILED, /**< 0x68U - TRNG module registration failed */
 	XASUFW_TRNG_INVALID_PARAM, /**< 0x69U - TRNG invalid input parameters received */
@@ -273,7 +273,7 @@ enum {
 	XASUFW_RSA_MOD_DATA_IS_ZERO, /**< 0xACU - Modulus data is zero */
 	XASUFW_RSA_MOD_DATA_INVALID, /**< 0xADU - if Input data is out of valid range
 							(must satisfy: 1 < InputData < (Modulus - 1)) */
-	RESERVED11, /**< 0xAEU - Reserved */
+	XASUFW_ERR_RESERVED_0AE, /**< 0xAEU - Reserved */
 	XASUFW_RSA_RAND_GEN_ERROR, /**< 0xAFU - Random number generation failed to RSA APIs */
 	XASUFW_RSA_KEY_PAIR_COMP_ERROR, /**< 0xB0U - Key pair comparison failure to RSA APIs */
 	XASUFW_RSA_ERROR, /**< 0xB1U - Any other error to RSA APIs */
@@ -552,16 +552,15 @@ enum {
 	XASUFW_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
-	RESERVED8, /**< 0x178U - Reserved */
-	RESERVED9, /**< 0x179U - Reserved */
-	RESERVED10, /**< 0x17AU - Reserved */
+	XASUFW_ERR_RESERVED_178, /**< 0x178U - Reserved */
+	XASUFW_ERR_RESERVED_179, /**< 0x179U - Reserved */
+	XASUFW_ERR_RESERVED_17A, /**< 0x17AU - Reserved */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
 	XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, /**< 0x17CU - Error when channel index is invalid */
-	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when IPI access is not available */
-	XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, /**< 0x17EU - Error when non-secure access is not
-						available */
-	XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS, /**< 0x17FU - Error when secure access is not
-						available */
+	XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, /**< 0x17DU - Error when the requested command lacks
+						required IPI access permissions for the request type */
+	XASUFW_ERR_RESERVED_17E, /**< 0x17EU - Reserved */
+	XASUFW_ERR_RESERVED_17F, /**< 0x17FU - Reserved */
 	XASUFW_ERR_NO_ACCESS_PERMISSIONS, /**< 0x180U - Error when no access permissions are
 						available */
 	XASUFW_UPDATE_ACCESS_PERM_INVALID_MODULE_INFO, /**< 0x181U - Error when module information is

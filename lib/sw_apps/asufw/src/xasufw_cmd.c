@@ -227,9 +227,8 @@ END:
  *  - XASUFW_VALIDATE_CMD_INVALID_CHANNEL_INDEX, when invalid channel index is received.
  *  - XASUFW_VALIDATE_CMD_MODULE_NOT_REGISTERED, when module is not registered.
  *  - XASUFW_VALIDATE_CMD_INVALID_COMMAND_RECEIVED, when invalid command ID is received.
- *  - XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, if the requested command has no IPI access.
- *  - XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS, if Non-Secure access is not allowed.
- *  - XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS, if Secure access is not allowed.
+ *  - XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS, if the requested command lacks required IPI access
+ *    permissions for the request type.
  *  - XASUFW_FAILURE, if there is any failure.
  *
  *************************************************************************************************/
@@ -241,6 +240,7 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 	const XAsufw_Module *Module = NULL;
 	volatile u32 AccessPerm = XASUFW_NO_IPI_ACCESS;
 	u32 ReqType = XASU_CMD_NON_SECURE;
+	u32 ReqTypeMask = XASUFW_NO_IPI_ACCESS;
 
 	/** Validate channel index. */
 	if (ChannelIndex >= XASU_MAX_CHANNELS_SUPPORTED) {
@@ -280,25 +280,16 @@ s32 XAsufw_ValidateCommand(const XAsu_ReqBuf *ReqBuf, u32 ChannelIndex)
 		AccessPerm = Module->AccessPermBufferPtr[CmdId] >>
 							(XASUFW_ACCESS_PERM_SHIFT * ChannelIndex);
 		AccessPerm &= XASUFW_ACCESS_PERM_MASK;
-		/** - If the requested command is not given IPI access, return error. */
-		if ((AccessPerm == XASUFW_NO_IPI_ACCESS) && (AccessPerm == XASUFW_NO_IPI_ACCESS)) {
+		/**
+		 * Set the appropriate permission mask based on request type and verify access.
+		 * - For secure requests: Check if requested API has secure or non-secure access bits set.
+		 * - For non-secure requests: Check if requested API has non-secure access bits set.
+		 * If the required permission bits are not set, deny access and return error.
+		 */
+		ReqTypeMask = (ReqType == XASU_CMD_SECURE) ? XASUFW_FULL_IPI_ACCESS :
+					XASUFW_NON_SECURE_IPI_ACCESS;
+		if ((AccessPerm & ReqTypeMask) == XASUFW_NO_IPI_ACCESS) {
 			Status = XASUFW_ERR_VALIDATE_IPI_NO_IPI_ACCESS;
-			goto END;
-		}
-		/**
-		 * - If the request type is Non-Secure and the requested API requires Secure access,
-		 * return an error.
-		 */
-		if ((ReqType == XASU_CMD_NON_SECURE) && (AccessPerm == XASUFW_SECURE_IPI_ACCESS)) {
-			Status = XASUFW_ERR_VALIDATE_IPI_NO_NONSECURE_ACCESS;
-			goto END;
-		}
-		/**
-		 * - If the request type is Secure and the requested API requires Non-Secure access,
-		 * return an error.
-		 */
-		if ((ReqType == XASU_CMD_SECURE) && (AccessPerm == XASUFW_NON_SECURE_IPI_ACCESS)) {
-			Status = XASUFW_ERR_VALIDATE_IPI_NO_SECURE_ACCESS;
 			goto END;
 		}
 	}
