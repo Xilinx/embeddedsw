@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2010 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -106,6 +106,9 @@
 *                     support both 32bit and 64bit platforms.
 * 5.6   ml   07/21/25 Fixed compilation warnings
 * 5.7   bdk  11/29/25 Updated conditional checks to fix 20.9 misra-c violation.
+* 5.7   asa  03/13/26 Updated various APIs to fix CPU ID and Cluster ID handling.
+*                     Added code to ensure that during GIC driver initialization
+*                     there are no stale and pending interrupts present.
 * </pre>
 *
 ******************************************************************************/
@@ -137,8 +140,72 @@ static void DistInit(const XScuGic_Config *Config);
 static void CPUInit(const XScuGic_Config *Config);
 #endif
 static XScuGic_Config *LookupConfigByBaseAddress(UINTPTR CpuBaseAddress);
+#if defined (GICv3)
+static void XScuGic_ClearPendingInterrupts(const XScuGic_Config *Config,
+					    UINTPTR RedistBaseAddr);
+#endif
 
 /************************** Variable Definitions *****************************/
+
+#if defined (GICv3)
+/*****************************************************************************/
+/**
+*
+* Clears stale interrupt state for the current core in warm-restart scenarios
+* where distributor state is preserved.
+*
+* @param	Config Pointer to the XScuGic config.
+* @param	RedistBaseAddr Redistributor base address for current core.
+*
+* @return	None
+*
+*
+******************************************************************************/
+static void XScuGic_ClearPendingInterrupts(const XScuGic_Config *Config,
+					    UINTPTR RedistBaseAddr)
+{
+	u32 Int_Id;
+	u32 LocalCpuID = 0U;
+	u32 Target_Cpu;
+	u32 Mask;
+
+	/* Clear SGI/PPI enable and pending state for the active core only. */
+	XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			 XSCUGIC_DISABLE_OFFSET, 0xFFFFFFFFU);
+	XScuGic_WriteReg(RedistBaseAddr + XSCUGIC_RDIST_SGI_PPI_OFFSET,
+			 XSCUGIC_PENDING_CLR_OFFSET, 0xFFFFFFFFU);
+
+#if defined (VERSAL_NET)
+#if defined (ARMR52)
+	LocalCpuID = (u32)XGetClusterId();
+	LocalCpuID = (LocalCpuID << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+	LocalCpuID |= (u32)XGetCoreId();
+#else
+	LocalCpuID = XGetClusterId();
+	LocalCpuID = (LocalCpuID << XSCUGIC_IROUTER_AFFINITY2_SHIFT);
+	LocalCpuID |= ((u32)XGetCoreId() << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+#endif
+#endif
+
+	for (Int_Id = XSCUGIC_SPI_INT_ID_START;
+		 Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+		 Int_Id++) {
+		Target_Cpu = XScuGic_ReadReg(Config->DistBaseAddress,
+					    XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
+		if (Target_Cpu == LocalCpuID) {
+			Mask = (u32)0x00000001U << (Int_Id % 32U);
+			XScuGic_WriteReg(Config->DistBaseAddress,
+					 XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
+							     Int_Id),
+					 Mask);
+			XScuGic_WriteReg(Config->DistBaseAddress,
+					 XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_PENDING_CLR_OFFSET,
+							     Int_Id),
+					 Mask);
+		}
+	}
+}
+#endif
 
 /*****************************************************************************/
 /**
@@ -190,6 +257,10 @@ static void DistInit(const XScuGic_Config *Config)
 #endif
 	XScuGic_Enable_SystemReg_CPU_Interface_EL1();
 	isb();
+
+#if defined (GICv3)
+	XScuGic_ClearPendingInterrupts(Config, RedistBaseAddr);
+#endif
 
 	Temp = XScuGic_ReadReg(Config->DistBaseAddress, XSCUGIC_DIST_EN_OFFSET);
 	Temp |= (XSCUGIC500_DCTLR_ARE_NS_ENABLE | XSCUGIC500_DCTLR_ARE_S_ENABLE);
@@ -767,7 +838,9 @@ void XScuGic_InterruptMapFromCpuByDistAddr(UINTPTR DistBaseAddress,
 
 #if defined (VERSAL_NET)
 #if defined (ARMR52)
-		RegValue = (Cpu_Id & XSCUGIC_COREID_MASK);
+		RegValue = ((u32)(Cpu_Id & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
+		RegValue = (RegValue << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+		RegValue |= (u32)(Cpu_Id & XSCUGIC_COREID_MASK);
 #else
 		RegValue = ((Cpu_Id & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
 		RegValue = (RegValue << XSCUGIC_IROUTER_AFFINITY2_SHIFT);
@@ -976,12 +1049,7 @@ void XScuGic_EnableIntr (UINTPTR DistBaseAddress, u32 Int_Id)
 	}
 #endif
 #if defined (VERSAL_NET)
-#if defined (ARMR52)
-	Cpu_Id = XGetCoreId();
-#else
-	Cpu_Id = XGetCoreId();
 	Cpu_Id |= (XGetClusterId() << XSCUGIC_CLUSTERID_SHIFT);
-#endif
 #endif
 
 	XScuGic_InterruptMapFromCpuByDistAddr(DistBaseAddress, Cpu_Id, Int_Id);
