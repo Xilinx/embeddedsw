@@ -65,7 +65,7 @@
 * 12.1  cog    07/14/23 Modified for SDT flow
 *       cog    07/25/23 Remove dead code
 * 13.1  dc     03/08/26 Correct compiler warnings
-*
+*       dc     04/15/26 Add base address definition to SDT flow
 * </pre>
 *
 *****************************************************************************/
@@ -92,6 +92,7 @@
 #define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
 #define RFDC_DEV_NAME    XPAR_XRFDC_0_DEV_NAME
 #else
+#define XRFDC_BASE_ADDR		XPAR_XRFDC_0_BASEADDR
 #define RFDC_DEVICE_ID 	0
 #define I2CBUS	1
 #endif
