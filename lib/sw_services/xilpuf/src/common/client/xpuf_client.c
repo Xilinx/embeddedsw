@@ -29,6 +29,7 @@
 * 2.3   ng   11/22/23 Fixed doxygen grouping
 * 2.4   ng   04/30/24 Fixed doxygen comments
 * 2.7   tbk  03/20/26 Added SMC support for client applications
+*       sd   04/13/26 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -44,8 +45,10 @@
 #include "xpuf_generic.h"
 
 /************************** Constant Definitions *****************************/
+#ifndef VERSAL_2VP_P
 #define XPUF_SLR_INDEX_SHIFT (6U) /**< Shift value to get SLR index in the
 				* header of the IPI request */
+#endif
 #define XPUF_ADDR_HIGH_SHIFT (32U) /**< Shift value to get higher 32-bit address */
 
 /**************************** Type Definitions *******************************/
@@ -80,7 +83,9 @@ int XPuf_ClientInit(XPuf_ClientInstance* const InstancePtr, XMailbox* const Mail
 	 */
 	if (InstancePtr != NULL) {
 			InstancePtr->MailboxPtr = MailboxPtr;
+#ifndef VERSAL_2VP_P
 			InstancePtr->SlrIndex = 0U;
+#endif
 			Status = XST_SUCCESS;
 	}
 
@@ -114,10 +119,16 @@ int XPuf_Registration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 	}
 
 	/** - Fill IPI Payload. */
+#ifndef VERSAL_2VP_P
 	XPUF_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
 				| XPUF_PUF_REGISTRATION),
 				DataAddr,
 				(DataAddr >> XPUF_ADDR_HIGH_SHIFT));
+#else
+	XPUF_PACK_PAYLOAD2(Payload, XPUF_PUF_REGISTRATION,
+				DataAddr,
+				(DataAddr >> XPUF_ADDR_HIGH_SHIFT));
+#endif
 
 	/**
 	 * - Send request to server via SMC for EL1 non-secure AArch64 applications or
@@ -159,10 +170,16 @@ int XPuf_Regeneration(const XPuf_ClientInstance *InstancePtr, const u64 DataAddr
 	}
 
 	/** - Fill IPI Payload */
+#ifndef VERSAL_2VP_P
 	XPUF_PACK_PAYLOAD2(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
 				| XPUF_PUF_REGENERATION),
 				DataAddr,
 				(DataAddr >> XPUF_ADDR_HIGH_SHIFT));
+#else
+	XPUF_PACK_PAYLOAD2(Payload, XPUF_PUF_REGENERATION,
+				DataAddr,
+				(DataAddr >> XPUF_ADDR_HIGH_SHIFT));
+#endif
 
 	/**
 	 * - Send request to server via SMC for EL1 non-secure AArch64 applications or
@@ -202,8 +219,12 @@ int XPuf_ClearPufID(const XPuf_ClientInstance *InstancePtr)
 	}
 
 	/** - Fill IPI Payload */
+#ifndef VERSAL_2VP_P
 	XPUF_PACK_PAYLOAD0(Payload, ((InstancePtr->SlrIndex << XPUF_SLR_INDEX_SHIFT)
 				| XPUF_PUF_CLEAR_PUF_ID));
+#else
+	XPUF_PACK_PAYLOAD0(Payload, XPUF_PUF_CLEAR_PUF_ID);
+#endif
 
 	/**
 	 * - Send request to server via SMC for EL1 non-secure AArch64 applications or

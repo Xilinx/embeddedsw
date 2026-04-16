@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -38,6 +38,7 @@
 * 2.0   har  06/09/2022 Added support for Versal_Net
 *                       Removed support for 12K mode
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
+* 2.4   sd   04/13/2026 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -119,10 +120,22 @@ extern "C" {
 		/** Error due to timeout while zeroizing PUF ID */
 
 /***************************** Type Definitions *******************************/
+#if defined(VERSAL_2VP_P)
 typedef struct _XPuf_Data {
-	u8 PufOperation;
-	/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
-	u8 GlobalVarFilter;	/**< Option to configure Global Variation Filter */
+	u8 PufOperation;		/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
+	XPuf_ReadOption ReadOption;	/**< Read helper data from eFuse Cache/DDR */
+	u32 ShutterValue;		/**< Option to configure Shutter Value */
+	u32 SyndromeData[XPUF_SYN_LEN_IN_WORDS];
+					/**< Syndrome data for PUF regeneration */
+	u32 Chash;			/**< Chash for PUF regeneration */
+	u32 PufID[XPUF_ID_LEN_IN_WORDS];/**< PUF ID */
+	u32 SyndromeAddr;		/**< Address of syndrome data */
+	u32 RoSwapVal;			/**< PUF Ring Oscillator Swap setting */
+} XPuf_Data;
+#else
+typedef struct _XPuf_Data {
+	u8 PufOperation;		/**< PUF Registration/ Regeneration On-Demand/ ID only regeneration) */
+	u8 GlobalVarFilter;		/**< Option to configure Global Variation Filter */
 	XPuf_ReadOption ReadOption;	/**< Read helper data from eFuse Cache/DDR */
 	u32 ShutterValue;		/**< Option to configure Shutter Value */
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS];
@@ -133,10 +146,11 @@ typedef struct _XPuf_Data {
 	u32 SyndromeAddr;		/**< Address of syndrome data */
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS];
 					/**< Trimmed data to be written in efuse */
-#if defined (VERSAL_NET)
+#if defined(VERSAL_NET)
 	u32 RoSwapVal;			/**< PUF Ring Oscillator Swap setting */
 #endif
 } XPuf_Data;
+#endif
 
 /**
  * @}
@@ -148,7 +162,9 @@ typedef struct _XPuf_Data {
 /*************************** Function Prototypes ******************************/
 int XPuf_Registration(XPuf_Data *PufData);
 int XPuf_Regeneration(XPuf_Data *PufData);
+#ifndef VERSAL_2VP_P
 int XPuf_GenerateFuseFormat(XPuf_Data *PufData);
+#endif
 int XPuf_ClearPufID(void);
 
 #ifdef __cplusplus

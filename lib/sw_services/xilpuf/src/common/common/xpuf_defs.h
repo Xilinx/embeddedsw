@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.0   kpt  01/04/22 Initial release
 * 2.3   ng   11/22/23 Fixed doxygen grouping
+* 2.4   sd   04/13/26 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -63,6 +64,12 @@ extern "C" {
 						/**< PUF ID length in words */
 #define XPUF_WORD_LENGTH				(0x4U)
 						/**< PUF word length in bytes */
+#if defined(VERSAL_2VP_P)
+#define XPUF_SYN_LEN_IN_WORDS				(30U)
+						/**< PUF syndrome data length in words (VERSAL_2VP_P) */
+#define XPUF_SYN_LEN_IN_BYTES				(XPUF_SYN_LEN_IN_WORDS * XPUF_WORD_LENGTH)
+						/**< PUF syndrome data length in bytes (VERSAL_2VP_P) */
+#endif
 #define XPUF_MAX_SYNDROME_DATA_LEN_IN_BYTES		(XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS * \
 								XPUF_WORD_LENGTH)
 						/**< Max syndrome data length in bytes */
@@ -75,9 +82,9 @@ extern "C" {
 #define XPUF_EFUSE_TRIM_SYN_DATA_IN_BYTES		(XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS * \
 								XPUF_WORD_LENGTH)
 						/**< eFuse trim syndrome data length in bytes */
-#if defined (VERSAL_NET)
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 #define XPUF_SHUTTER_VALUE				(0x01000080U)
-		/**< PUF Shutter Value - Versal Net */
+		/**< PUF Shutter Value - Versal Net / VERSAL_2VP_P */
 #else
 #define XPUF_SHUTTER_VALUE				(0x81000100U)
 		/**< PUF Shutter Value - Versal */
@@ -113,7 +120,7 @@ typedef struct {
 	u64 PufIDAddr;		/**< Address for PUF ID data */
 	u64 SyndromeAddr;	/**< Address for syndrome data */
 	u64 EfuseSynDataAddr;	/**< Address for eFuse syndrome data */
-#if defined (VERSAL_NET)
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 	u32 RoSwapVal;		/**< PUF Ring Oscillator Swap setting */
 #endif
 } XPuf_DataAddr;

@@ -23,6 +23,7 @@
 * 2.3   ng   11/22/23 Fixed doxygen grouping
 * 2.4   ng   04/30/24 Fixed doxygen comments
 * 2.5   obs  02/18/25 Fixed IPI message length
+* 2.6   sd   04/13/26 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -85,9 +86,12 @@ extern "C" {
 /** PUF client instance */
 typedef struct {
 	XMailbox *MailboxPtr;	/**< Pointer to the mailbox instance */
+#ifndef VERSAL_2VP_P
 	u32 SlrIndex;	/**< SLR index for the PUF client */
+#endif
 } XPuf_ClientInstance;
 
+#ifndef VERSAL_2VP_P
 /** Enumeration constants for SlrIndex */
 typedef enum{
 	XPUF_SLR_INDEX_0 = 0,	/**< SLR_INDEX_0 */
@@ -95,6 +99,7 @@ typedef enum{
 	XPUF_SLR_INDEX_2,	/**< SLR_INDEX_2 */
 	XPUF_SLR_INDEX_3	/**< SLR_INDEX_3 */
 } XPuf_SlrIndex;
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 /******************************************************************************/
@@ -125,6 +130,7 @@ static inline u32 PufHeader(u32 Len, u32 ApiId)
 }
 #endif
 
+#ifndef VERSAL_2VP_P
 /******************************************************************************/
 /**
  * @brief	This function sets slr index in the PUF client instance.
@@ -152,6 +158,7 @@ static inline int XPuf_SetSlrIndex(XPuf_ClientInstance *InstancePtr, u32 SlrInde
 
 	return Status;
 }
+#endif /* VERSAL_2VP_P */
 
 /************************** Variable Definitions *****************************/
 

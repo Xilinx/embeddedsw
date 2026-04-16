@@ -23,6 +23,7 @@
 * 2.1   am   02/13/23 Fixed MISRA C violations
 * 2.3   ng   11/22/23 Fixed doxygen grouping
 * 2.7   bha  01/06/26 Fixed Doxygen warnings
+*       sd   04/13/26 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -50,9 +51,13 @@ extern "C" {
 typedef struct {
 	u32 SyndromeData[XPUF_MAX_SYNDROME_DATA_LEN_IN_WORDS]; /**<PUF syndrome data */
 	u32 Chash; /**< PUF Chash */
+#ifndef VERSAL_2VP_P
 	u32 Aux; /**< PUF AUX data */
+#endif
 	u32 PufID[XPUF_ID_LEN_IN_WORDS]; /**< PUF ID */
+#ifndef VERSAL_2VP_P
 	u32 EfuseSynData[XPUF_EFUSE_TRIM_SYN_DATA_IN_WORDS]; /**< Trimmed data to be written in efuse */
+#endif
 } XPuf_PufData;
 
 /***************** Macros (Inline Functions) Definitions *********************/

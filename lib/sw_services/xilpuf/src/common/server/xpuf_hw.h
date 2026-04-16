@@ -33,6 +33,7 @@
 *       vss  09/21/2023 Fixed doxygen warnings
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.7   bha  01/06/2026 Fixed Doxygen warnings
+*       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -57,10 +58,12 @@ extern "C" {
 			/**< GLOBAL Control register offset */
 #define XPUF_PMC_GLOBAL_PUF_CMD_OFFSET			(0x00040000U)
 			/**< PUF Command register offset */
+#ifndef VERSAL_2VP_P
 #define XPUF_PMC_GLOBAL_PUF_CFG0_OFFSET			(0x00040004U)
 			/**< PUF Configuration 0 register offset */
 #define XPUF_PMC_GLOBAL_PUF_CFG1_OFFSET			(0x00040008U)
 			/**< PUF Configuration 1 register offset */
+#endif
 #define XPUF_PMC_GLOBAL_PUF_SHUT_OFFSET			(0x0004000CU)
 			/**< PUF Shutter register offset */
 #define XPUF_PMC_GLOBAL_PUF_STATUS_OFFSET		(0x00040010U)
@@ -69,8 +72,10 @@ extern "C" {
 			/**< PUF Word register offset */
 #define XPUF_PMC_GLOBAL_PUF_SYN_ADDR_OFFSET		(0x00040020U)
 			/**< PUF Syndrome Address register offset */
+#ifndef VERSAL_2VP_P
 #define XPUF_PMC_GLOBAL_PUF_AUX_OFFSET			(0x00040024U)
 			/**< PUF AUX register offset */
+#endif
 #define XPUF_PMC_GLOBAL_PUF_CHASH_OFFSET		(0x00040028U)
 			/**< PUF CHASH register offset */
 #define XPUF_PMC_GLOBAL_PUF_CLEAR_OFFSET		(0x0004002CU)
@@ -91,11 +96,18 @@ extern "C" {
  * @name  PUF Command register definition
  * @{
  */
+#if defined(VERSAL_2VP_P)
+#define XPUF_CMD_ENROLLMENT			(0x09U)	/**< PUF Enrollment command */
+#define XPUF_CMD_REGEN_ON_DEMAND	(0x0AU)	/**< PUF Regenerate On-Demand command */
+#define XPUF_CMD_REGEN_ID_ONLY		(0x0BU)	/**< PUF Regenerate ID Only command */
+#else
 #define XPUF_CMD_REGISTRATION		(0x01U)	/**< PUF Registration command */
 #define XPUF_CMD_REGEN_ON_DEMAND	(0x02U)	/**< PUF Regenerate On-Demand command */
 #define XPUF_CMD_REGEN_ID_ONLY		(0x03U)	/**< PUF Regenerate ID Only command */
+#endif
 /** @} */
 
+#ifndef VERSAL_2VP_P
 /**
  * @name  PUF Configuration 0 register definition
  * @{
@@ -113,6 +125,7 @@ extern "C" {
 #define XPUF_CFG1_INIT_VAL_12K			(0x00230150U)
 			/**< PUF Configuration 1 register value for 12K Registration mode */
 /** @} */
+#endif /* VERSAL_2VP_P */
 
 /**
  * @name  PUF Status register definition

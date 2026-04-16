@@ -1,6 +1,6 @@
 ###############################################################################
 # Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 #
 # Modification History
@@ -9,6 +9,7 @@
 # ----- ---- -------- -----------------------------------------------
 # 1.0   kal  08/01/19 Initial Release
 # 2.0   kpt  08/25/22 Changed user configurable parameter names
+# 3.0   sd   04/13/26 Added PUF support for VERSAL_2VP_P
 #
 ##############################################################################
 
@@ -23,9 +24,11 @@ proc puf_drc {libhandle} {
 	set mode [common::get_property CONFIG.xpuf_mode $libhandle]
 	set proc_type [common::get_property IP_NAME [hsi::get_cells -hier $hw_processor]];
 	set os_type [hsi::get_os];
-	set server "src/versal_gen/server/"
-	set client "src/versal_gen/client/"
-	set common  "src/versal_gen/common/"
+	set common_common  "src/common/common/"
+	set common_server  "src/common/server/"
+	set common_client  "src/common/client/"
+	set versal_gen_server     "src/versal_gen/server/"
+	set versal_2vp_p_server   "src/versal_2vp_p/server/"
 
 	if {$proc_type != "psv_pmc" && $proc_type != "psv_cortexa72" &&
 		$proc_type != "psv_cortexr5" && $proc_type != "psu_pmc" &&
@@ -44,13 +47,31 @@ proc puf_drc {libhandle} {
 			return;
 		}
 	}
-	foreach entry [glob -nocomplain -types f [file join $common *]] {
-			file copy -force $entry "./src"
+
+	# Detect versal_2vp_p device via part name (xc2vp*)
+	set hw [hsi::get_hw_designs]
+	set part [common::get_property PART $hw]
+	set is_versal_2vp_p [string match -nocase "xc2vp*" $part]
+
+	# Copy shared common defs (xpuf_defs.h, xpuf_ver.h)
+	foreach entry [glob -nocomplain -types f [file join $common_common *]] {
+		file copy -force $entry "./src"
 	}
 
 	if {$proc_type == "psu_pmc" || $proc_type == "psv_pmc" || $proc_type == "psxl_pmc" || $proc_type == "psx_pmc" || $mode == "server"} {
-		foreach entry [glob -nocomplain -types f [file join "$server" *]] {
+		# Copy shared server files (xpuf.h, xpuf_hw.h, xpuf_cmd, xpuf_init, etc.)
+		foreach entry [glob -nocomplain -types f [file join "$common_server" *]] {
 			file copy -force $entry "./src"
+		}
+		# Copy platform-specific server files
+		if {$is_versal_2vp_p} {
+			foreach entry [glob -nocomplain -types f [file join "$versal_2vp_p_server" *]] {
+				file copy -force $entry "./src"
+			}
+		} else {
+			foreach entry [glob -nocomplain -types f [file join "$versal_gen_server" *]] {
+				file copy -force $entry "./src"
+			}
 		}
 	} elseif {$proc_type == "psu_cortexa72" || $proc_type == "psv_cortexa72" ||
 		$proc_type == "psv_cortexr5" || $proc_type == "psxl_cortexa78" ||
@@ -60,7 +81,7 @@ proc puf_drc {libhandle} {
 		if { [llength $librarylist] == 0 } {
 			error "This library requires xilmailbox library in the Board Support Package.";
 		}
-		foreach entry [glob -nocomplain -types f [file join "$client" *]] {
+		foreach entry [glob -nocomplain -types f [file join "$common_client" *]] {
 			file copy -force $entry "./src"
 		}
 	}

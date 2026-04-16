@@ -16,6 +16,7 @@
 * 2.3   sd  10/13/25 Initial release
 * 2.4   vss 02/01/26 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
 *       tvp 02/04/26 Add register addresses for efuse ppk hash
+*       sd  04/13/26 Added PUF support for VERSAL_2VP_P
 * </pre>
 *
 ***************************************************************************************************/
@@ -148,6 +149,7 @@ typedef struct {
 	u32 PdiKeySrc;	/**< PDI Key Source */
 	u32 PufHdLocation;	/**< PUF helper data location */
 	u32 PufShutterValue; /**< PUF shutter value */
+	u32 PufRoSwapEn; /**< PUF ring oscillator configuration */
 	XSecure_AesKeySrc KeySrc;	/**< Source key source */
 	XSecure_AesKeySrc KeyDst;	/**< Destination key source */
 	u64 KekIvAddr;	 /**< KEK IV address */

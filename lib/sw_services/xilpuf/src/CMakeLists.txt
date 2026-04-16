@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 cmake_minimum_required(VERSION 3.15)
@@ -23,7 +23,12 @@ if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "plm_microblaze")
 endif()
 
 if("${CMAKE_MACHINE}" STREQUAL "Versal" OR "${CMAKE_MACHINE}" STREQUAL "VersalNet")
-  add_subdirectory(versal_gen)
+  add_subdirectory(common)
+  if("Versal_2VP_P" IN_LIST VARIANT)
+    add_subdirectory(versal_2vp_p)
+  else()
+    add_subdirectory(versal_gen)
+  endif()
 elseif("${CMAKE_MACHINE}" STREQUAL "spartanuplus")
  add_subdirectory(spartanup)
 endif()
