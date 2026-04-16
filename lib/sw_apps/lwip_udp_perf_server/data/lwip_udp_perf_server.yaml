@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 title: LwIP UDP Perf Server
 maintainers: [Vineeth Karumanchi <vineeth.karumanchi@amd.com>]
@@ -44,6 +44,9 @@ depends_libs:
 linker_constraints:
     stack: 0xA000
     heap: 0xA000
+required_mem:
+  any:
+    size: 0x180000
 depends:
   emaclite: [reg, interrupts]
   axiethernet: [reg, interrupts]
