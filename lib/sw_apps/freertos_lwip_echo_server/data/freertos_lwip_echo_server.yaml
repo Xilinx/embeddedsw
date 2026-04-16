@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 title: FreeRTOS LwIP Echo Server
 maintainers: [Vineeth Karumanchi <vineeth.karumanchi@amd.com>]
@@ -37,6 +37,9 @@ supported_os: [freertos10_xilinx]
 linker_constraints:
     stack: 0xA000
     heap: 0xA000
+required_mem:
+  any:
+    size: 0x180000
 depends:
   emaclite: [reg, interrupts]
   axiethernet: [reg, interrupts]
