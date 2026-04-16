@@ -28,6 +28,7 @@
 *       tvp  02/23/26 Add SHAKE256 SLH-DSA Chaining algorithm support
 *       tvp  02/23/26 Add XSecure_ExtendedShaFinish to support variable-length
 *                     hash output
+*       tvp  04/15/26 Add SHA mode validation in XSecure_ExtendedShaFinish
 *
 * </pre>
 *
@@ -464,6 +465,19 @@ int XSecure_ExtendedShaFinish(XSecure_Sha* const InstancePtr, u64 HashAddr,
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
 	}
+
+#ifdef XSECURE_SHA_CHAIN_MODE_EN
+	if ((ShaPlatConfig->ShaMode != SHAKE256) &&
+			(ShaPlatConfig->ShaMode != SHAKE256_SLH_DSA_CHAIN)) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+#else
+	if (ShaPlatConfig->ShaMode != SHAKE256) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+#endif
 
 	if (InstancePtr->ShaState != XSECURE_SHA_UPDATE_DONE) {
 		/**
