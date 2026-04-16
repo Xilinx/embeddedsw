@@ -23,8 +23,9 @@
 *       am   02/13/2023 Fixed MISRA C violations
 *       am   02/17/2023 Fixed HIS_COMF violations
 * 2.2   bm   06/23/2023 Added access permissions for IPI commands
-* 2.3   ng   11/22/23 Fixed doxygen grouping
-* 2.7   tus  11/07/2026 Fix MISRA C Rule 10.3
+* 2.3   ng   11/22/2023 Fixed doxygen grouping
+* 2.7   tus  04/07/2026 Fix MISRA C Rule 10.3
+*       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
 *
 * </pre>
 *
@@ -44,7 +45,7 @@
 #include "xpuf_ipihandler.h"
 #include "xpuf_defs.h"
 #include "xpuf_cmd.h"
-#ifndef VERSAL_NET
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VP_P))
 #include "xplmi_ssit.h"
 #endif
 
@@ -70,7 +71,7 @@ static XPlmi_Module XPlmi_Puf =
 	XPUF_API(XPUF_API_MAX),
 	XPuf_InvalidCmdHandler,
 	XPuf_AccessPermBuff,
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 	NULL
 #endif
 };
@@ -96,7 +97,7 @@ static int XPuf_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
 {
 	volatile int Status = XST_FAILURE;
 
-#ifndef VERSAL_NET
+#if (!defined(VERSAL_NET) && !defined(VERSAL_2VP_P))
 	Status = XPlmi_SendIpiCmdToSlaveSlr(Payload, RespBuf);
 #else
 	(void)Payload;

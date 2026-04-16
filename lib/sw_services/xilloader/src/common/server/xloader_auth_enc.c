@@ -172,6 +172,8 @@
 *       vss  03/30/26 Fix for get partition hash index calculation for IPU/Full metaheader.
 *       tvp  03/31/2026 Use generic API to increment IV
 *       rpu  04/14/2026 Moved Hashblock related code to xloader_secure.c
+*       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
+*
 * </pre>
 *
 * @note
@@ -2193,7 +2195,7 @@ static int XLoader_AesKeySelect(const XLoader_SecureParams *SecurePtr,
 
 	if (DecryptBlkKey == (u32)TRUE) {
 		KeyDetails->PufShutterValue = BootHdr->PufShutterVal;
-#ifdef VERSAL_NET
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 		KeyDetails->PufRoSwapEn = BootHdr->PufRingOscConfig;
 #endif
 		Status = XLoader_DecryptBlkKey(SecurePtr->AesInstPtr, KeyDetails);
@@ -2489,9 +2491,11 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 	XPlmi_Printf(DEBUG_INFO, "Decrypting PUF KEK\n\r");
 	PufData->ShutterValue = KeyDetails->PufShutterValue;
 	PufData->PufOperation = XPUF_REGEN_ON_DEMAND;
+#ifndef VERSAL_2VP_P
 	PufData->GlobalVarFilter = (u8)(PufData->ShutterValue >>
 		XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
-#ifdef VERSAL_NET
+#endif
+#if (defined(VERSAL_NET) || defined(VERSAL_2VP_P))
 	PufData->ShutterValue = PufData->ShutterValue &
 					~(XPLMI_BIT(XLOADER_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT));
 	PufData->RoSwapVal = KeyDetails->PufRoSwapEn;
@@ -2501,9 +2505,14 @@ static int XLoader_DecryptBlkKey(const XSecure_Aes *AesInstPtr,
 		PufData->ReadOption = XPUF_READ_FROM_RAM;
 		PufData->SyndromeAddr = XIH_BH_PRAM_ADDR + XIH_BH_PUF_HD_OFFSET;
 		PufData->Chash = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_CHASH_OFFSET);
+#ifndef VERSAL_2VP_P
 		PufData->Aux = *(u32 *)(XIH_BH_PRAM_ADDR + XIH_BH_PUF_AUX_OFFSET);
 		XPlmi_Printf(DEBUG_INFO, "BHDR PUF HELPER DATA with CHASH:"
 			"%0x and AUX:%0x\n\r", PufData->Chash, PufData->Aux);
+#else
+		XPlmi_Printf(DEBUG_INFO, "BHDR PUF HELPER DATA with CHASH:"
+			"%0x\n\r", PufData->Chash);
+#endif
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "EFUSE PUF HELPER DATA\n\r");

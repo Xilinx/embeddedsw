@@ -73,8 +73,9 @@ cp -r $BSP_DIR/libsrc/xilplmi/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilpuf/src
 cp -r $SERVICES_DIR/xilpuf/src/Makefile $BSP_DIR/libsrc/xilpuf/src
-cp -r $SERVICES_DIR/xilpuf/src/versal_gen/common/* $BSP_DIR/libsrc/xilpuf/src
-cp -r $SERVICES_DIR/xilpuf/src/versal_gen/server/* $BSP_DIR/libsrc/xilpuf/src
+cp -r $SERVICES_DIR/xilpuf/src/common/common/* $BSP_DIR/libsrc/xilpuf/src
+cp -r $SERVICES_DIR/xilpuf/src/common/server/* $BSP_DIR/libsrc/xilpuf/src
+cp -r $SERVICES_DIR/xilpuf/src/versal_2vp_p/server/* $BSP_DIR/libsrc/xilpuf/src
 cp -r $BSP_DIR/libsrc/xilpuf/src/*.h $BSP_DIR/include/
 
 mkdir -p $BSP_DIR/libsrc/xilloader/src
