@@ -221,7 +221,7 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 	u8 InitValue[XSECURE_AES_64BIT_BLOCK_SIZE];
 	u8 DecInput[XSECURE_AES_64BIT_BLOCK_SIZE * 2U];
 	u8 DecOut[XSECURE_AES_64BIT_BLOCK_SIZE * 2U];
-	u32 AesBlkRoundNum;
+	volatile u32 AesBlkRoundNum;
 	volatile int AesRoundNum;
 
 	MaxRounds = (Size / XSECURE_AES_64BIT_BLOCK_SIZE) - 1U;
@@ -288,6 +288,11 @@ int XSecure_AesKeyUnwrap(XSecure_Aes *InstancePtr, u8 *EphAesKey, XSecure_AesKey
 				XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 				goto END;
 			}
+		}
+		/* Loop counter glitch check */
+		if (AesBlkRoundNum != 0U) {
+			XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
+			goto END;
 		}
 	}
 
