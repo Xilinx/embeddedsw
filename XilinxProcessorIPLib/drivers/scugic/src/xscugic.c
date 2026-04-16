@@ -186,6 +186,10 @@
 *                     documentation.
 * 5.7   ml   03/05/26 Updated XScuGic_Disable() to use correct offset for disabling
 *                     SGI/PPI interrupts.
+* 5.7   asa  03/13/26 Updated various APIs to fix CPU ID and Cluster ID handling.
+*                     Added code to ensure that during GIC driver initialization
+*                     there are no stale and pending interrupts present.
+*
 * </pre>
 *
 ******************************************************************************/
@@ -213,6 +217,9 @@ static u32 CpuId; /**< CPU Core identifier */
 /************************** Function Prototypes ******************************/
 
 static void StubHandler(void *CallBackRef);
+#if defined (GICv3)
+static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr);
+#endif
 
 /*****************************************************************************/
 /**
@@ -368,6 +375,62 @@ static void DistributorInit(XScuGic *InstancePtr)
 	}
 }
 
+#if defined (GICv3)
+/*****************************************************************************/
+/**
+*
+* Clears stale interrupt state for the current CPU core in warm-restart scenarios
+* where GIC distributor state is preserved but the CPU is restarted.
+*
+* @param	InstancePtr Pointer to the XScuGic instance.
+*
+* @return	None
+*
+*
+******************************************************************************/
+static void XScuGic_ClearPendingInterrupts(const XScuGic *InstancePtr)
+{
+	u32 Int_Id;
+	u32 LocalCpuID = 0U;
+	u32 Target_Cpu;
+	u32 Mask;
+
+	/* Clear SGI/PPI enable and pending state for the restarted core only. */
+	XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_DISABLE_OFFSET, 0xFFFFFFFFU);
+	XScuGic_ReDistSGIPPIWriteReg(InstancePtr, XSCUGIC_PENDING_CLR_OFFSET, 0xFFFFFFFFU);
+
+#if defined (VERSAL_NET)
+#if defined (ARMR52)
+	LocalCpuID = (u32)XGetClusterId();
+	LocalCpuID = (LocalCpuID << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+	LocalCpuID |= (u32)XGetCoreId();
+#else
+	LocalCpuID = XGetClusterId();
+	LocalCpuID = (LocalCpuID << XSCUGIC_IROUTER_AFFINITY2_SHIFT);
+	LocalCpuID |= ((u32)XGetCoreId() << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+#endif
+#endif
+
+	for (Int_Id = XSCUGIC_SPI_INT_ID_START;
+		 Int_Id < XSCUGIC_MAX_NUM_INTR_INPUTS;
+		 Int_Id++) {
+		Target_Cpu = XScuGic_DistReadReg(InstancePtr,
+						 XSCUGIC_IROUTER_OFFSET_CALC(Int_Id));
+		if (Target_Cpu == LocalCpuID) {
+			Mask = (u32)0x00000001U << (Int_Id % 32U);
+			XScuGic_DistWriteReg(InstancePtr,
+					     XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_DISABLE_OFFSET,
+								      Int_Id),
+					     Mask);
+			XScuGic_DistWriteReg(InstancePtr,
+					     XSCUGIC_EN_DIS_OFFSET_CALC(XSCUGIC_PENDING_CLR_OFFSET,
+								      Int_Id),
+					     Mask);
+		}
+	}
+}
+#endif
+
 #if !defined (GICv3)
 /*****************************************************************************/
 /**
@@ -518,6 +581,9 @@ s32  XScuGic_CfgInitialize(XScuGic *InstancePtr,
 		isb();
 #endif
 		XScuGic_Stop(InstancePtr);
+#if defined (GICv3)
+		XScuGic_ClearPendingInterrupts(InstancePtr);
+#endif
 		DistributorInit(InstancePtr);
 #if defined (GICv3)
 		XScuGic_Enable_Group1_Interrupts();
@@ -690,12 +756,8 @@ void XScuGic_Enable(XScuGic *InstancePtr, u32 Int_Id)
 	}
 #endif
 #if defined (VERSAL_NET)
-#if defined (ARMR52)
-	Cpu_Identifier = XGetCoreId();
-#else
 	Cpu_Identifier = XGetCoreId();
 	Cpu_Identifier |= (XGetClusterId() << XSCUGIC_CLUSTERID_SHIFT);
-#endif
 #endif
 	XScuGic_InterruptMaptoCpu(InstancePtr, Cpu_Identifier, Int_Id);
 	/*
@@ -848,9 +910,9 @@ s32  XScuGic_SoftwareIntr(XScuGic *InstancePtr, u32 Int_Id, u32 Cpu_Identifier)
 #if defined (GICv3)
 #if defined (VERSAL_NET)
 #if defined (ARMR52)
-	Mask = ((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
-	Mask =	( Mask << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
-	Mask |= (Cpu_Identifier & XSCUGIC_COREID_MASK);
+	Mask = ((u64)((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >>
+	XSCUGIC_CLUSTERID_SHIFT) << XSCUGIC_SGI1R_AFFINITY1_SHIFT);
+	Mask |= ((u64)1U << ((u32)Cpu_Identifier & XSCUGIC_COREID_MASK));
 #else
 	Mask = ((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
 	Mask =  ( Mask << XSCUGIC_SGI1R_AFFINITY2_SHIFT);
@@ -1136,7 +1198,9 @@ void XScuGic_InterruptMaptoCpu(XScuGic *InstancePtr, u8 Cpu_Identifier, u32 Int_
 
 #if defined (VERSAL_NET)
 #if defined (ARMR52)
-		RegValue = (Cpu_Identifier & XSCUGIC_COREID_MASK);
+		RegValue = ((u32)(Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
+		RegValue = (RegValue << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+		RegValue |= (u32)(Cpu_Identifier & XSCUGIC_COREID_MASK);
 #else
 		RegValue = ((Cpu_Identifier & XSCUGIC_CLUSTERID_MASK) >> XSCUGIC_CLUSTERID_SHIFT);
 		RegValue = (RegValue << XSCUGIC_IROUTER_AFFINITY2_SHIFT);
@@ -1361,7 +1425,9 @@ void XScuGic_Stop(XScuGic *InstancePtr)
 #if defined (GICv3)
 #if defined (VERSAL_NET)
 #if defined (ARMR52)
-	LocalCpuID = XGetCoreId();
+	LocalCpuID = (u32)XGetClusterId();
+	LocalCpuID = (LocalCpuID << XSCUGIC_IROUTER_AFFINITY1_SHIFT);
+	LocalCpuID |= (u32)XGetCoreId();
 #else
 	/* VERSAL_NET CortexA78 case */
 	LocalCpuID = XGetClusterId();

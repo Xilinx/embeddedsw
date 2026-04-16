@@ -36,12 +36,17 @@
 *                     VERSAL_NET SoC.
 * 5.2   mus  07/27/23 Removed dependency on XPAR_CPU_ID.
 * 5.2   ml   02/21/24 Fix compilation error reported by C++ compiler.
-* 5.2   mus  04/33/34 Use interrupt wrapper APIs in case of SDT flow.
+* 5.2   mus  04/13/24 Use interrupt wrapper APIs in case of SDT flow.
 * 5.5   ml   02/05/25 Fixed compilation warnings and errors
 * 5.6   ml   07/21/25 Fixed GCC warnings.
 * 5.7   bdk  12/08/25 Updated comments to support SDT flow for Doxygen
 *                     documentation.
 * 5.7   ml   03/03/26 Extend PPI timer test to all supported platforms (GICv1/v2/v3)
+* 5.7   asa  03/13/26 To fix logical issue in the API XScuGic_SoftwareIntr
+*                     changes were made with regards to CPU ID and
+*                     Cluster ID handling for Cortex-R52. These changes
+*                     needed a change in the example for Cortex-R52
+*                     Software Interrupt handling.
 * </pre>
 ******************************************************************************/
 
@@ -296,10 +301,6 @@ int ScuGicExample(void)
 	CoreId = XGetCoreId();
 #if defined (VERSAL_NET)
 	ClusterId = XGetClusterId();
-
-#if defined (ARMR52)
-	CoreId = (1 << CoreId);
-#endif
 
 	CpuId = ((ClusterId << XSCUGIC_CLUSTERID_SHIFT ) | CoreId);
 #else
