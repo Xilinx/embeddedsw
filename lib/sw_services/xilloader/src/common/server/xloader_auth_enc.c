@@ -1238,8 +1238,12 @@ static int XLoader_PpkCompare(const u32 EfusePpkOffset, const u8 *PpkHash)
 * @param	PpkHash  Pointer to the PPK hash to be verified.
 *
 * @return
-*			- XST_SUCCESS on success.
-*			- Error code on corresponding failure
+* 		- XST_SUCCESS on success.
+* 		- XLOADER_SEC_INVALID_PPK_CHOICE_ERR if invalid PPK selection.
+* 		- XLOADER_SEC_PPK_HASH_COMPARE_FAIL if PPK hash comparison failed.
+* 		- XLOADER_SEC_PPK_HASH_ALLZERO_INVLD if PPK hash is all zeros.
+* 		- XLOADER_SEC_ALL_PPK_REVOKED_ERR if all PPKs are revoked.
+* 		- XLOADER_SEC_SEL_PPK_REVOKED_ERR if selected PPK is revoked.
 *
 ******************************************************************************/
 int XLoader_IsPpkValid(const u8 *PpkHash)
@@ -2710,8 +2714,8 @@ int XLoader_DisableJtag(void)
 * 			also places	AES, ECDSA_RSA in reset.
 *
 * @return
-* 			- XST_SUCCESS on success.
-* 			- XST_FAILURE on failure.
+* 		- XST_SUCCESS on success.
+* 		- XST_FAILURE on failure.
 *
 ******************************************************************************/
 int XLoader_AuthEncClear(void)
@@ -2765,8 +2769,8 @@ int XLoader_AuthEncClear(void)
  * @param	DecKeySrc is pointer to the Decrypt Key source
  *
  * @return
- *			 - XST_SUCCESS on success.
- *			 - ErrorCode on failure.
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_SEC_KEY_CLEAR_FAILED_ERROR if AES key clear fails.
  *
  *****************************************************************************/
 int XLoader_ClearAesKey(u32 *DecKeySrc)
@@ -2797,8 +2801,8 @@ int XLoader_ClearAesKey(u32 *DecKeySrc)
  * @brief	This function clears the AES PUF,RED and expanded keys
  *
  * @return
- *			 - XST_SUCCESS on success.
- *			 - ErrorCode on failure.
+ * 			- XST_SUCCESS on success.
+ * 			- XST_FAILURE if AES key zero or AES reset fails.
  *
  *****************************************************************************/
 static int XLoader_ClearAesKeysOnCfg(void)
@@ -3026,7 +3030,9 @@ END:
 * @param    Var - Value of secure state stored in variable
 * @param    ExpectedValue - Expected value of secure state
 *
-* @return   XST_SUCCESS on success and error code on failure
+* @return
+* 		- XST_SUCCESS on success.
+* 		- XST_FAILURE if RegVal, Var, or ExpectedValue do not all match.
 *
 ******************************************************************************/
 int XLoader_CheckSecureState(u32 RegVal, u32 Var, u32 ExpectedValue)
@@ -3194,8 +3200,8 @@ END:
 * @param	Hash - Pointer the hash u8 array
 *
 * @return
-*		- XST_SUCCESS in case of success
-*		- XST_FAILURE in case of failure
+* 		- XST_SUCCESS on success.
+* 		- XST_FAILURE if SHA digest calculation fails.
 *
 *******************************************************************************/
 int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash)
@@ -3218,8 +3224,9 @@ int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash)
  * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
  *
  * @return
- * 		XST_SUCCESS on success.
- * 		ErrorCode on failure.
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_IMGHDR if image header read fails.
+ * 		- XLOADER_ERR_PRTNHDR if partition header read fails.
  *
  ******************************************************************************/
 static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
@@ -3287,7 +3294,7 @@ END:
  *
  * @return
  *          - XST_SUCCESS on success.
- *          - Errorcode on failure.
+ *          - XST_FAILURE on failure.
  *
  ******************************************************************************/
 static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
@@ -3441,8 +3448,20 @@ END:
  * @param	HBSignParams	Pointer to the XLoader_HBSignParams
  *
  * @return
- *		XST_SUCCESS - Auth data is validated successfully
- *		ErrorCode - In case of failure
+ * 		- XST_SUCCESS on successful authentication.
+ * 		- XLOADER_ERR_PPK_COPY_FAIL if PPK copy from flash fails.
+ * 		- XLOADER_ERR_GET_LMS_ALGO_FAILED if getting LMS hash algorithm fails.
+ * 		- XLOADER_ERR_KAT_FAILED if LMS KAT fails.
+ * 		- XLOADER_ERR_SPK_HEADER_COPY_FAIL if SPK header copy fails.
+ * 		- XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL if SPK header validation fails.
+ * 		- XLOADER_ERR_SPK_COPY_FAIL if SPK copy fails.
+ * 		- XLOADER_ERR_SPK_SIGN_COPY_FAIL if SPK signature copy fails.
+ * 		- XLOADER_ERR_KEY_AUTH_FAIL if SPK authentication fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_COPY_FAIL if HashBlock copy fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL if HashBlock signature copy fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL if HashBlock hash calculation fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL if HashBlock signature verification fails.
+ * 		- XLOADER_SEC_BUF_CLEAR_ERR if buffer clear fails.
  *
  ******************************************************************************/
 static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
@@ -3587,12 +3606,12 @@ static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
 	else if ((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
 		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) {
 		XSECURE_TEMPORAL_IMPL(Status, SStatus, XLoader_VerifyLmsSignature, SecurePtr,
-			(u8 *)&SecurePtr->AcPtr->HBSignature,
-			HBSignParams->ActualHBSignSize,
-			(u8 *)&SecurePtr->AcPtr->Spk,
-			SecurePtr->AcPtr->SpkHeader.SPKSize,
-			(u8 *)&MetaHdrPtr->HashBlock.HashData,
-			HBSignParams->HBSize);
+				(u8 *)&SecurePtr->AcPtr->HBSignature,
+				HBSignParams->ActualHBSignSize,
+				(u8 *)&SecurePtr->AcPtr->Spk,
+				SecurePtr->AcPtr->SpkHeader.SPKSize,
+				(u8 *)&MetaHdrPtr->HashBlock.HashData,
+				HBSignParams->HBSize);
 	}
 	else {
 		/* Not supported */
@@ -3961,7 +3980,20 @@ static int XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Algo2)
  *
  * @return
  * 		- XST_SUCCESS on successful verification.
- * 		- Error code on failure.
+ * 		- XLOADER_ERR_PPK_COPY_FAIL if PPK copy fails.
+ * 		- XLOADER_ERR_GET_LMS_ALGO_FAILED if getting LMS hash algorithm fails.
+ * 		- XLOADER_ERR_KAT_FAILED if LMS KAT fails.
+ * 		- XLOADER_ERR_SPK_HEADER_COPY_FAIL if SPK header copy fails.
+ * 		- XLOADER_ERR_INCORRECT_KEY if key permission check fails.
+ * 		- XLOADER_ERR_KEY_ALGO_MISMATCH if SPK algorithm does not match PPK algorithm.
+ * 		- XLOADER_ERR_SPK_COPY_FAIL if SPK copy fails.
+ * 		- XLOADER_ERR_SIGN_HDR_COPY_FAIL if signature header copy fails.
+ * 		- XLOADER_ERR_SPK_SIGN_COPY_FAIL if SPK/HB signature copy or size validation fails.
+ * 		- XLOADER_ERR_KEY_AUTH_FAIL if SPK authentication fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL if HashBlock signature copy fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL if HashBlock hash calculation fails.
+ * 		- XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL if HashBlock signature verification fails.
+ * 		- XLOADER_SEC_INVALID_AUTH if authentication type is invalid.
  *
  ******************************************************************************/
 static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
@@ -4191,8 +4223,12 @@ END:
  * @param	HBSignParams	Pointer to the XLoader_HBSignParams.
  *
  * @return
- *		- XST_SUCCESS if Auth data is validated successfully.
- *		- ErrorCode in case of failure.
+ * 		- XST_SUCCESS on successful authentication.
+ * 		- XLOADER_ERR_HASH_BLOCK_COPY_FAIL if HashBlock copy fails.
+ * 		- XLOADER_ERR_PPK_HEADER_COPY_FAIL if PPK header copy fails.
+ * 		- XLOADER_ERR_INCORRECT_KEY if PPK key permission check fails.
+ * 		- XLOADER_ERR_INVALID_HYBRID_KEYPAIR if hybrid key pair validation fails.
+ * 		- XLOADER_SEC_BUF_CLEAR_ERR if buffer clear fails.
  *
  ******************************************************************************/
 static int XLoader_AuthenticateHashBlock(XLoader_SecureParams *SecurePtr,
@@ -4348,7 +4384,10 @@ END:
 *
 * @return
 * 		- XST_SUCCESS on success.
-*		- ErrorCode on failure.
+* 		- XLOADER_SEC_LMS_SIGN_VERIFY_FAIL if SHA engine start fails
+* 		during LMS verification.
+* 		- XLOADER_SEC_LMS_PUBKEY_SIZE_VALIDATE_ERR if the public key
+* 		length is invalid.
 *
 ******************************************************************************/
 static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
@@ -4452,8 +4491,11 @@ END:
  * @param	HBParams	- Pointer to the XLoader_HBAesParams instance
  *
  * @return
- *             	XST_SUCCESS	- Upon Success
- *             	ErrorCode	- Upon Failure
+ * 		- XST_SUCCESS on success.
+ * 		- XLOADER_ERR_HASH_BLOCK_TAG_COPY_FAIL if HashBlock GCM tag copy fails.
+ * 		- XLOADER_SEC_AES_OPERATION_FAILED if AES decrypt init fails.
+ * 		- XLOADER_SEC_AES_AAD_OPERATION_FAILED if AES AAD update and validation fails.
+ * 		- XLOADER_SEC_BUF_CLEAR_ERR if GCM tag buffer clear fails.
  *
  ******************************************************************************/
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
@@ -4589,7 +4631,11 @@ END:
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 * @param	AuthType is public algorithm type
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+* 		- XST_SUCCESS on success.
+* 		- XLOADER_ERR_LMS_HSS_GET_DMA if DMA instance acquire fails for HSS variant.
+* 		- XLOADER_ERR_LMS_GET_DMA if DMA instance acquire fails for LMS variant.
+* 		- XLOADER_SEC_KAT_FAILED_ERROR if any LMS KAT fails.
 *
 ******************************************************************************/
 static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)
@@ -4748,8 +4794,11 @@ END:
 * @param    HashPtr is pointer to Hash array
 * @param    PrtnHashIndex is index of partition hash in IHT optional data
 *
-* @return	XST_SUCCESS on success
-*               error code on failure
+* @return
+* 		- XST_SUCCESS on success.
+* 		- XLOADER_SEC_PRTN_HASH_NOT_PRESENT_IN_IHT_OP_DATA_ERR if partition
+* 		hash is not present in IHT optional data.
+* 		- XLOADER_SEC_PRTN_HASH_COMPARE_FAIL_ERR if partition hash comparison fails.
 *
 ******************************************************************************/
 static int XLoader_CheckAndCompareHashFromIHTOptionalData(XilPdi *PdiPtr, u8 *HashPtr, u32 PrtnHashIndex)
@@ -5617,9 +5666,21 @@ END:
 *			copied on successful verification.
 *
 * @return
- *			- XST_SUCCESS on successful authentication and copy.
- *			- An error code (for example, XLOADER_ERR_* or XSECURE_*)
- *		  	describing the failure reason.
+* 		- XST_SUCCESS on successful authentication and copy.
+* 		- XLOADER_ERR_PPK_COPY_FAIL if PPK copy fails.
+* 		- XLOADER_ERR_GET_LMS_ALGO_FAILED if getting LMS hash algorithm fails.
+* 		- XLOADER_ERR_KAT_FAILED if LMS KAT fails.
+* 		- XLOADER_ERR_SPK_HEADER_COPY_FAIL if SPK header copy fails.
+* 		- XLOADER_ERR_SPK_HEADER_VALIDATE_FAIL if SPK header validation fails.
+* 		- XLOADER_ERR_SPK_COPY_FAIL if SPK copy fails.
+* 		- XLOADER_ERR_SPK_SIGN_COPY_FAIL if SPK signature copy fails.
+* 		- XLOADER_ERR_KEY_AUTH_FAIL if SPK authentication fails.
+* 		- XLOADER_ERR_HASH_BLOCK_COPY_FAIL if HashBlock copy fails.
+* 		- XLOADER_ERR_HASH_BLOCK_SIGN_COPY_FAIL if HashBlock signature copy fails.
+* 		- XLOADER_ERR_HASH_BLOCK_HASH_CALC_FAIL if HashBlock hash calculation fails.
+* 		- XLOADER_ERR_HASH_BLOCK_SIGN_VERIF_FAIL if HashBlock signature verification fails.
+* 		- XLOADER_SEC_INVALID_AUTH if authentication type is invalid.
+* 		- XLOADER_SEC_BUF_CLEAR_ERR if buffer clear fails.
 *
 ******************************************************************************/
 int XLoader_AuthenticateClientHashBlock(XLoader_SecureParams *SecurePtr,
