@@ -45,6 +45,7 @@ list_mask_poll,0x12a,0,0,0,0,0,0,0,0,CDO,Provides mask poll on the list of addre
 configure_secure_communication,0x12b,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 get_secure_communication_status,0x12d,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 DDRMC_MainReg_StatusSet,0x12e,3,3,3,3,3,3,0,3,IPI,Sets the access status of DDRMC main registers
+inplace_asu_update,0x131,1,1,1,1,1,1,0,1,IPI,In Place ASU Update
 pm_get_api_version,0x201,3,3,3,3,3,3,0,0,IPI,Gives version number of the API
 pm_set_configuration,0x202,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
 pm_get_node_status,0x203,3,3,3,3,3,3,0,0,IPI,Obtains information about the current state of device
