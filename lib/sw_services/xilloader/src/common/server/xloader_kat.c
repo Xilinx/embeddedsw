@@ -53,7 +53,8 @@ static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask);
 *
 * @return
 * 	    - XST_SUCCESS on success
-* 	    - XLOADER_ERR_KAT_FAILED on kat failure
+* 	    - XST_FAILURE if setting SHA3 data context lost fails
+* 	    - XLOADER_ERR_KAT_FAILED on SHA3 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_Sha3Kat(XilPdi *PdiPtr) {
@@ -145,7 +146,10 @@ static void XLoader_ClearKatStatusOnCfg(XilPdi *PdiPtr, u32 PlmKatMask)
 *
 * @param    SecurePtr Pointer to the XLoader_SecureParams instance.
 *
-* @return      XST_SUCCESS on success and error code on failure
+* @return
+* 	    - XST_SUCCESS on success
+* 	    - XST_FAILURE if setting AES data context lost fails
+* 	    - XLOADER_ERR_KAT_FAILED on AES DPACM or AES decrypt KAT failure
 *
 ***************************************************************************************************/
 int XLoader_AesKatTest(XLoader_SecureParams *SecurePtr)
@@ -217,7 +221,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*		- XST_SUCCESS on success
+*		- XLOADER_ERR_KAT_FAILED on SHAKE 256 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_Shake256Kat(XLoader_SecureParams *SecurePtr)
@@ -258,7 +264,9 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*		- XST_SUCCESS on success
+*		- XLOADER_ERR_KAT_FAILED on SHA2-256 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_Sha2256Kat(XLoader_SecureParams *SecurePtr)
@@ -300,7 +308,10 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*		- XST_SUCCESS on success
+*		- XLOADER_ERR_LMS_HSS_GET_DMA if DMA instance is NULL
+*		- XLOADER_ERR_KAT_FAILED on HSS SHA2-256 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr)
@@ -348,7 +359,10 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
+* @return
+*		- XST_SUCCESS on success
+*		- XLOADER_ERR_LMS_HSS_GET_DMA if DMA instance is NULL
+*		- XLOADER_ERR_KAT_FAILED on HSS SHAKE256 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
@@ -395,8 +409,10 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
-
+* @return
+*		- XST_SUCCESS on success
+*		- XLOADER_ERR_LMS_GET_DMA if DMA instance is NULL
+*		- XLOADER_ERR_KAT_FAILED on LMS SHA2-256 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr) {
@@ -443,8 +459,10 @@ END:
 *
 * @param	SecurePtr is pointer to the XLoader_SecureParams instance
 *
-* @return	XST_SUCCESS on success and error code on failure
-
+* @return
+*		- XST_SUCCESS on success
+*		- XLOADER_ERR_LMS_GET_DMA if DMA instance is NULL
+*		- XLOADER_ERR_KAT_FAILED on LMS SHAKE256 KAT failure
 *
 ***************************************************************************************************/
 int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
