@@ -335,7 +335,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	}
 
 	/** - Verify loop index is within expected bounds */
-	if (Index != (NoOfGenerates - 1U)) {
+	if (Index < (NoOfGenerates - 1U)) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}
 
