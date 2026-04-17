@@ -4437,6 +4437,7 @@ static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 		HssInitParams.PublicKeyLen = KeyLen;
 
 		/** - Initiate data authentication using LMS-HSS */
+		Status = XST_FAILURE;
 		Status = XSecure_HssInit(ShaInstPtr, SecurePtr->PmcDmaInstPtr, &HssInitParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
