@@ -564,6 +564,11 @@ XPm_Device *XPmDevice_GetMemRegnByIndex(const u32 MemRegnIndex)
 
 	Device = PmMemRegnDevices[MemRegnIndex];
 
+	/* Check that Device's Index is same as given Index or not. */
+	if ((NULL != Device) && (MemRegnIndex != NODEINDEX(Device->Node.Id))) {
+		Device = NULL;
+	}
+
 done:
 	return Device;
 }
@@ -620,8 +625,6 @@ u32 XPm_GetSysmonByIndex(const u32 SysmonIndex)
 done:
 	return BaseAddress;
 }
-
-
 
 XStatus __attribute__((weak, noinline)) XPmDevice_Release(const u32 SubsystemId, const u32 DeviceId,
 			  const u32 CmdType)
