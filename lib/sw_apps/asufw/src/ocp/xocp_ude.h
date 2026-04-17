@@ -44,7 +44,6 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /************************************ Function Prototypes ****************************************/
-s32 XOcp_GenerateUdeKek(void);
 s32 XOcp_GenerateUdeResponse(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeParams *OcpUdeParamsPtr);
 s32 XOcp_EncryptUdeKeys(XAsufw_Dma *DmaPtr, const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc);
 
