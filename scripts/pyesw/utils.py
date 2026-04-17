@@ -344,6 +344,86 @@ def write_yaml(filepath: str, data):
         yaml.dump(data, outfile, default_flow_style=False, sort_keys=False)
 
 
+def parse_depends_schema(depends_dict: Optional[dict]) -> tuple:
+    """
+    Parse the depends dictionary to determine validation mode and extract driver requirements.
+
+    Supports three formats:
+    1. Traditional flat format: {'driver1': [props], 'driver2': [props]} - all required
+    2. oneOf format: {'oneOf': [{'driver1': [props]}, {'driver2': [props]}]} - at least one required
+    3. anyOf format: {'anyOf': [{'driver1': [props]}, {'driver2': [props]}]} - at least one required
+
+    Args:
+        depends_dict: The depends dictionary from YAML schema
+
+    Returns:
+        tuple: (validation_mode, driver_requirements_dict)
+               validation_mode: 'all', 'oneOf', or 'anyOf'
+               driver_requirements_dict: dict mapping driver names to their required properties
+    """
+    if not depends_dict:
+        return ("all", {})
+
+    # Check for oneOf format
+    for mode in ('oneOf', 'anyOf'):
+        if mode in depends_dict:
+            driver_reqs = {}
+            for item in depends_dict[mode]:
+                if isinstance(item, dict):
+                    driver_reqs.update(item)
+            return (mode, driver_reqs)
+
+    # Traditional flat format - all drivers required
+    driver_reqs = {k: v for k, v in depends_dict.items() if k not in ["condition"]}
+    return ("all", driver_reqs)
+
+
+def validate_depends(depends_dict: Optional[dict], available_drivers: list) -> bool:
+    """
+    Validate if the dependency requirements are satisfied by available drivers.
+
+    Args:
+        depends_dict: The depends dictionary from YAML schema
+        available_drivers: List of driver names available in the hardware
+
+    Returns:
+        bool: True if dependencies are satisfied, False otherwise
+    """
+    if not depends_dict:
+        return True
+
+    mode, driver_reqs = parse_depends_schema(depends_dict)
+    required_drivers = list(driver_reqs.keys())
+
+    if not required_drivers:
+        return True
+
+    if mode in ["oneOf", "anyOf"]:
+        # At least one driver must be present
+        return any(drv in available_drivers for drv in required_drivers)
+    else:
+        # All drivers must be present
+        return all(drv in available_drivers for drv in required_drivers)
+
+
+def get_depends_drivers(depends_dict: Optional[dict]) -> list:
+    """
+    Extract all potential driver names from depends dictionary, regardless of validation mode.
+    This is useful for collecting all possible drivers to check hardware availability.
+
+    Args:
+        depends_dict: The depends dictionary from YAML schema
+
+    Returns:
+        list: List of all driver names mentioned in dependencies
+    """
+    if not depends_dict:
+        return []
+
+    _, driver_reqs = parse_depends_schema(depends_dict)
+    return list(driver_reqs.keys())
+
+
 def update_yaml(
     filepath: str, dir_type: str, key: str, data: Optional[dict], action: str = "add"
 ):
