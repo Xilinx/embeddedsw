@@ -1026,13 +1026,22 @@ static s32 XRsa_ValidateModulusNdInputdata(u8 *BuffAddr, u8 *InputData, u32 Len,
 	/** Now compare InputData with ModulusMinus1 (BuffAddr - 1) */
 	for (Index = 0U; Index < Len; Index++) {
 		if (ModulusMinus1[Index] > InputData[Index]) {
+			/** - If ModulusMinus1 > InputData, set status to success. */
 			Status = XASUFW_SUCCESS;
-			Index = Len;
+			goto END;
 		} else if (ModulusMinus1[Index] < InputData[Index]) {
+			/** - If ModulusMinus1 < InputData, set status to invalid. */
 			Status = XASUFW_RSA_MOD_DATA_INVALID;
-			Index = Len;
+			goto END;
 		} else {
-			/* Continue to next byte when both values are equal. */
+			/**
+			 * - If ModulusMinus1 == InputData and this is the last byte,
+			 *   set status to invalid.
+			 * - Else, continue for next iteration.
+			 */
+			if (Index == (Len - XASUFW_VALUE_ONE)) {
+				Status = XASUFW_RSA_MOD_DATA_INVALID;
+			}
 		}
 	}
 
