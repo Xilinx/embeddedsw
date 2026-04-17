@@ -180,7 +180,10 @@ int main(void)
 	 * Run key transfer and PUF regeneration.
 	 * Run UDE KEK derivation if PUF regeneration is successful.
 	 */
-	XFIH_CALL(XAsufw_RunKeyTransfer, FihVar, Status);
+	XFIH_CALL(XAsufw_PmcKeyTransfer, FihVar, Status);
+	if (Status != XASUFW_SUCCESS) {
+		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "PMC key transfer failed. Error: 0x%x\r\n", Status);
+	}
 
 	/** Enable event notifiers. */
 	Status = XAsufw_EnableDisableEventNotifiers(XASUFW_REGISTER_NOTIFIER_ENABLE);
