@@ -158,8 +158,12 @@ extern "C" {
 #define XPM_ERR_AIE_OPS_HANDSHAKE		(2129L) /**< Error during handshake OP */
 
 /************************** Boot Device Errors ******************************/
-/************************** (2130L) - (2139L) ****************************/
-#define XPM_PMC_BOOT_DEV_RETAINED		(2130L) /**< Boot device retained by PMC per RTCA policy */
+/************************** (2140L) - (2159L) ****************************/
+#define XPM_PMC_BOOT_DEV_RETAINED		(2140L) /**< Boot device retained by PMC per RTCA policy */
+
+/**************************** MEMORY ERRORS ******************************/
+/************************** (2160L) - (2179L) ****************************/
+#define XPM_ERR_MEM_ACCESS_TYPE		(2160L) /**< Invalid memory access type */
 
 /************************** Variable Definitions *****************************/
 
