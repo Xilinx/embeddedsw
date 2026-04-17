@@ -527,18 +527,33 @@ static inline s32 XAsu_ValidateAadLen(const XAsu_AesParams *AesClientParamPtr)
 	}
 	else {
 		/**
-		 * For MAC modes, AAD length and address must be present and length must be within
-		 * maximum DMA limit.
-		 * Allow partial AAD only for the final transfer. Intermediate transfers must be
-		 * block size aligned.
+		 * In MAC only modes (AES-CMAC), AAD is mandatory: AadLen and AadAddr must be non-zero,
+		 * within the allowed DMA limit, and block-size aligned for all intermediate
+		 * transfers (unaligned length allowed only for final transfer).
+		 *
+		 * In GCM/CCM modes, AAD is optional: zero AAD is permitted when valid
+		 * input/output data and data length are provided, allowing payload-only,
+		 * AAD-only, or combined operation.
 		 */
 		Status = XASU_INVALID_ARGUMENT;
 		if ((AesClientParamPtr->AadLen > 0U) && (AesClientParamPtr->AadAddr != 0U) &&
 				(AesClientParamPtr->AadLen <= XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
 			if (((AesClientParamPtr->AadLen % XASU_AES_BLOCK_SIZE_IN_BYTES) == 0U) ||
-			    ((AesClientParamPtr->OperationFlags & XASU_FINISH) == XASU_FINISH)) {
+					((AesClientParamPtr->OperationFlags & XASU_FINISH) ==
+					XASU_FINISH)) {
 				Status = XST_SUCCESS;
 			}
+		}
+		else if ((AesClientParamPtr->AadLen == 0U) && (AesClientParamPtr->AadAddr == 0U) &&
+				((AesClientParamPtr->EngineMode == XASU_AES_GCM_MODE) ||
+				(AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE)) &&
+				((AesClientParamPtr->InputDataAddr != 0U) &&
+				(AesClientParamPtr->OutputDataAddr != 0U) &&
+				(AesClientParamPtr->DataLen != 0U))) {
+			Status = XST_SUCCESS;
+		}
+		else {
+			/* MISRA C compliant. */
 		}
 	}
 
