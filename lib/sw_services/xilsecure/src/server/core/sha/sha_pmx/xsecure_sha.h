@@ -51,6 +51,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       tri  10/16/24 Fixed redefined warning
 *       pre  03/02/25 Removed data context lost setting
+* 5.7   mb   04/16/26 Define XSECURE_HASH_SIZE_IN_BYTES macro
 *
 * </pre>
 *
@@ -90,6 +91,10 @@ extern "C" {
 #define XSECURE_PMC_DMA_MAX_TRANSFER	(0x1FFFFFFCU)
 			/**< PMC DMA Max Transfer rate in bytes */
 #define XSECURE_SHA_TIMEOUT_MAX         (0x1FFFFU) /**< SHA Timeout Max */
+
+#define XSECURE_HASH_SIZE_IN_BYTES	XSECURE_SHA_384_HASH_SIZE_IN_BYTES
+	/**< Define XSECURE_HASH_SIZE_IN_BYTES with XSECURE_SHA_384_HASH_SIZE_IN_BYTES
+		to maintain backward compatibility */
 
 #define XSECURE_SHA3_HASH_LENGTH_IN_WORDS		\
 					(XSECURE_SHA_384_HASH_SIZE_IN_BYTES / 4U)
