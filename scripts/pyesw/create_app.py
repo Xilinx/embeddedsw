@@ -142,17 +142,22 @@ def create_app(args):
             f"collect(PROJECT_LIB_DEPS xilstandalone;{cmake_lib_list})",
         )
 
-    # Checks if the app depends on any driver, if yest, generates the corresponding metadata
+    # Checks if the app depends on any driver, if yes, generates the corresponding metadata
     app_yaml_file = os.path.join(esw_app_dir, "data", f"{obj.template}.yaml")
     if utils.is_file(app_yaml_file):
         app_schema = utils.load_yaml(app_yaml_file)
         if app_schema.get("depends"):
-            utils.runcmd(
-                f"lopper -O {obj.app_src_dir} {obj.sdt} -- bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}",
-                log_message=f"Generating Hardware Metadata for {obj.template}",
-                error_message=f"Failed to generate Hardware Meta-data for {obj.template}",
-                verbose_level=0,
-            )
+            # Check if app uses oneOf/anyOf - if so, skip hardware metadata generation
+            mode, _ = utils.parse_depends_schema(app_schema["depends"])
+            if mode in ["oneOf", "anyOf"]:
+                logger.info(f"{obj.template} uses {mode} dependencies - ")
+            else:
+                utils.runcmd(
+                    f"lopper -O {obj.app_src_dir} {obj.sdt} -- bmcmake_metadata_xlnx {obj.proc} {srcdir} hwcmake_metadata {obj.repo_yaml_path}",
+                    log_message=f"Generating Hardware Metadata for {obj.template}",
+                    error_message=f"Failed to generate Hardware Meta-data for {obj.template}",
+                    verbose_level=0,
+                )
 
     # Generates the metadata for linker script
     linker_cmd = f"lopper -O {obj.app_src_dir} {obj.sdt} -- baremetallinker_xlnx {obj.proc} {srcdir}"
@@ -322,13 +327,11 @@ def main(arguments=None):
         "--template",
         action="store",
         required=True,
-        help=textwrap.dedent(
-            f"""\
+        help=textwrap.dedent(f"""\
         Specify template app name. Available names are as below. Please note that
         these template names are maintained statically, they don't contain the custom templates.
 {'\n'.join([f"            - {template}" for template in utils.VALID_TEMPLATES])}
-        """
-        ),
+        """),
     )
     parser.add_argument(
         "-r",

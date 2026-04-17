@@ -288,21 +288,16 @@ class Library(Repo):
         yaml_file = os.path.join(comp_dir, "data", f"{comp_name}.yaml")
         schema = utils.load_yaml(yaml_file)
         if schema.get("depends"):
-            schema["depends"].pop("condition", None)
-            dep_drvlist = list(schema["depends"].keys())
-            valid_lib = [drv for drv in dep_drvlist if drv in drvlist]
             """
             Since sleep related implementation is part of xiltimer library
             it needs to be pulled irrespective of the hardware dependency.
             """
-            if (
-                valid_lib
-                or re.search("xiltimer", comp_name)
-                or re.search("xilflash", comp_name)
-            ):
+            if re.search("xiltimer", comp_name) or re.search("xilflash", comp_name):
                 return True
-            else:
-                return False
+
+            # Use the new utility function to validate dependencies
+            # It handles oneOf, anyOf, and traditional all-required formats
+            return utils.validate_depends(schema["depends"], drvlist)
         return True
 
     def is_valid_lib(self, comp_name, silent_discard=True):
