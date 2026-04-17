@@ -1299,6 +1299,8 @@ extern "C" {
 #define PM_REG_GGS13				(0x3000800DU)
 #define PM_REG_GGS14				(0x3000800EU)
 #define PM_REG_GGS15				(0x3000800FU)
+#define PM_REG_LPD_SLCR				(0x30000007U)
+#define PM_REG_MMI_GPU_SLCR			(0x30000008U)
 /** @} */
 
 #ifdef __cplusplus
