@@ -48,4 +48,3 @@ ocp_devik_csr_x509_cert_gen,OCP(0xB),0xB02,3,3,3,3,3,3,3,3,Performs DevIK CSR X5
 ocp_devak_attestation,OCP(0xB),0xB03,3,3,3,3,3,3,3,3,Performs DevAK attestation operation
 ocp_ude_challenge_req,OCP(0xB),0xB04,3,3,3,3,3,3,3,3,Performs UDE challenge request operation
 ocp_ude_pvt_key_encrypt,OCP(0xB),0xB05,3,3,3,3,3,3,3,3,Performs UDE private keys encryption operation
-inplace_asu_update,0x12F,1,1,1,1,1,1,0,1,IPI,In Place ASU Update
