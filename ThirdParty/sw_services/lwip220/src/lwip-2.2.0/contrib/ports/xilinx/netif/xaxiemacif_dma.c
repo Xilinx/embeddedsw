@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010 - 2022 Xilinx, Inc.
- * Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.
+ * Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without modification,
@@ -271,6 +271,44 @@ static inline void *alloc_bdspace(int n_desc)
 	return aligned_mem;
 }
 
+/*
+ * align_pbuf_to_dma - Align pbuf payload to the AXI DMA word boundary.
+ *
+ * When DRE is disabled, the DMA requires buffer addresses to be a multiple
+ * of the AXI data width.  This function advances p->payload
+ * forward by the minimum bytes needed to satisfy that requirement.
+ * No-op when DRE is enabled — hardware handles alignment automatically.
+ *
+ * p  : pbuf to adjust.  bd : BD for this pbuf (WordLen and DRE status read from it).
+ * Returns bytes advanced (0 if no adjustment was needed).
+ */
+static u32 align_pbuf_to_dma(struct pbuf *p, XAxiDma_Bd *bd)
+{
+	u32 HasDRE_val;
+	u32 wordlen;
+	UINTPTR addr;
+	u32 offset;
+
+	HasDRE_val = XAxiDma_BdRead(bd, XAXIDMA_BD_HAS_DRE_OFFSET);
+	wordlen    = HasDRE_val & XAXIDMA_BD_WORDLEN_MASK;
+
+	/* DRE present — hardware realigns any address, nothing to do. */
+	if (HasDRE_val & XAXIDMA_BD_HAS_DRE_MASK)
+		return 0;
+
+	addr   = (UINTPTR)p->payload;
+	/* Bytes to advance to the next aligned address. */
+	offset = (wordlen - (addr & (wordlen - 1u))) & (wordlen - 1u);
+
+	if (!offset)
+		return 0; /* already aligned */
+
+	/* Negative pbuf_header() advances payload forward by offset bytes. */
+	pbuf_header(p, -(s16_t)offset);
+
+	return offset;
+}
+
 static void axidma_send_handler(void *arg)
 {
 	unsigned irq_status;
@@ -349,6 +387,7 @@ static void setup_rx_bds(XAxiDma_BdRing *rxring)
 			return;
 		}
 		 /* Setup the BD. */
+		align_pbuf_to_dma(p, rxbd);
 		XAxiDma_BdSetBufAddr(rxbd, (UINTPTR)p->payload);
 		/* Clear everything but the COMPLETE bit, which is cleared when
 		 * committed to hardware.
@@ -566,26 +605,55 @@ XStatus axidma_sgsend(xaxiemacif_s *xaxiemacif, struct pbuf *p)
 	}
 
 	for(q = p, txbd = txbdset; q != NULL; q = q->next) {
+		struct pbuf *tx_buf = q;
 #if LWIP_UDP_OPT_BLOCK_TX_TILL_COMPLETE
 		bdindex = XAxiDma_BD_TO_INDEX(txring, txbd);
 #endif
+
+		u32 bd_has_dre = XAxiDma_BdRead(txbd, XAXIDMA_BD_HAS_DRE_OFFSET);
+		u32 wordlen    = bd_has_dre & XAXIDMA_BD_WORDLEN_MASK;
+
+		/* DRE-enabled designs skip this block entirely. */
+		if (!(bd_has_dre & XAXIDMA_BD_HAS_DRE_MASK) && wordlen) {
+			UINTPTR addr  = (UINTPTR)q->payload;
+			/* Bytes needed to reach next aligned address; 0 if already aligned. */
+			u32 tx_offset = (wordlen - (addr & (wordlen - 1u))) & (wordlen - 1u);
+
+			if (tx_offset) {
+				/* Allocate an aligned copy. PBUF_RAM (heap) guarantees
+				 * payload is aligned with MEM_ALIGNMENT  */
+				struct pbuf *copy = pbuf_alloc(PBUF_RAW, q->len, PBUF_RAM);
+				if (copy) {
+					MEMCPY(copy->payload, q->payload, q->len);
+					tx_buf = copy;
+				} else {
+					xil_printf("[DRE-disabled] TX: pbuf_alloc failed for len=%u,"
+							" addr=0x%x unaligned\r\n",
+							q->len, (u32)addr);
+					return ERR_MEM;
+				}
+			}
+		}
+
 		/* Send the data from the pbuf to the interface, one pbuf at a
 		 * time. The size of the data in each pbuf is kept in the ->len
 		 * variable.
 		 */
-		XAxiDma_BdSetBufAddr(txbd, (UINTPTR)q->payload);
-		if (q->len > max_frame_size) {
+		XAxiDma_BdSetBufAddr(txbd, (UINTPTR)tx_buf->payload);
+		if (tx_buf->len > max_frame_size) {
 			XAxiDma_BdSetLength(txbd, max_frame_size,
 											txring->MaxTransferLen);
 		}
 		else {
-			XAxiDma_BdSetLength(txbd, q->len, txring->MaxTransferLen);
+			XAxiDma_BdSetLength(txbd, tx_buf->len, txring->MaxTransferLen);
 		}
-		XAxiDma_BdSetId(txbd, (void *)q);
+		XAxiDma_BdSetId(txbd, (void *)tx_buf);
 		XAxiDma_BdSetCtrl(txbd, 0);
-		XCACHE_FLUSH_DCACHE_RANGE(q->payload, q->len);
+		XCACHE_FLUSH_DCACHE_RANGE(tx_buf->payload, tx_buf->len);
 
-		pbuf_ref(q);
+		/* pbuf_ref only for original q; aligned copy manages its own ref */
+		if (tx_buf == q)
+			pbuf_ref(q);
 
 		last_txbd = txbd;
 		txbd = (XAxiDma_Bd *)XAxiDma_BdRingNext(txring, txbd);
@@ -783,6 +851,7 @@ XStatus init_axi_dma(struct xemac_s *xemac)
 		 * Therefore we are not required to issue a XAxiDma_Bd_SetLast(rxbd)
 		 * here.
 		 */
+		align_pbuf_to_dma(p, rxbd);
 		XAxiDma_BdSetBufAddr(rxbd, (UINTPTR)p->payload);
 		XAxiDma_BdSetLength(rxbd, p->len, rxringptr->MaxTransferLen);
 		XAxiDma_BdSetCtrl(rxbd, 0);
