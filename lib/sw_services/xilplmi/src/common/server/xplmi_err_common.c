@@ -150,6 +150,7 @@
 * 2.3   tvp  08/12/2025 ssit is not required for Versal_2vp
 *       pre  09/03/2025 Added logic to avoid flooding of log buffer with repeated error messages
 * 2.4   abh  10/14/2025 Fixed MISRA-C Violations
+*       ng   04/18/2026 Removed SLD trigger for PLM errors
 *
 * </pre>
 *
@@ -295,15 +296,6 @@ void XPlmi_ErrMgr(int ErrStatusVal)
 			}
 #endif
 #ifndef PLM_DEBUG_MODE
-		   /**
-		    * - If Halt Boot eFuses are blown, then trigger secure lockdown.
-		    * XPlmi_TriggerSLDOnHaltBoot function will run secure lockdown on domains other than PMC
-			* and triggers TAMPER_RESP_0 to ROM for running secure lockdown on PMC domain.
-			* The function will not return if eFuses are blown.
-			* If Halt Boot eFuses are not blown, update multiboot register and trigger FW NCR.
-			*/
-			XSECURE_REDUNDANT_IMPL(XPlmi_TriggerSLDOnHaltBoot, XPLMI_TRIGGER_TAMPER_IMMEDIATE);
-
 			/**
 			 * - Update Multiboot register and perform SRST.
 			 * Skip for slave boot modes.
