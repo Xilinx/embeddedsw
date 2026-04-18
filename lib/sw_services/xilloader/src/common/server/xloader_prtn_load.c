@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -115,6 +115,7 @@
 * 2.3   ng   07/17/2025 Implemented partition copy when boot copy optimization is disabled
 *       tvp  07/28/2025 Refactor platform specific code.
 *       obs  08/26/2025 Added support for address range checks
+* 2.4   pre  04/17/2026 Made updates to process optee partition as ELF.
 *
 * </pre>
 *
@@ -727,10 +728,20 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	u8 TempVal;
 	u32 PrtnNum = PdiPtr->PrtnNum;
 	/* Assign the partition header to local variable */
-	const XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
+	XilPdi_PrtnHdr * PrtnHdr = &(PdiPtr->MetaHdr->PrtnHdr[PrtnNum]);
 
 	/** Read Partition Type */
 	PrtnType = XilPdi_GetPrtnType(PrtnHdr);
+
+	/**
+	 * Set partition type as ELF and copy load address as destination execution address
+	 * for OPTEE partition
+	 */
+	if ((XilPdi_GetEL((const XilPdi_PrtnHdr *)PrtnHdr) == XIH_PH_ATTRB_EL1) &&
+	    (XilPdi_GetTZ((const XilPdi_PrtnHdr *)PrtnHdr) == XIH_PH_ATTRB_TZ_SECURE)) {
+		PrtnType = XIH_PH_ATTRB_PRTN_TYPE_ELF;
+		PrtnHdr->DstnExecutionAddr = PrtnHdr->DstnLoadAddr;
+	}
 
 	PrtnParams.DeviceCopy.DestAddr = PrtnHdr->DstnLoadAddr;
 	PrtnParams.DeviceCopy.Len = (PrtnHdr->TotalDataWordLen <<
@@ -803,7 +814,7 @@ static int XLoader_ProcessPrtn(XilPdi* PdiPtr)
 	}
 	else if (PrtnType == XIH_PH_ATTRB_PRTN_TYPE_ELF) {
 		XPlmi_Printf(DEBUG_INFO, "Copying elf partitions\n\r");
-		Status = XLoader_ProcessElf(PdiPtr, PrtnHdr, &PrtnParams, &SecureParams);
+		Status = XLoader_ProcessElf(PdiPtr, (const XilPdi_PrtnHdr *)PrtnHdr, &PrtnParams, &SecureParams);
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "Copying data partition\n\r");

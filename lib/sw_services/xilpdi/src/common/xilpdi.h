@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -72,6 +72,7 @@
 *       pre  12/09/2024 use PMC RAM for Metaheader instead of PPU1 RAM
 * 1.12  prt  06/04/2025 Fixed Misra-C R8.13 and R15.7 Violations
 *       sd   11/10/2025 Added support for VERSAL_2VP_P devices.
+* 1.13  pre  04/17/2026 Added APIs to get EL and TZ attributes from partition header
 *
 * </pre>
 *
@@ -177,6 +178,9 @@ extern "C" {
 
 #define XIH_PH_ATTRB_PRTN_OWNER_PLM				(0x00000U)
 #define XIH_PH_ATTRB_HASH_SHA3					(0x3000U)
+
+#define XIH_PH_ATTRB_EL1                        (0x02U)
+#define XIH_PH_ATTRB_TZ_SECURE                  (0x1U)
 
 /**
  * Number of entries possible in ATF:
@@ -377,6 +381,34 @@ static inline u32 XilPdi_GetChecksumType(const XilPdi_PrtnHdr *PrtnHdr)
 static inline u32 XilPdi_GetDstnCpu(const XilPdi_PrtnHdr *PrtnHdr)
 {
 	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_DSTN_CPU_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of EL field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	EL
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetEL(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_TARGET_EL_MASK);
+}
+
+/****************************************************************************/
+/**
+* @brief	This function will return the value of TrustZone field.
+*
+* @param	PrtnHdr is pointer to the Partition Header
+*
+* @return	TrustZone Secure or Non-Secure
+*
+*****************************************************************************/
+static inline u32 XilPdi_GetTZ(const XilPdi_PrtnHdr *PrtnHdr)
+{
+	return (PrtnHdr->PrtnAttrb & XIH_PH_ATTRB_TZ_SECURE_MASK);
 }
 
 /****************************************************************************/
