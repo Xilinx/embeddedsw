@@ -563,6 +563,29 @@ void XCsiSs_IntrDisable(XCsiSs *InstancePtr, u32 IntrMask);
 u32 XCsiSs_SetCallBack(XCsiSs *InstancePtr, u32 HandlerType,
 			void *CallbackFunc, void *CallbackRef);
 
+#if (XPAR_XMIPI_RX_PHY_NUM_INSTANCES > 0)
+/**
+ * @brief Configure the MIPI RX PHY PLL for a desired line rate at runtime
+ *
+ * This function configures the MIPI RX PHY PLL for a desired line rate at
+ * runtime. It delegates to XMipi_Rx_Phy_DynamicLineRateConfig which handles
+ * validation of CPHY mode and dynamic line rate hardware enablement.
+ *
+ * @param	InstancePtr is a pointer to the XCsiSs instance.
+ * @param	PllBaseAddr is the base address of the PLL to be configured.
+ * @param	LineRate is the desired line rate in Mbps (400-4500).
+ *
+ * @return
+ *		- XST_SUCCESS if PLL configuration is successful.
+ *		- XST_FAILURE if dynamic line rate configuration fails.
+ *
+ * @note	None.
+ *
+ ******************************************************************************/
+u32 XCsiSs_DynamicLineRateConfig(XCsiSs *InstancePtr, UINTPTR PllBaseAddr,
+				u32 LineRate);
+#endif
+
 /************************** Variable Declarations ****************************/
 
 #ifdef __cplusplus
