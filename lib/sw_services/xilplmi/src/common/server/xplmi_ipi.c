@@ -96,6 +96,7 @@
  *       pre  03/24/2024 Executing invalid command handler registered for STL module
  *                       irrespective of SLR index field
  * 2.4   abh  10/17/2025 Fixed MISRA-C violations
+ *       obs  04/03/2026 Fixed XPlMI typo to XPLMI
  *
  * </pre>
  *
@@ -354,7 +355,7 @@ void XPlmi_SetPsmToPlmEventInfo(volatile PsmToPlmEventInfo_t *EventInfo)
  *
  * @return
  * 			- XST_SUCCESS on success
- * 			- XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK if input IPI index
+ * 			- XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK if input IPI index
  *            does not match with PSM IPI channel.
  *          - XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID if PSM to PLM structure
  *            is not valid
@@ -375,7 +376,7 @@ static int XPlmi_PsmIpiDispatchHandler(void *Data)
 	}
 
 	if ((u32)Data != IPI_PSM_BUFFER_INDEX) {
-		Status = (int)XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK;
+		Status = (int)XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK;
 		goto END;
 	}
 
