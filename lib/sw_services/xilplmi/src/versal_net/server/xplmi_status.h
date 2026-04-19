@@ -64,6 +64,7 @@
 *       aa   02/03/2026 Added error code for OSPI dummy cycle configuration failure
 *       aa   03/09/2026 Added error code for USB download timeout
 *       aa   04/01/2026 Added XLOADER_ERR_USB_DDR_OVERFLOW error code
+*       obs  04/03/2026 Reserved the unused error codes
 *
 * </pre>
 *
@@ -147,10 +148,7 @@ typedef enum {
 	XPLMI_ERR_IOMOD_CONNECT,	/**< 0x105 - Error when IOModule
 					  driver connection fails */
 
-	XPLMI_ERR_MODULE_MAX,		/**< 0x106 - Error when PLMI module
-					  is not registered. Can occur when
-					  invalid CDO CMD is processed
-					  by Xilplmi */
+	XPLMI_ERR_RESERVED_106,		/**< 0x106 - XPLMI_ERR_RESERVED_106 */
 	XPLMI_ERR_CMD_APIID,		/**< 0x107 - Error when valid module
 					  and unregistered CMD ID is
 					  processed by xilplmi */
@@ -168,16 +166,13 @@ typedef enum {
 					  checksum is wrong. Can happen when
 					  CDO header is corrupted */
 
-	XPLMI_ERR_UART_DEV_PM_REQ,	/**< 0x10D - Error when XilPM request
-					  device for UART fails. PM error code
-					  is present in PLM minor code */
+	XPLMI_ERR_RESERVED_10D,		/**< 0x10D - XPLMI_ERR_RESERVED_10D */
 	XPLMI_ERR_UART_LOOKUP,		/**< 0x10E - Error when UART driver
 					  lookup fails. */
 	XPLMI_ERR_UART_CFG,		/**< 0x10F - Error when UART driver
 					  config fails. */
 
-	XPLMI_ERR_SSIT_MASTER_SYNC,	/**< 0x110 - Error when SSIT slave
-					  sync fails with master */
+	XPLMI_ERR_RESERVED_110,		/**< 0x110 - XPLMI_ERR_RESERVED_110 */
 	XPLMI_ERR_RESERVED_111, /**< 0x111 - XPLMI_ERR_RESERVED_111 */
 	XPLMI_ERR_RESERVED_112, /**< 0x112 - XPLMI_ERR_RESERVED_112 */
 	XPLMI_ERR_RESERVED_113, /**< 0x113 - XPLMI_ERR_RESERVED_113 */
@@ -191,12 +186,9 @@ typedef enum {
 	XPLMI_ERR_RESERVED_117, /**< 0x117 - XPLMI_ERR_RESERVED_117 */
 	XPLMI_ERR_RESERVED_118, /**< 0x118 - XPLMI_ERR_RESERVED_118 */
 	XPLMI_ERR_RESERVED_119, /**< 0x119 - XPLMI_ERR_RESERVED_119 */
-	XPLMI_ERR_INVALID_INTR_ID_DISABLE, /**< 0x11A Invalid Interrupt ID used
-					     to disable interrupt */
-	XPLMI_ERR_INVALID_INTR_ID_CLEAR,   /**< 0x11B Invalid Interrupt ID used
-					     to clear interrupt */
-	XPLMI_ERR_INVALID_INTR_ID_REGISTER, /**< 0x11C Invalid Interrupt ID used
-					     to register interrupt handler */
+	XPLMI_ERR_RESERVED_11A,		/**< 0x11A - XPLMI_ERR_RESERVED_11A */
+	XPLMI_ERR_RESERVED_11B,		/**< 0x11B - XPLMI_ERR_RESERVED_11B */
+	XPLMI_ERR_RESERVED_11C,		/**< 0x11C - XPLMI_ERR_RESERVED_11C */
 	XPLMI_ERR_DMA_XFER_WAIT,	    /**< 0x11D Dma transfer wait failed */
 	XPLMI_ERR_NON_BLOCK_DMA_WAIT_SRC,   /**< 0x11E Non Block Dma transfer wait
 						failed in Src channel*/
@@ -211,20 +203,16 @@ typedef enum {
 	XPLMI_ERR_DMA_XFER_WAIT_DEST,	    /**< 0x123 Dma Xfer failed in Dest Channel
 						wait for done */
 	XPLMI_ERR_UART_MEMSET,		    /**< 0x124 Memset of UartPsv Instance failed */
-	XPLMI_ERR_MEMCPY_COPY_CMD,		/**< 0x125 Error during memcpy of
-						CdoCopyCmd */
+	XPLMI_ERR_RESERVED_125,		/**< 0x125 - XPLMI_ERR_RESERVED_125 */
 	XPLMI_ERR_MEMCPY_CMD_EXEC,		/**< 0x126 Error during memcpy of
 						CdoCmdExecute */
 	XPLMI_ERR_MEMCPY_IMAGE_INFO,	/**< 0x127 Error during memcpy of
 						XLoader_ImageInfo */
 	XPLMI_ERR_UART_PSV_SET_BAUD_RATE,	/**< 0x128 Error during setting
 						XUartPsv_SetBaudRate to XPLMI_UART_BAUD_RATE */
-	XPLMI_ERR_IO_MOD_INTR_NUM_REGISTER, /**< 0x129 Invalid IoModule Interrupt
-						Number used to register interrupt handler */
-	XPLMI_ERR_IO_MOD_INTR_NUM_CLEAR,	/**< 0x12A Invalid IoModule interrupt
-						Number used to clear interrupt */
-	XPLMI_ERR_IO_MOD_INTR_NUM_DISABLE,	/**< 0x12B Invalid IoModule interrupt
-						Number used to disable interrupt */
+	XPLMI_ERR_RESERVED_129,		/**< 0x129 - XPLMI_ERR_RESERVED_129 */
+	XPLMI_ERR_RESERVED_12A,		/**< 0x12A - XPLMI_ERR_RESERVED_12A */
+	XPLMI_ERR_RESERVED_12B,		/**< 0x12B - XPLMI_ERR_RESERVED_12B */
 	XPLMI_NPI_ERR,	/**< 0x12C NPI errors */
 	XPLMI_IPI_CRC_MISMATCH_ERR,	/**< 0x12D - IPI CRC mismatch error */
 	XPLMI_IPI_READ_ERR, /**< 0x12E - Error in processing IPI request
@@ -233,7 +221,7 @@ typedef enum {
 						driver */
 	XPLMI_ERR_UNALIGNED_DMA_XFER,	/**< 0x12F - Error during DMA involving
 			of unaligned SrcAddr, DestAddr or number of words */
-	XPLMI_ERR_RESERVED1, /**< 0x130 - Reserved Error 1 */
+	XPLMI_ERR_RESERVED_130,		/**< 0x130 - XPLMI_ERR_RESERVED_130 */
 	XPLMI_ERR_TASK_EXISTS,	/**< 0x131 - Error when the task that is being
 						added to scheduler already exists */
 	XPLMI_ERR_INVALID_TASK_TYPE, /**< 0x132 - Error when invalid task type is
@@ -249,11 +237,10 @@ typedef enum {
 						at the scheduled interval */
 	XPLMI_ERR_SET_PMC_IRO_FREQ, /**< 0x13A - Error when setting PMC IRO frequency
 						is failed */
-	XPLMI_ERR_RESERVED0, /**< 0x13B - Reserved Error 0 */
+	XPLMI_ERR_RESERVED_13B,		/**< 0x13B - XPLMI_ERR_RESERVED_13B */
 	XPLMI_ERR_PROC_INVALID_ADDRESS_RANGE, /**< 0x13C - Error when the given address
 	                    range for storing Proc commands is invalid */
-	XPLMI_ERR_CDO_CMD_BREAK_CHUNKS_NOT_SUPPORTED, /**< 0x13D - Error when end
-						and break command are in separate chunks */
+	XPLMI_ERR_RESERVED_13D,		/**< 0x13D - XPLMI_ERR_RESERVED_13D */
 	XPLMI_ERR_RESERVED_13E, /**< 0x13E - XPLMI_ERR_RESERVED_13E. */
 	XPLMI_ERR_RESERVED_13F, /**< 0x13F - XPLMI_ERR_RESERVED_13F */
 	XPLMI_INVALID_BREAK_LENGTH, /**< 0x140 - Error when the break length required to jump
@@ -292,18 +279,16 @@ typedef enum {
 						with that of updated PLM */
 	XPLMI_ERR_DB_ENDADDR_INVALID, /**< 0x1AD - Error when the DB end address calculated is not in a
 						valid range that is accepted by updated PLM */
-	XPLMI_ERR_IPI_DRV_INIT,		/**< 0x1AE - Error when there is a failure in Ipi Driver Init
-						which is done after In-Place update */
-	XPLMI_ERR_MEMSET_UPDATE_RESP,	/**< 0x1AF - Error when there is a failure in memset of
-						IPI response buffer used to ack the ipi after update */
+	XPLMI_ERR_RESERVED_1AE,		/**< 0x1AE - XPLMI_ERR_RESERVED_1AE */
+	XPLMI_ERR_RESERVED_1AF,		/**< 0x1AF - XPLMI_ERR_RESERVED_1AF */
 	XPLMI_ERR_INVALID_ROM_INT_REQ,  /**< 0x1B0 - Error when an invalid interrupt request for ROM */
 	XPLMI_ERR_MEMCPY_STORE_DB,	/**< 0x1B1 - Error when memcpy during store database is failed */
 	XPLMI_ERR_MEMSET_RESTORE_DB,	/**< 0x1B2 - Error when memset during store database is failed */
 	XPLMI_ERR_MEMCPY_RESTORE_DB,	/**< 0x1B3 - Error when memcpy during restore database is failed */
 	XPLMI_ERR_MEMSET_DBHDR,		/**< 0x1B4 - Error when memset of DbHdr during store database is failed */
 	XPLMI_ERR_MEMCPY_RELOCATE,	/**< 0x1B5 - Error when relocating of update manager code is failed */
-	XPLMI_ERR_PLAT_RESERVED_1B6, /**< 0x1B6 - XPLMI_ERR_PLAT_RESERVED_1B6. */
-	XPLMI_ERR_PLAT_RESERVED_1B7, /**< 0x1B7 - XPLMI_ERR_PLAT_RESERVED_1B7. */
+	XPLMI_ERR_PLAT_RESERVED_1B6, /**< 0x1B6 - XPLMI_ERR_PLAT_RESERVED_1B6 */
+	XPLMI_ERR_PLAT_RESERVED_1B7, /**< 0x1B7 - XPLMI_ERR_PLAT_RESERVED_1B7 */
 	XPLMI_ERR_PLAT_RESERVED_1B8, /**< 0x1B8 - XPLMI_ERR_PLAT_RESERVED_1B8. */
 	XPLMI_ERR_PLAT_RESERVED_1B9, /**< 0x1B9 - XPLMI_ERR_PLAT_RESERVED_1B9. */
 	XPLMI_ERR_PLAT_RESERVED_1BA, /**< 0x1BA - XPLMI_ERR_PLAT_RESERVED_1BA. */
@@ -311,9 +296,9 @@ typedef enum {
 						retry later */
 	XPLMI_ERR_STORE_DATA_BACKUP,	/**< 0x1BC - Error when data structure storing fails */
 	XPLMI_IPI_MAX_BUF_SIZE_EXCEEDS, /**< 0x1BD - Error when IPI request size exceeds */
-	XPlMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK, /**< 0x1BE PSM IPI handler task received
-						invalid buffer index*/
-	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID, /**< 0x1BF PSM IPI event structure not initialized */
+	XPLMI_INVALID_BUFFER_INDEX_FOR_PSM_IPI_TASK, /**< 0x1BE - PSM IPI handler task received
+						invalid buffer index */
+	XPLMI_IPI_PSM_TO_PLM_EVENT_INFO_INVALID, /**< 0x1BF - PSM IPI event structure not initialized */
 
 	/** Status codes used in PLM */
 	/* PLM error codes common for all platforms are from 0x200 to 0x29F */
@@ -322,22 +307,18 @@ typedef enum {
 					  tasks are created */
 	XPLM_ERR_PM_MOD,		/**< 0x201 - Error initializing
 					  the PM Module */
-	XPLM_ERR_LPD_MOD,		/**< 0x202 - Error initializing
-					  the LPD modules */
+	XPLM_ERR_RESERVED_202,		/**< 0x202 - XPLM_ERR_RESERVED_202 */
 	XPLM_ERR_EXCEPTION,		/**< 0x203 - Exception has occurred
 					  during PLM initialization. EAR and
 					  ESR are printed on UART console
 					  if enabled */
-	XPLM_ERR_NPLL_LOCK,		/**< 0x204 - Unable to lock NOC PLL
-					  for master SLR devices */
+	XPLM_ERR_RESERVED_204,		/**< 0x204 - XPLM_ERR_RESERVED_204 */
 	XPLM_ERR_STL_MOD,		/**< 0x205 - Error initializing
 					  the STL Module */
 	XPLM_ERR_KEEP_ALIVE_TASK_CREATE,	/**< 0x206 - Error while
 						  creating PSM keep alive
 						  task */
-	XPLM_ERR_KEEP_ALIVE_TASK_REMOVE,	/**< 0x207 - Error while
-						  removing PSM keep alive
-						  task */
+	XPLM_ERR_RESERVED_207,		/**< 0x207 - XPLM_ERR_RESERVED_207 */
 	XPLM_ERR_PSM_NOT_ALIVE,			/**< 0x208 - PSM is not alive */
 	XPLM_ERR_IPI_SEND,			/**< 0x209 - Error while sending
 						     IPI */
@@ -345,7 +326,7 @@ typedef enum {
 						PMC CDO region in PMC RAM */
 
 	/* PLM error codes specific to platform are from 0x2A0 to 0x2FF */
-	XPLM_ERR_RESTORE_ERR_HANDLERS = 0x2A0, /**< 0x2A0 - Error when restoring error handlers fails */
+	XPLM_ERR_RESERVED_2A0 = 0x2A0,		/**< 0x2A0 - XPLM_ERR_RESERVED_2A0 */
 	XPLM_ERR_UPDATE_ID_CODE_CHECK,		/**< 0x2A1 - Error when unsupported Idcode is present in the
 						  PDI used for In-Place PLM Update */
 	XPLM_ERR_INVALID_UPDATE_ADDR,		/**< 0x2A2 - Error when an invalid address of the PDI is used for
@@ -381,16 +362,14 @@ typedef enum {
 	XLOADER_ERR_PRTNHDR,		/**< 0x304 - Error if partition header
 					  checksum fails */
 	XLOADER_ERR_RESERVED_305, /**< 0x305 - XLOADER_ERR_RESERVED_305 */
-	XLOADER_ERR_RESERVED1,		/**< 0x306 - XLoader Reserved Error 1 */
-	XLOADER_ERR_RESERVED2,		/**< 0x307 - XLoader Reserved Error 2 */
-	XLOADER_ERR_RESERVED3,		/**< 0x308 - XLoader Reserved Error 3 */
-	XLOADER_ERR_WAKEUP_R5_L,	/**< 0x309 - Error waking up the R5-L
-					  during handoff. Check the PLM minor
-					  code for PM error code. */
+	XLOADER_ERR_RESERVED_306,		/**< 0x306 - XLOADER_ERR_RESERVED_306 */
+	XLOADER_ERR_RESERVED_307,		/**< 0x307 - XLOADER_ERR_RESERVED_307 */
+	XLOADER_ERR_RESERVED_308,		/**< 0x308 - XLOADER_ERR_RESERVED_308 */
+	XLOADER_ERR_RESERVED_309,		/**< 0x309 - XLOADER_ERR_RESERVED_309 */
 	XLOADER_ERR_WAKEUP_PSM,		/**< 0x30A - Error waking up the PSM
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
-	XLOADER_ERR_PL_NOT_PWRUP,	/**< 0x30B - Error powering up the PL */
+	XLOADER_ERR_RESERVED_30B,		/**< 0x30B - XLOADER_ERR_RESERVED_30B */
 	XLOADER_ERR_UNSUPPORTED_OSPI,	/**< 0x30C - Error for unsupported OSPI
 					  flash */
 	XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, /**< 0x30D - Error for unsupported
@@ -411,8 +390,7 @@ typedef enum {
 	XLOADER_ERR_OSPI_4BMODE,	/**< 0x313 - Error when OSPI is unable
 					  to enter/exit 4B mode */
 
-	XLOADER_ERR_QSPI_READ_ID,	/**< 0x314 - Error when QSPI read
-					  fails */
+	XLOADER_ERR_RESERVED_314,		/**< 0x314 - XLOADER_ERR_RESERVED_314 */
 	XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID,	/**< 0x315 - Error when QSPI flash ID is
 							not supported */
 	XLOADER_ERR_QSPI_INIT,		/**< 0x316 - Error when QSPI driver look
@@ -443,20 +421,20 @@ typedef enum {
 	XLOADER_ERR_IMG_ID_NOT_FOUND,	/**< 0x320 - Error when Image ID is
 					  not found in subsystem while reloading
 					  image */
-	XLOADER_ERR_RESERVED5,		/**< 0x321 - XLoader Reserved Error 5 */
+	XLOADER_ERR_RESERVED_321,		/**< 0x321 - XLOADER_ERR_RESERVED_321 */
 	XLOADER_ERR_CFRAME_LOOKUP,	/**< 0x322 - Error when CFRAME driver
 					  look up fails */
 	XLOADER_ERR_CFRAME_CFG,		/**< 0x323 - Error when CFRAME driver
 					  CFG fails */
 	XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE, /**< 0x324 - Error for
 					 unsupported secondary boot mode */
-	XLOADER_ERR_RESERVED11,		/**< 0x325 - XLoader Reserved Error 11 */
+	XLOADER_ERR_RESERVED_325,		/**< 0x325 - XLOADER_ERR_RESERVED_325 */
 	XLOADER_ERR_GEN_IDCODE,		/**< 0X326 - Error if Vivado configured part (IDCODE)
 						mismatches with the actual part */
 	XLOADER_ERR_USB_LOOKUP,		/**< 0x327 - Error when USB lookup fails*/
 	XLOADER_ERR_USB_CFG,		/**< 0x328 - Error when USB cfg initialize fails */
 	XLOADER_ERR_USB_START,		/**< 0x329 - Error when USB fails to start */
-	XLOADER_ERR_DFU_DWNLD,	/**< 0x32A - Error when pdi fails to download */
+	XLOADER_ERR_RESERVED_32A,		/**< 0x32A - XLOADER_ERR_RESERVED_32A */
 	XLOADER_ERR_DEFERRED_CDO_PROCESS, /**< 0x32B - Error if the expected value is not
 						same as actual value for the address polled
 						using mask_poll CDO cmd, but the CDO command
@@ -488,10 +466,9 @@ typedef enum {
 							filesystem modes */
 	XLOADER_ERR_SD_UMOUNT,		/**< 0X339 - Error on unmounting filesystem */
 	XLOADER_ERR_DMA_XFER,		/**< 0x33A DMA Transfer failed */
-	XLOADER_ERR_DMA_XFER_SD_RAW,		/**< 0x33B DMA Transfer failed in SD Raw*/
+	XLOADER_ERR_RESERVED_33B,		/**< 0x33B - XLOADER_ERR_RESERVED_33B */
 	XLOADER_ERR_CONFIG_SUBSYSTEM,		/**< 0X33C - Error while configuring subsystem */
-	XLOADER_ERR_COPY_TO_MEM,		/**< 0x33D - Error on copying image to DDR with
-						the copy to memory attribute enabled */
+	XLOADER_ERR_RESERVED_33D,		/**< 0x33D - XLOADER_ERR_RESERVED_33D */
 	XLOADER_ERR_DELAY_LOAD,		/**< 0x33E - When the image has delay load
 						attribute set and the boot source is SMAP, SBI,
 						PCIE or JTAG, the image is copied to PMC RAM to
@@ -506,22 +483,14 @@ typedef enum {
 							not supported */
 	XLOADER_ERR_PM_DEV_PSM_PROC,		/**< 0x342 - Failed in XPM Request Device for
 							PM_DEV_PSM_PROC */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU0_SPLIT,	/**<0x343 - Failed in XPM Device Ioctl for
-							RPU0_0 in SPLIT mode */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU1_SPLIT,	/**< 0x344 - Failed in XPM Device Ioctl for
-							RPU0_1 in SPLIT mode */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, /**< 0x345 - Failed to XPM Device Ioctl for
-							RPU0_0 in LOCKSTEP mode */
-	XLOADER_ERR_PM_DEV_IOCTL_RPU1_LOCKSTEP, /**< 0x346 - Failed to XPM Device Ioctl for
-							RPU0_1 in LOCKSTEP mode */
-	XLOADER_ERR_PM_DEV_TCM_0_A,		/**< 0x347 - Failed to XPM Request Device for
-							PM_DEV_TCM_0_A */
-	XLOADER_ERR_PM_DEV_TCM_0_B,		/**< 0x348 - Failed to XPM Request Device for
-							PM_DEV_TCM_0_B */
-	XLOADER_ERR_PM_DEV_TCM_1_A,		/**< 0x349 - Failed in XPM Request Device for
-							PM_DEV_TCM_1_A */
-	XLOADER_ERR_PM_DEV_TCM_1_B,		/**< 0x34A - Failed in XPM Request Device for
-							PM_DEV_TCM_1_B */
+	XLOADER_ERR_RESERVED_343,		/**< 0x343 - XLOADER_ERR_RESERVED_343 */
+	XLOADER_ERR_RESERVED_344,		/**< 0x344 - XLOADER_ERR_RESERVED_344 */
+	XLOADER_ERR_RESERVED_345,		/**< 0x345 - XLOADER_ERR_RESERVED_345 */
+	XLOADER_ERR_RESERVED_346,		/**< 0x346 - XLOADER_ERR_RESERVED_346 */
+	XLOADER_ERR_RESERVED_347,		/**< 0x347 - XLOADER_ERR_RESERVED_347 */
+	XLOADER_ERR_RESERVED_348,		/**< 0x348 - XLOADER_ERR_RESERVED_348 */
+	XLOADER_ERR_RESERVED_349,		/**< 0x349 - XLOADER_ERR_RESERVED_349 */
+	XLOADER_ERR_RESERVED_34A,		/**< 0x34A - XLOADER_ERR_RESERVED_34A */
 	XLOADER_ERR_PM_DEV_DDR_0,		/**< 0x34B - Failed to XPM Request Device for
 							PM_DEV_DDR_0 */
 	XLOADER_ERR_PM_DEV_QSPI,		/**< 0x34C - Failed to XPM Request Device for
@@ -530,8 +499,7 @@ typedef enum {
 							PM_DEV_SDIO_0 */
 	XLOADER_ERR_PM_DEV_SDIO_1,		/**< 0x34E - Failed to XPM Request Device for
 							PM_DEV_SDIO_1 */
-	XLOADER_ERR_PM_DEV_USB_0,		/**< 0x34F - Failed to XPM Request Device for
-							PM_DEV_USB_0 */
+	XLOADER_ERR_RESERVED_34F,		/**< 0x34F - XLOADER_ERR_RESERVED_34F */
 	XLOADER_ERR_PM_DEV_OSPI,		/**< 0x350 - Failed to XPM Request Device for
 							PM_DEV_OSPI */
 	XLOADER_ERR_DEV_NOT_DEFINED,		/**< 0x351 - Device ID of the image to be
@@ -571,16 +539,16 @@ typedef enum {
 	XLOADER_ERR_UNSUPPORTED_SUBSYSTEM_PDISRC,	/**< 0x362 - Error when
 						unsupported PdiSrc is used for
 						subsystem load */
-	XLOADER_ERR_RESERVED6,		/**< 0x363 - XLoader Reserved Error 6 */
-	XLOADER_ERR_RESERVED7,		/**< 0x364 - XLoader Reserved Error 7 */
-	XLOADER_ERR_RESERVED8,		/**< 0x365 - XLoader Reserved Error 8 */
-	XLOADER_ERR_RESERVED9,		/**< 0x366 - XLoader Reserved Error 9 */
+	XLOADER_ERR_RESERVED_363,		/**< 0x363 - XLOADER_ERR_RESERVED_363 */
+	XLOADER_ERR_RESERVED_364,		/**< 0x364 - XLOADER_ERR_RESERVED_364 */
+	XLOADER_ERR_RESERVED_365,		/**< 0x365 - XLOADER_ERR_RESERVED_365 */
+	XLOADER_ERR_RESERVED_366,		/**< 0x366 - XLOADER_ERR_RESERVED_366 */
 	XLOADER_ERR_RELEASE_PM_DEV_DDR_0,	/**< 0x367 - Failed to XPM Release Device for
 							PM_DEV_DDR_0 */
-	XLOADER_ERR_REQUEST_BOOT_DEVICE,	/**< 0x368 - Failed to Request Boot Device */
-	XLOADER_ERR_RELEASE_BOOT_DEVICE,	/**< 0x369 - Failed to Release Boot Device */
+	XLOADER_ERR_RESERVED_368,		/**< 0x368 - XLOADER_ERR_RESERVED_368 */
+	XLOADER_ERR_RESERVED_369,		/**< 0x369 - XLOADER_ERR_RESERVED_369 */
 	XLOADER_ERR_OSPI_DUAL_BYTE_OP_DISABLE,	/**< 0x36A - Failed to disable DUAL BYTE OP */
-	XLOADER_ERR_INVALID_TCM_ADDR,	/**< 0x36B - Invalid TCM address for A72 elfs */
+	XLOADER_ERR_RESERVED_36B,		/**< 0x36B - XLOADER_ERR_RESERVED_36B */
 	XLOADER_ERR_RESERVED_36C, /**< 0x36C - XLOADER_ERR_RESERVED_36C */
 	XLOADER_ERR_RESERVED_36D, /**< 0x36D - XLOADER_ERR_RESERVED_36D */
 	XLOADER_ERR_RESERVED_36E, /**< 0x36E - XLOADER_ERR_RESERVED_36E */
@@ -588,7 +556,7 @@ typedef enum {
 	XLOADER_ERR_RESERVED_370, /**< 0x370 - XLOADER_ERR_RESERVED_370 */
 	XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, /**< 0x371 - Skip processing rest of the partitions
 						as secure lockdown has been triggered */
-	XLOADER_ERR_RESERVED10, /**< 0x372 - XLoader Reserver Error 10 */
+	XLOADER_ERR_RESERVED_372,		/**< 0x372 - XLOADER_ERR_RESERVED_372 */
 	XLOADER_ERR_ECDSA_NOT_ENABLED, /**< 0x373 - ECDSA code is excluded */
 	XLOADER_ERR_RSA_NOT_ENABLED, /**< 0x374 - RSA code is excluded */
 	XLOADER_ERR_INVALID_PRTNCOPY_DEST_ADDR,	/**< 0x375 - Invalid Destination address in
@@ -615,9 +583,7 @@ typedef enum {
 	XLOADER_ERR_WAKEUP_R52_0,	/**< 0x3A2 - Error waking up the R52-0
 					  during handoff. Check the PLM minor
 					  code for PM error code. */
-	XLOADER_ERR_WAKEUP_R52_1,	/**< 0x3A3 - Error waking up the R52-1
-					  during handoff. Check the PLM minor
-					  code for PM error code. */
+	XLOADER_ERR_RESERVED_3A3,		/**< 0x3A3 - XLOADER_ERR_RESERVED_3A3 */
 	XLOADER_ERR_WAKEUP_A78_2,	/**< 0x3A4 - Error waking up the A78-2
 					  during handoff. */
 	XLOADER_ERR_WAKEUP_A78_3,	/**< 0x3A5 - Error waking up the A78-3 during handoff. */
@@ -625,7 +591,7 @@ typedef enum {
 					   selected */
 	XLOADER_ERR_HDR_MEASUREMENT,	/**< 0x3A7 - Error in meta header measurement */
 	XLOADER_ERR_DATA_MEASUREMENT,   /**< 0x3A8 - Error in data measurement */
-	XLOADER_ERR_SHA3_1_INIT,	/**< 0x3A9 - Error when SHA3 Instance 1 initialization fails */
+	XLOADER_ERR_RESERVED_3A9,		/**< 0x3A9 - XLOADER_ERR_RESERVED_3A9 */
 	XLOADER_ERR_SECURE_CONFIG_MEASUREMENT,    /**< 0x3AA - Error in Secure config measurement */
 
 
@@ -646,10 +612,8 @@ typedef enum {
 	XLOADER_ERR_DMA_TRANSFER,
 		/**< 0x605 DMA Transfer failed while copying */
 
-	XLOADER_ERR_IHT_AUTH_DISABLED,
-		/**< 0x606 Authentication is not enabled for Image Header table */
-	XLOADER_ERR_IHT_GET_DMA,
-		/**< 0x607 Failed to get DMA instance for IHT authentication */
+	XLOADER_ERR_RESERVED_606,		/**< 0x606 - XLOADER_ERR_RESERVED_606 */
+	XLOADER_ERR_RESERVED_607,		/**< 0x607 - XLOADER_ERR_RESERVED_607 */
 	XLOADER_ERR_IHT_COPY_FAIL,
 		/**< 0x608 Failed when copying IHT AC from flash device */
 	XLOADER_ERR_IHT_HASH_CALC_FAIL,
@@ -675,8 +639,7 @@ typedef enum {
 		/**< 0x611 Failed to calculate hash for IH/PH authentication */
 	XLOADER_ERR_HDR_NOT_ENCRYPTED,
 		/**< 0x612 IH/PH is not encrypted */
-	XLOADER_ERR_HDR_AUTH_DISABLED,
-		/**< 0x613 Authentication disabled for IH/PH */
+	XLOADER_ERR_RESERVED_613,		/**< 0x613 - XLOADER_ERR_RESERVED_613 */
 
 	XLOADER_ERR_SEC_IH_READ_FAIL,
 		/**< 0x614 Failed to read IH */
@@ -694,8 +657,7 @@ typedef enum {
 
 	XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY,
 		/**< 0x61A PPK Programmed but eFuse authentication is disabled */
-	XLOADER_ERR_RESERVED4,
-		/**< 0x61B XLoader Reserved Error 4 */
+	XLOADER_ERR_RESERVED_61B,		/**< 0x61B - XLOADER_ERR_RESERVED_61B */
 	XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO,
 		/**< 0x61C PPK not programmed and authentication is enabled */
 	XLOADER_ERR_ENCONLY_ENC_COMPULSORY,
@@ -717,8 +679,7 @@ typedef enum {
 	XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL,
 		/**< 0x624 Jtag Authentication failed when verification of
 		signature failed*/
-	XLOADER_ERR_AUTH_JTAG_EXCEED_ATTEMPTS,
-		/**< 0x625 Jtag Authentication failed more than once */
+	XLOADER_ERR_RESERVED_625,		/**< 0x625 - XLOADER_ERR_RESERVED_625 */
 	XLOADER_ERR_AUTH_JTAG_GET_DMA,
 		/**< 0x626 Failed to get DMA instance for JTAG authentication */
 	XLOADER_ERR_AUTH_JTAG_HASH_CALCULATION_FAIL,
@@ -736,8 +697,7 @@ typedef enum {
 		/**< 0x62C Metaheader Key Source does not match PLM Key Source */
 	XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC,
 		/**< 0x62D Invalid key source when encryption only is enabled */
-	XLOADER_ERR_SECURE_NOT_ALLOWED,
-		/**< 0x62E Error when state of boot is non secure */
+	XLOADER_ERR_RESERVED_62E,		/**< 0x62E - XLOADER_ERR_RESERVED_62E */
 	XLOADER_ERR_HDR_AAD_UPDATE_FAIL,
 		/**< 0x62F Updating IHT as AAD failed during secure header
 		  * decryption */
@@ -758,10 +718,8 @@ typedef enum {
 		/**< 0x636 Error while reading IHT optional data */
 	XLOADER_ERR_STORE_DIGEST_TABLE,
 		/**< 0x637 Error while storing digest table */
-	XLOADER_ERR_ZEROIZE_DIGEST_TABLE,
-		/**< 0x638 Error while zeroizing digest table */
-	XLOADER_ERR_SEC_AES_INIT_FAIL,
-		/**< 0x639 Error when AES initialization is failed */
+	XLOADER_ERR_RESERVED_638,		/**< 0x638 - XLOADER_ERR_RESERVED_638 */
+	XLOADER_ERR_RESERVED_639,		/**< 0x639 - XLOADER_ERR_RESERVED_639 */
 	XLOADER_ERR_AUTH_JTAG_INVALID_PARAM = 0x65B,
 		/**< 0x65B Invalid parameter passed for JTAG authentication */
 	XLOADER_ERR_PRTN_REVOKED = 0x65D, /**< 0x65D - Partition is revoked */
