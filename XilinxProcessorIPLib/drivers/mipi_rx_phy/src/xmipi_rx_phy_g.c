@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -17,6 +17,7 @@ XMipi_Rx_Phy_Config XMipi_Rx_Phy_ConfigTable[] __attribute__ ((section (".drvcfg
 		0x1, /* xlnx,phy-mode */
 		0x1, /* xlnx,reg-on */
 		0x1, /* xlnx,phy-lanes */
+		0x0, /* xlnx,en-dynamic-line-rate */
 		0x32, /* xlnx,esc-clk-period */
 		0x6400, /* xlnx,esc-timeout */
 		0x5dc, /* xlnx,hs-line-rate */
