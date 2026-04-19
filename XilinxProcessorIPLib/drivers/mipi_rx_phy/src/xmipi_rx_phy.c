@@ -22,6 +22,7 @@
 
 /***************************** Include Files *********************************/
 
+#include "xdebug.h"
 #include "xstatus.h"
 #include "xmipi_rx_phy.h"
 
@@ -597,4 +598,83 @@ void XMipi_Rx_Phy_Activate(XMipi_Rx_Phy *InstancePtr, u8 Flag)
 	XMipi_Rx_Phy_WriteReg(InstancePtr->Config.BaseAddr,
 			XMIPI_RX_PHY_CTRL_REG_OFFSET, Value);
 }
+
+/****************************************************************************/
+/**
+* This function configures the dynamic line rate for the MIPI RX PHY by
+* programming the MMCM registers and NPI X5PLL registers. The driver
+* disables the PHY, programs the MMCM via XMipi_Rx_Phy_MmcmConfig,
+* delegates the PLL register programming to XMipi_Rx_Phy_XPllConfig,
+* and re-enables the PHY.
+*
+* @param	InstancePtr is the XMipi_Rx_Phy instance to operate on.
+* @param	PllBaseAddr is the base address of the X5PLL register space.
+* @param	LineRate is the desired line rate in Mbps (400-4500 Mbps).
+*
+* @return
+*		- XST_SUCCESS if line rate configuration is successful.
+*		- XST_FAILURE if the line rate is out of supported range
+*		  or dynamic line rate is not enabled in hardware.
+*
+* @note		The PHY is disabled before MMCM and PLL reprogramming and
+*		re-enabled after the sequence completes to ensure a clean
+*		transition.
+*
+*****************************************************************************/
+u32 XMipi_Rx_Phy_DynamicLineRateConfig(XMipi_Rx_Phy *InstancePtr,
+			UINTPTR PllBaseAddr, u32 LineRate)
+{
+	u32 Status;
+
+	/* Verify arguments */
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(PllBaseAddr != 0U);
+	Xil_AssertNonvoid(!InstancePtr->Config.IsDphy);
+
+	/* Check if dynamic line rate is supported in HW configuration */
+	if (!InstancePtr->Config.IsDynamicLineRate) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "MIPI RX PHY ERR:: Dynamic line rate not"
+			 " supported in HW configuration\n\r");
+		return XST_FAILURE;
+	}
+
+	/* Check if line rate is within the supported range (400-4500 Mbps) */
+	if ((LineRate < XMIPI_RX_PHY_LINERATE_MIN) ||
+	    (LineRate > XMIPI_RX_PHY_LINERATE_MAX)) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "MIPI RX PHY ERR:: Line rate %u Mbps"
+			 " out of supported range (%u-%u Mbps)\n\r",
+			 LineRate, XMIPI_RX_PHY_LINERATE_MIN,
+			 XMIPI_RX_PHY_LINERATE_MAX);
+		return XST_FAILURE;
+	}
+
+	/* Disable the PHY before reprogramming MMCM and PLL */
+	XMipi_Rx_Phy_Activate(InstancePtr, XMIPI_RX_PHY_DISABLE_FLAG);
+
+	/* Configure MMCM for the requested line rate */
+	Status = XMipi_Rx_Phy_MmcmConfig(InstancePtr, LineRate);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "MIPI RX PHY ERR:: MMCM"
+			 " configuration failed\n\r");
+		/* Re-enable the PHY even on failure */
+		XMipi_Rx_Phy_Activate(InstancePtr, XMIPI_RX_PHY_ENABLE_FLAG);
+		return XST_FAILURE;
+	}
+
+	/* Configure XPll for the requested line rate */
+	Status = XMipi_Rx_Phy_XPllConfig(PllBaseAddr, LineRate);
+	if (Status != XST_SUCCESS) {
+		xdbg_printf(XDBG_DEBUG_ERROR, "MIPI RX PHY ERR:: XPll"
+			 " configuration failed\n\r");
+		/* Re-enable the PHY even on failure */
+		XMipi_Rx_Phy_Activate(InstancePtr, XMIPI_RX_PHY_ENABLE_FLAG);
+		return XST_FAILURE;
+	}
+
+	/* Re-enable the PHY after MMCM and PLL reprogramming */
+	XMipi_Rx_Phy_Activate(InstancePtr, XMIPI_RX_PHY_ENABLE_FLAG);
+
+	return XST_SUCCESS;
+}
+
 /** @} */
