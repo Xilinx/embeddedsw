@@ -3512,6 +3512,11 @@ XStatus XPm_SetClockState(const u32 SubsystemId, const u32 ClockId, const u32 En
 	XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 	u32 CurrState = 0U;
 
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
 	/* HACK: Don't disable PLL clocks for now */
 	if((Enable == 0U) && (ISPLL(ClockId)))
 	{
