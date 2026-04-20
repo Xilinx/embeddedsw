@@ -3666,6 +3666,11 @@ XStatus XPm_SetClockDivider(const u32 SubsystemId, const u32 ClockId, const u32 
 	volatile XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk = XPmClock_GetById(ClockId);
 
+	if (NULL == Clk) {
+		Status = XPM_INVALID_CLKID;
+		goto done;
+	}
+
 	/* Check if subsystem is allowed to access requested clock or not */
 	volatile XStatus StatusTmp = XST_FAILURE;
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPm_IsAccessAllowed, SubsystemId, ClockId);
