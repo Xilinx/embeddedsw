@@ -25,6 +25,11 @@ supported_processors:
 supported_os:
   - standalone
 
+depends:
+    spips:
+        - reg
+        - xlnx,spi-clk-freq-hz
+
 examples:
   xiltpm_example.c:
 

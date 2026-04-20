@@ -31,8 +31,6 @@ if("${CMAKE_MACHINE}" STREQUAL "Versal")
     collect(PROJECT_LIB_DEPS xilcert)
   elseif("Versal_2VP_P" IN_LIST VARIANT)
      # Intentionally do nothing for Versal_2VP_P variant
-  else()
-    collect(PROJECT_LIB_DEPS xiltpm)
   endif()
 endif()
 if("${CMAKE_SUBMACHINE}" STREQUAL "Versal_2VE_2VM")
