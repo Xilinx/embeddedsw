@@ -21,8 +21,18 @@ static u16 PmNumPins;
  ****************************************************************************/
 XStatus XPmPin_GetNumPins(u32 *NumPins)
 {
+	volatile XStatus Status = XST_FAILURE;
+
+	if (NULL == NumPins) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	*NumPins = PmNumPins;
-	return XST_SUCCESS;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 
