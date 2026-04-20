@@ -131,8 +131,13 @@ done:
  ****************************************************************************/
 XStatus XPmPin_GetPinFunction(u32 PinId, u32 *FuncId)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const XPm_PinNode *Pin;
+
+	if (NULL == FuncId) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	Pin = XPmPin_GetById(PinId);
 
