@@ -71,6 +71,8 @@ typedef struct {
 					output wrapped key length in wrap operation and in unwrap
 					operation it is the size of output buffer which should be
 					equal or greater than the size of the unwrapped input */
+	u32 AesKeyId;	/**< AES Key ID, if the AES key to be used from ASU key vault */
+	u32 RsaKeyId;	/**< RSA Key ID, if the RSA key to be used from ASU key vault */
 	u8 AesKeySize;	/**< AES Key Size - 128 Bit: XASU_AES_KEY_SIZE_128_BITS or
 					 256 Bit : XASU_AES_KEY_SIZE_256_BITS*/
 	u8 ShaType;	/**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
@@ -78,8 +80,7 @@ typedef struct {
 		* (XASU_SHA_MODE_256 / XASU_SHA_MODE_384 / XASU_SHA_MODE_512 /
 		* XASU_SHA_MODE_SHAKE256) */
 	u8 Reserved;	/**< Reserved for future use */
-	u32 AesKeyId;	/**< AES Key ID, if the AES key to be used from ASU key vault */
-	u32 RsaKeyId;	/**< RSA Key ID, if the RSA key to be used from ASU key vault */
+	u8 Reserved2[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyWrapParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

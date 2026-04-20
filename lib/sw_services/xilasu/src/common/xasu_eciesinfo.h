@@ -76,6 +76,7 @@ typedef struct {
 	u8 EccKeyLength; /**< Length of the provided ECC curve in bytes */
 	u8 IvLength; /**< Length of the IV in bytes */
 	u8 MacLength; /**< Length of the MAC in bytes */
+	u8 Reserved2[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EciesParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
