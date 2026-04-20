@@ -223,8 +223,13 @@ XStatus XPmSubsystemOp_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 	}
 done:
 	if (Status != XST_SUCCESS) {
-		PmErr("Permission denied 0x%x, Subsys 0x%x NodeId 0x%x\r\n",
-			Status, Subsystem->Id, NodeId);
+		if (NULL != Subsystem) {
+			PmErr("Permission denied 0x%x, Subsys 0x%x NodeId 0x%x\r\n",
+				Status, Subsystem->Id, NodeId);
+		} else {
+			PmErr("Permission denied 0x%x, Subsys NULL NodeId 0x%x\r\n",
+				Status, NodeId);
+		}
 	}
 	return Status;
 }
