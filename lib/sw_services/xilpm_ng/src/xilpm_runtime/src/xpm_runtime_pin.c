@@ -475,24 +475,26 @@ done:
  ****************************************************************************/
 XStatus XPmPin_GetPinGroups(u32 PinId, u32 Index, u16 *Groups)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 i;
 	u32 NumRead;
 	const XPm_PinNode *Pin;
 	u32 Size = MAX_GROUPS_PER_RES * sizeof(u16);
 
+	if (NULL == Groups) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	Pin = XPmPin_GetById(PinId);
+	if (NULL == Pin) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	Status = Xil_SMemSet(Groups, Size, (s32)END_OF_GRP, Size);
 	if (XST_SUCCESS != Status) {
 		goto done;
-	}
-
-	if (NULL == Pin) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	} else {
-		/* Required by MISRA */
 	}
 
 	/* Read up to 6 group IDs from Index */
