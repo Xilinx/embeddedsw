@@ -378,11 +378,16 @@ done:
  ****************************************************************************/
 XStatus XPmPin_GetPinConfig(u32 PinId, u32 Param, u32 *Value)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const XPm_PinNode *Pin;
 	u32 BitMask;
 	u32 Reg;
 	u32 BaseAddr;
+
+	if (NULL == Value) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	Pin = XPmPin_GetById(PinId);
 
