@@ -98,16 +98,16 @@ typedef struct {
 	u16 Length;	/**< Key length. */
 	u32 EpochTime;	/**< Time stamp expiry for the key. */
 	u32 UsageCount;	/**< Number of times the key can be used. */
-	u32 Reserved;	/**< Reserved field for future use. */
 } XAsu_KeyManagerKeyMetadata;
 
 /** This structure contains info for key manager parameters. */
 typedef struct {
 	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
 	XAsu_AesKeyObject AesKeyObj; /**< AES key object to be filled if input is wrapped key type. */
-	u32 WrappedInputLen; /**< Length of the wrapped key input data, to be filled if input is wrapped key type. */
 	u64 KeyObjectAddr; /**< Address of the key buffer. */
 	u64 KeyIdAddr; /**< Address where generated key ID is stored. */
+	u32 WrappedInputLen; /**< Length of the wrapped key input data, to be filled if input is wrapped key type. */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerParams;
 
 /** This structure contains info for different sub vault capacities. */
@@ -124,8 +124,7 @@ typedef struct {
 	u16 X509KeyVaultCapacity; /**< Count for X.509 certificates. */
 	u16 AccessRights; /**< Access permissions for the key vault. */
 	u8 Restrictions;	/**< Key vault restrictions. */
-	u8 Reserved1; /**< Reserved byte. */
-	u16 Reserved2; /**< Reserved halfword. */
+	u8 Reserved[3]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerSubVaultParams;
 
 typedef struct {
@@ -148,6 +147,7 @@ typedef struct {
 	u64 DataAddr;		/**< Address for vault data (export destination or import source). */
 	u64 ActualSizeAddr;	/**< Address where actual vault size will be stored (used only for export). */
 	u32 BufSize;		/**< Buffer size for export or actual data size for import. */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyVaultTransferParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

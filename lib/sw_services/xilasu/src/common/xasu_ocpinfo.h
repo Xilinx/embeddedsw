@@ -91,6 +91,7 @@ typedef struct {
 	u32 CertBufLen;		/**< Certificate buffer length */
 	u32 CertActualSize;	/**< Certificate actual size */
 	u32 DevKeySel;		/**< Device key type */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_OcpCertParams;
 
 /**

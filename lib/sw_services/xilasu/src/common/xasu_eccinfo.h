@@ -118,6 +118,7 @@ typedef struct {
 	XAsu_EccKeyObject PvtKey; /**< Private key object */
 	u64 PubKeyAddr;         /**< Address where public key will be written (size = 2 * PvtKey.KeyLen) */
 	u32 CurveType;          /**< Type of curve */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EccKeyParams;
 
 /** This structure contains ECDH params info. */
@@ -127,6 +128,7 @@ typedef struct {
 	u64 SharedSecretAddr;   /**< Address where shared secret will be written (size = PvtKey.KeyLen) */
 	u64 SharedSecretObjIdAddr; /**< Optional object ID for shared secret storage */
 	u32 CurveType;          /**< Type of curve */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_EcdhParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

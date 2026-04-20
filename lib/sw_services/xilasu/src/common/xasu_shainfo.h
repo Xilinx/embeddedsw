@@ -80,6 +80,7 @@ typedef struct {
 	u8 OperationFlags; /**< SHA2/3 operation flags is a combination of (XASU_INIT,
 					* XASU_UPDATE, XASU_FINISH) */
 	u8 ShakeReserved; /**< SHA3 SHAKE256 next xof enable flag. NA for client. ASUFW internal use */
+	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_ShaOperationCmd;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
