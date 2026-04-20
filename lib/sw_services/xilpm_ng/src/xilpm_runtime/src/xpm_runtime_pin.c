@@ -527,8 +527,13 @@ done:
  ****************************************************************************/
 XStatus XPmPin_QueryAttributes(const u32 PinIndex, u32 *Resp)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const XPm_PinNode *Pin;
+
+	if (NULL == Resp) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
 
 	/* Check for valid pin index */
 	if (PinIndex >= (u32)XPM_NODEIDX_STMIC_MAX) {
