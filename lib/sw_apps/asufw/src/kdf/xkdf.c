@@ -39,6 +39,7 @@
 #include "xasufw_perf.h"
 #include "xasufw_memory.h"
 #include "xasu_generic.h"
+#include "xil_sutil.h"
 
 #ifdef XASU_KDF_ENABLE
 /************************************** Type Definitions *****************************************/
@@ -116,7 +117,7 @@ s32 XKdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_KdfParams
 	 * variable, checking for maximum iterations is not required as this variable always holds
 	 * only in range numbers.
 	 */
-	Iterations = (KdfParams->KeyOutLen + HashLen - 1U) / HashLen;
+	Iterations = XIL_SCEILDIV(u32, KdfParams->KeyOutLen, HashLen);
 
 	/**
 	 * Use HMAC as a pseudorandom function, run the below steps in iterations until requested bytes

@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2023 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -38,6 +38,7 @@ extern "C" {
 
 /*************************************** Include Files *******************************************/
 #include "xlinklist.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XTASK_MAX               (32U) /**< Maximum tasks allowed to be created */
@@ -64,7 +65,7 @@ typedef struct {
 
 /** This structure contains the events list. */
 typedef struct {
-	u32 Tasks[(XTASK_MAX + XTASK_NUM_BITS_IN_U32 - 1U) / XTASK_NUM_BITS_IN_U32]; /**< Task events */
+	u32 Tasks[XIL_SCEILDIV(u32, XTASK_MAX, XTASK_NUM_BITS_IN_U32)]; /**< Task events */
 } XTask_TaskEvent;
 
 /************************************ Variable Definitions ***************************************/
