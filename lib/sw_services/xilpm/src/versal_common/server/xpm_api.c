@@ -4444,7 +4444,7 @@ static XStatus XPm_RequestHBMonDevice(const u32 SubsystemId, const u32 CmdType)
 		}
 		Reqm = XPmDevice_FindRequirement(Device->Node.Id, SubsystemId);
 		/* Skip if boot time healthy boot monitor node found */
-		if ((NULL == Reqm) || (1U == PREALLOC((u32)Reqm->Flags))) {
+		if ((NULL == Reqm) || (PREALLOC_ENABLED == PREALLOC((u32)Reqm->Flags))) {
 			continue;
 		}
 		Status = XPm_RequestDevice(SubsystemId, Device->Node.Id,
