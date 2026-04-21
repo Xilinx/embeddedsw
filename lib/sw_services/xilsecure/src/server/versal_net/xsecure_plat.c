@@ -588,7 +588,7 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	u32 TotalSize = Size;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	volatile u32 Index = 0U;
-	u32 NoOfGenerates = (Size + XTRNGPSX_SEC_STRENGTH_IN_BYTES - 1U) >> 5U;
+	u32 NoOfGenerates = XIL_SCEILDIV(u32, Size, XTRNGPSX_SEC_STRENGTH_IN_BYTES);
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);

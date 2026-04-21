@@ -34,6 +34,7 @@
 #include "xsecure_mgf.h"
 #include "xsecure_sha384.h"
 #include "xsecure_error.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -258,7 +259,7 @@ int XSecure_MaskGenFunc(XSecure_ShaMode ShaType, void *InstancePtr, XSecure_MgfI
 	}
 
 	OutputPtr = MgfInput->Output;
-	NoOfIterations = (MgfInput->OutputLen + HashFunList->HashLen - 1U) / HashFunList->HashLen;
+	NoOfIterations = XIL_SCEILDIV(u32, MgfInput->OutputLen, HashFunList->HashLen);
 	while (Counter < NoOfIterations) {
 		XSecure_I2Osp(Counter, XSECURE_WORD_SIZE, Bytes);
 
