@@ -187,16 +187,6 @@ maybe_unused static u32 XPm_GetUsbCurrPwrOffset(const u32 DeviceId)
 	return CurrPwrOffset;
 }
 
-maybe_unused static inline XStatus XPm_GetSsitTemp(u32 DeviceId,
-			pm_ioctl_id IoctlId, u32 Offset, u32 *const Response)
-{
-	(void)DeviceId;
-	(void)IoctlId;
-	(void)Offset;
-	(void)Response;
-
-	return XST_SUCCESS;
-}
 /****************************************************************************/
 /**
  * @brief  Enable/Disable tap delay bypass
@@ -710,9 +700,6 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		}
 		Status = XPmDevice_SetRequirement(SubsystemId, DeviceId,
 					(u32)PM_CAP_CONTEXT, 0U);
-		break;
-	case IOCTL_GET_SSIT_TEMP:
-		Status = XPm_GetSsitTemp(DeviceId, IoctlId, Arg1, Response);
 		break;
 	case IOCTL_ULPI_RESET:
 	case IOCTL_AFI:
