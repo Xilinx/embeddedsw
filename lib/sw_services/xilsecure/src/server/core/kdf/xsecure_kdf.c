@@ -75,8 +75,7 @@ int XSecure_Hkdf(XSecure_KdfParams *InDataPtr, u8 *KdfOut, u32 KdfOutLen)
 	/**
 	 * - Calculate number of iterations based on HKDF output key length and SHA hash length.
 	 */
-	Iterations = (u32)(((u64)KdfOutLen + (u64)XSECURE_SHA_384_HASH_SIZE_IN_BYTES - 1ULL) /
-			(u64)XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
+	Iterations = XIL_SCEILDIV(u32, KdfOutLen, XSECURE_SHA_384_HASH_SIZE_IN_BYTES);
 	if (Iterations == 0U) {
 		Status = XSECURE_ERR_HKDF_INVALID_PARAM;
 		goto END;
