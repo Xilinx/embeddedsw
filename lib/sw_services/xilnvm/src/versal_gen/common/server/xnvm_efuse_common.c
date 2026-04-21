@@ -37,6 +37,7 @@
 /***************************** Include Files **********************************/
 #include "sleep.h"
 #include "xil_util.h"
+#include "xil_sutil.h"
 #include "xil_io.h"
 #include "xnvm_efuse_common.h"
 #include "xnvm_efuse_common_hw.h"
@@ -346,40 +347,34 @@ void XNvm_EfuseInitTimers(void)
 
 	/* CLK_FREQ = 1/CLK_PERIOD */
 	/* TPGM = ceiling(5us/REF_CLK_PERIOD) */
-	Tpgm = (u32)((RefClkFreq + XNVM_EFUSE_TPGM_DIV - 1U) /
-							XNVM_EFUSE_TPGM_DIV);
+	Tpgm = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TPGM_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TPGM_REG_OFFSET, Tpgm);
 
 	/* TRD = ceiling(217ns/REF_CLK_PERIOD) */
-	Trd = (u32)((RefClkFreq + XNVM_EFUSE_TRD_DIV - 1U) /
-							XNVM_EFUSE_TRD_DIV);
+	Trd = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TRD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRD_REG_OFFSET, Trd);
 
 	/* TRDM = ceiling(500ns/REF_CLK_PERIOD)*/
-	Trdm = (u32)((RefClkFreq + XNVM_EFUSE_TRMD_DIV - 1U) /
-							XNVM_EFUSE_TRMD_DIV);
+	Trdm = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TRMD_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TRDM_REG_OFFSET, Trdm);
 
 	/* TSU_H_PS = ceiling(208ns/REF_CLK_PERIOD) */
-	Tsu_h_ps = (u32)((RefClkFreq + XNVM_EFUSE_TSU_H_PS_DIV - 1U) /
-							XNVM_EFUSE_TSU_H_PS_DIV);
+	Tsu_h_ps = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_PS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_REG_OFFSET,
 				Tsu_h_ps);
 
 	/* TSU_H_PS_CS = ceiling(143ns/REF_CLK_PERIOD) */
-	Tsu_h_ps_cs = (u32)((RefClkFreq + XNVM_EFUSE_TSU_H_PS_CS_DIV - 1U) /
-							XNVM_EFUSE_TSU_H_PS_CS_DIV);
+	Tsu_h_ps_cs = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_PS_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_PS_CS_REG_OFFSET,
 				Tsu_h_ps_cs);
 
 	/* TSU_H_CS = ceiling(184ns/REF_CLK_PERIOD) */
-	Tsu_h_cs = (u32)((RefClkFreq + XNVM_EFUSE_TSU_H_CS_DIV - 1U) /
-							XNVM_EFUSE_TSU_H_CS_DIV);
+	Tsu_h_cs = XIL_SCEILDIV(u64, RefClkFreq, XNVM_EFUSE_TSU_H_CS_DIV);
 	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR,
 				XNVM_EFUSE_TSU_H_CS_REG_OFFSET,
 				Tsu_h_cs);
