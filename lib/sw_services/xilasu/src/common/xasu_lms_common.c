@@ -73,6 +73,16 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 		goto END;
 	}
 
+	/**
+	 * Validate signature length against NIST SP 800-208 bounds.
+	 * Minimum: 780 bytes (smallest LMS param set: N=24, W=8, H=5).
+	 * Maximum: 18708 bytes (largest 2-level HSS: N=32, W=1, H=25).
+	 */
+	if ((LmsParamsPtr->SignatureLen < XASU_LMS_MIN_SIGNATURE_SIZE) ||
+		(LmsParamsPtr->SignatureLen > XASU_LMS_MAX_SIGNATURE_SIZE)) {
+		goto END;
+	}
+
 	/** Validate public key address and length. */
 	if ((LmsParamsPtr->PublicKeyAddr == 0U) || (LmsParamsPtr->PublicKeyLen == 0U)) {
 		goto END;
@@ -85,12 +95,14 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 	}
 
 	/**
-	 * Validate message length for pre-hashed case.
-	 * When message is NOT pre-hashed: zero-length message is valid per RFC 8554.
-	 * When message IS pre-hashed: length must equal the hash output size (32 bytes).
+	 * Validate message length for pre-hashed case per NIST SP 800-208.
+	 * When message is NOT pre-hashed: any length is valid per RFC 8554.
+	 * When message IS pre-hashed: length must equal a NIST-valid hash output size
+	 * (24 bytes for N=24 parameter sets, 32 bytes for N=32 parameter sets).
 	 */
 	if ((LmsParamsPtr->PreHashedMsg == XASU_LMS_MSG_PREHASHED) &&
-		(LmsParamsPtr->MsgLen != XASU_SHA_SHAKE_256_HASH_LEN)) {
+		(LmsParamsPtr->MsgLen != XASU_LMS_HASH_LEN_N32) &&
+		(LmsParamsPtr->MsgLen != XASU_LMS_HASH_LEN_N24)) {
 		goto END;
 	}
 
@@ -99,8 +111,29 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 		goto END;
 	}
 
-	/** Validate public key length is at least the minimum LMS public key size. */
-	if (LmsParamsPtr->PublicKeyLen < XASU_LMS_PUB_KEY_SIZE) {
+	/**
+	 * Validate public key length is within NIST SP 800-208 valid range.
+	 * Min: 48 bytes (LMS N=24), Max: 60 bytes (HSS N=32).
+	 */
+	if ((LmsParamsPtr->PublicKeyLen < XASU_LMS_PUB_KEY_SIZE) ||
+		(LmsParamsPtr->PublicKeyLen > XASU_LMS_MAX_PUB_KEY_SIZE)) {
+		goto END;
+	}
+
+	/**
+	 * Validate SHA type and mode per NIST SP 800-208 / RFC 8554.
+	 * LMS only permits two hash functions:
+	 *  - SHA-256: ShaType = XASU_SHA2_TYPE, ShaMode = XASU_SHA_MODE_256
+	 *  - SHAKE256: ShaType = XASU_SHA3_TYPE, ShaMode = XASU_SHA_MODE_SHAKE256
+	 * No other combinations (SHA-384, SHA-512, SHA3-256, etc.) are defined
+	 * in any LMS/HSS parameter set.
+	 */
+	if (((LmsParamsPtr->ShaType == XASU_SHA2_TYPE) &&
+		(LmsParamsPtr->ShaMode != XASU_SHA_MODE_256)) ||
+		((LmsParamsPtr->ShaType == XASU_SHA3_TYPE) &&
+		(LmsParamsPtr->ShaMode != XASU_SHA_MODE_SHAKE256)) ||
+		((LmsParamsPtr->ShaType != XASU_SHA2_TYPE) &&
+		(LmsParamsPtr->ShaType != XASU_SHA3_TYPE))) {
 		goto END;
 	}
 
