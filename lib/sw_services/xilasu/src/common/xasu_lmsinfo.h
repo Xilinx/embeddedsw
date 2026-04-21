@@ -51,9 +51,23 @@ extern "C" {
 #define XASU_HSS_KAT_CMD_ID			(4U) /**< Command ID for HSS KAT */
 #define XASU_LMS_MAX_CMDS			(5U) /**< Maximum number of commands supported by LMS module */
 
-/* LMS Public key size */
-#define XASU_LMS_PUB_KEY_SIZE			(48U) /**< Minimum LMS public key size in bytes
-								(4 + 4 + 16 + 24) for N=24 */
+/* LMS/HSS Public key sizes per NIST SP 800-208 */
+#define XASU_LMS_PUB_KEY_SIZE			(48U) /**< Minimum LMS public key size (N=24) */
+#define XASU_LMS_MAX_PUB_KEY_SIZE		(60U) /**< Maximum HSS public key size (N=32) */
+
+/* Hash output lengths per NIST LMS parameter sets */
+#define XASU_LMS_HASH_LEN_N24			(24U) /**< Hash output length for N=24 parameter sets */
+#define XASU_LMS_HASH_LEN_N32			(32U) /**< Hash output length for N=32 parameter sets */
+
+/**
+ * LMS/HSS Signature size bounds per NIST SP 800-208.
+ * Min LMS sig: N=24, W=8, H=5 → q[4] + LMOTS[652] + type[4] + path[24*5=120] = 780
+ * Max HSS sig (2-level): Nspk[4] + LMS_max[9324] + pub_N32[56] + LMS_max[9324] = 18708
+ */
+#define XASU_LMS_MIN_SIGNATURE_SIZE		(780U) /**< Minimum NIST-valid LMS signature size */
+#define XASU_LMS_MAX_SIGNATURE_SIZE		(18708U) /**< Maximum NIST-valid HSS signature size
+								(2-level, N=32, W=1, H=25) */
+
 /* Pre-hashed message flag */
 #define XASU_LMS_MSG_NOT_PREHASHED		(0U) /**< Message is not pre-hashed */
 #define XASU_LMS_MSG_PREHASHED			(1U) /**< Message is pre-hashed */

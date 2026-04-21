@@ -216,12 +216,6 @@ s32 XAsu_LmsSignVerify(XAsu_ClientParams *ClientParamsPtr,
 		goto END;
 	}
 
-	/** Validate SHA type and mode. */
-	if (XAsu_ShaValidateModeAndType(LmsParamsPtr->ShaType, LmsParamsPtr->ShaMode) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
-		goto END;
-	}
-
 	/** Generate a unique ID and register the callback function. */
 	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
 	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
@@ -284,12 +278,6 @@ s32 XAsu_HssSignVerify(XAsu_ClientParams *ClientParamsPtr,
 
 	Status = XAsu_LmsValidateParams(HssParamsPtr);
 	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	/** Validate SHA type and mode. */
-	if (XAsu_ShaValidateModeAndType(HssParamsPtr->ShaType, HssParamsPtr->ShaMode) != XST_SUCCESS) {
-		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
 

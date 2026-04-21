@@ -113,6 +113,7 @@ static u8* LmsOtsSignatureBuff_g = NULL; /**< Static pointer to OTS signature bu
 static const XLms_OtsParam* LmsOtsSignParam_g = NULL; /**< Static pointer to OTS parameters */
 static u32 HashOutputN_g = XLMS_N_FIELD_SIZE; /**< Runtime hash output bytes (n/m) for current operation */
 static u8 HssCallerShaMode_g = 0U; /**< Caller-specified SHA mode from HssInit, used by HssFinish */
+static u8 HssCallerShaType_g = 0U; /**< Caller-specified SHA type from HssInit, used by HssFinish */
 static u32 OtsProcessDmaState = XLMS_DMA_STATE_IDLE; /**< State variable to track non-blocking
 							DMA progress in XLms_OtsSignatureProcess */
 /** Shared buffers for LMS signature verification */
@@ -729,6 +730,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		LmsSignVerifyParams.SignatureLen = CurrentLevelSignLen;
 		LmsSignVerifyParams.PublicKeyAddr = (u64)(UINTPTR)TmpPublicKeyPtr;
 		LmsSignVerifyParams.PublicKeyLen = CurrentPubKeyActualSize;
+		LmsSignVerifyParams.ShaType = HssParamsPtr->ShaType;
 		LmsSignVerifyParams.ShaMode = HssParamsPtr->ShaMode;
 
 		/**
@@ -840,6 +842,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 
 		HashOutputN_g = PubKeyLmsOtsParam->HashOutputBytes;
 		HssCallerShaMode_g = HssParamsPtr->ShaMode;
+		HssCallerShaType_g = HssParamsPtr->ShaType;
 	}
 
 END:
@@ -1119,6 +1122,7 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 			LmsSignVerifyParams.SignatureLen = SignNpskLen_s;
 			LmsSignVerifyParams.PublicKeyAddr = (u64)(UINTPTR)AuthenticatedKey.Buff;
 			LmsSignVerifyParams.PublicKeyLen = (XLMS_PUB_KEY_FIXED_FIELD_SIZE + HashOutputN_g);
+			LmsSignVerifyParams.ShaType = HssCallerShaType_g;
 			LmsSignVerifyParams.ShaMode = HssCallerShaMode_g;
 		}
 
