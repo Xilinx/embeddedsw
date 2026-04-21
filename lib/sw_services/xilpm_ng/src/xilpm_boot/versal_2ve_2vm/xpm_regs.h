@@ -788,6 +788,8 @@ extern "C" {
 #define NPI_PCSR_MASK_OFFSET				(0x00000000U)
 #define NPI_PCSR_CONTROL_OFFSET				(0x00000004U)
 #define NPI_PCSR_STATUS_OFFSET				(0x00000008U)
+/** PCSR_STATUS bit 0: 1 = PCSR is locked (write-protected), 0 = unlocked. */
+#define NPI_PCSR_STATUS_PCSRLOCK_MASK			(0x00000001U)
 
 /*
  * GTY PCSR Module
