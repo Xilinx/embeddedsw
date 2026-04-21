@@ -31,6 +31,7 @@
 * 9.4   ml       07/24/25 Fixed GCC warnings
 *       har      10/10/25 Updated datatype of Len in Xil_ConvertStringToHex
 * 9.5   abh      10/11/25 Fixed MISRA-C violations
+*       rmv      04/08/26 Added XIL_SCEILDIV macro
 *
 * </pre>
 *
@@ -184,6 +185,22 @@ extern "C" {
 
 #endif
 /*************************** Function Prototypes ******************************/
+
+/******************************************************************************/
+/**
+ *
+ * Returns ceil value of (Numerator / Denominator) using the specified
+ * integer Type used for the computation. Denominator must not be zero.
+ *
+ * @param	Type is the data type (e.g. u32, u64) used for the computation
+ * @param	Numerator is the dividend
+ * @param	Denominator is the divisor and must not be zero
+ *
+ * @return	Ceil value of (Numerator / Denominator)
+ *
+ ******************************************************************************/
+#define XIL_SCEILDIV(Type, Numerator, Denominator) \
+	(((Type)(Numerator) + (Type)(Denominator) - (Type)1) / (Type)(Denominator))
 
 /**< Converts input character to nibble */
 u32 Xil_ConvertCharToNibble(u8 InChar, u8 *Num);
