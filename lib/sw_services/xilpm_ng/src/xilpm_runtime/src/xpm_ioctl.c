@@ -599,6 +599,10 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 
 	switch (IoctlId) {
 	case IOCTL_GET_RPU_OPER_MODE:
+		if (NULL == Response) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
 		Status = XPm_RpuGetOperMode(DeviceId, Response);
 		break;
 	case IOCTL_SET_RPU_OPER_MODE:
@@ -608,6 +612,10 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_RpuBootAddrConfig(DeviceId, Arg1);
 		break;
 	case IOCTL_GET_APU_OPER_MODE:
+		if (NULL == Response) {
+			Status = XST_INVALID_PARAM;
+			goto done;
+		}
 		Status = XPm_ApuGetOperMode(DeviceId, Response);
 		break;
 	case IOCTL_SET_APU_OPER_MODE:
