@@ -3563,9 +3563,9 @@ XStatus XPm_ReleaseDevice(const u32 SubsystemId, const u32 DeviceId,
 	}
 #endif
 
-	u32 NumArgs = 1U;
-	u32 ArgBuf[1U];
-	ArgBuf[0] = DeviceId;
+	u32 NumArgs = PM_RELEASE_NODE_ARG_CNT;
+	u32 ArgBuf[PM_RELEASE_NODE_ARG_CNT];
+	ArgBuf[ARG_IDX_PM_RELEASE_NODE_DEVID] = DeviceId;
 
 	/* Forward message event to secondary SLR if required */
 	Status = XPm_SsitForwardApi(PM_RELEASE_NODE, ArgBuf, NumArgs,
