@@ -33,7 +33,7 @@
 /***************************** Include Files **********************************/
 #include "xnvm_utils.h"
 #include "xstatus.h"
-#include "xil_util.h"
+#include "xil_sutil.h"
 
 /*************************** Constant Definitions *****************************/
 
@@ -45,15 +45,15 @@
 
 /**<  Timer related macros */
 #define Tpgm(ClkFreq) \
-    Xil_Ceil(((5.0f) * ((float)ClkFreq)) / (1000000.0f))
+	XIL_SCEILDIV(u64, 5U * (u64)(ClkFreq), 1000000U)
 #define Trd(ClkFreq) \
-    Xil_Ceil(((15.0f) * ((float)ClkFreq)) / (100000000.0f))
+	XIL_SCEILDIV(u64, 15U * (u64)(ClkFreq), 100000000U)
 #define Tsu_h_ps(ClkFreq) \
-    Xil_Ceil(((67.0f) * ((float)ClkFreq)) / (1000000000.0f))
+	XIL_SCEILDIV(u64, 67U * (u64)(ClkFreq), 1000000000U)
 #define Tsu_h_ps_cs(ClkFreq) \
-    Xil_Ceil(((46.0f) * ((float)ClkFreq)) / (1000000000.0f))
+	XIL_SCEILDIV(u64, 46U * (u64)(ClkFreq), 1000000000U)
 #define Tsu_h_cs(ClkFreq) \
-    Xil_Ceil(((30.0f) * ((float)ClkFreq)) / (1000000000.0f))
+	XIL_SCEILDIV(u64, 30U * (u64)(ClkFreq), 1000000000U)
 
 /**< Temperature limits for Spartan UltraScale Plus eFuses */
 #define XNVM_EFUSE_TEMP_MIN			(-40.0f)
