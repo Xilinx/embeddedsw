@@ -609,15 +609,22 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 {
 	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	u32 ModuleId = ((ReqBuf->Header & XASU_MODULE_ID_MASK) >> XASU_MODULE_ID_SHIFT);
-	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
+	u32 CurveType;
 	XAsufw_Resource Resource = XASUFW_INVALID;
+
+	/** Get CurveType based on command ID. */
+	if (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) {
+		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->CurveType;
+	} else {
+		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->CurveType;
+	}
 
 	if (ModuleId == XASU_MODULE_ECC_ID) {
 		if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID)) &&
-		    ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
-		    (EccParamsPtr->CurveType == XASU_ECC_NIST_P384))) {
+		    ((CurveType == XASU_ECC_NIST_P256) ||
+		    (CurveType == XASU_ECC_NIST_P384))) {
 			Resource = XASUFW_ECC;
 		} else if (CmdId == XASU_ECC_KAT_CMD_ID) {
 			Resource = XASUFW_ECC;
@@ -649,14 +656,22 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
  *************************************************************************************************/
 XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 {
-	const XAsu_EccParams *EccParamsPtr = (const XAsu_EccParams *)ReqBuf->Arg;
+	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
+	u32 CurveType;
 	XAsufw_Resource Resource = XASUFW_INVALID;
 
-	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_ED25519) ||
-		(EccParamsPtr->CurveType == XASU_ECC_NIST_ED25519_PH)) {
+	/** Get CurveType based on command ID. */
+	if (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) {
+		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->CurveType;
+	} else {
+		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->CurveType;
+	}
+
+	if ((CurveType == XASU_ECC_NIST_ED25519) ||
+		(CurveType == XASU_ECC_NIST_ED25519_PH)) {
 		Resource = XASUFW_SHA2;
-	} else if ((EccParamsPtr->CurveType == XASU_ECC_NIST_ED448) ||
-		(EccParamsPtr->CurveType == XASU_ECC_NIST_ED448_PH)) {
+	} else if ((CurveType == XASU_ECC_NIST_ED448) ||
+		(CurveType == XASU_ECC_NIST_ED448_PH)) {
 		Resource = XASUFW_SHA3;
 	} else {
 		Resource = XASUFW_NONE;
