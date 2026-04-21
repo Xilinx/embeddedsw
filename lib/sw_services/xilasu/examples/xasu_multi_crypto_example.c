@@ -626,10 +626,11 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 
 	EccSignGenParams.CurveType = XASU_ECC_NIST_P256;
 	EccSignGenParams.DigestAddr = (u64)(UINTPTR)XAsu_EccHash;
-	EccSignGenParams.KeyAddr = (u64)(UINTPTR)XAsu_EccPrivKey;
+	EccSignGenParams.Key.KeyAddr = (u64)(UINTPTR)XAsu_EccPrivKey;
 	EccSignGenParams.SignAddr = (u64)(UINTPTR)XAsu_EccSign;
 	EccSignGenParams.DigestLen = XASU_ECC_P256_KEY_SIZE_IN_BYTES;
-	EccSignGenParams.KeyLen = XASU_ECC_P256_KEY_SIZE_IN_BYTES;
+	EccSignGenParams.Key.KeyLen = XASU_ECC_P256_KEY_SIZE_IN_BYTES;
+	EccSignGenParams.Key.KeyId = 0U;
 
 	Status = XAsu_EccGenSign(&EccSignGenClientParams, &EccSignGenParams);
 	if (Status != XST_SUCCESS) {
@@ -665,6 +666,7 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 
 	RsaPssSignGenParams.XAsu_RsaOpComp.InputDataAddr = (u64)(UINTPTR)XAsu_RsaInputData;
 	RsaPssSignGenParams.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)XAsu_RsaSignature;
+	RsaPssSignGenParams.XAsu_RsaOpComp.OutputDataLen = XASU_RSA_2048_KEY_SIZE_IN_BYTES;
 	RsaPssSignGenParams.XAsu_RsaOpComp.Len = XASU_RSA_INPUT_DATA_LEN_IN_BYTES;
 	RsaPssSignGenParams.XAsu_RsaOpComp.KeySize = XASU_RSA_2048_KEY_SIZE_IN_BYTES;
 	RsaPssSignGenParams.XAsu_RsaOpComp.KeyCompAddr = (u64)(UINTPTR)&RsaPvtKeyComp;
