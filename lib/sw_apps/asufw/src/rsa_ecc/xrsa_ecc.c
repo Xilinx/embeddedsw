@@ -47,6 +47,7 @@
 #include "xsha.h"
 #include "xsha_hw.h"
 #include "xasufw_perf.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
 #define XRSA_ECC_ALGN_CRV_SIZE_IN_BYTES		(2U)	/**< Align ECDSA curve size in bytes */
@@ -1187,8 +1188,7 @@ u32 XRsa_EccValidateAndGetCrvInfo(u32 CurveType, EcdsaCrvInfo **Crv)
 	EcdsaCrvInfo *CrvInfo = XRsa_EccGetCrvData(CurveType);
 
 	if (CrvInfo != NULL) {
-		CurveSize = ((u32)CrvInfo->Bits + XASUFW_BYTE_LEN_IN_BITS - 1U) /
-				  XASUFW_BYTE_LEN_IN_BITS;
+		CurveSize = XIL_SCEILDIV(u32, CrvInfo->Bits, XASUFW_BYTE_LEN_IN_BITS);
 		*Crv = CrvInfo;
 	}
 
