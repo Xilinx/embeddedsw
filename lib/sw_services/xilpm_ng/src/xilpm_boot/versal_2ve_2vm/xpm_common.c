@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 -2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -307,15 +307,32 @@ inline void XPm_UnlockPcsr(u32 BaseAddr)
  *
  * @param BaseAddr      Base address of the device
  *
+ * @return XST_SUCCESS if the lock value was written and confirmed via
+ *         REG_PCSR_STATUS.PCSRLOCK; XPM_REG_WRITE_FAILED otherwise.
+ *
  *****************************************************************************/
-inline void XPm_LockPcsr(u32 BaseAddr)
+inline XStatus XPm_LockPcsr(u32 BaseAddr)
 {
+	volatile XStatus Status = XST_FAILURE;
+
 	/*
 	 * Any value that is not the unlock value will lock the PCSR. For
-	 * consistency across all blocks, PCSR_LOCK_VAL is 0.
+	 * consistency across all blocks, PCSR_LOCK_VAL is 0. REG_PCSR_LOCK
+	 * does not store the written value, so confirm the lock took effect
+	 * by reading the read-only PCSRLOCK bit in REG_PCSR_STATUS.
 	 */
-
 	XSECURE_REDUNDANT_IMPL(XPm_Out32, BaseAddr + NPI_PCSR_LOCK_OFFSET, PCSR_LOCK_VAL);
+	PmChkRegMask32(BaseAddr + NPI_PCSR_STATUS_OFFSET,
+		       NPI_PCSR_STATUS_PCSRLOCK_MASK,
+		       NPI_PCSR_STATUS_PCSRLOCK_MASK, Status);
+	if (XPM_REG_WRITE_FAILED == Status) {
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 

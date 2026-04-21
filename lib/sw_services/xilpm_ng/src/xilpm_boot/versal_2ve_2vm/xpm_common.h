@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -600,7 +600,7 @@ static inline u8 XPm_PlatGetSlrIndex(void)
 
 /* NPI PCSR related general functions */
 void XPm_UnlockPcsr(u32 BaseAddr);
-void XPm_LockPcsr(u32 BaseAddr);
+XStatus XPm_LockPcsr(u32 BaseAddr);
 XStatus XPm_PcsrWrite(u32 BaseAddress, u32 Mask, u32 Value);
 u32 XPm_GetByteBufferOffset(void);
 u32 XPm_GetSavedByteBufferAddress(void);
