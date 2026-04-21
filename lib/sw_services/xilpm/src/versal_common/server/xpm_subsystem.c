@@ -659,7 +659,7 @@ XStatus XPmSubsystem_Configure(u32 SubsystemId, u32 Action)
 	PmDbg("Configuring Subsystem: 0x%x\r\n", SubsystemId);
 	Reqm = Subsystem->Requirements;
 	while (NULL != Reqm) {
-		if ((1U != Reqm->Allocated) && (1U == PREALLOC((u32)Reqm->Flags))) {
+		if ((1U != Reqm->Allocated) && (PREALLOC_ENABLED == PREALLOC((u32)Reqm->Flags))) {
 			DeviceId = Reqm->Device->Node.Id;
 			/* Prealloc only selected devices */
 			if (1U != IsSelected(Action, DeviceId)) {

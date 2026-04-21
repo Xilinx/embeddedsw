@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -68,6 +68,12 @@ enum XPm_ReqSecurityFlags {
 #define USAGE_POLICY(Flags)	((Flags) & REG_FLAGS_USAGE_MASK)
 #define SECURITY_POLICY(Flags)	(((Flags) & REG_FLAGS_SECURITY_MASK) >> REG_FLAGS_SECURITY_OFFSET)
 #define PREALLOC(Flags)		(((Flags) & REG_FLAGS_PREALLOC_MASK) >> REG_FLAGS_PREALLOC_OFFSET)
+
+/**
+ * Symbolic state for the PREALLOC() flag — set when the requirement is
+ * preallocated to a subsystem at boot time.
+ */
+#define PREALLOC_ENABLED	(1U)
 
 /************************** Function Prototypes ******************************/
 
