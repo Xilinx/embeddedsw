@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,6 +66,7 @@
 #include "sleep.h"
 #include "xplmi_wdt.h"
 #include "xplmi_proc.h"
+#include "xil_sutil.h"
 
 /** @cond xplmi_internal */
 
@@ -375,7 +376,7 @@ int XPlmi_UtilPollNs(u32 RegAddr, u32 Mask, u32 ExpectedValue, u64 TimeOutInNs,
 	u64 TimeStart = XPlmi_GetTimerValue();
 	u32 *PmcIroFreq = XPlmi_GetPmcIroFreq();
 	u32 PmcIroFreqMHz = *PmcIroFreq / XPLMI_MEGA;
-	u64 TimeOutTicks = ((TimeOutInNs * PmcIroFreqMHz) + XPLMI_KILO - 1U) / XPLMI_KILO;
+	u64 TimeOutTicks = XIL_SCEILDIV(u64, TimeOutInNs * PmcIroFreqMHz, XPLMI_KILO);
 
 	/** - Read the Register value */
 	RegValue = XPlmi_In32(RegAddr);
