@@ -13,6 +13,9 @@ extern "C" {
 #endif
 
 #include "xil_hw.h"
+#ifdef SDT
+#include "xpm_config.h"
+#endif
 
 /**
  * Base Addresses
