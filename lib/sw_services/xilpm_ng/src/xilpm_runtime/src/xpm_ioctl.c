@@ -524,8 +524,23 @@ done:
 	return Status;
 }
 
-static void XPm_GetLastResetReason(u32 *const Response)
+/**
+ * Decode the latest CRP_RESET_REASON bits and write the matching
+ * XPM_RESET_REASON_* enum value into *Response.
+ *
+ * @param  Response  Caller-owned output pointer; must be non-NULL.
+ * @return XST_SUCCESS on a recognized reason, XST_INVALID_PARAM if Response
+ *         is NULL, XST_FAILURE on an unknown reason code.
+ */
+static XStatus XPm_GetLastResetReason(u32 *const Response)
 {
+	volatile XStatus Status = XST_FAILURE;
+
+	if (NULL == Response) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
 	if (CRP_RESET_REASON_SW_POR_MASK ==
 			(ResetReason & CRP_RESET_REASON_SW_POR_MASK)) {
 		*Response = XPM_RESET_REASON_SW_POR;
@@ -553,6 +568,11 @@ static void XPm_GetLastResetReason(u32 *const Response)
 	} else {
 		*Response = XPM_RESET_REASON_INVALID;
 	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
 
 static XStatus XPm_TapDelayOper(const pm_ioctl_id IoctlId, const u32 SubsystemId,
@@ -684,8 +704,7 @@ XStatus XPm_Ioctl(const u32 SubsystemId, const u32 DeviceId, const pm_ioctl_id I
 		Status = XPm_USBDxState(SubsystemId, DeviceId, Arg1, Arg2);
 		break;
 	case IOCTL_GET_LAST_RESET_REASON:
-		XPm_GetLastResetReason(Response);
-		Status = XST_SUCCESS;
+		Status = XPm_GetLastResetReason(Response);
 		break;
 	case IOCTL_SET_PLL_FRAC_MODE:
 		Status = XPm_SetPllMode(SubsystemId, Arg1, Arg2);
