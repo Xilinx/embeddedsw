@@ -177,7 +177,7 @@ get_image_info,0x703,3,3,3,3,3,3,0,0,IPI,Get Image Info
 set_image_info,0x704,0,0,0,0,0,0,0,0,CDO,Set Image Info
 get_image_info_list,0x705,3,3,3,3,3,3,0,0,IPI,Get Image Info List
 extract_metaheader,0x706,3,3,3,3,3,3,0,0,IPI,Metaheader
-load_readback_pdi,0x707,1,1,1,1,1,1,0,0,IPI,Load Readback Pdi
+load_readback_pdi,0x707,0,0,0,0,0,0,0,0,Unsupported,Unsupported
 update_multiboot,0x708,1,1,1,1,1,1,0,0,IPI,Multiboot
 add_image_store_pdi,0x709,3,3,3,3,3,3,0,0,IPI,Add Image Store Pdi
 remove_image_store_pdi,0x70a,3,3,3,3,3,3,0,0,IPI,Remove Image Store Pdi
@@ -186,9 +186,9 @@ cframe_data_clear_check,0x70c,0,0,0,0,0,0,0,0,CDO,Cframe Data Clear Check
 write_image_store_pdi,0x70d,0,0,0,0,0,0,0,0,CDO,Write Image Store Pdi
 config_jtag_state,0x70e,1,1,1,1,1,1,0,0,IPI,Config Jtag State
 read_ddr_crypto_counters,0x70f,3,3,3,3,3,3,0,0,IPI,Read Ddr Crypto Counters
-i2c_handshake,0x710,3,3,3,3,3,3,0,0,IPI,Handshake
-data_auth,0x711,0,0,0,0,0,0,0,0,Unsupported,Unsupported
-Cfi_selective_readback,0x712,0,0,0,0,0,0,0,0,IPI,Reads given number of cframes from the start frame given
+i2c_handshake,0x710,0,0,0,0,0,0,0,0,IPI,Handshake
+data_auth,0x711,3,3,3,3,3,3,0,3,IPI,Data Authentication
+Cfi_selective_readback,0x712,3,3,3,3,3,3,0,3,IPI,Reads given number of cframes from the start frame given
 em_features,0x800,3,3,3,3,3,3,0,0,CDO/IPI,Features
 em_set_action,0x801,3,3,3,3,3,3,0,0,CDO/IPI,Em Set Action
 nvm_features,0xb00,3,3,3,3,3,3,0,0,IPI,Features
