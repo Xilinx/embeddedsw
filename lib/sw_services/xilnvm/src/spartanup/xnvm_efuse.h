@@ -235,7 +235,7 @@ typedef struct {
  */
 typedef struct {
 	u32 AesKey[XNVM_EFUSE_AES_KEY_SIZE_IN_WORDS]; /**< AES key value to be programmed */
-	u8 PrgmAesKey; /**< Flag to determine whether to program AES key or not */
+	u32 PrgmAesKey; /**< Flag to determine whether to program AES key or not */
 } XNvm_EfuseAesKeys;
 
 /**
@@ -243,7 +243,7 @@ typedef struct {
  */
 typedef struct {
 	u32 AesIv[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS]; /**< AES IV value to be programmed */
-	u8 PrgmIv; /**< Flag to determine whether to program IV or not */
+	u32 PrgmIv; /**< Flag to determine whether to program IV or not */
 	XNvm_EfuseIvType IvType; /**< IV type */
 } XNvm_EfuseAesIvs;
 
@@ -266,7 +266,7 @@ typedef struct {
  * eFuse Decrypt only
  */
 typedef struct {
-	u8 PrgmDeconly; /**< Flag to determine whether to program Decrypt only or not */
+	u32 PrgmDecOnly; /**< Flag to determine whether to program Decrypt only or not */
 } XNvm_EfuseDecOnly;
 
 /**
@@ -274,15 +274,15 @@ typedef struct {
  */
 typedef struct {
 	u32 RevokeIdNum; /**< Revoke ID Bit number */
-	u8 PrgmSpkRevokeId; /**< Flag to determine whether to program SPK revoke ID or not */
+	u32 PrgmSpkRevokeId; /**< Flag to determine whether to program SPK revoke ID or not */
 } XNvm_EfuseSpkRevokeId;
 
 /**
  * eFuse AES revoke ID info
  */
 typedef struct {
-	u32 AesRevokeId; /**< eFuse AES revoke ID */
-	u8 PrgmAesRevokeId; /**< Flag to determine whether to program eFuse AES revoke ID or not */
+	u32 AesRevokeIdVal; /**< eFuse AES revoke ID value */
+	u32 PrgmAesRevokeId; /**< Flag to determine whether to program eFuse AES revoke ID or not */
 } XNvm_EfuseAesRevokeId;
 
 /**
@@ -301,7 +301,7 @@ typedef struct {
  */
 typedef struct {
 	u32 UserFuseVal; /**< User eFuse value */
-	u8 PrgmUserEfuse; /**< Program user eFuse */
+	u32 PrgmUserEfuse; /**< Flag to determine whether to program user eFuse or not */
 } XNvm_EfuseUserFuse;
 
 #ifdef SPARTANUPLUSAES1

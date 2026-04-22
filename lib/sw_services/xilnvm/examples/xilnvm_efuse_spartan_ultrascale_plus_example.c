@@ -61,6 +61,7 @@
  * 3.7   hae   02/27/2026 Support XILINX_CTRL OSPI_RESET_RECOVERY_DELAY_CTRL
  *                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
  *                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
+ *       mb    04/18/2026 Initialize the AesRevokeId structure only when user intends to program revoke IDs
  *
  * </pre>
  *
@@ -578,7 +579,7 @@ END:
  * - AES User keys
  *
  * typedef struct {
- *	u8 PrgmAesKey;
+ *	u32 PrgmAesKey;
  *	u32 AesKey[XNVM_EFUSE_AES_KEY_LEN_IN_WORDS];
  * }XNvm_EfuseAesKeys;
  *
@@ -714,7 +715,7 @@ END:
  * to program DEC_ONLY eFuses.
  *
  * typedef struct {
- *	u8 PrgmDecOnly;
+ *	u32 PrgmDecOnly;
  * }XNvm_EfuseDecOnly;
  *
  * @param	EfuseData	Pointer to XNvm_EfuseData structure.
@@ -730,9 +731,9 @@ END:
 static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *EfuseData,
 				   XNvm_EfuseDecOnly *DecOnly)
 {
-	DecOnly->PrgmDeconly = XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY;
+	DecOnly->PrgmDecOnly = XNVM_EFUSE_WRITE_DEC_EFUSE_ONLY;
 
-	if (DecOnly->PrgmDeconly == TRUE) {
+	if (DecOnly->PrgmDecOnly == TRUE) {
 		EfuseData->DecOnly = DecOnly;
 	}
 
@@ -845,8 +846,8 @@ static int XilNvm_EfuseInitSecCtrl(XNvm_EfuseData *EfuseData,
  * program revocation ID eFuses
  *
  * typedef struct {
- *	u8 PrgmSpkRevokeId;
- *	u32 RevokeId[XNVM_NUM_OF_REVOKE_ID_FUSES];
+ *	u32 PrgmSpkRevokeId;
+ *	u32 RevokeIdNum;
  * }XNvm_EfuseRevokeIds;
  *
  * @param	EfuseData      Pointer to XNvm_EfuseData structure
@@ -876,8 +877,8 @@ static void XilNvm_EfuseInitSpkRevokeId(XNvm_EfuseData *EfuseData,
  * program revocation ID eFuses
  *
  * typedef struct {
- *	u8 PrgmAesRevokeId;
- *	u32 AesRevokeId;
+ *	u32 AesRevokeIdVal;
+ *	u32 PrgmAesRevokeId;
  * }XNvm_EfuseAesRevokeId;
  *
  * @param	EfuseData      Pointer to XNvm_EfuseData structure
@@ -899,14 +900,14 @@ static int XilNvm_EfuseInitAesRevokeId(XNvm_EfuseData *EfuseData,
 	if (AesRevokeId->PrgmAesRevokeId == TRUE) {
 		Status = XilNvm_PrepareRevokeIdsForWrite(
 				 (char *)XNVM_EFUSE_AES_REVOCATION_ID_EFUSE,
-				 &AesRevokeId->AesRevokeId,
+				 &AesRevokeId->AesRevokeIdVal,
 				 XNVM_EFUSE_ROW_STRING_LEN);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
+		EfuseData->AesRevokeId = AesRevokeId;
 	}
 
-	EfuseData->AesRevokeId = AesRevokeId;
 	Status = XST_SUCCESS;
 END:
 	return Status;

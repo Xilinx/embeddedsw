@@ -376,7 +376,7 @@ static int XNvm_EfuseValidateAesWriteReq(const XNvm_EfuseAesKeys *AesKey)
 	XNvm_EfuseSecCtrlBits ReadBackSecCtrlBits = {0U};
 
 	/** - Validate AES key write request if AES key programming is requested */
-	if (AesKey->PrgmAesKey == (u8)TRUE) {
+	if (AesKey->PrgmAesKey == (u32)TRUE) {
 		/** - Read security control bits to check if AES key write is protected */
 		Status = XNvm_EfuseReadSecCtrlBits(
 				 &ReadBackSecCtrlBits);
@@ -547,7 +547,7 @@ static int XNvm_EfuseValidateIvsWriteReq(const XNvm_EfuseAesIvs *Ivs)
 	u32 IvRowsRd[XNVM_EFUSE_AES_IV_SIZE_IN_WORDS] = {0U};
 
 	/** - Read IVs from eFUSE cache to check IV's are already programmed or not */
-	if (Ivs->PrgmIv == (u8)TRUE) {
+	if (Ivs->PrgmIv == (u32)TRUE) {
 		if (Ivs->IvType == XNVM_EFUSE_AES_IV_RANGE) {
 			Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_AES_IV_RANGE_START_OFFSET,
 							  XNVM_EFUSE_AES_IV_SIZE_IN_WORDS,
@@ -600,7 +600,7 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *EfuseData)
 	XNvm_EfuseSecCtrlBits ReadSecCtrlBits;
 
 	/** - Validate DEC only write request if DEC only programming is requested */
-	if (EfuseData->DecOnly->PrgmDeconly == (u8)TRUE) {
+	if (EfuseData->DecOnly->PrgmDecOnly == (u32)TRUE) {
 		/** - Read DEC only eFUSE cache value to check current programmed state */
 		Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_ONLY_OFFSET, &DecOnlyVal);
 		if (Status != XST_SUCCESS) {
@@ -616,7 +616,7 @@ static int XNvm_EfuseValidateDecOnlyWriteReq(const XNvm_EfuseData *EfuseData)
 							  XNVM_EFUSE_CRC_AES_ZEROS);
 			if (Status == XST_SUCCESS) {
 				if (EfuseData->AesKeys != NULL) {
-					if (EfuseData->AesKeys->PrgmAesKey != (u8)TRUE) {
+					if (EfuseData->AesKeys->PrgmAesKey != (u32)TRUE) {
 						Status = XNVM_EFUSE_ERR_DEC_ONLY_KEY_MUST_BE_PRGMD;
 						goto END;
 					}
@@ -1009,7 +1009,7 @@ static int XNvm_EfusePrgmAesRevokeId(const XNvm_EfuseAesRevokeId *AesRevokeId)
 	u32 AesRevokeIdFuse;
 
 	/** - Compute programmable AES revoke ID bits by masking out already programmed bits */
-	Status = XNvm_EfuseComputeProgrammableBits((const u32 *)&AesRevokeId->AesRevokeId, &AesRevokeIdFuse,
+	Status = XNvm_EfuseComputeProgrammableBits((const u32 *)&AesRevokeId->AesRevokeIdVal, &AesRevokeIdFuse,
 		 XNVM_EFUSE_AES_REVOKE_ID_OFFSET,
 		 XNVM_EFUSE_AES_REVOKE_ID_OFFSET);
 	if (Status != XST_SUCCESS) {
@@ -1051,7 +1051,7 @@ static int XNvm_EfusePrgmDecOnly(const XNvm_EfuseDecOnly *DecOnly)
 	u32 PrgmDecOnly = XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
 
 	/** - Program DEC only eFUSE bits if DEC only programming is requested */
-	if (DecOnly->PrgmDeconly == (u8)TRUE) {
+	if (DecOnly->PrgmDecOnly == (u32)TRUE) {
 		/** - Initialize DEC only eFUSE programming information with row and column settings */
 		DecOnlyInfo.StartRow = XNVM_EFUSE_DEC_ONLY_START_ROW;
 		DecOnlyInfo.NumOfRows = XNVM_EFUSE_DEC_ONLY_NUM_OF_ROWS;
