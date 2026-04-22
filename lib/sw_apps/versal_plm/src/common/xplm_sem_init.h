@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2021 Xilinx, Inc. All rights reserved.
-* (c) Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* (c) Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -26,6 +26,8 @@
 *       rb   03/09/2021 Updated Sem Init API call
 * 1.03  ga   05/03/2023 Removed XPlm_SemInit prototype and updated
 *                       copyright information
+* 1.04  gam  04/08/2026 Add prototype for Beam testing and protect the code
+*                       with macro PLM_SEM_BEAM_TESTING.
 *
 * </pre>
 *
@@ -50,14 +52,38 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+#ifdef PLM_SEM_BEAM_TESTING
+
+#define PMC_RAM_SEM_CRAM_STATUS         (XPLMI_PMCRAM_BASEADDR + 0X00014084U)
+
+#define PMC_RAM_SEM_CRAM_COR_BITCNT     (XPLMI_PMCRAM_BASEADDR + 0X000140C0U)
+
+#define PMC_RAM_CRAM_REGCNT  (15)
+
+#define ERR_PRINT_TIMEOUT    (20000U)
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+#define PMC_SLR_MASTER      (0x6U)
+#ifdef SDT
+#define XSEM_SSIT_MAX_SLR_CNT	NUMBER_OF_SLRS
+#endif /* End of SDT */
+#else
+#define PMC_SLR_MASTER       (0x7U)
+#endif /* End of PLM_ENABLE_PLM_TO_PLM_COMM */
+
+#define PMC_TAP_SLR_TYPE_ADDR    (0xF11A0024U)
+
+#endif /* End of PLM_SEM_BEAM_TESTING */
 /************************** Function Prototypes ******************************/
 int XPlm_SemScanInit(void *Arg);
-
+#ifdef PLM_SEM_BEAM_TESTING
+int XPlm_SemCfrErrCntPrint(void *Data);
+#endif /* End of PLM_SEM_BEAM_TESTING */
 /************************** Variable Definitions *****************************/
 
 /*****************************************************************************/
 
-#endif
+#endif /* End of XPLM_SEM */
 
 #ifdef __cplusplus
 }
