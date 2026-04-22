@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,6 +67,8 @@
 * 3.3   als  06/27/16 Added low-level XIic_WaitBusFree API.
 * 3.4	nk   16/11/16 Reduced sleeping time in Bus-busy check.
 * 3.5   sd   08/29/18 Fix bus busy check for the NACK case.
+* 3.15  vlt  04/20/26 Added TX_ERROR check after last byte in SendData()
+*                     and DynSendData() to detect NACK on the last byte.
 * </pre>
 *
 ****************************************************************************/
@@ -617,12 +620,26 @@ static unsigned SendData(UINTPTR BaseAddress, u8 *BufferPtr,
 		 * returning, the IIC device cannot be disabled until this
 		 * occurs. Note that this is different from a receive operation
 		 * because the stop Option causes the bus to go not busy.
+		 * Also check for TX_ERROR (NACK) on the last byte, since
+		 * the TX_EMPTY poll loop has already been exited and the
+		 * byte count decremented before reaching here.
 		 */
 		while (1) {
 			if (XIic_ReadIisr(BaseAddress) &
-				XIIC_INTR_BNB_MASK) {
+				(XIIC_INTR_BNB_MASK |
+				 XIIC_INTR_TX_ERROR_MASK)) {
 				break;
 			}
+		}
+
+		/*
+		 * If TX_ERROR is set, the slave NACKed the last byte.
+		 * Return ByteCount + 1 to account for the byte that
+		 * was written to the FIFO but not acknowledged.
+		 */
+		if (XIic_ReadIisr(BaseAddress) &
+			XIIC_INTR_TX_ERROR_MASK) {
+			return ByteCount + 1;
 		}
 	}
 
@@ -959,11 +976,26 @@ static unsigned DynSendData(UINTPTR BaseAddress, u8 *BufferPtr,
 		 * data, Wait for the bus to transition to not busy before
 		 * returning, the IIC device cannot be disabled until this
 		 * occurs.
+		 * Also check for TX_ERROR (NACK) on the last byte, since
+		 * the TX_EMPTY poll loop has already been exited and the
+		 * byte count decremented before reaching here.
 		 */
 		while (1) {
-			if (XIic_ReadIisr(BaseAddress) & XIIC_INTR_BNB_MASK) {
+			if (XIic_ReadIisr(BaseAddress) &
+				(XIIC_INTR_BNB_MASK |
+				 XIIC_INTR_TX_ERROR_MASK)) {
 				break;
 			}
+		}
+
+		/*
+		 * If TX_ERROR is set, the slave NACKed the last byte.
+		 * Return ByteCount + 1 to account for the byte that
+		 * was written to the FIFO but not acknowledged.
+		 */
+		if (XIic_ReadIisr(BaseAddress) &
+			XIIC_INTR_TX_ERROR_MASK) {
+			return ByteCount + 1;
 		}
 	}
 
