@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2023 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1199,6 +1199,7 @@ static u32 XDpPsu_WaitPhyReady(XDpPsu *InstancePtr)
 			XDPPSU_PHY_STATUS_ALL_LANES_READY_MASK;
 
 	if (!XDPPSU_0_LANE_COUNT) {
+		xil_printf("Invalid Lane count\n\r");
 		return XST_FAILURE;
 	}
 
