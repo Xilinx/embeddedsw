@@ -64,6 +64,7 @@
 *       har 01/03/22 Updated Status as XSECURE_SHA3_INIT_FAIL in case of failure
 *                    in XSecure_Sha3Initialize()
 * 5.2   ng  07/05/23 add SDT support
+* 5.7   tus 04/19/26 Fixed SW-BP-RETURN violation
 *
 * </pre>
 *
@@ -190,12 +191,13 @@ END:
 XCsuDma* Xsecure_GetCsuDma(void)
 {
 	u32 Status = (u32)XST_FAILURE;
+	XCsuDma *CsuDmaPtr = NULL;
 
 	Status = XSecure_CsuDmaInit();
-	if (Status != (u32)XST_SUCCESS) {
-		return NULL;
+	if (Status == (u32)XST_SUCCESS) {
+		CsuDmaPtr = &CsuDma;
 	}
-	return &CsuDma;
+	return CsuDmaPtr;
 }
 
 
