@@ -17,6 +17,7 @@
 * 2.4   vss 02/01/26 Replaced XLOADER_SEC_PPK_INVALID_BIT_ERR with XLOADER_SEC_SEL_PPK_REVOKED_ERR
 *       tvp 02/04/26 Add register addresses for efuse ppk hash
 *       sd  04/13/26 Added PUF support for VERSAL_2VP_P
+*       rpu 04/22/26 Moved Versal_2vp_p efuse ppk register addresses to xloader_secure.h
 * </pre>
 *
 ***************************************************************************************************/
@@ -156,27 +157,6 @@ typedef struct {
 } XLoader_AesKekInfo;
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
-
-#define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250130U)
-					/**< PPK1 Start register address */
-#define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF125037CU)
-					/**< PPK2 Start register address */
-#define XLOADER_EFUSE_PPK3_START_OFFSET			(0xF12503ACU)
-					/**< PPK3 Start register address */
-#define XLOADER_EFUSE_PPK4_START_OFFSET			(0xF12503DCU)
-					/**< PPK4 Start register address */
-#define XLOADER_EFUSE_PPK5_START_OFFSET			(0xF125040CU)
-					/**< PPK5 Start register address */
-#define XLOADER_EFUSE_PPK6_START_OFFSET			(0xF125043CU)
-					/**< PPK6 Start register address */
-#define XLOADER_EFUSE_PPK7_START_OFFSET			(0xF125046CU)
-					/**< PPK7 Start register address */
-#define XLOADER_EFUSE_PPK8_START_OFFSET			(0xF125049CU)
-					/**< PPK8 Start register address */
-#define XLOADER_EFUSE_PPK1_END_OFFSET			(0xF125015CU)
-					/**< PPK1 End register address */
-#define XLOADER_EFUSE_PPK8_END_OFFSET			(0xF12504C8U)
-					/**< PPK8 End register address */
 
 #define XLOADER_EFUSE_MISC_CTRL_PPK3_INVLD		(0x00000003U)
 					/**< PPK3 invalid value */
