@@ -44,7 +44,7 @@
 #       kpt 06/13/24  Added xsecure_key_slot_addr
 # 5.5   pre 06/06/25 Updated library version for 2025.2
 # 5.7   mk  10/30/25  Updated library version for 2026.1
-#       vm  18/13/25  Removed nonsecure_ipi_access parameter
+#       vm  12/13/25  Removed nonsecure_ipi_access parameter
 #       ank 03/31/26  Enable cache by default
 #
 ##############################################################################

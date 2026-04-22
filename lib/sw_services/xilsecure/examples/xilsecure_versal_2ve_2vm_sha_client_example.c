@@ -53,6 +53,7 @@
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 5.4	kal   08/22/24 First Release
+* 5.7	sri   04/17/26 Added DCache invalidate for before sending IPI request
 *
 * </pre>
 ******************************************************************************/
@@ -82,6 +83,7 @@ static void SecureSha2PrintHash(const u8 *Hash);
 /************************** Variable Definitions *****************************/
 
 static const char Data[SHA_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) = "XILINX";
+static XSecure_ShaOpParams ShaParams __attribute__ ((section (".data.ShaParams")));
 static const char Sha3Hash[SHA3_384_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha3Hash")));
 static const char Sha2Hash[SHA2_256_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
 static const u8 ExpSha3Hash[SHA3_384_HASH_LEN_IN_BYTES] = {
@@ -171,7 +173,6 @@ static u32 SecureSha3Example(void)
 	u32 Size = 0U;
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
-	XSecure_ShaOpParams Sha3Params = {0U};
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
@@ -207,15 +208,18 @@ static u32 SecureSha3Example(void)
 		goto END;
 	}
 
-	Sha3Params.DataAddr = (UINTPTR)&Data;
-	Sha3Params.HashAddr = DstAddr;
-	Sha3Params.DataSize = Size;
-	Sha3Params.HashBufSize = SHA3_384_HASH_LEN_IN_BYTES;
-	Sha3Params.ShaMode = XSECURE_SHA3_384;
-	Sha3Params.IsLast = TRUE;
-	Sha3Params.OperationFlags = (XSECURE_SHA_START | XSECURE_SHA_UPDATE | XSECURE_SHA_FINISH);
+	ShaParams.DataAddr = (UINTPTR)&Data;
+	ShaParams.HashAddr = DstAddr;
+	ShaParams.DataSize = Size;
+	ShaParams.HashBufSize = SHA3_384_HASH_LEN_IN_BYTES;
+	ShaParams.ShaMode = XSECURE_SHA3_384;
+	ShaParams.IsLast = TRUE;
+	ShaParams.OperationFlags = (XSECURE_SHA_START | XSECURE_SHA_UPDATE | XSECURE_SHA_FINISH);
 
-	Status = XSecure_Sha3Operation(&SecureClientInstance, &Sha3Params);
+	/* Flush cache for input and output buffers before sending IPI request to ensure data coherency */
+	XSecure_DCacheFlushRange(&ShaParams, sizeof(XSecure_ShaOpParams));
+
+	Status = XSecure_Sha3Operation(&SecureClientInstance, &ShaParams);
 	if(Status != XST_SUCCESS) {
 		xil_printf("Calculation of SHA3 digest failed, Status = %x \n\r", Status);
 		goto END;
@@ -275,7 +279,6 @@ static u32 SecureSha2Example(void)
 	u32 Size = 0U;
 	XMailbox MailboxInstance;
 	XSecure_ClientInstance SecureClientInstance;
-	XSecure_ShaOpParams Sha2Params = {0U};
 
 	Status = XMailbox_Initialize(&MailboxInstance, 0U);
 	if (Status != XST_SUCCESS) {
@@ -311,15 +314,18 @@ static u32 SecureSha2Example(void)
 		goto END;
 	}
 
-	Sha2Params.DataAddr = (UINTPTR)&Data;
-	Sha2Params.HashAddr = DstAddr;
-	Sha2Params.DataSize = Size;
-	Sha2Params.HashBufSize = SHA2_256_HASH_LEN_IN_BYTES;
-	Sha2Params.ShaMode = XSECURE_SHA2_256;
-	Sha2Params.IsLast = TRUE;
-	Sha2Params.OperationFlags = (XSECURE_SHA_START | XSECURE_SHA_UPDATE | XSECURE_SHA_FINISH);
+	ShaParams.DataAddr = (UINTPTR)&Data;
+	ShaParams.HashAddr = DstAddr;
+	ShaParams.DataSize = Size;
+	ShaParams.HashBufSize = SHA2_256_HASH_LEN_IN_BYTES;
+	ShaParams.ShaMode = XSECURE_SHA2_256;
+	ShaParams.IsLast = TRUE;
+	ShaParams.OperationFlags = (XSECURE_SHA_START | XSECURE_SHA_UPDATE | XSECURE_SHA_FINISH);
 
-	Status = XSecure_Sha2Operation(&SecureClientInstance, &Sha2Params);
+	/* Flush cache for input and output buffers before sending IPI request to ensure data coherency */
+	XSecure_DCacheFlushRange(&ShaParams, sizeof(XSecure_ShaOpParams));
+
+	Status = XSecure_Sha2Operation(&SecureClientInstance, &ShaParams);
 	if(Status != XST_SUCCESS) {
 		xil_printf("Calculation of SHA2 digest failed, Status = %x \n\r", Status);
 		goto END;
