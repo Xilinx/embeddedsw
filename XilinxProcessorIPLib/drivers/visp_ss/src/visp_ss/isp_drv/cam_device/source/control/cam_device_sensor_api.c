@@ -18,7 +18,6 @@
 #include "cam_device_api.h"
 #include <isi_iss.h>
 #include "oslayer.h"
-#include "sensor_drv.h"
 
 #define SENSOR_NAME_LEN 20
 
