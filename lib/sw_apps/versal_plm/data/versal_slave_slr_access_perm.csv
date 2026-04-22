@@ -180,7 +180,7 @@ get_image_info,0x703,0,0,0,0,0,0,0,0,IPI,Get Image Info
 set_image_info,0x704,0,0,0,0,0,0,0,0,CDO,Set Image Info
 get_image_info_list,0x705,0,0,0,0,0,0,0,0,IPI,Get Image Info List
 extract_metaheader,0x706,0,0,0,0,0,0,0,0,IPI,Extract metaheader from PDI
-load_readback_pdi,0x707,0,0,0,0,0,0,0,0,IPI,Load Readback PDI
+load_readback_pdi,0x707,0,0,0,0,0,0,0,0,Unsupported,Unsupported
 update_multiboot,0x708,0,0,0,0,0,0,0,0,IPI,Update Multiboot Register
 add_image_store_pdi,0x709,0,0,0,0,0,0,0,0,IPI,Add PDI to Image Store
 remove_image_store_pdi,0x70a,0,0,0,0,0,0,0,0,IPI,Remove PDI from Image Store
