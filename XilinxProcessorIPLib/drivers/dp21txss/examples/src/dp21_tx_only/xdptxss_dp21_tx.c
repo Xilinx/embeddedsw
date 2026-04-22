@@ -2110,7 +2110,6 @@ void DpTxSs_Sink_PowerCycle(void)
 
 int VideoFMC_Init(void)
 {
-	u32 Freq;
 	u8 Buffer[2];
 	int ByteCount= 0;
 
@@ -2131,8 +2130,15 @@ int VideoFMC_Init(void)
 		return XST_FAILURE;
 	}
 
+#if 0
+	/*
+	 * Required for previous version of FMC cards.
+	 */
+	u32 Freq;
+
 	Freq = i2c_read_freq(IIC_BASE_ADDR, 0x4D, 0x0);
 	xil_printf("Freq lock = %x\r\n", Freq);
+#endif
 
 	(void)i2c_read_tdp2004(IIC_BASE_ADDR, 0x18, 0xF0);
 	(void)i2c_read_tdp2004(IIC_BASE_ADDR, 0x18, 0xF1);
