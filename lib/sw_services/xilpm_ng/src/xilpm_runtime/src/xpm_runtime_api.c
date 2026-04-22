@@ -4,6 +4,7 @@
 ******************************************************************************/
 
 #include "xil_types.h"
+#include "xpm_nodeid.h"
 #include "xstatus.h"
 #include "xplmi.h"
 #include "xplmi_cmd.h"
@@ -966,6 +967,12 @@ static u32 XPm_ShouldSkipBootDevRelease(u32 DeviceId)
  * When the device is already RUNNING (e.g. another subsystem holds it),
  * UpdateStatus() sees no state change needed and returns SUCCESS.
  *
+ * UART_0/UART_1 are routed to the direct BringUp fallback:
+ * ActionBringUpAll's Reset(RELEASE) pulses the UART reset and kills
+ * the live console.  I2C_PMC is safe because its caller does a full
+ * re-init.  Don't remove without adding explicit UART reconfigure at
+ * the LPD-init request sites in xpm_api.c.
+ *
  * @param DeviceId	Device node ID to request.
  *
  * @return XST_SUCCESS on successful request, error code on failure.
@@ -997,8 +1004,12 @@ XStatus XPm_PmcRequestDevice(u32 DeviceId)
 	 *
 	 * If device is already RUNNING, UpdateStatus() sees same state
 	 * and returns SUCCESS with no transition.
+	 *
+	 * UARTs excluded -- see function header.
 	 */
-	if (NULL != XPm_GetDevOps_ById(DeviceId)) {
+	if ((NULL != XPm_GetDevOps_ById(DeviceId)) &&
+	   ((u32)PM_DEV_UART_0 != (DeviceId)) &&
+	   ((u32)PM_DEV_UART_1 != (DeviceId))) {
 		Status = XPmDevice_UpdateStatus(Device);
 		if (XST_SUCCESS != Status) {
 			DbgErr = XPM_INT_ERR_DEVICE_CHANGE_STATE;
@@ -1036,6 +1047,10 @@ done:
  * If the RTCA skip-boot-device-release policy has the corresponding
  * bit set, the release is skipped and XPM_PMC_BOOT_DEV_RETAINED is
  * returned (PmcAllocated stays set).
+ *
+ * UART_0/UART_1 excluded (defensive, symmetric with request side):
+ * no in-tree caller releases UARTs today, but ActionShutdown would
+ * kill the console if one ever does.  Keep in lockstep with request.
  *
  * @param DeviceId	Device node ID to release.
  *
@@ -1082,8 +1097,12 @@ XStatus XPm_PmcReleaseDevice(u32 DeviceId)
 	 * If no DevOps exists, no subsystem ever registered a
 	 * requirement for this device, so no sharing conflict is
 	 * possible.  Fall back to direct power-down.
+	 *
+	 * UARTs excluded -- see function header.
 	 */
-	if (NULL != XPm_GetDevOps_ById(DeviceId)) {
+	if ((NULL != XPm_GetDevOps_ById(DeviceId)) &&
+	   ((u32)PM_DEV_UART_0 != (DeviceId)) &&
+	   ((u32)PM_DEV_UART_1 != (DeviceId))) {
 		Status = XPmDevice_UpdateStatus(Device);
 		if (XST_SUCCESS != Status) {
 			/* Restore PMC ownership on failed release */

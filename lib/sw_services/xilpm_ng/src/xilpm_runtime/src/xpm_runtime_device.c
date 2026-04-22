@@ -146,13 +146,18 @@ u8 XPmDevice_IsRequestable(u32 NodeId)
 		return Requestable;
 	}
 
+	/*
+	 * MEM_CTRLR (DDRMC) intentionally absent: it's PMC infrastructure,
+	 * not subsystem-shareable.  Subsystems consume DDR via MEM_REGN.
+	 * Adding it would auto-prealloc DDRMC into the default subsystem
+	 * and route Pmc{Request,Release}Device through the DDR FSM at boot.
+	 */
 	switch (NODESUBCLASS(NodeId)) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
 	case (u32)XPM_NODESUBCL_DEV_PERIPH:
 	case (u32)XPM_NODESUBCL_DEV_MEM:
 	case (u32)XPM_NODESUBCL_DEV_PL:
 	case (u32)XPM_NODESUBCL_DEV_AIE:
-	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
 		Requestable = 1U;
 		break;
 	default:
