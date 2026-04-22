@@ -96,6 +96,27 @@ extern "C" {
 					/**< PPK2 Start register address */
 #define XLOADER_EFUSE_PPK2_END_OFFSET			(0xF125015CU)
 					/**< PPK2 End register address */
+#else
+#define XLOADER_EFUSE_PPK1_START_OFFSET			(0xF1250130U)
+					/**< PPK1 Start register address */
+#define XLOADER_EFUSE_PPK2_START_OFFSET			(0xF125037CU)
+					/**< PPK2 Start register address */
+#define XLOADER_EFUSE_PPK3_START_OFFSET			(0xF12503ACU)
+					/**< PPK3 Start register address */
+#define XLOADER_EFUSE_PPK4_START_OFFSET			(0xF12503DCU)
+					/**< PPK4 Start register address */
+#define XLOADER_EFUSE_PPK5_START_OFFSET			(0xF125040CU)
+					/**< PPK5 Start register address */
+#define XLOADER_EFUSE_PPK6_START_OFFSET			(0xF125043CU)
+					/**< PPK6 Start register address */
+#define XLOADER_EFUSE_PPK7_START_OFFSET			(0xF125046CU)
+					/**< PPK7 Start register address */
+#define XLOADER_EFUSE_PPK8_START_OFFSET			(0xF125049CU)
+					/**< PPK8 Start register address */
+#define XLOADER_EFUSE_PPK1_END_OFFSET			(0xF125015CU)
+					/**< PPK1 End register address */
+#define XLOADER_EFUSE_PPK8_END_OFFSET			(0xF12504C8U)
+					/**< PPK8 End register address */
 #endif
 #define XLOADER_EFUSE_SEC_MISC0_OFFSET			(0xF12500E4U)
 					/**< Security Misc0 register address */
