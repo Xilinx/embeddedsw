@@ -18,6 +18,7 @@
 	((defined(PLM_MACRONIX_OSPI_DDR)) && (defined(VERSAL))) || \
 	(defined(PLM_PRINT_LEVEL0)))
 #define PLM_PRINT
+#cmakedefine    PLM_SEM_BEAM_TESTING
 #else
 #cmakedefine    PLM_DEBUG
 #cmakedefine    PLM_DEBUG_INFO

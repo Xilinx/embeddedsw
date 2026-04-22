@@ -28,6 +28,11 @@ if(XILPLMI_sem_override_dbg_lvl)
   set(PLM_SEM_PRINT_OVERRIDE " ")
 endif()
 
+Option(XILPLMI_sem_beam_testing "Enables to do SEM Beam test(if Xilsem is present in design) or Disables BEAM test" OFF)
+if(XILPLMI_sem_beam_testing)
+  set(PLM_SEM_BEAM_TESTING " ")
+endif()
+
 if(("${CMAKE_MACHINE}" STREQUAL "Versal") AND (NOT(("Versal_2VP" IN_LIST VARIANT) OR ("Versal_2VP_P" IN_LIST VARIANT))))
   option(XILPLMI_macronix_ospi_ddr_en "Enables or Disables Macronix OSPI DDR mode for Versal" OFF)
   if(XILPLMI_macronix_ospi_ddr_en)
