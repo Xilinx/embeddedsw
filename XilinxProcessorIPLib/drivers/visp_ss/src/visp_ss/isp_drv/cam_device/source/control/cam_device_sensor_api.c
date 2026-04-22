@@ -21,6 +21,19 @@
 
 #define SENSOR_NAME_LEN 20
 
+/*****************************************************************************/
+/**
+ * @brief   This function opens a sensor device with the specified mode.
+ *
+ * @param   hCamDevice          Handle to the CamDevice instance
+ * @param   modeIndex           Index of the sensor mode to open
+ *
+ * @retval  RET_SUCCESS         Operation succeeded
+ * @retval  RET_WRONG_HANDLE    Invalid CamDevice handle
+ * @retval  RET_OUTOFRANGE      Payload size exceeds maximum limit
+ * @retval  RET_FAILURE         Failed to send command
+ *
+ *****************************************************************************/
 RESULT VsiCamDeviceSensorOpen
 (
 	CamDeviceHandle_t hCamDevice,
