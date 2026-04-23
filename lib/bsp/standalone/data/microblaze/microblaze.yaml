@@ -1,4 +1,4 @@
-# Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+# Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -100,6 +100,9 @@ required:
     - microblaze_ddr_reserve_ea
     - reg
     - xlnx,base-vectors
+
+additionalProperties:
+    - xlnx,fault-tolerant
 
 optional:
     - interrupts
