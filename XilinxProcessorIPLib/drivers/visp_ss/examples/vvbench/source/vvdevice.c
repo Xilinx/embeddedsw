@@ -308,7 +308,10 @@ int VsiVvdeviceExecuteCaseline
 		MEMCPY(camConfig.inputCfg.inputDevName, caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorName,
 		       sizeof(CAMDEV_INPUT_DEV_NAME_LEN));
 #ifdef APU_CORE
-		selectDestinationCore(camConfig.ispHwId);
+		if (selectDestinationCore(camConfig.ispHwId) != 0) {
+			LOGE("selectDestinationCore failed for ispHwId %d", camConfig.ispHwId);
+			return -1;
+		}
 #endif
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
@@ -332,7 +335,10 @@ int VsiVvdeviceExecuteCaseline
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
 #ifdef APU_CORE
-		selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId);
+		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != 0) {
+			LOGE("selectDestinationCore failed");
+			return -1;
+		}
 #endif
 			result = SetATM();
 
@@ -817,7 +823,10 @@ int VsiVvdeviceExecuteCaseline
 
 		uint32_t instanceId = index;
 #ifdef APU_CORE
-		selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId);
+		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != 0) {
+			LOGE("selectDestinationCore failed");
+			continue;
+		}
 #endif
 		// Each path callback register
 		CamDeviceBufChainId_t bufIoArray[CAMDEV_BUFCHAIN_MAX];
@@ -1140,7 +1149,10 @@ int VsiVvdeviceExecuteCaseline
 				continue;
 			}
 #ifdef APU_CORE
-			selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId);
+			if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != 0) {
+				LOGE("selectDestinationCore failed");
+				continue;
+			}
 #endif
 			if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
 				for (int i = CAMDEV_BUFCHAIN_MP; i <= CAMDEV_BUFCHAIN_RAW; i ++) {
@@ -1496,7 +1508,10 @@ int VsiVvdeviceStop(const bool stopImmediately)
 		}
 
 #ifdef APU_CORE
-		selectDestinationCore(caseContext->instanceCfgCtx[index].hpId);
+		if (selectDestinationCore(caseContext->instanceCfgCtx[index].hpId) != 0) {
+			LOGE("selectDestinationCore failed");
+			continue;
+		}
 #endif
 
 		LOGD("End instance %d", index);

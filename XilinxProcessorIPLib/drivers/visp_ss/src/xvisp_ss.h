@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -134,7 +134,7 @@ void XVisp_Ss_PrintConfig(XVisp_Ss *InstancePtr);
 
 void reset_isp2rpu_mapping();
 void init_isp2rpu_mapping(u32 rpu_id, u32 isp_id);
-void selectDestinationCore(u32 ispid);
+int selectDestinationCore(u32 ispid);
 
 #ifdef __cplusplus
 }

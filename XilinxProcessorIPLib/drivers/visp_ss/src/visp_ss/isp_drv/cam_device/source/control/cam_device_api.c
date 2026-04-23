@@ -960,7 +960,8 @@ RESULT VsiCamDeviceStopStreaming
 	 * Verifying Multi-core
 	 */
 	xil_printf("%s %d ispHwId=%x \n\r", __func__, __LINE__, hwId);
-	selectDestinationCore(hwId);
+	if (selectDestinationCore(hwId) != RET_SUCCESS)
+		return RET_FAILURE;
 
 	pCamDevCtx->cookie ++;
 

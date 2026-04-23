@@ -1,6 +1,6 @@
 #include <string.h>
 /******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -116,13 +116,32 @@ void init_isp2rpu_mapping(u32 rpu_id, u32 isp_id)
 
 }
 
-void selectDestinationCore(u32 ispid)
+/*****************************************************************************/
+/**
+*
+* Select the destination RPU core for the given ISP instance.
+*
+* @param    ispid is the ISP instance ID used to look up the mapped RPU core.
+*
+* @return   XST_SUCCESS if the destination core is successfully selected.
+*           XST_FAILURE if the ISP ID is out of range or not mapped.
+*
+* @note     None.
+*
+******************************************************************************/
+int selectDestinationCore(u32 ispid)
 {
+	if (ispid >= XPAR_XVISP_SS_NUM_INSTANCES) {
+		xil_printf("selectDestinationCore: ispid %u out of range (max %u)\n\r",
+			   ispid, (u32)XPAR_XVISP_SS_NUM_INSTANCES);
+		return XST_FAILURE;
+	}
 	if (isp2rpu_map.reg[ispid] == ISPMAP2NONE) {
 		//Assert
 		xil_printf("Failed to Map ISP =%x to RPU core...\n\r", ispid);
-		while (1);
+		return XST_FAILURE;
 	} else
 		dest_cpu_id = isp2rpu_map.reg[ispid];
 
+	return XST_SUCCESS;
 }

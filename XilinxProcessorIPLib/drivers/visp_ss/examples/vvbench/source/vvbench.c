@@ -637,7 +637,10 @@ int loadBinApp()
 	int result = 0;
 	LOGI("@@loadBinApp started@@");
 
-	selectDestinationCore(0);
+	if (selectDestinationCore(0) != 0) {
+		LOGE("selectDestinationCore failed");
+		return -1;
+	}
 
 	result = SendLoadBinStart();
 	if (result != 0){
