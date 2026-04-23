@@ -212,6 +212,7 @@
 *       pre 04/10/2026 Store image info before loading the image so that the child invalidation
 *                      does not incorrectly remove entries that were legitimately added via Set
 *                      Image Info commands.
+*       vm  03/30/2026 Added support for OSPI as pdi source to get the optional data
 *
 * </pre>
 *
@@ -278,10 +279,6 @@
 #define XLOADER_MIN_APP_VERSION_OPT_DATA_ID		(0x2000U)
 			/**< Minimum value of optional data ID for app version */
 #endif
-
-#define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_ADDR_RANGE_MASK		(0x1FU)
-	/**< Mask for PDI Src in Extract Metaheader command
-				for address range checks */
 
 /************************** Function Prototypes ******************************/
 static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr);
@@ -2317,10 +2314,32 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	u32 IdString;
 	u64 MetaHdrOfst;
 	u32 PdiSrcType = Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX];
+	u8 PdiSrcIdx = 0U;
+	u32 PdiSrc = 0U;
+
+	if((Cmd->Payload[XLOADER_CMD_EXTRACT_METAHDR_DATAID_PDISRC_INDEX] &
+	   XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
+		PdiSrc = XLOADER_PDI_SRC_DDR;
+	} else {
+		PdiSrc = (PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK);
+	}
+
+	/**
+	 * Check PDI source (only DDR, Image Store and OSPI PDI sources are supported).
+	 */
+	if ((PdiSrc == XLOADER_PDI_SRC_DDR) || (PdiSrc == XLOADER_PDI_SRC_IS)) {
+		PdiSrcIdx = XLOADER_DDR_INDEX;
+		PdiSrc = XLOADER_PDI_SRC_DDR;
+	} else if (PdiSrc == XLOADER_PDI_SRC_OSPI) {
+		PdiSrcIdx = XLOADER_OSPI_INDEX;
+	} else {
+		Status = XLOADER_ERR_INVALID_PDI_INPUT;
+		goto RET;
+	}
 
 	Status = Xil_SMemSet(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
 	if (Status != XST_SUCCESS) {
-		goto END;
+		goto RET;
 	}
 
 	PdiPtr->MetaHdr = (XilPdi_MetaHdr *)(UINTPTR)METAHEADER_INSTANCE_ADDRESS;
@@ -2331,16 +2350,46 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	Status = XPlmi_MemSet((u64)METAHEADER_INSTANCE_ADDRESS, 0U,
 	         (sizeof(XilPdi_MetaHdr) >> XPLMI_WORD_LEN_SHIFT));
 	if (Status != XST_SUCCESS) {
+		goto RET;
+	}
+
+	if (DeviceOps[PdiSrcIdx].Init == NULL) {
+		XPlmi_Printf(DEBUG_GENERAL,
+			     "Unsupported Boot Mode: Source:0x%x\n\r", PdiSrc);
+		Status = (int)XLOADER_UNSUPPORTED_BOOT_MODE;
+		goto RET;
+	}
+
+	Status = DeviceOps[PdiSrcIdx].Init(PdiSrc);
+	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	IdString = XPlmi_In64(SrcAddr + XIH_BH_IMAGE_IDENT_OFFSET);
+	/* Get the device copy function for the DDR/OSPI boot mode */
+	PdiPtr->MetaHdr->FlashOfstAddr = SrcAddr;
+	PdiPtr->MetaHdr->DeviceCopy = DeviceOps[PdiSrcIdx].Copy;
+
+	/* Extract PDI type */
+	Status = PdiPtr->MetaHdr->DeviceCopy(SrcAddr + XIH_BH_IMAGE_IDENT_OFFSET,
+					     (u64)(UINTPTR)&IdString,
+					     XPLMI_WORD_LEN, 0x0U);
+	if (Status != XST_SUCCESS) {
+		XPlmi_Printf(DEBUG_INFO, "Device Copy Failed\n\r");
+		goto END;
+	}
+
 	if (IdString == XIH_BH_IMAGE_IDENT) {
 		PdiPtr->PdiType = XLOADER_PDI_TYPE_FULL_METAHEADER;
-	}
-	else {
-		IdString = XPlmi_In64(SrcAddr + SMAP_BUS_WIDTH_LENGTH +
-				XIH_IHT_IDENT_STRING_OFFSET);
+	} else {
+		Status = PdiPtr->MetaHdr->DeviceCopy(SrcAddr +
+						     SMAP_BUS_WIDTH_LENGTH +
+						     XIH_IHT_IDENT_STRING_OFFSET,
+						     (u64)(UINTPTR)&IdString,
+						     XPLMI_WORD_LEN, 0x0U);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Device Copy Failed\n\r");
+			goto END;
+		}
 		if (IdString == XIH_IHT_PPDI_IDENT_VAL) {
 			PdiPtr->PdiType = XLOADER_PDI_TYPE_PARTIAL_METAHEADER;
 		}
@@ -2350,16 +2399,25 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 		}
 	}
 
-	if ((PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_ADDR_RANGE_MASK) == XLOADER_PDI_SRC_DDR) {
+	if ((PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK) ==
+	    XLOADER_PDI_SRC_DDR) {
 		XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, SrcAddr, XPLMI_WORD_LEN, Status, XLOADER_ERR_INVALID_METAHEADER_SRC_ADDR, END);
 	}
 
 	/** Check if Metaheader offset is pointing to a valid location */
 	if (PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL_METAHEADER) {
-		PdiPtr->MetaHdr->MetaHdrOfst = XPlmi_In64(SrcAddr + XIH_BH_META_HDR_OFFSET);
+		Status = PdiPtr->MetaHdr->DeviceCopy(SrcAddr +
+						     XIH_BH_META_HDR_OFFSET,
+						     (u64)(UINTPTR)&PdiPtr->MetaHdr->MetaHdrOfst,
+						     XPLMI_WORD_LEN, 0x0U);
+		if (Status != XST_SUCCESS) {
+			XPlmi_Printf(DEBUG_INFO, "Device Copy Failed\n\r");
+			goto END;
+		}
 		MetaHdrOfst = SrcAddr + (u64)PdiPtr->MetaHdr->MetaHdrOfst;
 
-		if ((PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_ADDR_RANGE_MASK) == XLOADER_PDI_SRC_DDR) {
+		if ((PdiSrcType & XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK) ==
+		    XLOADER_PDI_SRC_DDR) {
 			XPLMI_VERIFY_ADDR_RANGE(Cmd->SubsystemId, MetaHdrOfst, XPLMI_WORD_LEN, Status, XLOADER_ERR_INVALID_METAHEADER_OFFSET, END);
 		}
 	}
@@ -2367,22 +2425,20 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 
 	PdiPtr->IpiMask = Cmd->IpiMask;
 	if ((PdiSrcType & XLOADER_GET_OPT_DATA_FLAG) != XLOADER_GET_OPT_DATA_FLAG) {
-		/** Extract Metaheader using PdiInit */
-		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
-				XLOADER_PDI_SRC_DDR, SrcAddr);
-	}
-	else {
-		/* Extract optional data */
-		Status = DeviceOps[XLOADER_DDR_INDEX].Init(PdiPtr->PdiType);
-		if (Status != XST_SUCCESS) {
-			goto END;
+		/* Release the temporary device context before XLoader_PdiInit reinitializes it. */
+		if (DeviceOps[PdiSrcIdx].Release != NULL) {
+			SStatus = DeviceOps[PdiSrcIdx].Release();
+			if (SStatus != XST_SUCCESS) {
+				Status = SStatus;
+				goto RET;
+			}
 		}
 
-		/**
-		 * - Get the device copy function for the given boot mode.
-	         */
-		PdiPtr->MetaHdr->FlashOfstAddr = SrcAddr;
-		PdiPtr->MetaHdr->DeviceCopy = DeviceOps[XLOADER_DDR_INDEX].Copy;
+		/** Extract Metaheader using PdiInit with the decoded PDI source */
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_PdiInit, PdiPtr,
+				PdiSrc, SrcAddr);
+	} else {
+		/* Extract optional data */
 		Status = XilPdi_ReadImgHdrTbl(PdiPtr->MetaHdr);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -2397,11 +2453,12 @@ int XLoader_InitPdiInstanceForExtractMHAndOptData(XPlmi_Cmd* Cmd, XilPdi* PdiPtr
 	}
 
 END:
-	SStatus = DeviceOps[XLOADER_DDR_INDEX].Release();
+	SStatus = DeviceOps[PdiSrcIdx].Release();
 	if (Status == XST_SUCCESS) {
 		Status = SStatus;
 	}
 
+RET:
 	return Status;
 }
 

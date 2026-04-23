@@ -133,6 +133,7 @@
 *       sk   10/16/2025 Remove conditional declaration for XLoader_MbPmcI2cHandshake
 *       pre  03/12/2026 Added macro needed to validate PCR number
 *       sk   04/16/2026 Added function declaration for store image info
+*       vm   03/30/2026 Moved PDI source mask from xloader_cmd.c
 * </pre>
 *
 ******************************************************************************/
@@ -329,6 +330,9 @@ typedef struct {
 /* Configuration Limiter Boot Phase definitions */
 #define XLOADER_CL_BEFORE_BOOT		(0x0U)	/**< Before boot starts */
 #define XLOADER_CL_AFTER_BOOT		(0x1U)	/**< After successful boot */
+
+#define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU) /**< Mask for PDI Src in Extract
+								  * Metaheader */
 
 /**************************** Type Definitions *******************************/
 /**
