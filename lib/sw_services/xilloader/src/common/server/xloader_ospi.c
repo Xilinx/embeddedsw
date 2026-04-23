@@ -52,6 +52,7 @@
 *       ias  03/26/2026 Handle XPM_PMC_BOOT_DEV_RETAINED in OSPI release
 *       aa   04/14/2026 Skip 4B address mode entry for Spansion flash
 *                       as it supports only in SDR mode
+*       aa   04/23/2026 Fix OSPI SDR fallback for Spansion flash
 *
 * </pre>
 *
@@ -492,6 +493,9 @@ int XLoader_OspiInit(u32 DeviceFlags)
 
 END1:
 	if ((XPLMI_PLATFORM == PMC_TAP_VERSION_SILICON) && (Status != XST_SUCCESS)) {
+		XLoader_Printf(DEBUG_INFO,
+			"OSPI DDR mode configuration failed 0x%08x, falling back to SDR\r\n",
+			(u32)Status);
 		Status = (int)XOspiPsv_DeviceReset(XOSPIPSV_HWPIN_RESET);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -724,7 +728,8 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 			ReadCmd = READ_CMD_OPI_MX;
 		}
 		else if (OspiFlashMake == SPANSION_OCTAL_ID_BYTE0) {
-			Dummy = XLOADER_SPANSION_OSPI_DDR_DUMMY_CYCLES;
+			Dummy = XLOADER_SPANSION_OSPI_DDR_DUMMY_CYCLES +
+				OspiPsvInstance.Extra_DummyCycle;
 			ReadCmd = READ_CMD_OPI_SPN;
 		}
 		else {
@@ -733,7 +738,8 @@ int XLoader_OspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 		}
 	}
 	else {
-		if (OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) {
+		if ((OspiFlashMake == MACRONIX_OCTAL_ID_BYTE0) ||
+				(OspiFlashMake == SPANSION_OCTAL_ID_BYTE0)) {
 			Dummy = OspiPsvInstance.Extra_DummyCycle;
 			ReadCmd = READ_CMD_4B;
 			Proto = XOSPIPSV_READ_1_1_1;
