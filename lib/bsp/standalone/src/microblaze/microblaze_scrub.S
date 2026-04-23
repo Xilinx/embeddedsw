@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2012 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /******************************************************************************
@@ -23,8 +23,19 @@
 *******************************************************************************/
 
 #include "bspconfig.h"
-#ifndef SDT
 #include "xparameters.h"
+
+/*
+ * Create DLMB controller alias macros if not already defined.
+ * In classic flow, bram.tcl generates alias (XPAR_DLMB_CNTLR_*) macros.
+ * When those are absent, map from LMB BRAM memory region macros
+ * (XPAR_LMB_BRAM_0_BASEADDRESS / XPAR_LMB_BRAM_0_HIGHADDRESS), present in SDT flow.
+ */
+#if !defined(XPAR_DLMB_CNTLR_BASEADDR) && !defined(XPAR_DLMB_CNTLR_HIGHADDR)
+  #if defined(XPAR_LMB_BRAM_0_BASEADDRESS) && defined(XPAR_LMB_BRAM_0_HIGHADDRESS)
+    #define XPAR_DLMB_CNTLR_BASEADDR XPAR_LMB_BRAM_0_BASEADDRESS
+    #define XPAR_DLMB_CNTLR_HIGHADDR XPAR_LMB_BRAM_0_HIGHADDRESS
+  #endif
 #endif
 
 /* Define if fault tolerance is used */
