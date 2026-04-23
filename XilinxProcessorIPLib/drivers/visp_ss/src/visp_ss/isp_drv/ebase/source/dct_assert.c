@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright 2010, Dream Chip Technologies GmbH. used with permission by      *|
 |* VeriSilicon.                                                               *|
 |* Copyright (c) <2020> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
@@ -43,6 +43,6 @@ void exit_(const char* file, int line)
 
 		assert_handler();
 	} else
-		exit(0);
+		exit(EXIT_FAILURE);
 }
 #endif

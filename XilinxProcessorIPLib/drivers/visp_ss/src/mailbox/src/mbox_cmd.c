@@ -298,7 +298,8 @@ void Apu_Mbox_Check_Command(void)
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
 		if (size_ > sizeof(Payload_packet)) {
-			LOGE("Apu_Mbox_Check_Command: size %u exceeds Payload_packet, dropped\r\n", size_);
+			LOGE("Mbox cmd size %u exceeds max %u, dropping\r\n",
+			     size_, (uint32_t)sizeof(Payload_packet));
 			return;
 		}
 		memcpy(&proc_cmd_packet, &rmsg_command_to_apu->payload, size_);
@@ -318,7 +319,8 @@ void Apu_Mbox_Check_FusaCommand(void)
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
 		if (size_ > sizeof(Payload_packet)) {
-			LOGE("Apu_Mbox_Check_FusaCommand: size %u exceeds Payload_packet, dropped\r\n", size_);
+			LOGE("Mbox fusa cmd size %u exceeds max %u, dropping\r\n",
+			     size_, (uint32_t)sizeof(Payload_packet));
 			return;
 		}
 		memcpy(&proc_cmd_packet, &rmsg_command_to_apu->payload, size_);
@@ -366,8 +368,8 @@ void apu_mailbox_read(uint32_t IpiSrcMask)
 			vpi_mbox_read(apu_fifo_ctrl, rmsg_apu, dest_cpu_id); //rpu0 rece MBOX_CORE_APU's msg
 
 			if (rmsg_apu->payload.payload_size > MAX_ITEM) {
-				LOGE("apu_mailbox_read: payload_size %u exceeds MAX_ITEM, dropped\r\n",
-				     rmsg_apu->payload.payload_size);
+				LOGE("Mbox payload_size %u exceeds MAX_ITEM %u, dropping frame\r\n",
+				     rmsg_apu->payload.payload_size, (uint32_t)MAX_ITEM);
 				continue;
 			}
 

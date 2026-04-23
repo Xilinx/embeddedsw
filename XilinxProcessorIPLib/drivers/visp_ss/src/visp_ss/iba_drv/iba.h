@@ -56,6 +56,8 @@ typedef enum iba_fifo_write_mode {
 
 typedef enum tile_id {
 	TILE_0 = 0,
+	TILE_1,
+	TILE_2,
 	MAX_TILE,
 	DUMMY_TILE_ID = 0XDEADFEED
 } tile_id_t;

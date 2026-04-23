@@ -31,6 +31,16 @@
 #define MAPISP2RPU4	4
 #define MAPISP2RPU5	5
 
+/** @cond INTERNAL */
+/* Hardware RPU IPI target IDs from xparameters */
+#define HW_RPU_ID_0	6
+#define HW_RPU_ID_1	7
+#define HW_RPU_ID_2	8
+#define HW_RPU_ID_3	9
+#define HW_RPU_ID_4	10
+#define HW_RPU_ID_5	11
+/** @endcond */
+
 /**************************** Type Definitions *******************************/
 typedef struct isp2rpu_mapping {
 	int32_t reg[XPAR_XVISP_SS_NUM_INSTANCES];
@@ -92,22 +102,22 @@ void init_isp2rpu_mapping(u32 rpu_id, u32 isp_id)
 {
 
 	switch (rpu_id) {
-		case 6:
+		case HW_RPU_ID_0:
 			isp2rpu_map.reg[isp_id] = MAPISP2RPU0;
 			break;
-		case 7:
+		case HW_RPU_ID_1:
 			isp2rpu_map.reg[isp_id] = MAPISP2RPU1;
 			break;
-		case 8:
+		case HW_RPU_ID_2:
 			isp2rpu_map.reg[isp_id] = MAPISP2RPU2;
 			break;
-		case 9:
+		case HW_RPU_ID_3:
 			isp2rpu_map.reg[isp_id] = MAPISP2RPU3;
 			break;
-		case 10:
+		case HW_RPU_ID_4:
 			isp2rpu_map.reg[isp_id] = MAPISP2RPU4;
 			break;
-		case 11:
+		case HW_RPU_ID_5:
 			isp2rpu_map.reg[isp_id] = MAPISP2RPU5;
 			break;
 		default:
@@ -131,17 +141,11 @@ void init_isp2rpu_mapping(u32 rpu_id, u32 isp_id)
 ******************************************************************************/
 int selectDestinationCore(u32 ispid)
 {
-	if (ispid >= XPAR_XVISP_SS_NUM_INSTANCES) {
-		xil_printf("selectDestinationCore: ispid %u out of range (max %u)\n\r",
-			   ispid, (u32)XPAR_XVISP_SS_NUM_INSTANCES);
-		return XST_FAILURE;
-	}
-	if (isp2rpu_map.reg[ispid] == ISPMAP2NONE) {
-		//Assert
+	if (ispid >= XPAR_XVISP_SS_NUM_INSTANCES ||
+	    isp2rpu_map.reg[ispid] == ISPMAP2NONE) {
 		xil_printf("Failed to Map ISP =%x to RPU core...\n\r", ispid);
 		return XST_FAILURE;
-	} else
-		dest_cpu_id = isp2rpu_map.reg[ispid];
-
+	}
+	dest_cpu_id = isp2rpu_map.reg[ispid];
 	return XST_SUCCESS;
 }

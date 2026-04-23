@@ -10,11 +10,13 @@
 #define _MBOX_CMD_H_
 
 #include <stdio.h>
+#include <stdlib.h>
+#ifndef __BAREMETAL__
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <stdlib.h>
 #include <signal.h>
+#endif
 #include <xil_types.h>
 //#include "vsi_command.h"
 #include "mbox_api.h"

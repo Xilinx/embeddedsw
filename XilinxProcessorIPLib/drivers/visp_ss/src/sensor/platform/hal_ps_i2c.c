@@ -11,6 +11,11 @@ int Xil_IICWritepolled16(XIicPs *Config, u8 *sdata, u32 size, u16 regoffset,
 	int Status;
 	u8 senddata[4];
 
+	if (size > 2) {
+		xil_printf("Xil_IICWritepolled16: size %u exceeds buffer\r\n", size);
+		return XST_FAILURE;
+	}
+
 	senddata[0] = (regoffset >> 8) & 0xFF;
 	senddata[1] = regoffset & 0xFF;
 	for (int i = 1; i <= size; i++)
