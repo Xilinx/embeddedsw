@@ -21,7 +21,7 @@ int iba_set_fifo_write_mode(iba_inst_t* InstancePtr, int fifomode);
 
 iba_inst_t iba_instance;
 
-iba_inst_t IBA_ConfigTable[XPAR_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
+iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 	{
 		//ISP-0
 		{   /*Tile-0, ISP-0, IBA0 configuration*/
@@ -351,8 +351,6 @@ int iba_CfgInitialize(iba_inst_t *InstancePtr, const iba_inst_t *ConfigPtr)
 }
 
 
-Payload_packet packet;
-
 RESULT IBA_init_send_command
 (
 	CamDeviceHandle_t hCamDevice,
@@ -362,6 +360,7 @@ RESULT IBA_init_send_command
 {
 	RESULT result = RET_SUCCESS;
 	iba_inst_t *ConfigPtr;
+	Payload_packet packet;
 
 	CamDeviceContext_t *pCamDevCtx = (CamDeviceContext_t*) hCamDevice;
 
@@ -377,12 +376,16 @@ RESULT IBA_init_send_command
 		LOGI("APU: Sizeof iba_inst is %d portid:%d\n", sizeof(iba_inst_t),
 		     caseCtx->portId);
 
+		if (caseCtx->portId == 0) {
+			LOGE("ERROR: portId = 0 is invalid (must be >= 1)\n");
+			return -1;
+		}
 		port_no = caseCtx->portId - 1;
 
-		if ((port_no > 3 || port_no < 0) && caseCtx->hpId == ISP0) {
+		if (port_no > 3 && caseCtx->hpId == ISP0) {
 			LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1,2,3] \n", port_no);
 			return -1;
-		} else if ((port_no > 1 || port_no < 0) && caseCtx->hpId == ISP1) {
+		} else if (port_no > 1 && caseCtx->hpId == ISP1) {
 			LOGE("ERROR: port_no = %d is invalid. Valid range-> [0,1] \n", port_no);
 			return -1;
 		}
@@ -403,7 +406,7 @@ RESULT IBA_init_send_command
 			LOGI("APU-Debug: hres-%d,vres-%d,instanceid %d, ConfigPtr->isp_instance %d \n",
 			     ConfigPtr->hres, ConfigPtr->vres, instanceid, ConfigPtr->isp_instance);
 
-			LOGI("APU debug :inputtypes %d,%d", caseCtx->inputType);
+			LOGI("APU debug :inputtypes %d", caseCtx->inputType);
 
 			memset(&packet, 0, sizeof(Payload_packet));
 			p_data = packet.payload_data;
@@ -424,7 +427,13 @@ RESULT IBA_init_send_command
 			LOGI("IBA_init_send_command,sizeof iba_inst_t = %d, packet.payload_size %d \n", sizeof(iba_inst_t),
 			     packet.payload_size);
 
-			result = Send_Command(APU_2_RPU_MB_CMD_IBA_INIT, &packet, sizeof(packet), dest_cpu_id, src_cpu_id);
+			if (packet.payload_size + payload_extra_size > sizeof(Payload_packet)) {
+				LOGE("ERROR: payload size %d exceeds max %d\n",
+				     packet.payload_size, (uint32_t)(sizeof(Payload_packet) - payload_extra_size));
+				return RET_OUTOFRANGE;
+			}
+
+			result = Send_Command(APU_2_RPU_MB_CMD_IBA_INIT, &packet, packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 			if (RET_SUCCESS != result)
 				return RET_FAILURE;
 			apu_wait_for_ACK(packet.cookie, packet.payload_data); //replace with wait_response();
