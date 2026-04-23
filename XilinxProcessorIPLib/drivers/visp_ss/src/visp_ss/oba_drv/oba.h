@@ -1,4 +1,4 @@
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #ifndef __oba_H__
 #define __oba_H__
 
@@ -11,8 +11,8 @@
 
 #define MAX_OBA_PER_ISP     (2UL)
 #define XPAR_OBA_INSTANCES  (2UL)
-#define XPAR_ISP_INSTANCE   (2UL)
-#define XPAR_TILE_INSTANCES (1UL)
+#define XPAR_OBA_ISP_INSTANCE   (2UL)
+#define XPAR_OBA_TILE_INSTANCES (1UL)
 
 
 typedef enum oba_id {

@@ -1,5 +1,5 @@
 #include <string.h>
-// Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+// Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 #include <stdio.h>
 #include "oba.h"
 #include "xil_types.h"
@@ -26,7 +26,7 @@ RESULT OBA_init_send_command
 );
 
 
-oba_inst_t OBA_ConfigTable[XPAR_ISP_INSTANCE][MAX_OBA_PER_ISP] = {
+oba_inst_t OBA_ConfigTable[XPAR_OBA_ISP_INSTANCE][MAX_OBA_PER_ISP] = {
 
 	{
 		//isp
@@ -117,8 +117,8 @@ int oba_map_init(oba_map_t *InstancePtr, VvbenchVvdev_t *caseCtx)
 	LOGI("APU: Sizeof oba_inst is %d \n", sizeof(oba_inst_t));
 
 	for (int index = 0; index < caseCtx->totalInstance; index++) {
-		for (tile_no = TILE_0; tile_no < XPAR_TILE_INSTANCES; tile_no++) {
-			for (isp_no = ISP0; isp_no < XPAR_ISP_INSTANCE; isp_no++) {
+		for (tile_no = TILE_0; tile_no < XPAR_OBA_TILE_INSTANCES; tile_no++) {
+			for (isp_no = ISP0; isp_no < XPAR_OBA_ISP_INSTANCE; isp_no++) {
 				for (oba_no = OBA_0_MP; oba_no < MAX_OBA_PER_ISP; oba_no++) {
 					LOGI("APU: tile :%d  isp_no:%d oba_no:%d\n", tile_no, isp_no, oba_no);
 					LOGI("APU: sizeof oba_inst is %d workmode :%d\n", sizeof(oba_inst_t),
@@ -339,7 +339,7 @@ RESULT OBA_init_send_command
 
 			Payload_packet packet;
 			memset(&packet, 0, sizeof(Payload_packet));
-			uint8_t *p_data = &packet.payload_data;
+			uint8_t *p_data = packet.payload_data;
 			packet.cookie = 0x99;
 			packet.type = CMD;
 
@@ -354,7 +354,14 @@ RESULT OBA_init_send_command
 			p_data += sizeof(oba_inst_t);
 
 			LOGI("Sizeof iba map structure %d \n", sizeof(oba_inst_t));
-			result = Send_Command(APU_2_RPU_MB_CMD_OBA_INIT, &packet, sizeof(packet), dest_cpu_id, src_cpu_id);
+
+			if (packet.payload_size + payload_extra_size > sizeof(Payload_packet)) {
+				LOGE("ERROR: OBA payload size %d exceeds max %d\n",
+				     packet.payload_size, (uint32_t)(sizeof(Payload_packet) - payload_extra_size));
+				return RET_OUTOFRANGE;
+			}
+
+			result = Send_Command(APU_2_RPU_MB_CMD_OBA_INIT, &packet, packet.payload_size + payload_extra_size, dest_cpu_id, src_cpu_id);
 			if (RET_SUCCESS != result)
 				return RET_FAILURE;
 			apu_wait_for_ACK(packet.cookie, packet.payload_data); //replace with wait_response();
