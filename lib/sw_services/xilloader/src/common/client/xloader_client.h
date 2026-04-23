@@ -21,6 +21,7 @@
  *       pre  10/26/24 Removed XLoader_LoadReadBackPdi API
  * 2.3   aa   09/29/25 Added UFS support as pdisrc option for partial PDI load
  * 2.4   sri  03/26/26 Included header file for cache disable option
+ *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
  *
  * </pre>
  *
@@ -96,8 +97,9 @@ typedef struct {
 } XLoader_CfiSelReadbackParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XLOADER_PDI_SRC_DDR			(0xF)	/**< Source of PDI is DDR */
-#define XLOADER_PDI_SRC_IS			(0x10)	/**< Source of PDI is Image Store */
+#define XLOADER_PDI_SRC_OSPI			(0x8U)	/**< Source of PDI is OSPI */
+#define XLOADER_PDI_SRC_DDR			(0xFU)	/**< Source of PDI is DDR */
+#define XLOADER_PDI_SRC_IS			(0x10U)	/**< Source of PDI is Image Store */
 
 /************************************ Function Prototypes ****************************************/
 

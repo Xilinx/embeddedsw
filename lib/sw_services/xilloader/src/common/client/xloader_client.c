@@ -22,6 +22,7 @@
  *       pre  09/30/25 Updated comments for rtf docs
  * 2.4   tbk  02/10/26 Added SMC call support
  *       gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
+ *       vm   03/30/26 Added support for OSPI as pdi source to get the optional data
  *
  * </pre>
  *
@@ -757,7 +758,7 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-	if (OptionalDataInfo->PdiSrc == XLOADER_PDI_SRC_DDR) {
+	if ((OptionalDataInfo->PdiSrc == XLOADER_PDI_SRC_DDR) || (OptionalDataInfo->PdiSrc == XLOADER_PDI_SRC_OSPI)) {
 		XLOADER_PACK_PAYLOAD6(Payload, (u32)XLOADER_CMD_ID_EXTRACT_METAHEADER, (OptionalDataInfo->PdiAddrHigh),
 				(OptionalDataInfo->PdiAddrLow),
 				(u32)(DestAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)(DestAddr), *DestSize,
