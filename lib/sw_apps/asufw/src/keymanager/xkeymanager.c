@@ -1637,12 +1637,11 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function retrieves an ECC private key from the key vault and copies it into
- * 		the provided XAsu_EccPvtKeyComp structure using DMA.
+ * @brief	Resolve key object from key vault if KeyId is provided for ECC private key.
  *
  * @param	KeyObjectPtr	Pointer to key object.
- * @param	SubSystemId	Subsystem ID requesting the key.
- * @param	KeyUsecase	Key use case (e.g., signature generation).
+ * @param	SubSystemId	Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase	Requested use case for the key.
  * @param	KeyId		Composite key identifier.
  *
  * @return

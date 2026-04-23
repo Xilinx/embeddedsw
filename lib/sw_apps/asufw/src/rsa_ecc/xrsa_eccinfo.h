@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -50,6 +50,7 @@ typedef enum {
 } XRsa_EccCrvClass;
 
 /************************************** Type Definitions *****************************************/
+/** Database of ECC curve information for all supported curves. */
 extern EcdsaCrvInfo XRsa_EccCrvsDb[];
 
 /************************************* Function Prototypes ***************************************/

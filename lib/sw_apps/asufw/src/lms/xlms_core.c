@@ -32,10 +32,9 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xlms_core_apis LMS Core APIs
+* @addtogroup xlms_server_apis LMS Server APIs
 * @{
 */
-
 /***************************** Include Files *****************************************************/
 #include "xil_io.h"
 #include "xil_util.h"

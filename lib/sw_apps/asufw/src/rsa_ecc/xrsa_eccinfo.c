@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -1507,6 +1507,7 @@ static const u8 XRsa_EccBrainPoolP512D13[] = {
 #endif /* XASU_ECC_SUPPORT_BRAINPOOL_P512 */
 
 /**************************************** Type Definitions ***************************************/
+/** Database of ECC curve information for all supported curves. */
 EcdsaCrvInfo XRsa_EccCrvsDb[] = {
 #ifdef XASU_ECC_SUPPORT_NIST_P521
 	{

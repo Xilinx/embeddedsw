@@ -54,11 +54,11 @@ static s32 XAsufw_StoreDataBackup(void);
 static void XAsufw_AsuUpdateMgr(void) __attribute__((section(".update_mgr_a")));
 
 /************************************ Variable Definitions ***************************************/
-extern XAsufw_DsEntry __data_struct_start[];
-extern XAsufw_DsEntry __data_struct_end[];
-extern u32 __update_mgr_b_start[];
-extern u8 __update_mgr_a_fn_start[];
-extern u8 __update_mgr_a_fn_end[];
+extern XAsufw_DsEntry __data_struct_start[]; /**< Data structure start address (linker-defined) */
+extern XAsufw_DsEntry __data_struct_end[]; /**< Data structure end address (linker-defined) */
+extern u32 __update_mgr_b_start[]; /**< Update manager B start address (linker-defined) */
+extern u8 __update_mgr_a_fn_start[]; /**< Update manager A function start address (linker-defined) */
+extern u8 __update_mgr_a_fn_end[]; /**< Update manager A function end address (linker-defined) */
 
 static u32 DbStartAddr;	/**< Database start address */
 static u32 DbEndAddr;	/**< Database end address */

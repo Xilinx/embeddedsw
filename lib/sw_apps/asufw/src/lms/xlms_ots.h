@@ -24,7 +24,7 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xasufw_lms_ots_apis ASUFW LMS OTS APIs
+* @addtogroup xlms_server_apis LMS Server APIs
 * @{
 */
 #ifndef XLMS_OTS_H_
@@ -351,7 +351,7 @@ typedef struct {
  * Size = 4 + 16 + 4 + H Len (32) = 56 Bytes
  */
 typedef union {
-	u8 Buff[XLMS_OTS_PUB_KEY_TOTAL_SIZE];
+	u8 Buff[XLMS_OTS_PUB_KEY_TOTAL_SIZE]; /**< Raw buffer for OTS public key. */
 	struct {
 		/**
 		 * @brief Type XLms_OtsType
@@ -391,7 +391,7 @@ typedef union {
  * Size = 1 + 16 + 4 + 2 + 1 + H Len (32) = 56 Bytes
  */
 typedef union {
-	u8 Buff[1U + XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE];
+	u8 Buff[1U + XLMS_OTS_SIGN_VERIF_TMP_BUFF_TOTAL_SIZE]; /**< Raw buffer for OTS signature verification. */
 	struct {
 		/**
 		 * 1 reserved byte added at start of buffer, to manage word aligned sha finish copies to buffer
@@ -434,7 +434,7 @@ typedef union {
  * Size = 16(I) + 4(q) + 2(D_PBLC) + (p * H Len (32))
  */
 typedef union {
-	u8 Buff[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE];
+	u8 Buff[XLMS_OTS_SIGN_VERIF_CHAIN_TMP_BUFF_TOTAL_SIZE]; /**< Raw buffer for OTS sign-to-public-key hash. */
 	struct {
 		/**
 		 * ChainTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
@@ -490,7 +490,7 @@ typedef struct {
  * Size = I (16) + q (4) + D_MESG (2) + C (32) = 54 Bytes
  */
 typedef union {
-	u8 Buff[XLMS_MESSAGE_TO_DIGEST_PREFIX_SIZE];
+	u8 Buff[XLMS_MESSAGE_TO_DIGEST_PREFIX_SIZE]; /**< Raw buffer for digest prefix fields. */
 	struct {
 		/**
 		 * DigestTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
@@ -521,7 +521,7 @@ typedef union {
  * Size = Digest (32) + Check sum (2) = 34 Bytes
  */
 typedef union {
-	u8 Buff[XLMS_DIGEST_CHECKSUM_SIZE];
+	u8 Buff[XLMS_DIGEST_CHECKSUM_SIZE]; /**< Raw buffer for digest and checksum. */
 	struct {
 		/**
 		 * Digest - Digest of data to be authenticated

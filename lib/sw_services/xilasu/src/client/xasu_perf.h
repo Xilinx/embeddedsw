@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -61,9 +61,9 @@ void XAsu_PerfInit(void);
 void XAsu_StartTiming(void);
 void XAsu_EndTiming(const char* Function_name);
 #else
-#define XAsu_PerfInit(void)
-#define XAsu_StartTiming(void)
-#define XAsu_EndTiming(Function_name)
+#define XAsu_PerfInit(void)		/**< Stub for performance init when measurement is disabled. */
+#define XAsu_StartTiming(void)		/**< Stub for start timing when measurement is disabled. */
+#define XAsu_EndTiming(Function_name)	/**< Stub for end timing when measurement is disabled. */
 #endif  /* XASU_PERF_MEASUREMENT_ENABLE */
 
 #ifdef __cplusplus

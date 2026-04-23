@@ -617,7 +617,7 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	if (Cmd->XAsu_RsaOpComp.KeyId != 0U) {
 		/**
-		 * If KeyId is provided, calculate addess in RSA reserved memory where key
+		 * If KeyId is provided, calculate address in RSA reserved memory where key
 		 * shall be stored and copy the key object from key vault to this address.
 		 */
 		KeyParamAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() + XRSA_MAX_KEY_SIZE_IN_BYTES);

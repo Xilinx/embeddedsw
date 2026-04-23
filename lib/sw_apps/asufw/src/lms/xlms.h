@@ -24,7 +24,7 @@
 *
 **************************************************************************************************/
 /**
-* @addtogroup xasufw_lms_apis ASUFW LMS APIs
+* @addtogroup xlms_server_apis LMS Server APIs
 * @{
 */
 #ifndef XLMS_H_
@@ -183,6 +183,7 @@ typedef enum {
 	XLMS_NOT_SUPPORTED	/**< Not Supported */
 } XLms_Type;
 
+/** Enumeration for supported LMS tree heights. */
 typedef enum {
 	XLMS_TREE_HEIGHT_UNSUPPORTED = 0U,	/**< Unsupported tree height */
 	XLMS_TREE_HEIGHT_5 = 5U,	/**< Supported tree height 5*/
@@ -208,7 +209,7 @@ typedef struct {
  * Size = 4 + 4 + 16 + H Len (32) = 56 Bytes
  */
 typedef union {
-	u8 Buff[XLMS_PUB_KEY_TOTAL_SIZE];
+	u8 Buff[XLMS_PUB_KEY_TOTAL_SIZE]; /**< Raw buffer for LMS public key. */
 	struct {
 		/**
 		 * @brief LmsType XLms_Type
@@ -246,7 +247,7 @@ typedef union {
  * Size = 16(I) + 4(node_number/2) + 2(D_INTR) + (32 * 2)
  */
 typedef union {
-	u8 Buff[XLMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE];
+	u8 Buff[XLMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE]; /**< Raw buffer for intermediate public key data. */
 	struct {
 		/**
 		 * MerkleTreeId - Merkle Tree's unique identifier (uniformly random 16-byte string)
