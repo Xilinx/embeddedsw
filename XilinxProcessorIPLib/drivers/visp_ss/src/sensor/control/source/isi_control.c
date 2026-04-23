@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright 2010, Dream Chip Technologies GmbH. used with permission by      *|
 |* VeriSilicon.                                                               *|
 |* Copyright (c) <2022> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
@@ -34,6 +34,16 @@ extern IsiCamDrvConfig_t Ox05b1s_IsiCamDrvConfig;
 
 IsiSensorInst_t gSInst;
 
+static inline RESULT IsiValidateInstanceId(uint32_t instId)
+{
+	if (instId >= CAMDEV_INSTANCE_MAX) {
+		xil_printf("ISI: invalid instanceId %u (max %u)\r\n",
+			   instId, (uint32_t)CAMDEV_INSTANCE_MAX);
+		return RET_OUTOFRANGE;
+	}
+	return RET_SUCCESS;
+}
+
 static void IsiSensorHandleInit(uint32_t instId)
 {
 	gSInst.hIsiSensor[instId] = NULL;
@@ -47,9 +57,10 @@ RESULT ControlIsiSensorDrvHandleRegisterIss
 {
 	RESULT ret = RET_SUCCESS;
 	uint32_t instanceId = 0x99;
-	IsiSensorInstanceConfig_t *pConfig;
+	IsiSensorInstanceConfig_t configLocal;
+	IsiSensorInstanceConfig_t *pConfig = &configLocal;
 	IsiSensorHandle_t sensorHandle;
-	IsiCamDrvConfig_t *pCamDrvConfig;
+	IsiCamDrvConfig_t *pCamDrvConfig = NULL;
 
 	Payload_packet *packet = (Payload_packet *)data;
 
@@ -60,6 +71,9 @@ RESULT ControlIsiSensorDrvHandleRegisterIss
 	p_data += sizeof(uint32_t);
 
 	memcpy(pConfig, p_data, sizeof(IsiSensorInstanceConfig_t));
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
 
 	IsiSensorHandleInit(instanceId);
 	// sensor mapping
@@ -72,6 +86,10 @@ RESULT ControlIsiSensorDrvHandleRegisterIss
 	for (uint8_t i = 0; i < (int)(sizeof(sensorConfig) / sizeof(sensorConfig[0])); i++) {
 		if (pConfig->cameraDriverID == sensorConfig[i].pSensorConfig->cameraDriverID)
 			pCamDrvConfig = sensorConfig[i].pSensorConfig;
+	}
+	if (pCamDrvConfig == NULL) {
+		xil_printf("APU %s: No matching sensor driver for cameraDriverID %d\n", __func__, pConfig->cameraDriverID);
+		return RET_NOTSUPP;
 	}
 	// sensor Driver Handle Register Iss
 	// only change pConfig.pSensor
@@ -86,6 +104,11 @@ RESULT ControlIsiSensorDrvHandleRegisterIss
 		return ret;
 	}
 	ret = pConfig->pSensor->pIsiCreateIss(pConfig, &sensorHandle);
+	if (ret != RET_SUCCESS) {
+		xil_printf("APU %s pIsiCreateIss FAIL, result %d.\n", __func__, ret);
+		osFree(pConfig->pSensor);
+		return ret;
+	}
 
 	xil_printf("%s instanceId: %d., sensorHandle :%x\r\n", __func__, instanceId, sensorHandle);
 	gSInst.hIsiSensor[instanceId] = sensorHandle;
@@ -107,6 +130,9 @@ RESULT ControlIsiSensorDrvHandleUnRegisterIss
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
 
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 	ret = IsiSensorDrvHandleUnRegisterIss(sensorHandle);
@@ -134,6 +160,10 @@ RESULT ControlIsiEnumModeIss
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	xil_printf("%s instanceId: %d., sensorHandle :%x\r\n", __func__, instanceId, sensorHandle);
@@ -165,6 +195,9 @@ RESULT ControlIsiOpenIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&mode, p_data, sizeof(uint32_t));
@@ -188,6 +221,9 @@ RESULT ControlIsiCloseIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 	ret = IsiCloseIss(sensorHandle);
 	if (ret != RET_SUCCESS) {
@@ -208,6 +244,9 @@ RESULT ControlIsiCheckConnectionIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
 
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 	ret = IsiCheckConnectionIss(sensorHandle);
@@ -231,6 +270,10 @@ RESULT ControlIsiGetModeIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&sMode, p_data, sizeof(IsiSensorMode_t));
@@ -259,6 +302,10 @@ RESULT ControlIsiGetCapsIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetCapsIss(sensorHandle, &caps);
@@ -285,6 +332,9 @@ RESULT ControlIsiSetStreamingIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&on, p_data, sizeof(bool_t));
@@ -309,6 +359,10 @@ RESULT ControlIsiGetRevisionIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetRevisionIss(sensorHandle, &value);
@@ -336,6 +390,10 @@ RESULT ControlIsiGetAeBaseInfoIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetAeBaseInfoIss(sensorHandle, &aeBaseInfo);
@@ -362,6 +420,10 @@ RESULT ControlIsiGetAGainIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetAGainIss(sensorHandle, &sensorAGain);
@@ -388,6 +450,10 @@ RESULT ControlIsiGetDGainIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetDGainIss(sensorHandle, &sensorDGain);
@@ -414,6 +480,9 @@ RESULT ControlIsiSetAGainIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&sensorAGain, p_data, sizeof(IsiSensorGain_t));
@@ -437,6 +506,9 @@ RESULT ControlIsiSetDGainIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
 
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
@@ -462,6 +534,10 @@ RESULT ControlIsiGetIntTimeIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetIntTimeIss(sensorHandle, &sensorIntTime);
@@ -488,6 +564,9 @@ RESULT ControlIsiSetIntTimeIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&sensorIntTime, p_data, sizeof(IsiSensorIntTime_t));
@@ -512,6 +591,10 @@ RESULT ControlIsiGetFpsIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetFpsIss(sensorHandle, &fps);
@@ -538,6 +621,9 @@ RESULT ControlIsiSetFpsIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&fps, p_data, sizeof(uint32_t));
@@ -563,6 +649,10 @@ RESULT ControlIsiGetIspStatusIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetIspStatusIss(sensorHandle, &ispStatus);
@@ -589,6 +679,9 @@ RESULT ControlIsiSetWBIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&swb, p_data, sizeof(IsiSensorWb_t));
@@ -613,6 +706,10 @@ RESULT ControlIsiGetWBIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetWBIss(sensorHandle, &swb);
@@ -639,6 +736,9 @@ RESULT ControlIsiSetBlcIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&sblc, p_data, sizeof(IsiSensorBlc_t));
@@ -663,6 +763,10 @@ RESULT ControlIsiGetBlcIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetBlcIss(sensorHandle, &sblc);
@@ -690,6 +794,9 @@ RESULT ControlIsiSetTpgIss(void *data)
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&tpg, p_data, sizeof(IsiSensorTpg_t));
@@ -714,6 +821,10 @@ RESULT ControlIsiGetTpgIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetTpgIss(sensorHandle, &stpg);
@@ -740,6 +851,10 @@ RESULT ControlIsiGetExpandCurveIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	ret = IsiGetExpandCurveIss(sensorHandle, &curve);
@@ -767,6 +882,9 @@ RESULT ControlIsiWriteRegIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
 
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
@@ -796,6 +914,10 @@ RESULT ControlIsiReadRegIss(void *data)
 
 	memcpy(&instanceId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
+
+	if (IsiValidateInstanceId(instanceId) != RET_SUCCESS)
+		return RET_OUTOFRANGE;
+
 	IsiSensorHandle_t sensorHandle = gSInst.hIsiSensor[instanceId];
 
 	memcpy(&addr, p_data, sizeof(uint16_t));
