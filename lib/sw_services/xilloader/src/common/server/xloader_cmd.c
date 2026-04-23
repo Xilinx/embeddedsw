@@ -96,6 +96,7 @@
 *       gnr  03/12/2026 Fixed integer overflow in length check of XLoader_AddImageStorePdi() and XLoader_WriteImageStorePdi()
 *       sri  03/26/2026 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
 *       sk   04/10/2026 Added implementation for set image info command
+*       vm   03/30/2026 Moved Mask for PDI Src in Extract Metaheader command
 *
 * </pre>
 *
@@ -215,10 +216,6 @@ static XPlmi_Module XPlmi_Loader;
 
 #define XLOADER_SD_MULTIBOOT_SHIFT		(4U)
 
-#ifdef PLM_GET_OPT_DATA_EN
-#define XLOADER_CMD_EXTRACT_METAHDR_PDISRC_MASK		(0x1FU)
-	/**< Mask for PDI Src in Extract Metaheader command */
-#endif
 
 /************************** Function Prototypes ******************************/
 
