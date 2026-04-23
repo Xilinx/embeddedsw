@@ -26,6 +26,7 @@
 #include <xil_mmu.h>
 #include <xipipsu.h>
 #include "vlog.h"
+#include "xparameters.h"
 #if ENABLE_VMIX_MACRO
 	#include "xv_mix_l2.h"
 	#include "xvidc.h"
@@ -33,8 +34,8 @@
 
 #define  XPAR_PS_0_PSPMC_0_PSV_IPI_1_BIT_MASK  0x00001000U
 #define  XPAR_PS_0_PSPMC_0_PSV_IPI_2_BIT_MASK  0x00000010U
-
-
+#define IPI5_IPI_NOBUF3_BITMASK 0x00001000U
+#define IPI5_BASEADDR 0xeb380000
 #ifdef SDT
 	#include "xinterrupt_wrap.h"
 #endif
@@ -156,7 +157,7 @@ int ipi_init(int src_ipi_id, XIpiPsu *IpiInst)
 
 	switch (src_ipi_id) {
 		case MBOX_CORE_APU:
-			baseaddr = 0xeb380000; //IPI-5
+			baseaddr = IPI5_BASEADDR; //IPI-5
 			break;
 		default:
 			xil_printf("Not a Valid IPI core \n");
@@ -220,7 +221,7 @@ static XStatus trigger_ipi(XIpiPsu *InstancePtr, uint32_t dst_ipi_id)
 
 	/* Self trigger
 	dst_ipi_id_offset=APU_TARGET; */
-	InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask = 0x1000;
+	InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask = IPI5_IPI_NOBUF3_BITMASK;
 	XIpiPsu_TriggerIpi(InstancePtr, InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask);
 
 	Status = XIpiPsu_PollForAck(InstancePtr, InstancePtr->Config.TargetList[dst_ipi_id_offset].Mask,
