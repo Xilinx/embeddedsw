@@ -8,7 +8,7 @@
  *
  * @file xasu_sharedmem.c
  *
- * This file contains the LMS function definitions which are common across the client and server.
+ * This file contains the IPI communication channel function definitions.
  *
  * <pre>
  * MODIFICATION HISTORY:
@@ -36,7 +36,7 @@
 /*********************************** Type Definitions ********************************************/
 
 /********************************* Variable Definitions ******************************************/
-/* All IPI channels information received from user configuration */
+/** Pointer to the IPI communication channel information received from user configuration */
 XAsu_CommChannelInfo *CommChannelInfo = (XAsu_CommChannelInfo *)(UINTPTR)
 	XASU_RTCA_COMM_CHANNEL_INFO_ADDR;
 

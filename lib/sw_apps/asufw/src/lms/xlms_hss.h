@@ -8,9 +8,6 @@
 *
 * @file xlms_hss.h
 *
-* @addtogroup xasufw_lms_hss_apis ASUFW LMS HSS APIs
-* @{
-* @details
 * This file contains structures, constants and defines used in HSS
 * provides interface to LMS operations for ASUFW.
 *
@@ -26,6 +23,10 @@
 * @note
 *
 **************************************************************************************************/
+/**
+* @addtogroup xlms_server_apis LMS Server APIs
+* @{
+*/
 #ifndef XLMS_HSS_H_
 #define XLMS_HSS_H_
 

@@ -22,9 +22,9 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup x509_apis X.509 APIs
-* @{
-*/
+ * @addtogroup x509_server_apis X.509 Server APIs
+ * @{
+ */
 #ifndef X509_CERT_H_
 #define X509_CERT_H_
 
@@ -186,8 +186,10 @@ typedef struct {
 	u8 ParamOidLen;			/**< Parameter OID length */
 } X509_AlgoEccParam;
 
+/** Function pointer type for generating a digest from input data. */
 typedef s32 (*X509_GenerateDigest_t)(const u8 *Buf, u32 DataLen, const u8 *Hash, u32 HashBufLen,
 				     u32 *HashLen, const void *PlatformData);
+/** Function pointer type for generating a signature from a hash. */
 typedef	s32 (*X509_GenerateSignature_t)(const u8 *Hash, u32 HashLen, const u8 *Sign, u32 SignLen,
 					u32 *SignActualLen, u8 *PvtKey, const void *PlatformData);
 /**

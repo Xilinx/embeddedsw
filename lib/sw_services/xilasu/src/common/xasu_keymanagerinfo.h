@@ -127,16 +127,18 @@ typedef struct {
 	u8 Reserved[3]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerSubVaultParams;
 
+/** This structure contains the RSA key pair object with modulus, exponents, and CRT parameters. */
 typedef struct {
-	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS]; /**< Pointer to modulus buffer. */
-	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS]; /**< Pointer to private exponent buffer. */
-	u32 Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to prime1 buffer. */
-	u32 Prime2[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to prime2 buffer. */
-	u32 DP[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to DP buffer. */
-	u32 DQ[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to DQ buffer. */
-	u32 QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Pointer to QInv buffer. */
+	u32 Modulus[XRSA_MAX_KEY_SIZE_IN_WORDS]; /**< Modulus buffer. */
+	u32 PvtExp[XRSA_MAX_KEY_SIZE_IN_WORDS]; /**< Private exponent buffer. */
+	u32 Prime1[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Prime1 buffer. */
+	u32 Prime2[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< Prime2 buffer. */
+	u32 DP[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< DP buffer. */
+	u32 DQ[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< DQ buffer. */
+	u32 QInv[XRSA_MAX_PRIME_SIZE_IN_WORDS]; /**< QInv buffer. */
 } XAsu_RsaKeyPairObject;
 
+/** This structure contains the ECC key pair object with public and private keys. */
 typedef struct {
 	u8 PublicKey[XASU_ECC_P521_PUB_KEY_SIZE_IN_BYTES]; /**< Public key buffer. */
 	u8 PrivateKey[XASU_ECC_P521_PVT_KEY_SIZE_IN_BYTES]; /**< Private key buffer. */

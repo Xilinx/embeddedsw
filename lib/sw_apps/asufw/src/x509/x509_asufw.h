@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -21,9 +21,9 @@
  *
  *************************************************************************************************/
 /**
-* @addtogroup x509_apis X.509 APIs
-* @{
-*/
+ * @addtogroup x509_server_apis X.509 Server APIs
+ * @{
+ */
 #ifndef X509_ASUFW_H_
 #define X509_ASUFW_H_
 

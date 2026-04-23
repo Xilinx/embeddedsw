@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -71,8 +71,10 @@ extern "C" {
 #define XASUFW_ALL_IPI_FULL_ACCESS(CmdId)	XASUFW_GET_ALL_IPI_MASK(XASUFW_FULL_IPI_ACCESS)
 
 /************************************** Type Definitions *****************************************/
+/** Function pointer type for resource command handlers. */
 typedef s32 (*XAsufw_ResourceHandler_t)(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
+/** Typedef representing the bitmask of resources required by a module. */
 typedef u32 XAsufw_ResourcesRequired;
 
 /** @cond xasufw_modules_internal */

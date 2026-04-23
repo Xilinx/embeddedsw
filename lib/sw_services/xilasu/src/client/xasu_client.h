@@ -28,7 +28,7 @@
  *
  *************************************************************************************************/
 /**
- * @addtogroup xasu_client_info Client APIs
+ * @addtogroup xasu_client_info ASU Client Functionality
  * @{
 */
 #ifndef XASU_CLIENT_H_

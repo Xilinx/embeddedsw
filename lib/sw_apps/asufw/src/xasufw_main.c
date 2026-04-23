@@ -176,10 +176,7 @@ int main(void)
 	/** Resume performance monitoring after KATs complete. */
 	XASUFW_PERF_SET_MONITORING_STATE(XASUFW_PERF_MON_RESUMED);
 
-	/**
-	 * Run key transfer and PUF regeneration.
-	 * Run UDE KEK derivation if PUF regeneration is successful.
-	 */
+	/** Run key transfer and PUF regeneration. */
 	XFIH_CALL(XAsufw_PmcKeyTransfer, FihVar, Status);
 	if (Status != XASUFW_SUCCESS) {
 		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "PMC key transfer failed. Error: 0x%x\r\n", Status);

@@ -25,7 +25,7 @@
 
 /*************************************** Include Files *******************************************/
 /**
-* @addtogroup xasufw_lms_ots_apis ASUFW LMS OTS APIs
+* @addtogroup xlms_server_apis LMS Server APIs
 * @{
 */
 #include "xil_io.h"

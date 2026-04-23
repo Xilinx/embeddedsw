@@ -40,8 +40,8 @@ extern "C" {
 #include "xil_types.h"
 
 /************************************ Constant Definitions ***************************************/
-#define XASU_TRUE		(TRUE)
-#define XASU_FALSE		(FALSE)
+#define XASU_TRUE		(TRUE)	/**< Boolean true value. */
+#define XASU_FALSE		(FALSE)	/**< Boolean false value. */
 
 #define XASU_CMD_SECURE			(0x0U) /**< Secure command */
 #define XASU_CMD_NON_SECURE		(0x1U) /**< Non-secure command */

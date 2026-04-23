@@ -2611,6 +2611,7 @@ END:
  * 		key source is a user key.
  *
  * @param	InstancePtr	Pointer to the XAes instance.
+ * @param	CtxPtr		Pointer to the AES context info structure.
  *
  * @return
  *		- XASUFW_SUCCESS, if key restore is successful.

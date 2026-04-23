@@ -110,8 +110,9 @@ extern "C" {
 						/**< FW is present status mask */
 
 #define XASU_MAX_IPI_CHANNELS			(8U) /**< Maximum IPI channels supported by ASUFW */
-#define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**<Channel memory offset */
+#define XASU_CHANNEL_MEMORY_OFFSET		(0x1000U) /**< Channel memory offset */
 #define XASU_CHANNEL_MEMORY_BASEADDR		(XASU_RTCA_BASEADDR + XASU_CHANNEL_MEMORY_OFFSET)
+						/**< Base address of channel memory. */
 
 /** @} */
 /************************************** Type Definitions *****************************************/
@@ -180,6 +181,7 @@ u32 XAsu_GetSubsysIdFromIpiMask(u32 IpiMask);
 u32 XAsu_GetIpiMask(u32 ChannelIndex);
 
 /************************************ Variable Definitions ***************************************/
+/** Pointer to the IPI communication channel information received from user configuration */
 extern XAsu_CommChannelInfo *CommChannelInfo;
 
 #ifdef __cplusplus
