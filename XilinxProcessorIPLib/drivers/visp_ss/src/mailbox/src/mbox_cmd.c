@@ -329,22 +329,28 @@ void Apu_Mbox_Check_FusaCommand(void)
 }
 
 
+#define ACK_TIMEOUT_US 180000000U  /* 3-minute timeout for RPU ACK */
+#define ACK_POLL_INTERVAL_US 100U   /* 100 microsecond poll interval */
+
 uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
 {
-
 	volatile Payload_packet *packet = &rmsg_response_to_apu->payload;
+	uint32_t elapsed_us = 0;
 
 	while (ACK == false || cookie != payload_ret_cookie) {
-
-		//	if(ACK_PROC == true){
-		////			LOGI("\r\n processing command from RPU \r\n");
-		//	ACK_PROC = false;
-		//	msg_id_ = rmsg_apu->msg_id;
-		//	size_ = rmsg_apu->size;
-		//	memcpy(&proc_cmd_packet, &rmsg_apu->payload, size_);
-		//	ApuProcessCommand(msg_id_, &proc_cmd_packet, size_, src_cpu_id,dest_cpu_id);
-		//	}
 		Apu_Mbox_Check_Command();
+
+		if (ACK == false || cookie != payload_ret_cookie) {
+			usleep(ACK_POLL_INTERVAL_US);
+			elapsed_us += ACK_POLL_INTERVAL_US;
+			if (elapsed_us >= ACK_TIMEOUT_US) {
+				LOGE("ACK timeout (%u us) for cookie 0x%x",
+				     ACK_TIMEOUT_US, cookie);
+				ACK = false;
+				mb_data_flag = false;
+				return (uint8_t)VPI_ERR_TIMEOUT;
+			}
+		}
 	}
 	if (mb_data_flag) {
 		uint32_t safe_size = packet->payload_size;
