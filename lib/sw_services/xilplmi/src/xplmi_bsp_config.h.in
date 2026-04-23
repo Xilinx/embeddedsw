@@ -9,10 +9,12 @@
 
 #cmakedefine    PLM_PRINT_NO_UART
 #cmakedefine 	PLM_SEM_PRINT_OVERRIDE
+#cmakedefine    PLM_GET_OPT_DATA_EN
 #cmakedefine    PLM_PRINT_LEVEL0
 #cmakedefine    PLM_MACRONIX_OSPI_DDR
 #if ((((defined(XSEM_CFRSCAN_EN)) || (defined(XSEM_NPISCAN_EN))) && \
 	(defined(PLM_SEM_PRINT_OVERRIDE))) || \
+	(defined(PLM_GET_OPT_DATA_EN)) || \
 	((defined(PLM_MACRONIX_OSPI_DDR)) && (defined(VERSAL))) || \
 	(defined(PLM_PRINT_LEVEL0)))
 #define PLM_PRINT
