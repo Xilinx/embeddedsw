@@ -296,6 +296,10 @@ void Apu_Mbox_Check_Command(void)
 		ACK_PROC = false;
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
+		if (size_ > sizeof(Payload_packet)) {
+			LOGE("Apu_Mbox_Check_Command: size %u exceeds Payload_packet, dropped\r\n", size_);
+			return;
+		}
 		memcpy(&proc_cmd_packet, &rmsg_command_to_apu->payload, size_);
 		ApuProcessCommand(msg_id_, &proc_cmd_packet, size_, src_cpu_id, dest_cpu_id);
 	}
@@ -312,6 +316,10 @@ void Apu_Mbox_Check_FusaCommand(void)
 		ACK_PROC_FUSA = false;
 		msg_id_ = rmsg_command_to_apu->msg_id;
 		size_ = rmsg_command_to_apu->size;
+		if (size_ > sizeof(Payload_packet)) {
+			LOGE("Apu_Mbox_Check_FusaCommand: size %u exceeds Payload_packet, dropped\r\n", size_);
+			return;
+		}
 		memcpy(&proc_cmd_packet, &rmsg_command_to_apu->payload, size_);
 		ApuProcessFusaCommand(msg_id_, &proc_cmd_packet, size_, src_cpu_id, dest_cpu_id);
 	}
@@ -335,8 +343,12 @@ uint8_t apu_wait_for_ACK(uint32_t cookie, void *data)
 		//	}
 		Apu_Mbox_Check_Command();
 	}
-	if (mb_data_flag)
-		memcpy(data, packet->payload_data, packet->payload_size);
+	if (mb_data_flag) {
+		uint32_t safe_size = packet->payload_size;
+		if (safe_size > MAX_ITEM)
+			safe_size = MAX_ITEM;
+		memcpy(data, packet->payload_data, safe_size);
+	}
 	ACK = false;
 	mb_data_flag = false;
 	return packet->resp_field.error_subcode_t;
@@ -351,6 +363,12 @@ void apu_mailbox_read(uint32_t IpiSrcMask)
 	else {
 		while (!vpi_mbox_is_empty(apu_fifo_ctrl, dest_cpu_id, src_cpu_id)) {
 			vpi_mbox_read(apu_fifo_ctrl, rmsg_apu, dest_cpu_id); //rpu0 rece MBOX_CORE_APU's msg
+
+			if (rmsg_apu->payload.payload_size > MAX_ITEM) {
+				LOGE("apu_mailbox_read: payload_size %u exceeds MAX_ITEM, dropped\r\n",
+				     rmsg_apu->payload.payload_size);
+				continue;
+			}
 
 			//need make sure APU initiative call function to RPU after last function had receive response
 			//to make it is compatitable for apu_wait_for_mb_data and apu_wait_for_ACK function
