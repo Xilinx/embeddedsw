@@ -388,11 +388,27 @@ s32 XHmac_Final(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, u32 *HmacOutPtr)
 		goto END;
 	}
 
-	if (InstancePtr->HmacState != XHMAC_UPDATE_COMPLETED) {
+	/** Reject only the initialized state; all post-init states are valid for finalization. */
+	if (InstancePtr->HmacState == XHMAC_INITIALIZED) {
 		Status = XASUFW_HMAC_STATE_MISMATCH_ERROR;
 		goto END;
 	}
 
+	/**
+	 * If no update was flagged as last (empty-message or multi-update without IsLast),
+	 * close the inner hash via XSha_Finish to produce HASH(iPad || Data).
+	 */
+	if (InstancePtr->HmacState != XHMAC_UPDATE_COMPLETED) {
+		Status = XSha_Finish(InstancePtr->ShaInstancePtr, AsuDmaPtr,
+				     (u64)(UINTPTR)(InstancePtr->IntHash),
+				     (u32)InstancePtr->HashBufLen, XASU_FALSE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_HMAC_ERROR);
+			goto END;
+		}
+	}
+
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Initialize SHA engine to calculate the hash on Opad || IntHash. */
 	Status = XSha_Start(InstancePtr->ShaInstancePtr, (u32)InstancePtr->ShaMode);
 	if (Status != XASUFW_SUCCESS) {
