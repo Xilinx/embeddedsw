@@ -63,7 +63,7 @@ extern "C" {
 #define XDP_LANE_COUNT_SET_1		0x01	/**< Lane count of 1. */
 #define XDP_LANE_COUNT_SET_2		0x02	/**< Lane count of 2. */
 #define XDP_LANE_COUNT_SET_4		0x04	/**< Lane count of 4. */
-/* @} */
+/** @} */
 
 /** @name DP generic definitions: Bits per color components.
   * @{
@@ -83,7 +83,7 @@ extern "C" {
 				0x3		/**< 12 bits per component.*/
 #define XDP_MAIN_STREAMX_MISC0_BDC_16BPC \
 				0x4		/**< 16 bits per component.*/
-/* @} */
+/** @} */
 
 /** @name DP generic definitions: Miscellaneous components; color format.
   * @{
@@ -102,7 +102,7 @@ extern "C" {
 #define XDP_MAIN_STREAMX_MISC0_COMPONENT_FORMAT_YCBCR444 \
 				0x6		/**< Stream's component format
 							is YcbCr 4:4:4. */
-/* @} */
+/** @} */
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
 /******************************************************************************/
@@ -127,7 +127,7 @@ extern "C" {
 #define XDP_TX_DOWNSPREAD_CTRL		0x018	/**< Enable a 0.5% spreading of
 							the clock. */
 #define XDP_TX_SOFT_RESET		0x01C	/**< Software reset. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: Core enables.
   * @{
@@ -143,7 +143,7 @@ extern "C" {
 #define XDP_TX_FORCE_SCRAMBLER_RESET	0x0C0	/**< Force a scrambler reset. */
 #define XDP_TX_MST_CONFIG		0x0D0	/**< Enable MST. */
 #define XDP_TX_LINE_RESET_DISABLE	0x0F0	/**< TX line reset disable. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: Core ID.
   * @{
@@ -152,7 +152,7 @@ extern "C" {
 							DisplayPort core. */
 #define XDP_TX_CORE_ID			0x0FC	/**< DisplayPort protocol
 							version and revision. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: AUX channel interface.
   * @{
@@ -188,7 +188,7 @@ extern "C" {
 							AUX transaction. */
 #define XDP_TX_HPD_DURATION		0x150	/**< Duration of the HPD pulse
 							in microseconds. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: Main stream attributes for SST / MST STREAM1.
   * @{
@@ -270,7 +270,7 @@ extern "C" {
 #define XDP_TX_STREAM4			0x1DC	/**< Average stream symbol
 							timeslots per MTP
 							config. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: PHY configuration status.
   * @{
@@ -317,7 +317,7 @@ extern "C" {
 							read data. */
 #define XDP_TX_GT_DRP_CHANNEL_STATUS	0x2A8	/**< Provides access to GT DRP
 							channel status. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: DisplayPort audio.
   * @{
@@ -343,19 +343,21 @@ extern "C" {
 #define XDP_TX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: DisplayPort video.
  * @{
  */
 #define XDP_TX_VIDEO_PACKING_CLOCK_CONTROL 0x90
-/* @} */
+/** @} */
 
 /** @name DPTX core registers: HDCP.
   * @{
   */
 #define XDP_TX_HDCP_ENABLE		0x400	/**< Enables HDCP core. */
-/* @} */
+#define XDP_TX_HDCP_REG_ENCRYPT_ENABLE_L	0x408	/**< Enables Encryption for all MST streams */
+#define XDP_TX_HDCP_REG_ENCRYPT_ENABLE_H	0x40C	/**< Enables Encryption for all MST streams */
+/** @} */
 
 /** @name DPTX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
@@ -384,7 +386,7 @@ extern "C" {
 							offset from the
 							corresponding registers
 							of stream 1. */
-/* @} */
+/** @} */
 
 #define XDP_TX_VC_PAYLOAD_BUFFER_ADDR	0x800	/**< Virtual channel payload
 							table (0xFF bytes). */
@@ -850,7 +852,7 @@ extern "C" {
 				0x0001		/**< Disables bypass of the
 							HDCP core. */
 
-/* @} */
+/** @} */
 
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
@@ -883,7 +885,7 @@ extern "C" {
 #define XDP_RX_MISC_CTRL		0x018	/**< Miscellaneous control of
 							RX behavior. */
 #define XDP_RX_SOFT_RESET		0x01C	/**< Software reset. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: AUX channel status.
   * @{
@@ -911,7 +913,7 @@ extern "C" {
 							request. */
 #define XDP_RX_REQ_LENGTH		0x03C	/**< Contains length of the most
 							recent AUX request. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: Interrupt registers.
   * @{
@@ -927,7 +929,7 @@ extern "C" {
 #define XDP_RX_INTERRUPT_CAUSE_1	0x048	/**< Indicates the cause of a
 							pending host interrupts
 							for streams 2, 3, 4. */
-/* @} */
+/** @} */
 
 #define XDP_RX_HSYNC_WIDTH		0x050	/**< Controls the timing of the
 							active-high horizontal
@@ -1022,7 +1024,7 @@ extern "C" {
 							field in the DPCD with
 							what is stored in
 							XDP_RX_GUID[0-3]. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: Core ID.
   * @{
@@ -1031,7 +1033,7 @@ extern "C" {
 							DisplayPort core. */
 #define XDP_RX_CORE_ID			0x0FC	/**< DisplayPort protocol
 							version and revision. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: User video status.
   * @{
@@ -1042,7 +1044,7 @@ extern "C" {
 							the host processor to
 							monitor the state of the
 							video data path. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: PHY configuration and status.
   * @{
@@ -1073,7 +1075,7 @@ extern "C" {
 							read data. */
 #define XDP_RX_GT_DRP_CH_STATUS		0x2A8	/**< Provides access to GT DRP
 							channel status. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: Audio.
   * @{
@@ -1093,7 +1095,7 @@ extern "C" {
 #define XDP_RX_AUDIO_EXT_DATA(NUM)	(0x330 + 4 * (NUM - 1)) /**< Word
 							formatted as per
 							extension packet. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: DPCD configuration space.
   * @{
@@ -1170,7 +1172,7 @@ extern "C" {
 							values for lanes 2 and 3
 							as exposed in the RX
 							DPCD. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: Main stream attributes for SST / MST STREAM1.
   * @{
@@ -1216,7 +1218,7 @@ extern "C" {
 							clock. */
 #define XDP_RX_MSA_VBID			0x538	/**< The most recently received
 							VB-ID value. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: Main stream attributes for MST STREAM2, 3, and 4.
   * @{
@@ -1245,14 +1247,14 @@ extern "C" {
 							offset from the
 							corresponding registers
 							of stream 1. */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: DPCD registers for HDCP.
   * @{
   */
 #define XDP_RX_DPCD_HDCP_TABLE		0x900	/**< HDCP register table
 							(0x100 bytes). */
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: MST field for sideband message buffers and the
   *	  virtual channel payload table.
@@ -1266,7 +1268,7 @@ extern "C" {
 							table (0xFF bytes). */
 #define XDP_RX_VC_PAYLOAD_TABLE_ID_SLOT(SlotNum) \
 			(XDP_RX_VC_PAYLOAD_TABLE + SlotNum)
-/* @} */
+/** @} */
 
 /** @name DPRX core registers: Vendor specific DPCD.
   * @{
@@ -1283,7 +1285,7 @@ extern "C" {
 							DPCD (0xFF bytes). */
 #define XDP_RX_SINK_DEVICE_SPECIFIC_FIELD_REG(RegNum) \
 			(XDP_RX_SINK_DEVICE_SPECIFIC_FIELD + (4 * RegNum))
-/* @} */
+/** @} */
 
 /******************************************************************************/
 
@@ -2087,7 +2089,7 @@ extern "C" {
 				0x80000000	/**< Use DFE control. */
 #define XDP_RX_CDR_CONTROL_CONFIG_DISABLE_TIMEOUT \
 				0X40000000	/**< Timeout for MST mode. */
-/* @} */
+/** @} */
 
 #endif /* XPAR_XDPRXSS_NUM_INSTANCES */
 
@@ -2147,7 +2149,7 @@ extern "C" {
 #define XDP_DPCD_DOWNSP_1_DET_CAP				0x00084 /**< Downstream port 1 detailed capability. */
 #define XDP_DPCD_DOWNSP_2_DET_CAP				0x00088 /**< Downstream port 2 detailed capability. */
 #define XDP_DPCD_DOWNSP_3_DET_CAP				0x0008C /**< Downstream port 3 detailed capability. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Link configuration field.
 	* @{
@@ -2190,7 +2192,7 @@ extern "C" {
 #define XDP_DPCD_PAYLOAD_ALLOCATE_SET				0x001C0 /**< Payload allocate set. */
 #define XDP_DPCD_PAYLOAD_ALLOCATE_START_TIME_SLOT		0x001C1 /**< Payload allocate start time slot. */
 #define XDP_DPCD_PAYLOAD_ALLOCATE_TIME_SLOT_COUNT		0x001C2 /**< Payload allocate time slot count. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field.
 	* @{
@@ -2213,7 +2215,7 @@ extern "C" {
 #define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_1			0x00212 /**< Symbol error count lane 1. */
 #define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_2			0x00214 /**< Symbol error count lane 2. */
 #define XDP_DPCD_SYMBOL_ERROR_COUNT_LANE_3			0x00216 /**< Symbol error count lane 3. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Automated testing sub-field.
 	* @{
@@ -2224,13 +2226,13 @@ extern "C" {
 #define XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS			0x002C0 /**< Payload table update status. */
 #define XDP_DPCD_VC_PAYLOAD_ID_SLOT(SlotNum) \
 			(XDP_DPCD_PAYLOAD_TABLE_UPDATE_STATUS + SlotNum) /**< Virtual channel payload ID slot. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Sink control field.
 	* @{
 	*/
 #define XDP_DPCD_SET_POWER_DP_PWR_VOLTAGE			0x00600 /**< Set power DisplayPort power voltage. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Sideband message buffers.
 	* @{
@@ -2239,7 +2241,7 @@ extern "C" {
 #define XDP_DPCD_UP_REP						0x01200 /**< Upstream reply buffer. */
 #define XDP_DPCD_DOWN_REP					0x01400 /**< Downstream reply buffer. */
 #define XDP_DPCD_UP_REQ						0x01600 /**< Upstream request buffer. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Event status indicator field.
 	* @{
@@ -2252,7 +2254,7 @@ extern "C" {
 #define XDP_DPCD_SINK_LANE2_3_STATUS				0x0200D /**< Sink lane 2 and 3 status. */
 #define XDP_DPCD_SINK_ALIGN_STATUS_UPDATED_ESI			0x0200E /**< Sink align status updated ESI. */
 #define XDP_DPCD_SINK_STATUS_ESI				0x0200F /**< Sink status ESI. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Field addresses and sizes.
 	* @{
@@ -2263,7 +2265,7 @@ extern "C" {
 #define XDP_DPCD_LINK_CFG_FIELD_SIZE				0x100 /**< Link configuration field size. */
 #define XDP_DPCD_LINK_SINK_STATUS_FIELD_START	XDP_DPCD_SINK_COUNT /**< Link/sink status field start address. */
 #define XDP_DPCD_LINK_SINK_STATUS_FIELD_SIZE			0x17 /**< Link/sink status field size. */
-/* @} */
+/** @} */
 
 /******************************************************************************/
 
@@ -2353,7 +2355,7 @@ extern "C" {
 #define XDP_DPCD_DOWNSP_X_DCAP_HDMI_DPPP_FS2FP_MASK		0x01	/**< HDMI/DP++ frame sequential to frame packing mask. */
 #define XDP_DPCD_DOWNSP_X_DCAP_DVI_DL_MASK			0x02	/**< DVI dual-link mask. */
 #define XDP_DPCD_DOWNSP_X_DCAP_DVI_HCD_MASK			0x04	/**< DVI high color depth mask. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Link configuration field masks,
   *       shifts, and register values.
@@ -2409,7 +2411,7 @@ extern "C" {
 #define XDP_DPCD_MST_EN_MASK					0x01	/**< MST enable mask. */
 #define XDP_DPCD_UP_REQ_EN_MASK					0x02	/**< Upstream request enable mask. */
 #define XDP_DPCD_UP_IS_SRC_MASK					0x03	/**< Upstream is source mask. */
-/* @} */
+/** @} */
 
 /** @name DisplayPort Configuration Data: Link/sink status field masks, shifts,
   *       and register values.
@@ -2461,7 +2463,7 @@ extern "C" {
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_2_SHIFT			4	/**< Shift bits for post-cursor 2 lane 2. */
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_3_MASK			0xC0	/**< Post-cursor 2 adjustment for lane 3. */
 #define XDP_DPCD_ADJ_REQ_PC2_LANE_3_SHIFT			6	/**< Shift bits for post-cursor 2 lane 3. */
-/* @} */
+/** @} */
 
 /******************************************************************************/
 
@@ -2480,7 +2482,7 @@ extern "C" {
 #define XDP_EDID_DTD_DD(Num)				(0x36 + (18 * Num)) /**< Detailed Timing Descriptor offset. */
 #define XDP_EDID_PTM					XDP_EDID_DTD_DD(0) /**< Preferred Timing Mode descriptor. */
 #define XDP_EDID_EXT_BLOCK_COUNT				0x7E /**< Number of extension blocks in EDID. */
-/* @} */
+/** @} */
 
 /** @name Extended Display Identification Data: Register offsets for the
   *       Detailed Timing Descriptor (DTD).
@@ -2504,6 +2506,7 @@ extern "C" {
 #define XDP_EDID_DTD_HBORDER					0x0F /**< Horizontal border. */
 #define XDP_EDID_DTD_VBORDER					0x10 /**< Vertical border. */
 #define XDP_EDID_DTD_SIGNAL					0x11 /**< Signal characteristics. */
+/** @} */
 
 /** @name Extended Display Identification Data: Masks, shifts, and register
   *       values.
@@ -2529,7 +2532,7 @@ extern "C" {
 #define XDP_EDID_DTD_SIGNAL_VPOLARITY_MASK			0x04 /**< Mask for vertical sync polarity. */
 #define XDP_EDID_DTD_SIGNAL_HPOLARITY_SHIFT			1 /**< Shift for horizontal sync polarity. */
 #define XDP_EDID_DTD_SIGNAL_VPOLARITY_SHIFT			2 /**< Shift for vertical sync polarity. */
-/* @} */
+/** @} */
 
 
 #if XPAR_XDPTXSS_NUM_INSTANCES
@@ -2546,7 +2549,7 @@ extern "C" {
 #define XDP_TX_DISPID_DB_SEC_TAG		0x00
 #define XDP_TX_DISPID_DB_SEC_REV		0x01
 #define XDP_TX_DISPID_DB_SEC_SIZE		0x02
-/* @} */
+/** @} */
 
 /** @name Extended Display Identification Data: Masks, shifts, and register
   *       values for the DisplayID extension block.
@@ -2554,7 +2557,7 @@ extern "C" {
   */
 #define XDP_EDID_EXT_BLOCK_TAG_DISPID	0x70
 #define XDP_TX_DISPID_TDT_TAG			0x12
-/* @} */
+/** @} */
 
 /** @name Extended Display Identification Data: Register offsets for the
   *       Tiled Display Topology (TDT) section data block.
@@ -2576,7 +2579,7 @@ extern "C" {
 #define XDP_TX_DISPID_TDT_SN1			0x16
 #define XDP_TX_DISPID_TDT_SN2			0x17
 #define XDP_TX_DISPID_TDT_SN3			0x18
-/* @} */
+/** @} */
 
 /** @name Extended Display Identification Data: Masks, shifts, and register
   *       values for the Tiled Display Topology (TDT) section data block.
@@ -2595,7 +2598,7 @@ extern "C" {
 #define XDP_TX_DISPID_TDT_TOP2_HLOC_H_SHIFT	2
 #define XDP_TX_DISPID_TDT_TOP2_HLOC_H_MASK	(0x3 << 2)
 #define XDP_TX_DISPID_TDT_TOP2_VLOC_H_MASK	0x3
-/* @} */
+/** @} */
 #endif /* XPAR_XDPTXSS_NUM_INSTANCES */
 
 /******************************************************************************/
@@ -2613,8 +2616,8 @@ extern "C" {
 #define XDP_TX_STREAM_ID2			2	/**< Stream 2 identifier. */
 #define XDP_TX_STREAM_ID3			3	/**< Stream 3 identifier. */
 #define XDP_TX_STREAM_ID4			4	/**< Stream 4 identifier. */
-/* @} */
-/* @} */
+/** @} */
+/** @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
   * @{
@@ -2639,8 +2642,8 @@ extern "C" {
 #define XDP_SBMSG_POWER_DOWN_PHY		0x25 /**< Power down PHY request. */
 #define XDP_SBMSG_SINK_EVENT_NOTIFY		0x30 /**< Sink event notification. */
 #define XDP_SBMSG_QUERY_STREAM_ENCRYPT_STATUS	0x38 /**< Query stream encryption status request. */
-/* @} */
-/* @} */
+/** @} */
+/** @} */
 
 /** @name Sideband message codes when the driver is in MST mode.
   * @{
@@ -2658,8 +2661,8 @@ extern "C" {
 #define XDP_SBMSG_NAK_REASON_DPCD_FAIL		0x08 /**< DPCD access failure. */
 #define XDP_SBMSG_NAK_REASON_I2C_NAK		0x09 /**< I2C NAK received. */
 #define XDP_SBMSG_NAK_REASON_ALLOCATE_FAIL	0x0A /**< Allocation failure. */
-/* @} */
-/* @} */
+/** @} */
+/** @} */
 
 #define XDP_RX_NUM_I2C_ENTRIES_PER_PORT		3 /**< The number of I2C user-
 							defined entries in the
@@ -2686,7 +2689,7 @@ extern "C" {
  * This is a wrapper for the platform-specific output function.
  */
 #define XDp_Out32 Xil_Out32
-/* @} */
+/** @} */
 
 /******************************************************************************/
 /**
