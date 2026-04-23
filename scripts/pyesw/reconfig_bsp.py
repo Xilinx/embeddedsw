@@ -70,8 +70,10 @@ def reconfig_bsp(args):
     Recreate the build folder and run cmake configuration for the below use cases
     1. Shared platform use case.
     2. Platorm build folder was deleted by user explicitly.
+    3. Post clean build (config == "default"): CMakeCache.txt was removed by
+       clean_bsp, so re-run cmake with all user-customized values from bsp.yaml.
     """
-    if bsp_domain_path != obj.domain_path or not utils.is_dir(build_metadata):
+    if bsp_domain_path != obj.domain_path or not utils.is_dir(build_metadata) or not utils.is_file(os.path.join(build_metadata, "CMakeCache.txt")):
         domain_data = utils.fetch_yaml_data(obj.domain_config_file, "domain")
 
         # Apply the Old software configuration
@@ -89,8 +91,9 @@ def reconfig_bsp(args):
                     val = bool_match[val]
                 cmake_cmd_append += f' -D{key}="{val}"'
 
-        utils.remove(build_metadata)
-        utils.mkdir(build_metadata)
+        if bsp_domain_path != obj.domain_path or not utils.is_dir(build_metadata):
+            utils.remove(build_metadata)
+            utils.mkdir(build_metadata)
         obj.cmake_paths_append = obj.cmake_paths_append.replace("\\", "/")
         obj.domain_path = obj.domain_path.replace("\\", "/")
         utils.runcmd(
