@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -108,21 +108,37 @@ int mailbox_wrapper()
 
 	init_mailbox_ipi() ;
 
+#define RPU_ONLINE_MAX_RETRIES 100U
+
 	ret = XST_FAILURE;
-	while (ret != XST_SUCCESS) {
-		ret = apu_postmsg(MBOX_CORE_RPU0);
-		LOGI("Waiting for RPU %d to come online \r\n", MBOX_CORE_RPU0);
-		sleep(3);
+	{
+		u32 retries = RPU_ONLINE_MAX_RETRIES;
+		while (ret != XST_SUCCESS) {
+			ret = apu_postmsg(MBOX_CORE_RPU0);
+			LOGI("Waiting for RPU %d to come online \r\n", MBOX_CORE_RPU0);
+			if (--retries == 0) {
+				LOGE("RPU %d failed to come online\r\n", MBOX_CORE_RPU0);
+				return XST_FAILURE;
+			}
+			sleep(3);
+		}
 	}
 
 
 #ifdef MULTICORE_ON_APU
 	ret = XST_FAILURE;
 	//Xil_SetTlbAttributes(load_calib_start, NORM_NONCACHE );
-	while (ret != XST_SUCCESS) {
-		ret = apu_postmsg(MBOX_CORE_RPU1);
-		LOGI("Waiting for RPU %d to come online \r\n", MBOX_CORE_RPU1);
-		sleep(3);
+	{
+		u32 retries = RPU_ONLINE_MAX_RETRIES;
+		while (ret != XST_SUCCESS) {
+			ret = apu_postmsg(MBOX_CORE_RPU1);
+			LOGI("Waiting for RPU %d to come online \r\n", MBOX_CORE_RPU1);
+			if (--retries == 0) {
+				LOGE("RPU %d failed to come online\r\n", MBOX_CORE_RPU1);
+				return XST_FAILURE;
+			}
+			sleep(3);
+		}
 	}
 	LOGI("\n\n\n\n Both RPU ready!!! \r\n");
 #else
