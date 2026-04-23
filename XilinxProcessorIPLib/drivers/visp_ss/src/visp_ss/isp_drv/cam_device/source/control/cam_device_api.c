@@ -22,6 +22,7 @@
 //#define __cam_load_calib        __section_t(.camdevice_load_calib)
 //
 uint8_t cam_load_calib[160010] __attribute__((section(".cam_load_calib")));
+#define CAM_LOAD_CALIB_SIZE sizeof(cam_load_calib)
 
 static RESULT MyMemcpy(
 	void *dest,
@@ -396,6 +397,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(uint16_t);
 	p_data += sizeof(uint16_t);
 
+	if (packet.payload_size + sizeof(CamDeviceCalibSensorAwbIllumination_t) *
+	    (pCalibCfg->sensor.awb).illuminationNumber > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib illuminations would exceed buffer\r\n");
+		return RET_OUTOFRANGE;
+	}
 	result = MyMemcpy(p_data, ((pCalibCfg->sensor.awb).pIlluminations),
 			  sizeof(CamDeviceCalibSensorAwbIllumination_t) * (pCalibCfg->sensor.awb).illuminationNumber);
 	if (result != RET_SUCCESS) {
@@ -407,6 +413,11 @@ RESULT VsiCamDeviceLoadCalibration
 	p_data += sizeof(CamDeviceCalibSensorAwbIllumination_t) *
 		  (pCalibCfg->sensor.awb).illuminationNumber;
 
+	if (packet.payload_size > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib data exceeds buffer at illuminations: %u\r\n", packet.payload_size);
+		return RET_OUTOFRANGE;
+	}
+
 	// pCalibCfg->sensor.lscNumber = 7;
 
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.lscNumber), sizeof(uint16_t));
@@ -417,6 +428,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(uint16_t);
 	p_data += sizeof(uint16_t);
 
+	if (packet.payload_size + sizeof(CamDeviceCalibSensorLsc_t) *
+	    (pCalibCfg->sensor.lscNumber) > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib LSC would exceed buffer\r\n");
+		return RET_OUTOFRANGE;
+	}
 	result = MyMemcpy(p_data, (pCalibCfg->sensor.pLsc),
 			  sizeof(CamDeviceCalibSensorLsc_t) * (pCalibCfg->sensor.lscNumber));
 	if (result != RET_SUCCESS) {
@@ -426,6 +442,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(CamDeviceCalibSensorLsc_t) * (pCalibCfg->sensor.lscNumber);
 	p_data += sizeof(CamDeviceCalibSensorLsc_t) * (pCalibCfg->sensor.lscNumber);
 
+	if (packet.payload_size > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib data exceeds buffer at LSC: %u\r\n", packet.payload_size);
+		return RET_OUTOFRANGE;
+	}
+
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.ccNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
 		xil_printf("can not do memcpy, error code: %d.\r\n", result);
@@ -434,6 +455,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(uint16_t);
 	p_data += sizeof(uint16_t);
 
+	if (packet.payload_size + sizeof(CamDeviceCalibSensorCc_t) *
+	    (pCalibCfg->sensor.ccNumber) > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib CC would exceed buffer\r\n");
+		return RET_OUTOFRANGE;
+	}
 	result = MyMemcpy(p_data, (pCalibCfg->sensor.pCc),
 			  sizeof(CamDeviceCalibSensorCc_t) * (pCalibCfg->sensor.ccNumber));
 	if (result != RET_SUCCESS) {
@@ -443,6 +469,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(CamDeviceCalibSensorCc_t) * (pCalibCfg->sensor.ccNumber);
 	p_data += sizeof(CamDeviceCalibSensorCc_t) * (pCalibCfg->sensor.ccNumber);
 
+	if (packet.payload_size > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib data exceeds buffer at CC: %u\r\n", packet.payload_size);
+		return RET_OUTOFRANGE;
+	}
+
 	result = MyMemcpy(p_data, &(pCalibCfg->sensor.blsNumber), sizeof(uint16_t));
 	if (result != RET_SUCCESS) {
 		xil_printf("can not do memcpy, error code: %d.\r\n", result);
@@ -451,6 +482,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(uint16_t);
 	p_data += sizeof(uint16_t);
 
+	if (packet.payload_size + sizeof(CamDeviceCalibSensorBls_t) *
+	    (pCalibCfg->sensor.blsNumber) > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib BLS would exceed buffer\r\n");
+		return RET_OUTOFRANGE;
+	}
 	result = MyMemcpy(p_data, (pCalibCfg->sensor.pBls),
 			  sizeof(CamDeviceCalibSensorBls_t) * (pCalibCfg->sensor.blsNumber));
 	if (result != RET_SUCCESS) {
@@ -459,6 +495,11 @@ RESULT VsiCamDeviceLoadCalibration
 	}
 	packet.payload_size += sizeof(CamDeviceCalibSensorBls_t) * (pCalibCfg->sensor.blsNumber);
 	p_data += sizeof(CamDeviceCalibSensorBls_t) * (pCalibCfg->sensor.blsNumber);
+
+	if (packet.payload_size > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib data exceeds buffer at BLS: %u\r\n", packet.payload_size);
+		return RET_OUTOFRANGE;
+	}
 
 
 	//	result = MyMemcpy(p_data, (pCalibCfg->sensor.pDpcc), sizeof(CamDeviceCalibSensorDpcc_t)*(pCalibCfg->sensor.dpccNumber));
@@ -477,8 +518,11 @@ RESULT VsiCamDeviceLoadCalibration
 	packet.payload_size += sizeof(CamDeviceCalibSystem_t);
 	p_data += sizeof(CamDeviceCalibSystem_t);
 
-	// if(packet.payload_size > MAX_ITEM)
-	//	return RET_OUTOFRANGE;
+	if (packet.payload_size > CAM_LOAD_CALIB_SIZE) {
+		xil_printf("calib total %u exceeds buffer %u\r\n",
+			   packet.payload_size, (uint32_t)CAM_LOAD_CALIB_SIZE);
+		return RET_OUTOFRANGE;
+	}
 
 	packet.payload_size = 0;
 
