@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -23,6 +23,7 @@
 * ----- ---- -------- -----------------------------------------------------------------------------
 * 1.00  har  02/16/24 Initial release
 * 1.10  obs  12/31/25 Fixed GCC warnings
+* 1.11  vm   03/30/26 Added support for OSPI as pdi source to get the optional data
 *
 * </pre>
 *
@@ -71,11 +72,11 @@
 
 /************************************ Constant Definitions ***************************************/
 /* Example defines below, update with required values*/
-#define PDI_SRC					(XLOADER_PDI_SRC_DDR)	/**< 0xF - DDR, 0x10 - Image Store*/
+#define PDI_SRC					(XLOADER_PDI_SRC_DDR)	/**< 0x8 - OSPI, 0xF - DDR, 0x10 - Image Store*/
 
 #define DATA_ID					(0x21)		/**< Data ID of the optional data */
 #define PDI_SRC_ADDR				(0x1000000U)
-	/**< Address where PDI is available. Mandatory option when PDI_SRC is selected as DDR */
+	/**< DDR address or OSPI offset where PDI is available; mandatory when PDI_SRC is DDR or OSPI */
 #define PDI_ID					(0x3)
 	/**< PDI ID of the PDI available in Image Store. Mandatory option when PDI_SRC is selected as Image Store */
 #define OPT_DATA_BUFFER_SIZE_IN_BYTES		(0x200U)	/**< Size of optional data buffer */
@@ -171,9 +172,9 @@ static int GetOptDataFromPdi(XLoader_ClientInstance *InstancePtr)
 
 	OptDataParams.PdiSrc = PDI_SRC;
 	OptDataParams.DataId = DATA_ID;
-	if (PDI_SRC == XLOADER_PDI_SRC_DDR) {
-		OptDataParams.PdiAddrLow = PdiAddr;
-		OptDataParams.PdiAddrHigh = 0x0U;
+	if (PDI_SRC == XLOADER_PDI_SRC_DDR || PDI_SRC == XLOADER_PDI_SRC_OSPI) {
+		OptDataParams.PdiAddrLow = (u32)PdiAddr;
+		OptDataParams.PdiAddrHigh = (u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT);
 	}
 	else if (PDI_SRC == XLOADER_PDI_SRC_IS) {
 		OptDataParams.PdiId = PDI_ID;
