@@ -30,7 +30,7 @@
 *       sd      11/07/25 Update condition to reflect the revised function return
 *                        value
 * 5.7   Nik     12/04/25  Removed UINTPTR typecast for 64bit data
-*
+*       rpu     04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
 * </pre>
 *
 ******************************************************************************/
@@ -51,7 +51,6 @@
 #define XSECURE_AES_ADDRESS			  (0xF11E0000U) /**< AES BaseAddress */
 #define XSECURE_SHA_ADDRESS			  (0xF1210000U) /**< SHA BaseAddress */
 #define XSECURE_RSA_ECDSA_RSA_ADDRESS (0xF1200000U) /**< RSA ECDSA BaseAddress */
-
 /************************** Variable Definitions *****************************/
 
 /* XSecure_SssLookupTable[Input source][Resource] */
@@ -579,23 +578,47 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  * @return
  *		 - XST_SUCCESS  On Success
  *		 - XST_FAILURE  On Failure
+ *		 - XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)
+ *		 - XSECURE_ERR_GLITCH_DETECTED - Error when glitch is detected.
  *
  *****************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
 {
 	volatile int Status = XST_FAILURE;
-	u8 *RandBufPtr = Output;
-	u32 TotalSize = Size;
+	volatile int ZeroizeStatus = XST_FAILURE;
+	u8 *RandBufPtr = NULL;
 	u32 RandBufSize = XTRNGPSX_SEC_STRENGTH_IN_BYTES;
 	volatile u32 Index = 0U;
-	u32 NoOfGenerates = XIL_SCEILDIV(u32, Size, XTRNGPSX_SEC_STRENGTH_IN_BYTES);
+	u32 TotalSize = 0U;
+	u32 NoOfGenerates = 0U;
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
+	u8 TmpRandBuf[XTRNGPSX_SEC_STRENGTH_IN_BYTES] = {0};
+
+	/** - Validate input parameters */
+	if ((Size == 0U) || (Output == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	TotalSize = Size;
+	NoOfGenerates = XIL_SCEILDIV(u32, Size, XTRNGPSX_SEC_STRENGTH_IN_BYTES);
+	RandBufPtr = Output;
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
 
 	for (Index = 0U; Index < NoOfGenerates; Index++) {
 		if (Index == (NoOfGenerates - 1U)) {
 			RandBufSize = TotalSize;
+			if (RandBufSize < XTRNGPSX_SEC_STRENGTH_IN_BYTES) {
+				XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsx_Generate, TrngInstance,
+						       (u8 *)&TmpRandBuf,
+						       XTRNGPSX_SEC_STRENGTH_IN_BYTES, FALSE);
+				Status = XST_FAILURE;
+				Status = Xil_SMemCpy(RandBufPtr, RandBufSize, TmpRandBuf,
+						     XTRNGPSX_SEC_STRENGTH_IN_BYTES, RandBufSize);
+				Index = NoOfGenerates;
+				break;
+			}
 		}
 
 		XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsx_Generate, TrngInstance,
@@ -610,6 +633,12 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	}
 
 END:
+	/** - Zeroise temporary buffer */
+	ZeroizeStatus = Xil_SecureZeroize(TmpRandBuf, sizeof(TmpRandBuf));
+	if (Status == XST_SUCCESS) {
+		Status = ZeroizeStatus;
+	}
+
 	if (Status != XST_SUCCESS) {
 		Status |= XSecure_Uninstantiate(TrngInstance);
 		XSecure_UpdateTrngCryptoStatus(XSECURE_CLEAR_BIT);

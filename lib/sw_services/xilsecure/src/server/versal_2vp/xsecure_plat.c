@@ -19,7 +19,7 @@
 * 5.7   tbk  02/24/26 Add CFI protection for TRNG loop counter
 *       tbk  02/24/26 Correct platform in XSecure_ECCRandInit() header comment and other typo
 *       tbk  02/23/26 Set error status in XSecure_ECCRandInit
-*
+*       rpu  04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
 * </pre>
 *
 ***************************************************************************************************/
@@ -37,10 +37,9 @@
 #include "xsecure_trng.h"
 #include "xsecure_error.h"
 #include "xplmi.h"
+#include "xil_sutil.h"
 
 /************************************ Constant Definitions ****************************************/
-#define XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT	(5U) /**< Shift to calculate
-							       true random number generator*/
 
 /************************************ Variable Definitions ****************************************/
 
@@ -298,20 +297,31 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
  * @return
  *		 - XST_SUCCESS  On Success
  *		 - XST_FAILURE  On Failure
- *		 - XST_GLITCH_ERROR On glitch detection
+ *		 - XST_INVALID_PARAM - Invalid input parameter (size is 0 or output is NULL)
+ *		 - XSECURE_ERR_GLITCH_DETECTED - Error when glitch is detected
  *
  **************************************************************************************************/
 int XSecure_GetRandomNum(u8 *Output, u32 Size)
 {
 	XSecure_TrngInstance *TrngInstance = XSecure_GetTrngInstance();
 	volatile int Status = XST_FAILURE;
-	u8 *RandBufPtr = Output;
-	u32 TotalSize = Size;
+	volatile int ZeroizeStatus = XST_FAILURE;
+	u8 *RandBufPtr = NULL;
 	u32 RandBufSize = XSECURE_TRNG_SEC_STRENGTH_IN_BYTES;
 	volatile u32 Index = 0U;
-	u32 NoOfGenerates = (Size + XSECURE_TRNG_SEC_STRENGTH_IN_BYTES - 1U) >>
-				XSECURE_TRNG_COMPUTE_NO_OF_GENERATES_SHIFT;
-	u8 TmpRandBuf[XTRNGPSV_SEC_STRENGTH_BYTES];
+	u32 TotalSize = 0U;
+	u32 NoOfGenerates = 0U;
+	u8 TmpRandBuf[XTRNGPSV_SEC_STRENGTH_BYTES] = {0};
+
+	/** - Validate input parameters */
+	if ((Size == 0U) || (Output == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	TotalSize = Size;
+	NoOfGenerates = XIL_SCEILDIV(u32, Size, XTRNGPSV_SEC_STRENGTH_BYTES);
+	RandBufPtr = Output;
 
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_ECCRandInit);
 
@@ -322,8 +332,10 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 				XSECURE_TEMPORAL_CHECK(END, Status, XTrngpsv_Generate, TrngInstance,
 						       (u8 *)&TmpRandBuf,
 						       XTRNGPSV_SEC_STRENGTH_BYTES, XTRNGPSV_FALSE);
+				Status = XST_FAILURE;
 				Status = Xil_SMemCpy(RandBufPtr, RandBufSize, TmpRandBuf,
 						     XTRNGPSV_SEC_STRENGTH_BYTES, RandBufSize);
+				Index = NoOfGenerates;
 				break;
 			}
 		}
@@ -335,11 +347,17 @@ int XSecure_GetRandomNum(u8 *Output, u32 Size)
 	}
 
 	/** - Verify loop index is within expected bounds */
-	if (Index < (NoOfGenerates - 1U)) {
+	if (Index != NoOfGenerates) {
 		XSECURE_STATUS_CHK_GLITCH_DETECT(Status);
 	}
 
 END:
+	/** - Zeroise temporary buffer */
+	ZeroizeStatus = Xil_SecureZeroize(TmpRandBuf, XSECURE_TRNG_SEC_STRENGTH_IN_BYTES);
+	if (Status == XST_SUCCESS) {
+		Status = ZeroizeStatus;
+	}
+
 	if (Status != XST_SUCCESS) {
 		Status |= XSecure_Uninstantiate(TrngInstance);
 	}
