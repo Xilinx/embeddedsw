@@ -44,7 +44,7 @@
 #define CAMDEV_ISO_STRENGTH_NUM 20U          /**< ISO strength number */
 
 #define CAMDEV_VIRTUAL_ID_MAX    16U          /**< Platform supported multiple input devices number of one ISP*/
-#define CAMDEV_HARDWARE_ID_MAX   5U         /**< Platform supported ISP hardware number*/
+#define CAMDEV_HARDWARE_ID_MAX   6U         /**< Platform supported ISP hardware number*/
 
 #define CAMDEV_INPUT_DEV_NAME_LEN 20U    /**< Input device name length */
 #define CAM_DEVICE_ROI_WINDOWS_MAX 25U    /**< Maximum ROI windows */

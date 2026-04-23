@@ -30,6 +30,13 @@ uint32_t CtrlFullBufferInform(void *data)
 	memcpy(&chainId, p_data, sizeof(uint32_t));
 	p_data += sizeof(uint32_t);
 
+	if (instanceId >= CAMDEV_VIRTUAL_ID_MAX * CAMDEV_HARDWARE_ID_MAX ||
+	    chainId > CAMDEV_PIPE_OUTPATH_RAW) {
+		xil_printf("CtrlFullBufferInform: invalid instanceId %u or chainId %u\r\n",
+			   instanceId, chainId);
+		return RET_OUTOFRANGE;
+	}
+
 	/* Allocate MediaBuffer_t to hold the pre-dequeued buffer from RPU */
 	MediaBuffer_t *pBuf = osMalloc(sizeof(MediaBuffer_t));
 	if (!pBuf)
@@ -251,6 +258,11 @@ RESULT ControlSendBackData(void *data, MboxCoreId core_id)
 	RESULT ret = RET_SUCCESS;
 
 	uint32_t real_size = ((Payload_packet *)data)->payload_size + payload_extra_size;
+	if (real_size > sizeof(Payload_packet)) {
+		xil_printf("ControlSendBackData: payload_size %u exceeds max, rejecting\r\n",
+			   ((Payload_packet *)data)->payload_size);
+		return RET_OUTOFRANGE;
+	}
 
 	Payload_packet packet;
 	memcpy(&packet, data, real_size);
