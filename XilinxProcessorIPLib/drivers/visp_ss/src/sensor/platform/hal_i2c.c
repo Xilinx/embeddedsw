@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright 2010, Dream Chip Technologies GmbH. used with permission by      *|
 |* VeriSilicon.                                                               *|
 |* Copyright (c) <2020> by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")     *|
@@ -51,7 +51,7 @@ static void BindHalI2cOps(HalI2cContext_t *pHalI2cCtx, HalI2cMode_t HalI2cMode)
 {
 
 	if ((HalI2cMode > HAL_PS_I2C_MODE) || (HalI2cMode < HAL_AXI_I2C_MODE))
-		return NULL;
+		return;
 
 	if (HalI2cMode == HAL_PS_I2C_MODE)
 		pHalI2cCtx->pHalI2cApiOps = HalPsI2cGetOps();
@@ -103,7 +103,7 @@ RESULT HalI2cDeInit(uint8_t i2cBusId)
 	RESULT result = RET_SUCCESS;
 
 	if (CheckI2cBusId(i2cBusId) != RET_SUCCESS) {
-		xil_printf("middha - %s - invalid i2cbusid:%d\n", i2cBusId);
+		xil_printf("middha - %s - invalid i2cbusid:%d\n", __func__, i2cBusId);
 		return RET_UNSUPPORT_ID;
 	}
 
@@ -111,7 +111,7 @@ RESULT HalI2cDeInit(uint8_t i2cBusId)
 
 	//HalDelRef(HalI2cCtx, HAL_DEV_I2C);
 	if (HalI2cCtx->refCount) {
-		xil_printf("middha - %s - i2cbusId:%d, yet to delete other ref.\n");
+		xil_printf("middha - %s - i2cbusId:%d, yet to delete other ref.\n", __func__, i2cBusId);
 		return result;
 	}
 
@@ -182,7 +182,7 @@ RESULT HalWriteI2CReg(uint8_t i2cBusId, uint8_t slaveAddr, uint16_t regAddr, uin
 	RESULT result = RET_SUCCESS;
 
 	if (CheckI2cBusId(i2cBusId) != RET_SUCCESS) {
-		xil_printf("middha - %s - invalid i2cbusid:%d\n", i2cBusId);
+		xil_printf("middha - %s - invalid i2cbusid:%d\n", __func__, i2cBusId);
 		return RET_UNSUPPORT_ID;
 	}
 
