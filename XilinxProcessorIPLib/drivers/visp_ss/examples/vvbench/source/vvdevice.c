@@ -308,9 +308,9 @@ int VsiVvdeviceExecuteCaseline
 		MEMCPY(camConfig.inputCfg.inputDevName, caseCtx->instanceCfgCtx[instanceId].sensorCfg.sensorName,
 		       sizeof(CAMDEV_INPUT_DEV_NAME_LEN));
 #ifdef APU_CORE
-		if (selectDestinationCore(camConfig.ispHwId) != 0) {
-			LOGE("selectDestinationCore failed for ispHwId %d", camConfig.ispHwId);
-			return -1;
+		if (selectDestinationCore(camConfig.ispHwId) != XST_SUCCESS) {
+			LOGE("selectDestinationCore failed for ISP %d", camConfig.ispHwId);
+			continue;
 		}
 #endif
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
@@ -335,9 +335,9 @@ int VsiVvdeviceExecuteCaseline
 		LOGI("%s   %d: after VsiVvdeviceInstanceInit ", __func__, __LINE__);
 
 #ifdef APU_CORE
-		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != 0) {
-			LOGE("selectDestinationCore failed");
-			return -1;
+		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != XST_SUCCESS) {
+			LOGE("selectDestinationCore failed for ISP %d", caseCtx->instanceCfgCtx[index].hpId);
+			continue;
 		}
 #endif
 			result = SetATM();
@@ -823,8 +823,8 @@ int VsiVvdeviceExecuteCaseline
 
 		uint32_t instanceId = index;
 #ifdef APU_CORE
-		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != 0) {
-			LOGE("selectDestinationCore failed");
+		if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != XST_SUCCESS) {
+			LOGE("selectDestinationCore failed for ISP %d", caseCtx->instanceCfgCtx[index].hpId);
 			continue;
 		}
 #endif
@@ -1149,8 +1149,8 @@ int VsiVvdeviceExecuteCaseline
 				continue;
 			}
 #ifdef APU_CORE
-			if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != 0) {
-				LOGE("selectDestinationCore failed");
+			if (selectDestinationCore(caseCtx->instanceCfgCtx[index].hpId) != XST_SUCCESS) {
+				LOGE("selectDestinationCore failed for ISP %d", caseCtx->instanceCfgCtx[index].hpId);
 				continue;
 			}
 #endif
@@ -1508,8 +1508,8 @@ int VsiVvdeviceStop(const bool stopImmediately)
 		}
 
 #ifdef APU_CORE
-		if (selectDestinationCore(caseContext->instanceCfgCtx[index].hpId) != 0) {
-			LOGE("selectDestinationCore failed");
+		if (selectDestinationCore(caseContext->instanceCfgCtx[index].hpId) != XST_SUCCESS) {
+			LOGE("selectDestinationCore failed for ISP %d", caseContext->instanceCfgCtx[index].hpId);
 			continue;
 		}
 #endif

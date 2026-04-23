@@ -637,8 +637,8 @@ int loadBinApp()
 	int result = 0;
 	LOGI("@@loadBinApp started@@");
 
-	if (selectDestinationCore(0) != 0) {
-		LOGE("selectDestinationCore failed");
+	if (selectDestinationCore(0) != XST_SUCCESS) {
+		LOGE("selectDestinationCore failed for ISP 0");
 		return -1;
 	}
 

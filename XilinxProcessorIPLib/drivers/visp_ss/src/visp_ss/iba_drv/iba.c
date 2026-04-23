@@ -126,10 +126,10 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 
 	},
 	{
-		//ISP-0
-		{   /*Tile-0, ISP-0, IBA0 configuration*/
+		//ISP-2
+		{   /*Tile-1, ISP-2, IBA0 configuration*/
 			.DeviceId = IBA_0,
-			.BaseAddress = XPAR_TILE0_IBA0_BASEADDR,
+			.BaseAddress = XPAR_TILE1_IBA0_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -143,9 +143,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP2,
 		},
 		{
-			//Tile-0, ISP-0, IBA1 configuration
+			//Tile-1, ISP-2, IBA1 configuration
 			.DeviceId = IBA_1,
-			.BaseAddress = XPAR_TILE0_IBA1_BASEADDR,
+			.BaseAddress = XPAR_TILE1_IBA1_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -159,9 +159,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP2,
 		},
 		{
-			//Tile-0, ISP-0, IBA2 configuration
+			//Tile-1, ISP-2, IBA2 configuration
 			.DeviceId = IBA_2,
-			.BaseAddress = XPAR_TILE0_IBA2_BASEADDR,
+			.BaseAddress = XPAR_TILE1_IBA2_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -175,9 +175,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP2,
 		},
 		{
-			//Tile-0, ISP-0, IBA3 configuration,This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			//Tile-1, ISP-2, IBA3 configuration,This IBA can switch between ISP2-IBA3 <-> ISP3-IBA1.
 			.DeviceId = IBA_3,
-			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.BaseAddress = XPAR_TILE1_IBA3_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -193,11 +193,11 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 
 	},
 	{
-		//ISP-1
+		//ISP-3
 		{
-			//Tile-0, ISP-1, IBA0 configuration
+			//Tile-1, ISP-3, IBA0 configuration
 			.DeviceId = IBA_4,
-			.BaseAddress = XPAR_TILE0_IBA4_BASEADDR,
+			.BaseAddress = XPAR_TILE1_IBA4_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -211,9 +211,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP3,
 		},
 		{
-			//Tile-0, ISP-1, IBA1 configuration.This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			//Tile-1, ISP-3, IBA1 configuration.This IBA can switch between ISP2-IBA3 <-> ISP3-IBA1.
 			.DeviceId = IBA_3,
-			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.BaseAddress = XPAR_TILE1_IBA3_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -229,10 +229,10 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 
 	},
 	{
-		//ISP-0
-		{   /*Tile-0, ISP-0, IBA0 configuration*/
+		//ISP-4
+		{   /*Tile-2, ISP-4, IBA0 configuration*/
 			.DeviceId = IBA_0,
-			.BaseAddress = XPAR_TILE0_IBA0_BASEADDR,
+			.BaseAddress = XPAR_TILE2_IBA0_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -246,9 +246,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP4,
 		},
 		{
-			//Tile-0, ISP-0, IBA1 configuration
+			//Tile-2, ISP-4, IBA1 configuration
 			.DeviceId = IBA_1,
-			.BaseAddress = XPAR_TILE0_IBA1_BASEADDR,
+			.BaseAddress = XPAR_TILE2_IBA1_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -262,9 +262,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP4,
 		},
 		{
-			//Tile-0, ISP-0, IBA2 configuration
+			//Tile-2, ISP-4, IBA2 configuration
 			.DeviceId = IBA_2,
-			.BaseAddress = XPAR_TILE0_IBA2_BASEADDR,
+			.BaseAddress = XPAR_TILE2_IBA2_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -278,9 +278,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP4,
 		},
 		{
-			//Tile-0, ISP-0, IBA3 configuration,This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			//Tile-2, ISP-4, IBA3 configuration,This IBA can switch between ISP4-IBA3 <-> ISP5-IBA1.
 			.DeviceId = IBA_3,
-			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.BaseAddress = XPAR_TILE2_IBA3_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -296,11 +296,11 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 
 	},
 	{
-		//ISP-1
+		//ISP-5
 		{
-			//Tile-0, ISP-1, IBA0 configuration
+			//Tile-2, ISP-5, IBA0 configuration
 			.DeviceId = IBA_4,
-			.BaseAddress = XPAR_TILE0_IBA4_BASEADDR,
+			.BaseAddress = XPAR_TILE2_IBA4_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,
@@ -314,9 +314,9 @@ iba_inst_t IBA_ConfigTable[XPAR_IBA_ISP_INSTANCE][XPAR_IBA_INSTANCES] = {
 			.isp_instance = ISP5,
 		},
 		{
-			//Tile-0, ISP-1, IBA1 configuration.This IBA can switch between ISP0-IBA3 <-> ISP1-IBA1.
+			//Tile-2, ISP-5, IBA1 configuration.This IBA can switch between ISP4-IBA3 <-> ISP5-IBA1.
 			.DeviceId = IBA_3,
-			.BaseAddress = XPAR_TILE0_IBA3_BASEADDR,
+			.BaseAddress = XPAR_TILE2_IBA3_BASEADDR,
 			.data_format = 0x10, //RAW8
 			.hres = 1920,
 			.vres = 1080,

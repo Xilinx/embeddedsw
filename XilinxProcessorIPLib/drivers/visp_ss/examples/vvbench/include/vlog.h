@@ -31,7 +31,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <oslayer.h>
 
 enum {
@@ -46,19 +45,11 @@ extern int vvbenchLogLevel;
 
 static inline int VsiVvbenchGetLogLevel()
 {
-	if (vvbenchLogLevel != -1) {
+	if (vvbenchLogLevel != -1)
 		return vvbenchLogLevel;
-	}
-	else {
-		char *szLogLevel = getenv("VVLOG_LEVEL");
-		if (szLogLevel) {
-			vvbenchLogLevel = atoi(szLogLevel);
-		}
-		else {
-			vvbenchLogLevel = VVLOG_LEVEL_DEBUG;
-		}
-		return vvbenchLogLevel;
-	}
+
+	vvbenchLogLevel = VVLOG_LEVEL_DEBUG;
+	return vvbenchLogLevel;
 }
 
 static inline float32_t timeStampGet()

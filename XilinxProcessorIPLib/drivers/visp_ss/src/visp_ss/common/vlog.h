@@ -1,5 +1,5 @@
 /******************************************************************************\
-|* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+|* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 |* Copyright (c) 2023 by VeriSilicon Holdings Co., Ltd. ("VeriSilicon")       *|
 |* All Rights Reserved.                                                       *|
 |*                                                                            *|
@@ -16,7 +16,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
 #include <oslayer.h>
 
 enum {
@@ -34,15 +33,8 @@ static inline int VsiVvbenchGetLogLevel()
 	if (vvbenchLogLevel != -1)
 		return vvbenchLogLevel;
 
-	else {
-		char *szLogLevel = getenv("VVLOG_LEVEL");
-		if (szLogLevel)
-			vvbenchLogLevel = atoi(szLogLevel);
-
-		else
-			vvbenchLogLevel = VVLOG_LEVEL_DEBUG;
-		return vvbenchLogLevel;
-	}
+	vvbenchLogLevel = VVLOG_LEVEL_DEBUG;
+	return vvbenchLogLevel;
 }
 
 static inline float32_t timeStampGet()
@@ -55,30 +47,44 @@ static inline float32_t timeStampGet()
 }
 
 // c++11 workaround empty variadic macro
-#define __VLOG_INT(format, ...) "[%s] " format "\033[0m%s", LOGTAG, __VA_ARGS__
+#ifdef VLOG_ENABLE_ANSI_COLORS
+#define VLOG_COLOR_RESET "\033[0m"
+#define VLOG_COLOR_DEBUG "\033[1;30;37m"
+#define VLOG_COLOR_INFO  "\033[1;30;32m"
+#define VLOG_COLOR_WARN  "\033[1;30;33m"
+#define VLOG_COLOR_ERROR "\033[1;30;31m"
+#else
+#define VLOG_COLOR_RESET ""
+#define VLOG_COLOR_DEBUG ""
+#define VLOG_COLOR_INFO  ""
+#define VLOG_COLOR_WARN  ""
+#define VLOG_COLOR_ERROR ""
+#endif
+
+#define __VLOG_INT(format, ...) "[%s] " format VLOG_COLOR_RESET "%s", LOGTAG, __VA_ARGS__
 
 #define LOGD(...)\
 	if (VsiVvbenchGetLogLevel() <= VVLOG_LEVEL_DEBUG) { \
 		printf("[%.6lf]",timeStampGet()); \
-		printf("\033[1;30;37mDEBUG  : " __VLOG_INT(__VA_ARGS__, "\n")); \
+		printf(VLOG_COLOR_DEBUG "DEBUG  : " __VLOG_INT(__VA_ARGS__, "\n")); \
 	} // white
 
 #define LOGI(...)\
 	if (VsiVvbenchGetLogLevel() <= VVLOG_LEVEL_INFO) { \
 		printf("[%.6lf]",timeStampGet()); \
-		printf("\033[1;30;32mINFO  : " __VLOG_INT(__VA_ARGS__, "\n")); \
+		printf(VLOG_COLOR_INFO "INFO  : " __VLOG_INT(__VA_ARGS__, "\n")); \
 	} // green
 
 #define LOGW(...)\
 	if (VsiVvbenchGetLogLevel() <= VVLOG_LEVEL_WARNING) { \
 		printf("[%.6lf]",timeStampGet()); \
-		printf("\033[1;30;33mWARN  : " __VLOG_INT(__VA_ARGS__, "\n")); \
+		printf(VLOG_COLOR_WARN "WARN  : " __VLOG_INT(__VA_ARGS__, "\n")); \
 	} // yellow
 
 #define LOGE(...)\
 	if (VsiVvbenchGetLogLevel() <= VVLOG_LEVEL_ERROR) { \
 		printf("[%.6lf]",timeStampGet()); \
-		printf("\033[1;30;31mERROR  : " __VLOG_INT(__VA_ARGS__, "\n")); \
+		printf(VLOG_COLOR_ERROR "ERROR  : " __VLOG_INT(__VA_ARGS__, "\n")); \
 	} // red
 
 #endif  // _VLOG_H_
