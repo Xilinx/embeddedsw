@@ -226,7 +226,7 @@ XPmRuntime_DeviceOps *XPm_GetDevOps_ById(u32 DeviceId) {
 }
 static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	u32 CurrSecState;
 	u32 Is_CapSecure = 0U;
 	u32 BaseAddr, Offset1, Mask1, Offset2, Mask2;
@@ -314,14 +314,30 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 
 	if (1U == Is_CapSecure) {
 		PmRmw32(BaseAddr + Offset1, Mask1, 0);
+		PmChkRegMask32(BaseAddr + Offset1, Mask1, 0, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			goto done;
+		}
 		if (0U != Mask2) {
 			PmRmw32(BaseAddr + Offset2, Mask2, 0);
+			PmChkRegMask32(BaseAddr + Offset2, Mask2, 0, Status);
+			if (XPM_REG_WRITE_FAILED == Status) {
+				goto done;
+			}
 		}
 		Reqm->AttrCaps |= (u8)(PM_CAP_SECURE);
 	} else {
 		PmRmw32(BaseAddr + Offset1, Mask1, Mask1);
+		PmChkRegMask32(BaseAddr + Offset1, Mask1, Mask1, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			goto done;
+		}
 		if (0U != Mask2) {
 			PmRmw32(BaseAddr + Offset2, Mask2, Mask2);
+			PmChkRegMask32(BaseAddr + Offset2, Mask2, Mask2, Status);
+			if (XPM_REG_WRITE_FAILED == Status) {
+				goto done;
+			}
 		}
 	}
 
