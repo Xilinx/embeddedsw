@@ -343,6 +343,10 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 
 	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
 		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
+		PmChkRegOut32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			goto done;
+		}
 	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
 		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
 	} else {
