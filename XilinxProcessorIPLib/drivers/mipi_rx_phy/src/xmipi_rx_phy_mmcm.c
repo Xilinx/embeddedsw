@@ -483,9 +483,6 @@ u32 XMipi_Rx_Phy_MmcmConfig(XMipi_Rx_Phy *InstancePtr, u32 LineRate)
 			  ~XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK) |
 			 (LineRate &
 			  XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_LINERATE_MASK);
-	XMipi_Rx_Phy_WriteReg(BaseAddr,
-			XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_OFFSET,
-			LineRateRegVal);
 
 	/* Write MMCM_MULT register (0x34) - M integer values */
 	XMipi_Rx_Phy_WriteReg(BaseAddr,
@@ -503,6 +500,10 @@ u32 XMipi_Rx_Phy_MmcmConfig(XMipi_Rx_Phy *InstancePtr, u32 LineRate)
 	/* Write MMCM_O register (0x40) - O integer values */
 	XMipi_Rx_Phy_WriteReg(BaseAddr,
 			XMIPI_RX_PHY_MMCM_O_REG_OFFSET, MmcmOutputDivRegVal);
+
+	XMipi_Rx_Phy_WriteReg(BaseAddr,
+			XMIPI_RX_PHY_DYNAMIC_LINERATE_REG_OFFSET,
+			LineRateRegVal);
 
 	return XST_SUCCESS;
 }
