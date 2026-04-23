@@ -259,7 +259,7 @@ XStatus apu_postmsg(MboxCoreId receiver_id)
 int32_t write_mboxcmd(uint32_t cmdId, void *struct_msg, uint32_t size, MboxCoreId receiver_id,
 		      MboxCoreId core_id)
 {
-	uint32_t ret;
+	uint32_t ret = VPI_SUCCESS;
 	int status;
 
 	if (size == 0) {
@@ -376,43 +376,43 @@ int32_t mailbox_init(uint32_t cpu)
 	rmsg_rpu0 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_rpu0 == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_nomem;
 	}
 
 	rmsg_rpu1 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_rpu1 == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_rpu0;
 	}
 	rmsg_rpu2 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_rpu2 == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_rpu1;
 	}
 	rmsg_rpu3 = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_rpu3 == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_rpu2;
 	}
 	rmsg_apu = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_apu == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_rpu3;
 	}
 	rmsg_response_to_apu = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_response_to_apu == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_apu;
 	}
 	rmsg_command_to_apu = (MboxPostMsg *)osMalloc(sizeof(MboxPostMsg));
 	if (rmsg_command_to_apu == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_resp;
 	}
 	wmsg = (MboxPostMsg *) osMalloc(sizeof(MboxPostMsg));
 	if (wmsg == NULL) {
 		xil_printf("APU-%d Failed to allocate memory\r\n", XPAR_CPU_ID);
-		return VPI_ERR_NOMEM;
+		goto err_free_cmd;
 	}
 
 	/* Initialize wmsg fields */
@@ -437,6 +437,30 @@ int32_t mailbox_init(uint32_t cpu)
 		   sizeof(MboxPostMsg), sizeof(Payload_packet));
 
 	return VPI_SUCCESS;
+
+err_free_cmd:
+	osFree(rmsg_command_to_apu);
+	rmsg_command_to_apu = NULL;
+err_free_resp:
+	osFree(rmsg_response_to_apu);
+	rmsg_response_to_apu = NULL;
+err_free_apu:
+	osFree(rmsg_apu);
+	rmsg_apu = NULL;
+err_free_rpu3:
+	osFree(rmsg_rpu3);
+	rmsg_rpu3 = NULL;
+err_free_rpu2:
+	osFree(rmsg_rpu2);
+	rmsg_rpu2 = NULL;
+err_free_rpu1:
+	osFree(rmsg_rpu1);
+	rmsg_rpu1 = NULL;
+err_free_rpu0:
+	osFree(rmsg_rpu0);
+	rmsg_rpu0 = NULL;
+err_nomem:
+	return VPI_ERR_NOMEM;
 }
 
 void mailbox_close()
