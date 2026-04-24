@@ -378,9 +378,10 @@ int XPlmi_PufOnDemandRegeneration(u8* StatusFlag)
 	PufData->ReadOption = (((XPlmi_In32(XIH_BH_PRAM_ADDR + XPLMI_BH_IMAGE_ATTRIBUTE_OFFSET) >>
 		XPLMI_BH_PUF_HD_MASK_SHIFT) & XPLMI_BH_PUF_HD_MASK_BITS));
 	PufData->PufOperation = XPUF_REGEN_ON_DEMAND;
-	PufData->ShutterValue = XPlmi_In32(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_SHUTTER_VALUE_OFFSET);
-	PufData->GlobalVarFilter = (u8)(PufData->ShutterValue >>
-		XPLMI_BH_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
+	PufData->ShutterValue = XPlmi_In32(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_SHUTTER_VALUE_OFFSET) &
+				~XPLMI_BIT(XPLMI_BH_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
+	PufData->GlobalVarFilter = (u8)(XPlmi_In32(XIH_BH_PRAM_ADDR + XPLMI_BH_PUF_SHUTTER_VALUE_OFFSET) >>
+					XPLMI_BH_PUF_SHUT_GLB_VAR_FLTR_EN_SHIFT);
 
 	if (PufData->ReadOption == XLOADER_PUF_HD_BHDR) {
 		PufData->ReadOption = XPUF_READ_FROM_RAM;
