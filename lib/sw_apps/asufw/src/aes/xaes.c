@@ -135,7 +135,6 @@
 					store the high byte. */
 #define XAES_NONCE_HEADER_SECOND_IDX	(1U) /**< Second index of the NonceHeader array, used to
 					store the low byte. */
-#define XAES_CM_SPLIT_MASK		(0xFFFFFFFFU) /**< AES CM split mask. */
 #define XAES_CM_SPLIT_ALIGNED_LENGTH	(0x10U) /**< AES CM split configuration aligned length. */
 #define XAES_CM_MASK_BUF_WORD_LEN	(32U) /**< AES CM mask data buffer word length. */
 #define XAES_CM_OUTPUT_ADDR_INDEX	(256U) /**< AES CM output data address index. */
@@ -1349,6 +1348,7 @@ END:
  * @param 	MaskedKeyPtr	Pointer to buffer holding masked key buffer.
  * @param	IvPtr		Pointer to buffer holding IV.
  * @param	OperationType	AES encrypt/decrypt operation type.
+ * @param	SplitMask	AES DPA CM key Split mask.
  *
  * @return
  *	- XASUFW_SUCCESS, if decryption of data is successful.
@@ -1361,7 +1361,7 @@ END:
  *************************************************************************************************/
 s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr,
 	u32 *MaskedOutputPtr, u32 *MaskedTagPtr, const u32 *MaskedKeyPtr, const u8 *IvPtr,
-	u8 OperationType)
+	u8 OperationType, u32 SplitMask)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 Index;
@@ -1418,7 +1418,7 @@ s32 XAes_DpaCmOperation(XAes *InstancePtr, XAsufw_Dma *DmaPtr, u32 InputDataAddr
 	/** Load mask key to key mask registers. */
 	for (Index = 0U; Index < XASUFW_BUFFER_INDEX_FOUR; Index++) {
 		XAsufw_WriteReg(((InstancePtr->KeyBaseAddress + XAES_KEY_MASK_3_OFFSET) -
-			(Index * XASUFW_WORD_LEN_IN_BYTES)), XAES_CM_SPLIT_MASK);
+			(Index * XASUFW_WORD_LEN_IN_BYTES)), SplitMask);
 	}
 
 	/** Load 96-bit IV into the IV registers. */
