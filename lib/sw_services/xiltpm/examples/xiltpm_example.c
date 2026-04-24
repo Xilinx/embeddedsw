@@ -52,6 +52,7 @@
 * ----- ------ -------- -------------------------------------------------
 * 1.0	pre    03/13/26 Initial Release
 *       pre    03/21/26 Added example usage of GetPcrLog API
+*       pre    04/24/26 Updated print statement to print PCR number in decimal format.
 *
 * </pre>
 ******************************************************************************/
@@ -127,7 +128,7 @@ int main(void)
 *
 * @return
 *		- XST_SUCCESS - TPM PCR event successfully completed.
-*		- XST_FAILURE - incase of any failure.
+*		- XST_FAILURE - in case of any failure.
 *
 ****************************************************************************/
 /** //! [TPM example] */
@@ -214,7 +215,7 @@ static int TPMExample(void)
 	if (PcrLogInfo.PcrEventsRead != 0U) {
 		xil_printf("\n\rTPM PCR Log contents:\n\r");
 		for (Index = 0U; Index < PcrLogInfo.PcrEventsRead; Index++) {
-			xil_printf("PCR Number: %x\r\n", PcrEvents[Index].PcrNo);
+			xil_printf("PCR Number: %d\r\n", PcrEvents[Index].PcrNo);
 			xil_printf("Hash to be extended:\n\r");
 			XTpm_PrintData((const u8*)PcrEvents[Index].Hash, XTPM_SHA3_HASH_LEN_IN_BYTES);
 			xil_printf("PCR Extended Value:\n\r");
