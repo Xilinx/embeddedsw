@@ -3,25 +3,25 @@
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
+
 /**************************************************************************************************/
 /**
 *
-* @file server/spartanup/xsecure_ellipticalginfo.h
+* @file server/spartanup/xsecure_lmsalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
 *
-* Ver   Who  Date     Changes
-* ----- ---- -------- ----------------------------------------------------------------------------
-* 5.7   mb  03/13/26 Initial Release
-*       tbk  04/22/26 Updated version number
+* Ver   Who     Date     Changes
+* ----- ------  -------- ----------------------------------------------------------------------
+* 5.7   tbk     04/22/26 Initial Release
 *
 * </pre>
 *
 ***************************************************************************************************/
 
-#ifndef XSECURE_ELLIPTICALGINFO_H
-#define XSECURE_ELLIPTICALGINFO_H
+#ifndef XSECURE_LMSALGINFO_H
+#define XSECURE_LMSALGINFO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -32,15 +32,15 @@ extern "C" {
 #include "xil_sutil.h"
 
 /************************************ Constant Definitions ****************************************/
-#define XSECURE_ELLIPTIC_MAJOR_VERSION	6U /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	1U /**< Minor version of ELLIPTIC */
+#define XSECURE_LMS_MAJOR_VERSION	6U /**< Major version of LMS */
+#define XSECURE_LMS_MINOR_VERSION	1U /**< Minor version of LMS */
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
 /**************************************************************************************************/
 /**
  *
- * This function returns the Elliptic crypto algorithm information.
+ * This function returns the LMS crypto algorithm information.
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information.
  *
@@ -48,10 +48,9 @@ extern "C" {
  * 		- None.
  *
  **************************************************************************************************/
-static XSECURE_ALWAYS_INLINE void XSecure_EllipticGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
+static XSECURE_ALWAYS_INLINE void XSecure_LmsGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_ELLIPTIC_MAJOR_VERSION,
-					     XSECURE_ELLIPTIC_MINOR_VERSION);
+	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_LMS_MAJOR_VERSION, XSECURE_LMS_MINOR_VERSION);
 	AlgInfo->NistStatus = NIST_COMPLIANT;
 }
 
@@ -59,4 +58,4 @@ static XSECURE_ALWAYS_INLINE void XSecure_EllipticGetCryptoAlgInfo (Xil_CryptoAl
 }
 #endif
 
-#endif /* XSECURE_ELLIPTICALGINFO_H */
+#endif /* XSECURE_LMSALGINFO_H */

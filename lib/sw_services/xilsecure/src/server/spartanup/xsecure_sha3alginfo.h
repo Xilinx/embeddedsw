@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   kpt     08/18/24 Initial Release
+* 5.7   tbk     04/22/26 Updated version number
 *
 * </pre>
 *
@@ -32,8 +33,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_SHA3_MAJOR_VERSION	5 /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	5 /**< Minor version of SHA3 */
+#define XSECURE_SHA3_MAJOR_VERSION	6U /**< Major version of SHA3 */
+#define XSECURE_SHA3_MINOR_VERSION	1U /**< Minor version of SHA3 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

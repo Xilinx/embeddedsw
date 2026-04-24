@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.5   mmd     08/18/24 Initial Release
+* 5.7   tbk     04/22/26 Updated version number
 *
 * </pre>
 *
@@ -32,8 +33,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_AES_MAJOR_VERSION	5U /**< Major version of AES */
-#define XSECURE_AES_MINOR_VERSION	3U /**< Minor version of AES */
+#define XSECURE_AES_MAJOR_VERSION	6U /**< Major version of AES */
+#define XSECURE_AES_MINOR_VERSION	1U /**< Minor version of AES */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
