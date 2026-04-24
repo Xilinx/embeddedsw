@@ -18,6 +18,7 @@
 * 1.0   kpt  08/21/2024 Initial release
 * 2.6   aa   07/14/2025 Removed unused macros
 * 2.7   bha  01/06/2026 Fixed Doxygen warnings
+*       mb   04/23/2026 Remove unused macros
 *
 * </pre>
 *
@@ -92,8 +93,6 @@ extern "C" {
  */
 #define XPUF_CFG1_INIT_VAL_4K			(0x0C230090U)
 			/**< PUF Configuration 1 register value for 4K Registration mode */
-#define XPUF_CFG1_INIT_VAL_12K			(0x00230150U)
-			/**< PUF Configuration 1 register value for 12K Registration mode */
 /** @} */
 
 /**
