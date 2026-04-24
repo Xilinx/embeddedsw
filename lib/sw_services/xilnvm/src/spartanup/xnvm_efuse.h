@@ -7,7 +7,7 @@
 /**
 *
 * @file spartanup/xnvm_efuse.h
-* @addtogroup xnvm_versal_efuse_apis XilNvm Spartan Ultrascale Plus eFuse APIs
+* @addtogroup xnvm_spartan_ultrascaleplus_efuse_apis XilNvm Spartan Ultrascale Plus eFuse APIs
 * @{
 *
 * @cond xnvm_internal
@@ -70,7 +70,8 @@ extern "C" {
 #define XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES	(48U) /**< PPK hash size in bytes for all other
 							* parts except SU10P,SU25P,SU35P */
 #define XNVM_EFUSE_AES_IV_SIZE_IN_BYTES		(12U) /**< AES IV size in bytes */
-#define XNVM_EFUSE_AES_IV_SIZE_IN_WORDS		(3U) /**< AES IV size in words */
+#define XNVM_EFUSE_AES_IV_SIZE_IN_WORDS		(XNVM_EFUSE_AES_IV_SIZE_IN_BYTES \
+						/ XNVM_EFUSE_WORD_LEN) /**< AES IV size in words */
 #define XNVM_EFUSE_PPK0_HASH_START_ROW		(0U) /**< PPK0 hash start row */
 #define XNVM_EFUSE_PPK1_HASH_START_ROW		(1U) /**< PPK1 hash start row */
 #define XNVM_EFUSE_PPK2_HASH_START_ROW		(4U) /**< PPK2 hash start row */
@@ -83,8 +84,6 @@ extern "C" {
 #define XNVM_EFUSE_PPK_HASH_NUM_OF_ROWS		(32U) /**< PPK hash number of rows */
 #define XNVM_EFUSE_SPK_REVOKE_ID_START_ROW	(48U) /**< SPK revoke ID start row */
 #define XNVM_EFUSE_SPK_REVOKE_ID_START_COL	(24U) /**< SPK revoke ID start column */
-#define XNVM_EFUSE_SPK_REVOKE_ID_END_COL	(31U) /**< SPK revoke ID end column */
-#define XNVM_EFUSE_SPK_REVOKE_ID_NUM_OF_ROWS	(12U) /**< SPK revoke ID number of rows */
 #define XNVM_EFUSE_AES_KEY_START_ROW		(32U) /**< AES key start row */
 #define XNVM_EFUSE_AES_KEY_START_COL		(16U) /**< AES key start column */
 #define XNVM_EFUSE_AES_KEY_END_COL		(23U) /**< AES key end column */
@@ -125,7 +124,6 @@ extern "C" {
 #endif
 /** @} */
 
-#define XNVM_EFUSE_NUM_OF_REVOKE_ID_FUSES	(3U) /**< Number of revoke id efuses */
 #define XNVM_EFUSE_AES_IV_NUM_OF_ROWS		(12U) /**< AES IV number of rows */
 #define XNVM_EFUSE_MAX_BITS_IN_ROW		(32U) /**< Maximum bits in a row */
 #define XNVM_EFUSE_MAX_SPK_REVOKE_ID		(3U)  /**< Maximum SPK revoke id */

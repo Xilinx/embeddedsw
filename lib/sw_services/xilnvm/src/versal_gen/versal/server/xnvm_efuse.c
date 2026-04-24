@@ -101,6 +101,7 @@
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
 *       hj   09/19/2025 Program PUF_RSVD efuse as user data
 * 3.7   mb   01/10/2026 Removed extra lines in XNvm_EfusePgmAndVerifyRows function
+*       mb   04/23/2026 Remove unused macros and variables
 *
 * </pre>
 *
@@ -1919,11 +1920,6 @@ int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
 	 */
 	RevokeIdRow = (RevokeId / XNVM_EFUSE_MAX_BITS_IN_ROW);
 	RevokeIdBit = (RevokeId % XNVM_EFUSE_MAX_BITS_IN_ROW);
-
-	if (RevokeIdRow > (u32)XNVM_EFUSE_REVOCATION_ID_7) {
-		Status = (int)XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
 
 	/**
 	 *  - Fill the XNvm_EfuseRevokeIds structure with the calculated inputs

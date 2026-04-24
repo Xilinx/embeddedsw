@@ -184,7 +184,6 @@ extern "C" {
 #define XNVM_EFUSE_BLACK_IV_START_OFFSET	0x00001144U /**< IV cache start offset */
 #define XNVM_EFUSE_CRC_EN_OFFSET		0x00001150U /**< CRC enable offset */
 #define XNVM_EFUSE_SPK_REVOKE_ID_OFFSET		0x00001124U /**< SPK revoke id cache start offset */
-#define XNVM_EFUSE_SPK_REVOKE_ID_END_OFFSET	0x0000112CU /**< SPK revoke id cache end offset */
 #define XNVM_EFUSE_AES_REVOKE_ID_OFFSET		0x0000113CU /**< AES revoke id cache offset */
 #define XNVM_EFUSE_XILINX_CTRL_OFFSET		0x00001000U /**< Xilinx Control cache offset */
 
