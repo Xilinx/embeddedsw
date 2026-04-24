@@ -19,6 +19,7 @@
 * 1.0   kpt  01/04/22 Initial release
 * 2.3   ng   11/22/23 Fixed doxygen grouping
 * 2.4   sd   04/13/26 Added PUF support for VERSAL_2VP_P
+*       mb   04/23/26 Remove unused macros
 *
 * </pre>
 *
@@ -50,9 +51,6 @@ extern "C" {
 		/**< PUF Operation - PUF On demand regeneration */
 #define XPUF_REGEN_ID_ONLY				(0x2U)
 		/**< PUF Operation - PUF ID only regeneration */
-
-#define XPUF_SYNDROME_MODE_4K				(0x0U)
-		/**< PUF Mode - 4K Syndrome mode */
 
 #define XPUF_4K_PUF_SYN_LEN_IN_WORDS			(140U)
 						/**< PUF 4K Syndrome length in words */

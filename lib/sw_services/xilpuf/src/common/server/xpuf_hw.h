@@ -34,6 +34,7 @@
 * 2.3   ng   11/22/2023 Fixed doxygen grouping
 * 2.7   bha  01/06/2026 Fixed Doxygen warnings
 *       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
+*       mb   04/23/2026 Remove unused macros
 *
 * </pre>
 *
@@ -122,8 +123,7 @@ extern "C" {
  */
 #define XPUF_CFG1_INIT_VAL_4K			(0x0C230090U)
 			/**< PUF Configuration 1 register value for 4K Registration mode */
-#define XPUF_CFG1_INIT_VAL_12K			(0x00230150U)
-			/**< PUF Configuration 1 register value for 12K Registration mode */
+
 /** @} */
 #endif /* VERSAL_2VP_P */
 

@@ -21,6 +21,7 @@
 *       aa   07/14/2025 Removed unused macros
 *       mb   09/26/2025 Update GlobalVarFilter type to u32
 * 2.7   bha  01/22/2026 Added ID - Only regeneration support
+*       mb   04/23/2026 Remove unused macros
 *
 * </pre>
 *
@@ -89,8 +90,7 @@ enum{
 						waiting for syndrome data to be generated */
 	XPUF_ERROR_KEY_NOT_CONVERGED,		/**< 0x04 - Error when iterative
 						convergence not done */
-	XPUF_ERROR_PUF_DONE_WAIT_TIMEOUT,	/**< 0x05 - Error due to timeout while
-						waiting for Done bit to be set in PUF Status */
+	XPUF_ERROR_RESERVED_1,			/**< 0x05 - Reserved error code */
 	XPUF_ERROR_SYN_DATA_ERROR,		/**< 0x06 - Error if Size of PUF Syndrome Data
 						is not same as expected size */
 	XPUF_ERROR_PUF_ID_ZERO_TIMEOUT,		/** 0x07 Error due to timeout while zeroizing PUF ID */
