@@ -432,7 +432,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	if ((PdiSrc == XLOADER_PDI_SRC_USB) &&
 		(PdiPtr->PdiType == XLOADER_PDI_TYPE_FULL)) {
 		XPlmi_Printf(DEBUG_INFO, "USB is not supported as primary boot mode\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_USB_PRIMARY, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_USB_PRIMARY, XIL_SIGNED_ZERO);
 		goto END;
 	}
 	XilPdi *PdiInstance = XLoader_GetPdiInstance();
@@ -581,7 +581,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 END1:
 	XPlmi_Printf(DEBUG_GENERAL, "Unsupported Boot Mode: Source:0x%x\n\r",
 		PdiPtr->PdiSrc);
-	Status = XPlmi_UpdateStatus(XLOADER_UNSUPPORTED_BOOT_MODE, 0);
+	Status = XPlmi_UpdateStatus(XLOADER_UNSUPPORTED_BOOT_MODE, XIL_SIGNED_ZERO);
 END:
 	XPlmi_MeasurePerfTime(PdiInitTime, &PerfTime);
 	XPlmi_Printf(DEBUG_PRINT_PERF,
@@ -851,7 +851,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 	if ((SecureParams.SecureEn == (u8)TRUE) &&
 	   ((PdiPtr->MetaHdr->ImgHdrTbl.Version == XLOADER_PDI_VERSION_1) ||
 	   (PdiPtr->MetaHdr->ImgHdrTbl.Version < XLOADER_PDI_VERSION_4))) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_PDI_VER, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_PDI_VER, XIL_SIGNED_ZERO);
 		goto END;
 	}
 #endif
@@ -884,7 +884,7 @@ static int XLoader_ReadAndValidateHdrs(XilPdi* PdiPtr, u32 RegValue, u64 PdiAddr
 
 	if ((IsEncrypted == (u8)TRUE) || (IsAuthenticated == (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_GENERAL, "Secure Code is excluded\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, XIL_SIGNED_ZERO);
 		goto END;
 	}
 #endif
@@ -1035,13 +1035,13 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 
 		if (PdiPtr->DelayHandoff == (u8)TRUE) {
 			if (PdiPtr->DelayLoad == (u8)TRUE) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_ATTRB, 0);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_DELAY_ATTRB, XIL_SIGNED_ZERO);
 				goto END;
 			}
 
 			if (NoOfDelayedHandoffCpus >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
+						XLOADER_ERR_NUM_HANDOFF_CPUS, XIL_SIGNED_ZERO);
 				goto END;
 			}
 			DelayHandoffImageNum[NoOfDelayedHandoffCpus] =
@@ -1398,7 +1398,7 @@ int XLoader_StoreImageInfo(const XLoader_ImageInfo *ImageInfo)
 	ImageEntry = XLoader_GetImageInfoEntry(ImageInfo->ImgID);
 	if (ImageEntry == NULL) {
 		ImageInfoTbl->IsBufferFull = (u8)TRUE;
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMAGE_INFO_TBL_OVERFLOW, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -1546,7 +1546,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 
 			if (ParentImgID == XLOADER_INVALID_IMG_ID) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_INVALID_PARENT_IMG_ID, 0);
+					XLOADER_ERR_INVALID_PARENT_IMG_ID, XIL_SIGNED_ZERO);
 				goto END;
 			}
 
@@ -1557,7 +1557,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 			ParentImageInfo = XLoader_GetImageInfoEntry(ParentImgID);
 			if (ParentImageInfo == NULL) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY, 0);
+					XLOADER_ERR_NO_VALID_PARENT_IMG_ENTRY, XIL_SIGNED_ZERO);
 				goto END;
 			}
 
@@ -1566,7 +1566,7 @@ static int XLoader_VerifyImgInfo(const XLoader_ImageInfo *ImageInfo)
 			*/
 			if (ParentImageInfo->UID != ImageInfo->PUID) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE, 0);
+					XLOADER_ERR_INCOMPATIBLE_CHILD_IMAGE, XIL_SIGNED_ZERO);
 				XPlmi_Printf(DEBUG_GENERAL, "Image is not "
 					"compatible with Parent Image\r\n");
 				goto END;
@@ -1832,13 +1832,13 @@ static int XLoader_ReloadImage(XilPdi *PdiPtr, u32 ImageId, const u32 *FuncID)
 
 	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, ImageId);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
 	if (FuncID != NULL) {
 		if (PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].FuncID != *FuncID) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_FUNCTION_ID_MISMATCH, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_FUNCTION_ID_MISMATCH, XIL_SIGNED_ZERO);
 			goto END;
 		}
 	}
@@ -2109,7 +2109,7 @@ static int XLoader_LoadAndStartSecondaryPdi(XilPdi* PdiPtr)
 			}
 
 			if (Status == (int)XLOADER_ERR_UNSUPPORTED_SEC_BOOT_MODE) {
-				Status = XPlmi_UpdateStatus((XPlmiStatus_t)Status, 0);
+				Status = XPlmi_UpdateStatus((XPlmiStatus_t)Status, XIL_SIGNED_ZERO);
 				goto END;
 			}
 

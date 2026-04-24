@@ -123,7 +123,7 @@ static int XLoader_MakeSdFileName(u32 MultiBootOffsetVal)
      * - Verify that multiboot offset is within the files limits.
      */
 	if (MultiBootOffset >= XLOADER_SD_MAX_BOOT_FILES_LIMIT) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SD_MAX_BOOT_FILES_LIMIT, XIL_SIGNED_ZERO);
 		goto END;
 	}
 

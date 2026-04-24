@@ -296,7 +296,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	/** - Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INIT_GET_DMA, XIL_SIGNED_ZERO);
 		goto END;
 	}
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
@@ -339,7 +339,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 		/** - Neither active; detect any glitch on register reads */
 		if ((ReadAuthReg != SecureStateAHWRoT) ||
 			(ReadEncReg != SecureStateSHWRoT)) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		Status = XST_SUCCESS;
@@ -375,7 +375,7 @@ int XLoader_SecureInit(XLoader_SecureParams *SecurePtr, XilPdi *PdiPtr,
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_SecureEncInit, SecurePtr, PrtnHdr);
 #else
 	if ((PrtnHdr->AuthCertificateOfst != 0x00U) || (PrtnHdr->EncStatus != 0x00U)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_SECURE_NOT_ENABLED, XIL_SIGNED_ZERO);
 	}
 #endif
 
@@ -708,7 +708,7 @@ static int XLoader_ChecksumInit(XLoader_SecureParams *SecurePtr,
 		else {
 			/* Only SHA3 checksum is supported */
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, 0);
+				XLOADER_ERR_INIT_INVALID_CHECKSUM_TYPE, XIL_SIGNED_ZERO);
 			goto END;
 		}
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)

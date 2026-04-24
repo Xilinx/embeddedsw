@@ -271,7 +271,7 @@ int XLoader_LoadImagePrtns(XilPdi* PdiPtr)
 		 * is triggered.
 		 */
 		if (XPlmi_SldState() != XPLMI_SLD_NOT_TRIGGERED) {
-			Status = XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_SLD_DETECTED_SKIP_PRTN_PROCESS, XIL_SIGNED_ZERO);
 			goto END1;
 		}
 

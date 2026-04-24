@@ -404,7 +404,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 				break;
 
 			default:
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, XIL_SIGNED_ZERO);
 				break;
 		}
 		if (RequestWakeup == TRUE) {
@@ -415,7 +415,7 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 			}
 		}
 		else {
-			Status = XPlmi_UpdateStatus(Status, 0U);
+			Status = XPlmi_UpdateStatus(Status, XIL_SIGNED_ZERO);
 			goto END;
 		}
 	}
@@ -761,7 +761,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	if (PrtnParams->DstnCpu == XIH_PH_ATTRB_DSTN_CPU_ASU) {
 		Status = XPm_PmcRequestDevice(PM_DEV_ASU);
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_ASU_PROC, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_ASU_PROC, XIL_SIGNED_ZERO);
 			goto END;
 		}
 	}
@@ -784,7 +784,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 	{
 		case XIH_PH_ATTRB_DSTN_CPU_R52_0:
 			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_4) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, XIL_SIGNED_ZERO);
 				goto END;
 			}
 			DeviceId = XLOADER_GET_RPU0_DEVICE_ID(DstnCluster);
@@ -796,7 +796,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			break;
 		case XIH_PH_ATTRB_DSTN_CPU_R52_1:
 			if (DstnCluster > XIH_ATTRB_DSTN_CLUSTER_4) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, 0U);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_R52_CLUSTER, XIL_SIGNED_ZERO);
 				goto END;
 			}
 			DeviceId = XLOADER_GET_RPU1_DEVICE_ID(DstnCluster);
@@ -843,7 +843,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			Status = XST_SUCCESS;
 			break;
 		default:
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, XIL_SIGNED_ZERO);
 			break;
 	}
 
@@ -1010,7 +1010,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 			XST_SUCCESS) {
 			if (CpuNo >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
+					XLOADER_ERR_NUM_HANDOFF_CPUS, XIL_SIGNED_ZERO);
 				goto END;
 			}
 			/** - Update the CPU settings */
@@ -1897,7 +1897,7 @@ int XLoader_LoadAsuImage(void)
 	 */
 	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, PM_SUBSYS_ASU);
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_IMG_ID_NOT_FOUND, XIL_SIGNED_ZERO);
 		goto END;
 	}
 

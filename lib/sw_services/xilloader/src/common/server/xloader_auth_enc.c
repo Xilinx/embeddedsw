@@ -486,7 +486,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		XPlmi_Printf(DEBUG_INFO, "Error: Checksum should not be enabled with "
 				"authentication or encryption\n\r");
 		Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC, 0);
+				XLOADER_ERR_INIT_CHECKSUM_INVLD_WITH_AUTHDEC, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -520,12 +520,12 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 				SecureStateAHWRoT, XPLMI_RTCFG_SECURESTATE_NONSECURE);
 			if (Status == XST_SUCCESS) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED, 0);
+					XLOADER_ERR_PRTN_DECRYPT_NOT_ALLOWED, XIL_SIGNED_ZERO);
 				goto END;
 			}
 			if (ReadReg != SecureStateAHWRoT) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_GLITCH_DETECTED, 0);
+					XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 				goto END;
 			}
 
@@ -533,7 +533,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		else {
 			if (ReadReg != SecureStateSHWRoT) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_GLITCH_DETECTED, 0);
+					XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 				goto END;
 			}
 		}
@@ -549,7 +549,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 		if (Status != XST_SUCCESS) {
 			if (ReadReg != SecureStateSHWRoT) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_GLITCH_DETECTED, 0);
+					XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 				goto END;
 			}
 		}
@@ -559,7 +559,7 @@ int XLoader_SecureEncInit(XLoader_SecureParams *SecurePtr,
 				XPlmi_Printf(DEBUG_INFO, "Error: Invalid key source for "
 						"decrypt only case\n\r");
 				Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC, 0);
+						XLOADER_ERR_PRTN_ENC_ONLY_KEYSRC, XIL_SIGNED_ZERO);
 				goto END;
 			}
 		}
@@ -642,7 +642,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 				XPLMI_STATUS_GLITCH_DETECT(Status);
 				if (ReadAuthReg != SecureStateAHWRoT) {
 					Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_GLITCH_DETECTED, 0);
+						XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 				}
 				goto END;
 			}
@@ -650,7 +650,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			if ((SecurePtr->IsAuthenticated == (u8)TRUE) ||
 				(SecureTempParams->IsAuthenticated == (u8)TRUE)) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, 0);
+					XLOADER_ERR_AUTH_EN_PPK_HASH_ZERO, XIL_SIGNED_ZERO);
 				goto END;
 			}
 		}
@@ -680,7 +680,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 				"HWROT is enabled, non authenticated PDI is"
 				" not allowed\n\r");
 			Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY, 0);
+						XLOADER_ERR_HWROT_EFUSE_AUTH_COMPULSORY, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		Status = XST_SUCCESS;
@@ -707,7 +707,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 					XPLMI_STATUS_GLITCH_DETECT(Status);
 					if (ReadEncReg != SecureStateSHWRoT) {
 						Status = XPlmi_UpdateStatus(
-							XLOADER_ERR_GLITCH_DETECTED, 0);
+							XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 					}
 					goto END;
 				}
@@ -719,7 +719,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			XPlmi_Printf(DEBUG_INFO, "DEC_ONLY mode is set,"
 			" non encrypted meta header is not allowed\n\r");
 			Status = XPlmi_UpdateStatus(
-						XLOADER_ERR_ENCONLY_ENC_COMPULSORY, 0);
+						XLOADER_ERR_ENCONLY_ENC_COMPULSORY, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		XPlmi_Printf(DEBUG_INFO, "Encryption is enabled\n\r");
@@ -742,7 +742,7 @@ int XLoader_SecureValidations(const XLoader_SecureParams *SecurePtr)
 			XPlmi_Printf(DEBUG_INFO, "Metaheader Key Source does not"
 			" match PLM Key Source\n\r");
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_METAHDR_KEYSRC_MISMATCH, 0);
+				XLOADER_ERR_METAHDR_KEYSRC_MISMATCH, XIL_SIGNED_ZERO);
 	}
 
 END:
@@ -870,7 +870,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	/* Get DMA instance */
 	SecurePtr->PmcDmaInstPtr = XPlmi_GetDmaInstance(PMCDMA_0_DEVICE);
 	if (SecurePtr->PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_GET_DMA, XIL_SIGNED_ZERO);
 		goto ERR_END;
 	}
 
@@ -916,7 +916,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 		/** - Validate Meta header length */
 		if ((TotalSize > XLOADER_SECURE_CHUNK_SIZE) ||
 			(TotalSizeTmp > XLOADER_SECURE_CHUNK_SIZE)) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_METAHDR_LEN_OVERFLOW, XIL_SIGNED_ZERO);
 			goto ERR_END;
 		}
 
@@ -1014,7 +1014,7 @@ int XLoader_ReadAndVerifySecureHdrs(XLoader_SecureParams *SecurePtr,
 	}
 	else {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not secure\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_SECURE, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -1075,7 +1075,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 #else
 	if (SecurePtr->AuthJtagMessagePtr != NULL) {
 		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, XIL_SIGNED_ZERO);
 		goto END;
 	} else {
 		AuthType = XLoader_GetAuthPubAlgo(SecurePtr->AcPtr->PPK.Header);
@@ -1090,7 +1090,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 #else
 
 		XPlmi_Printf(DEBUG_INFO, "RSA code is excluded\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, XIL_SIGNED_ZERO);
 		goto END;
 #endif
 	}
@@ -1102,7 +1102,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 			XLOADER_ECDSA_P384_KEYSIZE, Signature);
 #else
 		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
 		goto END;
 #endif
 	}
@@ -1120,7 +1120,7 @@ int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,
 #endif
 #else
 		XPlmi_Printf(DEBUG_INFO, "ECDSA code is excluded\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
 		goto END;
 #endif
 	}
@@ -1339,7 +1339,7 @@ int XLoader_PpkVerify(const XLoader_SecureParams *SecurePtr, const u32 PpkSize)
 			(UINTPTR)&(SecurePtr->AuthJtagMessagePtr->AuthJtagData), PpkSize);
 #else
 		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, XIL_SIGNED_ZERO);
 		goto END;
 #endif
 	}
@@ -2269,7 +2269,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 	if ((SecurePtr->IsEncrypted != (u8)TRUE) &&
 		(SecureTempParams->IsEncrypted != (u8)TRUE)) {
 		XPlmi_Printf(DEBUG_INFO, "Headers are not encrypted\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_ENCRYPTED, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_HDR_NOT_ENCRYPTED, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -2287,7 +2287,7 @@ static int XLoader_DecHdrs(XLoader_SecureParams *SecurePtr,
 			XPLMI_STATUS_GLITCH_DETECT(Status);
 			if (ReadEncReg != SecureStateSHWRoT) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_GLITCH_DETECTED, 0);
+					XLOADER_ERR_GLITCH_DETECTED, XIL_SIGNED_ZERO);
 			}
 			goto END;
 		}
@@ -3080,7 +3080,7 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 #else
 	if (SecurePtr->AuthJtagMessagePtr != NULL) {
 		XPlmi_Printf(DEBUG_INFO, "Authenticated JTAG not supported\n\r");
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_AUTH_JTAG_NOT_SUPPORTED, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -3128,7 +3128,7 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 					XLoader_RsaKat);
 #else
 			XPlmi_Printf(DEBUG_GENERAL, "RSA code is excluded\n\r");
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, 0U);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_RSA_NOT_ENABLED, XIL_SIGNED_ZERO);
 			goto END;
 #endif
 
@@ -3139,7 +3139,7 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 					XSecure_EllipticVerifySignKat, CrvClass);
 #else
                         XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
-                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
                         goto END;
 #endif
 		}
@@ -3155,7 +3155,7 @@ int XLoader_AuthKat(XLoader_SecureParams *SecurePtr) {
 #endif
 #else
                         XPlmi_Printf(DEBUG_GENERAL, "ECDSA code is excluded\n\r");
-                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, 0U);
+                        Status = XPlmi_UpdateStatus(XLOADER_ERR_ECDSA_NOT_ENABLED, XIL_SIGNED_ZERO);
                         goto END;
 #endif
 		}

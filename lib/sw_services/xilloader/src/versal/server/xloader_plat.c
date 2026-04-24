@@ -1038,7 +1038,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_0) &&
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_A72_1) &&
 		(PrtnParams->DstnCpu != XIH_PH_ATTRB_DSTN_CPU_NONE)) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, 0U);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_INVALID_CPUID, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -1056,7 +1056,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		Status = XPm_RequestDevice(PM_SUBSYS_PMC, PM_DEV_PSM_PROC,
 			(CapAccess | CapContext), XPM_DEF_QOS, 0U, XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_PSM_PROC, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		goto END1;
@@ -1080,7 +1080,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 			&Mode, XPLMI_CMD_SECURE);
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, 0);
+				XLOADER_ERR_PM_DEV_IOCTL_RPU0_LOCKSTEP, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		Status = XPm_DevIoctl(PM_SUBSYS_PMC, PM_DEV_RPU0_1,
@@ -1092,7 +1092,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		/* MISRA-C compliance */
 	}
 	if ((Status != XST_SUCCESS) && (ErrorCode != 0U)) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -1139,7 +1139,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		}
 		else {
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INVALID_TCM_ADDR, 0);
+				XLOADER_ERR_INVALID_TCM_ADDR, XIL_SIGNED_ZERO);
 		}
 	}
 	else if (((PrtnParams->DeviceCopy.DestAddr >=
@@ -1165,7 +1165,7 @@ int XLoader_ProcessElf(XilPdi* PdiPtr, const XilPdi_PrtnHdr * PrtnHdr,
 		}
 		else {
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_INVALID_TCM_ADDR, 0);
+				XLOADER_ERR_INVALID_TCM_ADDR, XIL_SIGNED_ZERO);
 		}
 	}
 	if (Status != XST_SUCCESS) {
@@ -1262,7 +1262,7 @@ static int XLoader_RequestTCM(u32 TcmId)
 
 END:
 	if (Status != XST_SUCCESS) {
-		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, 0);
+		Status = XPlmi_UpdateStatus((XPlmiStatus_t)ErrorCode, XIL_SIGNED_ZERO);
 	}
 	return Status;
 }
@@ -1334,7 +1334,7 @@ int XLoader_UpdateHandoffParam(XilPdi* PdiPtr)
 		if (XLoader_CheckHandoffCpu(PdiPtr, DstnCpu) == XST_SUCCESS) {
 			if (CpuNo >= XLOADER_MAX_HANDOFF_CPUS) {
 				Status = XPlmi_UpdateStatus(
-					XLOADER_ERR_NUM_HANDOFF_CPUS, 0);
+					XLOADER_ERR_NUM_HANDOFF_CPUS, XIL_SIGNED_ZERO);
 				goto END;
 			}
 			/**
@@ -1397,7 +1397,7 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 			(DstnCpu == XIH_PH_ATTRB_DSTN_CPU_R5_1)) {
 			if (((Address % XLOADER_R5_TCM_BANK_LENGTH) + Len) >
 				XLOADER_R5_TCM_BANK_LENGTH) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, XIL_SIGNED_ZERO);
 				goto END;
 			}
 		}
@@ -1411,7 +1411,7 @@ static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len)
 		(Address < XLOADER_R5_TCM_TOTAL_LENGTH)) {
 		if (((Address % XLOADER_R5_TCM_TOTAL_LENGTH) + Len) >
 			XLOADER_R5_TCM_TOTAL_LENGTH) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_TCM_ADDR_OUTOF_RANGE, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		Offset = XLOADER_R5_0_TCM_A_BASE_ADDR;
