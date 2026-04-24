@@ -14,6 +14,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 5.7   mb  03/13/26 Initial Release
+*       tbk  04/22/26 Updated version number
 *
 * </pre>
 *
@@ -32,7 +33,7 @@ extern "C" {
 
 /************************************ Constant Definitions ****************************************/
 #define XSECURE_ELLIPTIC_MAJOR_VERSION	6U /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	0U /**< Minor version of ELLIPTIC */
+#define XSECURE_ELLIPTIC_MINOR_VERSION	1U /**< Minor version of ELLIPTIC */
 
 /*************************** Macros (Inline Functions) Definitions ********************************/
 
