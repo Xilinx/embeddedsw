@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -142,7 +142,7 @@ int XLoader_CframeInit(void)
 	 */
 	Config = XCframe_LookupConfig(XCFRAME_DEVICE);
 	if (NULL == Config) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_LOOKUP, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_CFRAME_LOOKUP, XIL_SIGNED_ZERO);
 		goto END;
 	}
 

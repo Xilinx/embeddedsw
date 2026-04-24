@@ -209,7 +209,7 @@ int XLoader_AddDeviceStateChangeToScheduler(void)
 					XLOADER_DEVICE_STATE_POLL_INTERVAL,
 					XPLM_TASK_PRIORITY_0, NULL, XPLMI_PERIODIC_TASK);
 			if (Status != XST_SUCCESS) {
-				Status = XPlmi_UpdateStatus(XLOADER_ERR_ADD_TASK_SCHEDULER, 0);
+				Status = XPlmi_UpdateStatus(XLOADER_ERR_ADD_TASK_SCHEDULER, XIL_SIGNED_ZERO);
 			}
 			else {
 				XPlmi_Printf(DEBUG_INFO,

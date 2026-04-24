@@ -165,7 +165,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 		XLoader_Printf(DEBUG_INFO, "SPANSION");
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO, "XLOADER_ERR_UNSUPPORTED_OSPI\r\n");
 		goto END;
 	}
@@ -261,7 +261,7 @@ static int FlashReadID(XOspiPsv *OspiPsvPtr)
 	}
 
 	if (OspiFlashSize == 0U) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_OSPI_SIZE, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO,
 			"XLOADER_ERR_UNSUPPORTED_OSPI_SIZE\r\n");
 		goto END;
@@ -344,7 +344,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 	*/
 	OspiConfig = XOspiPsv_LookupConfig(XLOADER_OSPI_DEVICE_ID);
 	if (NULL == OspiConfig) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_INIT, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_INIT, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_OSPI_INIT\r\n");
 		goto END;
 	}
@@ -421,7 +421,7 @@ int XLoader_OspiInit(u32 DeviceFlags)
 			break;
 
 		default:
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_CONN_MODE, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_OSPI_CONN_MODE, XIL_SIGNED_ZERO);
 			break;
 	}
 	if (Status != XST_SUCCESS) {

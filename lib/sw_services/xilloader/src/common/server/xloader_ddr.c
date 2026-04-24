@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -98,7 +98,7 @@ int XLoader_DdrInit(u32 DeviceFlags)
 			XPLMI_CMD_SECURE);
 #endif
 		if (Status != XST_SUCCESS) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_PM_DEV_DDR_0, XIL_SIGNED_ZERO);
 			goto END;
 		}
 	}
@@ -140,7 +140,7 @@ int XLoader_DdrCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 FlagsVal)
 	if (((SrcAddr & XPLMI_WORD_LEN_MASK) != 0U) ||
 		((DestAddr & XPLMI_WORD_LEN_MASK) != 0U) ||
 		((Length & XPLMI_WORD_LEN_MASK) != 0U)) {
-		Status = XPlmi_UpdateStatus(XLOADER_DDR_COPY_UNSUPPORTED_PARAMS, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_DDR_COPY_UNSUPPORTED_PARAMS, XIL_SIGNED_ZERO);
 		goto END;
 	}
 	if ((Flags & XPLMI_PMCDMA_0) == XPLMI_PMCDMA_0) {
@@ -200,7 +200,7 @@ int XLoader_DdrRelease(void)
 #endif
 		if (Status != XST_SUCCESS) {
 			Status = XPlmi_UpdateStatus(
-				XLOADER_ERR_RELEASE_PM_DEV_DDR_0, 0);
+				XLOADER_ERR_RELEASE_PM_DEV_DDR_0, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		DdrRequested = (u8)FALSE;

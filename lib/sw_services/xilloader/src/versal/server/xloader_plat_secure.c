@@ -279,7 +279,7 @@ int XLoader_CheckSecureStateAuth(volatile u32* AHWRoT)
 	if ((Status == XST_SUCCESS) || (StatusTmp == XST_SUCCESS)) {
 		if ((IsBhdrAuth == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE) ||
 		(IsBhdrAuthTmp == XIH_BH_IMG_ATTRB_BH_AUTH_VALUE)) {
-			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, 0);
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_HWROT_BH_AUTH_NOT_ALLOWED, XIL_SIGNED_ZERO);
 			goto END;
 		}
 		/**

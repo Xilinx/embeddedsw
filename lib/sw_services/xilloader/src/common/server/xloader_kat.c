@@ -323,7 +323,7 @@ int XLoader_HssSha256Kat(XLoader_SecureParams *SecurePtr)
 
 	/** - Get DMA instance */
 	if (PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_HSS_GET_DMA, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_HSS_GET_DMA, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -373,7 +373,7 @@ int XLoader_HssShake256Kat(XLoader_SecureParams *SecurePtr) {
 
 	/** - Get DMA instance */
 	if (PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_HSS_GET_DMA, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_HSS_GET_DMA, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -423,7 +423,7 @@ int XLoader_LmsSha2256Kat(XLoader_SecureParams *SecurePtr) {
 
 	/** - Get DMA instance */
 	if (PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_GET_DMA, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_GET_DMA, XIL_SIGNED_ZERO);
 		goto END;
 	}
 
@@ -473,7 +473,7 @@ int XLoader_LmsShake256Kat(XLoader_SecureParams *SecurePtr) {
 
 	/** - Get DMA instance */
 	if (PmcDmaInstPtr == NULL) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_GET_DMA, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_LMS_GET_DMA, XIL_SIGNED_ZERO);
 		goto END;
 	}
 

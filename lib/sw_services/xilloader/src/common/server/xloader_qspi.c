@@ -168,7 +168,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "CYPRESS ");
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_ID, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO,
 				"XLOADER_ERR_UNSUPPORTED_QSPI - Unsupported"
 				" FlashID \r\n");
@@ -213,7 +213,7 @@ static int FlashReadID(XQspiPsu *QspiPsuPtr)
 		XLoader_Printf(DEBUG_INFO, "2G Bits\r\n");
 	}
 	else {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_UNSUPPORTED_QSPI_FLASH_SIZE, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO,
 				"XLOADER_ERR_UNSUPPORTED_QSPI - Unsupported"
 				" FlashSize \r\n");
@@ -283,7 +283,7 @@ int XLoader_QspiInit(u32 DeviceFlags)
 	 * - Initialize the QSPI driver so that it's ready to use.
 	 */
 	if (NULL == QspiConfig) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_INIT, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_INIT, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_QSPI_INIT\r\n");
 		goto END;
 	}
@@ -786,7 +786,7 @@ int XLoader_QspiCopy(u64 SrcAddr, u64 DestAddr, u32 Length, u32 Flags)
 	 * - Check the read length with Qspi flash size.
 	 */
 	if ((SrcAddrLow + Length) > QspiFlashSize) {
-		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_LENGTH, 0);
+		Status = XPlmi_UpdateStatus(XLOADER_ERR_QSPI_LENGTH, XIL_SIGNED_ZERO);
 		XLoader_Printf(DEBUG_INFO,"XLOADER_ERR_QSPI_LENGTH\r\n");
 		goto END;
 	}

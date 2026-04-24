@@ -1,7 +1,7 @@
 /******************************************************************************/
 /**
 * Copyright (C) 2019 - 2022  Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -69,6 +69,7 @@
 * 9.2  kpt       06/24/24 Added Xil_SReverseData function
 * 9.2  pre       08/16/24 Added Xil_MemCpy64 function
 *      kpt       10/17/24 Move API's used in secure libs to xil_sutil.c
+* 9.5  mkr       04/24/26 Added XIL_SIGNED_ZERO to eliminate specific magic numbers
 *
 * </pre>
 *
@@ -93,6 +94,8 @@ extern "C" {
 
 #define XIL_MAX_HEX_STR_LEN	512U /**< Maximum string length handled by
                                           Xil_ValidateHexStr function */
+
+#define XIL_SIGNED_ZERO     (0)     /**< Signed zero value */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
