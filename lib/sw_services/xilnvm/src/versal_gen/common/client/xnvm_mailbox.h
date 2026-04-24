@@ -28,6 +28,7 @@
 * 3.3   tri  10/10/23 Fixed MISRA-C 5.5 violation
 *       ng   11/22/23 Fixed doxygen grouping
 * 3.4   obs  02/18/25 Fixed IPI message length
+* 3.7   mb   04/23/26 Remove unused macros
 *
 * </pre>
 *
@@ -78,12 +79,8 @@ extern "C" {
 #define PAYLOAD_ARG_CNT			XIPIPSU_MAX_MSG_LEN
 /* 1 for status + 3 for values + 3 for reserved + 1 for CRC */
 #define RESPONSE_ARG_CNT		XIPIPSU_MAX_MSG_LEN
-/**< IPI timeout */
-#define XNVM_IPI_TIMEOUT		(0xFFFFFFFFU)
 /**< Target PMC IPI interrupt mask */
 #define XNVM_TARGET_IPI_INT_MASK	(0x00000002U)
-/**< IPI unused parameters*/
-#define XNVM_IPI_UNUSED_PARAM		(0U)
 /**< Module Id shift*/
 #define XNVM_MODULE_ID_SHIFT		(8U)
 /**< Length shift mask*/
