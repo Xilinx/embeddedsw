@@ -22,6 +22,7 @@
 *       pre  03/12/26 Added validation of PCR number in partition measurement
 *       pre  03/16/26 Added PCR reading support in TPM
 *       pre  03/21/26 Implemented GetPcrLog feature to fetch PCR event log from TPM
+*       pre  04/22/26 Addition of access retry mechanism in case of TPM being busy
 *
 * </pre>
 *
@@ -52,6 +53,7 @@
 #define XTPM_PCR_READ_CMD_SIZE          (20U) /**< PCR read command size in bytes */
 #define XTPM_HASH_ALGO_INDEX			(15U) /**< Index for hash algorithm in PCR read command */
 #define XTPM_PCR_READ_INDEX				(17U) /**< Index for PCR selection in PCR read command */
+#define XTPM_ACCESS_RETRY_COUNT			(5U)  /**< Number of retries for TPM access */
 #ifdef VERSAL_2VE_2VM
 #define XTPM_PCR_LOG_LCVERSION		(1U)   /**< PCR log LC version */
 #define XTPM_PCR_LOG_VERSION		(1U)   /**< PCR log version */
@@ -111,6 +113,7 @@ static u8 TpmPcrEvent[XTPM_PCR_MAX_EVENT_SIZE + XTPM_PCR_EVENT_CMD_SIZE] =
 u32 XTpm_Init(void)
 {
 	u32 Status = (u32)XST_FAILURE;
+	u32 Count = 0U;
 	u8 Access = 0U;
 
 	/** - Initializes SPI. Returns XTPM_ERR_SPIPS_INIT error if it fails. */
@@ -128,6 +131,10 @@ u32 XTpm_Init(void)
 	}
 
 	do {
+		if (Count > XTPM_ACCESS_RETRY_COUNT) {
+			Status = (u32)XTPM_ERR_ACCESS_TIMEOUT;
+			goto END;
+		}
 		/**
 		 * - Checks for access validity and locality.
 		 * Returns XTPM_ERR_GET_ACCESS error in case of any failure.
@@ -137,6 +144,7 @@ u32 XTpm_Init(void)
 			Status = (u32)XTPM_ERR_GET_ACCESS;
 			goto END;
 		}
+		Count++;
 	} while (!(((Access & XTPM_ACCESS_VALID) != 0U)
 			&& ((Access & XTPM_ACCESS_ACT_LOCAL) !=0U)));
 

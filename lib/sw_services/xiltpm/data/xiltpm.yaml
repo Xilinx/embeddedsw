@@ -6,7 +6,7 @@
 title: Bindings for xiltpm library.
 
 maintainers:
-  - Kundella, Sreedhar <Sreedhar.Kundella@amd.com>
+  - Kolli, Preethi <Preethi.Kolli@amd.com>
 
 type: library
 

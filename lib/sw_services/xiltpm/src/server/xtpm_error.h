@@ -22,6 +22,7 @@
 *       pre  03/12/26 Added error code for invalid PCR index
 *       pre  03/16/26 Added error code for invalid hash algorithm
 *       pre  03/21/26 Added error codes related to GetPcrLog feature
+*       pre  04/22/26 Added error code for TPM get access timeout
 *
 * </pre>
 *
@@ -74,6 +75,7 @@ enum {
 	XTPM_ERR_PCR_LOG_UPDATE, /**<0x19 - Error while updating PCR log */
 	XTPM_PCR_ERR_INVALID_LOG_READ_REQUEST, /**<0x1A - Invalid PCR log read request */
 	XTPM_ERR_INVALID_ADDR_RANGE, /**<0x1B - Invalid address range for PCR log read */
+	XTPM_ERR_ACCESS_TIMEOUT, /**<0x1C - Timeout while waiting for TPM access */
 };
 #endif	/* PLM_TPM */
 
