@@ -173,6 +173,7 @@
 *       tvp  03/31/2026 Use generic API to increment IV
 *       rpu  04/14/2026 Moved Hashblock related code to xloader_secure.c
 *       sd   04/13/2026 Added PUF support for VERSAL_2VP_P
+*       sri  04/24/2026 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
 *
 * </pre>
 *
@@ -319,12 +320,8 @@ static int XLoader_AuthHashBlockNDecHdrs(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams, u64 BufferAddr);
 static int XLoader_AuthHdrsWithHashBlock(XLoader_SecureParams *SecurePtr,
         XLoader_HBSignParams *HBSignParams);
-static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
-	u8 *SignBuff, u32 SignatureLen, u8 *KeyAddr, u32 KeyLen,
-	u8 *Data, u32 DataLen);
 static int XLoader_ValidateHashBlockAAD(XLoader_SecureParams *SecurePtr,
                                 XLoader_HBAesParams *HBParams);
-static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType);
 #ifdef VERSAL_2VP_P
 static int XLoader_ValidateHybridKeyAlgo(u32 Algo1, u32 Algo2);
 static int XLoader_AuthHashBlockWithKeyPair(XLoader_SecureParams *SecurePtr,
@@ -4390,7 +4387,7 @@ END:
 * 		length is invalid.
 *
 ******************************************************************************/
-static int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
+int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr,
 	u8 *SignBuff, u32 SignatureLen, u8 *KeyAddr, u32 KeyLen,
 	u8 *Data, u32 DataLen)
 {
@@ -4639,7 +4636,7 @@ END:
 * 		- XLOADER_SEC_KAT_FAILED_ERROR if any LMS KAT fails.
 *
 ******************************************************************************/
-static int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)
+int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType)
 {
 	int Status = XST_FAILURE;
 
