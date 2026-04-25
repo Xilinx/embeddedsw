@@ -38,6 +38,7 @@
 #include "xasu_lmsinfo.h"
 #include "xasufw_resourcemanager.h"
 #include "xasu_shainfo.h"
+#include "xkeymanager.h"
 
 #ifdef XASU_LMS_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -182,6 +183,9 @@ END:
  * @return
  * 	- XASUFW_SUCCESS, if LMS signature verification is successful.
  * 	- XASUFW_CMD_IN_PROGRESS, if non-blocking DMA operation is in progress.
+ * 	- XASUFW_MEM_COPY_FAIL, if copying LMS parameters from request buffer fails.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem ID derived from IPI mask is invalid.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if fetching LMS public key object from vault fails.
  * 	- XASUFW_LMS_SIGN_VERIFY_FAILED, if LMS signature verification fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
@@ -189,8 +193,44 @@ END:
 static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsu_LmsHssSignVerifyParams *LmsParamsPtr =
-		(const XAsu_LmsHssSignVerifyParams *)ReqBuf->Arg;
+	XAsu_LmsHssSignVerifyParams LmsParams;
+	u32 SubSystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_LmsHssSignVerifyParams);
+
+	/** Copy LMS parameters from request buffer. */
+	Status = Xil_SMemCpy(&LmsParams, sizeof(XAsu_LmsHssSignVerifyParams),
+			ReqBuf->Arg, sizeof(XAsu_LmsHssSignVerifyParams),
+			sizeof(XAsu_LmsHssSignVerifyParams));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
+	/** Get subsystem ID from IPI mask. */
+	SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+	if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+		Status = XASUFW_INVALID_SUBSYSTEM_ID;
+		goto END;
+	}
+
+	/** Update LMS key object from vault if public key ID is valid. */
+	if (LmsParams.LmsHssKeyObj.PubKeyId != 0U) {
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_LmsModule.AsuDmaPtr,
+			LmsParams.LmsHssKeyObj.PubKeyId, (u64)(UINTPTR)&LmsParams.LmsHssKeyObj, SubSystemId,
+			XKEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+			goto END;
+		}
+	}
+#else
+	(void)SubSystemId;
+	(void)IpiMask;
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * Perform LMS signature verification.
@@ -200,7 +240,7 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	 */
 	Status = XLms_SignatureVerification(XAsufw_LmsModule.ShaPtr,
 						XAsufw_LmsModule.AsuDmaPtr,
-						LmsParamsPtr);
+						&LmsParams);
 	if (Status == XASUFW_CMD_IN_PROGRESS) {
 		/**
 		 * Non-blocking DMA transfer in progress.
@@ -216,6 +256,7 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		/* Do nothing */
 	}
 
+END:
 	/** Clear DMA and SHA pointers if operation completed (not in progress). */
 	if (Status != XASUFW_CMD_IN_PROGRESS) {
 		XAsufw_LmsModule.AsuDmaPtr = NULL;
@@ -240,6 +281,9 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
  * @return
  * 	- XASUFW_SUCCESS, if HSS signature verification is successful.
  * 	- XASUFW_CMD_IN_PROGRESS, if non-blocking DMA operation is in progress.
+ * 	- XASUFW_MEM_COPY_FAIL, if copying HSS parameters from request buffer fails.
+ * 	- XASUFW_INVALID_SUBSYSTEM_ID, if subsystem ID derived from IPI mask is invalid.
+ * 	- XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED, if fetching LMS public key object from vault fails.
  * 	- XASUFW_HSS_SIGN_VERIFY_FAILED, if HSS signature verification fails.
  * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, if illegal resource release is requested.
  *
@@ -247,10 +291,49 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsu_LmsHssSignVerifyParams *HssParamsPtr =
-		(const XAsu_LmsHssSignVerifyParams *)ReqBuf->Arg;
+	static XAsu_LmsHssSignVerifyParams HssParams;
+	u32 SubSystemId = 0U;
+	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 	/** Stage tracking for non-blocking DMA operations */
 	static u32 CmdStage = XASUFW_HSS_STAGE_INIT;
+
+	/** Copy HSS parameters from request buffer on initial call */
+	if (CmdStage == XASUFW_HSS_STAGE_INIT) {
+		/** Verify command length. */
+		XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_LmsHssSignVerifyParams);
+
+		/** Copy HSS parameters from request buffer. */
+		Status = Xil_SMemCpy(&HssParams, sizeof(XAsu_LmsHssSignVerifyParams),
+				ReqBuf->Arg, sizeof(XAsu_LmsHssSignVerifyParams),
+				sizeof(XAsu_LmsHssSignVerifyParams));
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_MEM_COPY_FAIL;
+			goto END;
+		}
+
+#ifdef XASU_KEYMANAGER_ENABLE
+		/** Get subsystem ID from IPI mask. */
+		SubSystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
+		if (SubSystemId == XASUFW_INVALID_SUBSYS_ID) {
+			Status = XASUFW_INVALID_SUBSYSTEM_ID;
+			goto END;
+		}
+
+		/** Update LMS key object from vault if public key ID is valid. */
+		if (HssParams.LmsHssKeyObj.PubKeyId != 0U) {
+			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_LmsModule.AsuDmaPtr,
+				HssParams.LmsHssKeyObj.PubKeyId, (u64)(UINTPTR)&HssParams.LmsHssKeyObj, SubSystemId,
+				XKEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			if (Status != XASUFW_SUCCESS) {
+				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
+				goto END;
+			}
+		}
+#else
+	(void)SubSystemId;
+	(void)IpiMask;
+#endif /* XASU_KEYMANAGER_ENABLE */
+	}
 
 	switch (CmdStage) {
 	case XASUFW_HSS_STAGE_INIT:
@@ -261,7 +344,7 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * On resume after DMA completion, calling it again continues processing.
 		 */
 		Status = XLms_HssInit(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
-					HssParamsPtr);
+					&HssParams);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
 			CmdStage = XASUFW_HSS_STAGE_HSS_INIT_RESUME;
 			XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr,
@@ -283,9 +366,9 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * On resume after DMA completion, calling it again continues processing.
 		 */
 		Status = XLms_HashMessage(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
-						HssParamsPtr->MsgAddr,
-						HssParamsPtr->MsgLen,
-						HssParamsPtr->ShaMode);
+						HssParams.MsgAddr,
+						HssParams.MsgLen,
+						HssParams.ShaMode);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
 			CmdStage = XASUFW_HSS_STAGE_HASH_MESSAGE_RESUME;
 			XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr, XASUDMA_SRC_CHANNEL,
@@ -306,7 +389,7 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		 * On resume after DMA completion, calling it again continues processing.
 		 */
 		Status = XLms_HssFinish(XAsufw_LmsModule.ShaPtr, XAsufw_LmsModule.AsuDmaPtr,
-					HssParamsPtr->SignatureAddr, HssParamsPtr->SignatureLen);
+					HssParams.SignatureAddr, HssParams.SignatureLen);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
 			CmdStage = XASUFW_HSS_STAGE_HSS_FINISH_RESUME;
 			XAsufw_DmaCfgNonBlocking(XAsufw_LmsModule.AsuDmaPtr,

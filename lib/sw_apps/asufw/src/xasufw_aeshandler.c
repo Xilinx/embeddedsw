@@ -209,12 +209,17 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_AesParams);
 
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
 		Status = XASUFW_INVALID_SUBSYSTEM_ID;
 		goto END;
 	}
+#else
+	(void)SubsystemId;
+	(void)IpiMask;
+#endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
 	 * For AES CCM mode, AadLen and DataLen in INIT encode the B0 block, so they must

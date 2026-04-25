@@ -346,13 +346,14 @@ s32 XAsu_LmsSignVerifyKat(void)
 	/** Configure LMS signature verification parameters using KAT vectors. */
 	LmsParams.MsgAddr = (u64)(UINTPTR)LmsKatMessage;
 	LmsParams.SignatureAddr = (u64)(UINTPTR)LmsKatSignature;
-	LmsParams.PublicKeyAddr = (u64)(UINTPTR)LmsKatPublicKey;
+	LmsParams.LmsHssKeyObj.PubKeyAddr = (u64)(UINTPTR)LmsKatPublicKey;
 	LmsParams.MsgLen = XASU_LMS_KAT_MSG_SIZE;
 	LmsParams.SignatureLen = XASU_LMS_KAT_SIG_SIZE;
-	LmsParams.PublicKeyLen = XASU_LMS_KAT_PUB_KEY_SIZE;
+	LmsParams.LmsHssKeyObj.PubKeyLen = XASU_LMS_KAT_PUB_KEY_SIZE;
 	LmsParams.PreHashedMsg = XASU_LMS_MSG_NOT_PREHASHED;
 	LmsParams.ShaType = XASU_SHA2_TYPE;
 	LmsParams.ShaMode = XASU_SHA_MODE_256;
+	LmsParams.LmsHssKeyObj.PubKeyId = 0U;
 
 	/** Configure client parameters for synchronous operation. */
 	ClientParams.Priority = XASU_PRIORITY_HIGH;

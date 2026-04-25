@@ -19,6 +19,7 @@
  *       yog  01/28/26 Added key management support for RSA.
  *       ss   03/18/26 Added vault query, store, and fetch APIs for scheduler-based RSA key gen.
  *       kp   03/24/26 Moved KDF/HMAC key info structure to xasu_kdfinfo.h
+ *       yog  04/23/26 Added support for LMS key management.
  *
  * </pre>
  *
@@ -44,6 +45,7 @@ extern "C" {
 #include "xasu_rsainfo.h"
 #include "xasu_ocpinfo.h"
 #include "xasu_eccinfo.h"
+#include "xasu_lmsinfo.h"
 
 #ifdef XASU_KEYMANAGER_ENABLE
 /************************************ Constant Definitions ***************************************/
@@ -94,6 +96,8 @@ extern "C" {
 
 #define XKEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */
 #define XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE	(0x02U)	/**< HMAC secret key use case */
+
+#define XKEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE	(0x01U)	/**< LMS public key signature verification use case */
 
 #define XKEYMANAGER_RSA_ALL_KEY_USE_CASES_VALUE	(7U)	/**< Value for all RSA key use cases*/
 
@@ -187,6 +191,12 @@ typedef struct {
 	u8 Content[XASU_X509_MAX_SIZE_IN_BYTES];	/**< X.509 certificate data. */
 	u32 RawKeyId;	/**< KeyId of raw public key within the	certificate. */
 } XKeyManager_X509KeyObject;
+
+/** This structure contains LMS public key object information. */
+typedef struct {
+	XAsu_KeyManagerKeyMetadata Metadata;	/**< Key metadata. */
+	u8 PublicKey[XASU_LMS_MAX_PUB_KEY_SIZE];	/**< LMS public key data. */
+} XKeyManager_LmsPubKeyObject;
 
 /** This structure contains key manager vault and sub vault header information. */
 typedef struct {

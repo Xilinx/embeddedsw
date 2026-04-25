@@ -24,6 +24,7 @@
  * 1.0   ss   11/25/25 Initial release
  *       yog  01/28/26 Added key management support for RSA.
  *       ss   03/18/26 Added vault store and fetch APIs for scheduler-based RSA key generation.
+ *       yog  04/23/26 Added support for LMS key management.
  *
  * </pre>
  *
@@ -149,6 +150,8 @@ static s32 XKeyManager_UpdateEccPubKeyObjectFromVault(XAsu_EccKeyObject *KeyObje
 					       u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
 static s32 XKeyManager_UpdateEccPvtKeyObjectFromVault(XAsu_EccKeyObject *KeyObjectPtr,
        u32 SubSystemId, u8 KeyUsecase, u32 KeyId);
+static s32 XKeyManager_UpdateLmsPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId);
 static inline u8 XKeyManager_GetRevokeId(void);
 static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr);
 
@@ -166,7 +169,7 @@ static const u32 XKeyManager_KeyObjectSizeLookup[XKEYMANAGER_MAX_SUB_VAULTS] = {
 	[XASU_RSA_PUB_SUBVAULT_ID] = sizeof(XKeyManager_RsaPubKeyObject),
 	[XASU_ECC_PVT_SUBVAULT_ID] = sizeof(XKeyManager_EccPvtKeyObject),
 	[XASU_ECC_PUB_SUBVAULT_ID] = sizeof(XKeyManager_EccPubKeyObject),
-	[XASU_LMS_SUBVAULT_ID] = 0U,
+	[XASU_LMS_SUBVAULT_ID] = sizeof(XKeyManager_LmsPubKeyObject),
 	[XASU_X509_SUBVAULT_ID] = sizeof(XKeyManager_X509KeyObject)
 };
 
@@ -391,7 +394,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 			    (ParamsPtr->RSAPubKeyVaultCapacity * sizeof(XKeyManager_RsaPubKeyObject)) +
 			    (ParamsPtr->ECCPvtKeyVaultCapacity * sizeof(XKeyManager_EccPvtKeyObject)) +
 			    (ParamsPtr->ECCPubKeyVaultCapacity * sizeof(XKeyManager_EccPubKeyObject)) +
-			    ParamsPtr->LMSKeyVaultCapacity +
+			    (ParamsPtr->LMSKeyVaultCapacity * sizeof(XKeyManager_LmsPubKeyObject)) +
 			    (ParamsPtr->X509KeyVaultCapacity * sizeof(XKeyManager_X509KeyObject));
 
 	/* Ensure at least one sub-vault has non-zero capacity. */
@@ -1205,6 +1208,11 @@ s32 XKeyManager_UpdateKeyObjFromVault(XAsufw_Dma *DmaPtr, u32 KeyId, u64 KeyObje
 								    ActualKeyId);
 		break;
 	case XASU_LMS_SUBVAULT_ID:
+		/** Update LMS public key object from vault. */
+		Status = XKeyManager_UpdateLmsPubKeyObjectFromVault(KeyObjectAddr, SubSystemId,
+								    KeyUsecase,
+								    ActualKeyId);
+		break;
 	default:
 		/** Invalid key type. */
 		Status = XASUFW_KEYMANAGER_INVALID_KEY_TYPE;
@@ -2313,6 +2321,8 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 		KeyCopyLength = XAsu_DoubleCurveLength(ParamsPtr->KeyMetadata.Length);
 	} else if (KeyType == XASU_X509_SUBVAULT_ID) {
 		MaxKeySize = XASU_X509_MAX_SIZE_IN_BYTES;
+	} else if (KeyType == XASU_LMS_SUBVAULT_ID) {
+		MaxKeySize = XASU_LMS_MAX_PUB_KEY_SIZE;
 	} else {
 		/* Do nothing */
 	}
@@ -3302,5 +3312,53 @@ static s32 XKeyManager_GenerateAndWriteAesKey(XAsufw_Dma *DmaPtr, XAes *AesInsta
 END:
 	return Status;
 }
+
+/*************************************************************************************************/
+/**
+ * @brief	Retrieve LMS public key object from key vault if KeyId is provided.
+ *
+ * @param	KeyObjectAddr	Address where LMS public key object should be copied.
+ * @param	SubSystemId	Subsystem ID of the requested subsystem.
+ * @param	KeyUsecase	Requested use case for the key.
+ * @param	KeyId		Composite key identifier.
+ *
+ * @return
+ *		- XASUFW_SUCCESS, if key resolution is successful.
+ *		- XASUFW_KEYMANAGER_INVALID_PARAM, if any input parameter is invalid.
+ *		- XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED, if get key object pointer failed.
+ *
+ *************************************************************************************************/
+static s32 XKeyManager_UpdateLmsPubKeyObjectFromVault(u64 KeyObjectAddr, u32 SubSystemId,
+	u8 KeyUsecase, u32 KeyId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XKeyManager_LmsPubKeyObject *KeyVaultKeyObjectPtr;
+	XAsu_LmsHssKeyObject *KeyObject;
+
+	/** Validate input parameters. */
+	if (KeyObjectAddr == 0U) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
+	KeyObject = (XAsu_LmsHssKeyObject *)(UINTPTR)KeyObjectAddr;
+
+	/** Get key vault key object pointer based on the KeyId, SubSystemId, and KeyUsecase. */
+	KeyVaultKeyObjectPtr = (XKeyManager_LmsPubKeyObject *)XKeyManager_GetKeyObjectPtr(KeyId,
+									SubSystemId, KeyUsecase);
+	if (KeyVaultKeyObjectPtr == NULL) {
+		Status = XASUFW_KEYMANAGER_GET_KEYOBJ_PTR_FAILED;
+		goto END;
+	}
+
+	KeyObject->PubKeyAddr = (u64)(UINTPTR)KeyVaultKeyObjectPtr->PublicKey;
+	KeyObject->PubKeyLen = KeyVaultKeyObjectPtr->Metadata.Length;
+
+	Status = XASUFW_SUCCESS;
+
+END:
+	return Status;
+}
+
 #endif  /* XASU_KEYMANAGER_ENABLE */
 /** @} */

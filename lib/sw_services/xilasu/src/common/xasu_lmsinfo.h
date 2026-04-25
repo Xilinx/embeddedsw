@@ -74,22 +74,27 @@ extern "C" {
 
 /** @} */
 /************************************** Type Definitions *****************************************/
+/** This structure represents an LMS/HSS key object. */
+typedef struct {
+	u64 PubKeyAddr;     /**< Address of the public key data */
+	u32 PubKeyId;       /**< Key identifier from key management (used if PubKeyAddr == 0) */
+	u32 PubKeyLen;      /**< Length of the public key in bytes */
+} XAsu_LmsHssKeyObject;
 
 /**
  * This structure contains LMS/HSS signature verification parameters.
  */
 typedef struct {
+	XAsu_LmsHssKeyObject LmsHssKeyObj;		/**< Key object for the public key */
 	u64 MsgAddr;		/**< Address of the message to be verified */
 	u64 SignatureAddr;	/**< Address of the LMS signature */
-	u64 PublicKeyAddr;	/**< Address of the LMS public key */
 	u32 MsgLen;		/**< Length of the message in bytes */
 	u32 SignatureLen;	/**< Length of the signature in bytes */
-	u32 PublicKeyLen;	/**< Length of the public key in bytes */
 	u8 PreHashedMsg;	/**< Flag indicating if message is pre-hashed
 				     (XASU_LMS_MSG_NOT_PREHASHED / XASU_LMS_MSG_PREHASHED) */
 	u8 ShaType;		/**< Hash family type (XASU_SHA2_TYPE / XASU_SHA3_TYPE) */
 	u8 ShaMode;		/**< SHA Mode (XASU_SHA_MODE_SHA2_256 / XASU_SHA_MODE_SHAKE256) */
-	u8 Reserved;		/**< Reserved for alignment */
+	u8 Reserved[5];		/**< Reserved for alignment */
 } XAsu_LmsHssSignVerifyParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
