@@ -247,6 +247,9 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
+#else
+	(void)SubSystemId;
+	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
@@ -330,6 +333,9 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
+#else
+	(void)SubSystemId;
+	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
@@ -413,6 +419,9 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
+#else
+	(void)SubSystemId;
+	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/**
@@ -497,6 +506,9 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			goto END;
 		}
 	}
+#else
+	(void)SubSystemId;
+	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 	/** Generate shared secret using public key and private key based on curve type. */

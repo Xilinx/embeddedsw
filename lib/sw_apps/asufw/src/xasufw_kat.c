@@ -1952,13 +1952,14 @@ s32 XAsufw_HssOperationKat(XAsufw_Dma *AsuDmaPtr)
 
 	HssParams.MsgAddr = (u64)(UINTPTR)KatMessage;
 	HssParams.SignatureAddr = (u64)(UINTPTR)HssKatSignature;
-	HssParams.PublicKeyAddr = (u64)(UINTPTR)HssKatPublicKey;
+	HssParams.LmsHssKeyObj.PubKeyAddr = (u64)(UINTPTR)HssKatPublicKey;
 	HssParams.MsgLen = XASUFW_KAT_MSG_LENGTH_IN_BYTES;
 	HssParams.SignatureLen = XASUFW_HSS_KAT_SIG_SIZE;
-	HssParams.PublicKeyLen = XASUFW_HSS_KAT_PUB_KEY_SIZE;
+	HssParams.LmsHssKeyObj.PubKeyLen = XASUFW_HSS_KAT_PUB_KEY_SIZE;
 	HssParams.PreHashedMsg = XASU_LMS_MSG_NOT_PREHASHED;
 	HssParams.ShaType = XASU_SHA3_TYPE;
 	HssParams.ShaMode = XASU_SHA_MODE_SHAKE256;
+	HssParams.LmsHssKeyObj.PubKeyId = 0U;
 
 	Status = XLms_HssInit(ShaInstPtr, AsuDmaPtr, &HssParams);
 	if (Status != XASUFW_SUCCESS) {

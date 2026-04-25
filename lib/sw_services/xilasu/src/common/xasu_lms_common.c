@@ -83,8 +83,18 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 		goto END;
 	}
 
-	/** Validate public key address and length. */
-	if ((LmsParamsPtr->PublicKeyAddr == 0U) || (LmsParamsPtr->PublicKeyLen == 0U)) {
+	/** Either KeyId or PublicKeyAddr must be provided. */
+	if ((LmsParamsPtr->LmsHssKeyObj.PubKeyId == 0U) && (LmsParamsPtr->LmsHssKeyObj.PubKeyAddr == 0U)) {
+		goto END;
+	}
+
+	/**
+	 * Validate public key length is within NIST SP 800-208 valid range.
+	 * Min: 48 bytes (LMS N=24), Max: 60 bytes (HSS N=32) if PublicKeyAddr is provided.
+	 */
+	if ((LmsParamsPtr->LmsHssKeyObj.PubKeyAddr != 0U) &&
+	    ((LmsParamsPtr->LmsHssKeyObj.PubKeyLen < XASU_LMS_PUB_KEY_SIZE) ||
+	    (LmsParamsPtr->LmsHssKeyObj.PubKeyLen > XASU_LMS_MAX_PUB_KEY_SIZE))) {
 		goto END;
 	}
 
@@ -108,15 +118,6 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 
 	/** Validate message length doesn't exceed DMA max transfer length. */
 	if (LmsParamsPtr->MsgLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH) {
-		goto END;
-	}
-
-	/**
-	 * Validate public key length is within NIST SP 800-208 valid range.
-	 * Min: 48 bytes (LMS N=24), Max: 60 bytes (HSS N=32).
-	 */
-	if ((LmsParamsPtr->PublicKeyLen < XASU_LMS_PUB_KEY_SIZE) ||
-		(LmsParamsPtr->PublicKeyLen > XASU_LMS_MAX_PUB_KEY_SIZE)) {
 		goto END;
 	}
 

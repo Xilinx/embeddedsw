@@ -514,15 +514,15 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		SignatureLengthConsumed = 0U;
 
 		/** Validate that the public key buffer is long enough to extract L and LMS type */
-		if ((XLMS_HSS_LEVELS_FIELD_SIZE + XLMS_TYPE_SIZE) > HssParamsPtr->PublicKeyLen) {
+		if ((XLMS_HSS_LEVELS_FIELD_SIZE + XLMS_TYPE_SIZE) > HssParamsPtr->LmsHssKeyObj.PubKeyLen) {
 			Status = XASUFW_LMS_INVALID_PARAM;
 			goto END;
 		}
 
 		/** Copy public key provided by user to local buffer since 64-bit address space is not
 			accessible to ASU processor */
-		Status = XAsufw_DmaXfr(DmaPtr, HssParamsPtr->PublicKeyAddr,
-			(u64)(UINTPTR)HssLocalPubKeyBuff, HssParamsPtr->PublicKeyLen, 0U);
+		Status = XAsufw_DmaXfr(DmaPtr, HssParamsPtr->LmsHssKeyObj.PubKeyAddr,
+			(u64)(UINTPTR)HssLocalPubKeyBuff, HssParamsPtr->LmsHssKeyObj.PubKeyLen, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
@@ -550,7 +550,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		CurrentPubKeyActualSize = XLMS_PUB_KEY_FIXED_FIELD_SIZE + PubKeyLmsParam->HashOutputBytes;
 
 		/** excluding levels field, length should match the Length of LMS public key of that size */
-		if ((XLMS_HSS_LEVELS_FIELD_SIZE + CurrentPubKeyActualSize) != HssParamsPtr->PublicKeyLen) {
+		if ((XLMS_HSS_LEVELS_FIELD_SIZE + CurrentPubKeyActualSize) != HssParamsPtr->LmsHssKeyObj.PubKeyLen) {
 			Status = XASUFW_LMS_HSS_PUB_KEY_INVALID_LEN_2_ERROR;
 			goto END;
 		}
@@ -727,8 +727,8 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		LmsSignVerifyParams.PreHashedMsg = XASU_LMS_MSG_NOT_PREHASHED;
 		LmsSignVerifyParams.SignatureAddr = (u64)(UINTPTR)TmpSignaturePtr;
 		LmsSignVerifyParams.SignatureLen = CurrentLevelSignLen;
-		LmsSignVerifyParams.PublicKeyAddr = (u64)(UINTPTR)TmpPublicKeyPtr;
-		LmsSignVerifyParams.PublicKeyLen = CurrentPubKeyActualSize;
+		LmsSignVerifyParams.LmsHssKeyObj.PubKeyAddr = (u64)(UINTPTR)TmpPublicKeyPtr;
+		LmsSignVerifyParams.LmsHssKeyObj.PubKeyLen = CurrentPubKeyActualSize;
 		LmsSignVerifyParams.ShaType = HssParamsPtr->ShaType;
 		LmsSignVerifyParams.ShaMode = HssParamsPtr->ShaMode;
 
@@ -1119,8 +1119,8 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 			LmsSignVerifyParams.PreHashedMsg = XASU_LMS_MSG_PREHASHED;
 			LmsSignVerifyParams.SignatureAddr = (u64)(UINTPTR)LmsLocalSignatureBuff;
 			LmsSignVerifyParams.SignatureLen = SignNpskLen_s;
-			LmsSignVerifyParams.PublicKeyAddr = (u64)(UINTPTR)AuthenticatedKey.Buff;
-			LmsSignVerifyParams.PublicKeyLen = (XLMS_PUB_KEY_FIXED_FIELD_SIZE + HashOutputN_g);
+			LmsSignVerifyParams.LmsHssKeyObj.PubKeyAddr = (u64)(UINTPTR)AuthenticatedKey.Buff;
+			LmsSignVerifyParams.LmsHssKeyObj.PubKeyLen = (XLMS_PUB_KEY_FIXED_FIELD_SIZE + HashOutputN_g);
 			LmsSignVerifyParams.ShaType = HssCallerShaType_g;
 			LmsSignVerifyParams.ShaMode = HssCallerShaMode_g;
 		}
@@ -1657,7 +1657,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 		}
 
 		/** Public key must contain at least LMS type (4 bytes) + OTS type (4 bytes) */
-		if ((XLMS_TYPE_SIZE + XLMS_OTS_TYPE_SIZE) > LmsSignVerifyParams->PublicKeyLen) {
+		if ((XLMS_TYPE_SIZE + XLMS_OTS_TYPE_SIZE) > LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
 			Status = XASUFW_LMS_INVALID_PARAM;
 			goto END;
 		}
@@ -1667,9 +1667,9 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 	 * Otherwise, copy public key provided by user to local buffer since 64-bit address space
 	 * is not accessible to ASU processor.
 	 */
-	if (LmsSignVerifyParams->PublicKeyAddr != (u64)(UINTPTR)AuthenticatedKey.Buff) {
-		Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->PublicKeyAddr,
-			(u64)(UINTPTR)LmsLocalPubKeyBuff, LmsSignVerifyParams->PublicKeyLen, 0U);
+	if (LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr != (u64)(UINTPTR)AuthenticatedKey.Buff) {
+		Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->LmsHssKeyObj.PubKeyAddr,
+			(u64)(UINTPTR)LmsLocalPubKeyBuff, LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen, 0U);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_DMA_COPY_FAIL;
 			goto END;
@@ -1682,7 +1682,8 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy((void*)LmsLocalPubKeyBuff, XLMS_PUB_KEY_TOTAL_SIZE,
 				(const void *)(UINTPTR)&AuthenticatedKey.Buff,
-				LmsSignVerifyParams->PublicKeyLen, LmsSignVerifyParams->PublicKeyLen);
+				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen,
+				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_MEM_COPY_FAIL;
 			goto END;
@@ -1710,7 +1711,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 
 	/** Verify public key length matches: fixed fields + hash output size (m bytes) */
 	if ((XLMS_PUB_KEY_FIXED_FIELD_SIZE + CtxPtr->LmsPubKeyParam->HashOutputBytes) !=
-		LmsSignVerifyParams->PublicKeyLen) {
+		LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
 		Status = XASUFW_LMS_SIGN_EXPECTED_PUB_KEY_LEN_2_ERROR;
 		goto END;
 	}

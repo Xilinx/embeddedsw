@@ -219,7 +219,9 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 					goto END;
 				}
 			}
-
+#else
+	(void)SubsystemId;
+	(void)IpiMask;
 #endif /* XASU_KEYMANAGER_ENABLE */
 
 			/**
