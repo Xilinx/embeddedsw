@@ -20,6 +20,7 @@
 * 1.0   kal  07/05/2021 Initial release
 * 2.4   bsv  09/09/2021 Added PLM_NVM macro
 * 3.3   ng   11/22/2023 Fixed doxygen grouping
+* 3.7   tus  04/23/2026 Changed the return type of XNvm_CmdsInit() to int
 *
 * </pre>
 *
@@ -46,7 +47,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-void XNvm_CmdsInit(int (*GenericHandler)(void));
+int XNvm_CmdsInit(int (*GenericHandler)(void));
 
 #endif /* PLM_NVM */
 

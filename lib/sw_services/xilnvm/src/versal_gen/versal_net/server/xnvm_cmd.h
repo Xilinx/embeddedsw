@@ -19,6 +19,7 @@
  * ----- ---- ---------- -------------------------------------------------------
  * 3.0   kal  07/12/2022 Initial release
  * 3.3   kpt  02/21/2024 Added support to extend secure state
+ * 3.7   tus  04/23/2026 Changed the return type of XNvm_CmdsInit() to int
  *
  * </pre>
  *
@@ -46,7 +47,7 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
-void XNvm_CmdsInit(int (*OcpHandler)(void));
+int XNvm_CmdsInit(int (*OcpHandler)(void));
 
 #endif /* PLM_NVM */
 

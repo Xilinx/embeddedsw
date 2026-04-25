@@ -67,6 +67,8 @@
 * 1.13  rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *       tt   03/25/2026 Restore EVENT notifier EM actions after IPU via
 *                       weak XPmUpdate_RestoreNotifierEmActions()
+*       tus  04/23/2026 Store the value returned by XNvm_Init in Status
+*                       and check for success.
 *
 * </pre>
 *
@@ -207,7 +209,10 @@ int XPlm_ModuleInit(void *Arg)
 	XSECURE_TEMPORAL_CHECK(END, Status, XSecure_Init, XLoader_PpdiEventParamsPtr());
 
 #ifdef PLM_NVM
-	XNvm_Init(XPlm_OcpHandler);
+	Status = XNvm_Init(XPlm_OcpHandler);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
 #endif
 #ifdef PLM_PUF
 	XPuf_Init();
@@ -253,3 +258,6 @@ int XPlm_ModuleInit(void *Arg)
 END:
 	return Status;
 }
+
+/** @endcond */
+/** @} */
