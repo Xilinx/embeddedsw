@@ -18,6 +18,7 @@
 * 5.6   tvp  07/07/25 Initial release
 * 5.7   tvp  11/18/25 Added support for generating shared secret
 *       tvp  11/18/25 Added support for trng operations
+*       mb   04/17/26 Update XSecure_CryptoCheck API definition
 *
 * </pre>
 *
@@ -174,7 +175,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 	case XSECURE_API(XSECURE_API_TRNG_GENERATE):
 #endif
-		Status = XSecure_CryptoCheck();
+		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
 		if (Status != XST_SUCCESS) {
 			Status |= XPLMI_WARNING_MINOR_MASK;
 		}

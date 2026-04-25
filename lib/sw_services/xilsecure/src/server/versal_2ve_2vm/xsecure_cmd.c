@@ -19,6 +19,7 @@
 *       sk   08/22/24 Added support for key transfer to ASU
 *       am   02/24/25 Moved key transfer command to generic xilplmi IPI command
 *       pre  03/02/25 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
+*       mb   04/17/26 Update XSecure_CryptoCheck API definition
 *
 * </pre>
 *
@@ -155,7 +156,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 #endif
-		Status = XSecure_CryptoCheck();
+		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
 		if (Status != XST_SUCCESS) {
 			Status |= (int)XPLMI_WARNING_MINOR_MASK;
 		}

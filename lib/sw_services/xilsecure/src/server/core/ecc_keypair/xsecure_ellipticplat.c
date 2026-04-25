@@ -324,7 +324,7 @@ int XSecure_EcdhGetSecret(XSecure_EllipticCrvTyp CrvType, u64 PrvtKeyAddr, u64 P
 	u32 Size = 0U;
 	u32 OffSet = 0U;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_RSA_ECC);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

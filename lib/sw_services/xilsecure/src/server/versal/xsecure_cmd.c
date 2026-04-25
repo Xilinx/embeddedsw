@@ -32,6 +32,7 @@
 *       bm   07/05/2023 Added crypto check in features command
 *       ng   07/05/2023 Added support for system device tree flow
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
+* 5.7   mb   04/17/2026 Update XSecure_CryptoCheck API definitions
 *
 * </pre>
 *
@@ -187,7 +188,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_KAT):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 #endif
-		Status = XSecure_CryptoCheck();
+		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
 		if (Status != XST_SUCCESS) {
 			Status |= XPLMI_WARNING_MINOR_MASK;
 		}

@@ -20,6 +20,7 @@
 *       mb    09/11/25 Added SHA3_384 mode related macros.
 * 5.7   mb    03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *       tbk   04/07/26 Added combined KUP and expanded key clear mask and enum
+* 5.7   mb    04/17/26 Update crypto check for AES/SHA/RSA
 *
 * </pre>
 *
@@ -149,6 +150,13 @@ extern "C" {
 							 XSECURE_AES_KEY_CLEAR_AES_KEY_ZEROIZE_MASK)
 /** @} */
 
+#define XSECURE_EFUSE_CONTROLS_ADDRESS		(0x04161004U) /**< Efuse Controls base address */
+#define XSECURE_EFUSE_EXPORT_CONTROL_MASK	(0x00000020U) /**< Export control efuse bit mask */
+
+#define XSECURE_PMC_GLOBAL_CRYPTO_DIS_ADDRESS	(0x040A0240U) /**< PMC Global Crypto Disable Address */
+#define XSECURE_AES_CRYPTO_DIS_MASK		(0x00000001U) /**< AES Crypto Disable mask */
+#define XSECURE_SHA_CRYPTO_DIS_MASK		(0x00000002U) /**< SHA Crypto Disable mask */
+
 #define XSECURE_AES_KEY_DEC_SEL_BH_RED		(0x1U)
 				/**< BH Red Key Decryption Source Select */
 #define XSECURE_AES_KEY_DEC_SEL_EFUSE_RED	(0x2U)
@@ -166,10 +174,11 @@ extern "C" {
 #define SHA256					(0U) /**< SHA256 mode */
 #define SHAKE256				(1U) /**< SHAKE256 mode */
 
-/** SHA3-384 mode related macros for SPARTANUPLUSAES1 device */
+/** Macros applicable for only SPARTANUPLUSAES1 device */
 #ifdef SPARTANUPLUSAES1
 #define SHA384					(2U) /** SHA384 mode */
 #define XSECURE_SHA3_384_HASH_LEN		(48U) /**< SHA3_384 hash length */
+#define XSECURE_RSA_CRYPTO_DIS_MASK		(0x00000004U) /**< RSA Crypto Disable mask */
 #endif
 
 /***************************** Type Definitions******************************/
@@ -207,6 +216,15 @@ typedef enum {
 	XSECURE_SSS_INVALID /**< Invalid */
 }XSecure_SssSrc;
 
+/** Sources to be selected the core to check sticky bits for AES, SHA, RSA */
+typedef enum {
+	XSECURE_CORE_AES = 0,	/**< AES Core */
+	XSECURE_CORE_SHA,	/**< SHA Core */
+#ifdef SPARTANUPLUSAES1
+	XSECURE_CORE_RSA_ECC	/**< RSA/ECC Core */
+#endif
+} XSecure_CoreSrc;
+
 /** This structure contains parameters to configure DMA for AES */
 typedef struct {
 	u64 SrcDataAddr;	/**< Address of source buffer */
@@ -242,7 +260,7 @@ void XSecure_AesPmcDmaCfgEndianness(XPmcDma *InstancePtr,
 	XPmcDma_Channel Channel, u8 EndianType);
 int XSecure_AesValidateSize(u32 Size, u8 IsLastChunk);
 int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate);
-int XSecure_CryptoCheck(void);
+int XSecure_CryptoCheck(XSecure_CoreSrc CoreSrc);
 #ifdef SPARTANUPLUSAES1
 void XSecure_UpdateTrngCryptoStatus(u32 Op);
 int XSecure_GetRandomNum(u8 *Output, u32 Size);

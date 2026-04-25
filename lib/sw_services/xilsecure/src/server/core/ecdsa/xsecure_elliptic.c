@@ -59,6 +59,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen warnings.
 *       mb   05/23/24 Added P192 curve support
 *       mb   05/23/24 Added P224 urve support
+* 5.7   mb   04/17/26 Update crypto check for AES/SHA/RSA
 *
 * </pre>
 *
@@ -129,7 +130,7 @@ int XSecure_EllipticGenerateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	u32 Size = 0U;
 	u32 OffSet = 0U;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_RSA_ECC);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -287,7 +288,7 @@ int XSecure_EllipticGenerateSignature_64Bit(XSecure_EllipticCrvTyp CrvType,
 	u32 OffSet = 0U;
 	u32 Size = 0U;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_RSA_ECC);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -489,7 +490,7 @@ int XSecure_EllipticValidateKey_64Bit(XSecure_EllipticCrvTyp CrvType,
 	u32 Size = 0U;
 	u32 OffSet = 0U;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_RSA_ECC);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -638,7 +639,7 @@ int XSecure_EllipticVerifySign_64Bit(XSecure_EllipticCrvTyp CrvType,
 	u32 OffSet = 0U;
 	u32 Size = 0U;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_RSA_ECC);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

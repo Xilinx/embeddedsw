@@ -264,7 +264,7 @@ int XSecure_Sha3Start(XSecure_Sha3 *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_SHA);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

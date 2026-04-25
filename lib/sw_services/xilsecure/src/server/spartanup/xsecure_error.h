@@ -19,7 +19,8 @@
  * 5.6   aa   07/29/2025 Added error codes
  * 5.6   tus  08/19/2025 Add error codes for SHA
  * 5.7   tvp  02/19/2026 Added XSECURE_SHA_MAX_HASH_SIZE_EXCEED_ERROR
- * 	     mb    03/13/2026 Add support for ECC curves for SPARTANUPLUSAES1 device
+ *       mb   03/13/2026 Add support for ECC curves for SPARTANUPLUSAES1 device
+ *       mb   04/17/2026 Add error code XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED
  *
  * </pre>
  *
@@ -243,6 +244,8 @@ enum {
 	XSECURE_ELLIPTIC_VER_SIGN_R_ORDER_ERROR,        /**< 0xD2 - R is not within ECC order */
 	XSECURE_ELLIPTIC_VER_SIGN_S_ORDER_ERROR,        /**< 0xD3 - S is not within ECC order */
 
+	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED = 0xF4, /**< 0xF4 - Error when crypto accelerator is disabled */
+	XSECURE_ERR_INVALID_CORE = 0xF5,		/**< 0xF5 - Invalid core selected */
 	XSECURE_ERR_GLITCH_DETECTED = 0xFC,		/**< 0xFC - Error glitch detected */
 	XSECURE_ERR_IN_TRNG_SELF_TESTS,		/**< 0xFD - Error in TRNG self tests */
 	XSECURE_ERR_TRNG_INIT_N_CONFIG,		/**< 0xFE - Error in TRNG Instantiate and configuration */

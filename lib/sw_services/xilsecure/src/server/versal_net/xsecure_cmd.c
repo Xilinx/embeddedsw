@@ -191,7 +191,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_UPDATE_PKI_CRYPTO_STATUS):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 #endif
-		Status = XSecure_CryptoCheck();
+		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
 		if (Status != XST_SUCCESS) {
 			Status |= (int)XPLMI_WARNING_MINOR_MASK;
 		}

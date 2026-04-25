@@ -216,7 +216,7 @@ int XSecure_ShaStart(XSecure_Sha* const InstancePtr, XSecure_ShaMode ShaMode)
 	volatile int Status = XST_FAILURE;
 	XSecure_ShaPlatConfig *ShaPlatConfig;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_SHA);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

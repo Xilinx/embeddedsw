@@ -507,7 +507,7 @@ int XLoader_SecureClear(void)
 	volatile int SStatus = XST_FAILURE;
 
 	/* Crypto check */
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
@@ -835,7 +835,8 @@ static int XLoader_ProcessChecksumPrtn(XLoader_SecureParams *SecurePtr,
 	/** Verify hash on the data */
 #if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
 	/** Verify only when crypto engines are enabled */
-	XSECURE_REDUNDANT_CALL(CryptoChkStatus, CryptoChkStatusTmp, XSecure_CryptoCheck);
+	XSECURE_REDUNDANT_CALL(CryptoChkStatus, CryptoChkStatusTmp, XSecure_CryptoCheck,
+			       XSECURE_CORE_ALL);
 	if ((CryptoChkStatus == XST_SUCCESS) || (CryptoChkStatusTmp == XST_SUCCESS))
 #endif
 	{
