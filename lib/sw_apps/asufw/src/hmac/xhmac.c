@@ -195,7 +195,7 @@ s32 XHmac_Init(XHmac *InstancePtr, XAsufw_Dma *AsuDmaPtr, XSha *ShaInstancePtr, 
 		goto END;
 	}
 
-	if ((KeyLen == 0U) || (KeyLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)) {
+	if ((KeyLen == 0U) || (KeyLen > XASU_HMAC_MAX_KEY_LENGTH)) {
 		Status = XASUFW_HMAC_INVALID_KEY_LENGTH;
 		goto END;
 	}
