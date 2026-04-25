@@ -21,6 +21,7 @@
 * 1.0   har     09/16/21 Initial Release
 * 4.6   har     09/16/21 Updated release version to 4.6
 * 5.1   har     01/23/23 Corrected the value of XSECURE_CRP_RST_PS_PS_SRST_MASK
+* 5.7   mb      04/17/26 Update XSecure_CryptoCheck API definitions
 *
 * </pre>
 *
@@ -42,6 +43,14 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 /***************************** Type Definitions******************************/
+/** Sources to be selected the core to check sticky bits for AES, SHA, RSA */
+typedef enum {
+	XSECURE_CORE_AES = 0,	/**< AES Core */
+	XSECURE_CORE_SHA,	/**< SHA Core */
+	XSECURE_CORE_RSA_ECC,	/**< RSA/ECC Core */
+	XSECURE_CORE_ALL	/**< All Cores */
+} XSecure_CoreSrc;
+
 /**
  * @name  IP_DISABLE_0 register in EFUSE_CACHE module
  * @{
@@ -75,7 +84,7 @@ extern "C" {
 /*****************************************************************************/
 
 /************************** Function Prototypes ******************************/
-int XSecure_CryptoCheck(void);
+int XSecure_CryptoCheck(XSecure_CoreSrc CoreSrc);
 
 /** @} */
 #ifdef __cplusplus

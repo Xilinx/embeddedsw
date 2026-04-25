@@ -18,6 +18,7 @@
 * 5.7   tvp  02/19/26 Initial release
 *       tvp  03/18/26 Add support for MLDSA signature generation and verification command
 *       tvp  03/20/26 Add support for SLHDSA signature verification command
+*       mb   04/17/26 Update XSecure_CryptoCheck API definitions
 *
 * </pre>
 *
@@ -161,7 +162,7 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
 #endif
-		Status = XSecure_CryptoCheck();
+		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
 		if (Status != XST_SUCCESS) {
 			Status |= (int)XPLMI_WARNING_MINOR_MASK;
 		}

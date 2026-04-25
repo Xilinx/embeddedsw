@@ -19,6 +19,7 @@
 * 1.0   har     09/16/21 Initial Release
 * 4.6   har     09/16/21 Updated release version to 4.6
 * 4.7   am      03/08/22 Fixed MISRA C violations
+* 5.7   mb      04/17/26 Update XSecure_CryptoCheck API definitions
 *
 * </pre>
 *
@@ -43,12 +44,14 @@
  * @brief	This function checks if the EXPORT control eFuse is
  * 		programmed and PL loading is done
  *
+ * @param	CoreSrc	Crypto core source (AES, SHA, RSA)
+ *
  * @return
  *		 - XST_SUCCESS - When crypto accelerators are enabled
  *		 - XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED - When crypto accelerators are disabled
  *
  ******************************************************************************/
-int XSecure_CryptoCheck(void)
+int XSecure_CryptoCheck(XSecure_CoreSrc CoreSrc)
 {
 	int Status = XST_FAILURE;
 	u32 ExportControl = XSecure_In32(XSECURE_EFUSE_CACHE_IP_DISABLE0) &
@@ -57,6 +60,9 @@ int XSecure_CryptoCheck(void)
 		XSECURE_CFU_APB_CFU_FGCR_EOS_MASK;
 	u32 PsSrst = XSecure_In32(XSECURE_CRP_RST_PS) &
 		XSECURE_CRP_RST_PS_PS_SRST_MASK;
+
+	/**- Core Source parameter is not applicable for Versal family */
+	(void)CoreSrc;
 
 	/**
 	 * - Validate export efuse control bit is programmed, to confirm

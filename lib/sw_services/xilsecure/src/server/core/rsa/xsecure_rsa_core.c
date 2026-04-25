@@ -112,7 +112,7 @@ int XSecure_RsaCfgInitialize(XSecure_Rsa *InstancePtr)
 {
 	int Status = XST_FAILURE;
 
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_RSA_ECC);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}

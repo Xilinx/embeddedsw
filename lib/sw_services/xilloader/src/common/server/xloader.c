@@ -556,7 +556,7 @@ int XLoader_PdiInit(XilPdi* PdiPtr, PdiSrc_t PdiSource, u64 PdiAddr)
 	/**
 	 * - Verify SHA3 KAT. If CRYPTO accelerators are disabled, skip SHA KAT.
 	 */
-	Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_SHA);
 	if (Status == XST_SUCCESS) {
 		Status = XST_FAILURE;
 		Status = XLoader_Sha3Kat(PdiPtr);

@@ -23,8 +23,10 @@
 *                      partially initialized array
 *       mb    09/11/25 Added SHA3_384 mode check to calculate hash
 * 5.7   tvp   02/23/26 Use XSecure_ShaPlatConfig, platform specific SHA configurations
-*       mb	  03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
+*       mb    03/13/26 Add support for ECC curves for SPARTANUPLUSAES1 device
 *       rpu   04/22/26 Fix XSecure_GetRandomNum for non-word-aligned sizes
+*       mb    04/23/26 Remove unused macros
+*
 * </pre>
 *
 ******************************************************************************/
@@ -604,19 +606,66 @@ int XSecure_CfgSssAes(XPmcDma *DmaPtr, const XSecure_Sss *SssInstance)
 
 /***************************************************************************/
 /**
- * @brief	This function checks if the EXPORT control eFuse is
- * 		programmed and PL loading is done
+ * @brief	This function checks whether the requested crypto accelerator
+ * 		is enabled for the specified core
+ *
+ * @param	CoreSrc	Crypto core source (AES, SHA, RSA)
  *
  * @return
  *	-	XST_SUCCESS - When crypto accelerators are enabled
  *	-	XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED - When crypto accelerators
  *		are disabled
+ *	-	XSECURE_ERR_INVALID_CORE - When invalid core is specified
  *
  ******************************************************************************/
-int XSecure_CryptoCheck(void)
+int XSecure_CryptoCheck(XSecure_CoreSrc CoreSrc)
 {
-	/** - Not applicable for spartan ultrascal plus */
-	return XST_SUCCESS;
+	volatile int Status = XST_FAILURE;
+	u32 ExportControl = XSecure_In32(XSECURE_EFUSE_CONTROLS_ADDRESS) &
+			    XSECURE_EFUSE_EXPORT_CONTROL_MASK;
+	u32 CryptoDisVal = XSecure_In32(XSECURE_PMC_GLOBAL_CRYPTO_DIS_ADDRESS);
+	u32 StickyDisMask = 0U;
+
+	/**
+	 * Checks whether the specified crypto core (AES, SHA, or RSA) is enabled.
+	 * - For AES: returns XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED if export control
+	 *   is set or the AES sticky disable bit is set.
+	 * - For SHA: returns XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED if the SHA
+	 *   sticky disable bit is set.
+	 * - For RSA: returns XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED if export control
+	 *   is set or the RSA sticky disable bit is set.
+	 *
+	 */
+	switch (CoreSrc) {
+		/* AES Core */
+		case XSECURE_CORE_AES:
+			StickyDisMask = XSECURE_AES_CRYPTO_DIS_MASK;
+			break;
+		/* SHA Core */
+		case XSECURE_CORE_SHA:
+			StickyDisMask = XSECURE_SHA_CRYPTO_DIS_MASK;
+			ExportControl = 0U;
+			break;
+#ifdef SPARTANUPLUSAES1
+		/* RSA-ECC Core */
+		case XSECURE_CORE_RSA_ECC:
+			StickyDisMask = XSECURE_RSA_CRYPTO_DIS_MASK;
+			break;
+#endif
+		default:
+			Status = XSECURE_ERR_INVALID_CORE;
+			goto END;
+	}
+
+	if ((ExportControl != 0U) || ((CryptoDisVal & StickyDisMask) == StickyDisMask)) {
+		Status = XSECURE_ERR_CRYPTO_ACCELERATOR_DISABLED;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 #ifdef SPARTANUPLUSAES1

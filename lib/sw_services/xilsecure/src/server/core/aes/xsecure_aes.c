@@ -109,6 +109,7 @@
 *			XSECURE_AES_INITIALIZED
 * 5.7   tbk  04/07/2026 Optimized key zeroization by directly writing combined
 *                       key clear mask to registers
+*       mb   04/17/2026 Update crypto check for AES/SHA/RSA
 * </pre>
 *
 ******************************************************************************/
@@ -1883,7 +1884,7 @@ static int XSecure_AesOpInit(XSecure_Aes *InstancePtr, XSecure_AesKeySrc KeySrc,
 	volatile int Status = XST_FAILURE;
 	volatile u32 KeyZeroedStatus = XSECURE_PUF_KEY_ZEROED_MASK;
 
-    Status = XSecure_CryptoCheck();
+	Status = XSecure_CryptoCheck(XSECURE_CORE_AES);
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
