@@ -73,6 +73,7 @@
 *       tvp  03/05/26 Add authenticated boot support for Versal_2vp_p
 *       tvp  03/05/26 Add support for efuse PPK3-PPK8 hash for Versal_2vp_p
 *       sri  03/26/26 Added new IPI API for verifying Hash block requested by Versal 2Ve 2Vm client
+*       sri  04/24/26 Changed LMS KAT and SignVerify APIs from static to global scope to support authenticated JTAG functionality
 *
 * </pre>
 *
@@ -924,6 +925,9 @@ int XLoader_DataAuth(XLoader_SecureParams *SecurePtr, u8 *Hash,
 	u8 *Signature);
 #else
 int XLoader_ShaDigestCalculation(u8 *InData, u32 DataSize, u8 *Hash);
+int XLoader_VerifyLmsSignature(XLoader_SecureParams *SecurePtr, u8 *SignBuff, u32 SignatureLen,
+	u8 *KeyAddr, u32 KeyLen, u8 *Data, u32 DataLen);
+int XLoader_LmsKat(XLoader_SecureParams *SecurePtr, u32 AuthType);
 #endif
 #ifndef PLM_SECURE_EXCLUDE
 int XLoader_VerifySignature(const XLoader_SecureParams *SecurePtr,

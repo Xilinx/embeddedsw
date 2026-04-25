@@ -23,6 +23,7 @@
 *       vns  04/04/2026 Added JtagUnlockedByAuth flag to XLoader_AuthJtagStatus
 *                       and XLoader_DisableJtagIfOpenedByAuthJtag to lock DAP
 *                       during PLM update
+*       sri  04/24/2026 Added LMS support for authenticated JTAG message
 *
 * </pre>
 *
@@ -42,6 +43,9 @@
 #include "xplmi.h"
 #include "xplmi_scheduler.h"
 #include "xloader_kat.h"
+#if defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P)
+#include "xsecure_lms_core.h"
+#endif
 
 /************************** Constant Definitions *****************************/
 #ifdef PLM_AUTH_JTAG_PPK_SPK
@@ -591,6 +595,7 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	u8 SpkHash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 	u8 Sha3Hash[XSECURE_SHA_384_HASH_SIZE_IN_BYTES];
 	u32 AuthType;
+	u8 IsLmsAuth;
 	u32 CopyLen;
 	u32 MsgLenInWords;
 	volatile u32 RemainingWords;
@@ -692,13 +697,16 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		}
 
 		/**
-		 * - Determine the number of words to copy in this iteration
-		 *   If remaining data is larger than PMC TAP Authenticated JTAG data buffer,
-		 *   copy maximum chunk size minus 2 words (IdWord + Length overhead)
-		 *   Otherwise, copy all remaining words
+		 * - Determine the number of words to copy in this iteration.
+		 *   The first hardware chunk already had IdWord and MsgLen consumed,
+		 *   so reduce CopyLen accordingly on the first chunk.
 		 */
 		if (RemainingWords >= XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS) {
-			CopyLen = XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS - XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS;
+			CopyLen = XLOADER_AUTH_JTAG_DATA_LEN_IN_WORDS;
+			if (CurrPtr == ((u32 *)SecureParams.AuthJtagMessagePtr +
+					XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS)) {
+				CopyLen -= XLOADER_AUTH_JTAG_MSG_HEADER_LEN_IN_WORDS;
+			}
 		}
 		else {
 			CopyLen = RemainingWords;
@@ -777,9 +785,34 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 		goto END;
 	}
 
-	/** - Run KAT before verifying AUTH JTAG message */
-	Status = XST_FAILURE;
-	Status = XLoader_AuthKat(&SecureParams);
+	/** - Run respective Authentication type KAT before verifying AUTH JTAG message */
+	AuthType = XLoader_GetAuthPubAlgo(&SecureParams.AuthJtagMessagePtr->AuthHdr);
+	IsLmsAuth = (((AuthType == XLOADER_PUB_STRENGTH_LMS) ||
+		(AuthType == XLOADER_PUB_STRENGTH_LMS_HSS)) ? (u8)TRUE : (u8)FALSE);
+	if ((IsLmsAuth != (u8)TRUE) &&
+		(AuthType != XLOADER_PUB_STRENGTH_RSA_4096) &&
+		(AuthType != XLOADER_PUB_STRENGTH_ECDSA_P384) &&
+		(AuthType != XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+		XPlmi_Printf(DEBUG_INFO, "Authentication type is invalid\n\r");
+		Status = XLoader_UpdateMinorErr(XLOADER_SEC_INVALID_AUTH, 0);
+		goto END;
+	}
+
+	if (IsLmsAuth != (u8)TRUE) {
+		Status = XST_FAILURE;
+		Status = XLoader_AuthKat(&SecureParams);
+	}
+	else {
+		/** - Get the LMS Hash algorithm present in public key */
+		Status = XSecure_GetLmsHashAlgo(AuthType, (u8 *)KeyData.PpkData,
+				&SecureParams.SignHashAlgo);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(XLOADER_ERR_GET_LMS_ALGO_FAILED, Status);
+			goto END;
+		}
+		Status = XST_FAILURE;
+		Status = XLoader_LmsKat(&SecureParams, AuthType);
+	}
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XLOADER_ERR_KAT_FAILED, Status);
 		goto END;
@@ -795,12 +828,20 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	}
 
 	/** - Verify SPK signature */
-	AuthType = XLoader_GetAuthPubAlgo(&SecureParams.AuthJtagMessagePtr->AuthHdr);
-	if ((AuthType == XLOADER_PUB_STRENGTH_RSA_4096) ||
-		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P384) ||
-		(AuthType == XLOADER_PUB_STRENGTH_ECDSA_P521)) {
+	if (IsLmsAuth != (u8)TRUE) {
 		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifySignature, &SecureParams,
 			(u8 *)&SpkHash, (XLoader_AuthKey *)KeyData.PpkData, (u8*)KeyData.SPKSignature);
+	}
+	else {
+		SecureParams.AcPtr->AuthHdr = SecureParams.AuthJtagMessagePtr->AuthHdr;
+
+		XSECURE_TEMPORAL_CHECK(END, Status, XLoader_VerifyLmsSignature, &SecureParams,
+			(u8 *)KeyData.SPKSignature,
+			KeyData.SpkHeader->SignatureSize,
+			(u8 *)KeyData.PpkData,
+			SecureParams.AuthJtagMessagePtr->ActualPpkSize,
+			(u8 *)KeyData.SpkHeader,
+			XLOADER_SPK_HEADER_SIZE + KeyData.SpkHeader->SPKSize);
 	}
 
 	/** - Verify if SPK Id is revoked or not. */
@@ -822,8 +863,22 @@ static int XLoader_AuthJtagPpkNSpk(u32 *TimeOut)
 	}
 
 	/** - Verify signature of Auth Jtag data */
-	XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
-		&SecureParams, (u8 *)&Sha3Hash, (XLoader_AuthKey *)KeyData.SpkData, (u8*)KeyData.EnableJtagSignature);
+	if (IsLmsAuth != (u8)TRUE) {
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifySignature,
+			&SecureParams, (u8 *)&Sha3Hash, (XLoader_AuthKey *)KeyData.SpkData, (u8*)KeyData.EnableJtagSignature);
+	}
+	else {
+		SecureParams.AcPtr->AuthHdr = SecureParams.AuthJtagMessagePtr->AuthHdr;
+
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XLoader_VerifyLmsSignature, &SecureParams,
+			(u8 *)KeyData.EnableJtagSignature,
+			SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize,
+			(u8 *)KeyData.SpkData,
+			KeyData.SpkHeader->SPKSize,
+			(u8 *)&SecureParams.AuthJtagMessagePtr->IdWord,
+			(MsgLenInBytes - SecureParams.AuthJtagMessagePtr->ActualAuthJtagSignSize));
+	}
+
 	if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
 		Status = XPlmi_UpdateStatus(
 			XLOADER_ERR_AUTH_JTAG_SIGN_VERIFY_FAIL, Status);
