@@ -336,11 +336,11 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 		/**
 		 * Validate key input: either a direct key address or a vault key ID
 		 * must be provided. If a direct key is given, its length must be
-		 * non-zero and within the maximum DMA transfer length.
+		 * non-zero and within 1KB.
 		 */
 		if (((HmacParamsPtr->KeyObject.KeyInAddr == 0U) && (HmacParamsPtr->KeyObject.KeyId == 0U)) ||
 		    ((HmacParamsPtr->KeyObject.KeyInAddr != 0U) && ((HmacParamsPtr->KeyObject.KeyInLen == 0U) ||
-		    (HmacParamsPtr->KeyObject.KeyInLen > XASU_ASU_DMA_MAX_TRANSFER_LENGTH)))) {
+		    (HmacParamsPtr->KeyObject.KeyInLen > XASU_HMAC_MAX_KEY_LENGTH)))) {
 			goto END;
 		}
 	}

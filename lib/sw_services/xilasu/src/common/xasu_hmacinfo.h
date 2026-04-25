@@ -45,6 +45,7 @@ extern "C" {
 #define XASU_HMAC_COMPUTE_SHA3_CMD_ID		(1U) /**< Command ID for HMAC compute for SHA3 command */
 #define XASU_HMAC_KAT_CMD_ID			(2U) /**< Command ID for HMAC KAT command */
 #define XASU_HMAC_MAX_CMDS			(3U) /**< Maximum number of commands supported by HMAC module */
+#define XASU_HMAC_MAX_KEY_LENGTH			(1024U) /**< Maximum key length for HMAC */
 
 /** @} */
 /************************************** Type Definitions *****************************************/
