@@ -20,6 +20,7 @@
 * 1.0   kal 07/05/2021 Initial release
 * 2.4   bsv 09/09/2021 Added PLM_NVM macro
 * 3.3   kpt 02/21/2024 Added support to extend secure state
+* 3.7   tus 04/23/2026 Changed the return type of XNvm_Init() to int
 *
 * </pre>
 *
@@ -56,9 +57,9 @@
  * 		- XST_SUCCESS - On success
  *
  *****************************************************************************/
-void XNvm_Init(int (*GenericHandler)(void))
+int XNvm_Init(int (*GenericHandler)(void))
 {
-	XNvm_CmdsInit(GenericHandler);
+	return XNvm_CmdsInit(GenericHandler);
 }
 
 #endif

@@ -26,6 +26,8 @@
 * 3.3   kpt  02/21/2024 Added support to extend secure state
 * 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
 *       nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+*       tus  04/23/2026 Stored the return value and verify it matches the input
+*                       Ocphandler to confirm registration.
 *
 * </pre>
 *
@@ -251,17 +253,31 @@ END:
  *
  * @param	OcpHandler Pointer to OCP handler
  *
+ * @return
+ *		- XST_SUCCESS - On successful registration
+ *		- XST_FAILURE - If OCP handler registration failed
+ *
  *****************************************************************************/
-void XNvm_CmdsInit(int (*OcpHandler)(void))
+int XNvm_CmdsInit(int (*OcpHandler)(void))
 {
+	int Status = XST_FAILURE;
 	u32 Idx;
+	XNvm_OcpHandler StoredHandler;
 
 	/** - Register command handlers with XilPlmi */
 	for (Idx = 0U; Idx < XPlmi_Nvm.CmdCnt; Idx++) {
 		XNvm_Cmds[Idx].Handler = &XNvm_ProcessCmd;
 	}
 	XPlmi_ModuleRegister(&XPlmi_Nvm);
-	(void)XNvm_ManageOcpHandler(OcpHandler);
+	StoredHandler = XNvm_ManageOcpHandler(OcpHandler);
+	if (StoredHandler != OcpHandler) {
+		XNvm_Printf(XNVM_DEBUG_GENERAL, "OCP handler registration failed\r\n");
+	}
+	else {
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 #endif

@@ -30,6 +30,7 @@
 *       ng   11/22/2024 Fixed doxygen grouping
 *       hj   03/20/2025 Move EFUSE_WRITE_AES_KEYS inside SECURITY_CRITICAL_EFUSE macro
 * 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
+* 3.7   tus  04/23/2026 Return XST_SUCCESS from XNvm_CmdsInit()
 *
 * </pre>
 *
@@ -307,8 +308,11 @@ END:
  *
  * @param	GenericHandler Pointer to generic handler
  *
+ * @return
+ *		- XST_SUCCESS - On successful registration
+ *
  *****************************************************************************/
-void XNvm_CmdsInit(int (*GenericHandler)(void))
+int XNvm_CmdsInit(int (*GenericHandler)(void))
 {
 	u32 Idx;
 
@@ -320,6 +324,8 @@ void XNvm_CmdsInit(int (*GenericHandler)(void))
 		XNvm_Cmds[Idx].Handler = XNvm_ProcessCmd;
 	}
 	XPlmi_ModuleRegister(&XPlmi_Nvm);
+
+	return XST_SUCCESS;
 }
 
 #endif
