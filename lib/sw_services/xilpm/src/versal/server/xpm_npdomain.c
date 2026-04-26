@@ -242,10 +242,10 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	 */
 	for (i = 0; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 			if ( (0U == NpdMemIcAddresses[i]) || (((u32)XPM_NODETYPE_MEMIC_NPS) ==
-				((NpdMemIcAddresses[i]>>28) & 0xFU))) {
+				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 				continue;
 			}
-			MemIcAddr = NpdMemIcAddresses[i] | (0xFU << 28);
+			MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
 
 			SlrType = XPm_GetSlrType();
 			if ((i == (u32)XPM_NODEIDX_MEMIC_NSU_1) &&
@@ -321,8 +321,8 @@ static void Clear_ScanClearErr(void){
 			continue;
 		}
 
-		Type = (NpdMemIcAddresses[i] >> 28) & 0xFU;
-		MemIcAddr = NpdMemIcAddresses[i] | (0xFU << 28);
+		Type = (NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT;
+		MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
 		/*unlock pcsr*/
 		XPm_UnlockPcsr(MemIcAddr);
 		if(Type == (u32)XPM_NODETYPE_MEMIC_MASTER) {
@@ -525,10 +525,10 @@ static void TriggerMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
 		    (((u32)XPM_NODEIDX_MEMIC_NSU_MIN2 <= i) &&
 		     ((u32)XPM_NODEIDX_MEMIC_NSU_MAX2 >= i)) ||
 		    (0U == NpdMemIcAddresses[i]) ||
-			(((u32)XPM_NODETYPE_MEMIC_NPS) == ((NpdMemIcAddresses[i]>>28) & 0xFU))) {
+			(((u32)XPM_NODETYPE_MEMIC_NPS) == ((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 			continue;
 		}
-		MemIcAddr = NpdMemIcAddresses[i] | (0xFU << 28);
+		MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
 		PmOut32(MemIcAddr + NPI_PCSR_MASK_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
 		PmOut32(MemIcAddr + NPI_PCSR_CONTROL_OFFSET,
@@ -561,10 +561,10 @@ static XStatus IsMemClearDoneNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrL
 	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 		/*TODO: Recognise NPS nodes using node type from node structure*/
 		if ((0U == NpdMemIcAddresses[i]) || (((u32)XPM_NODETYPE_MEMIC_NPS) ==
-				((NpdMemIcAddresses[i]>>28) & 0xFU))) {
+				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 			continue;
 		}
-		MemIcAddr = NpdMemIcAddresses[i] | (0xFU << 28);
+		MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
 
 		Status = XPm_PollForMask(MemIcAddr + NPI_PCSR_STATUS_OFFSET,
 					 NPI_PCSR_STATUS_MEM_CLEAR_DONE_MASK,
@@ -611,10 +611,10 @@ static XStatus IsMemClearPass(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 	for (i = 0U; i < ARRAY_SIZE(NpdMemIcAddresses); i++) {
 		/*TODO: Recognise NPS nodes using node type from node structure*/
 		if ((0U == NpdMemIcAddresses[i]) || (((u32)XPM_NODETYPE_MEMIC_NPS) ==
-				((NpdMemIcAddresses[i]>>28) & 0xFU))) {
+				((NpdMemIcAddresses[i] & NPD_MEMIC_NODETYPE_MASK) >> NPD_MEMIC_NODETYPE_SHIFT))) {
 			continue;
 		}
-		MemIcAddr = NpdMemIcAddresses[i] | (0xFU << 28);
+		MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
 
 		PmIn32(MemIcAddr + NPI_PCSR_STATUS_OFFSET, RegValue);
 		if (NPI_PCSR_STATUS_MEM_CLEAR_PASS_MASK !=
@@ -656,7 +656,7 @@ static void CleanupMemClearNpd(const u32 *DdrMcAddresses, const u32 DdrMcAddrLen
 		if (0U == NpdMemIcAddresses[i]) {
 			continue;
 		}
-		MemIcAddr = NpdMemIcAddresses[i] | (0xFU << 28);
+		MemIcAddr = NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK;
 
 		PmOut32(MemIcAddr + NPI_PCSR_MASK_OFFSET,
 			NPI_PCSR_CONTROL_MEM_CLEAR_TRIGGER_MASK);
@@ -688,7 +688,7 @@ static void AssertPcsrLockMem(const u32 *DdrMcAddresses, const u32 DdrMcAddrLeng
 			continue;
 		}
 
-		XPm_LockPcsr(NpdMemIcAddresses[i] | (0xFU << 28));
+		XPm_LockPcsr(NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK);
 	}
 
 	for (i = 0U; i < DdrMcAddrLength; i++) {
@@ -742,7 +742,7 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 			continue;
 		}
 
-		XPm_UnlockPcsr(NpdMemIcAddresses[i] | (0xFU << 28));
+		XPm_UnlockPcsr(NpdMemIcAddresses[i] | NPD_MEMIC_NODETYPE_MASK);
 	}
 
 	/* Enable ILA clock for DDR blocks*/
@@ -1036,7 +1036,8 @@ XStatus XPmNpDomain_MemIcInit(u32 DeviceId, u32 BaseAddr)
 	}
 
 	/* Store Node Type in MSB, This will be used to identify the type of node using addresses*/
-	NpdMemIcAddresses[Idx] = (BaseAddr & ~(0xFU << 28)) | (Type << 28);
+	NpdMemIcAddresses[Idx] = (BaseAddr & ~NPD_MEMIC_NODETYPE_MASK) |
+				 (Type << NPD_MEMIC_NODETYPE_SHIFT);
 
 	Status = XST_SUCCESS;
 

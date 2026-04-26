@@ -1,5 +1,6 @@
 /******************************************************************************
-* Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,25 @@ extern "C" {
 typedef struct XPm_NpDomain {
 	XPm_PowerDomain Domain; /**< Power domain node base class */
 } XPm_NpDomain;
+
+/**
+ * @def NPD_MEMIC_NODETYPE_SHIFT
+ * @brief Bit position of the MEMIC node-type nibble inside an
+ *        NpdMemIcAddresses[] entry.
+ *
+ * The upper 4 bits of each NpdMemIcAddresses[] entry encode the MEMIC
+ * node type (NPS / NMU / etc.), allowing the address table to recover
+ * the node type without a parallel array.
+ */
+#define NPD_MEMIC_NODETYPE_SHIFT	(28U)
+
+/**
+ * @def NPD_MEMIC_NODETYPE_MASK
+ * @brief Mask of the MEMIC node-type nibble inside an
+ *        NpdMemIcAddresses[] entry. Used to encode the type into the
+ *        upper 4 bits and to extract it via (addr & MASK) >> SHIFT.
+ */
+#define NPD_MEMIC_NODETYPE_MASK		((u32)0xFU << NPD_MEMIC_NODETYPE_SHIFT)
 
 /************************** Function Prototypes ******************************/
 XStatus XPmNpDomain_Init(XPm_NpDomain *Npd, u32 Id, u32 BaseAddress,
