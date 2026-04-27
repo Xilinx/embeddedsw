@@ -1348,7 +1348,7 @@ static u32 xil_gethex(u8 num_chars){
 static char RecvByte_NonBlocking(){
     u32 RecievedByte;
 #ifdef versal
-    RecievedByte = XUartPsv_ReadReg(STDIN_BASEADDRESS, XUARTPSV_UARTDR_OFFSET);
+	RecievedByte = XUartPsv_RecvByte(STDIN_BASEADDRESS);
 #else
     RecievedByte = XUartPs_ReadReg(STDIN_BASEADDRESS, XUARTPS_FIFO_OFFSET);
 #endif
