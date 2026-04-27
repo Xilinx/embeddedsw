@@ -27,6 +27,9 @@
 #include "xscugic.h"           /* Generic Interrupt Controller driver */
 #include "xvisp_ss.h"          /* VISP SS driver header */
 #include "xil_exception.h"     /* Exception handling utilities */
+#ifdef SDT
+extern xvisp_ss_Config xvisp_ss_ConfigTable[];
+#endif
 #include "limo.h"
 #include "lilo.h"
 #include "mimo.h"
@@ -164,7 +167,7 @@ int main()
 		xil_printf("\r\n\r\n IRQ Configuration failed.\r\n\r\n");
 
 	/* Configure VISP SS - main video processing subsystem */
-	Status = config_visp_ss(XPAR_XVISP_SS_0_BASEADDR);
+	Status = config_visp_ss();
 	if (Status == XST_INVALID_VERSION)
 		return Status;
 	else if (Status != XST_SUCCESS) {
@@ -302,7 +305,7 @@ int setup_axi_with_device(UINTPTR BaseAddr)
  * @note This example only supports non-MCM (Multi-Channel Mode) operation
  * @note The function uses either device ID (non-SDT) or base address (SDT) lookup
  */
-int config_visp_ss(u32 baseaddress)
+int config_visp_ss()
 {
 	xvisp_ss_Config *CfgPtr;
 	int Status;
@@ -311,9 +314,9 @@ int config_visp_ss(u32 baseaddress)
 	for (int i = 0; i < VISP_INST; i++) {
 		MEMSET(CfgPtr, 0, sizeof(xvisp_ss_Config));
 #ifndef SDT
-		CfgPtr = XVisp_Ss_LookupConfig(XPAR_VISP_SS_0_DEVICE_ID);
+		CfgPtr = XVisp_Ss_LookupConfig(i);
 #else
-		CfgPtr = XVisp_Ss_LookupConfig(baseaddress + (i * 0x800));
+		CfgPtr = XVisp_Ss_LookupConfig(xvisp_ss_ConfigTable[i].BaseAddress);
 #endif
 		if (!CfgPtr) {
 			xil_printf("ERROR: Lookup of VISP SS configuration failed.\r\n");
@@ -326,7 +329,7 @@ int config_visp_ss(u32 baseaddress)
 			xil_printf("ERROR: Could not initialize VISP SS driver.\r\n");
 			return XST_FAILURE;
 		}
-		xil_printf("base address 0x%x %d\n", baseaddress, __LINE__);
+		xil_printf("base address 0x%x %d\n", CfgPtr->BaseAddress, __LINE__);
 	}
 	/* Verify single-stream operation - this example doesn't support MCM mode */
 	if (VispSsInst[ISP_ID].Config.NumStreams > 1) {

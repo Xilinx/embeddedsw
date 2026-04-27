@@ -28,7 +28,7 @@ struct aligned_buf {
 // Function declarations
 void reset_hw_function(void);
 int SetupInterruptSystem(void);
-int config_visp_ss(u32 baseaddress);
+int config_visp_ss();
 int init_visp_ss(void);
 void enable_fbwr();
 int init_fbwr(u8 hpId, CamDeviceBufChainId_t bufIo, CamDevicePipeOutFmt_t outFormat, u64 bufsize);
