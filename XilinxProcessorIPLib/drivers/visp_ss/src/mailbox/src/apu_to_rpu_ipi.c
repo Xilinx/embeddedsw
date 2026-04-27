@@ -37,6 +37,7 @@
 /*****************************************************************************/
 #include "stdlib.h"
 #include "xil_types.h"
+#include <string.h>
 
 /***************************** Include Files *********************************/
 
@@ -143,6 +144,63 @@ int mailbox_wrapper()
 	LOGI("\n\n\n\n Both RPU ready!!! \r\n");
 #else
 	LOGI("\n\n\n\n RPU-0  ready!!! \r\n");
+#endif
+
+	/* Send APU_2_RPU_MB_CMB_INIT_FIRMWARE to unblock RPU firmware */
+	{
+		Payload_packet init_packet;
+		memset(&init_packet, 0, sizeof(Payload_packet));
+		init_packet.type = CMD;
+		init_packet.cookie = 0;
+		init_packet.payload_size = sizeof(uint32_t);
+		/* instance_id in payload_data[0] */
+		init_packet.payload_data[0] = 0;
+
+		LOGI("Sending APU_2_RPU_MB_CMB_INIT_FIRMWARE to RPU-0\r\n");
+		ret = Send_Command(APU_2_RPU_MB_CMB_INIT_FIRMWARE, &init_packet,
+				   init_packet.payload_size + payload_extra_size,
+				   dest_cpu_id, src_cpu_id);
+		if (ret != 0) {
+			LOGE("Failed to send INIT_FIRMWARE command, ret=%d\r\n", ret);
+			return XST_FAILURE;
+		}
+
+		uint8_t ack_ret = apu_wait_for_ACK(init_packet.cookie,
+						    init_packet.payload_data);
+		if (ack_ret != RET_SUCCESS) {
+			LOGE("INIT_FIRMWARE ACK failed, ret=%u\r\n", ack_ret);
+			return XST_FAILURE;
+		}
+		LOGI("RPU firmware initialization confirmed\r\n");
+	}
+
+#ifdef MULTICORE_ON_APU
+	/* Send APU_2_RPU_MB_CMB_INIT_FIRMWARE to RPU-1 as well */
+	{
+		Payload_packet init_packet;
+		memset(&init_packet, 0, sizeof(Payload_packet));
+		init_packet.type = CMD;
+		init_packet.cookie = 0;
+		init_packet.payload_size = sizeof(uint32_t);
+		init_packet.payload_data[0] = 0;
+
+		LOGI("Sending APU_2_RPU_MB_CMB_INIT_FIRMWARE to RPU-1\r\n");
+		ret = Send_Command(APU_2_RPU_MB_CMB_INIT_FIRMWARE, &init_packet,
+				   init_packet.payload_size + payload_extra_size,
+				   MBOX_CORE_RPU1, src_cpu_id);
+		if (ret != 0) {
+			LOGE("Failed to send INIT_FIRMWARE to RPU-1, ret=%d\r\n", ret);
+			return XST_FAILURE;
+		}
+
+		uint8_t ack_ret = apu_wait_for_ACK(init_packet.cookie,
+						    init_packet.payload_data);
+		if (ack_ret != RET_SUCCESS) {
+			LOGE("INIT_FIRMWARE ACK from RPU-1 failed, ret=%u\r\n", ack_ret);
+			return XST_FAILURE;
+		}
+		LOGI("RPU-1 firmware initialization confirmed\r\n");
+	}
 #endif
 
 	return 0;

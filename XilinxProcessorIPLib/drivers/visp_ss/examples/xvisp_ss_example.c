@@ -51,6 +51,11 @@ int custom_json = 0;
 int tuning_json = 0;
 int image_len = image_raw_len;
 
+/**
+ * FMC selection: 0 = old FMC, 1 = new FMC
+ */
+int fmc_selection = 0;
+
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 int init_lilo = 1;
 extern int dequeue_call_count;
