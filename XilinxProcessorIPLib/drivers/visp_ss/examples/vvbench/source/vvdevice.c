@@ -444,6 +444,17 @@ int VsiVvdeviceExecuteCaseline
 			mm_free(pVvbenchInstance);
 			return -1;
 		}
+		/************************* FMC ID Selection *************************/
+		{
+			extern int fmc_selection;
+			result = send_fmc_id_select(fmc_selection);
+			if (result != RET_SUCCESS) {
+				LOGE("send_fmc_id_select failed");
+				mm_free(pVvbenchInstance);
+				return -1;
+			}
+		}
+
 		/*******************************PS i2c*******************************/
 
 		HalI2cConfig_t pHalI2cConfig;
@@ -3695,6 +3706,42 @@ void VsiVvdeviceBufferDwHandleStop
 	LOGI("%s enter \n", __func__);
 
 	LOGI("%s exit \n", __func__);
+}
+
+int send_fmc_id_select(int fmc_id)
+{
+	LOGI(" %s-ENTER fmc_id=%d\n", __func__, fmc_id);
+	RESULT result = RET_SUCCESS;
+
+	Payload_packet packet;
+	memset(&packet, 0, sizeof(Payload_packet));
+	packet.cookie = 0;
+	packet.type = CMD;
+	packet.payload_size = sizeof(uint32_t) + sizeof(uint32_t);
+
+	uint8_t *p_data = packet.payload_data;
+	uint32_t instance_id = 0;
+	memcpy(p_data, &instance_id, sizeof(uint32_t));
+	p_data += sizeof(uint32_t);
+	uint32_t fmc_id_val = (uint32_t)fmc_id;
+	memcpy(p_data, &fmc_id_val, sizeof(uint32_t));
+
+	result = Send_Command(APU_2_RPU_MB_CMD_FMC_ID_SELECT, &packet,
+			      packet.payload_size + payload_extra_size,
+			      dest_cpu_id, src_cpu_id);
+	if (RET_SUCCESS != result) {
+		LOGE("Failed to send FMC_ID_SELECT, ret=%d", result);
+		return RET_FAILURE;
+	}
+
+	uint8_t ack_ret = apu_wait_for_ACK(packet.cookie, packet.payload_data);
+	if (ack_ret != RET_SUCCESS) {
+		LOGE("FMC_ID_SELECT ACK failed, ret=%u", ack_ret);
+		return RET_FAILURE;
+	}
+
+	LOGI(" %s-EXIT fmc_id=%d confirmed\n", __func__, fmc_id);
+	return RET_SUCCESS;
 }
 
 int configure_resizer(struct resizer resizer_t)
