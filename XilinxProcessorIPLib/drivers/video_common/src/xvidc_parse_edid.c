@@ -2015,7 +2015,7 @@ static void
 xvidc_parse_displayid_parameters(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlParam, XV_VidC_Verbose VerboseEn)
 {
     u8 length = x[2];
-    VerboseEn = VerboseEn;
+
 
     if (length < XVIDC_DISPLAYID_PARAMETERS_BLOCK_LEN)
         return;
@@ -2057,6 +2057,8 @@ xvidc_parse_displayid_parameters(const u8 *x, XV_VidC_EdidCntrlParam *EdidCtrlPa
         xil_printf("    Dynamic bpc native....... %u\r\n", EdidCtrlParam->DispIdDynamicBpcNative);
         xil_printf("    Dynamic bpc overall...... %u\r\n", EdidCtrlParam->DispIdDynamicBpcOverall);
     }
+#else
+    (void)VerboseEn;
 #endif
 }
 
@@ -2900,7 +2902,7 @@ xvidc_parse_displayid_short_timings_5(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 {
     u8 length = x[2];
     u32 i, offset = XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN;
-    VerboseEn = VerboseEn;
+    (void)VerboseEn;
 
     u8 num_timings = (length > 0) ? (length / XVIDC_DISPLAYID_DATA_BLOCK_HEADER_LEN) : 0;
 
@@ -2914,10 +2916,8 @@ xvidc_parse_displayid_short_timings_5(const u8 *x, XV_VidC_EdidCntrlParam *EdidC
 #endif
 
     for (i = 0; i < num_timings && offset + 2 < XVIDC_EDID_SIZE && i < XVIDC_DISPLAYID_MAX_CVT_TIMINGS; i++) {
-        u8 timing_idx = x[offset];
         u16 h_active = ((x[offset+1] & 0x0F) << 8) | (x[offset+2]);
         u8 aspect_refresh = x[offset+1] >> 4;
-        timing_idx = timing_idx;
 
         EdidCtrlParam->DispIdCvtTiming[i].HActive = h_active;
         EdidCtrlParam->DispIdCvtTiming[i].RefreshRate = aspect_refresh;
