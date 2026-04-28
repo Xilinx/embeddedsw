@@ -1,5 +1,5 @@
 /******************************************************************************
-# Copyright (C) 2023 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 ******************************************************************************/
 #ifndef XSECURE_CONFIG_H
@@ -17,6 +17,7 @@
 #cmakedefine XSECURE_ECC_SUPPORT_NIST_P256
 #cmakedefine XSECURE_ECC_SUPPORT_NIST_P521
 #cmakedefine XSECURE_CACHE_DISABLE
+#cmakedefine XSECURE_CRYPTOALGINFO_ENABLED
 #define XSECURE_ELLIPTIC_ENDIANNESS @XSECURE_ENDIANNESS@U
 
 #define XSECURE_TRNG_USER_CFG_SEED_LIFE @XSECURE_TRNG_USER_CFG_SEED_LIFE_VAL@U

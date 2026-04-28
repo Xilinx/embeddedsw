@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file common/versal/xsecure_sha3alginfo.h
+* @file client/core/sha/sha_pmx/xsecure_sha3alginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -17,9 +17,11 @@
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
 *	vss	09/21/23 Fixed doxygen warnings
-*	vss	09/11/23 Fixed MISRA-C Rule 12.2 violation
 * 5.3   mb      04/01/24 Updated minor version
-* 5.5   vss     04/25/25 Updated minor version
+* 5.4   kpt     06/30/24 Updated version number
+* 5.6   vss     09/30/25 Updated version number
+* 5.7   tbk     04/16/26 Changed file path and modified XSecure_Sha3GetCryptoAlgInfo
+*                         Moved function implementation to .c file
 *
 * </pre>
 *
@@ -37,26 +39,18 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_SHA3_MAJOR_VERSION	6U /**< Major version of SHA3 */
-#define XSECURE_SHA3_MINOR_VERSION	0U /**< Minor version of SHA3 */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
- *
- * This function returns the SHA3 crypto algorithm information.
- *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
- *
- ******************************************************************************/
-static XSECURE_ALWAYS_INLINE void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_SHA3_MAJOR_VERSION, XSECURE_SHA3_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
+/************************** Function Prototypes ******************************/
+
+/** @addtogroup xsecure_sha_client_apis XilSecure SHA Client APIs
+ * @{
+ */
+
+void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo);
+
+/** @} */
 
 #ifdef __cplusplus
 }

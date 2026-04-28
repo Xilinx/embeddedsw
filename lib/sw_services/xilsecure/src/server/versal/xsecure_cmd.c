@@ -33,6 +33,7 @@
 *       ng   07/05/2023 Added support for system device tree flow
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 * 5.7   mb   04/17/2026 Update XSecure_CryptoCheck API definitions
+*       tbk  04/09/2026 Added support for getting crypto algorithm's version
 *
 * </pre>
 *
@@ -66,6 +67,14 @@
 
 #ifdef SDT
 #include "xsecure_config.h"
+#endif
+
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+#include "xil_cryptoalginfo.h"
+#include "xsecure_server_aesalginfo.h"
+#include "xsecure_server_rsaalginfo.h"
+#include "xsecure_server_ellipticalginfo.h"
+#include "xsecure_server_shaalginfo.h"
 #endif
 
 /************************** Function Prototypes ******************************/
@@ -145,34 +154,62 @@ static int XSecure_InvalidCmdHandler(u32 *Payload, u32 *RespBuf)
  * @brief	This function checks if a particular Secure API ID is supported
  * or not.
  *
- * @param	ApiId	is API ID in the IPI request
+ * @param	Cmd	Pointer to the command structure
  *
  * @return
  *		 - XST_SUCCESS  Success
  *		 - XST_INVALID_PARAM  Unsupported API ID
  *
  *****************************************************************************/
-static int XSecure_FeaturesCmd(u32 ApiId)
+static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 {
 	int Status = XST_INVALID_PARAM;
+	u32 ApiId;
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+	u32 AlgoVersion = 0U;
+	u32 NistStatus = NIST_NON_COMPLIANT;
+#endif
 
-	/**
-	 * - Verify if the provided API ID is supported based
-	 *   on export control bit or not
-	 */
+	if (Cmd == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	if (Cmd->Payload == NULL) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	ApiId = Cmd->Payload[0U];
+
 	switch (ApiId) {
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_SHA_MODULE_MAJOR_VERSION, XSECURE_SHA_MODULE_MINOR_VERSION);
+		NistStatus = NIST_COMPLIANT;
+#endif
+		break;
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_RSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_RSA_PRIVATE_DECRYPT):
 	case XSECURE_API(XSECURE_API_RSA_PUBLIC_ENCRYPT):
 	case XSECURE_API(XSECURE_API_RSA_SIGN_VERIFY):
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_RSA_MODULE_MAJOR_VERSION, XSECURE_RSA_MODULE_MINOR_VERSION);
+		NistStatus = NIST_COMPLIANT;
+#endif
+		break;
 #endif
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_GENERATE_SIGN):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VALIDATE_KEY):
 	case XSECURE_API(XSECURE_API_ELLIPTIC_VERIFY_SIGN):
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_ELLIPTIC_MODULE_MAJOR_VERSION, XSECURE_ELLIPTIC_MODULE_MINOR_VERSION);
+		NistStatus = NIST_COMPLIANT;
+#endif
+		break;
 #endif
 	case XSECURE_API(XSECURE_API_AES_INIT):
 	case XSECURE_API(XSECURE_API_AES_OP_INIT):
@@ -185,22 +222,43 @@ static int XSecure_FeaturesCmd(u32 ApiId)
 	case XSECURE_API(XSECURE_API_AES_WRITE_KEY):
 	case XSECURE_API(XSECURE_API_AES_KEK_DECRYPT):
 	case XSECURE_API(XSECURE_API_AES_SET_DPA_CM):
-	case XSECURE_API(XSECURE_API_KAT):
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION):
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_AES_MODULE_MAJOR_VERSION, XSECURE_AES_MODULE_MINOR_VERSION);
+		NistStatus = NIST_COMPLIANT;
 #endif
-		Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
-		if (Status != XST_SUCCESS) {
-			Status |= XPLMI_WARNING_MINOR_MASK;
-		}
 		break;
+	case XSECURE_API(XSECURE_API_KAT):
+		break;
+#endif
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Cmd not supported\r\n");
 		Status = XST_INVALID_PARAM;
-		break;
+		goto END;
 	}
 
-	return Status;
+	/* Run crypto environment check and preserve warning status if any */
+	Status = XSecure_CryptoCheck(XSECURE_CORE_ALL);
+	if (Status != XST_SUCCESS) {
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+		AlgoVersion = 0U;
+		NistStatus = NIST_NON_COMPLIANT;
+#endif
+		Status |= (int)XPLMI_WARNING_MINOR_MASK;
+		goto END;
+	}
 
+
+END:
+#ifdef XSECURE_CRYPTOALGINFO_ENABLED
+	/* Fill the version in the response buffer */
+	if (Cmd != NULL) {
+		Cmd->Response[XSECURE_ALGO_VERSION_RESP_INDEX] = AlgoVersion;
+		Cmd->Response[XSECURE_NIST_STATUS_RESP_INDEX] = NistStatus;
+	}
+#endif
+
+	return Status;
 }
 /*****************************************************************************/
 /**
@@ -230,11 +288,11 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 	/** - Call the respective API handler according to API ID */
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_FEATURES):
-		/**   - @ref XSecure_FeaturesCmd */
-		Status = XSecure_FeaturesCmd(Pload[0]);
+		/**   - XSecure_FeaturesCmd */
+		Status = XSecure_FeaturesCmd(Cmd);
 		break;
 	case XSECURE_API(XSECURE_API_SHA3_UPDATE):
-		/**    - @ref XSecure_Sha3IpiHandler */
+		/**    - XSecure_Sha3IpiHandler */
 		Status = XSecure_Sha3IpiHandler(Cmd);
 		break;
 #ifndef PLM_SECURE_EXCLUDE

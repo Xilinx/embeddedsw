@@ -20,6 +20,7 @@
 *       kpt  07/24/22 Added XSECURE_API_KAT and additional KAT ids
 *       dc   08/26/22 Removed gaps between the API IDs
 * 5.1   skg  12/16/22 Added IPI commands for Encrypt/Decrypt Init,update,Final
+* 5.7   tbk  04/16/26 Added IPI response buffer indices for algorithm info
 *
 * </pre>
 *
@@ -40,6 +41,10 @@ extern "C" {
 /************************** Constant Definitions ****************************/
 
 /***************** Macros (Inline Functions) Definitions *********************/
+
+/** IPI response buffer indices for algorithm info query */
+#define XSECURE_ALGO_VERSION_RESP_INDEX		(1U)	/**< Response buffer index for algorithm version */
+#define XSECURE_NIST_STATUS_RESP_INDEX		(2U)	/**< Response buffer index for NIST compliance status */
 
 /************************** Variable Definitions *****************************/
 
