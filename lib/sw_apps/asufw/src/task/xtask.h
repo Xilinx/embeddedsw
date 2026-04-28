@@ -84,7 +84,6 @@ void XTask_TriggerNow(XTask_TaskNode *Task);
 s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay);
 s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event);
 void XTask_EventNotify(XTask_TaskEvent *Event);
-u32 XTask_DelayTime(const XTask_TaskNode *Task);
 void XTask_DispatchLoop(void);
 XTask_TaskNode *XTask_GetInstance(void *PrivData);
 

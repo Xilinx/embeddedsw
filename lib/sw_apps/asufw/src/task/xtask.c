@@ -162,16 +162,19 @@ XTask_TaskNode *XTask_GetInstance(void *PrivData)
  *************************************************************************************************/
 void XTask_Delete(XTask_TaskNode *Task)
 {
-	/** If the list is not empty, remove the task from the task queue. */
-	if (XLinkList_IsEmpty(&Task->TaskNode) != (u8)TRUE) {
-		XLinkList_RemoveItem(&Task->TaskNode);
-	}
+	/** Validate Task pointer is NULL. */
+	if (Task != NULL) {
+		/** If the list is not empty, remove the task from the task queue. */
+		if (XLinkList_IsEmpty(&Task->TaskNode) != (u8)TRUE) {
+			XLinkList_RemoveItem(&Task->TaskNode);
+		}
 
-	/** Reset task structure members with default values. */
-	Task->Delay = 0U;
-	Task->TaskHandler = NULL;
-	Task->PrivData = NULL;
-	Task->Interval = 0U;
+		/** Reset task structure members with default values. */
+		Task->Delay = 0U;
+		Task->TaskHandler = NULL;
+		Task->PrivData = NULL;
+		Task->Interval = 0U;
+	}
 }
 
 /*************************************************************************************************/
@@ -184,8 +187,8 @@ void XTask_Delete(XTask_TaskNode *Task)
  *************************************************************************************************/
 void XTask_TriggerNow(XTask_TaskNode *Task)
 {
-	/** Trigger the task only if the given task handler is valid. */
-	if (Task->TaskHandler != NULL) {
+	/** Trigger the task only if the given task and task handler is valid. */
+	if ((Task != NULL) && (Task->TaskHandler != NULL)) {
 		/** Add the task to the TaskQueue only if it is not already added. */
 		if (XLinkList_IsEmpty(&Task->TaskNode) == (u8)TRUE) {
 			XLinkList_AddItemLast(&Task->TaskNode, &TaskQueue[Task->Priority]);
@@ -212,8 +215,8 @@ s32 XTask_TriggerAfterDelay(XTask_TaskNode *Task, u32 Delay)
 {
 	s32 Status = XASUFW_FAILURE;
 
-	/** Validate task handler. */
-	if (Task->TaskHandler == NULL) {
+	/** Validate task and task handler. */
+	if ((Task == NULL) || (Task->TaskHandler == NULL)) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
 		goto END;
 	}
@@ -252,8 +255,21 @@ s32 XTask_TriggerOnEvent(const XTask_TaskNode *Task, XTask_TaskEvent *Event)
 	s32 Status = XASUFW_FAILURE;
 	u32 Idx = (u32)(Task - TaskList);
 
+	/** Validate input parameters */
+	if ((Task == NULL) || (Event == NULL)) {
+		Status = XASUFW_INVALID_PARAM;
+		goto END;
+	}
+
+	/** Validate task handler. */
 	if (Task->TaskHandler == NULL) {
 		Status = XASUFW_TASK_INVALID_HANDLER;
+		goto END;
+	}
+
+	/** Validate computed index is within TaskList bounds. */
+	if (Idx >= XTASK_MAX) {
+		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
 
@@ -282,32 +298,19 @@ void XTask_EventNotify(XTask_TaskEvent *Event)
 	u32 Idx;
 	u32 TaskEventBitVal;
 
-	/**
-	 * Parse through the task event structure to check if the given event has occurred or not.
-	 * If the event has occurred, update the event structure and trigger the task to be executed.
-	 */
-	for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
-		TaskEventBitVal = (u32)1U << (Idx & (XTASK_NUM_BITS_IN_U32 - 1U));
-		if ((Event->Tasks[Idx / XTASK_NUM_BITS_IN_U32] & TaskEventBitVal) != 0U) {
-			Event->Tasks[Idx / XTASK_NUM_BITS_IN_U32] &= ~TaskEventBitVal;
-			XTask_TriggerNow(&TaskList[Idx]);
+	if (Event != NULL) {
+		/**
+		 * Parse through the task event structure to check if the given event has occurred or not.
+		 * If the event has occurred, update the event structure and trigger the task to be executed.
+		 */
+		for (Idx = 0U; Idx < XTASK_MAX; Idx++) {
+			TaskEventBitVal = (u32)1U << (Idx & (XTASK_NUM_BITS_IN_U32 - 1U));
+			if ((Event->Tasks[Idx / XTASK_NUM_BITS_IN_U32] & TaskEventBitVal) != 0U) {
+				Event->Tasks[Idx / XTASK_NUM_BITS_IN_U32] &= ~TaskEventBitVal;
+				XTask_TriggerNow(&TaskList[Idx]);
+			}
 		}
 	}
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function returns the Delay of the given task node structure.
- *
- * @param	Task	Pointer to the task node structure.
- *
- * @return
- * 	- Delay of the given task.
- *
- *************************************************************************************************/
-u32 XTask_DelayTime(const XTask_TaskNode *Task)
-{
-	return Task->Delay;
 }
 
 /*************************************************************************************************/
