@@ -52,6 +52,7 @@
 *       tri  10/16/24 Fixed redefined warning
 *       pre  03/02/25 Removed data context lost setting
 * 5.7   mb   04/16/26 Define XSECURE_HASH_SIZE_IN_BYTES macro
+*       tbk  04/13/26 Remove unwanted header include
 *
 * </pre>
 *
@@ -69,7 +70,6 @@ extern "C" {
 #endif
 
 /***************************** Include Files *********************************/
-#include "xsecure_sha3alginfo.h"
 #include "xsecure_sha_common.h"
 
 /************************** Constant Definitions ****************************/

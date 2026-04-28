@@ -6,3 +6,8 @@ collect (PROJECT_LIB_HEADERS xsecure_plat_katclient.h)
 
 collect (PROJECT_LIB_SOURCES xsecure_plat_client.c)
 collect (PROJECT_LIB_SOURCES xsecure_plat_katclient.c)
+
+if(NOT "Versal_2VE_2VM" IN_LIST VARIANT)
+	collect (PROJECT_LIB_HEADERS xsecure_keyunwrapalginfo.h)
+	collect (PROJECT_LIB_SOURCES xsecure_keyunwrapalginfo.c)
+endif()

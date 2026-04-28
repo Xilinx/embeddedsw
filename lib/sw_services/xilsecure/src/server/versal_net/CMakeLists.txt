@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS Ecdsa.h)
@@ -10,6 +10,12 @@ collect (PROJECT_LIB_HEADERS xsecure_plat_ipihandler.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat_kat.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat_kat_ipihandler.h)
 collect (PROJECT_LIB_HEADERS xsecure_sha_hw.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_aesalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_ellipticalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_rsaalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_shaalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_hmacalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_keyunwrapalginfo.h)
 
 collect (PROJECT_LIB_SOURCES xsecure_cmd.c)
 collect (PROJECT_LIB_SOURCES xsecure_mgf.c)
