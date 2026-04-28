@@ -63,6 +63,7 @@ typedef struct {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_StartTimer(void);
+void XAsufw_StopIoModule(void);
 s32 XAsufw_SetUpInterruptSystem(void);
 u64 XAsufw_GetTimerValue(void);
 void XAsufw_MeasurePerfTime(u64 TCur, XAsufw_PerfTime *PerfTime);

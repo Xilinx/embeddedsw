@@ -169,6 +169,9 @@ static s32 XAsufw_ShutdownAsu(void)
 	/** Disable interrupts and clear IPI. */
 	XAsufw_DisableInterrupts();
 
+	/** Stop the IO Module. */
+	XAsufw_StopIoModule();
+
 	/** Jump to relocated ASUFW Update Manager */
 	(void)XAsufw_RelocatedFn();
 	/* Never reach here */

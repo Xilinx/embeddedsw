@@ -405,6 +405,25 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	Mark the IO module driver as stopped.
+ *
+ * @details	Wraps XIOModule_Stop(), which clears the driver's IsStarted flag so that
+ *		the IO module can be re-initialized cleanly by the next ASUFW image.
+ *		It does not disable interrupt sources in hardware; callers that need to
+ *		quiesce interrupts must disable or otherwise quiesce the relevant interrupt
+ *		sources separately (e.g. via XAsufw_DisableInterruptSystem()) before invoking
+ *		this function. Intended to be called from ASUFW teardown paths such as the
+ *		in-place update flow, before control is transferred away from the running
+ *		firmware image.
+ *
+ *************************************************************************************************/
+void XAsufw_StopIoModule(void)
+{
+	XIOModule_Stop(&IOModule);
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function is called during boot up of ASUFW which will connect the IO module
  * 		interrupt handlers to the processor interrupts. This function also calls
  * 		XAsufw_ExceptionEnable function to initialize and enable processor interrupts
