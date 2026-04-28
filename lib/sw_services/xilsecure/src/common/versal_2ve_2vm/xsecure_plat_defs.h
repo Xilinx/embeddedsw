@@ -42,6 +42,10 @@ extern "C" {
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
+/** IPI response buffer indices for algorithm info query */
+#define XSECURE_ALGO_VERSION_RESP_INDEX		(1U)	/**< Response buffer index for algorithm version */
+#define XSECURE_NIST_STATUS_RESP_INDEX		(2U)	/**< Response buffer index for NIST compliance status */
+
 /**< KAT macros */
 #define XSECURE_KAT_HDR_LEN		(1U) /**< Header Length*/
 #define XSECURE_MAX_KAT_MASK_LEN	(3U) /**< Maximum mask length*/
@@ -122,7 +126,8 @@ typedef enum {
 	XSECURE_API_RESERVED = 36U,		/**< 36U */
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
 	XSECURE_API_SHA2_OPERATION, 		/**< 38U */
-	XSECURE_API_MAX,			/**< 39U */
+	XSECURE_API_HMAC_OPERATION,		/**< 39U */
+	XSECURE_API_MAX,			/**< 40U */
 } XSecure_ApiId;
 
 /** XilSecure KAT ids */

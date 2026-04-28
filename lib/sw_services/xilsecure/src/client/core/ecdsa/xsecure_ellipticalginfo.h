@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file common/versal_2ve_2vm/xsecure_ellipticalginfo.h
+* @file client/core/ecdsa/xsecure_ellipticalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -19,6 +19,9 @@
 * 5.3   kpt     03/30/24 Updated minor version
 * 5.4   mb      05/23/24 Updated minor version for 24.2
 * 5.6   vss     09/30/25 Updated version number
+* 5.7   tbk     02/05/26 Changed file path and modified XSecure_EllipticGetCryptoAlgInfo
+*                         Moved function implementation to .c file
+*
 * </pre>
 *
 ******************************************************************************/
@@ -35,26 +38,18 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_ELLIPTIC_MAJOR_VERSION	6U /**< Major version of ELLIPTIC */
-#define XSECURE_ELLIPTIC_MINOR_VERSION	0U /**< Minor version of ELLIPTIC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
- *
- * This function returns the Elliptic crypto algorithm information.
- *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
- *
- ******************************************************************************/
-static XSECURE_ALWAYS_INLINE void XSecure_EllipticGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_ELLIPTIC_MAJOR_VERSION, XSECURE_ELLIPTIC_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
+/************************** Function Prototypes ******************************/
+
+/** @addtogroup xsecure_ecdsa_client_apis XilSecure ECDSA Client APIs
+ * @{
+ */
+
+void XSecure_EllipticGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo);
+
+/** @} */
 
 #ifdef __cplusplus
 }

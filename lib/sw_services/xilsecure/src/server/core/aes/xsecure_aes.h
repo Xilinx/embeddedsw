@@ -48,6 +48,7 @@
 *                       operation uses DMA0 after encrypt update.
 *       pre  03/02/2025 Removed data context setting and resource busy functionality for AES
 * 5.6	obs  07/25/2025 Added XSECURE_AES_IV_SIZE_IN_BYTES macro
+* 5.7   tbk  02/05/2026 Remove unwanted header
 *
 * </pre>
 *
@@ -67,7 +68,6 @@ extern "C" {
 /***************************** Include Files *********************************/
 #include "xpmcdma.h"
 #include "xsecure_sss.h"
-#include "xsecure_aesalginfo.h"
 
 /************************** Constant Definitions *****************************/
 /**

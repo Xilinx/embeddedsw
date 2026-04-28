@@ -1,10 +1,5 @@
-# Copyright (C) 2024-2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2024-2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
-collect (PROJECT_LIB_HEADERS xsecure_rsaalginfo.h)
-collect (PROJECT_LIB_HEADERS xsecure_ellipticalginfo.h)
-collect (PROJECT_LIB_HEADERS xsecure_aesalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_plat_defs.h)
-collect (PROJECT_LIB_HEADERS xsecure_shaalginfo.h)
-collect (PROJECT_LIB_HEADERS xsecure_hmacalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_lmsalginfo.h)
