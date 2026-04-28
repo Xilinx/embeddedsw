@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file common/versal_2ve_2vm/xsecure_hmacalginfo.h
+* @file client/core/hmac/xsecure_hmacalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -15,6 +15,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.6   vss     09/18/25 Added FIPS info read support for HMAC
+* 5.7   tbk     04/09/26 Changed file path and modified XSecure_HmacGetCryptoAlgInfo
+*                         Moved function implementation to .c file
 *
 * </pre>
 *
@@ -32,26 +34,18 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_HMAC_MAJOR_VERSION	6U /**< Major version of HMAC */
-#define XSECURE_HMAC_MINOR_VERSION	0U /**< Minor version of HMAC */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
- *
- * This function returns the HMAC crypto algorithm information.
- *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
- *
- ******************************************************************************/
-static XSECURE_ALWAYS_INLINE void XSecure_Sha3GetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_HMAC_MAJOR_VERSION, XSECURE_HMAC_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
+/************************** Function Prototypes ******************************/
+
+/** @addtogroup xsecure_hmac_client_apis XilSecure HMAC Client APIs
+ * @{
+ */
+
+void XSecure_HmacGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo);
+
+/** @} */
 
 #ifdef __cplusplus
 }

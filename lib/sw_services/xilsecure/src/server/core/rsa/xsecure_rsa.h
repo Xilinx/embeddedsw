@@ -64,6 +64,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping
 * 	kal  07/24/24 Code refactoring for versal_2ve_2vm, separated xsecure_rsa
 *                     for zynqmp and versal_gen.
+* 5.7   tbk  03/30/26 Remove unwanted header
 *
 * </pre>
 *
@@ -84,7 +85,6 @@ extern "C" {
 #include "xparameters.h"
 #ifndef PLM_RSA_EXCLUDE
 #include "xsecure_rsa_core.h"
-#include "xsecure_rsaalginfo.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_RSA_BYTE_PAD_LENGTH	(3U)  /**< PKCS Byte Padding */

@@ -37,6 +37,7 @@
 * 5.4   yog  04/29/24 Fixed doxygen grouping and doxygen warnings.
 *       mb   05/23/24 Added support for P-192 Curve
 *       mb   05/23/24 Added support for P-224 Curve
+* 5.7   tbk  03/30/26 Remove unwanted header
 *
 * </pre>
 *
@@ -59,7 +60,6 @@ extern "C" {
 #ifndef PLM_ECDSA_EXCLUDE
 #include "xil_types.h"
 #include "xsecure_ellipticcrvs.h"
-#include "xsecure_ellipticalginfo.h"
 
 /************************** Constant Definitions ****************************/
 #define XSECURE_ECC_P384_SIZE_IN_BYTES	(48U)

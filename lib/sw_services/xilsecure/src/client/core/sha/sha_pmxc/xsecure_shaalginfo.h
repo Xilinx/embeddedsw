@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file common/versal_2ve_2vm/xsecure_aesalginfo.h
+* @file client/core/sha/sha_pmxc/xsecure_shaalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -15,17 +15,19 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.2   mmd     07/04/23 Initial Release
-*       vss     09/21/23 Fixed doxygen warnings
-* 5.3   kpt     03/30/24 Updated version number
+*	vss	09/21/23 Fixed doxygen warnings
+* 5.3   mb      04/01/24 Updated minor version
 * 5.4   kpt     06/30/24 Updated version number
-* 5.6   vss     09/30/25 Updated version number
+* 5.6   vss     09/30/25 Renamed file to xsecure_shaalginfo.h
+* 5.7   tbk     04/09/26 Changed file path and modified XSecure_ShaGetCryptoAlgInfo
+*                         Moved function implementation to .c file
 *
 * </pre>
 *
 ******************************************************************************/
 
-#ifndef XSECURE_AESALGINFO_H
-#define XSECURE_AESALGINFO_H
+#ifndef XSECURE_SHAALGINFO_H
+#define XSECURE_SHAALGINFO_H
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,29 +38,21 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_AES_MAJOR_VERSION	6U /**< Major version of AES */
-#define XSECURE_AES_MINOR_VERSION	0U /**< Minor version of AES */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
- *
- * This function returns the AES crypto algorithm information.
- *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
- *
- ******************************************************************************/
-static XSECURE_ALWAYS_INLINE void XSecure_AesGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_AES_MAJOR_VERSION, XSECURE_AES_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
+/************************** Function Prototypes ******************************/
+
+/** @addtogroup xsecure_sha3_client_apis XilSecure SHA Client APIs
+ * @{
+ */
+
+void XSecure_ShaGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo);
+
+/** @} */
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* XSECURE_AESALGINFO_H */
+#endif /* XSECURE_SHAALGINFO_H */
