@@ -126,6 +126,14 @@ if(_IS_SERVER_CONFIG)
     set(XSECURE_ECC_SUPPORT_NIST_P521 " ")
   endif()
 
+  # Crypto Algorithm Info Configuration for Versal only
+  if(_IS_VERSAL_ONLY)
+    option(XILSECURE_cryptoalginfo_enabled "Enables/Disables crypto algorithm version information support" ON)
+    if(XILSECURE_cryptoalginfo_enabled)
+      set(XSECURE_CRYPTOALGINFO_ENABLED " ")
+    endif()
+  endif()
+
   # Endianness Configuration
   set(XILSECURE_elliptic_endianness "littleendian" CACHE STRING "Data endianness selection for Elliptic Curve APIs (server mode only)")
   set_property(CACHE XILSECURE_elliptic_endianness PROPERTY STRINGS "littleendian" "bigendian")
