@@ -23,6 +23,7 @@
 * 3.6   vss  08/08/2025 Added DME support for versal_2ve_2vm.
 * 3.7   mb   01/13/2026 Added client API XNvm_EfuseCheckAesKeyCrc to check AES key CRC
 *       nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+*       tvp  04/27/2026 Block XNvm_EfuseReadDmeMode for versal_2ve_2vm
 *
 * </pre>
 *
@@ -58,6 +59,7 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, const u64 DmeKeyAddr, const u32 EnvDisFlag);
 #ifndef VERSAL_2VE_2VM
 int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const u32 EnvDisFlag);
+int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr);
 #endif
 int XNvm_EfuseWriteSecCtrlBits(XNvm_ClientInstance *InstancePtr, u32 SecCtrlBits, const u32 EnvDisFlag);
 int XNvm_EfuseWritePufCtrlBits(XNvm_ClientInstance *InstancePtr, u32 PufCtrlBits, const u32 EnvDisFlag);
@@ -93,7 +95,6 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 int XNvm_EfuseReadDna(XNvm_ClientInstance *InstancePtr, const u64 DnaAddr);
 int XNvm_EfuseReadBootModeDis(XNvm_ClientInstance *InstancePtr, const u64 BootModeDisAddr);
 int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsvdBits);
-int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr);
 int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsInfoBits);
 int XNvm_WriteDmeRevoke(XNvm_ClientInstance *InstancePtr, u16 DmeRevokeNum, const u32 EnvDisFlag);
 int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRevokeIdAddr);

@@ -32,6 +32,7 @@
 *      vss  08/08/2025 Added DME support for versal_2ve_2vm.
 * 3.7  mb   01/13/2026 Added client API to check EFUSE AES keys CRC
 *      nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+*      tvp  04/27/2026 Block XNvm_EfuseReadDmeMode for versal_2ve_2vm
 * </pre>
 *
 * @note
@@ -641,6 +642,54 @@ int XNvm_EfuseWriteDmeMode(XNvm_ClientInstance *InstancePtr, u32 DmeMode, const 
 	/** - Fill IPI Payload */
 	XNVM_PACK_PAYLOAD0(Payload, (u32)XNVM_API_ID_EFUSE_RELOAD_N_PRGM_PROT_BITS);
 	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * @brief	This function sends IPI request to read DME Mode eFuses
+ * 		requested by the user.
+ *
+ * @param	InstancePtr Pointer to the client instance
+ * @param	DmeModeAddr Address of the output buffer to store the DME Mode
+ *                         read from the eFUSE cache
+ *
+ * @return
+ *		- XST_SUCCESS - If the read is successful
+ * 		- XST_INVALID_PARAM - On invalid input parameters
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
+	u32 HighAddr;
+	u32 LowAddr;
+
+	/**
+	 *  - Validate input parameters.
+	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
+	 */
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	HighAddr = (u32)(DmeModeAddr >> XNVM_ADDR_HIGH_SHIFT);
+	LowAddr = (u32)DmeModeAddr;
+	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DME_FIPS_OFFSET, 1U, LowAddr,
+		HighAddr);
+
+	/**
+	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
+	 * - Wait for IPI response from PLM  with a default timeout of 300 seconds.
+	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
+	 */
+	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
+			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
 
 END:
 	return Status;
@@ -2755,55 +2804,6 @@ int XNvm_EfuseReadDecOnly(XNvm_ClientInstance *InstancePtr, const u64 DecOnlyAdd
 	HighAddr = (u32)(DecOnlyAddr >> XNVM_ADDR_HIGH_SHIFT);
 	LowAddr = (u32)DecOnlyAddr;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DEC_ONLY_OFFSET, 1U, LowAddr,
-		HighAddr);
-
-	/**
-	 * - Send an IPI request to the PLM by using the XNVM_API_ID_EFUSE_READ_CACHE CDO command.
-	 * Wait for IPI response from PLM  with a default timeout of 300 seconds.
-	 * If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
-	 */
-	Status = XNvm_ProcessMailbox(InstancePtr->MailboxPtr, (u32 *)RdCacheCdo,
-			sizeof(XNvm_RdCacheCdo) / XNVM_WORD_LEN);
-
-END:
-	return Status;
-}
-
-
-/*****************************************************************************/
-/**
- * @brief	This function sends IPI request to read DME Mode eFuses
- * 		requested by the user.
- *
- * @param	InstancePtr Pointer to the client instance
- * @param	DmeModeAddr	Address of the output buffer to store the
- * 				DecEfuseOnly eFuses data
- *
- * @return
- *		- XST_SUCCESS - If the read is successful
- * 		- XST_INVALID_PARAM - On invalid input parameters
- *
- ******************************************************************************/
-int XNvm_EfuseReadDmeMode(XNvm_ClientInstance *InstancePtr, const u64 DmeModeAddr)
-{
-	volatile int Status = XST_FAILURE;
-	u32 Payload[PAYLOAD_ARG_CNT];
-	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	u32 HighAddr;
-	u32 LowAddr;
-
-	/**
-	 *  - Validate input parameters.
-	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		Status = XST_INVALID_PARAM;
-		goto END;
-	}
-
-	HighAddr = (u32)(DmeModeAddr >> XNVM_ADDR_HIGH_SHIFT);
-	LowAddr = (u32)DmeModeAddr;
-	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_DME_FIPS_OFFSET, 1U, LowAddr,
 		HighAddr);
 
 	/**
