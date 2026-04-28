@@ -160,6 +160,7 @@ extern int ATM_ENABLE;
 extern int init_lilo;
 extern int userVirtualChannelId;
 int ISP_ID;
+int isp_instance_idx;
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
 	extern int noOfFrmbufInstances;
 	extern struct aligned_buf Frame_Array_p[XPAR_XV_FRMBUF_WR_NUM_INSTANCES][3];
@@ -760,6 +761,7 @@ int VsiVvdeviceExecuteCaseline
 		iba_vdev->inputType = caseCtx->instanceCfgCtx[index].inputType;
 		iba_vdev->hpId = caseCtx->instanceCfgCtx[index].hpId;
 		ISP_ID = caseCtx->instanceCfgCtx[index].hpId;
+		isp_instance_idx = index;
 		iba_vdev->portId = caseCtx->instanceCfgCtx[index].workCfg.modeCfg.mcm.portId;
 		iba_vdev->sensorHeight = caseCtx->instanceCfgCtx[index].sensorCfg.sensorHeight;
 		iba_vdev->sensorWidth = caseCtx->instanceCfgCtx[index].sensorCfg.sensorWidth;
@@ -1311,20 +1313,28 @@ int VsiVvdeviceExecuteCaseline
 					}
 				}
 			}
-			if (displayInstance == 15) {
-				LOGI("------------------------------------------------------------\r\n");
-				LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
-				if(caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-					u64 dumpAddr = (u64)pBuf->baseAddress | ((u64)0x8 << 32);
-					LOGI(" |  mrd -bin -file dump_MP.rgb 0x%llx 0x%x\r\n\n", dumpAddr, pBuf->baseSize / 4);
+		}
+		if (displayInstance == 15) {
+			LOGI("------------------------------------------------------------\r\n");
+			LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
+			for (int idx = 0; idx < totalInstance; idx++) {
+				if(caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable
+				   && tempBuf[idx][CAMDEV_BUFCHAIN_MP] != NULL) {
+					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseAddress | ((u64)0x8 << 32);
+					LOGI(" |  mrd -bin -file dump_ISP%d_MP.rgb 0x%llx 0x%x\r\n\n",
+					     caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
+					     tempBuf[idx][CAMDEV_BUFCHAIN_MP]->baseSize / 4);
 				}
-				if(caseCtx->instanceCfgCtx[index].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
-					u64 dumpAddr = (u64)pBuf->baseAddress | ((u64)0x8 << 32);
-					LOGI(" |  mrd -bin -file dump_SP.rgb 0x%llx 0x%x\r\n\n", dumpAddr, pBuf->baseSize / 4);
+				if(caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable
+				   && tempBuf[idx][CAMDEV_BUFCHAIN_SP1] != NULL) {
+					u64 dumpAddr = (u64)tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseAddress | ((u64)0x8 << 32);
+					LOGI(" |  mrd -bin -file dump_ISP%d_SP.rgb 0x%llx 0x%x\r\n\n",
+					     caseCtx->instanceCfgCtx[idx].hpId, dumpAddr,
+					     tempBuf[idx][CAMDEV_BUFCHAIN_SP1]->baseSize / 4);
 				}
-				LOGI("------------------------------------------------------------\r\n");
-				displayInstance = 0;
 			}
+			LOGI("------------------------------------------------------------\r\n");
+			displayInstance = 0;
 		}
 	}
 #else
@@ -1359,13 +1369,16 @@ int VsiVvdeviceExecuteCaseline
 					LOGI("------------------------------------------------------------\r\n");
 					LOGI(" |  📥 To retrieve the image dump, use the following command:\r\n");
 #ifdef XPAR_XV_FRMBUF_WR_NUM_INSTANCES
-					if (caseCtx->instanceCfgCtx[ISP_ID].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
-						LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x17BC00\r\n\n",
-						     ISP_ID, (unsigned long long)(uintptr_t)Frame_Array_p[ISP_ID * 2][0].aligned_addr);
-					}
-					if (caseCtx->instanceCfgCtx[ISP_ID].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
-						LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x17BC00\r\n\n",
-						     ISP_ID, (unsigned long long)(uintptr_t)Frame_Array_p[ISP_ID * 2 + 1][0].aligned_addr);
+					for (int idx = 0; idx < totalInstance; idx++) {
+						int hpId = caseCtx->instanceCfgCtx[idx].hpId;
+						if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_MP].pathEnable) {
+							LOGI(" |  mrd -bin -file lilo_ISP%d_MP.rgb 0x%llx 0x17BC00\r\n\n",
+							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2][0].aligned_addr);
+						}
+						if (caseCtx->instanceCfgCtx[idx].instancePath[CAMDEV_BUFCHAIN_SP1].pathEnable) {
+							LOGI(" |  mrd -bin -file lilo_ISP%d_SP.rgb 0x%llx 0x17BC00\r\n\n",
+							     hpId, (unsigned long long)(uintptr_t)Frame_Array_p[hpId * 2 + 1][0].aligned_addr);
+						}
 					}
 #endif
 					LOGI("------------------------------------------------------------\r\n");

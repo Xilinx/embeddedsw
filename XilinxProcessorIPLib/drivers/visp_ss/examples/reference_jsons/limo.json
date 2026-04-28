@@ -2,7 +2,7 @@
 	"totalInstance": 1,
 	"instanceCfg": [
 	{
-		"hpId": 0,
+		"hpId": 1,
 		"instanceEnable": 1,
 		"bufferType": "userptr",
 		"inputType": "Sensor",      "//": "Invalid, Sensor, Image, Tpg, Max",
@@ -12,19 +12,22 @@
 			"reserved":0
 		},
 		"streamDuration": 30, "//": "Second",
+		"fineTuneJson": "vvbcfg/project_json_file/ISP8200_V2311_20260305_144649.json",
 		"pathCfg":[
 		{
 			"pathName": "MP",
 			"pathEnable": 1,
-			"bufferNumber": 4,
-			"format": "YUV420SP"
+			"bufferNumber": 6,
+			"pathWidth": 1920,
+                        "pathHeight": 1080,
+			"format": "RGB888"
 		}
 		],
 
 		"sensorInfo":
 		{
 			"sensorName": "ox03f10",
-			"sensorDevId": 2 ,
+			"sensorDevId": 6 ,
 			"modeIndex": 0,
 			"resolutionWidth": 1920,
 			"resolutionHeight": 1080,
