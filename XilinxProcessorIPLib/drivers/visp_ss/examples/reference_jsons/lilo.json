@@ -2,7 +2,7 @@
 	"totalInstance": 1,
 	"instanceCfg": [
 	{
-		"hpId": 0,
+		"hpId": 1,
 		"instanceEnable": 1,
 		"bufferType": "userptr",
 		"inputType": "Sensor",      "//": "Invalid, Sensor, Image, Tpg, Max",
@@ -30,7 +30,7 @@
 		"sensorInfo":
 		{
 			"sensorName": "ox03f10",
-			"sensorDevId": 2 ,
+			"sensorDevId": 6 ,
 			"modeIndex": 0,
 			"resolutionWidth": 1920,
 			"resolutionHeight": 1080,
