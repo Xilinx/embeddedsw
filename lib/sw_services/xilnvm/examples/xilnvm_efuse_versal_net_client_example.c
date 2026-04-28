@@ -60,6 +60,7 @@
 * 3.5   vss     05/14/2025  Added validations for sysmon voltage and temp before writing into efuses.
 * 3.7   hae     12/29/2025  Added support to program PUF secure control bits.
 * 3.7   nik     01/06/2026  Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+*       tvp     04/27/2026  Block XilNvm_EfuseShowDmeModeBits for versal_2ve_2vm
  *
  * </pre>
  *
@@ -145,7 +146,9 @@ static int XilNvm_EfuseShowMiscCtrlBits(void);
 static int XilNvm_EfuseShowSecMisc1Bits(void);
 static int XilNvm_EfuseShowBootEnvCtrlBits(void);
 static int XilNvm_EfuseShowRomRsvdBits(void);
+#ifndef VERSAL_2VE_2VM
 static int XilNvm_EfuseShowDmeModeBits(void);
+#endif
 static int XilNvm_EfuseShowFipsInfoBits(void);
 static int XilNvm_EfuseProgramFuses(void);
 static int XilNvm_WriteFipsInfoBits(void);
@@ -324,12 +327,14 @@ static int XilNvm_EfuseReadFuses(void)
 
 	xil_printf("\n\r");
 
+#ifndef VERSAL_2VE_2VM
 	Status = XilNvm_EfuseShowDmeModeBits();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
 	xil_printf("\n\r");
+#endif
 
 	Status = XilNvm_EfuseShowFipsInfoBits();
 	if (Status != XST_SUCCESS) {
@@ -680,6 +685,7 @@ END:
 	return Status;
 }
 
+#ifndef VERSAL_2VE_2VM
 /****************************************************************************/
 /**
  * This function reads DME mode eFuses data and displays.
@@ -711,6 +717,7 @@ static int XilNvm_EfuseShowDmeModeBits(void)
 END:
 	return Status;
 }
+#endif
 
 /****************************************************************************/
 /**
