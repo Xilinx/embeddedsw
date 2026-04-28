@@ -29,6 +29,7 @@
 #include "xasu_kdf_common.h"
 #include "xasu_kdfinfo.h"
 #include "xasu_hmacinfo.h"
+#include "xasu_keymanager_common.h"
 #include "xasu_shainfo.h"
 #include "xstatus.h"
 
@@ -70,13 +71,14 @@ s32 XAsu_ValidateKdfParameters(const XAsu_KdfParams *KdfParamsPtr)
 		goto END;
 	}
 
-	/**
-	 * Validate key input: either a direct key address or a vault key ID must be
-	 * provided. If a direct key is given, its length must be non-zero and within
-	 * the maximum KDF key length. Context and output buffers must also be valid.
-	 */
-	if (((KdfParamsPtr->KeyObject.KeyInAddr == 0U) && (KdfParamsPtr->KeyObject.KeyId == 0U)) ||
-		((KdfParamsPtr->KeyObject.KeyInAddr != 0U) && ((KdfParamsPtr->KeyObject.KeyInLen == 0U) ||
+	/** Validate that exactly one of KeyInAddr or KeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(KdfParamsPtr->KeyObject.KeyInAddr,
+					  KdfParamsPtr->KeyObject.KeyId) != XST_SUCCESS) {
+		goto END;
+	}
+
+	/** When a direct key is provided, its length must be valid; context and output buffers must be valid. */
+	if (((KdfParamsPtr->KeyObject.KeyInAddr != 0U) && ((KdfParamsPtr->KeyObject.KeyInLen == 0U) ||
 		(KdfParamsPtr->KeyObject.KeyInLen > XASU_KDF_MAX_KEY_LENGTH))) ||
 		(KdfParamsPtr->ContextAddr == 0U) || (KdfParamsPtr->ContextLen == 0U) ||
 		(KdfParamsPtr->ContextLen > XASU_KDF_MAX_CONTEXT_LEN) ||

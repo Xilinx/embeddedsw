@@ -36,6 +36,7 @@
 #include "xasu_aes.h"
 #include "xasu_def.h"
 #include "xasu_aes_common.h"
+#include "xasu_keymanager_common.h"
 #include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -204,7 +205,10 @@ s32 XAsu_AesOperation(XAsu_ClientParams *ClientParamPtr, XAsu_AesParams *AesClie
 	     (((AesClientParamPtr->OperationFlags & XASU_UPDATE) == XASU_UPDATE) &&
 	      (AesClientParamPtr->EngineMode == XASU_AES_CCM_MODE))) {
 
-		if ((AesClientParamPtr->IvAddr == 0U) && (AesClientParamPtr->IvId == 0U)) {
+		/** Validate that exactly one of IvAddr or IvId is provided. */
+		Status = XAsu_KmValidateKeyAddrNdKeyId(AesClientParamPtr->IvAddr,
+						       AesClientParamPtr->IvId);
+		if (Status != XST_SUCCESS) {
 			Status = XASU_INVALID_ARGUMENT;
 			goto END;
 		}
@@ -398,7 +402,9 @@ static s32 XAsu_AesValidateKeyObjectParams(const XAsu_AesKeyObject *KeyObjectPtr
 		goto END;
 	}
 
-	if ((KeyObjectPtr->KeyAddress == 0U) && (KeyObjectPtr->KeyId == 0U)) {
+	/** Validate that exactly one of KeyAddress or KeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(KeyObjectPtr->KeyAddress,
+					  KeyObjectPtr->KeyId) != XST_SUCCESS) {
 		goto END;
 	}
 

@@ -152,7 +152,7 @@ static s32 Asu_KdfExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_KdfParams KdfClientParam;
+	XAsu_KdfParams KdfClientParam = {0U};
 	XMailbox MailboxInstance;
 
 	/** Initialize mailbox instance. */

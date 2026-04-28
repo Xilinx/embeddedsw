@@ -108,7 +108,7 @@ int main(void)
 	s32 Status = XST_FAILURE;
 	XMailbox MailboxInstance;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpUdeResponse OcpUdeResponse;
+	XAsu_OcpUdeResponse OcpUdeResponse = {0U};
 	XAsu_OcpUdeParams OcpUdeParams = {0U};
 
 #ifdef	XASU_CACHE_DISABLE

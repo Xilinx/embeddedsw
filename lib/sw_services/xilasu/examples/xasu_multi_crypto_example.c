@@ -532,19 +532,20 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 	s32 Status = XST_FAILURE;
 	u8 Set1OpsCount = 0U;
 
-	XAsu_ClientParams Sha2HashClientParams;
-	XAsu_ClientParams AesEncryptClientParams;
-	XAsu_ClientParams EccSignGenClientParams;
-	XAsu_ClientParams RsaPssSignGenClientParams;
+	XAsu_ClientParams Sha2HashClientParams = {0U};
+	XAsu_ClientParams AesEncryptClientParams = {0U};
+	XAsu_ClientParams EccSignGenClientParams = {0U};
+	XAsu_ClientParams RsaPssSignGenClientParams = {0U};
 
-	XAsu_ShaOperationCmd Sha2HashParams;
-	XAsu_AesParams AesEncryptParams;
-	XAsu_EccParams EccSignGenParams;
-	XAsu_RsaPaddingParams RsaPssSignGenParams;
+	XAsu_ShaOperationCmd Sha2HashParams = {0U};
+	XAsu_AesParams AesEncryptParams = {0U};
+	XAsu_EccParams EccSignGenParams = {0U};
+	XAsu_RsaPaddingParams RsaPssSignGenParams = {0U};
 
-	XAsu_AesKeyObject AesKeyObj;
-	XAsu_RsaPubKeyComp RsaPubKeyComp;
-	XAsu_RsaPvtKeyComp RsaPvtKeyComp;
+	XAsu_AesKeyObject AesKeyObj = {0U};
+	XAsu_RsaPubKeyComp RsaPubKeyComp = {0U};
+	XAsu_RsaPvtKeyComp RsaPvtKeyComp = {0U};
+	u32 RsaSignatureLen = 0U;
 
 	/* Reset completion counter for this set */
 	XAsu_CompletedOpsCount = 0U;
@@ -667,6 +668,8 @@ static s32 XAsu_SendCryptoRequestsSet1(void)
 	RsaPssSignGenParams.XAsu_RsaOpComp.InputDataAddr = (u64)(UINTPTR)XAsu_RsaInputData;
 	RsaPssSignGenParams.XAsu_RsaOpComp.OutputDataAddr = (u64)(UINTPTR)XAsu_RsaSignature;
 	RsaPssSignGenParams.XAsu_RsaOpComp.OutputDataLen = XASU_RSA_2048_KEY_SIZE_IN_BYTES;
+	RsaPssSignGenParams.XAsu_RsaOpComp.OutputLenAddr = (u64)(UINTPTR)&RsaSignatureLen;
+
 	RsaPssSignGenParams.XAsu_RsaOpComp.Len = XASU_RSA_INPUT_DATA_LEN_IN_BYTES;
 	RsaPssSignGenParams.XAsu_RsaOpComp.KeySize = XASU_RSA_2048_KEY_SIZE_IN_BYTES;
 	RsaPssSignGenParams.XAsu_RsaOpComp.KeyCompAddr = (u64)(UINTPTR)&RsaPvtKeyComp;
@@ -741,14 +744,14 @@ static s32 XAsu_SendCryptoRequestsSet2(void)
 	s32 Status = XST_FAILURE;
 	u8 Set2OpsCount = 0U;
 
-	XAsu_ClientParams AesDecryptClientParams;
-	XAsu_ClientParams RsaPssSignVerClientParams;
+	XAsu_ClientParams AesDecryptClientParams = {0U};
+	XAsu_ClientParams RsaPssSignVerClientParams = {0U};
 
-	XAsu_AesParams AesDecryptParams;
-	XAsu_RsaPaddingParams RsaPssSignVerParams;
+	XAsu_AesParams AesDecryptParams = {0U};
+	XAsu_RsaPaddingParams RsaPssSignVerParams = {0U};
 
-	XAsu_AesKeyObject AesKeyObj;
-	XAsu_RsaPubKeyComp RsaPubKeyComp;
+	XAsu_AesKeyObject AesKeyObj = {0U};
+	XAsu_RsaPubKeyComp RsaPubKeyComp = {0U};
 
 	/* Reset completion counter for this set */
 	XAsu_CompletedOpsCount = 0U;

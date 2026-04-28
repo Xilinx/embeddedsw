@@ -186,9 +186,9 @@ static void XAsu_TrngExample(void)
 	XMailbox MailboxInstance;
 
 #ifdef XASU_TRNG_ENABLE_DRBG_MODE
-	XAsu_DrbgInstantiateCmd InstantiateCmdParams;
-	XAsu_DrbgReseedCmd ReseedCmdParams;
-	XAsu_DrbgGenerateCmd GenerateCmdParams;
+	XAsu_DrbgInstantiateCmd InstantiateCmdParams = {0U};
+	XAsu_DrbgReseedCmd ReseedCmdParams = {0U};
+	XAsu_DrbgGenerateCmd GenerateCmdParams = {0U};
 #endif
 
 	/** Initialize mailbox instance. */

@@ -78,10 +78,15 @@ s32 XAsu_RsaEnc(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 		goto END;
 	}
 
-	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->OutputLenAddr == 0U) ||
-	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U)))) {
+	/** Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided. */
+	Status = XAsu_RsaValidateInputParams(RsaClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->OutputDataAddr == 0U) ||
+	    (RsaClientParamPtr->OutputLenAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -157,10 +162,15 @@ s32 XAsu_RsaDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientPara
 		goto END;
 	}
 
-	if ((RsaClientParamPtr->InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->OutputLenAddr == 0U) ||
-	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U))) {
+	/** Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided. */
+	Status = XAsu_RsaValidateInputParams(RsaClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->OutputDataAddr == 0U) ||
+	    (RsaClientParamPtr->OutputLenAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -237,11 +247,15 @@ s32 XAsu_RsaCrtDec(XAsu_ClientParams *ClientParamPtr, XAsu_RsaParams *RsaClientP
 		goto END;
 	}
 
-	/** Validations of inputs. */
-	if (((RsaClientParamPtr->InputDataAddr == 0U) ||
-	     (RsaClientParamPtr->OutputDataAddr == 0U) ||
-	     (RsaClientParamPtr->OutputLenAddr == 0U) ||
-	     ((RsaClientParamPtr->KeyCompAddr == 0U) && (RsaClientParamPtr->KeyId == 0U)))) {
+	/** Validate InputDataAddr and that exactly one of KeyCompAddr or KeyId is provided. */
+	Status = XAsu_RsaValidateInputParams(RsaClientParamPtr);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if ((RsaClientParamPtr->OutputDataAddr == 0U) ||
+	    (RsaClientParamPtr->OutputLenAddr == 0U)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}

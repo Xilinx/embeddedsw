@@ -32,6 +32,7 @@
 #include "xasu_rsainfo.h"
 #include "xasu_aesinfo.h"
 #include "xasu_aes_common.h"
+#include "xasu_keymanager_common.h"
 
 /************************** Constant Definitions *************************************************/
 
@@ -89,8 +90,13 @@ s32 XAsu_KeyWrapUnwrapValidateInputParams(const XAsu_KeyWrapParams *KwpunwpParam
 	}
 
 	if (OperationType == XASU_KEYWRAP_AES_RSA_KWPUNWP) {
-		if (((KwpunwpParamsPtr->KeyCompAddr == 0U) && (KwpunwpParamsPtr->RsaKeyId == 0U))
-		    || (KwpunwpParamsPtr->OptionalLabelAddr == 0U)) {
+		/** Validate that exactly one of KeyCompAddr or RsaKeyId is provided. */
+		if (XAsu_KmValidateKeyAddrNdKeyId(KwpunwpParamsPtr->KeyCompAddr,
+						  KwpunwpParamsPtr->RsaKeyId) != XST_SUCCESS) {
+			goto END;
+		}
+
+		if (KwpunwpParamsPtr->OptionalLabelAddr == 0U) {
 			goto END;
 		}
 

@@ -170,7 +170,7 @@ static s32 Asu_HmacExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_HmacParams HmacClientParam;
+	XAsu_HmacParams HmacClientParam = {0U};
 	XMailbox MailboxInstance;
 
 	/** Initialize mailbox instance. */

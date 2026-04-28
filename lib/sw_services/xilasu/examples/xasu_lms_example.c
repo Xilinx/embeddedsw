@@ -347,7 +347,7 @@ static s32 XAsu_LmsSignVerifyExample(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParams = {0U};
-	XAsu_LmsHssSignVerifyParams LmsParams;
+	XAsu_LmsHssSignVerifyParams LmsParams = {0U};
 
 	xil_printf("\r\n--- LMS Signature Verification ---\r\n");
 

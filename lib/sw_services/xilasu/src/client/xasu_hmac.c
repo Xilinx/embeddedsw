@@ -32,6 +32,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasu_hmac.h"
 #include "xasu_def.h"
+#include "xasu_keymanager_common.h"
 #include "xil_sutil.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -333,14 +334,16 @@ static s32 XAsu_ValidateHmacParameters(const XAsu_HmacParams *HmacParamsPtr)
 			goto END;
 		}
 
-		/**
-		 * Validate key input: either a direct key address or a vault key ID
-		 * must be provided. If a direct key is given, its length must be
-		 * non-zero and within 1KB.
-		 */
-		if (((HmacParamsPtr->KeyObject.KeyInAddr == 0U) && (HmacParamsPtr->KeyObject.KeyId == 0U)) ||
-		    ((HmacParamsPtr->KeyObject.KeyInAddr != 0U) && ((HmacParamsPtr->KeyObject.KeyInLen == 0U) ||
-		    (HmacParamsPtr->KeyObject.KeyInLen > XASU_HMAC_MAX_KEY_LENGTH)))) {
+		/** Validate that exactly one of KeyInAddr or KeyId is provided. */
+		if (XAsu_KmValidateKeyAddrNdKeyId(HmacParamsPtr->KeyObject.KeyInAddr,
+						  HmacParamsPtr->KeyObject.KeyId) != XST_SUCCESS) {
+			goto END;
+		}
+
+		/** When a direct key is provided, its length must be valid. */
+		if ((HmacParamsPtr->KeyObject.KeyInAddr != 0U) &&
+		    ((HmacParamsPtr->KeyObject.KeyInLen == 0U) ||
+		     (HmacParamsPtr->KeyObject.KeyInLen > XASU_HMAC_MAX_KEY_LENGTH))) {
 			goto END;
 		}
 	}

@@ -102,7 +102,7 @@ int main(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParams = {0U};
-	XAsu_EcdhParams EcdhParams;
+	XAsu_EcdhParams EcdhParams = {0U};
 	u32 Index = 0U;
 	u32 CurveType = 0U;
 	u32 CurveLength = 0U;
