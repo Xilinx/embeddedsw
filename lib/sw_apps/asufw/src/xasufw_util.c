@@ -248,16 +248,17 @@ s32 XAsufw_WriteDataToRegsWithEndianSwap(u32 BaseAddress, u32 RegOffset, const u
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	volatile u32 Index = 0U;
+	u32 Offset = RegOffset;
 
-	if ((DataArray == NULL) || (RegOffset % XASUFW_WORD_LEN_IN_BYTES != 0U)) {
+	if ((DataArray == NULL) || ((Offset % XASUFW_WORD_LEN_IN_BYTES) != 0U)) {
 		Status = XASUFW_INVALID_PARAM;
 		goto END;
 	}
 
 	/** Write data words to the respective registers by converting them to big-endian. */
 	for (Index = 0U; Index < NumOfWords; Index++) {
-		XAsufw_WriteReg((BaseAddress + RegOffset), Xil_Htonl(DataArray[Index]));
-		RegOffset = RegOffset - XASUFW_WORD_LEN_IN_BYTES;
+		XAsufw_WriteReg((BaseAddress + Offset), Xil_Htonl(DataArray[Index]));
+		Offset = Offset - XASUFW_WORD_LEN_IN_BYTES;
 	}
 
 	/** If all data words were written successfully, return success. */
