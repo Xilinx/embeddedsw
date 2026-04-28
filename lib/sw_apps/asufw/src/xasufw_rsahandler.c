@@ -41,7 +41,6 @@
 #include "xrsa_padding.h"
 #include "xkeymanager.h"
 #include "xrsa.h"
-#include "xasu_keymanager_common.h"
 #include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -259,13 +258,6 @@ static s32 XAsufw_RsaPubEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -346,13 +338,6 @@ static s32 XAsufw_RsaPvtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -432,13 +417,6 @@ static s32 XAsufw_RsaPvtCrtDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->KeyCompAddr, Cmd->KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -521,13 +499,6 @@ static s32 XAsufw_RsaOaepEnc(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -621,13 +592,6 @@ static s32 XAsufw_RsaOaepDec(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -721,13 +685,6 @@ static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -823,13 +780,6 @@ static s32 XAsufw_RsaPssSignVer(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	(void)SubsystemId;
 	(void)IpiMask;
 #else
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	Status = XAsu_KmValidateKeyAddrNdKeyId(Cmd->XAsu_RsaOpComp.KeyCompAddr, Cmd->XAsu_RsaOpComp.KeyId);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_RSA_INVALID_PARAM;
-		goto END;
-	}
-
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {

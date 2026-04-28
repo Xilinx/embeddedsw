@@ -234,10 +234,10 @@ volatile u32 ErrorStatus = XST_FAILURE; /**< Status variable to store the error 
 int main(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_RsaParams RsaClientParam;
+	XAsu_RsaParams RsaClientParam = {0U};
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_RsaPubKeyComp PubKeyParam;
-	XAsu_RsaPvtKeyComp PvtKeyParam;
+	XAsu_RsaPubKeyComp PubKeyParam = {0U};
+	XAsu_RsaPvtKeyComp PvtKeyParam = {0U};
 	XMailbox MailboxInstance;
 
 #ifdef	XASU_CACHE_DISABLE

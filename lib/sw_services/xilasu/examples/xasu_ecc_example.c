@@ -141,7 +141,7 @@ static void XAsu_GenSign(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParams = {0U};
-	XAsu_EccParams EccParams;
+	XAsu_EccParams EccParams = {0U};
 	u32 Index = 0U;
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
@@ -196,8 +196,8 @@ END:
 static void XAsu_VerifySign(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParams;
-	XAsu_EccParams EccParams;
+	XAsu_ClientParams ClientParams = {0U};
+	XAsu_EccParams EccParams = {0U};
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
 	ClientParams.SecureFlag = XASU_CMD_SECURE;
@@ -241,8 +241,8 @@ END:
 static void XAsu_GenPubKey(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_ClientParams ClientParams;
-	XAsu_EccKeyParams EccKeyParams;
+	XAsu_ClientParams ClientParams = {0U};
+	XAsu_EccKeyParams EccKeyParams = {0U};
 
 	ClientParams.Priority = XASU_PRIORITY_HIGH;
 	ClientParams.SecureFlag = XASU_CMD_SECURE;

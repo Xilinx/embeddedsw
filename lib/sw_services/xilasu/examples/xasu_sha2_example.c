@@ -138,7 +138,7 @@ static s32 Asu_Sha2Example(void)
 	s32 Status = XST_FAILURE;
 	u32 Size = 0U;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_ShaOperationCmd ShaClientParam;
+	XAsu_ShaOperationCmd ShaClientParam = {0U};
 	XMailbox MailboxInstance;
 
 	/** Initialize mailbox instance. */

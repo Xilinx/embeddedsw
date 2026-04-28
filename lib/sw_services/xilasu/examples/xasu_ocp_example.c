@@ -192,7 +192,7 @@ static int XOcp_GetX509DevIK(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpCertParams OcpDevIkCertClientParam;
+	XAsu_OcpCertParams OcpDevIkCertClientParam = {0U};
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
@@ -255,7 +255,7 @@ static int XOcp_GetX509DevAK(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpCertParams OcpDevAkCertClientParam;
+	XAsu_OcpCertParams OcpDevAkCertClientParam = {0U};
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
@@ -317,7 +317,7 @@ static int XOcp_GetX509DevIkCsr(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpCertParams OcpDevIkCsrClientParam;
+	XAsu_OcpCertParams OcpDevIkCsrClientParam = {0U};
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;
@@ -379,7 +379,7 @@ static int XAsu_OcpAttestation(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParam = {0U};
-	XAsu_OcpDevAkAttest OcpDevAkAttestParam;
+	XAsu_OcpDevAkAttest OcpDevAkAttestParam = {0U};
 
 	/* Set Queue priority and register call back function. */
 	ClientParam.Priority = XASU_PRIORITY_HIGH;

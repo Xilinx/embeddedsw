@@ -36,6 +36,7 @@
 #include "xasu_ecc.h"
 #include "xasu_def.h"
 #include "xasu_ecies_common.h"
+#include "xasu_keymanager_common.h"
 #include "xasu_shainfo.h"
 
 /************************************ Constant Definitions ***************************************/
@@ -387,8 +388,9 @@ static s32 XAsu_ValidateEccParameters(XAsu_EccParams *EccParamsPtr)
 		goto END;
 	}
 
-	if (((EccParamsPtr->Key.KeyAddr == 0U) && (EccParamsPtr->Key.KeyId == 0U)) ||
-		((EccParamsPtr->Key.KeyAddr != 0U) && (EccParamsPtr->Key.KeyId != 0U))) {
+	/** Validate that exactly one of KeyAddr or KeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(EccParamsPtr->Key.KeyAddr,
+					  EccParamsPtr->Key.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -437,8 +439,9 @@ static s32 XAsu_ValidateEccKeyParameters(const XAsu_EccKeyParams *EccKeyParamsPt
 		goto END;
 	}
 
-	if (((EccKeyParamsPtr->PvtKey.KeyAddr == 0U) && (EccKeyParamsPtr->PvtKey.KeyId == 0U)) ||
-		((EccKeyParamsPtr->PvtKey.KeyAddr != 0U) && (EccKeyParamsPtr->PvtKey.KeyId != 0U))) {
+	/** Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(EccKeyParamsPtr->PvtKey.KeyAddr,
+					  EccKeyParamsPtr->PvtKey.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
 
@@ -477,15 +480,15 @@ static s32 XAsu_ValidateEcdhParameters(const XAsu_EcdhParams *EcdhParamsPtr)
 		goto END;
 	}
 
-	/** Validate private key object */
-	if (((EcdhParamsPtr->PvtKey.KeyAddr == 0U) && (EcdhParamsPtr->PvtKey.KeyId == 0U)) ||
-			((EcdhParamsPtr->PvtKey.KeyAddr != 0U) && (EcdhParamsPtr->PvtKey.KeyId != 0U))) {
+	/** Validate that exactly one of PvtKey.KeyAddr or PvtKey.KeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(EcdhParamsPtr->PvtKey.KeyAddr,
+					  EcdhParamsPtr->PvtKey.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Validate public key object */
-	if (((EcdhParamsPtr->PubKey.KeyAddr == 0U) && (EcdhParamsPtr->PubKey.KeyId == 0U)) ||
-			((EcdhParamsPtr->PubKey.KeyAddr != 0U) && (EcdhParamsPtr->PubKey.KeyId != 0U))) {
+	/** Validate that exactly one of PubKey.KeyAddr or PubKey.KeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(EcdhParamsPtr->PubKey.KeyAddr,
+					  EcdhParamsPtr->PubKey.KeyId) != XST_SUCCESS) {
 		goto END;
 	}
 

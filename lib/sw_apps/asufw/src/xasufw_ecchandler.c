@@ -44,7 +44,6 @@
 #include "xasufw_trnghandler.h"
 #include "xfih.h"
 #include "xkeymanager.h"
-#include "xasu_keymanager_common.h"
 #include "xasu_sharedmem.h"
 
 /************************************ Constant Definitions ***************************************/

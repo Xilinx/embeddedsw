@@ -29,6 +29,7 @@
 #include "xasu_lms_common.h"
 #include "xasu_shainfo.h"
 #include "xasu_def.h"
+#include "xasu_keymanager_common.h"
 
 /********************************* Constant Definitions ******************************************/
 
@@ -83,8 +84,9 @@ s32 XAsu_LmsValidateParams(const XAsu_LmsHssSignVerifyParams *LmsParamsPtr)
 		goto END;
 	}
 
-	/** Either KeyId or PublicKeyAddr must be provided. */
-	if ((LmsParamsPtr->LmsHssKeyObj.PubKeyId == 0U) && (LmsParamsPtr->LmsHssKeyObj.PubKeyAddr == 0U)) {
+	/** Validate that exactly one of PubKeyAddr or PubKeyId is provided. */
+	if (XAsu_KmValidateKeyAddrNdKeyId(LmsParamsPtr->LmsHssKeyObj.PubKeyAddr,
+					  LmsParamsPtr->LmsHssKeyObj.PubKeyId) != XST_SUCCESS) {
 		goto END;
 	}
 

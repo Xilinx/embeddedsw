@@ -110,7 +110,7 @@ int main(void)
 {
 	s32 Status = XST_FAILURE;
 	XAsu_ClientParams ClientParams = {0U};
-	XAsu_EciesParams EciesParams;
+	XAsu_EciesParams EciesParams = {0U};
 	u32 Index = 0U;
 	XMailbox MailboxInstance;
 

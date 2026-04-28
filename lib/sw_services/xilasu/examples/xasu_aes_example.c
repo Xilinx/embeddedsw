@@ -221,9 +221,9 @@ END:
 static void XAsu_AesGcmExample(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_AesKeyObject AesKeyObj;
+	XAsu_AesKeyObject AesKeyObj = {0U};
 	XAsu_ClientParams AesClientParams = {0U};
-	XAsu_AesParams AesParams;
+	XAsu_AesParams AesParams = {0U};
 	ErrorStatus = XST_FAILURE;
 
 	xil_printf("\r\n AES-GCM Example: \r\n");
@@ -321,6 +321,7 @@ static void XAsu_AesGcmExample(void)
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
 	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
+	AesParams.IvId = 0U;
 
 	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesDecData;
@@ -377,9 +378,9 @@ END:
 static void XAsu_AesCtrExample(void)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_AesKeyObject AesKeyObj;
+	XAsu_AesKeyObject AesKeyObj = {0U};
 	XAsu_ClientParams AesClientParams = {0U};
-	XAsu_AesParams AesParams;
+	XAsu_AesParams AesParams = {0U};
 	ErrorStatus = XST_FAILURE;
 
 	xil_printf("\r\n AES-CTR Example: \r\n");
@@ -402,6 +403,7 @@ static void XAsu_AesCtrExample(void)
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
 	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
+	AesParams.IvId = 0U;
 
 	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesInputData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
@@ -454,6 +456,7 @@ static void XAsu_AesCtrExample(void)
 	AesParams.KeyObjectAddr = (u64)(UINTPTR)&AesKeyObj;
 	AesParams.IvAddr = (u64)(UINTPTR)XAsu_AesIv;
 	AesParams.IvLen = XASU_AES_IV_LEN_IN_BYTES;
+	AesParams.IvId = 0U;
 
 	AesParams.InputDataAddr = (u64)(UINTPTR)XAsu_AesEncData;
 	AesParams.OutputDataAddr = (u64)(UINTPTR)XAsu_AesDecData;

@@ -239,7 +239,7 @@ static s32 XAsu_OcpUdeEncryptData(XAsu_ClientParams *ClientParamPtr, u32 DataLen
 	u32 UdeKeyId)
 {
 	s32 Status = XST_FAILURE;
-	XAsu_OcpUdeKeyEncrypt OcpUdeKeyEncParam;
+	XAsu_OcpUdeKeyEncrypt OcpUdeKeyEncParam = {0U};
 
 	ErrorStatus = XST_FAILURE;
 	OcpUdeKeyEncParam.UdeEncPvtKeyAddr = (u64)(UINTPTR)OutputData;

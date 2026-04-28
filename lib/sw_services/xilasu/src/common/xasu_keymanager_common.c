@@ -151,22 +151,23 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	This function validates that either KeyCompAddr or KeyId is provided.
+ * @brief	This function validates that exactly one of KeyCompAddr or KeyId is provided.
  *
  * @param	KeyCompAddr	Address of the key component structure.
  * @param	KeyId		Composite key identifier for vault-based key retrieval.
  *
  * @return
- * 	- XASUFW_SUCCESS, if at least one parameter (KeyCompAddr or KeyId) is provided.
- * 	- XASUFW_RSA_INVALID_PARAM, if both KeyCompAddr and KeyId are zero.
+ * 	- XST_SUCCESS, if exactly one of (KeyCompAddr, KeyId) is non-zero.
+ * 	- XST_FAILURE, if both are zero (no source) or both are non-zero (ambiguous source).
  *
  *************************************************************************************************/
 s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId)
 {
 	s32 Status = XST_FAILURE;
 
-	/** Validate that either KeyCompAddr or KeyId is provided. */
-	if ((KeyCompAddr == 0U) && (KeyId == 0U)) {
+	/** Reject if both are zero (no source) or both are non-zero (ambiguous source). */
+	if (((KeyCompAddr == 0U) && (KeyId == 0U)) ||
+	    ((KeyCompAddr != 0U) && (KeyId != 0U))) {
 		goto END;
 	}
 
