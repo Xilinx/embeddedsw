@@ -543,16 +543,16 @@ done:
 
 static u32 ProcMemDevSelect(u32 DeviceId)
 {
-	u32 Use = 0U;
+	u32 Use = FALSE;
 
 	switch (NODESUBCLASS(DeviceId)) {
 	case (u32)XPM_NODESUBCL_DEV_CORE:
 	case (u32)XPM_NODESUBCL_DEV_MEM:
 	case (u32)XPM_NODESUBCL_DEV_MEM_CTRLR:
-		Use = 1U;
+		Use = TRUE;
 		break;
 	default:
-		Use = 0U;
+		Use = FALSE;
 		break;
 	}
 
