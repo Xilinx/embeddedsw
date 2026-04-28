@@ -226,6 +226,12 @@ int main(void)
 	}
 #endif
 
+	/** Check if this is a post-update boot and trigger pending requests. */
+	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
+		XAsufw_PostUpdateTriggerPendingRequests();
+		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
+	}
+
 	/**
 	 * Call task dispatch loop to check and execute the tasks.
 	 * When no tasks are in the task queue to be executed, enter sleep mode.
@@ -317,12 +323,6 @@ static s32 XAsufw_Init(void)
 		XAsufw_Printf(DEBUG_GENERAL, "Channel config init failed with error: 0x%x\r\n",
 			      Status);
 		goto END;
-	}
-
-	/** Check if this is a post-update boot and trigger pending requests. */
-	if (XAsufw_GetUpdateState() == XASUFW_UPDATE_STATE_LOAD_ELF_DONE) {
-		XAsufw_PostUpdateTriggerPendingRequests();
-		XAsufw_SetUpdateState(XASUFW_UPDATE_STATE_FINISHED);
 	}
 
 	/** Initialize all ASUFW modules. */
