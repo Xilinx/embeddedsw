@@ -2200,7 +2200,7 @@ static XStatus AddMemCtrlrDevice(const u32 *Args, u32 PowerId, u32 NumArgs)
 		}
 		Status = XPmDevice_Init(&MemCtrlr->Device, DeviceId, BaseAddr,
 					Power, NULL, NULL);
-		if (NumArgs == 4U) {
+		if (CMD_ADD_NODE_MEMCTRLR_ARG_4 == NumArgs) {
 			MemCtrlr->DdrMc_MainAddr = Args[3];
 		}
 		break;

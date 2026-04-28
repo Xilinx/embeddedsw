@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -16,6 +16,9 @@ extern "C" {
 
 typedef struct XPm_NodeAccess XPm_NodeAccess;
 typedef struct XPm_NodeAper XPm_NodeAper;
+
+/* Minimum number of arguments in node access command */
+#define NODE_ACCESS_ARG_MIN_LEN 		(3U)
 
 /* Size of node access table*/
 #define XPM_NODE_ACCESS_TABLE_SIZE		(1U)

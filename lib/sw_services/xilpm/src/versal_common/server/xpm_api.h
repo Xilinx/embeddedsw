@@ -108,6 +108,9 @@ struct XPm_FrcPwrDwnReq {
 #define MEM_REG_ARG_MAX_LEN		5U
 #define SHIFT_TO_HIGH_U32		32U
 
+/* 4th arg (DDR only): DDRMC Main register base address */
+#define CMD_ADD_NODE_MEMCTRLR_ARG_4 	(4U)
+
 /* Extern Variable and Function */
 extern u32 ResetReason;
 XStatus XPm_AddDevRequirement(XPm_Subsystem *Subsystem, u32 DeviceId,

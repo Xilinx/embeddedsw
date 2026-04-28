@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -461,7 +461,7 @@ XStatus XPmAccess_UpdateTable(const u32 *Args, u32 NumArgs)
 	XPm_NodeAccess *Entry;
 
 	/* Validate: <NodeId: Arg0> <Arg1,2> <Arg3,4> ... */
-	if ((NumArgs < 3U) || ((NumArgs % 2U) == 0U)) {
+	if ((NumArgs < NODE_ACCESS_ARG_MIN_LEN) || ((NumArgs % 2U) == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}

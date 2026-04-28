@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -525,7 +525,7 @@ done:
  ****************************************************************************/
 XStatus XPmSubsystem_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
