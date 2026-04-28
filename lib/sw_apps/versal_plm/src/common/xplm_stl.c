@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -25,6 +25,8 @@
 * 1.11  ng   04/30/2024 Fixed doxygen grouping
 * 1.12 	svnr 09/05/2024 Save plm default exception handler in XStl_Init
 * 						and restore after noc ecc error injection
+* 1.13  rama 04/24/2026 Protect the keep-alive task for Versal devices to
+* 			resolve xilstl build issues on the versal_2ve_2vm device
 *
 * </pre>
 *
@@ -72,13 +74,16 @@ static int XPlm_ChangeStlPeriodicity(u32 FttiTime)
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
-
+#ifndef VERSAL_2VE_2VM
 	Status = XPlm_RemoveKeepAliveTask();
 	if (XST_SUCCESS != Status) {
 		goto END;
 	}
 
 	Status = XPlm_CreateKeepAliveTask((void *)&FttiTime);
+#else
+	Status = XST_SUCCESS;
+#endif
 
 END:
 	return Status;
