@@ -26,6 +26,7 @@
 #include "mmi_dpdc_platform.h"
 #include "mmi_dc_cursor.h"
 #include "mmi_dc_partial_plane.h"
+#include "mmi_dc_sdp.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -50,6 +51,7 @@ FrameInfo Video4FbPtr;
 FrameInfo Video5FbPtr;
 FrameInfo Video6FbPtr;
 FrameInfo CursorFbPtr;
+FrameInfo SdpFbPtr;
 
 XDcDma_Descriptor *Desc1 = (XDcDma_Descriptor *)0x33500;
 XDcDma_Descriptor *Desc2 = (XDcDma_Descriptor *)0x33600;
@@ -221,6 +223,11 @@ u32 XDpDc_InitDcSubPtr(RunConfig *RunCfgPtr)
 		}
 	}
 
+	/* Initialize SDP if enabled (BEFORE hardware init) */
+	if (RunCfgPtr->SdpEnable) {
+		XDpDc_ConfigureSdp(RunCfgPtr);
+	}
+
 	/* Initialize cursor blend if enabled (BEFORE hardware init) */
 	if (RunCfgPtr->CursorEnable == CB_ENABLE) {
 		XDpDc_ConfigureCursorBlend(RunCfgPtr);
@@ -265,6 +272,7 @@ u32 XDpDc_InitializeRunConfig(RunConfig *RunCfgPtr)
 	RunCfgPtr->V5_FbInfo = &Video5FbPtr;
 	RunCfgPtr->V6_FbInfo = &Video6FbPtr;
 	RunCfgPtr->Cursor_FbInfo = &CursorFbPtr;
+	RunCfgPtr->Sdp_FbInfo = &SdpFbPtr;
 	RunCfgPtr->DpPsuPtr = &DpPsuPtr;
 	RunCfgPtr->Desc1 = Desc1;
 	RunCfgPtr->Desc2 = Desc2;

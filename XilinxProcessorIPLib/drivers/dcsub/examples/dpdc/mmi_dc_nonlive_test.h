@@ -94,6 +94,7 @@ typedef struct {
 	FrameInfo *V5_FbInfo;
 	FrameInfo *V6_FbInfo;
 	FrameInfo *Cursor_FbInfo;
+	FrameInfo *Sdp_FbInfo;
 
 	u32 DcBaseAddr;
 	u32 DcDmaBaseAddr;
@@ -110,6 +111,7 @@ typedef struct {
 	XDc_CursorBlend CursorEnable;
 	XDc_AudEn AudioEnable;
 	u8 AudioChannels;
+	u8 SdpEnable;
 	XDc_PartialBlendEn Stream1PbEnable;
 	XDc_PartialBlendEn Stream2PbEnable;
 
