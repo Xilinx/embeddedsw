@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -91,7 +91,7 @@ XStatus XPmSubsystemOp_WakeUp(XPm_Subsystem *Subsystem)
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_SetState(XPm_Subsystem *Subsystem, u32 State)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 
 	if (((u32)MAX_STATE <= State) || (NULL == Subsystem)) {
 		Status = XST_INVALID_PARAM;
@@ -99,6 +99,11 @@ XStatus XPmSubsystemOp_SetState(XPm_Subsystem *Subsystem, u32 State)
 	}
 	Subsystem->State = (u16)State;
 	Status = XST_SUCCESS;
+	/* Redundant check: verify inputs and assignment against glitch */
+	if (((u32)MAX_STATE <= State) || (NULL == Subsystem) ||
+	    (Subsystem->State != (u16)State)) {
+		Status = XST_GLITCH_ERROR;
+	}
 done:
 	return Status;
 }
