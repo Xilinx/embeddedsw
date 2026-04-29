@@ -30,6 +30,7 @@ typedef struct {
     u8 cursor_enable;
     u8 audio_enable;
     u8 audio_channels;
+    u8 sdp_enable;
     u8 partial_plane_blend_enable;
     /* 1=Stream1, 2=Stream2 */
     u8 ppb_stream_select;
