@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -73,18 +73,20 @@ inline u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex)
 
 /*****************************************************************************/
 /**
- * This function is used to forward APIs to secondary SLR on SSIT devices
+ * This function is used to forward APIs to secondary SLR on SSIT devices,
+ * with a caller-specified timeout.
  *
  * @param ApiId		PM API ID
  * @param ArgBuf	Api specific arguments
  * @param NumArgs	Number of arguments in the buffer
  * @param CmdType	Optional argument. Secure/nonsecure command type
  * @param Response	Optional argument. Response to client.
+ * @param Timeout	Timeout in microseconds to wait for the event completion
  *
  * @return XST_SUCCESS if successful else XST_FAILURE or error code
  *****************************************************************************/
-XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
-				const u32 CmdType, u32 *const Response)
+XStatus XPm_SsitForwardApiExt(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
+			      const u32 CmdType, u32 *const Response, u32 Timeout)
 {
 	XStatus Status = XST_DEVICE_NOT_FOUND;
 
@@ -93,6 +95,7 @@ XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
 	(void)NumArgs;
 	(void)CmdType;
 	(void)Response;
+	(void)Timeout;
 
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 	u32 SlrIndex = 0U;
@@ -123,7 +126,7 @@ XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
 		PmDbg("Sending API: %x to SLR: <%u>\r\n", ApiId, SlrIndex);
 		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex,
 				ReqBuf, ARRAY_SIZE(ReqBuf), RespBuf, ARRAY_SIZE(RespBuf),
-				TIMEOUT_IOCTL_COMPL);
+				Timeout);
 		if (XST_SUCCESS != Status) {
 			PmDbg("SSIT API forward failed: 0x%x\r\n", Status);
 			goto done;
@@ -142,6 +145,25 @@ done:
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 	return Status;
+}
+
+/*****************************************************************************/
+/**
+ * This function is used to forward APIs to secondary SLR on SSIT devices
+ *
+ * @param ApiId		PM API ID
+ * @param ArgBuf	Api specific arguments
+ * @param NumArgs	Number of arguments in the buffer
+ * @param CmdType	Optional argument. Secure/nonsecure command type
+ * @param Response	Optional argument. Response to client.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or error code
+ *****************************************************************************/
+XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
+			   const u32 CmdType, u32 *const Response)
+{
+	return XPm_SsitForwardApiExt(ApiId, ArgBuf, NumArgs, CmdType, Response,
+				     TIMEOUT_IOCTL_COMPL);
 }
 
 /*****************************************************************************/
