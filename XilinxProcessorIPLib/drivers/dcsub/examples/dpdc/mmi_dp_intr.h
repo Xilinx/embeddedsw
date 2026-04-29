@@ -23,6 +23,7 @@ extern "C" {
 void XDpDc_HpdHotplugHandler(void *CallbackRef);
 void XDpDc_HpdHotunplugHandler(void *CallbackRef);
 void XDpDc_HpdIrqHandler(void *CallbackRef);
+void XDpDc_DisableDpAudioSdpStreams(XMmiDp *DpPtr);
 void XDpDc_SetupDpInterrupts(RunConfig *RunCfgPtr);
 
 #ifdef __cplusplus
