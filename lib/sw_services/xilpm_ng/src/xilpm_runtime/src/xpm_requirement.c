@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024-2025 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024-2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -64,7 +64,7 @@ XStatus XPmRequirement_Add(XPm_Subsystem *Subsystem, XPm_Device *Device,
 	}
 	XPmRuntime_DeviceOps* DevOps = XPmDevice_SetDevOps_ById(Device->Node.Id);
 	if (NULL == DevOps) {
-		/** TODO: Create Error code for this */
+		Status = XPM_INVALID_DEVICEID;
 		PmErr("DeviceOps is NULL\r\n");
 		goto done;
 	}
