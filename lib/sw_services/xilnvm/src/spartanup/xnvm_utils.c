@@ -538,6 +538,93 @@ END:
 	return Status;
 }
 
+/******************************************************************************/
+/**
+ * @brief	This function performs the CRC check of AES key/User0 key/User1 key
+ *
+ * @param	CrcRegOffSet - Register offset of respective CRC register
+ * @param	CrcDoneMask - Respective CRC done mask in status register
+ * @param	CrcPassMask - Respective CRC pass mask in status register
+ * @param	Crc - A 32 bit CRC value of an expected AES key.
+ *
+ * @return
+ * 		- XST_SUCCESS - On successful CRC check.
+ * 		- XNVM_EFUSE_ERR_CRC_VERIFICATION - If AES boot key integrity
+ * 			check is failed.
+ * 		- XST_FAILURE - If AES boot key integrity check
+ * 			has not finished.
+ *
+ * @note	Expected CRC calculation steps:
+ *		1. Convert the key provided at XNVM_EFUSE_AES_KEY into hexadecimal little-endian format.
+ *		2. Calculate the CRC on this little-endian formatted AES key using XNvm_AesCrcCalc() function.
+ *		3. Provide the calculated CRC as the value of expected CRC.
+ *
+ ******************************************************************************/
+int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc)
+{
+	int Status = XST_FAILURE;
+	int LockStatus = XST_FAILURE;
+	u32 ReadReg;
+	u32 IsUnlocked = (u32)FALSE;
+
+	/**
+	 * - Read the WR_LOCK_REG. Unlock the controller if read as locked
+	 */
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+				    XNVM_EFUSE_WR_LOCK_OFFSET);
+	if (XNVM_EFUSE_WRITE_LOCKED == ReadReg) {
+		Status = XNvm_EfuseUnlockController();
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+		IsUnlocked = (u32)TRUE;
+	}
+
+	/**
+	 * - Write the crc to crcregoffset of eFuse_ctrl register
+	 */
+	XNvm_EfuseWriteReg(XNVM_EFUSE_CTRL_BASEADDR, CrcRegOffSet, Crc);
+
+	/**
+	 *  - Wait for crcdone
+	 */
+	Status = (int)Xil_WaitForEvent((UINTPTR)(XNVM_EFUSE_CTRL_BASEADDR + XNVM_EFUSE_STS_OFFSET),
+				       CrcDoneMask, CrcDoneMask, XNVM_POLL_TIMEOUT);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	/**
+	 * - Read efuse status register. If Crc is not done return XST_FAILURE
+	 */
+	ReadReg = XNvm_EfuseReadReg(XNVM_EFUSE_CTRL_BASEADDR,
+				    XNVM_EFUSE_STS_OFFSET);
+
+	if ((ReadReg & CrcDoneMask) != CrcDoneMask) {
+		Status = XST_FAILURE;
+	}
+	/**
+	 * - Return XNVM_EFUSE_ERR_CRC_VERIFICATION if Crc is not Pass. Return XST_SUCCESS upon crc pass and done
+	 */
+	else if ((ReadReg & CrcPassMask) != CrcPassMask) {
+		Status = XNVM_EFUSE_ERR_CRC_VERIFICATION;
+	} else {
+		Status = XST_SUCCESS;
+	}
+END:
+	/**
+	 * - Lock efuse controller
+	 */
+	if (IsUnlocked == (u32)TRUE) {
+		LockStatus = XNvm_EfuseLockController();
+		if (XST_SUCCESS == Status) {
+			Status = LockStatus;
+		}
+	}
+
+	return Status;
+}
+
 #ifdef XNVM_ENABLE_ENV_MONITOR_CHECKS
 /******************************************************************************/
 /**
