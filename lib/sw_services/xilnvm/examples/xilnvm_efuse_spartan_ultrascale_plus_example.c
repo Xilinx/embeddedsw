@@ -623,13 +623,16 @@ END:
  * program PPK0/PPK1/PPK2 hash eFuses
  *
  * typedef struct {
- *	u8 PrgmPpk0Hash;
- *	u8 PrgmPpk1Hash;
- *	u8 PrgmPpk2Hash;
- *	u32 Ppk0Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
- *	u32 Ppk1Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
- *	u32 Ppk2Hash[XNVM_EFUSE_PPK_HASH_LEN_IN_WORDS];
- * }XNvm_EfusePpkHash;
+ *	u32 ActualPpkHashSize;
+ *	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES];
+ *	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES];
+ *	u32 PrgmPpk0Hash;
+ *	u32 PrgmPpk1Hash;
+ * #ifndef SPARTANUPLUSAES1
+ *	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES];
+ *	u32 PrgmPpk2Hash;
+ * #endif
+ *} XNvm_EfusePpkHash;
  *
  * @param	EfuseData	Pointer to XNvm_EfuseDataAddr structure.
  *
@@ -747,26 +750,26 @@ static int XilNvm_EfuseInitDecOnly(XNvm_EfuseData *EfuseData,
  * to program SECURITY_CONTROL eFuses.
  *
 typedef struct {
-	u8 HashPufOrKey;
-	u8 RmaDis;
-	u8 RmaEn;
-	u8 CrcEn;
-	u8 DftDis;
-	u8 Lckdwn;
-	u8 PufTes2Dis;
-	u8 Ppk0Invld;
-	u8 Ppk1Invld;
-	u8 Ppk2Invld;
-	u8 AesRdlk;
-	u8 Ppk0lck;
-	u8 Ppk1lck;
-	u8 Ppk2lck;
-	u8 JtagDis;
-	u8 AesDis;
-	u8 UserWrlk;
-	u8 JtagErrDis;
-	u8 CrcRmaDis;
-	u8 CrcRmaEn;
+	u32 HashPufOrKey;
+	u32 RmaDis;
+	u32 RmaEn;
+	u32 CrcEn;
+	u32 DftDis;
+	u32 Lckdwn;
+	u32 PufTes2Dis;
+	u32 Ppk0Invld;
+	u32 Ppk1Invld;
+	u32 Ppk2Invld;
+	u32 AesRdlk;
+	u32 Ppk0lck;
+	u32 Ppk1lck;
+	u32 Ppk2lck;
+	u32 JtagDis;
+	u32 AesDis;
+	u32 UserWrlk;
+	u32 JtagErrDis;
+	u32 CrcRmaDis;
+	u32 CrcRmaEn;
 } XNvm_EfuseSecCtrl;
  *
  * @param	EfuseData	Pointer to XNvm_EfuseData structure.
