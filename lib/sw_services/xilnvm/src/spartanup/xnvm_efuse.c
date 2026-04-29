@@ -97,7 +97,6 @@ static int XNvm_EfuseVerifyBit(u32 Row, u32 Col);
 static int XNvm_EfusePgmAndVerifyBit(u32 Row, u32 Col, u32 SkipVerify);
 static int XNvm_EfuseReadCache(u32 Offset, u32 *RowData);
 static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowData);
-int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits);
 static int XNvm_EfuseCheckZeros(u32 OffsetStart, u32 OffsetEnd);
 static int XNvm_EfusePrgmPufHDInvld(const XNvm_EfuseXilinxCtrl *PufHDInvld);
 static int XNvm_EfusePrgmRomOspiCmdSeqCtrl(const XNvm_EfuseXilinxCtrl *XilinxCtrl);
@@ -108,66 +107,6 @@ static int XNvm_EfusePrgmBootModeDisBits(const XNvm_EfuseBootModeDis *BootModeDi
 #endif
 
 /************************** Function Definitions *****************************/
-/******************************************************************************/
-/**
- * @brief Initializes the eFUSE clock and validates its frequency.
- * This function sets up the Efuse clock configuration required for eFUSE programming
- * and verifies that the clock frequency is within the supported range for
- * reliable operation.
- *
- * @param  EfuseData	Pointer to the XNvm_EfuseData.
- *
- * @return
- * 		- XST_SUCCESS Clock initialization and frequency validation were successful.
- * 		- XNVM_EFUSE_ERR_INVALID_FREQUENCY If clock frequency is invalid.
- *
- *****************************************************************************/
-static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData)
-{
-	volatile int Status = XST_FAILURE;
-
-	/**
-	 * - If XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA is set,
-	 * read the frequency and clock source from RTCA space.
-	 * and initialize to EfuseClkFreq and EfuseClkSrc.
-	 */
-#ifdef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
-	EfuseData->EfuseClkFreq = Xil_In32(XNVM_PLM_CONFIG_BASE_ADDRESS +
-				XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET);
-	EfuseData->EfuseClkSrc = Xil_In32(XNVM_EFUSE_CLK_CTRL_ADDR);
-#else
-	/**
-	 * - If XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA is not set,
-	 * Set the frequency clock source value provided by user
-	 * in XNVM_EFUSE_CLK_CTRL_ADDR register.
-	 */
-	Xil_UtilRMW32(XNVM_EFUSE_CLK_CTRL_ADDR, EfuseData->EfuseClkSrc,
-			EfuseData->EfuseClkSrc);
-#endif
-
-	/**
-	 * - Validate the Efuse clock frequency
-	 */
-	if ((EfuseData->EfuseClkFreq <= XNVM_EMCCLK_MIN_FREQUENCY) ||
-		(EfuseData->EfuseClkFreq >= XNVM_EMCCLK_MAX_FREQUENCY)) {
-		Status = XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY;
-		goto END;
-	}
-
-	/**
-	 * - If Clock source is EMC, set the EMC clock enable bit in XNVM_EFUSE_IO_CTRL_ADDR
-	 */
-	if (EfuseData->EfuseClkSrc == XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE) {
-		Xil_UtilRMW32(XNVM_EFUSE_IO_CTRL_ADDR, XNVM_EFUSE_EMC_CLK_EN_VAL,
-				XNVM_EFUSE_EMC_CLK_EN_VAL);
-	}
-
-	Status = XST_SUCCESS;
-
-END:
-	return Status;
-}
-
 /***************************************************************************/
 /**
 * @brief 	This function is used to program the eFUSE of spartan ultrascale plus, based on user
@@ -229,10 +168,11 @@ int XNvm_EfuseWrite(XNvm_EfuseData *EfuseData)
 #endif
 
 	/** - Sets up Efuse controller with validated frequency */
-	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD, EfuseData->EfuseClkFreq);
+	Status = XNvm_EfuseSetupController(XNVM_EFUSE_MODE_PGM, XNVM_EFUSE_MARGIN_RD,
+					   EfuseData->EfuseClkFreq);
 	if (Status != XST_SUCCESS) {
 		Status = Status | XNVM_EFUSE_ERR_BEFORE_PROGRAMMING;
-		goto END;
+		goto END_RST;
 	}
 
 	/** - Validate all the write requests for AesKeys, PPK hash 0/1/2, Ivs, DecOnly eFuses */
@@ -346,9 +286,464 @@ END_RST:
 	if (SStatus != XST_SUCCESS) {
 		Status |= SStatus;
 	}
+
+	/** - Lock eFUSE controller */
+	SStatus = XNvm_EfuseLockController();
+	if (SStatus != XST_SUCCESS) {
+		Status |= SStatus;
+	}
+
 END:
 	return Status;
+}
 
+/******************************************************************************/
+/**
+ * @brief	This function reads secure control bits and CRC_EN register bits from eFUSE cache.
+ *
+ * @param	SecCtrlBits - Pointer to XNvm_EfuseSecCtrlBits where secure control
+ *                        bits are read.
+ *
+ * @note	Device-specific behavior:
+ *
+ * 		**SPARTANUPLUS devices:**
+ * 		- Supports PPK0, PPK1, and PPK2 (three PPK hashes)
+ * 		- PPK hash size: 256 bits (32 bytes)
+ * 		- Reads Ppk2lck and Ppk2Invld bits for PPK2
+ * 		- PPK2 eFUSE registers are shared between PPK2 hash and PUF hash storage
+ * 		- The HashPufOrKey bit determines which hash type is stored:
+ * 		  * When HashPufOrKey = 0: PPK2 registers contain PPK2 hash
+ * 		  * When HashPufOrKey = 1: PPK2 registers contain PUF hash
+ * 		- When programming PUF hash:
+ * 		  * Ppk2Invld must be 0 (PPK2 register not invalidated)
+ * 		  * Ppk2lck must be 0 (PPK2 register not write-locked)
+ * 		  * PPK2 registers must not be already programmed
+ * 		  * HashPufOrKey must be set to 1 to indicate PUF hash usage
+ *
+ * 		**SPARTANUPLUSAES1 devices:**
+ * 		- Supports only PPK0 and PPK1 (two PPK hashes)
+ * 		- PPK hash size: 384 bits (48 bytes)
+ * 		- Ppk2lck and Ppk2Invld fields are not available
+ * 		- Reads Ppk1lck and Ppk1Invld bits for PPK1
+ * 		- PPK1 eFUSE registers are shared between PPK1 hash and PUF hash storage
+ * 		- The HashPufOrKey bit determines which hash type is stored:
+ * 		  * When HashPufOrKey = 0: PPK1 registers contain PPK1 hash
+ * 		  * When HashPufOrKey = 1: PPK1 registers contain PUF hash
+ * 		- When programming PUF hash:
+ * 		  * Ppk1Invld must be 0 (PPK1 register not invalidated)
+ * 		  * Ppk1lck must be 0 (PPK1 register not write-locked)
+ * 		  * PPK1 registers must not be already programmed
+ * 		  * HashPufOrKey must be set to 1 to indicate PUF hash usage
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid parameter.
+ * 		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
+{
+	int Status = XST_FAILURE;
+	u32 SecCtrlVal = 0U;
+
+	/** - Validate output pointer before reading security control eFUSE bits */
+	if (SecCtrlBits ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read security control eFUSE cache register and extract individual bit fields */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_CONTROL_OFFSET, &SecCtrlVal);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	SecCtrlBits->ScanClearEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_SHIFT);
+	SecCtrlBits->AesDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_DIS_SHIFT);
+	SecCtrlBits->RmaDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_SHIFT);
+	SecCtrlBits->RmaEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_SHIFT);
+	SecCtrlBits->JtagDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_JTAG_DIS_SHIFT);
+	SecCtrlBits->PufTes2Dis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_SHIFT);
+	SecCtrlBits->HashPufOrKey = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_SHIFT);
+	SecCtrlBits->Ppk0lck = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_SHIFT);
+	SecCtrlBits->Ppk0Invld = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_SHIFT) ||
+	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT));
+	SecCtrlBits->Ppk1lck = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT);
+	SecCtrlBits->Ppk1Invld = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT) ||
+	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT));
+#ifndef SPARTANUPLUSAES1
+	SecCtrlBits->Ppk2lck = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT);
+	SecCtrlBits->Ppk2Invld = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT) ||
+	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT));
+#endif
+	SecCtrlBits->AesRdlk = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_SHIFT) ||
+	                             XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_SHIFT));
+	SecCtrlBits->JtagErrDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_SHIFT);
+	SecCtrlBits->UserWrlk = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_USER_WR_LK_SHIFT);
+
+	/** - Read CRC enable eFUSE cache register and extract CRC, DFT, lockdown and RMA bit fields */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_CRC_EN_OFFSET, &SecCtrlVal);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	SecCtrlBits->CrcEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_CRC_EN_SHIFT);
+	SecCtrlBits->DftDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_DFT_BITS, XNVM_EFUSE_DFT_DIS_SHIFT);
+	SecCtrlBits->Lckdwn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_LCKDOWN_SHIFT);
+	SecCtrlBits->CrcRmaDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_RMA_DISABLE_1_SHIFT);
+	SecCtrlBits->CrcRmaEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_RMA_ENABLE_1_SHIFT);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads PPK0/1/2 hash based on XNvm_EfusePpkType
+ *          from eFUSE cache.
+ *
+ * @param	PpkType - is of type XNvm_EfusePpkType i.e. PPK0/1/2.
+ * @param	PpkData - Pointer to the PPK data.
+ * @param	PpkSize - Size of PPK it is either 32 or 48 bytes.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid input parameter.
+ * 		- XST_FAILURE - Error in cache read operation.
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
+{
+	int Status = XST_FAILURE;
+	u32 PpkStartOffset = 0U;
+	u32 OffsetCnt = 0U;
+
+	/** - Validate input parameters before reading PPK hash from eFUSE cache */
+	if (PpkData ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PpkSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)
+	    && (PpkSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if ((PpkSize == XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES) && (PpkType == XNVM_EFUSE_PPK2)) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Determine PPK start offset based on PPK type and read the hash from cache range */
+	if (PpkType ==  XNVM_EFUSE_PPK0) {
+		PpkStartOffset = XNVM_EFUSE_PPK0_START_OFFSET;
+		OffsetCnt = PpkSize / XNVM_EFUSE_WORD_LEN;
+	} else if (PpkType == XNVM_EFUSE_PPK1) {
+		PpkStartOffset = XNVM_EFUSE_PPK1_START_OFFSET;
+		OffsetCnt = PpkSize / XNVM_EFUSE_WORD_LEN;
+	} else if (PpkType == XNVM_EFUSE_PPK2) {
+		PpkStartOffset = XNVM_EFUSE_PPK2_START_OFFSET;
+		OffsetCnt = PpkSize / XNVM_EFUSE_WORD_LEN;
+	} else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XNvm_EfuseReadCacheRange(PpkStartOffset, (u8)OffsetCnt, PpkData);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads SPK revoke id from eFUSE cache.
+ *
+ * @param	SpkRevokeData - is pointer to SPK revoke data.
+ * @param	SpkRevokeRow  - SPK revoke row to be read it can be either 0/1/2.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadSpkRevokeId(u32 *SpkRevokeData, u32 SpkRevokeRow)
+{
+	int Status = XST_FAILURE;
+
+	/** - Validate input parameters before reading SPK revoke ID from eFUSE cache */
+	if (SpkRevokeData == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	if (SpkRevokeRow >= XNVM_EFUSE_MAX_SPK_REVOKE_ID) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read SPK revoke ID from computed cache offset based on revoke row index */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SPK_REVOKE_ID_OFFSET + (SpkRevokeRow * XNVM_EFUSE_WORD_LEN),
+				     SpkRevokeData);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads AES revoke id from eFUSE cache.
+ *
+ * @param	AesRevokeData - is pointer to AES revoke data.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadAesRevokeId(u32 *AesRevokeData)
+{
+	int Status = XST_FAILURE;
+
+	/** - Validate input pointer before reading AES revoke ID from eFUSE cache */
+	if (AesRevokeData == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read AES revoke ID value from eFUSE cache */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_AES_REVOKE_ID_OFFSET, AesRevokeData);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads user efuses from eFUSE cache.
+ *
+ * @param	UserFuseData - is pointer to AES revoke data.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadUserFuse(u32 *UserFuseData)
+{
+	int Status = XST_FAILURE;
+
+	/** - Validate input pointer before reading user fuse from eFUSE cache */
+	if (UserFuseData == NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read user fuse value from eFUSE cache */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_USER_FUSE_OFFSET, UserFuseData);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads IV based on XNvm_EfuseIvType from eFUSE cache.
+ *
+ * @param	IvType - is of type XNvm_EfuseIvType.
+ * @param	IvData - Pointer to the iv data.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData)
+{
+	int Status = XST_FAILURE;
+	u32 IvStartOffset = 0U;
+
+	/** - Validate input parameters and select IV start offset based on IV type */
+	if (IvData ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+	if (IvType ==  XNVM_EFUSE_AES_IV_RANGE) {
+		IvStartOffset = XNVM_EFUSE_AES_IV_RANGE_START_OFFSET;
+	} else if (IvType == XNVM_EFUSE_BLACK_IV) {
+		IvStartOffset = XNVM_EFUSE_BLACK_IV_START_OFFSET;
+	} else {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read IV data from eFUSE cache starting at the determined offset */
+	Status = XNvm_EfuseReadCacheRange(IvStartOffset, XNVM_EFUSE_AES_IV_SIZE_IN_WORDS, IvData);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads DNA from eFUSE cache.
+ *
+ * @param	Dna - Pointer to the DNA data.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadDna(u32 *Dna)
+{
+	int Status = XST_FAILURE;
+
+	/** - Validate input pointer before reading DNA from eFUSE cache */
+	if (Dna ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read DNA data from eFUSE cache over the DNA word range */
+	Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_DNA_OFFSET, XNVM_EFUSE_DNA_SIZE_IN_WORDS, Dna);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads DEC only fuses from eFUSE cache.
+ *
+ * @param	DecOnly - Pointer to the DEC only efuse data.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadDecOnly(u32 *DecOnly)
+{
+	int Status = XST_FAILURE;
+
+	/** - Validate input pointer before reading DEC only eFUSE value from cache */
+	if (DecOnly ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read DEC only value from eFUSE cache */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_ONLY_OFFSET, DecOnly);
+
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief	This function reads Xilinx Ctrl fuse from eFUSE cache.
+ *
+ * @param	XilinxCtrl - Pointer to the XilinxCtrl efuse data.
+ *
+ * @return
+ * 		- XST_SUCCESS - Specified data read.
+ * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
+ *
+ ******************************************************************************/
+int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl)
+{
+	int Status = XST_FAILURE;
+	u32 Data = 0U;
+
+	/** - Validate input pointer before reading Xilinx control eFUSE from cache */
+	if (XilinxCtrl ==  NULL) {
+		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
+		goto END;
+	}
+
+	/** - Read Xilinx control register from eFUSE cache and extract individual eFUSE bit fields */
+	Status = XNvm_EfuseReadCache(XNVM_EFUSE_XILINX_CTRL_OFFSET, &Data);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	XilinxCtrl->PrgmPufHDInvld = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS,
+							XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT);
+	XilinxCtrl->PrgmDisSJtag = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_DIS_SJTAG_EFUSE_BITS,
+							XNVM_EFUSE_DIS_SJTAG_EFUSE_SHIFT);
+	XilinxCtrl->PrgmOspiResetRecoveryDelayCtrl = XNVM_GET_8_BIT_VAL(Data,
+							XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_BITS,
+							XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_SHIFT);
+	XilinxCtrl->PrgmRomRsvdOspiDevResetChoice = XNVM_GET_8_BIT_VAL(Data,
+							XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_BITS,
+							XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_SHIFT);
+	XilinxCtrl->PrgmRomOspiCmdSeqCtrl = XNVM_GET_8_BIT_VAL(Data,
+							XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_BITS,
+							XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_SHIFT);
+END:
+	return Status;
+}
+
+/******************************************************************************/
+/**
+ * @brief Initializes the eFUSE clock and validates its frequency.
+ * This function sets up the Efuse clock configuration required for eFUSE programming
+ * and verifies that the clock frequency is within the supported range for
+ * reliable operation.
+ *
+ * @param  EfuseData	Pointer to the XNvm_EfuseData.
+ *
+ * @return
+ * 		- XST_SUCCESS Clock initialization and frequency validation were successful.
+ * 		- XNVM_EFUSE_ERR_INVALID_FREQUENCY If clock frequency is invalid.
+ *
+ *****************************************************************************/
+static int XNvm_EfuseInitClockAndValidateFreq(XNvm_EfuseData *EfuseData)
+{
+	volatile int Status = XST_FAILURE;
+
+	/**
+	 * - If XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA is set,
+	 * read the frequency and clock source from RTCA space.
+	 * and initialize to EfuseClkFreq and EfuseClkSrc.
+	 */
+#ifdef XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA
+	EfuseData->EfuseClkFreq = Xil_In32(XNVM_PLM_CONFIG_BASE_ADDRESS +
+				XNVM_RTCA_EFUSE_CLK_FREQUENCY_OFFSET);
+	EfuseData->EfuseClkSrc = Xil_In32(XNVM_EFUSE_CLK_CTRL_ADDR);
+#else
+	/**
+	 * - If XNVM_SET_EFUSE_CLK_FREQUENCY_FROM_RTCA is not set,
+	 * Set the frequency clock source value provided by user
+	 * in XNVM_EFUSE_CLK_CTRL_ADDR register.
+	 */
+	Xil_UtilRMW32(XNVM_EFUSE_CLK_CTRL_ADDR, EfuseData->EfuseClkSrc,
+			EfuseData->EfuseClkSrc);
+#endif
+
+	/**
+	 * - Validate the Efuse clock frequency
+	 */
+	if ((EfuseData->EfuseClkFreq <= XNVM_EMCCLK_MIN_FREQUENCY) ||
+		(EfuseData->EfuseClkFreq >= XNVM_EMCCLK_MAX_FREQUENCY)) {
+		Status = XNVM_EFUSE_ERR_INVALID_CLK_FREQUENCY;
+		goto END;
+	}
+
+	/**
+	 * - If Clock source is EMC, set the EMC clock enable bit in XNVM_EFUSE_IO_CTRL_ADDR
+	 */
+	if (EfuseData->EfuseClkSrc == XNVM_EFUSE_CLK_SRC_EMCCLK_VALUE) {
+		Xil_UtilRMW32(XNVM_EFUSE_IO_CTRL_ADDR, XNVM_EFUSE_EMC_CLK_EN_VAL,
+				XNVM_EFUSE_EMC_CLK_EN_VAL);
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
 }
 
 /******************************************************************************/
@@ -2208,395 +2603,6 @@ static int XNvm_EfuseReadCacheRange(u32 StartOffset, u8 OffsetCount, u32 *RowDat
 		Data++;
 	}
 
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads secure control bits and CRC_EN register bits from eFUSE cache.
- *
- * @param	SecCtrlBits - Pointer to XNvm_EfuseSecCtrlBits where secure control
- *                        bits are read.
- *
- * @note	Device-specific behavior:
- *
- * 		**SPARTANUPLUS devices:**
- * 		- Supports PPK0, PPK1, and PPK2 (three PPK hashes)
- * 		- PPK hash size: 256 bits (32 bytes)
- * 		- Reads Ppk2lck and Ppk2Invld bits for PPK2
- * 		- PPK2 eFUSE registers are shared between PPK2 hash and PUF hash storage
- * 		- The HashPufOrKey bit determines which hash type is stored:
- * 		  * When HashPufOrKey = 0: PPK2 registers contain PPK2 hash
- * 		  * When HashPufOrKey = 1: PPK2 registers contain PUF hash
- * 		- When programming PUF hash:
- * 		  * Ppk2Invld must be 0 (PPK2 register not invalidated)
- * 		  * Ppk2lck must be 0 (PPK2 register not write-locked)
- * 		  * PPK2 registers must not be already programmed
- * 		  * HashPufOrKey must be set to 1 to indicate PUF hash usage
- *
- * 		**SPARTANUPLUSAES1 devices:**
- * 		- Supports only PPK0 and PPK1 (two PPK hashes)
- * 		- PPK hash size: 384 bits (48 bytes)
- * 		- Ppk2lck and Ppk2Invld fields are not available
- * 		- Reads Ppk1lck and Ppk1Invld bits for PPK1
- * 		- PPK1 eFUSE registers are shared between PPK1 hash and PUF hash storage
- * 		- The HashPufOrKey bit determines which hash type is stored:
- * 		  * When HashPufOrKey = 0: PPK1 registers contain PPK1 hash
- * 		  * When HashPufOrKey = 1: PPK1 registers contain PUF hash
- * 		- When programming PUF hash:
- * 		  * Ppk1Invld must be 0 (PPK1 register not invalidated)
- * 		  * Ppk1lck must be 0 (PPK1 register not write-locked)
- * 		  * PPK1 registers must not be already programmed
- * 		  * HashPufOrKey must be set to 1 to indicate PUF hash usage
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid parameter.
- * 		- XNVM_EFUSE_ERR_CACHE_PARITY - Parity Error exist in cache.
- *
- ******************************************************************************/
-int XNvm_EfuseReadSecCtrlBits(XNvm_EfuseSecCtrlBits *SecCtrlBits)
-{
-	int Status = XST_FAILURE;
-	u32 SecCtrlVal = 0U;
-
-	/** - Validate output pointer before reading security control eFUSE bits */
-	if (SecCtrlBits ==  NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read security control eFUSE cache register and extract individual bit fields */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_CONTROL_OFFSET, &SecCtrlVal);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	SecCtrlBits->ScanClearEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_SCAN_CLEAR_EN_SHIFT);
-	SecCtrlBits->AesDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_DIS_SHIFT);
-	SecCtrlBits->RmaDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_RMA_DISABLE_0_SHIFT);
-	SecCtrlBits->RmaEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_RMA_ENABLE_0_SHIFT);
-	SecCtrlBits->JtagDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_JTAG_DIS_SHIFT);
-	SecCtrlBits->PufTes2Dis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PUF_TEST2_DIS_SHIFT);
-	SecCtrlBits->HashPufOrKey = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_HASH_PUF_OR_KEY_SHIFT);
-	SecCtrlBits->Ppk0lck = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_WR_LK_SHIFT);
-	SecCtrlBits->Ppk0Invld = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_INVLD0_SHIFT) ||
-	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK0_INVLD1_SHIFT));
-	SecCtrlBits->Ppk1lck = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_WR_LK_SHIFT);
-	SecCtrlBits->Ppk1Invld = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD0_SHIFT) ||
-	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK1_INVLD1_SHIFT));
-#ifndef SPARTANUPLUSAES1
-	SecCtrlBits->Ppk2lck = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_WR_LK_SHIFT);
-	SecCtrlBits->Ppk2Invld = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD0_SHIFT) ||
-	                              XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_PPK2_INVLD1_SHIFT));
-#endif
-	SecCtrlBits->AesRdlk = (u32)(XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_0_SHIFT) ||
-	                             XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_AES_RD_WR_LK_1_SHIFT));
-	SecCtrlBits->JtagErrDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_JTAG_ERR_OUT_DIS_SHIFT);
-	SecCtrlBits->UserWrlk = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_SEC_CTRL_USER_WR_LK_SHIFT);
-
-	/** - Read CRC enable eFUSE cache register and extract CRC, DFT, lockdown and RMA bit fields */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_CRC_EN_OFFSET, &SecCtrlVal);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	SecCtrlBits->CrcEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_CRC_EN_SHIFT);
-	SecCtrlBits->DftDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_DFT_BITS, XNVM_EFUSE_DFT_DIS_SHIFT);
-	SecCtrlBits->Lckdwn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_LCKDOWN_SHIFT);
-	SecCtrlBits->CrcRmaDis = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_RMA_DISABLE_1_SHIFT);
-	SecCtrlBits->CrcRmaEn = (u32)XNVM_GET_8_BIT_VAL(SecCtrlVal, XNVM_EFUSE_SEC_CTRL_BITS, XNVM_EFUSE_RMA_ENABLE_1_SHIFT);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads PPK0/1/2 hash based on XNvm_EfusePpkType
- *          from eFUSE cache.
- *
- * @param	PpkType - is of type XNvm_EfusePpkType i.e. PPK0/1/2.
- * @param	PpkData - Pointer to the PPK data.
- * @param	PpkSize - Size of PPK it is either 32 or 48 bytes.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - Invalid input parameter.
- * 		- XST_FAILURE - Error in cache read operation.
- *
- ******************************************************************************/
-int XNvm_EfuseReadPpkHash(XNvm_EfusePpkType PpkType, u32 *PpkData, u32 PpkSize)
-{
-	int Status = XST_FAILURE;
-	u32 PpkStartOffset = 0U;
-	u32 OffsetCnt = 0U;
-
-	/** - Validate input parameters before reading PPK hash from eFUSE cache */
-	if (PpkData ==  NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((PpkSize != XNVM_EFUSE_PPK_HASH_256_SIZE_IN_BYTES)
-	    && (PpkSize != XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if ((PpkSize == XNVM_EFUSE_PPK_HASH_384_SIZE_IN_BYTES) && (PpkType == XNVM_EFUSE_PPK2)) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Determine PPK start offset based on PPK type and read the hash from cache range */
-	if (PpkType ==  XNVM_EFUSE_PPK0) {
-		PpkStartOffset = XNVM_EFUSE_PPK0_START_OFFSET;
-		OffsetCnt = PpkSize / XNVM_EFUSE_WORD_LEN;
-	} else if (PpkType == XNVM_EFUSE_PPK1) {
-		PpkStartOffset = XNVM_EFUSE_PPK1_START_OFFSET;
-		OffsetCnt = PpkSize / XNVM_EFUSE_WORD_LEN;
-	} else if (PpkType == XNVM_EFUSE_PPK2) {
-		PpkStartOffset = XNVM_EFUSE_PPK2_START_OFFSET;
-		OffsetCnt = PpkSize / XNVM_EFUSE_WORD_LEN;
-	} else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	Status = XNvm_EfuseReadCacheRange(PpkStartOffset, (u8)OffsetCnt, PpkData);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads SPK revoke id from eFUSE cache.
- *
- * @param	SpkRevokeData - is pointer to SPK revoke data.
- * @param	SpkRevokeRow  - SPK revoke row to be read it can be either 0/1/2.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadSpkRevokeId(u32 *SpkRevokeData, u32 SpkRevokeRow)
-{
-	int Status = XST_FAILURE;
-
-	/** - Validate input parameters before reading SPK revoke ID from eFUSE cache */
-	if (SpkRevokeData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	if (SpkRevokeRow >= XNVM_EFUSE_MAX_SPK_REVOKE_ID) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read SPK revoke ID from computed cache offset based on revoke row index */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_SPK_REVOKE_ID_OFFSET + (SpkRevokeRow * XNVM_EFUSE_WORD_LEN),
-				     SpkRevokeData);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads AES revoke id from eFUSE cache.
- *
- * @param	AesRevokeData - is pointer to AES revoke data.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadAesRevokeId(u32 *AesRevokeData)
-{
-	int Status = XST_FAILURE;
-
-	/** - Validate input pointer before reading AES revoke ID from eFUSE cache */
-	if (AesRevokeData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read AES revoke ID value from eFUSE cache */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_AES_REVOKE_ID_OFFSET, AesRevokeData);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads user efuses from eFUSE cache.
- *
- * @param	UserFuseData - is pointer to AES revoke data.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadUserFuse(u32 *UserFuseData)
-{
-	int Status = XST_FAILURE;
-
-	/** - Validate input pointer before reading user fuse from eFUSE cache */
-	if (UserFuseData == NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read user fuse value from eFUSE cache */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_USER_FUSE_OFFSET, UserFuseData);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads IV based on XNvm_EfuseIvType from eFUSE cache.
- *
- * @param	IvType - is of type XNvm_EfuseIvType.
- * @param	IvData - Pointer to the iv data.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData)
-{
-	int Status = XST_FAILURE;
-	u32 IvStartOffset = 0U;
-
-	/** - Validate input parameters and select IV start offset based on IV type */
-	if (IvData ==  NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-	if (IvType ==  XNVM_EFUSE_AES_IV_RANGE) {
-		IvStartOffset = XNVM_EFUSE_AES_IV_RANGE_START_OFFSET;
-	} else if (IvType == XNVM_EFUSE_BLACK_IV) {
-		IvStartOffset = XNVM_EFUSE_BLACK_IV_START_OFFSET;
-	} else {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read IV data from eFUSE cache starting at the determined offset */
-	Status = XNvm_EfuseReadCacheRange(IvStartOffset, XNVM_EFUSE_AES_IV_SIZE_IN_WORDS, IvData);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads DNA from eFUSE cache.
- *
- * @param	Dna - Pointer to the DNA data.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadDna(u32 *Dna)
-{
-	int Status = XST_FAILURE;
-
-	/** - Validate input pointer before reading DNA from eFUSE cache */
-	if (Dna ==  NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read DNA data from eFUSE cache over the DNA word range */
-	Status = XNvm_EfuseReadCacheRange(XNVM_EFUSE_DNA_OFFSET, XNVM_EFUSE_DNA_SIZE_IN_WORDS, Dna);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads DEC only fuses from eFUSE cache.
- *
- * @param	DecOnly - Pointer to the DEC only efuse data.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadDecOnly(u32 *DecOnly)
-{
-	int Status = XST_FAILURE;
-
-	/** - Validate input pointer before reading DEC only eFUSE value from cache */
-	if (DecOnly ==  NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read DEC only value from eFUSE cache */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_DEC_ONLY_OFFSET, DecOnly);
-
-END:
-	return Status;
-}
-
-/******************************************************************************/
-/**
- * @brief	This function reads Xilinx Ctrl fuse from eFUSE cache.
- *
- * @param	XilinxCtrl - Pointer to the XilinxCtrl efuse data.
- *
- * @return
- * 		- XST_SUCCESS - Specified data read.
- * 		- XNVM_EFUSE_ERR_INVALID_PARAM - On invalid parameter
- *
- ******************************************************************************/
-int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl)
-{
-	int Status = XST_FAILURE;
-	u32 Data = 0U;
-
-	/** - Validate input pointer before reading Xilinx control eFUSE from cache */
-	if (XilinxCtrl ==  NULL) {
-		Status = XNVM_EFUSE_ERR_INVALID_PARAM;
-		goto END;
-	}
-
-	/** - Read Xilinx control register from eFUSE cache and extract individual eFUSE bit fields */
-	Status = XNvm_EfuseReadCache(XNVM_EFUSE_XILINX_CTRL_OFFSET, &Data);
-	if (Status != XST_SUCCESS) {
-		goto END;
-	}
-
-	XilinxCtrl->PrgmPufHDInvld = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_PUFHD_INVLD_EFUSE_BITS,
-							XNVM_EFUSE_PUFHD_INVLD_EFUSE_SHIFT);
-	XilinxCtrl->PrgmDisSJtag = XNVM_GET_8_BIT_VAL(Data, XNVM_EFUSE_DIS_SJTAG_EFUSE_BITS,
-							XNVM_EFUSE_DIS_SJTAG_EFUSE_SHIFT);
-	XilinxCtrl->PrgmOspiResetRecoveryDelayCtrl = XNVM_GET_8_BIT_VAL(Data,
-							XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_BITS,
-							XNVM_EFUSE_OSPI_RESET_RECOVERY_DELAY_CTRL_SHIFT);
-	XilinxCtrl->PrgmRomRsvdOspiDevResetChoice = XNVM_GET_8_BIT_VAL(Data,
-							XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_BITS,
-							XNVM_EFUSE_ROM_RSVD_OSPI_DEV_RESET_CHOICE_SHIFT);
-	XilinxCtrl->PrgmRomOspiCmdSeqCtrl = XNVM_GET_8_BIT_VAL(Data,
-							XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_BITS,
-							XNVM_EFUSE_ROM_OSPI_CMD_SEQ_CTRL_SHIFT);
-END:
 	return Status;
 }
 
