@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -157,7 +157,6 @@ void XI3cPsx_SlaveRecv(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount)
 s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 			    s32 ByteCount, XI3cPsx_Cmd Cmds)
 {
-	bool XferStatus = FALSE;
 	s32 Status = XST_FAILURE;
 	u16 WrFifoSpace;
 	u32 Response;
@@ -171,6 +170,8 @@ s32 XI3cPsx_SlaveSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr,
 	XI3cPsx_EnableInterrupts(InstancePtr->Config.BaseAddress, XI3CPSX_INTR_RESP_READY);
 
 	if (ByteCount) {
+		bool XferStatus;
+
 		if (ByteCount >= COMMAND_PORT_ARG_DATA_LEN_MAX)
 			return XST_SEND_ERROR;
 

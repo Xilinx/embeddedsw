@@ -1,7 +1,7 @@
 
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,10 @@
 *		ConfigPtr->BaseAddress for this parameter, passing the physical
 *		address instead.
 *
-* @return	The return value is XST_SUCCESS if successful.
+* @return	XST_SUCCESS if successful.
+*		XST_DEVICE_IS_STARTED if the instance is already initialized.
+*		XST_FAILURE if SCL clock programming or bus initialization fails
+*		(master mode only).
 *
 * @note		None.
 *
@@ -61,6 +64,8 @@
 s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 			  u32 EffectiveAddr)
 {
+	s32 Status;
+
 	/* Assert the arguments */
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(ConfigPtr != NULL);
@@ -123,10 +128,25 @@ s32 XI3cPsx_CfgInitialize(XI3cPsx *InstancePtr, XI3cPsx_Config *ConfigPtr,
 
 	/*
 	 * For Slave mode, DeviceCount config parameter should be zero.
+	 * SclkHz is always initialized to 0 so XI3cPsx_GetSClk() never
+	 * returns garbage in slave mode.
 	 */
+	InstancePtr->SclkHz = 0U;
+
 	if (ConfigPtr->DeviceCount != 0) {
-		XI3cPsx_SetSClk(InstancePtr);
-		XI3cPsx_BusInit(InstancePtr);
+		InstancePtr->SclkHz = I3C_BUS_TYP_I3C_SCL_RATE;
+
+		Status = XI3cPsx_SetSClk(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			InstancePtr->IsReady = 0U;
+			return Status;
+		}
+
+		Status = XI3cPsx_BusInit(InstancePtr);
+		if (Status != XST_SUCCESS) {
+			InstancePtr->IsReady = 0U;
+			return Status;
+		}
 	}
 
 	return XST_SUCCESS;
@@ -216,7 +236,7 @@ void XI3cPsx_WrCmdFifo(XI3cPsx *InstancePtr, XI3cPsx_Cmd *Cmd)
 ******************************************************************************/
 void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 {
-	u32 Data = 0;
+	u32 Data;
 	u16 Index;
 
 	(void)RxBuf;
@@ -262,7 +282,7 @@ void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 {
 	s32 Status = XST_FAILURE;
-	XI3cPsx_Cmd Cmd;
+	XI3cPsx_Cmd Cmd = {0};
 
 	/*
 	 * Transfer Argument
@@ -310,7 +330,7 @@ s32 XI3cPsx_SendTransferCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 {
 	s32 Status = XST_FAILURE;
-	XI3cPsx_Cmd Cmd;
+	XI3cPsx_Cmd Cmd = {0};
 
 	/*
 	 * Transfer Argument
@@ -332,3 +352,4 @@ s32 XI3cPsx_SendAddrAssignCmd(XI3cPsx *InstancePtr, struct CmdInfo *CmdCCC)
 
 	return Status;
 }
+/** @} */

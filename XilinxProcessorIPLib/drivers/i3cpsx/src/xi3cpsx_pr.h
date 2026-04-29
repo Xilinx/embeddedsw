@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -132,7 +132,8 @@ extern "C" {
 
 #define SCL_I3C_TIMING_HCNT(x)		(((x) << 16) & GENMASK(23, 16))
 #define SCL_I3C_TIMING_LCNT(x)		((x) & GENMASK(7, 0))
-#define SCL_I3C_TIMING_CNT_MIN		5
+#define SCL_I3C_TIMING_CNT_MIN		5U	/**< Minimum SCL high/low count value for timing register */
+#define SCL_I3C_TIMING_CNT_MAX		255U	/**< Maximum SCL high/low count value, limited to 8-bit timing register field width */
 #define I3C_BUS_I2C_FM_TLOW_MIN_NS	1300
 #define I3C_BUS_I2C_FMP_TLOW_MIN_NS	500
 #define I3C_BUS_THIGH_MAX_NS		41

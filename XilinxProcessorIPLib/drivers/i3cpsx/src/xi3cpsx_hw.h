@@ -43,12 +43,6 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 
-/**
- * PS_I2C_I3C0 Base Address
-#define XI3CPSX_BASEADDR      0xF1000000
-#define XI3CPSX_BASEADDR      0xF1940000
-#define XI3CPSX_BASEADDR      0xF1950000
- */
 #ifdef SDT
 #define XI3CPSX_BASEADDR      0x0
 #else
@@ -175,6 +169,33 @@ extern "C" {
 
 
 #define XI3CPSX_NS_1SEC			1000000000
+
+/**
+ * @name Bit-width masks used by I3C helper logic.
+ *
+ * These masks carve out the low N bits of a value. Used by the folded-XOR
+ * odd-parity helper (XI3cPsx_OddParity7) and the dynamic-address encoding
+ * in XI3cPsx_SetDynamicAddr.
+ *
+ * @{
+ */
+#define	XI3CPSX_1BIT_MASK	0x00000001U	/**< Mask for the least-significant 1 bit (values 0..1) */
+#define	XI3CPSX_2BITS_MASK	0x00000003U	/**< Mask for the least-significant 2 bits (values 0..3) */
+#define	XI3CPSX_4BITS_MASK	0x0000000FU	/**< Mask for the least-significant 4 bits (values 0..15) */
+#define	XI3CPSX_7BITS_MASK	0x0000007FU	/**< Mask for the 7-bit I3C dynamic address field (values 0x00..0x7F) */
+/** @} */
+
+/**
+ * @brief Bit position of the odd-parity bit within the 8-bit encoded I3C
+ *        dynamic address.
+ *
+ * The encoded dynamic address is an 8-bit field: bit[7] is the odd parity
+ * of the 7-bit dynamic address (bits[6:0]), i.e. parity = ~XOR(addr[6:0]).
+ * This matches the MIPI I3C bus format and the
+ * DEV_ADDR_TABLE_LOC*.DEV_DYNAMIC_ADDR[23:16] field layout, where bit[23]
+ * (= bit[7] of the 8-bit field) is the parity bit.
+ */
+#define	XI3CPSX_DYNAMIC_ADDR_PARITY_SHIFT	7U
 
 /**
  * Register: XI3CPSX_DEVICE_CTRL

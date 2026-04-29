@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,21 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
+/*
+ * Forward declaration of XI3C_DynaAddrList so the size-check typedef below
+ * can apply sizeof to it. The array is defined with its initializer in the
+ * Variable Definitions section further down.
+ */
+extern const u32 XI3C_DynaAddrList[XI3CPSX_MAX_DAT_ENTRIES];
+
+/*
+ * Compile-time assertion: XI3C_DynaAddrList must have exactly
+ * XI3CPSX_MAX_DAT_ENTRIES entries. Emits a "negative array size"
+ * diagnostic at build time if the two ever get out of sync.
+ */
+typedef char XI3cPsx_DynaAddrListSizeCheck[
+	(XI3CPSX_ARRAY_SIZE(XI3C_DynaAddrList) == XI3CPSX_MAX_DAT_ENTRIES) ? 1 : -1
+];
 
 /***************** Macros (Inline Functions) Definitions *********************/
 #define TX_MAX_LOOPCNT 1000000U	/**< Used to wait in polled function */
@@ -41,13 +56,59 @@
 /************************** Function Prototypes ******************************/
 
 /************************* Variable Definitions *****************************/
+/**
+ * Dynamic addresses available for I3C devices.
+ */
+const u32 XI3C_DynaAddrList[XI3CPSX_MAX_DAT_ENTRIES] = {
+	0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f, 0x10, 0x11, 0x12
+};
 
-s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, u32 *Addr, u32 Devices)
+/*****************************************************************************/
+/**
+* @brief
+* This function sends dynamic Address Assignment for available devices.
+*
+* @param	InstancePtr is a pointer to the XI3cPsx instance.
+* @param	Addr is an array of dynamic addresses.
+* @param	Devices is the number of slave devices present.
+*
+* @return
+*               - XST_SUCCESS if everything went well.
+*               - XST_FAILURE if any error.
+*
+* @note         None.
+*
+****************************************************************************/
+static s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, const u32 *Addr, u32 Devices)
 {
 	u32 i;
+	u32 Reg;
+	u8 Da;
+	u8 Encoded;
+
+	Xil_AssertNonvoid(InstancePtr != NULL);
+	Xil_AssertNonvoid(InstancePtr->IsReady == (u32)XIL_COMPONENT_IS_READY);
+	if (Devices > 0U) {
+		Xil_AssertNonvoid(Addr != NULL);
+	}
+
+	if (Devices > XI3CPSX_MAX_DAT_ENTRIES) {
+		return XST_FAILURE;
+	}
 
 	for (i = 0; i < Devices; i++) {
-		InstancePtr->Addr[i] = Addr[i];
+		Da = (u8)(Addr[i] & XI3CPSX_7BITS_MASK);
+		Encoded = (u8)((XI3cPsx_OddParity7(Da) << XI3CPSX_DYNAMIC_ADDR_PARITY_SHIFT) | Da);
+
+		Reg = (u32)Encoded
+		      << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
+
+		XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
+				 XI3CPSX_DEV_ADDR_TABLE_LOC1 + (i * 4U), Reg);
+		InstancePtr->Addr[i] = (u32)Da;
+	}
+	for (; i < XI3CPSX_MAX_DAT_ENTRIES; i++) {
+		InstancePtr->Addr[i] = 0U;
 	}
 	return XST_SUCCESS;
 }
@@ -64,46 +125,35 @@ s32 XI3cPsx_SetDynamicAddr(XI3cPsx *InstancePtr, u32 *Addr, u32 Devices)
 *		- XST_SUCCESS if everything went well.
 *		- XST_FAILURE if any error.
 *
-* @note 	None.
+* @note		SCL timing must be programmed before calling this function.
+*		Call XI3cPsx_SetSClk() or XI3cPsx_SetSClkRate() first so that
+*		the RSTDAA and ENTDAA bus transactions issued here run at the
+*		intended clock rate.  XI3cPsx_CfgInitialize() handles this
+*		sequence automatically; callers invoking XI3cPsx_BusInit()
+*		directly are responsible for calling XI3cPsx_SetSClk() first.
 *
 ****************************************************************************/
 s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 {
 	u32 Reg = 0;
 	s32 Status = XST_FAILURE;
-	struct CmdInfo CmdCCC;
+	struct CmdInfo CmdCCC = {0};
 
 	/*
 	 * Write self address
 	 */
-	Reg = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR);
 	Reg = ((XI3CPSX_DEVICE_ADDR_SELF_DYNAMIC_ADDR << XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_SHIFT) |
 	       XI3CPSX_DEVICE_ADDR_DYNAMIC_ADDR_VALID_MASK);
 	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_DEVICE_ADDR, Reg);
 
 	/*
-	 * Set SCL push-pull High count and Low count
-	 */
-	Reg = SCL_I3C_TIMING_HCNT(XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_HCNT_VAL)
-		| (XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_VAL & XI3CPSX_SCL_I3C_PP_TIMING_I3C_PP_LCNT_MASK);
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SCL_I3C_PP_TIMING, Reg);
-
-	/*
-	 * Set Open Drain Low Count and High Count
-	 */
-	Reg = ((XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_MASK | (XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_VAL << XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_HCNT_SHIFT))
-	       | (XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_VAL & XI3CPSX_SCL_I3C_OD_TIMING_I3C_OD_LCNT_MASK));
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress, XI3CPSX_SCL_I3C_OD_TIMING, Reg);
-
-	/*
 	 * Initialize Device address table (DAT)
 	 */
-	Reg = 0x25 << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-			 XI3CPSX_DEV_ADDR_TABLE_LOC1, Reg);
-	Reg = 0x26 << XI3CPSX_DEV_ADDR_TABLE_LOC1_DEV_DYNAMIC_ADDR_SHIFT;
-	XI3cPsx_WriteReg(InstancePtr->Config.BaseAddress,
-			 XI3CPSX_DEV_ADDR_TABLE_LOC2, Reg);
+	Status = XI3cPsx_SetDynamicAddr(InstancePtr, XI3C_DynaAddrList,
+					InstancePtr->Config.DeviceCount);
+	if (Status != XST_SUCCESS) {
+		return Status;
+	}
 
 	/*
 	 * Enable the controller
@@ -151,9 +201,9 @@ s32 XI3cPsx_BusInit(XI3cPsx *InstancePtr)
 #ifdef DEBUG
 void XI3cPsx_PrintDCT(XI3cPsx *InstancePtr)
 {
-	u32 i = 0;
-	u32 j = 0;
-	u32 DctRead = 0;
+	u32 i;
+	u32 j;
+	u32 DctRead;
 
 	for (i = 0; i < InstancePtr->Config.DeviceCount; i++) {
 		/* 4 words in DCT for 1 device */

@@ -7,14 +7,22 @@
 /**
  * @file xi3cpsx_intr_example.c
  *
- * Design example to use the I3C device as master in interrupt-driven mode.
+ * This file contains a reference design example demonstrating the use of the
+ * Xilinx I3C controller operating in master mode using an
+ * interrupt-driven data transfer mechanism.
  *
- * It perform read operation with repeated start by first sending register
- * address without TOC and receives data from slave.
- * This example runs on versal net evaluation board.
+ * The example performs a read transaction with a repeated START condition.
+ * The master first transmits the target slave register address without issuing
+ * a Termination On Completion (TOC), and then receives data from the slave
+ * device.
  *
- * LSM6DSO sensor interfaced on I3CPS0 of versal net evaluation board.
- * Refer data sheet of LSM6DSO sensor for slave device registers details.
+ * This application is designed to run on the Versal Net evaluation board.
+ *
+ * An LSM6DSO sensor is connected to the I3CPS0 controller on the
+ * Versal Net board and operates as the I3C slave device.
+ *
+ * Refer to the LSM6DSO sensor datasheet for details on the slave device
+ * register map and supported register addresses.
  *
  * <pre> MODIFICATION HISTORY:
  *
