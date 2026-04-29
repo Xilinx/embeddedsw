@@ -17,6 +17,7 @@
 #include "mmi_dc_setup_frames.h"
 #include "mmi_dc_nonlive_test.h"
 #include "mmi_dc_cursor.h"
+#include "mmi_dc_sdp.h"
 #include "mmi_dc_generate_frames.h"
 
 /************************** Constant Definitions *****************************/
@@ -249,10 +250,14 @@ void XDpDc_CreateDescriptors(RunConfig *RunCfgPtr, XDcDma_Descriptor *XDesc, Fra
 	XDesc->Next_Desc_Addr_Lo = LOWER_32_BITS(DescAddr);
 	XDesc->Next_Desc_Addr_Hi = (DescAddr) >> 32;
 
-	int is_cursor_desc = (RunCfgPtr->CursorEnable == CB_ENABLE) &&
-	                     (XDesc == RunCfgPtr->Desc7);
+	int is_sdp_desc = (XDesc == RunCfgPtr->Desc7) &&
+			  (FBInfo == RunCfgPtr->Sdp_FbInfo);
+	int is_cursor_desc = (XDesc == RunCfgPtr->Desc7) &&
+			     (FBInfo == RunCfgPtr->Cursor_FbInfo);
 
-	if (is_cursor_desc) {
+	if (is_sdp_desc) {
+		XDesc->Target_Addr = 0;
+	} else if (is_cursor_desc) {
 		XDesc->Target_Addr = 1;
 	} else {
 		XDesc->Line_Size = FBInfo->LineSize;
@@ -517,6 +522,11 @@ void XDpDc_InitFrames(RunConfig *RunCfgPtr)
 	/* Fill cursor buffer if enabled */
 	if (RunCfgPtr->CursorEnable == CB_ENABLE) {
 		XDpDc_FillCursorBuffer(RunCfgPtr);
+	}
+
+	if (RunCfgPtr->SdpEnable) {
+		XDpDc_InitSdpFrameBuffer(RunCfgPtr);
+		XDpDc_FillSdpBuffer(RunCfgPtr);
 	}
 
 	if (RunCfgPtr->AudioEnable) {
