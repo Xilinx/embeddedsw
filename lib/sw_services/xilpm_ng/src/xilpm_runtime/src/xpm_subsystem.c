@@ -580,7 +580,7 @@ done:
  ****************************************************************************/
 XStatus XPmSubsystem_StartRecoveryTimer(XPm_Subsystem *Subsystem, u32 CmdType)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
