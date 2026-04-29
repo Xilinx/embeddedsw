@@ -208,6 +208,17 @@ u8 XPm_PlatGetSlrIndex(void);
 /******************************************************************************
  * SSIT PLM to PLM communication related APIs and Macros
  *****************************************************************************/
+
+/* Timeout for event completion (in microseconds) */
+#define TIMEOUT_IOCTL_COMPL	(10000U)
+
+/**
+ * Timeout for AIE operations (e.g., memory zeroization) which may take
+ * significantly longer than typical IOCTLs, especially on large AIE arrays
+ * over the SSIT forwarding path (in microseconds).
+ */
+#define TIMEOUT_AIE_OPS_COMPL	(100000U)
+
 #ifdef PLM_ENABLE_PLM_TO_PLM_COMM
 
 #define NODE_SLR_IDX_SHIFT	12U
@@ -215,15 +226,13 @@ u8 XPm_PlatGetSlrIndex(void);
 
 #define NODE_SLR_IDX_MASK	((u32)NODE_SLR_IDX_MASK_BITS << NODE_SLR_IDX_SHIFT)
 
-/* Timeout for event completion (in microseconds) */
-#define TIMEOUT_IOCTL_COMPL	(10000U)
-
 u32 IsNodeOnSecondarySLR(u32 DeviceId, u32 *SlrIndex);
 #endif /* PLM_ENABLE_PLM_TO_PLM_COMM */
 
 XStatus XPm_SsitForwardApi(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
-				const u32 CmdType, u32 *const Response);
-
+			   const u32 CmdType, u32 *const Response);
+XStatus XPm_SsitForwardApiExt(XPm_ApiId ApiId, const u32 *ArgBuf, u32 NumArgs,
+			      const u32 CmdType, u32 *const Response, u32 Timeout);
 
 #ifdef __cplusplus
 }

@@ -77,9 +77,13 @@ XStatus XPm_AieOperation(u32 SubsystemId, u32 Id, pm_ioctl_id IoctlId, u32 Part,
 	ArgBuf[2] = Part;
 	ArgBuf[3] = Ops;
 
-	/* Forward message event to secondary SLR if required */
-	Status = XPm_SsitForwardApi(PM_IOCTL, ArgBuf, NumArgs,
-				    (u32)NO_HEADER_CMDTYPE, NULL);
+	/* Forward message event to secondary SLR if required.
+	 * Use a longer timeout for AIE operations since zeroization
+	 * of large AIE arrays can take significant time.
+	 */
+	Status = XPm_SsitForwardApiExt(PM_IOCTL, ArgBuf, NumArgs,
+				       (u32)NO_HEADER_CMDTYPE, NULL,
+				       TIMEOUT_AIE_OPS_COMPL);
 	if (XST_DEVICE_NOT_FOUND != Status){
 		/* API is forwarded, nothing else to be done */
 		goto done;
