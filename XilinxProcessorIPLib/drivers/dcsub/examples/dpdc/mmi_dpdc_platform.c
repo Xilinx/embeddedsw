@@ -25,6 +25,7 @@
 #include "mmi_dp_init.h"
 #include "mmi_dp_intr.h"
 #include "mmi_dc_cursor.h"
+#include "mmi_dc_sdp.h"
 #include "mmi_dc_setup_frames.h"
 
 /************************** Constant Definitions *****************************/
@@ -35,6 +36,30 @@
 #define XDCDMA_IEN_VSYNC_INT_MASK	0x0000000C
 #define XDCDMA_INTR_ID			179
 #define XDCDMA_INTR_PARENT		0xe2000000
+
+static RunConfig *XDpDc_IrqRunCfgPtr;
+static u8 XDpDc_CursorToSdpPending;
+static u32 XDpDc_CursorFramesRemaining;
+
+static void XDpDc_DmaInterruptHandler(void *CallbackRef)
+{
+	XDcDma *DmaPtr = (XDcDma *)CallbackRef;
+
+	XDcDma_InterruptHandler(DmaPtr);
+
+	if (XDpDc_CursorToSdpPending && XDpDc_IrqRunCfgPtr != NULL) {
+		if (XDpDc_CursorFramesRemaining > 0U)
+			XDpDc_CursorFramesRemaining--;
+
+		if (XDpDc_CursorFramesRemaining == 0U) {
+			DmaPtr->SDP.SDP_TriggerStatus = 0U;
+			XDpDc_SetupSdpDescriptor(XDpDc_IrqRunCfgPtr);
+			XDpDc_ConfigureSdpDMA(XDpDc_IrqRunCfgPtr);
+			XDpDc_CursorToSdpPending = 0U;
+			xil_printf("  Cursor phase complete, switched channel 7 to SDP\r\n");
+		}
+	}
+}
 
 /*****************************************************************************/
 /**
@@ -217,15 +242,30 @@ u32 XDpDc_InitDcSubsystem(RunConfig *RunCfgPtr)
 	DmaPtr->Video.Video_TriggerStatus = XDCDMA_TRIGGER_EN;
 	DmaPtr->Gfx.Graphics_TriggerStatus = XDCDMA_TRIGGER_EN;
 
-	/* Cursor/SDP DMA (conditional on cursor enable) */
-	if (RunCfgPtr->CursorEnable == CB_ENABLE) {
+	/* Cursor/SDP DMA on shared channel 7 */
+	XDpDc_CursorToSdpPending = 0U;
+	XDpDc_CursorFramesRemaining = 0U;
+	if ((RunCfgPtr->CursorEnable == CB_ENABLE) && (RunCfgPtr->SdpEnable != 0U)) {
 		XDpDc_SetupCursorDescriptor(RunCfgPtr);
 		XDpDc_ConfigureCursorDMA(RunCfgPtr);
+		XDpDc_CursorToSdpPending = 1U;
+		XDpDc_CursorFramesRemaining = 1U;
+		xil_printf("  Cursor+SDP mode: cursor phase started\r\n");
+	} else if (RunCfgPtr->CursorEnable == CB_ENABLE) {
+		XDpDc_SetupCursorDescriptor(RunCfgPtr);
+		XDpDc_ConfigureCursorDMA(RunCfgPtr);
+	} else if (RunCfgPtr->SdpEnable) {
+		XDpDc_SetupSdpDescriptor(RunCfgPtr);
+		XDpDc_ConfigureSdpDMA(RunCfgPtr);
 	}
 
-	/* Audio DMA */
-	DmaPtr->Audio.Channel.Current = AudDesc0;
-	DmaPtr->Audio.Audio_TriggerStatus = XDCDMA_TRIGGER_EN;
+	/* Audio DMA: enable only when audio feature is enabled */
+	if (RunCfgPtr->AudioEnable) {
+		DmaPtr->Audio.Channel.Current = AudDesc0;
+		DmaPtr->Audio.Audio_TriggerStatus = XDCDMA_TRIGGER_EN;
+	} else {
+		DmaPtr->Audio.Audio_TriggerStatus = 0U;
+	}
 
 	return XST_SUCCESS;
 }
@@ -246,7 +286,9 @@ void XDpDc_SetupInterrupts(RunConfig *RunCfgPtr)
 {
 	XDcDma *DmaPtr = RunCfgPtr->DcSubPtr->DmaPtr;
 
-	XSetupInterruptSystem(DmaPtr, &XDcDma_InterruptHandler, XDCDMA_INTR_ID,
+	XDpDc_IrqRunCfgPtr = RunCfgPtr;
+
+	XSetupInterruptSystem(DmaPtr, &XDpDc_DmaInterruptHandler, XDCDMA_INTR_ID,
 			      XDCDMA_INTR_PARENT, XINTERRUPT_DEFAULT_PRIORITY);
 	XDcDma_InterruptEnable(DmaPtr, XDCDMA_IEN_VSYNC_INT_MASK);
 
