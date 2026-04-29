@@ -139,6 +139,16 @@ extern "C" {
 #define XI3CPSX_DATA_LEN			0x00FFU		/**< Data length */
 #define XI3CPSX_TRANSFER_ERROR			0xF0000000U	/**< Error */
 #define XI3CPSX_TIMEOUT_COUNTER         	2000000U 	/**< Wait for 2 sec in worst case */
+
+/**
+ * Maximum number of entries in the Device Address Table (DAT) supported
+ * by the controller and tracked by the driver.
+ */
+#define XI3CPSX_MAX_DAT_ENTRIES		11U
+
+/** Compile-time array element count helper. */
+#define XI3CPSX_ARRAY_SIZE(Array)	(sizeof(Array) / sizeof((Array)[0U]))
+
 /**************************** Type Definitions *******************************/
 
 /**
@@ -207,7 +217,7 @@ typedef struct {
 	XI3cPsx_Config Config;	/**< Configuration structure */
 	u32 IsReady;		/**< Device is initialized and ready */
 	u32 Options;		/**< Options set in the device */
-	u32 Addr[20]; /**< Dynamic Addresses to be assigned */
+	u32 Addr[XI3CPSX_MAX_DAT_ENTRIES]; /**< Dynamic Addresses to be assigned */
 
 	XI3cPsx_Master_Caps Caps; /**< Cmd, Data fifo depths */
 	u8 *SendBufferPtr;	/**< Pointer to send buffer */
@@ -224,6 +234,8 @@ typedef struct {
 
 	XI3cPsx_IntrHandler StatusHandler;  /**< Event handler function */
 	void *CallBackRef;	/**< Callback reference for event handler */
+
+	u32 SclkHz;	/**< SCL clock frequency */
 } XI3cPsx;
 
 /************************** Variable Definitions *****************************/
@@ -277,6 +289,36 @@ extern XI3cPsx_Config XI3cPsx_ConfigTable[];	/**< Configuration table */
 		(InstancePtr)->RecvBufferPtr += 1;				\
 		(InstancePtr)->RecvByteCount --; 				\
 	}
+
+/*****************************************************************************/
+/**
+* @brief
+* Compute the I3C odd-parity bit for a 7-bit dynamic address.
+*
+* Per the I3C spec and the DEV_ADDR_TABLE_LOC*n*.DEV_DYNAMIC_ADDR field,
+* bit[7] of the 8-bit encoded value must be the odd parity of bits[6:0],
+* i.e. parity = ~XOR(addr[6:0]).  The controller transmits this 8-bit value
+* verbatim during ENTDAA, so a raw address write with bit[7]=0 produces
+* wrong parity for any 7-bit address that has an even number of 1-bits
+* (e.g. 0x09, 0x0A, 0x0C, 0x0F, 0x11, 0x12, ...) and the slave NACKs the
+* address assignment, hanging the controller.
+*
+* @param	Addr is the 7-bit dynamic address (only bits[6:0] are used).
+*
+* @return	0 or 1 — the odd-parity bit to place in bit[7].
+*
+* @note		C-Style signature:
+*		u8 XI3cPsx_OddParity7(u8 Addr)
+*
+****************************************************************************/
+static inline u8 XI3cPsx_OddParity7(u8 Addr)
+{
+	Addr = (u8)((Addr & XI3CPSX_4BITS_MASK) ^ ((Addr >> 4) & XI3CPSX_4BITS_MASK));
+	Addr = (u8)((Addr & XI3CPSX_2BITS_MASK) ^ ((Addr >> 2) & XI3CPSX_2BITS_MASK));
+	Addr = (u8)((Addr & XI3CPSX_1BIT_MASK) ^ ((Addr >> 1) & XI3CPSX_1BIT_MASK));
+
+	return (u8)(!(Addr & XI3CPSX_1BIT_MASK));
+}
 
 /*****************************************************************************/
 /**
@@ -469,13 +511,13 @@ void XI3cPsx_SetStatusHandler(XI3cPsx *InstancePtr, void *CallBackRef,
  * Functions for device as master, in XI3cPsx_master.c
  */
 s32 XI3cPsx_MasterSend(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-		       XI3cPsx_Cmd Cmd);
+		       XI3cPsx_Cmd Cmds);
 s32 XI3cPsx_MasterRecv(XI3cPsx *InstancePtr, u8 *MsgPtr,
 		       s32 ByteCount, XI3cPsx_Cmd *Cmds);
 s32 XI3cPsx_MasterSendPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-			     XI3cPsx_Cmd Cmd);
+			     XI3cPsx_Cmd Cmds);
 s32 XI3cPsx_MasterRecvPolled(XI3cPsx *InstancePtr, u8 *MsgPtr, s32 ByteCount,
-			     XI3cPsx_Cmd *Cmd);
+			     XI3cPsx_Cmd *Cmds);
 void XI3cPsx_MasterInterruptHandler(XI3cPsx *InstancePtr);
 
 /*
@@ -495,15 +537,11 @@ void XI3cPsx_SlaveInterruptHandler(XI3cPsx *InstancePtr);
 s32 XI3cPsx_SelfTest(XI3cPsx *InstancePtr);
 
 /*
- * Functions for setting and getting data rate, in XI3cPsx_options.c
+ * Functions to get and set I3C Scl clock frequency
  */
-s32 XI3cPsx_SetOptions(XI3cPsx *InstancePtr, u32 Options);
-s32 XI3cPsx_ClearOptions(XI3cPsx *InstancePtr, u32 Options);
-u32 XI3cPsx_GetOptions(XI3cPsx *InstancePtr);
-
 s32 XI3cPsx_SetSClk(XI3cPsx *InstancePtr);
-u32 XI3cPsx_GetSClk(XI3cPsx *InstancePtr);
-
+s32 XI3cPsx_SetSClkRate(XI3cPsx *InstancePtr, u32 SclkHz);
+u32 XI3cPsx_GetSClk(const XI3cPsx *InstancePtr);
 
 #ifdef __cplusplus
 }
