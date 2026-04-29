@@ -1,4 +1,4 @@
-# Copyright (C) 2023-2026 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023-2025 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 cmake_minimum_required(VERSION 3.16)
 enable_language(C ASM CXX)
@@ -165,10 +165,10 @@ if(USER_LINK_DIRECTORIES)
 endif()
 
 set(USER_LINK_OPTIONS
-    " ${USER_LINK_NO_START_FILES}"
-    " ${USER_LINK_NO_DEFAULT_LIBS}"
-    " ${USER_LINK_NO_STDLIB}"
-    " ${USER_LINK_OMIT_ALL_SYMBOL_INFO}"
+    " ${USER_LINKER_NO_START_FILES}"
+    " ${USER_LINKER_NO_DEFAULT_LIBS}"
+    " ${USER_LINKER_NO_STDLIB}"
+    " ${USER_LINKER_OMIT_ALL_SYMBOL_INFO}"
     " ${USER_LINK_OTHER_FLAGS}"
 )
 if(("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze") OR ("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv"))
