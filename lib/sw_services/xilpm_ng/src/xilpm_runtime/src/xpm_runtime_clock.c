@@ -247,7 +247,7 @@ done:
 
 XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const XPm_ClockNode *Clk;
 	const XPm_ClockHandle *DevHandle;
 	u32 PermissionMask = 0U;
@@ -260,8 +260,10 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 		goto done;
 	}
 
-	/* Check for read-only flag */
-	if (0U != (CLK_FLAG_READ_ONLY & Clk->Flags)) {
+	/* Check for read-only flag with redundant verification */
+	volatile u32 RoFlag = CLK_FLAG_READ_ONLY & Clk->Flags;
+	volatile u32 RoFlagTmp = CLK_FLAG_READ_ONLY & Clk->Flags;
+	if ((0U != RoFlag) || (0U != RoFlagTmp)) {
 		DbgErr = XPM_INT_ERR_READ_ONLY_CLK;
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
@@ -302,15 +304,19 @@ XStatus XPmClock_CheckPermissions(u32 SubsystemIdx, u32 ClockId)
 		DevHandle = DevHandle->NextDevice;
 	}
 
-	/* Check permission for given subsystem */
-	if (0U == (PermissionMask & ((u32)1U << SubsystemIdx))) {
+	/* Check permission for given subsystem with redundant verification */
+	volatile u32 PermCheck = PermissionMask & ((u32)1U << SubsystemIdx);
+	volatile u32 PermCheckTmp = PermissionMask & ((u32)1U << SubsystemIdx);
+	if ((0U == PermCheck) || (0U == PermCheckTmp)) {
 		DbgErr = XPM_INT_ERR_DEVICE_PERMISSION;
 		Status = XPM_PM_NO_ACCESS;
 		goto done;
 	}
 
 	/* Access is not allowed if resource is shared (multiple subsystems) */
-	if (SubsystemIdx != 0 && __builtin_popcount(PermissionMask) > 1) {
+	volatile u32 PopCnt = (u32)__builtin_popcount(PermissionMask);
+	volatile u32 PopCntTmp = (u32)__builtin_popcount(PermissionMask);
+	if ((SubsystemIdx != 0U) && ((PopCnt > 1U) || (PopCntTmp > 1U))) {
 		PmErr("Resource is shared among multiple subsystems: 0x%x\r\n",
 				PermissionMask);
 		DbgErr = XPM_INT_ERR_SHARED_RESOURCE;
