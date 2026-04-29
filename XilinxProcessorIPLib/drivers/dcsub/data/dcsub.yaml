@@ -272,6 +272,8 @@ examples:
         - dpdc/mmi_dc_nonlive_test.h
         - dpdc/mmi_dc_partial_plane.c
         - dpdc/mmi_dc_partial_plane.h
+        - dpdc/mmi_dc_sdp.c
+        - dpdc/mmi_dc_sdp.h
         - dpdc/mmi_dc_setup_frames.c
         - dpdc/mmi_dc_setup_frames.h
         - dpdc/mmi_dp_init.c
