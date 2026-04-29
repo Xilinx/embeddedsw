@@ -830,6 +830,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_T_FIELD_SIZE; Index++) {
 		if (LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_T_OFFSET + Index] != TmpBuff[Index]) {
+			Status = XSECURE_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 			XSecure_Printf(XSECURE_DEBUG_GENERAL,
 				"LMS signature verification - public key 0x%x, expected 0x%x\n\r",
 				TmpBuff[Index], LmsSignVerifyParams->ExpectedPubKey[XSECURE_LMS_PUB_KEY_T_OFFSET + Index]);
