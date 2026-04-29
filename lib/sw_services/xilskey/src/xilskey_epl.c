@@ -341,7 +341,6 @@ static u8 CtrlBitsUltra[XSK_EFUSEPL_ARRAY_MAX_ROW];
 #ifdef XSK_MICROBLAZE_PLATFORM
 static u8 User128BitData[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
 #endif
-XSKEfusePl_Fpga	PlFpgaFlag;		/**< For Storing Fpga series */
 extern XilSKey_JtagSlr XilSKeyJtag;
 /************************** Function Prototypes *****************************/
 /**
