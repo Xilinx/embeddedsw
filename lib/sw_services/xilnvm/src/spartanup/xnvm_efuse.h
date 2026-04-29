@@ -203,29 +203,29 @@ typedef enum {
  * eFuse security control bits
  */
 typedef struct {
-	u8 HashPufOrKey; /**< Flag to read or program hash of PUF syndrome data or PPK */
-	u8 RmaDis; /**< Flag to read or program RMA disable */
-	u8 RmaEn; /**< Flag to read or program RMA enable */
-	u8 DftDis; /**< Flag to read or program DFT disable */
-	u8 Lckdwn; /**< Flag to read or program lockdown enable */
-	u8 PufTes2Dis; /**< Flag to read or program PUF test2 disable */
-	u8 AesRdlk; /**< Flag to read or program AES read lock */
-	u8 JtagDis; /**< Flag to read or program JTAG disable */
-	u8 AesDis; /**< Flag to read or program AES disable */
-	u8 ScanClearEn; /**< Flag to read or program ScanClearEn */
-	u8 Ppk0lck; /**< Flag to read or program PPK0 read/write lock */
-	u8 Ppk0Invld; /**< Flag to read or program PPK0 invalid */
-	u8 Ppk1lck; /**< Flag to read or program PPK1 read/write lock */
-	u8 Ppk1Invld; /**< Flag to read or program PPK1 invalid */
+	u32 HashPufOrKey; /**< 0: PPK1/2 registers refer to PPK1/2 HASH; 1: PPK1/2 registers refer to PUF_SYN HASH */
+	u32 RmaDis; /**< RMA Disable, 0: Default; 1: Disables RMA when set */
+	u32 RmaEn; /**< RMA Enable, 0: Default; 1: Enables RMA when set */
+	u32 DftDis; /**< DFT Disable, 0: Default; 1: Disables DFT when set */
+	u32 Lckdwn; /**< Lockdown, 0: Default; 1: Enables lockdown when set */
+	u32 PufTes2Dis; /**< PUF TestMode2 Disable, 0: Default; 1: Disable the PUF TestMode2 permanently */
+	u32 AesRdlk; /**< AES Read/Write Lock, 0: Default; 1: Locks writing to AES KEY and disables CRC checks on AES boot key */
+	u32 JtagDis; /**< JTAG Disable, 0: Default; 1: Disable all JTAG instructions when set */
+	u32 AesDis; /**< AES Disable, 0: Default; 1: Disable the AES engine */
+	u32 ScanClearEn; /**< Scan clear enable, 0: Default; 1: Enables scan clear when set */
+	u32 Ppk0lck; /**< PPK0 Lock, 0: Default (No protection from writes); 1: Locks writing to PPK0 eFuses */
+	u32 Ppk0Invld; /**< PPK0 Invalid, 0: Default (No protection from writes); 1: Marks PPK0 as invalid */
+	u32 Ppk1lck; /**< PPK1 Lock, 0: Default (No protection from writes); 1: Locks writing to PPK1 eFuses */
+	u32 Ppk1Invld; /**< PPK1 Invalid, 0: Default (No protection from writes); 1: Marks PPK1 as invalid */
 #ifndef SPARTANUPLUSAES1
-	u8 Ppk2lck; /**< Flag to read or program PPK2 read/write lock */
-	u8 Ppk2Invld; /**< Flag to read or program PPK2 invalid */
+	u32 Ppk2lck; /**< PPK2 Lock, 0: Default (No protection from writes); 1: Locks writing to PPK2 eFuses */
+	u32 Ppk2Invld; /**< PPK2 Invalid, 0: Default (No protection from writes); 1: Marks PPK2 as invalid */
 #endif
-	u8 UserWrlk; /**< Flag to read or program user efuse write lock */
-	u8 JtagErrDis; /**< Flag to read or program JTAG error out disable */
-	u8 CrcEn; /**< Flag to read or program CRC enable */
-	u8 CrcRmaDis; /**< Flag to read or program RMA disable using CRC */
-	u8 CrcRmaEn; /**< Flag to read or program RMA enable using CRC */
+	u32 UserWrlk; /**< User Write Lock, 0: Default (User eFuses writable); 1: Locks writing to User eFuses */
+	u32 JtagErrDis; /**< JTAG Error Out Disable, 0: Default; 1: Disables JTAG error out when set */
+	u32 CrcEn; /**< CRC Enable, 0: Default; 1: Enables CRC when set */
+	u32 CrcRmaDis; /**< RMA Disable using CRC, 0: Default; 1: Disables RMA when set */
+	u32 CrcRmaEn; /**< RMA Enable using CRC, 0: Default; 1: Enables RMA when set */
 } XNvm_EfuseSecCtrlBits;
 
 /**
@@ -252,11 +252,11 @@ typedef struct {
 	u32 ActualPpkHashSize; /**< PPK hash size to be programmed it can be either 256/384 bit */
 	u8 Ppk0Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK0 hash value to be programmed */
 	u8 Ppk1Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK1 hash value to be programmed */
-	u8 PrgmPpk0Hash; /**< Flag to determine whether to program PPK0 hash or not */
-	u8 PrgmPpk1Hash; /**< Flag to determine whether to program PPK1 hash or not */
+	u32 PrgmPpk0Hash; /**< Flag to determine whether to program PPK0 hash or not */
+	u32 PrgmPpk1Hash; /**< Flag to determine whether to program PPK1 hash or not */
 #ifndef SPARTANUPLUSAES1
 	u8 Ppk2Hash[XNVM_EFUSE_PPK_HASH_SIZE_IN_BYTES]; /**< PPK2 hash value to be programmed */
-	u8 PrgmPpk2Hash; /**< Flag to determine whether to program PPK2 hash or not */
+	u32 PrgmPpk2Hash; /**< Flag to determine whether to program PPK2 hash or not */
 #endif
 } XNvm_EfusePpkHash;
 
