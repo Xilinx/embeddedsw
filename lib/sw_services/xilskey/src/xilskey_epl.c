@@ -255,6 +255,8 @@
 #define XSK_EFUSEPL_NORMAL_ULTRA		(0)	/**< Normal read
 							  *  selection for
 							  *  Ultrascale series */
+#define XSK_WORD_SIZE_IN_BYTES			(4U)	/**< Size of a 32-bit word
+							  *  in bytes */
 
 /**************************** Type Definitions ******************************/
 /**
@@ -860,7 +862,7 @@ u8 XilSKey_EfusePl_ProgramRow(u8 Row, u8 *RowData)
 *****************************************************************************/
 u8 XilSKey_EfusePl_ProgramControlRegister(u8 *CtrlData)
 {
-	u8 TmpCtrlData[XSK_EFUSEPL_ARRAY_FUSE_CNTRL_MAX_BITS]={0};
+	u8 TmpCtrlData[XSK_EFUSEPL_ARRAY_MAX_ROW]={0};
 	u32 Index = 0;
 
 	/**
@@ -3168,9 +3170,7 @@ static INLINE u32 XilSKey_EfusePl_ReadRowData_Ultra(u8 Row,
 			return ErrorCode;
 		}
 
-		for (Column = 0;
-			Column < XSK_EFUSEPL_ARRAY_MAX_COL;
-						Column++) {
+		for (Column = 0; Column < XSK_WORD_SIZE_IN_BYTES; Column++) {
 			RowData[Column] = RowData[Column] |
 					RowDataRedundant[Column];
 		}
