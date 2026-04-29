@@ -18,9 +18,11 @@
 * 2. Initialize processor registers to 0
 * 3. Program stack pointer
 * 4. Initialize floating-point registers to +0.0
-* 5. Set the stack top to zero, to ensure that main program argc is zero
-* 6. Transfer control to _start, which clears BSS sections and jumps to
-*    the main application
+ * 5. Set the stack top to zero, to ensure that main program argc is zero
+ * 6. Clear .sbss before C runtime so small BSS is zero even if crt0 only
+ *    covers __bss_start..__bss_end (separate .sbss sections in memory)
+ * 7. Transfer control to _start, which clears BSS sections and jumps to
+ *    the main application
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -38,6 +40,7 @@
 *                     constructor is fixed.
 * 9.1  mus   25/03/24 Use correct macro for checking FPU enablement.
 * 9.1  ss    01/04/26 Add gp reg initialization and disable interrupts on boot.
+* 9.1  ss    04/27/26 Clear .sbss in boot before _start (crt0 may omit it).
 * </pre>
 *
 ******************************************************************************/
@@ -106,6 +109,19 @@ _boot:
 	.option norelax
 	la	sp, __stack
 	.option pop
+
+/* Clear small BSS; linker provides __sbss_start/__sbss_end (empty equals). */
+	.option push
+	.option norelax
+	la	t0, __sbss_start
+	la	t1, __sbss_end
+	.option pop
+	beq	t0, t1, .Lsbss_done
+.Lsbss_loop:
+	sw	zero, 0(t0)
+	addi	t0, t0, 4
+	bltu	t0, t1, .Lsbss_loop
+.Lsbss_done:
 
 /* Clear the floating point registers */
 #if defined(XPAR_MICROBLAZE_RISCV_USE_FPU) && (XPAR_MICROBLAZE_RISCV_USE_FPU == 2)
