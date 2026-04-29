@@ -1152,7 +1152,7 @@ u8 XilSKey_EfusePl_ReadControlRegister(u8 *CtrlData)
 	u8 RowData[XSK_EFUSEPL_ARRAY_MAX_COL]={0};
 	u32 Index=0;
 	u32 CtrlDataUltra;
-	u8 CtrlDataUltraPlus[4];
+	u8 CtrlDataUltraPlus[4] = {0U};
 
 	/**
 	 * check if cntrl_data is not NULL
@@ -2150,7 +2150,7 @@ static INLINE u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 		AesStartRow = XSK_EFUSEPL_AES_ROW_START_ULTRA;
 		AesEndRow = XSK_EFUSEPL_AES_ROW_END_ULTRA;
 	}
-	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+	else if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
 		MaxBits = XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS;
 		if (((Row == XSK_EFUSEPL_CNTRL_ROW_START_ULTRA_PLUS) ||
 			(Row == XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS) ||
@@ -2161,6 +2161,9 @@ static INLINE u8 XilSKey_EfusePl_ProgramRow_Ultra(u8 Row, u8 *RowData,
 		}
 		AesStartRow = XSK_EFUSEPL_AES_ROW_START_ULTRA_PLUS;
 		AesEndRow = XSK_EFUSEPL_AES_ROW_END_ULTRA_PLUS;
+	}
+	else {
+		;
 	}
 
 	for(Bit = 0; Bit < MaxBits; Bit++ ) {
@@ -2262,8 +2265,11 @@ static INLINE u8 XilSKey_EfusePl_ProgramSecRegister(u8 *SecData)
 	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA) {
 		SecRow = XSK_EFUSEPL_SEC_ROW_ULTRA;
 	}
-	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+	else if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
 		SecRow = XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS;
+	}
+	else {
+		;
 	}
 
 	/**
@@ -2378,11 +2384,14 @@ static INLINE u8 XilSKey_EfusePl_ReadSecRegister(u8 *SecData)
 					XSK_EFUSEPL_SEC_ROW_ULTRA,
 				(u8 *)&SecDataUltra, XSK_EFUSEPL_PAGE_0_ULTRA);
 		}
-		if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		else if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
 			Status = XilSKey_EfusePl_GetDataRowRange_Ultra(
 				XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS,
 					XSK_EFUSEPL_SEC_ROW_ULTRA_PLUS,
 				(u8 *)&SecDataUltra, XSK_EFUSEPL_PAGE_0_ULTRA);
+		}
+		else {
+			;
 		}
 		if (Status != XST_SUCCESS) {
 			return Status;
@@ -2946,10 +2955,13 @@ static INLINE u32 XilSKey_EfusePl_Program_RowRange_ultra(u8 RowStart, u8 RowEnd,
 		RsaRowStart = XSK_EFUSEPL_RSA_ROW_START_ULTRA;
 		RsaRowEnd = XSK_EFUSEPL_RSA_ROW_END_ULTRA;
 	}
-	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+	else if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
 		MaxBits = XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS;
 		RsaRowStart = XSK_EFUSEPL_RSA_ROW_START_ULTRA_PLUS;
 		RsaRowEnd = XSK_EFUSEPL_RSA_ROW_END_ULTRA_PLUS;
+	}
+	else {
+		;
 	}
 
 
@@ -3069,11 +3081,14 @@ static INLINE u32 XilSKey_EfusePl_Program_AesKey_ultra(void)
 		MaxBits = XSK_EFUSEPL_MAX_BITS_IN_A_ROW_ULTRA;
 
 	}
-	if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+	else if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
 		CrcOfZeros = XSK_EFUSEPL_CRC_FOR_AES_ZEROS_ULTRA_PLUS;
 		AesStart = XSK_EFUSEPL_AES_ROW_START_ULTRA_PLUS;
 		AesEnd = XSK_EFUSEPL_AES_ROW_END_ULTRA_PLUS;
 		MaxBits = XSK_EFUSEPL_ARRAY_MAX_COL_ULTRA_PLUS;
+	}
+	else {
+		;
 	}
 	/**
 	 * Verify AES key is zero or not before
@@ -3455,7 +3470,7 @@ static INLINE u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 {
 	u32 UserFuseColumn;
 	u8 UserFuses_Read[XSK_EFUSEPL_ARRAY_FUSE_128BIT_USER_SIZE];
-	u8 ReadData[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES];
+	u8 ReadData[XSK_EFUSEPL_128BIT_USERKEY_SIZE_IN_BYTES] = {0U};
 	u32 Status = (u32)XST_FAILURE;
 
 	/* Read 128 bit User Key */
@@ -3469,7 +3484,7 @@ static INLINE u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 				return Status;
 			}
 		}
-		if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
+		else if (PlFpgaFlag == XSK_FPGA_SERIES_ULTRA_PLUS) {
 			Status = XilSKey_EfusePl_GetDataRowRange_Ultra(
 				XSK_EFUSEPL_USER_128BIT_ROW_START_ULTRA_PLUS,
 				XSK_EFUSEPL_USER_128BIT_ROW_END_ULTRA_PLUS,
@@ -3477,6 +3492,9 @@ static INLINE u32 XilSkey_EfusePl_UserFuses_TobeProgrammed(
 			if (Status != XST_SUCCESS) {
 				return Status;
 			}
+		}
+		else {
+			;
 		}
 
 		XilSKey_Efuse_ConvertBitsToBytes(ReadData, UserFuses_Read,
