@@ -1625,7 +1625,7 @@ static INLINE u32 XilSKey_EfusePl_ReadKey_Zynq(XilSKey_EPl *InstancePtr)
 	RowData = RowData >> 8;
 	InstancePtr->UserKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
 	RowData = RowData >> 8;
-	InstancePtr->UserKeyReadback[KeyCnt++] = (u8)(RowData & 0xFF);
+	InstancePtr->UserKeyReadback[KeyCnt] = (u8)(RowData & 0xFF);
 
 	return XST_SUCCESS;
 }
