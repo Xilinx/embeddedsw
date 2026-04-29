@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2009 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -24,6 +24,13 @@
  * enables only I-Caches. For ARM, the BSP enables caches by default, so this
  * application disables D-Caches before running memory tests.
  */
+
+#ifdef ENABLE_MINIMAL_XLAT_TBL
+#define MMU_ADDR_LIMIT 0x40000000000ULL
+#if defined(__aarch64__)
+#warning "enable_minimal_xlat_tbl is enabled: MMU covers only 4 TB. DDR regions at or above 4 TB will be skipped."
+#endif
+#endif
 
 #ifndef versal
 #define XIL_INDIVIDUAL_REGION_TEST
@@ -197,6 +204,13 @@ s32 Xil_TestMem_StressAllRegions()
 	 * from 'Val'
 	 */
 	for (i = 0; i < n_memory_ranges; i++) {
+#ifdef ENABLE_MINIMAL_XLAT_TBL
+		if ((u64)memory_ranges[i].base >= MMU_ADDR_LIMIT) {
+			xil_printf("Skipping %s (base: 0x%lx): above 4 TB MMU limit\n\r",
+				   memory_ranges[i].name, memory_ranges[i].base);
+			continue;
+		}
+#endif
 		xil_printf("Filling memory region: %s\n\r",memory_ranges[i].name);
 		xil_printf("         Base Address: 0x%lx \n\r", memory_ranges[i].base);
 		xil_printf("                 Size: 0x%llx bytes \n\r", memory_ranges[i].size);
@@ -225,6 +239,10 @@ s32 Xil_TestMem_StressAllRegions()
 	 */
 
 	for (i = 0; i < n_memory_ranges; i++) {
+#ifdef ENABLE_MINIMAL_XLAT_TBL
+		if ((u64)memory_ranges[i].base >= MMU_ADDR_LIMIT)
+			continue;
+#endif
 		xil_printf("\n\rVerifying memory region: %s",memory_ranges[i].name);
 
 		Addr = (UINTPTR *)memory_ranges[i].base;
@@ -259,10 +277,21 @@ int main()
 	print("Warning: If the DDR address apertures in the design are noncontiguous ");
 	print("with holes in between, the memory test will hang. \n\r");
 
+#ifdef ENABLE_MINIMAL_XLAT_TBL
+	print("NOTE: enable_minimal_xlat_tbl is enabled. DDR regions at or above 4 TB will be skipped.\n\r");
+#endif
+
 #if defined(XIL_INDIVIDUAL_REGION_TEST) || defined(XIL_ENABLE_MEMORY_STRESS_TEST)
 	print("\n-- Running Memory Test for Individual Regions --\n\r");
 
 	for (int i = 0; i < n_memory_ranges; i++) {
+#ifdef ENABLE_MINIMAL_XLAT_TBL
+		if ((u64)memory_ranges[i].base >= MMU_ADDR_LIMIT) {
+			xil_printf("Skipping %s (base: 0x%lx): above 4 TB MMU limit\n\r",
+				   memory_ranges[i].name, memory_ranges[i].base);
+			continue;
+		}
+#endif
 		Status = test_memory_range(&memory_ranges[i]);
 		if (Status == XST_FAILURE) {
 			break;
