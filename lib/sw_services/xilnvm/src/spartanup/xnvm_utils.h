@@ -53,7 +53,30 @@ extern "C" {
  * @endcond
  */
 
+ /**
+ * @name Timeout in terms of number of times status register polled to check eFuse Crc check id done.
+ * @{
+ */
+#define XNVM_POLL_TIMEOUT				(0x400U) /**< Poll timeout during CRC verification  */
+/** @} */
+
 /***************************** Type Definitions *******************************/
+
+/**
+ * eFuse operation mode
+ */
+typedef enum {
+	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
+	XNVM_EFUSE_MODE_PGM /**< eFuse program mode */
+} XNvm_EfuseOpMode;
+
+/**
+ * eFuse read mode
+ */
+typedef enum {
+	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
+	XNVM_EFUSE_MARGIN_RD /**< eFuse margin read */
+} XNvm_EfuseRdMode;
 
 /*************************** Function Prototypes ******************************/
 u32 XNvm_AesCrcCalc(const u32 *Key);

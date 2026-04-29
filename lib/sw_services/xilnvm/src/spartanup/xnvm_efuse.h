@@ -317,22 +317,6 @@ typedef struct {
 #endif
 
 /**
- * eFuse operation mode
- */
-typedef enum {
-	XNVM_EFUSE_MODE_RD, /**< eFuse read mode */
-	XNVM_EFUSE_MODE_PGM /**< eFuse program mode */
-} XNvm_EfuseOpMode;
-
-/**
- * eFuse read mode
- */
-typedef enum {
-	XNVM_EFUSE_NORMAL_RD, /**< eFuse normal read */
-	XNVM_EFUSE_MARGIN_RD /**< eFuse margin read */
-} XNvm_EfuseRdMode;
-
-/**
  * eFuse PPK type
  */
 typedef enum {
@@ -468,7 +452,6 @@ int XNvm_EfuseReadUserFuse(u32 *UserFuseData);
 int XNvm_EfuseReadIv(XNvm_EfuseIvType IvType, u32 *IvData);
 int XNvm_EfuseReadDna(u32 *Dna);
 int XNvm_EfuseReadDecOnly(u32 *DecOnly);
-int XNvm_EfuseCheckAesKeyCrc(u32 CrcRegOffSet, u32 CrcDoneMask, u32 CrcPassMask, u32 Crc);
 int XNvm_EfuseReadXilinxCtrl(XNvm_EfuseXilinxCtrl *XilinxCtrl);
 #ifdef SPARTANUPLUSAES1
 int XNvm_EfuseReadBootModeDisBits(XNvm_EfuseBootModeDis *BootModeDisBits);
