@@ -1,6 +1,6 @@
 ;/******************************************************************************
 ;* Copyright (c) 2020 Xilinx, Inc.  All rights reserved.
-;* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+;* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
@@ -14,9 +14,6 @@
 ;* ----- ---- -------- ---------------------------------------------------
 ;* 7.3  dp  06/25/20   Initial version for armclang
 ;* 9.5  vmt 28/11/25   Added Cortex-R52 processor support for armclang
-;* 9.5  vmt 04/09/26   Replace __main with explicit __scatterload_rt2,
-;*                     __cpp_initialize__aeabi_, and main calls for
-;*                     FuSa libc compatibility.
 ;* </pre>
 ;*
 ;* @note
@@ -33,9 +30,7 @@
 #endif
 	EXPORT _startup
 	IMPORT __cpu_init
-	IMPORT __scatterload_rt2
-	IMPORT __cpp_initialize__aeabi_
-	IMPORT main
+	IMPORT __main
 #ifdef SLEEP_TIMER_BASEADDR
 	IMPORT XTime_StartTTCTimer
 #endif
@@ -46,8 +41,6 @@
 
 _startup
 	bl	__cpu_init ;Initialize the CPU first (BSP provides this)
-	bl      __scatterload_rt2
-	bl      __cpp_initialize__aeabi_
 
 	;configure the timer if TTC is present
 #ifdef SLEEP_TIMER_BASEADDR
@@ -63,7 +56,7 @@ _startup
 #ifdef XCLOCKING
 	bl	Xil_ClockInit
 #endif
-	bl	main ;Jump to main C code
+	bl	__main ;Jump to main C code
 
 	bl	exit
 

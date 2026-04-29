@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1995 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 /*---------------------------------------------------*/
@@ -14,8 +14,9 @@
 #include "xil_types.h"
 #include "xil_assert.h"
 #include "bspconfig.h"
-#include "xil_stdarg.h"
+#include <ctype.h>
 #include <string.h>
+#include <stdarg.h>
 
 /************************** Function Prototypes ******************************/
 
@@ -58,25 +59,7 @@ typedef struct params_s {
 /* that is unacceptable in most embedded systems.    */
 /*---------------------------------------------------*/
 
-/*****************************************************************************/
-/**
-* This routine checks if a character is a decimal digit ('0'-'9').
-*
-******************************************************************************/
-static int xil_isdigit(unsigned char c)
-{
-    return (c >= '0' && c <= '9');
-}
 
-/*****************************************************************************/
-/**
-* This routine converts an uppercase letter to lowercase.
-*
-******************************************************************************/
-static unsigned char xil_tolower(unsigned char c)
-{
-    return (c >= 'A' && c <= 'Z') ? (c + ('a' - 'A')) : c;
-}
 
 /*****************************************************************************/
 /**
@@ -249,7 +232,7 @@ static s32 getnum(charptr *linep)
 	charptr cptr = *linep;
 
 	while (cptr != NULL) {
-		ResultIsDigit = xil_isdigit(((u8) * cptr));
+		ResultIsDigit = isdigit(((u8) * cptr));
 		if (ResultIsDigit == 0) {
 			break;
 		}
@@ -341,7 +324,7 @@ try_next:
 		ctrl += 1;
 		ch = (u8) * ctrl;
 
-		if (xil_isdigit(ch) != 0) {
+		if (isdigit(ch) != 0) {
 			if (dot_flag != 0) {
 				par.num2 = getnum(&ctrl);
 			} else {
@@ -355,7 +338,7 @@ try_next:
 			goto try_next;
 		}
 
-		switch (xil_tolower(ch)) {
+		switch (tolower(ch)) {
 			case '%':
 #if defined(STDOUT_BASEADDRESS) || defined(VERSAL_PLM) || defined(SDT) || defined(SPARTANUP_PLM) || defined(ASUFW)
 				outbyte( '%');

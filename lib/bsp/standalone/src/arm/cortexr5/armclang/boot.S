@@ -1,6 +1,6 @@
 ;/******************************************************************************
 ;* Copyright (c) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-;* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+;* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
 ;* SPDX-License-Identifier: MIT
 ;******************************************************************************/
 ;/*****************************************************************************/
@@ -40,11 +40,6 @@
 ;*                     end of stack address space, since CortexR5 stack
 ;*                     works in descending order. It fixes CR#1177971.
 ;* 9.5	vmt 28/11/25   Added Cortex-R52 processor support for armclang
-;* 9.5  vmt 04/13/26   Switch to UBFX for CPSR mode bit extraction to
-;*                     avoid uninitialized register in HYP mode check.
-;* 9.5  vmt 04/20/26   Moved TCM region initialization earlier in the boot
-;*                     sequence, before stack pointer configuration, to
-;*                     prevent speculative access.
 ;* </pre>
 ;*
 ;******************************************************************************/
@@ -106,38 +101,8 @@ _boot
 
 OKToRun
 #if defined (ARMR52)
-
-        ; Disable interrupts
-        cpsid   if
-
-        ; Enable TCM regions for R52
-        ldr r0, =_TCM_A_REGION
-        ldr r1, [r0]
-        tst r1, #0x1
-        beq InitTCMB
-        mcr p15, 0, r1, c9, c1, 0  ; Write r1 to IMP_ATCMREGIONR
-        isb
-
-InitTCMB
-        ldr r0, =_TCM_B_REGION
-        ldr r1, [r0]
-        tst r1, #0x1
-        beq InitTCMC
-        mcr p15, 0, r1, c9, c1, 1  ; Write r1 to IMP_BTCMREGIONR
-        isb
-
-InitTCMC
-        ldr r0, =_TCM_C_REGION
-        ldr r1, [r0]
-        tst r1, #0x1
-        beq InitTCMDone
-        mcr p15, 0, r1, c9, c1, 2  ; Write r1 to IMP_CTCMREGIONR
-        isb
-
-InitTCMDone
-
     mrs r0, cpsr
-    ubfx r1, r0, #0, #5
+    bfi r1, r0, #0, #5
     cmp r1, #0x1A         ; Check if it is HYP mode
     bne InitEL1
 
@@ -312,6 +277,28 @@ InitEL1
 	bic r0, r0, #(0x1 << 0)				; disable TCM and L1 cache ECC initially
 	mcr p15, 1, r0, c9, c1, 2			; Write IMP_MEMPROTCTLR
 
+	; Enable TCM regions for R52
+	ldr r0, =_TCM_A_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMB
+	mcr p15, 0, r1, c9, c1, 0  ; Write r1 to IMP_ATCMREGIONR
+
+InitTCMB
+	ldr r0, =_TCM_B_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMC
+	mcr p15, 0, r1, c9, c1, 1  ; Write r1 to IMP_BTCMREGIONR
+
+InitTCMC
+	ldr r0, =_TCM_C_REGION
+	ldr r1, [r0]
+	tst r1, #0x1
+	beq InitTCMDone
+	mcr p15, 0, r1, c9, c1, 2  ; Write r1 to IMP_CTCMREGIONR
+
+InitTCMDone
 	mrc     p15, 0, r1, c15, c0, 0   ; Read IMP_PERIPHPREGIONR
 	orr     r1, r1, #(0x3)           ; Enable peripheral port at EL2 and EL1 and EL0
 	mcr     p15, 0, r1, c15, c0, 0   ; Write IMP_PERIPHPREGIONR

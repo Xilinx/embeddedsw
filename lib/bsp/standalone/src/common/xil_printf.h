@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 1995 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
  #ifndef XIL_PRINTF_H
@@ -10,10 +10,11 @@
 extern "C" {
 #endif
 
+#include <ctype.h>
 #include <string.h>
+#include <stdarg.h>
 #include "xil_types.h"
 #include "bspconfig.h"
-#include "xil_stdarg.h"
 #ifndef SDT
 #include "xparameters.h"
 #endif
