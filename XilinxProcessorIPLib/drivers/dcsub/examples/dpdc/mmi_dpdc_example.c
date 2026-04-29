@@ -261,6 +261,16 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     runConfig->AudioChannels = userConfig->audio_enable ?
                                userConfig->audio_channels : 0;
 
+    /* Set SDP enable */
+    runConfig->SdpEnable = userConfig->sdp_enable ? 1U : 0U;
+
+    if ((runConfig->CursorEnable == CB_ENABLE) && (runConfig->SdpEnable != 0U))
+        xil_printf("INFO: Cursor+SDP mode selected (cursor phase then SDP phase)\r\n");
+    if ((runConfig->AudioEnable == XDC_AUD_ENABLE) && (runConfig->SdpEnable != 0U)) {
+        xil_printf("WARNING: Audio and SDP test mode both enabled. Disabling audio.\r\n");
+        runConfig->AudioEnable = XDC_AUD_DISABLE;
+    }
+
     /* Set partial plane blend enable and parameters */
     if (userConfig->partial_plane_blend_enable) {
         if (userConfig->ppb_stream_select == 1) {
@@ -300,6 +310,7 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     if (runConfig->AudioEnable) {
         xil_printf("AudioChannels:          %d\r\n", runConfig->AudioChannels);
     }
+    xil_printf("SdpEnable:              %s\r\n", runConfig->SdpEnable ? "ENABLED" : "DISABLED");
     xil_printf("Stream1 PartialBlend:   %s\r\n", runConfig->Stream1PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");
     xil_printf("Stream2 PartialBlend:   %s\r\n", runConfig->Stream2PbEnable == PB_ENABLE ? "ENABLED" : "DISABLED");
     xil_printf("=========================================\r\n\r\n");

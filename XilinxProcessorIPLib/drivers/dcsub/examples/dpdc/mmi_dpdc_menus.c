@@ -387,6 +387,7 @@ void XDpDc_MainHelpMenu(void)
     xil_printf("  c - Toggle Cursor Enable (with Position & Size config)\r\n");
     xil_printf("  x - Configure Cursor Position & Size\r\n");
     xil_printf("  a - Toggle Audio Enable (and select channels 1-8)\r\n");
+    xil_printf("  n - Toggle SDP Enable\r\n");
     xil_printf("  p - Toggle Partial Plane Blend Enable\r\n");
     xil_printf("  b - Configure Partial Plane Blend Parameters\r\n");
     xil_printf("  l - Configure DP Link (Lane Count & Link Rate)\r\n");
@@ -429,6 +430,7 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
     if (config->audio_enable) {
         xil_printf("Audio Channels:         %d\r\n", config->audio_channels);
     }
+    xil_printf("SDP Enable:             %s\r\n", config->sdp_enable ? "Yes" : "No");
     xil_printf("Partial Plane Blend:    %s\r\n", config->partial_plane_blend_enable ? "Yes" : "No");
     if (config->partial_plane_blend_enable) {
         xil_printf("  Source Stream:        %s\r\n", config->ppb_stream_select == 1 ? "Stream1" : "Stream2");
@@ -963,6 +965,8 @@ void XDpDc_MenuLoop(InitRunConfig *config)
             case 'C':
                 config->cursor_enable = !config->cursor_enable;
                 xil_printf("Cursor Enable: %s\r\n", config->cursor_enable ? "Yes" : "No");
+                if (config->cursor_enable && config->sdp_enable)
+                    xil_printf("Cursor+SDP mode enabled (cursor transmits first, then SDP)\r\n");
 
                 /* If enabling cursor, prompt for position & size configuration */
                 if (config->cursor_enable) {
@@ -989,6 +993,10 @@ void XDpDc_MenuLoop(InitRunConfig *config)
             case 'A':
                 config->audio_enable = !config->audio_enable;
                 xil_printf("Audio Enable: %s\r\n", config->audio_enable ? "Yes" : "No");
+                if (config->audio_enable && config->sdp_enable) {
+                    config->sdp_enable = 0;
+                    xil_printf("SDP disabled (audio path and SDP test mode are mutually exclusive)\r\n");
+                }
                 if (config->audio_enable) {
                     u32 channels;
 
@@ -1007,6 +1015,18 @@ void XDpDc_MenuLoop(InitRunConfig *config)
                 } else {
                     config->audio_channels = 0;
                     xil_printf("Audio Channels: %d\r\n", config->audio_channels);
+                }
+                break;
+
+            case 'n':
+            case 'N':
+                config->sdp_enable = !config->sdp_enable;
+                xil_printf("SDP Enable: %s\r\n", config->sdp_enable ? "Yes" : "No");
+                if (config->sdp_enable && config->cursor_enable)
+                    xil_printf("Cursor+SDP mode enabled (cursor transmits first, then SDP)\r\n");
+                if (config->sdp_enable && config->audio_enable) {
+                    config->audio_enable = 0;
+                    xil_printf("Audio disabled (audio path and SDP test mode are mutually exclusive)\r\n");
                 }
                 break;
 
@@ -1222,6 +1242,7 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     config->cursor_enable = 0;
     config->audio_enable = 0;
     config->audio_channels = 0;
+    config->sdp_enable = 0;
     config->partial_plane_blend_enable = 0;
     /* Default to Stream1 as source */
     config->ppb_stream_select = 1;
@@ -1247,5 +1268,6 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     xil_printf("  Output Format: RGB_8BPC\r\n");
     xil_printf("  Cursor: Disabled, Position (50,50), Size (128x128)\r\n");
     xil_printf("  Audio: Disabled, Channels: %d\r\n", config->audio_channels);
+    xil_printf("  SDP: Disabled\r\n");
     xil_printf("  DP Link: Auto (sink max)\r\n");
 }
