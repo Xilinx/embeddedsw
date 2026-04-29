@@ -121,14 +121,27 @@ static XStatus XPmAccess_BaseHandler(pm_ioctl_id Op, XPm_NodeAccessTypes AccessT
 {
 	volatile XStatus Status = XPM_PM_NO_ACCESS;
 
+	/* Redundant verification of AccessType against glitch */
+	volatile XPm_NodeAccessTypes AccessTypeCheck = AccessType;
+	volatile XPm_NodeAccessTypes AccessTypeCheckTmp = AccessType;
+	if (AccessTypeCheck != AccessTypeCheckTmp) {
+		Status = XST_GLITCH_ERROR;
+		goto done;
+	}
+
 	switch (AccessType) {
 	case ACCESS_ANY_RO:
 	case ACCESS_SEC_RO:
 	case ACCESS_SEC_NS_SUBSYS_RO:
 	case ACCESS_SEC_SUBSYS_RO:
 		/* When access is set to RO, only RO operation is allowed */
-		if (IOCTL_READ_REG == Op) {
-			Status = XST_SUCCESS;
+		{
+			volatile pm_ioctl_id OpCheck = Op;
+			volatile pm_ioctl_id OpCheckTmp = Op;
+			if ((IOCTL_READ_REG == OpCheck) &&
+			    (IOCTL_READ_REG == OpCheckTmp)) {
+				Status = XST_SUCCESS;
+			}
 		}
 		break;
 	case ACCESS_ANY_RW:
@@ -145,6 +158,7 @@ static XStatus XPmAccess_BaseHandler(pm_ioctl_id Op, XPm_NodeAccessTypes AccessT
 		break;
 	}
 
+done:
 	return Status;
 }
 
