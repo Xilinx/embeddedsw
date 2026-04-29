@@ -1,3 +1,386 @@
+Changes for 2026.1
+===============================
+axidma_v9_21:
+Update the copyrights
+axidma: Fix code Spell warnings.
+
+axivdma_v6_17:
+Update the copyrights
+axivdma: Fix Code Spell warnings.
+
+mcdma_v1_14:
+mcdma: fix Mcdma_Poll to return failure status on the data mismatch.
+mcdma: remove extra buffer pointer advance in TxSetup and RxSetup.
+mcdma: Add Platform-specific TLB seup for all supported architectures
+mcdma: Update memory allocation for the buffers.
+
+zdma_v1_22:
+zdma: Add PM support.
+Revert:“zdma: Fix the register reset values”
+
+xilffs_v5_6:
+Update the FatFS version to R0.16
+
+xilloader_v2_4:
+Fix OSPI SDR fallback for spansion flash
+Fix Versal_2vp_p PLM build when secure code is excluded
+Update handoff params for OP-TEE partition
+Add new PUF IP support for VERSAL_2VP_P
+Add processing of Set image info command and fixes child image info removal during hierarchical DFx.
+Fix Versal_2VE_2VM PLM builds when secure code is excluded.
+Moved KAT APIs to xloader_kat.c
+Add support for enter 4B address CMD before DDR mode
+Add support for Device requiring mode bits for FAST_READ
+Add support for S25HXXT for QSPI boot
+Minimize the number of bytes being used in SHA3-384 hashing
+Lock DAP on PLM update when AUTH JTAG is open
+Improve DDR overflow check for USB DFU
+Correct partition hash index for IAU PDI
+fix pending request handling after ASUFW update
+Add boot device release handling with RTCA skip policy
+Update TAP Reg Access Config
+Add DDR overflow check for USB DFU boot
+Add loop redundancy to Auth JTAG message read
+Add fail-safe Status reset in Auth JTAG
+Add fail-safe Status reset in Auth JTAG
+Removed unused functions.
+Use generic API to increment IV
+Correct partition hash index for Partial PDI
+Fix for PPK revoke error code.
+Fix in-place PLM update for auth optimised PDI
+Remove xilffs from depends_libs
+Update logic to impose timeout on USB downloads
+Add revoke ID check in XLoader_SecureInit
+added client support to validate auth PDI on Versal_2Ve_2Vm
+Add Get PCR log feature
+Add TPM client support
+Add support for measurement extension to TPM PCRs in Versal_2VE_2VM
+Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
+Add obfuscated key support for Versal_2vp_p
+Removed BH KekIv transfer to ASU
+Add impact less ASUFW update for Versal_2VE_2VM
+Add SMC support for client applications
+Initialize TRNG driver instance
+Fixed integer overflow in PDI size length check
+Add support for PPK3-PPK8 hash in efuse for Versal_2vp_p
+Add authenticated boot support for Versal_2vp_p
+Refactor authentication to support new algorithms
+Restrict USB from primary boot
+Impose timeout on PDI downloads over USB bootmode
+Add redundancy for Meta header hash block integrity check
+Skip status check to enforce secure lockdown and zeroize twice
+Updated ddr client example DDR device id for versal_2ve_2vm
+Added client support files for versal_2ve_2vm
+Moved versal_2ve_2vm server files to dedicated server folder
+Make Status volatile in XLoader_CheckAndUpdateCfgLimit
+Verify AUTH JTAG signature before using RevokeId
+Add null pointer validation for Timeout parameter
+Replace magic numbers with macros in authenticated JTAG
+Check AUTH JTAG disable efuse before reading message
+Add bounds checking for AUTH JTAG message
+Initialize RevokeId to fail-safe value to prevent bypass
+Fix for PPKs hash verify/revoke checks
+Fixed IPI access permissions order per XLoader_Cmds order
+Add DDR mode support for macronix flash
+Fix EXPRESSION_WITH_MAGIC_NUMBERS Violations
+Execute SHA KAT from a common place
+Added explicit CPU validation in XLoader_ProcessElf
+Remove xilpdi from depends libs
+Fix MISRA-C Magic number Violation
+Fix MISRA-C 8.13 Violation
+FIX MISRA-C 5.6 Violation
+Fix MISRA-C 10.7 Violation
+Fix MISRA-C 14.3 and DEADCODE Violation
+Fix MISRA-C 8.2 Violation
+Fix MISRA-C 12.1 Violation
+Fix MISRA-C 13.4 Violation
+Fix MISRA-C 17.7, USELESS_CALL Violations
+Fix MISRA-C 10.4 Violations
+Fix MISRA-C 10.3, PW.MIXED_ENUM_TYPE Violation
+Avoid waste of cycles to handle the jump from DDRMC_3 to DDRMC_4
+Explicit CPU validation & secure fail for invalid CPUID
+Allow secondary PDI programming from JTAG
+Fix GCC warnings
+Fix non-secure boot failure on crypto disabled boards when PLM_OCP_KEY_MNGMT is disabled
+fix function briefs and comments for xilplmi and xilloader
+Add a warning if PCR extension is enabled in BIF when TPM is disabled
+Extend verify address range to Versal_2VP
+Preserve the major error code from XLoader_ValidateHashBlockAAD
+Add SDT build support for VERSAL_2VP_P devices
+Add VERSAL_2VP_P device support
+Fix PDISrc Value for UFS Fallback Boot
+Reset SBI and DMA1 in master SLR only for SSIT devices
+SDT flow Multipart Config Fix
+Clear Authenticated JTAG interrupt status bit in case of error
+SDT Support for DDR MB I2C handshake
+Enable ufs multipart and speed config
+Fix to extract CL mode from BBRAM_8_MEM register
+Fix for enabling aes/sha queue mechanism
+Handle authenticated/non-authenticated partition measurement
+Initialize DigestIndex before partitions load
+Authenticated JTAG for Versal_2VE_2VM devices
+Validate MetaHeader Iv range in LE.
+do not skip measurement for OCP subsystems
+Add Versal_2vp SDT build support
+Fix for DMA1 hang after failure of partial PDI
+Point the correct hashblock for getting partition hash
+Update log level for restartimage fallback search print
+Add emmc as pdisrc option for partial pdi load
+Add Image Store client examples
+Add support for versal_2vp data measurement
+Initialize TRNG for Versal_2vp
+Refactor TRNG functions from platform specific files
+Added check for psmfw presence
+
+xilnvm_v3_7:
+Fixed compilation warnings for RPU
+Address range validation checks are updated
+Optimized REVOKE_ID programming logic for Versal
+Allow Programming of PUF_REGEN_DISABLE and PUF_HD_INVLD eFUSE from XilNvm Example for Versal Net
+Add client API to verify Efuse AES key CRC
+Updated client APIs with PAYLOAD PACK macros
+Updated .yaml to restrict BSP imports and examples for unsupported platforms.
+segregated NVM configuration options for chipset variants
+Update validation error messages for PUF hash programming
+Corrected user PUF helper-data eFuse row alignment in versal
+Rename PPK Secure control bits for Spartanuplusae1
+Enhancement for VersalNet/Telluride to allow use of PUF Helper Data eFUSEs for general purpose
+Check temperature and voltage before eFUSE provisioning for Spartan ultrascale devices
+Add SMC support for client applications
+Fixed Doxygen and Coverity warnings
+Added support to operate in server mode on Versal PL Microblaze
+Added support to operate in client mode on Telluride Microblaze
+Fix AES Revoke ID structure initialization and naming
+Fix return status check for XNvm_ManageOcpHandler
+Removed unused macros
+
+xilpdi_v1_13:
+Add VERSAL_2VP_P device support
+Add SDT build support for VERSAL_2VP_P devices
+Restrict xilpdi from the BSP import libraries for unsupported platforms
+Add authenticated boot support for Versal_2vp_p
+
+xilplmi_v2_4:
+Cleanup on PLM library error codes
+removed mandatory SLD trigger for PLM errors
+Update in-place ASU update command ID
+Allow secure requests to access non-secure IPI commands
+Add redundancy for EAM error and Action
+Fix task interrupt ID overwrite
+update task ID for ASUFW update task
+add GPIO interrupt handler for PCIe attribute reprogramming
+Add boot device release handling with RTCA skip policy
+Add DDR overflow check for USB DFU boot
+Add support to store PSU PSS ref clock frequency in RTCA area
+Add revoke ID check in XLoader_SecureInit
+Add SMC support for client applications
+Add Get PCR log feature
+Add TPM client support
+Add support for measurement extension to TPM PCRs in Versal_2VE_2VM
+Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
+Removed BH KekIv transfer to ASU
+add ASUFW update example
+add client support for in place ASUFW update
+Add impact less ASUFW update for Versal_2VE_2VM
+Remove reconfiguration skip for OCP subsystem update event after in-place update
+Fix wdt periodicity config
+Add authenticated boot support for Versal_2vp_p
+Enable hardware interrupts for versal_2vp_p
+Restrict USB from primary boot
+Impose timeout on PDI downloads over USB bootmode
+Add SSS config mask for SHA2 engine
+Enable address range validation for versal_2vp_p
+Replace XPlmi_GetRawVoltage inline function with macro
+Remove unused code for versal_2vp device
+Fix GIC interrupt register access
+Add null pointer validation for Timeout parameter
+Add bounds checking for AUTH JTAG message
+Add temporal check for AsuGeneratePufKEK()
+Fix for PPKs hash verify/revoke checks
+use event management framework for OCP events
+add support for OCP subsystem update event
+xilplmi client updates
+Add DDR mode support for macronix flash
+Fix MISRA-C 17.11 Violation
+Fix MISRA-C 8.13 Violation
+Fix MISRA-C 8.8 Violation
+Fix MISRA-C 12.1 Violation
+Fix EXPRESSION_WITH_MAGIC_NUMBERS Violations
+Fix MISRA-C 20.8 Violation
+Fix MISRA-C 15.5 Violation
+Fix MISRA-C 10.6 Violation
+Fix MISRA-C 10.1, 10.7 Violations
+Fix MISRA-C 10.3 Violations
+Fix MISRA-C 10.4 Violations
+Fix MISRA-C 20.7 Violations
+Update ASU fatal error handling
+Added explicit CPU validation in XLoader_ProcessElf
+Fix MISRA-C 17.7, USELESS_CALL Violations
+Fix MISRA-c 20.7 Violation
+Updated logic to save LPD EAM Info
+Remove ENABLE_WINDOW_WDT check for SDT flow
+Explicit CPU validation & secure fail for invalid CPUID
+Allow secondary PDI programming from JTAG
+fix function briefs and comments for xilplmi and xilloader
+add option to enable/disable verify addr range checks
+update subsystem ID in SLR
+add error code print returned from IsAddrRangeValid api
+Extend verify address range to Versal_2VP
+Fix address range verification related gaps
+Add SDT build support for VERSAL_2VP_P devices
+Add VERSAL_2VP_P device support
+Update SDK release version
+SDT Support for DDR MB I2C handshake
+Enable ufs multipart and speed config
+Fix for enabling aes/sha queue mechanism
+Authenticated JTAG for Versal_2VE_2VM devices
+Add Versal_2vp SDT build support
+Add new HBMON error IDs and masks
+Boot Time Config to Disable UART logs
+Provide option to enable PLM_OCP for Versal_2vp
+Add API to generate DICE CDI and DME challenge
+Add support for versal_2vp data measurement
+Add error/macros to support Versal_2vp in xilocp
+Enable HW PCR functionlity only for supported platforms
+Initialize TRNG for Versal_2vp
+Add support for trngpsv
+Add API to check KAT status
+Added check for psmfw presence
+
+xilsecure_v5_7:
+Enhanced security best practices
+Added support for Versal_2VP devices
+Enhanced client by adding PACK payload macros
+Supported Server mode for Versal PL microblaze
+Supported client mode for Telluride PL Microbalze
+Restrict BSP imports and examples for unsupported platforms in Vitis IDE.
+Fixed Doxygen and Coverity warnings
+Added ECDSA support for Spartan
+Added LMS/HSS support for Spartan
+Fixed SHA3 hash mismatch on 64‑bit platforms caused by input buffer address truncation.
+Enabled Cache by default
+Add SMC support for client application for EL1_nonsecure
+Fixed HMAC for non-word aligned key length
+Updated RSA key pair availability for Versal Net via RTCA area and updated examples accordingly
+Updated SHA macros to reflect correct hash sizes
+Fixed XSecure_GetRandomNum for non-word-aligned sizes
+Updated client and server interface for Crypto algorithms
+
+xilsem_v1_13:
+Add support for Versal segmented SW SHA & SW ECC
+Add support for Versal mono segmented HW SHA & HW ECC with DFx
+Added support for Versal SSIT segmented HW SHA & HW ECC
+Added support for Versal_2ve_2vm SW SHA & SW ECC
+Changed from error condition to a warning when no descriptors are present in segmented boot PDI
+Fix PL MB example failure when error injection is turned on
+Fix example code for detect only mode
+
+asu_ram_ecc(Rigel Components):
+Add device-tree YAML bindings for ASU RAM ECC to extract ECC parameters during BSP generation.
+
+asufw:
+Fix incorrect serial number generation in X509 certificate generation
+Add IPI access permissions CSV file for asufw
+Minor enhancements to asufw
+Fix code spell, doxygen, Coverity, dataflow and code complexity violations
+Changed the term DME to UDE in asufw
+Generate UDE public key and send along with the UDE response to the user
+Fix incorrect comparison of checking MSB value in RSA padding
+Error out if P0 queue priority is less than P1 queue priority of the same channel
+Fix minor issues identified in UDE, RSA ECC, HMAC, OCP and SHA modules
+Reduce queue task delay timeout from 100ms to 10ms to cater to high priority requests first
+Read IPI TZ registers instead of LPD XPPU aperture registers to identify channel security
+Define common macros to get stronger hamming distance for different use cases
+Enforce block alignment for intermediate multi update AES requests
+Optimize code to reduce stack usage
+Add redundancy for key transfer API
+Add support LMS and HSS signature verification
+Update PLM event handling functionality between PLM and ASU
+Add redundancy to command permission data copy
+Consolidate SSS configuration redundancy checks
+Explicitly program 0 IV for AES CMAC mode as it doesn't use IV provided for user
+Increase maximum OCP subsystems from 4 to 6
+Map all the linker sections to ASU instruction RAM
+Add readback validation for key and mode configuration in AES
+Fix continuous random generation sequence
+Harden context switching against fault injection
+Enable configuration for Debug Log memory through CDO command in asufw
+Add buffer offset validation in asufw to prevent overflow in X509 functionality
+Add command length validation for every command in asufw
+Add redundancy when retrieving the user key information in UDE functionality
+Add glitch-resistant FALSE check to prevent all-zero UDE key usage
+Removed unwanted keywrap KAT from boot-time KATs
+Add secure-lockdown error response as an option when boot-time KATs fail
+Fix hash padding issues in ECDSA signature operations
+Return output data length to the user for RSA operations
+Add support for zero-padding in raw RSA operation
+Move IV increment logic to xil_sutil.c file
+Add support for Montgomery curves
+Remove X509 signature verification support
+Add RSA public key parsing support in X509 functionality
+Add impactless ASU update functionality
+Add support for zero length input in RSA
+Add eFuse KEK IV support in asufw
+Remove key zeroization validation in AES write key API to allow all-zero user keys
+Add ASU RAM ECC enable and handling functionality
+Merge SHA2 and SHA3 handler files to reduce code size
+Generate UDE private key within asufw instead of getting it from the user
+Copy hash directly to user provided address in SHA operation and support variable length output for SHAKE-256 mode
+Use encrypted DDR for storing the AES context information as this is security critical information
+Check if PS crypto is disabled during asufw initialization
+Support multi update operations for CCM mode
+Refactor performance measurement code to support nested-safe timing capture
+Simplify IPI access permission validation logic to allow secure requests to access non-secure commands as well
+Generate UDE KEK whenever required instead of generating during boot
+Implement subsystem based key vault creation along with key validations
+Implement generation of AES key, AES IV, Raw key, ECC key pairs and RSA key pairs as part of key manager module
+Update AES, RSA, ECC, HMAC, KDF, KeyWrap and LMS modules to support key operations by using keys rom key vault
+Add support for store key API to support all key types
+Add support for storing wrapped keys by unwrapping
+Add support for storing X509 certificate info along with keys
+Add support for key vaults import and export functionality
+Add support for deleting key vaults and the individual keys
+Add support to close inner hash in HMAC final call when
+HMAC data is zero and when last is not flagged in previous update call
+Ensure every structure in client interface structure to be 8-byte aligned
+Update AES DPA CM KAT to use 2 different masks
+Update HMAC maximum input key length to 1KB
+
+xilasu(Rigel Components):
+Replace the term DME to UDE
+Populate proper nonce field for UDE functionality
+Minor enhancements to xilasu
+Implement client interface for subsystem based key vault creation along with key validations
+Implement client interface for generation of AES key, AES IV, Raw key, ECC key pairs and RSA key pairs as part of key manager module
+Update client APIs of AES, RSA, ECC, HMAC, KDF, KeyWrap and LMS modules to support key operations by using keys from key vault
+Add client interface for store key API to support all key types
+Add client interface for storing wrapped keys by unwrapping
+Add client interface for storing X509 certificate info along with keys
+Add client interface for key vaults import and export functionality
+Add client interface for deleting key vaults and the individual keys
+Fix code spell, doxygen, code complexity, dataflow and Coverity violations
+Enforce block alignment for intermediate multi-update calls for AES operation
+Add client interface and examples for LMS and HSS sign verification
+Add support for multi crypto example
+Add support to send actual length of the command in command header
+Implement additional KATs from client
+Add zero length validation checks and IV validation checks as required for each AES mode
+Remove provisioning of private key for UDE use case
+Copy hash directly to user provided address in SHA operation and support variable length output for SHAKE-256 mode
+Support multi update operations for CCM mode
+Unify operations flags from SHA, AES and HMAC to common flags
+Refine AES AAD validation check for AES GCM/CCM exceptions
+Add explicit 8-byte padding to structures to have consistent sizes between different architectures
+Update HMAC maximum input key length to 1KB
+
+
+
+
+
+
+
+
+
 
 Changes for 2025.2
 ===============================
