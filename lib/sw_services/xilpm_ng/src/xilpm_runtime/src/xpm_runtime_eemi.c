@@ -4,6 +4,7 @@
  *****************************************************************************/
 
 #include "xplmi.h"
+#include "xil_sutil.h"
 #include "xstatus.h"
 #include "xpm_nodeid.h"
 #include "xpm_device.h"
@@ -186,14 +187,18 @@ done:
 __attribute__((weak, noinline))
 XStatus XPmSubsystemOp_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 
 	if (NULL == Subsystem) {
 		Status = XPM_INVALID_SUBSYSID;
 		goto done;
 	}
 	if (Subsystem->Id == PM_SUBSYS_PMC) {
-		Status = XST_SUCCESS;
+		if (Subsystem->Id == PM_SUBSYS_PMC) {
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		Status = XST_GLITCH_ERROR;
 		goto done;
 	}
 
@@ -202,25 +207,20 @@ XStatus XPmSubsystemOp_IsAccessAllowed(XPm_Subsystem *Subsystem, u32 NodeId)
 		/* TODO: Check if an implementation is needed for this case */
 		break;
 	case (u32)XPM_NODECLASS_CLOCK:
-		Status = XPmClock_CheckPermissions(NODEINDEX(Subsystem->Id), NodeId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XSECURE_TEMPORAL_CHECK(done, Status,
+			XPmClock_CheckPermissions, NODEINDEX(Subsystem->Id), NodeId);
 		break;
 	case (u32)XPM_NODECLASS_RESET:
-		Status = XPmReset_CheckPermissions(Subsystem, NodeId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XSECURE_TEMPORAL_CHECK(done, Status,
+			XPmReset_CheckPermissions, Subsystem, NodeId);
 		break;
 	case (u32)XPM_NODECLASS_DEVICE:
-		Status = XPmDevice_CheckPermissions(Subsystem, NodeId);
-		if (XST_SUCCESS != Status) {
-			goto done;
-		}
+		XSECURE_TEMPORAL_CHECK(done, Status,
+			XPmDevice_CheckPermissions, Subsystem, NodeId);
 		break;
 	case (u32)XPM_NODECLASS_STMIC:
-		Status = XPmPin_CheckPerms(Subsystem->Id, NodeId);
+		XSECURE_TEMPORAL_CHECK(done, Status,
+			XPmPin_CheckPerms, Subsystem->Id, NodeId);
 		break;
 	default:
 		/* XXX - Not implemented yet. */
