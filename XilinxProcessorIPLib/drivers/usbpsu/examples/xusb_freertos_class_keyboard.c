@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -83,6 +83,16 @@ void Usb_ClassReq_Keyboard(struct Usb_DevData *InstancePtr,
 			memset(class_data, 0x0, reply_len);
 			EpBufferSend(InstancePtr->PrivateData, 1,
 				     (u8 *)class_data, reply_len);
+			break;
+
+		case (((USB_DIR_OUT | USB_CMD_CLASSREQ | USB_STATUS_INTERFACE) << 8)
+				      | SET_REPORT_REQUEST):
+			/* This example does not implement a handler for the
+			 * SET_REPORT class request. SET_REPORT carries host-to-device
+			 * Output/Feature data (e.g. keyboard LED state); the
+			 * demonstration only needs to emit key reports, not act on
+			 * LED or other output reports, so that path is omitted.
+			 */
 			break;
 
 		default:
