@@ -19,6 +19,7 @@
 
 #include "xmmidp.h"
 #include "mmi_dp_init.h"
+#include "mmi_dp_intr.h"
 
 /* AUX timer limits (counts at core clock rate) */
 #define XMMIDP_AUX_250US_LIMIT		0xF5
@@ -651,6 +652,16 @@ u32 XDpDc_InitDpPsuSubsystem(RunConfig *RunCfgPtr)
 	XMmiDp_CfgInitialize(InstancePtr, InstancePtr->Config.BaseAddr);
 	XMmiDp_Initialize(InstancePtr);
 	XMmiDp_InitDpCore(InstancePtr);
+
+	/*
+	 * Disable DP audio SDP/timestamp streams only when neither audio nor
+	 * custom SDP mode is enabled. In SDP test mode, avoid touching this
+	 * path because it can suppress custom SDP emission.
+	 */
+	if ((RunCfgPtr->AudioEnable == XDC_AUD_DISABLE) &&
+	    (RunCfgPtr->SdpEnable == 0U)) {
+		XDpDc_DisableDpAudioSdpStreams(InstancePtr);
+	}
 
 	InstancePtr->LinkConfig.LinkTrained = 0;
 

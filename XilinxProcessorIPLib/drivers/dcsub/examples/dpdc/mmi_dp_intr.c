@@ -28,6 +28,25 @@
 /*****************************************************************************/
 /**
 *
+* This function disables DP-side audio SDP/timestamp streams.
+*
+* @param	DpPtr is a pointer to the XMmiDp instance.
+*
+* @return	None.
+*
+******************************************************************************/
+void XDpDc_DisableDpAudioSdpStreams(XMmiDp *DpPtr)
+{
+	XMmiDp_SetSdpVertAudStreamEn(DpPtr, XMMIDP_STREAM_ID1, 0U);
+	XMmiDp_SetSdpVertAudTimeStampEn(DpPtr, XMMIDP_STREAM_ID1, 0U);
+	XMmiDp_SetSdpHorAudStreamEn(DpPtr, XMMIDP_STREAM_ID1, 0U);
+	XMmiDp_SetSdpHorAudTimeStampEn(DpPtr, XMMIDP_STREAM_ID1, 0U);
+	XMmiDp_ConfigureAudioController(DpPtr, XMMIDP_STREAM_ID1);
+}
+
+/*****************************************************************************/
+/**
+*
 
 * This function is the HPD hot plug (connect) callback. It reads sink
 * capabilities, runs link training, and sets up the video stream.
@@ -59,6 +78,8 @@ void XDpDc_HpdHotplugHandler(void *CallbackRef)
 	XMmiDp_SetupVideoStream(RunCfgPtr);
 	if (RunCfgPtr->AudioEnable)
 		XMmiDp_SetupAudioStream(RunCfgPtr);
+	else if (RunCfgPtr->SdpEnable == 0U)
+		XDpDc_DisableDpAudioSdpStreams(DpPtr);
 
 	xil_printf("[HPD] Connect sequence complete\r\n");
 }
@@ -160,6 +181,8 @@ void XDpDc_HpdIrqHandler(void *CallbackRef)
 		XMmiDp_SetupVideoStream(RunCfgPtr);
 		if (RunCfgPtr->AudioEnable)
 			XMmiDp_SetupAudioStream(RunCfgPtr);
+		else if (RunCfgPtr->SdpEnable == 0U)
+			XDpDc_DisableDpAudioSdpStreams(DpPtr);
 		xil_printf("[HPD] Retrain complete, video restored\r\n");
 	} else {
 		xil_printf("[HPD] Link status OK\r\n");
