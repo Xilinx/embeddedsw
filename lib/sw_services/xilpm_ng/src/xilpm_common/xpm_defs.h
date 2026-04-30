@@ -401,7 +401,7 @@ typedef enum {
 	IOCTL_GET_APU_OPER_MODE = 35,			/**< Get APU operation mode */
 	IOCTL_SET_APU_OPER_MODE = 36,			/**< Set APU operation mode */
 	IOCTL_PREPARE_DDR_SHUTDOWN = 37,		/**< Prepare DDR for shut down */
-	IOCTL_GET_SSIT_TEMP = 38,			/**< Read secondary SLR temperature */
+	/* 38 was IOCTL_GET_SSIT_TEMP -- removed: SSIT not supported on Versal 2VE/2VM */
 	IOCTL_AIE2PS_OPS = 39,				/**< AIE2PS Operations */
 	IOCTL_SET_AIE_CLK_DIV = 40,			/**< Set AIE clock divider */
 } pm_ioctl_id;
