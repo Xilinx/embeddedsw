@@ -36,6 +36,7 @@
 *       vss  01/08/25 Updated comments related to deprecated server mode of versalnet
 * 5.7   mb   04/11/26 Refactor code to run curves based on BSP configs
 *       ssc  04/12/26 Made minor print formatting changes
+*       mb   04/29/26 Fix P-192 hash buffer overrun
 *
 * </pre>
 *
@@ -459,7 +460,7 @@ int XSecure_TestP256()
 	}
 
 	xil_printf("Hash :\r\n");
-	XSecure_ShowData(Hash, XSECURE_ECC_P256_SIZE_IN_BYTES);
+	XSecure_ShowData(Hash, sizeof(Hash));
 	xil_printf("Generated Key\r\n");
 	xil_printf("Qx :");
 	XSecure_ShowData(Key.Qx, XSECURE_ECC_P256_SIZE_IN_BYTES);
@@ -469,7 +470,7 @@ int XSecure_TestP256()
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P256, Hash,
-		XSECURE_ECC_P256_SIZE_IN_BYTES, D, K, &GeneratedSign);
+		sizeof(Hash), D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P-256 curve, Status = %x \r\n", Status);
 		goto END;
@@ -490,7 +491,7 @@ int XSecure_TestP256()
 	}
 
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P256, Hash,
-		XSECURE_ECC_P256_SIZE_IN_BYTES, &Key, &GeneratedSign);
+		sizeof(Hash), &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P-256 curve, Status = %x \r\n", Status);
 	}
@@ -567,7 +568,7 @@ int XSecure_TestP192()
 	}
 
 	xil_printf("Hash :\r\n");
-	XSecure_ShowData(Hash, XSECURE_ECC_P192_SIZE_IN_BYTES);
+	XSecure_ShowData(Hash, sizeof(Hash));
 	xil_printf("Generated Key\r\n");
 	xil_printf("Qx :");
 	XSecure_ShowData(Key.Qx, XSECURE_ECC_P192_SIZE_IN_BYTES);
@@ -577,7 +578,7 @@ int XSecure_TestP192()
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P192, Hash,
-		XSECURE_ECC_P192_SIZE_IN_BYTES, D, K, &GeneratedSign);
+		sizeof(Hash), D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P-192 curve, Status = %x \r\n", Status);
 		goto END;
@@ -598,7 +599,7 @@ int XSecure_TestP192()
 	}
 
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P192, Hash,
-		XSECURE_ECC_P192_SIZE_IN_BYTES, &Key, &GeneratedSign);
+		sizeof(Hash), &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P-192 curve, Status = %x \r\n", Status);
 	}
@@ -681,7 +682,7 @@ int XSecure_TestP224()
 	}
 
 	xil_printf("Hash :\r\n");
-	XSecure_ShowData(Hash, XSECURE_ECC_P224_SIZE_IN_BYTES);
+	XSecure_ShowData(Hash, sizeof(Hash));
 	xil_printf("Generated Key\r\n");
 	xil_printf("Qx :");
 	XSecure_ShowData(Key.Qx, XSECURE_ECC_P224_SIZE_IN_BYTES);
@@ -691,7 +692,7 @@ int XSecure_TestP224()
 	xil_printf("\r\n");
 
 	Status = XSecure_EllipticGenerateSignature(XSECURE_ECC_NIST_P224, Hash,
-		XSECURE_ECC_P224_SIZE_IN_BYTES, D, K, &GeneratedSign);
+		sizeof(Hash), D, K, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign generation failed for P-224 curve, Status = %x \r\n", Status);
 		goto END;
@@ -712,7 +713,7 @@ int XSecure_TestP224()
 	}
 
 	Status = XSecure_EllipticVerifySign(XSECURE_ECC_NIST_P224, Hash,
-		XSECURE_ECC_P224_SIZE_IN_BYTES, &Key, &GeneratedSign);
+		sizeof(Hash), &Key, &GeneratedSign);
 	if (Status != XST_SUCCESS) {
 		xil_printf("Sign verification failed for P-224 curve, Status = %x \r\n", Status);
 	}
