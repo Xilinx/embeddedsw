@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -23,6 +23,16 @@ extern "C" {
 
 #define MAX_MODES		20U
 #define MAX_VID_RAILS		3U
+
+/**
+ * @def XPM_RAIL_PERF_MODE_STATE_OFFSET
+ * @brief Offset added to a Performance[] index to produce the
+ *        XPmRail_Control() power-state argument. Performance-mode
+ *        index 0 maps to power-state value 2 because
+ *        XPM_POWER_STATE_OFF (0) and XPM_POWER_STATE_ON (1) are
+ *        reserved.
+ */
+#define XPM_RAIL_PERF_MODE_STATE_OFFSET		(2U)
 
 typedef enum {
 	XPM_RAILTYPE_MODE_PMBUS = 1,
