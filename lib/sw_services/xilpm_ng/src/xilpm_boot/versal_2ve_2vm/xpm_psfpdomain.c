@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -14,7 +14,8 @@
 XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		u32 NumOfArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	(void)PwrDomain;
 	(void)Args;
@@ -30,9 +31,11 @@ XStatus FpdInitStart(XPm_PowerDomain *PwrDomain, const u32 *Args,
 		goto done;
 	}
 
-	/* Perform VID adjustment */
-	Status = XPmRail_AdjustVID((XPm_Rail *)VccintPsfpRail);
-	if (XST_SUCCESS != Status) {
+	/* Perform VID adjustment with redundancy to mitigate fault injection */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_AdjustVID,
+			       (XPm_Rail *)VccintPsfpRail);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status = XST_FAILURE;
 		DbgErr = XPM_INT_ERR_VID_ADJUST;
 		goto done;
 	}
