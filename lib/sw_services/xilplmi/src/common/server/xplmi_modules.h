@@ -50,6 +50,8 @@
 *       vm   03/16/2026 Added XPLMI_INPLACE_ASU_UPDATE_CMD_ID command ID
 *       pre  03/23/2026 Added client support for TPM module
 *       vm   04/16/2026 Update In-Place ASUFW update command ID
+* 2.4   gnr  04/27/2006 Updated XPLMI_SSIT_SYNC_MASTER_CMD_ID and XPLMI_SSIT_SYNC_SLAVES_CMD_ID
+*                       command IDs per CDO document
 *
 * </pre>
 *
@@ -188,8 +190,8 @@ typedef struct {
 #define XPLMI_CFI_READ_CMD_ID		(11U)
 #define XPLMI_SET_CMD_ID		(12U)
 #define XPLMI_WRITE_KEYHOLE_CMD_ID	(13U)
-#define XPLMI_SSIT_SYNC_SLAVES_CMD_ID	(14U)
-#define XPLMI_SSIT_SYNC_MASTER_CMD_ID	(15U)
+#define XPLMI_SSIT_SYNC_MASTER_CMD_ID	(14U)
+#define XPLMI_SSIT_SYNC_SLAVES_CMD_ID	(15U)
 #define XPLMI_SSIT_WAIT_SLAVES_CMD_ID	(16U)
 #define XPLMI_NOP_CMD_ID		(17U)
 #define XPLMI_GET_DEVICE_CMD_ID		(18U)
