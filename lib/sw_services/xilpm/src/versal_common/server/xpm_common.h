@@ -501,6 +501,25 @@ void XPm_Printf(u32 DebugType, const char *Fnstr, const char8 *Ctrl1, ...);
 		}								\
 	} while (XPM_FALSE_COND)
 
+/**
+ * Verify a previous register write by reading the register back and
+ * comparing only the bits selected by MASK against VAL. If the masked
+ * read value does not match the masked expected value, STATUS is set
+ * to XPM_REG_WRITE_FAILED; otherwise STATUS is left unchanged.
+ *
+ * @param ADDR    Address of the register to read back.
+ * @param MASK    Bitmask selecting the bits to compare.
+ * @param VAL     Expected value (only MASK bits are compared).
+ * @param STATUS  Status variable; set to XPM_REG_WRITE_FAILED on mismatch.
+ */
+#define PmChkRegMask32(ADDR, MASK, VAL, STATUS)					\
+	do {									\
+		if (((u32)(VAL) & (u32)(MASK)) !=				\
+		    ((u32)(XPm_In32((ADDR))) & (u32)(MASK))) {			\
+			(STATUS) = XPM_REG_WRITE_FAILED;			\
+		}								\
+	} while (XPM_FALSE_COND)
+
 void *XPm_AllocBytes(u32 SizeInBytes);
 
 void XPm_Out32(u32 RegAddress, u32 l_Val);
