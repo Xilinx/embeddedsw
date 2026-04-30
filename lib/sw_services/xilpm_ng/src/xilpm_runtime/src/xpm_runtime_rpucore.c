@@ -7,6 +7,15 @@
 #include "xpm_runtime_rpucore.h"
 #include "xil_sutil.h"
 
+/**
+ * @brief  Configure RPU core boot address (TCM if 0, else vector table).
+ *
+ * @param  RpuCore  Pointer to the target RPU core instance
+ * @param  BootAddr Boot vector address; 0 selects TCM boot
+ *
+ * @return Always XST_SUCCESS (no failure path; redundant call site uses
+ *         XSECURE_REDUNDANT_CALL to detect register-write glitches)
+ */
 static XStatus SetBootAddr(const struct XPm_RpuCore *RpuCore, const u32 BootAddr)
 {
 	if (0U == BootAddr) {
