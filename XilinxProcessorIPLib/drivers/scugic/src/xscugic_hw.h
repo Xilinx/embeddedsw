@@ -77,6 +77,8 @@
 * 5.6   ml   07/21/25 Fixed GCC warnings.
 * 5.7   bdk  11/29/25 Updated XScuGic_DeviceInitialize() declaratoin to fix 8.3 misra-c violation.
 * 5.7   ml   03/05/26 Added Redistributor ICENABLER offset (0x180) definition.
+* 5.7   vmt  03/27/26 Fix GICv3 redistributor address range for EL1_NONSECURE without HYP_GUEST
+* 		      and correct default security configuration based on EL3 state.
 * </pre>
 *
 ******************************************************************************/
@@ -530,7 +532,7 @@ extern "C" {
 #define XSCUGIC_RDIST_START_ADDR        0xE2100000U
 #define XSCUGIC_RDIST_END_ADDR          0xE2130000U
 #else
-#if EL1_NONSECURE
+#if EL1_NONSECURE && HYP_GUEST
 #define XSCUGIC_RDIST_START_ADDR        0x03020000U
 #define XSCUGIC_RDIST_END_ADDR          0x03040000U
 #else
@@ -560,7 +562,7 @@ extern "C" {
 /*
  * GICR_IGROUPR  register definitions
  */
-#if defined EL3
+#if defined (EL3) && (EL3 == 1)
 #define XSCUGIC_DEFAULT_SECURITY    0x0U
 #else
 #define XSCUGIC_DEFAULT_SECURITY    0xFFFFFFFFU
