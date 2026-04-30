@@ -16,6 +16,8 @@ extern "C" {
 #define XPM_CORE_CFG0_OFFSET		(0x0U)
 #define XPM_RPU_TCMBOOT_MASK		BIT32(4)
 #define XPM_CORE_VECTABLE_OFFSET	(0x10U)
+/** RPU vector-table alignment: CORE_x_VECTABLE [4:0] reserved -> 32-byte aligned */
+#define XPM_RPU_VECTABLE_ALIGN		(0x20U)
 #define XPM_RPU_CPUHALT_MASK	BIT(0)
 #define XPM_RPU_CORE_HALT(ResumeCfg)		PmRmw32(ResumeCfg, XPM_RPU_CPUHALT_MASK,\
 							XPM_RPU_CPUHALT_MASK)

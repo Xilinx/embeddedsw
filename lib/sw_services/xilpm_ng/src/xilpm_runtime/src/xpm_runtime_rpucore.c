@@ -43,7 +43,17 @@ XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 {
 	volatile XStatus Status = XST_FAILURE;
 	volatile XStatus StatusTmp = XST_FAILURE;
-	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
+	const XPm_RpuCore *RpuCore;
+
+	/* BootAddr must be 32-byte aligned (CORE_x_VECTABLE [4:0] reserved);
+	 * zero is the TCM-boot sentinel */
+	if ((0U != BootAddr) &&
+	    (0U != (BootAddr & (XPM_RPU_VECTABLE_ALIGN - 1U)))) {
+		Status = XST_INVALID_PARAM;
+		goto done;
+	}
+
+	RpuCore = (XPm_RpuCore *)XPmDevice_GetById(DeviceId);
 	if (NULL == RpuCore) {
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
 		goto done;
