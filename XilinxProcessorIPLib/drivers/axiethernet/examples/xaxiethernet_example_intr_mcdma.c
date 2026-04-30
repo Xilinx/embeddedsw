@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -762,7 +762,7 @@ static int TxBdSetup(XMcdma *McDmaInstPtr, XAxiEthernet *AxiEthernetInstancePtr,
 			return XST_FAILURE;
 		}
 
-		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_IntrHandler,
+		Status = XSetupInterruptSystem(McDmaInstPtr, &XMcdma_TxIntrHandler,
 					       McDmaInstPtr->Config.IntrId[ChanId - 1],
 					       McDmaInstPtr->Config.IntrParent,
 					       XINTERRUPT_DEFAULT_PRIORITY);
