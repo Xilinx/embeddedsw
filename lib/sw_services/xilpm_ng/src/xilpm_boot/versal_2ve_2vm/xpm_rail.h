@@ -34,6 +34,66 @@ extern "C" {
  */
 #define XPM_RAIL_PERF_MODE_STATE_OFFSET		(2U)
 
+/*
+ * XPmRail_InitVID() CDO argument layout:
+ *   Args[0] = rail node id
+ *   Args[1] = rail type (low byte = XPM_RAILTYPE_VID)
+ *   Args[2] = (entries-count << 8) | speed-grade SPGD index byte
+ *   Args[3 .. 3 + Entries - 1] = performance-mode entries
+ */
+
+/** @def XPM_VID_INIT_MIN_NUMARGS
+ *  @brief Minimum NumArgs accepted by XPmRail_InitVID() (RailId, RailType,
+ *         EntriesSpgd byte). Each performance-mode entry adds one Args[]
+ *         slot above this minimum.
+ */
+#define XPM_VID_INIT_MIN_NUMARGS		(3U)
+
+/** @def XPM_VID_INIT_PERF_ARG_BASE
+ *  @brief Index of the first performance-mode entry in the InitVID Args[]
+ *         vector (immediately after the 3 fixed-position fields).
+ */
+#define XPM_VID_INIT_PERF_ARG_BASE		(3U)
+
+/** @def XPM_VID_RAILTYPE_BYTE_MASK
+ *  @brief Byte mask used to extract the rail-type field from Args[1].
+ */
+#define XPM_VID_RAILTYPE_BYTE_MASK		(0xFFU)
+
+/** @def XPM_VID_ENTRIES_SHIFT
+ *  @brief Bit-shift used to encode the entry-count nibble in the high byte
+ *         of Args[2] (entries-count << 8 | speed-grade SPGD byte).
+ */
+#define XPM_VID_ENTRIES_SHIFT			(8U)
+
+/** @def XPM_VID_ENTRIES_MASK
+ *  @brief Byte mask applied after right-shifting Args[2] by
+ *         XPM_VID_ENTRIES_SHIFT to recover the entries-count value.
+ */
+#define XPM_VID_ENTRIES_MASK			(0xFFU)
+
+/** @def XPM_VID_SPGD_BYTE_MASK
+ *  @brief Byte mask used to extract the speed-grade SPGD index byte from
+ *         the low byte of Args[2].
+ */
+#define XPM_VID_SPGD_BYTE_MASK			(0xFFU)
+
+/** @def XPM_VID_ARG_RAIL_ID
+ *  @brief Args[] index of the rail-node-id field in the InitVID payload.
+ */
+#define XPM_VID_ARG_RAIL_ID			(0U)
+
+/** @def XPM_VID_ARG_RAIL_TYPE
+ *  @brief Args[] index of the rail-type field in the InitVID payload.
+ */
+#define XPM_VID_ARG_RAIL_TYPE			(1U)
+
+/** @def XPM_VID_ARG_ENTRIES_SPGD
+ *  @brief Args[] index of the (entries-count << 8 | SPGD byte) field in
+ *         the InitVID payload.
+ */
+#define XPM_VID_ARG_ENTRIES_SPGD		(2U)
+
 typedef enum {
 	XPM_RAILTYPE_MODE_PMBUS = 1,
 	XPM_RAILTYPE_PGOOD,

@@ -1125,9 +1125,53 @@ done:
 	return Status;
 }
 
+/**
+ * @brief  Fill the persistent VID_Rails[] slot for the rail identified by
+ *         Args[].
+ *
+ *         Wrapped as a small static helper so it can be invoked through
+ *         XSECURE_REDUNDANT_CALL and the destructive table write is
+ *         hardened against single-fault skip.
+ *
+ * @param  Slot     Pointer to the VID_Rails[] slot to populate.
+ * @param  Args     CDO argument vector for XPmRail_InitVID().
+ * @param  Entries  Number of Performance[] entries to copy from Args[].
+ *
+ * @return XST_SUCCESS on success;
+ *         XST_GLITCH_ERROR if the loop terminated early (per
+ *         SW-BP-LOOP-REDUNDANCY post-loop counter check).
+ */
+static XStatus XPmRail_InitVID_FillEntry(XPmRail_VIDAdj *Slot,
+					 const u32 *Args, u8 Entries)
+{
+	volatile XStatus Status = XST_FAILURE;
+	volatile u8 j = 0U;
+
+	Slot->RailId = Args[XPM_VID_ARG_RAIL_ID];
+	for (j = 0U; j < Entries; j++) {
+		Slot->Performance[j] = Args[j + XPM_VID_INIT_PERF_ARG_BASE];
+	}
+
+	/*
+	 * SW-BP-LOOP-REDUNDANCY: confirm the loop ran the expected number
+	 * of iterations before declaring success. A glitch that skipped the
+	 * loop or exited early would leave j != Entries.
+	 */
+	if (j != Entries) {
+		Status = XST_GLITCH_ERROR;
+		goto done;
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
 static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	XPm_Rail *Rail;
 	u8 SPGD_Index = 0;
@@ -1135,27 +1179,30 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 	u8 Entries;
 	static XPmRail_VIDAdj VID_Rails[MAX_VID_RAILS];
 
-	if (NumArgs < 3U) {
+	if (NumArgs < XPM_VID_INIT_MIN_NUMARGS) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	Rail = (XPm_Rail *)XPmPower_GetById(Args[0]);
+	Rail = (XPm_Rail *)XPmPower_GetById(Args[XPM_VID_ARG_RAIL_ID]);
 	if (NULL == Rail) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	if ((u32)XPM_RAILTYPE_VID != (Args[1] & 0xFFU)) {
+	if ((u32)XPM_RAILTYPE_VID !=
+	    (Args[XPM_VID_ARG_RAIL_TYPE] & XPM_VID_RAILTYPE_BYTE_MASK)) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
 	}
 
-	Entries = ((Args[2] >> 8U) & 0xFFU);
-	if ((Entries > MAX_MODES) || ((u32)(Entries + 3) > NumArgs)) {
+	Entries = (u8)((Args[XPM_VID_ARG_ENTRIES_SPGD] >>
+			XPM_VID_ENTRIES_SHIFT) & XPM_VID_ENTRIES_MASK);
+	if ((Entries > MAX_MODES) ||
+	    (((u32)Entries + XPM_VID_INIT_PERF_ARG_BASE) > NumArgs)) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;
@@ -1168,13 +1215,16 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 	 * If the part used is not a VID-qualified part based on its speed-grade, or
 	 * the CDO entry that is being processed does not belong to the part, return.
 	 */
-	if ((0U == SPGD_Index) || ((Args[2] & 0xFFU) != SPGD_Index)) {
+	if ((0U == SPGD_Index) ||
+	    ((Args[XPM_VID_ARG_ENTRIES_SPGD] & XPM_VID_SPGD_BYTE_MASK) !=
+	     SPGD_Index)) {
 		Status = XST_SUCCESS;
 		goto done;
 	}
 
 	/* Find an existing entry for the power rail (if any), or fill-in the first blank entry */
-	while ((VID_Rails[Index].RailId != Args[0]) && (0U != VID_Rails[Index].RailId) && (Index < MAX_VID_RAILS)) {
+	while ((VID_Rails[Index].RailId != Args[XPM_VID_ARG_RAIL_ID]) &&
+	       (0U != VID_Rails[Index].RailId) && (Index < MAX_VID_RAILS)) {
 		Index++;
 	}
 
@@ -1184,9 +1234,12 @@ static XStatus XPmRail_InitVID(const u32 *Args, u32 NumArgs)
 		goto done;
 	}
 
-	VID_Rails[Index].RailId = Args[0];
-	for (u8 j = 0; j < Entries; j++) {
-		VID_Rails[Index].Performance[j] = Args[j + 3];
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_InitVID_FillEntry,
+			       &VID_Rails[Index], Args, Entries);
+	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_INVALID_ARGS;
+		goto done;
 	}
 
 	Rail->VIDAdj = &VID_Rails[Index];
@@ -1214,7 +1267,8 @@ done:
  ****************************************************************************/
 XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
 	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	u32 BaseAddress = 0;
 	u32 Type;
@@ -1245,7 +1299,12 @@ XStatus XPmRail_Init(XPm_Rail *Rail, u32 RailId, const u32 *Args, u32 NumArgs)
 			Status = XPmRail_InitGPIOMode(Args, NumArgs);
 			break;
 		case (u32)XPM_RAILTYPE_VID:
-			Status = XPmRail_InitVID(Args, NumArgs);;
+			XSECURE_REDUNDANT_CALL(Status, StatusTmp,
+					       XPmRail_InitVID, Args, NumArgs);
+			if ((XST_SUCCESS != Status) ||
+			    (XST_SUCCESS != StatusTmp)) {
+				Status = XST_FAILURE;
+			}
 			break;
 		default:
 			DbgErr = XPM_INT_ERR_INVALID_ARGS;
