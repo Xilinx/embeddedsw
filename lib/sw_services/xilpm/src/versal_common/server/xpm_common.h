@@ -588,7 +588,7 @@ void XPm_DumpMemUsage(void);
 
 /* NPI PCSR related general functions */
 void XPm_UnlockPcsr(u32 BaseAddr);
-void XPm_LockPcsr(u32 BaseAddr);
+XStatus XPm_LockPcsr(u32 BaseAddr);
 
 #ifdef __cplusplus
 }
