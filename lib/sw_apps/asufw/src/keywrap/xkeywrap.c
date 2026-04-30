@@ -142,7 +142,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		AesKeyObj.KeyId = KeyWrapParamsPtr->AesKeyId;
 		Status = XKeyManager_UpdateKeyObjFromVault(AsuDmaPtr, AesKeyObj.KeyId,
 							   (u64)(UINTPTR)&AesKeyObj, SubsystemId,
-							   XKEYMANAGER_AES_KEY_WRAP_USE_CASE,
+							   XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE,
 							   XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
@@ -178,7 +178,7 @@ s32 XKeyWrap(const XAsu_KeyWrapParams *KeyWrapParamsPtr, XAsufw_Dma *AsuDmaPtr,
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_UpdateKeyObjFromVault(AsuDmaPtr, KeyWrapParamsPtr->RsaKeyId,
 							RsaKeyParamAddr, SubsystemId,
-							XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE,
+							XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE,
 							XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
@@ -336,7 +336,7 @@ s32 XKeyUnwrap(const XAsu_KeyWrapParams *KeyUnwrapParamsPtr, XAsufw_Dma *AsuDmaP
 		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_UpdateKeyObjFromVault(AsuDmaPtr, KeyUnwrapParamsPtr->RsaKeyId,
 						RsaKeyParamAddr, SubsystemId,
-						XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE,
+						XASU_KEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE,
 						XKEYMANAGER_RSA_OP_NONCRT);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;

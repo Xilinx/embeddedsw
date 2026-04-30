@@ -240,7 +240,7 @@ static s32 XAsufw_EccGenSign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (EccKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			EccKeyObj.KeyId, (u64)(UINTPTR)&EccKeyObj, SubSystemId,
-			XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -326,7 +326,7 @@ static s32 XAsufw_EccVerifySign(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (EccKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			EccKeyObj.KeyId, (u64)(UINTPTR)&EccKeyObj, SubSystemId,
-			XKEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -412,7 +412,7 @@ static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (EccPvtKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			EccPvtKeyObj.KeyId, (u64)(UINTPTR)&EccPvtKeyObj, SubSystemId,
-			XKEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			XASU_KEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -489,7 +489,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (PvtKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			PvtKeyObj.KeyId, (u64)(UINTPTR)&PvtKeyObj, SubSystemId,
-			XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -499,7 +499,7 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (PubKeyObj.KeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_EccModule.AsuDmaPtr,
 			PubKeyObj.KeyId, (u64)(UINTPTR)&PubKeyObj, SubSystemId,
-			XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;

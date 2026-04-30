@@ -72,6 +72,52 @@ extern "C" {
 
 #define XASU_KM_KDF_HMAC_MAX_KEY_LENGTH		(136U) /**< Max key length for KDF/HMAC in
 							    key vault. */
+
+/*
+ * Key usecases bitmask related macros.
+ * To specify multiple usecases from client, use bitwise OR operation with desired usecases.
+ */
+/* Key usecases for AES key type. */
+#define XASU_KEYMANAGER_AES_ENC_USE_CASE			(0x01U)	/**< Data encryption key use case */
+#define XASU_KEYMANAGER_AES_DEC_USE_CASE			(0x02U)	/**< Data decryption key use case */
+#define XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE		(0x04U)	/**< Data key wrap use case */
+#define XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE		(0x08U)	/**< Data key unwrap use case */
+#define XASU_KEYMANAGER_AES_AUTH_USE_CASE			(0x10U)	/**< Data authentication use case */
+
+/* Key usecases for RSA private key type. */
+#define XASU_KEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< RSA private key sign
+								use case */
+#define XASU_KEYMANAGER_RSA_PVT_DECRYPT_USE_CASE		(0x02U)	/**< RSA private key decryption
+								use case */
+#define XASU_KEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE	(0x04U)	/**< RSA private key key transport
+								use case */
+
+/* Key usecases for RSA public key type. */
+#define XASU_KEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< RSA public key sign
+								verification use case */
+#define XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE		(0x02U)	/**< RSA public key encryption
+								use case */
+#define XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE	(0x04U)	/**< RSA public key key transport
+								use case */
+
+/* Key usecases for ECC public key type. */
+#define XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< ECC public key sign verification use case */
+#define XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC public key key agreement use case */
+#define XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC public key key authentication and encryption use case */
+
+/* Key usecases for ECC private key type. */
+#define XASU_KEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< ECC private key sign use case */
+#define XASU_KEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC private key key agreement use case */
+#define XASU_KEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC private key key authentication and encryption use case */
+#define XASU_KEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE	(0x08U)	/**< ECC private key for public key generation */
+
+/* Key usecases for KDF/HMAC key type. */
+#define XASU_KEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */
+#define XASU_KEYMANAGER_KDF_HMAC_HMAC_USE_CASE	(0x02U)	/**< HMAC secret key use case */
+
+/* Key usecases for LMS public key type. */
+#define XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE	(0x01U)	/**< LMS public key signature verification use case */
+
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This enum contains sub vault ID related information. */
@@ -90,11 +136,12 @@ typedef enum {
 
 /** This structure contains key meta data information. */
 typedef struct {
-	u16 KeyId;	/**< Key identifier within sub-vault. */
-	u8 KeyType;	/**< Type of key stored. */
-	u8 VaultId;	/**< Identifier of the vault. */
+	u16 KeyId;	/**< Key identifier within sub-vault.
+					This field is applicable only in server context and NA for client. */
+	u8 KeyType;	/**< Type of key stored. This field is applicable only for Store Key API. */
+	u8 VaultId;	/**< Identifier of the vault for which the API is intended. */
 	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
-	u8 KeyAttributes;	/**< Additional attribute for the key. */
+	u8 KeyAttributes;	/**< Additional attribute for the key (applicable only for ECC keys) */
 	u16 Length;	/**< Key length. */
 	u32 EpochTime;	/**< Time stamp expiry for the key. */
 	u32 UsageCount;	/**< Number of times the key can be used. */
@@ -103,10 +150,18 @@ typedef struct {
 /** This structure contains info for key manager parameters. */
 typedef struct {
 	XAsu_KeyManagerKeyMetadata KeyMetadata; /**< Key metadata. */
-	XAsu_AesKeyObject AesKeyObj; /**< AES key object to be filled if input is wrapped key type. */
-	u64 KeyObjectAddr; /**< Address of the key buffer. */
-	u64 KeyIdAddr; /**< Address where generated key ID is stored. */
-	u32 WrappedInputLen; /**< Length of the wrapped key input data, to be filled if input is wrapped key type. */
+	XAsu_AesKeyObject AesKeyObj; /**< AES key object to be filled if input is wrapped key type.
+						This field is applicable only for Store Key API. */
+	u64 KeyObjectAddr; /**< Address of the key buffer.
+						For Store Key API: This field is mandatory and it is an input buffer.
+						For Generate Key APIs: This field is optional and it is output buffer
+						if the key needs to be returned to user. */
+	u64 KeyIdAddr; /**< Address where generated key ID is stored.
+						For Store Key API: This field is mandatory.
+						For Generate Key APIs: This field is optional and should be given only
+						when the key to be stored in key vault. */
+	u32 WrappedInputLen; /**< Length of the wrapped key input data (applicable only for Store Key API).
+						This needs to be filled if input is wrapped key type. */
 	u8 Reserved[4]; /**< Explicit padding to ensure consistent struct size across architectures */
 } XAsu_KeyManagerParams;
 

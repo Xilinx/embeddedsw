@@ -221,7 +221,7 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	if (LmsParams.LmsHssKeyObj.PubKeyId != 0U) {
 		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_LmsModule.AsuDmaPtr,
 			LmsParams.LmsHssKeyObj.PubKeyId, (u64)(UINTPTR)&LmsParams.LmsHssKeyObj, SubSystemId,
-			XKEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+			XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
@@ -323,7 +323,7 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		if (HssParams.LmsHssKeyObj.PubKeyId != 0U) {
 			Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_LmsModule.AsuDmaPtr,
 				HssParams.LmsHssKeyObj.PubKeyId, (u64)(UINTPTR)&HssParams.LmsHssKeyObj, SubSystemId,
-				XKEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
+				XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE, XKEYMANAGER_RSA_OP_NONE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 				goto END;

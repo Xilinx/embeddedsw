@@ -55,30 +55,6 @@ extern "C" {
 #define XKEYMANAGER_MINOR_VERSION	(0U) /**< Minor version of the key manager */
 #define XKEYMANAGER_IDENTIFICATION_STRING	(0x4C564B58U) /**< Key manager identification string */
 
-#define XKEYMANAGER_AES_ENC_USE_CASE			(0x01U)	/**< Data encryption key use case */
-#define XKEYMANAGER_AES_DEC_USE_CASE			(0x02U)	/**< Data decryption key use case */
-#define XKEYMANAGER_AES_KEY_WRAP_USE_CASE		(0x04U)	/**< Data key wrap use case */
-#define XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE		(0x08U)	/**< Data key unwrap use case */
-#define XKEYMANAGER_AES_AUTH_USE_CASE			(0x10U)	/**< Data authentication use case */
-
-#define XKEYMANAGER_RSA_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< RSA private key sign
-								use case */
-#define XKEYMANAGER_RSA_PVT_DECRYPT_USE_CASE		(0x02U)	/**< RSA private key decryption
-								use case */
-#define XKEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE	(0x04U)	/**< RSA private key key transport
-								use case */
-
-#define XKEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< RSA public key sign
-								verification use case */
-#define XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE		(0x02U)	/**< RSA public key encryption
-								use case */
-#define XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE	(0x04U)	/**< RSA public key key transport
-								use case */
-
-#define XKEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE		(0x01U)	/**< ECC public key sign verification use case */
-#define XKEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC public key key agreement use case */
-#define XKEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC public key key authentication and encryption use case */
-
 #define XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE	(0x01U)	/**< Digital signature use case */
 #define XKEYMANAGER_X509_NONREPUDIATION_USE_CASE	(0x02U)	/**< Non-repudiation use case */
 #define XKEYMANAGER_X509_KEYENCIPHERMENT_USE_CASE	(0x04U)	/**< Key encipherment use case */
@@ -88,16 +64,6 @@ extern "C" {
 #define XKEYMANAGER_X509_CRLSIGN_USE_CASE		(0x40U)	/**< CRL signing use case */
 #define XKEYMANAGER_X509_ENCIPHERONLY_USE_CASE		(0x80U)	/**< Encipher only use case */
 #define XKEYMANAGER_X509_DECIPHERONLY_USE_CASE		(0x100U) /**< Decipher only use case */
-
-#define XKEYMANAGER_ECC_PVT_SIGN_GEN_USE_CASE		(0x01U)	/**< ECC private key sign use case */
-#define XKEYMANAGER_ECC_PVT_KEY_AGREEMENT_USE_CASE	(0x02U)	/**< ECC private key key agreement use case */
-#define XKEYMANAGER_ECC_PVT_KEY_AUTH_ENC_USE_CASE	(0x04U)	/**< ECC private key key authentication and encryption use case */
-#define XKEYMANAGER_ECC_PVT_PUB_KEY_GEN_USE_CASE	(0x08U)	/**< ECC private key for public key generation */
-
-#define XKEYMANAGER_KDF_HMAC_KDF_USE_CASE	(0x01U)	/**< Key derivation key use case */
-#define XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE	(0x02U)	/**< HMAC secret key use case */
-
-#define XKEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE	(0x01U)	/**< LMS public key signature verification use case */
 
 #define XKEYMANAGER_RSA_ALL_KEY_USE_CASES_VALUE	(7U)	/**< Value for all RSA key use cases*/
 
