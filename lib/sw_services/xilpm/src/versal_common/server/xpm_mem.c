@@ -519,10 +519,18 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 			MemSize = PL_MEM_SIZE(MemSize);
 		}
 		u64 EndAddress = StartAddress + MemSize - 1U;
-		u32 Range = checkAddrRangeContainment(CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U),
-					      StartAddress, EndAddress);
 
-		if (ADDR_IN_RANGE == Range) {
+		volatile u8 Range = ADDR_NOT_IN_RANGE;
+		volatile u8 RangeTmp = ADDR_NOT_IN_RANGE;
+		/* redundancy in checker to address security concerns */
+		XSECURE_REDUNDANT_CALL(Range, RangeTmp, checkAddrRangeContainment, \
+			CurrentRegionAddr, (CurrentRegionAddr + CurrentRegionSize - 1U), StartAddress, EndAddress);
+		if (Range != RangeTmp) {
+			Status = XPM_FAILURE;
+			goto done;
+		}
+
+		if ((ADDR_IN_RANGE == Range) && (ADDR_IN_RANGE == RangeTmp)) {
 			/** Check whether PL mem or not */
 			if (PL_MEM_REGN == PLFlag) {
 				*IsPLMem = 1U;
@@ -530,7 +538,7 @@ static XStatus IsMemRegnAddressValid(u32 SubsystemId, u64 RegionAddr, u64 Region
 			Status = XPM_SUCCESS;
 			break;
 		}
-		else if (ADDR_RANGE_OVERLAP == Range) {
+		else if ((ADDR_RANGE_OVERLAP == Range) && (ADDR_RANGE_OVERLAP == RangeTmp)) {
 			/* update region address and size for overlapping case */
 			CurrentRegionAddr = EndAddress + 1ULL;
 			CurrentRegionSize = RegionEndAddr - EndAddress;
