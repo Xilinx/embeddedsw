@@ -109,7 +109,7 @@ int Trngpsv_Ptrng_Example(u16 DeviceId)
 int Trngpsv_Ptrng_Example(UINTPTR BaseAddr)
 #endif
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XTrngpsv_Config *Config;
 	XTrngpsv_UsrCfg UsrCfg = {
 			.Mode = XTRNGPSV_PTRNG,
@@ -132,6 +132,7 @@ int Trngpsv_Ptrng_Example(UINTPTR BaseAddr)
 #endif
 	if (NULL == Config) {
 		xil_printf("LookupConfig Failed \n\r");
+		Status = XST_FAILURE;
 		goto END;
 	}
 

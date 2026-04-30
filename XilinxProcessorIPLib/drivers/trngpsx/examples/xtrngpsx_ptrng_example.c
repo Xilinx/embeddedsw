@@ -93,7 +93,7 @@ int main(void)
  ************************************************************************************************/
 int Trngpsx_Example()
 {
-	int Status = XST_SUCCESS;
+	int Status = XST_FAILURE;
 	XTrngpsx_Config *Config;
 	XTrngpsx_UserConfig UsrCfg = {
 			.Mode = XTRNGPSX_PTRNG_MODE,
@@ -110,6 +110,7 @@ int Trngpsx_Example()
 	Config = XTrngpsx_LookupConfig(XTRNGPSX_PMC_DEVICE);
 	if (NULL == Config) {
 		xil_printf("LookupConfig Failed \n\r");
+		Status = XST_FAILURE;
 		goto END;
 	}
 
