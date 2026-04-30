@@ -212,7 +212,7 @@ static s32 XAsufw_HmacComputeSha(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 						HmacParamsPtr->KeyObject.KeyId,
 						(u64)(UINTPTR)&KeyObject,
 						SubsystemId,
-						XKEYMANAGER_KDF_HMAC_HMAC_USE_CASE,
+						XASU_KEYMANAGER_KDF_HMAC_HMAC_USE_CASE,
 						XKEYMANAGER_RSA_OP_NONE);
 				if (Status != XASUFW_SUCCESS) {
 					Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;

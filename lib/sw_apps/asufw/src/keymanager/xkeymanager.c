@@ -1838,7 +1838,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 			AesKeyObj.KeyId = KeyParams->AesKeyObj.KeyId;
 			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XKeyManager_UpdateAesKeyObjectFromVault(&AesKeyObj, SubSystemId,
-								XKEYMANAGER_AES_KEY_UNWRAP_USE_CASE);
+								XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE);
 			if (Status != XASUFW_SUCCESS) {
 				Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 				goto END;
@@ -2548,15 +2548,15 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		 */
 		if (((CertInfo->KeyUsage & XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE) != 0U) ||
 		    ((CertInfo->KeyUsage & XKEYMANAGER_X509_NONREPUDIATION_USE_CASE) != 0U)) {
-			KeyUseCase |= XKEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE;
+			KeyUseCase |= XASU_KEYMANAGER_ECC_PUB_SIGN_VER_USE_CASE;
 		}
 
 		if ((CertInfo->KeyUsage & XKEYMANAGER_X509_KEYAGREEMENT_USE_CASE) != 0U) {
-			KeyUseCase |= XKEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE;
+			KeyUseCase |= XASU_KEYMANAGER_ECC_PUB_KEY_AGREEMENT_USE_CASE;
 		}
 
 		if ((CertInfo->KeyUsage & XKEYMANAGER_X509_DATAENCIPHERMENT_USE_CASE) != 0U) {
-			KeyUseCase |= XKEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE;
+			KeyUseCase |= XASU_KEYMANAGER_ECC_PUB_KEY_AUTH_ENC_USE_CASE;
 		}
 	} else if (CertInfo->PublicKeyType == X509_PUB_KEY_RSA) {
 		RawKeySubVaultType = XASU_RSA_PUB_SUBVAULT_ID;
@@ -2571,16 +2571,16 @@ static s32 XKeyManager_StoreX509RawPublicKey(XAsufw_Dma *DmaPtr,
 		 */
 		if (((CertInfo->KeyUsage & XKEYMANAGER_X509_DIGITALSIGNATURE_USE_CASE) != 0U) ||
 		    ((CertInfo->KeyUsage & XKEYMANAGER_X509_NONREPUDIATION_USE_CASE) != 0U)) {
-			KeyUseCase |= XKEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE;
+			KeyUseCase |= XASU_KEYMANAGER_RSA_PUB_SIGN_VER_USE_CASE;
 		}
 
 		if (((CertInfo->KeyUsage & XKEYMANAGER_X509_KEYENCIPHERMENT_USE_CASE) != 0U) ||
 		    ((CertInfo->KeyUsage & XKEYMANAGER_X509_DATAENCIPHERMENT_USE_CASE) != 0U)) {
-			KeyUseCase |= XKEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE;
+			KeyUseCase |= XASU_KEYMANAGER_RSA_PUB_ENCRYPT_USE_CASE;
 		}
 
 		if ((CertInfo->KeyUsage & XKEYMANAGER_X509_KEYAGREEMENT_USE_CASE) != 0U) {
-			KeyUseCase |= XKEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE;
+			KeyUseCase |= XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE;
 		}
 
 		if (CertInfo->PublicKey.RsaPublicKey.ExponentLen == XASUFW_WORD_LEN_IN_BYTES) {

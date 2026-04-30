@@ -236,14 +236,12 @@ static s32 XAsufw_AesOperation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 #ifdef XASU_KEYMANAGER_ENABLE
-	if ((AesParamsPtr->EngineMode == XASU_AES_CCM_MODE) ||
-		(AesParamsPtr->EngineMode == XASU_AES_GCM_MODE) ||
-		(AesParamsPtr->EngineMode == XASU_AES_CMAC_MODE) || (AesParamsPtr->EngineMode == XASU_AES_GHASH_MODE)) {
-		KeyUsecase = XKEYMANAGER_AES_AUTH_USE_CASE;
+	if ((AesParamsPtr->EngineMode == XASU_AES_CMAC_MODE) || (AesParamsPtr->EngineMode == XASU_AES_GHASH_MODE)) {
+		KeyUsecase = XASU_KEYMANAGER_AES_AUTH_USE_CASE;
 	} else if (AesParamsPtr->OperationType == XASU_AES_ENCRYPT_OPERATION) {
-		KeyUsecase = XKEYMANAGER_AES_ENC_USE_CASE;
+		KeyUsecase = XASU_KEYMANAGER_AES_ENC_USE_CASE;
 	} else if (AesParamsPtr->OperationType == XASU_AES_DECRYPT_OPERATION) {
-		KeyUsecase = XKEYMANAGER_AES_DEC_USE_CASE;
+		KeyUsecase = XASU_KEYMANAGER_AES_DEC_USE_CASE;
 	} else {
 		Status = XASUFW_AES_INVALID_OPERATION_TYPE;
 		goto END;
