@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -457,6 +457,8 @@ extern "C" {
 #define NPI_PCSR_MASK_OFFSET					(0x00000000U)
 #define NPI_PCSR_CONTROL_OFFSET					(0x00000004U)
 #define NPI_PCSR_STATUS_OFFSET					(0x00000008U)
+/** PCSR_STATUS bit 0: 1 = PCSR is locked (write-protected), 0 = unlocked. */
+#define NPI_PCSR_STATUS_PCSRLOCK_MASK				(0x00000001U)
 
 /*
  * GTY PCSR Module
