@@ -29,6 +29,16 @@ static XStatus SetBootAddr(const struct XPm_RpuCore *RpuCore, const u32 BootAddr
 	return XST_SUCCESS;
 }
 
+/**
+ * @brief  Public API to configure the RPU core boot address for a device.
+ *
+ * @param  DeviceId  Node ID of the target RPU core device
+ * @param  BootAddr  Boot vector address; 0 selects TCM boot
+ *
+ * @return XST_SUCCESS on success;
+ *         XST_INVALID_PARAM if DeviceId is invalid or BootAddr is misaligned;
+ *         XST_FAILURE on register-write glitch detection.
+ */
 XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 {
 	volatile XStatus Status = XST_FAILURE;
