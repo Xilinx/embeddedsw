@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -652,27 +652,35 @@ done:
 	return Status;
 }
 
-XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
+/**
+ * @brief  Pure helper that resolves the VID source (RTCA override or eFuse
+ *         cache) and computes the Performance[] Index that XPmRail_AdjustVID
+ *         should switch the rail to.
+ *
+ *         Side-effect-free so the decision can be invoked redundantly
+ *         without re-running the rail transition. Callers should invoke
+ *         this via the XPmRail_ComputeAdjustVIDIndex wrapper, which
+ *         performs redundant double-call comparison on both Status and
+ *         the returned Index.
+ *
+ * @param  VIDAdj  Pointer to the rail's VIDAdj record (RailId, Performance
+ *                 table, VIDAdjusted latch).
+ * @param  Index   Out: matching Performance[] entry index, or < 0 if no
+ *                 adjustment is required (no override, override disabled,
+ *                 eFuse 0, or no matching entry).
+ *
+ * @return XST_SUCCESS once *Index is set; error code on failure.
+ */
+static XStatus XPmRail_ComputeAdjustVIDIndexRaw(const XPmRail_VIDAdj *VIDAdj,
+						int *Index)
 {
 	XStatus Status = XST_FAILURE;
-	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
 	const XPm_Device *EfuseCache;
-	XPmRail_VIDAdj *VIDAdj;
 	u32 VID, MP_MAP;
 	u8 ValidOverride = 0;
-	int Index;
+	int LocalIndex;
 
-	if (NULL == Rail->VIDAdj) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* if this rail has already been VID adjusted, then nothing more to do */
-	VIDAdj = Rail->VIDAdj;
-	if (1U == VIDAdj->VIDAdjusted) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
+	*Index = -1;
 
 	/* A non-zero value in RTCA location indicates an override value */
 	VID = XPm_In32(XPLMI_RTCFG_VID_OVERRIDE);
@@ -686,7 +694,6 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 		if (1U == ((VID >> VID_CNTRL_OFFSET) & VID_CNTRL_MASK)) {
 			ValidOverride = 1;
 		} else {
-			DbgErr = XPM_INT_ERR_INVALID_VID;
 			goto done;
 		}
 	}
@@ -695,7 +702,6 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	if (0U == ValidOverride) {
 		EfuseCache = XPmDevice_GetById(PM_DEV_EFUSE_CACHE);
 		if (NULL == EfuseCache) {
-			DbgErr = XPM_INT_ERR_INVALID_DEVICE;
 			goto done;
 		}
 
@@ -711,25 +717,135 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	MP_MAP = ((VID >> VID_MP_MAP_OFFSET) & VID_MP_MAP_MASK);
 
 	/*
-	 * Start from end of the performance array and walk back until an entry is
-	 * found that has a value less than or equal to MP_MAP value.  The 'Index'
-	 * value plus 2 selects which power state the rail needs to transition to.
-	 * The reason for plus 2 is because 0 is assigned for OFF and 1 for ON power
-	 * states.
+	 * Start from end of the performance array and walk back until an entry
+	 * is found that has a value less than or equal to MP_MAP value.
 	 */
-	for (Index = (MAX_MODES - 1); Index >= 0; Index--) {
-		if ((0 == VIDAdj->Performance[Index]) || (MP_MAP < VIDAdj->Performance[Index])) {
+	for (LocalIndex = (MAX_MODES - 1); LocalIndex >= 0; LocalIndex--) {
+		if ((0 == VIDAdj->Performance[LocalIndex]) ||
+		    (MP_MAP < VIDAdj->Performance[LocalIndex])) {
 			continue;
 		}
+		*Index = LocalIndex;
+		break;
+	}
 
-		Status = XPmRail_Control(Rail, (u8)XPM_POWER_STATE_ON, (u8)(Index + 2));
-		if (XST_SUCCESS == Status) {
-			VIDAdj->VIDAdjusted = 1;
-			break;
-		} else {
-			DbgErr = XPM_INT_ERR_RAIL_VID;
-			goto done;
-		}
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/**
+ * @brief  Redundant wrapper around XPmRail_ComputeAdjustVIDIndexRaw().
+ *
+ *         Invokes the pure helper twice with two SEPARATE volatile
+ *         out-locals so a single fault in either invocation cannot
+ *         silently steer the rail to the wrong Performance[] entry,
+ *         then compares both return statuses AND both index values
+ *         before publishing a single Index/Status pair to the caller.
+ *
+ * @param  VIDAdj  Pointer to the rail's VIDAdj record.
+ * @param  Index   Out: the agreed-upon Performance[] entry index, set
+ *                 only on XST_SUCCESS.
+ *
+ * @return XST_SUCCESS    when both invocations agree.
+ *         XST_GLITCH_ERROR on any disagreement (status or value).
+ */
+static XStatus XPmRail_ComputeAdjustVIDIndex(const XPmRail_VIDAdj *VIDAdj,
+					     int *Index)
+{
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus Status1 = XST_FAILURE;
+	volatile XStatus Status2 = XST_FAILURE;
+	volatile int LocalIndex1 = -1;
+	volatile int LocalIndex2 = -1;
+
+	Status1 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (int *)&LocalIndex1);
+	Status2 = XPmRail_ComputeAdjustVIDIndexRaw(VIDAdj, (int *)&LocalIndex2);
+
+	if ((XST_SUCCESS != Status1) || (XST_SUCCESS != Status2) ||
+	    (LocalIndex1 != LocalIndex2)) {
+		Status = XST_GLITCH_ERROR;
+		goto done;
+	}
+
+	*Index = LocalIndex1;
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
+}
+
+/**
+ * @brief  Adjust a rail's voltage to the speed-grade-appropriate
+ *         performance mode by transitioning it through XPmRail_Control()
+ *         to the matching Performance[] entry.
+ *
+ *         Reads the VID source (RTCA override or eFuse cache) via the
+ *         redundant XPmRail_ComputeAdjustVIDIndex() helper, then issues
+ *         a redundant XPmRail_Control() to switch the rail. Sets the
+ *         per-rail VIDAdjusted latch on success so subsequent calls are
+ *         a no-op.
+ *
+ * @param  Rail  Pointer to the rail to adjust. Must have a non-NULL
+ *               VIDAdj record.
+ *
+ * @return XST_SUCCESS on success or when no adjustment is required;
+ *         XPM_INT_ERR_INVALID_VID or downstream error code on failure.
+ */
+XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
+{
+	volatile XStatus Status = XST_FAILURE;
+	volatile XStatus StatusTmp = XST_FAILURE;
+	u16 DbgErr = XPM_INT_ERR_UNDEFINED;
+	XPmRail_VIDAdj *VIDAdj;
+	int Index = -1;
+
+	if (NULL == Rail->VIDAdj) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/* if this rail has already been VID adjusted, then nothing more to do */
+	VIDAdj = Rail->VIDAdj;
+	if (1U == VIDAdj->VIDAdjusted) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Resolve the VID source and compute the target Performance[] index.
+	 * The wrapper internally invokes the pure Raw helper twice with two
+	 * separate out-locals and compares both return statuses AND both
+	 * index values, so a single fault in the read/decode path cannot
+	 * cause the rail to transition to a wrong (or no) power state.
+	 */
+	Status = XPmRail_ComputeAdjustVIDIndex(VIDAdj, &Index);
+	if (XST_SUCCESS != Status) {
+		DbgErr = XPM_INT_ERR_INVALID_VID;
+		goto done;
+	}
+
+	/* Negative index means no adjustment is needed. */
+	if (Index < 0) {
+		Status = XST_SUCCESS;
+		goto done;
+	}
+
+	/*
+	 * Index plus 2 selects which power state the rail needs to transition
+	 * to.  The reason for plus 2 is because 0 is assigned for OFF and 1
+	 * for ON power states.
+	 */
+	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_Control,
+			       Rail, (u8)XPM_POWER_STATE_ON,
+			       (u8)(Index + 2));
+	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
+		VIDAdj->VIDAdjusted = 1;
+	} else {
+		Status = XST_FAILURE;
+		DbgErr = XPM_INT_ERR_RAIL_VID;
+		goto done;
 	}
 
 done:
