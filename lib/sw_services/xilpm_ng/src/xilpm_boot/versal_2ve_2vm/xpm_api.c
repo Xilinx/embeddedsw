@@ -395,7 +395,7 @@ static XStatus XPm_DoWarningCommand(XPlmi_Cmd* Cmd)
 XStatus XPm_Init(void (*const RequestCb)(const u32 SubsystemId, const XPmApiCbId_t EventId, u32 *Payload),
 		 int (*const RestartCb)(u32 ImageId, u32 *FuncId))
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 
 	/* Zeroized xpm_bss_data session during none In-place update*/
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
