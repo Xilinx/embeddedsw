@@ -31,7 +31,7 @@ end,0x11c,0,0,0,0,0,0,0,0,CDO,Ends a CDO block
 break,0x11d,0,0,0,0,0,0,0,0,CDO,Breaks a CDO block by jumping to the specified end level
 ot_check,0x11e,0,0,0,0,0,0,0,0,CDO,Checks for OT condition and waits till it resolves
 psm_sequence,0x11f,0,0,0,0,0,0,0,0,CDO,PSM Sequence
-inplace_plm_update,0x120,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+inplace_plm_update,0x120,1,1,1,1,1,1,0,1,IPI,In Place PLM Update
 scatter_write,0x121,0,0,0,0,0,0,0,0,CDO,Scatter Write
 scatter_write2,0x122,0,0,0,0,0,0,0,0,CDO,Scatter Write 2 words at a time
 tamper_trigger,0x123,1,1,1,1,1,1,0,0,IPI,Trigger Tamper Response
@@ -186,7 +186,7 @@ cframe_data_clear_check,0x70c,0,0,0,0,0,0,0,0,CDO,Cframe Data Clear Check
 write_image_store_pdi,0x70d,0,0,0,0,0,0,0,0,CDO,Write Image Store Pdi
 config_jtag_state,0x70e,1,1,1,1,1,1,0,0,IPI,Config Jtag State
 read_ddr_crypto_counters,0x70f,3,3,3,3,3,3,0,0,IPI,Read Ddr Crypto Counters
-i2c_handshake,0x710,0,0,0,0,0,0,0,0,IPI,Handshake
+i2c_handshake,0x710,0,0,0,0,0,0,0,0,CDO,Handshake
 data_auth,0x711,3,3,3,3,3,3,0,3,IPI,Data Authentication
 Cfi_selective_readback,0x712,3,3,3,3,3,3,0,3,IPI,Reads given number of cframes from the start frame given
 em_features,0x800,3,3,3,3,3,3,0,0,CDO/IPI,Features
