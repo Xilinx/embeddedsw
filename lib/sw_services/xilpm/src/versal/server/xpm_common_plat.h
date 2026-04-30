@@ -35,14 +35,6 @@ extern "C" {
 #define TRUE	1U
 #define FALSE	0U
 
-#define PmChkRegMask32(ADDR, MASK, VAL, STATUS)				\
-	do {									\
-		if (((u32)(VAL) & (u32)(MASK)) != ((u32)(XPm_In32((ADDR))) & (u32)(MASK))) {	\
-			(STATUS) = XPM_REG_WRITE_FAILED;			\
-		}								\
-	} while (XPM_FALSE_COND)								\
-
-
 /* Payload Packets */
 #define XPM_PACK_PAYLOAD(Payload, Arg0, Arg1, Arg2, Arg3, Arg4, Arg5)	\
 	do {								\
