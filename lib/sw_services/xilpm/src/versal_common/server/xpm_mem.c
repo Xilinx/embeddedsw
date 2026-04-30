@@ -255,7 +255,7 @@ done:
  *************************************************************************************
  */
 static u8 checkAddrRangeContainment(u64 RegionStart, u64 RegionEnd, u64 StartAddr, u64 EndAddr) {
-	u8 Range;
+	volatile u8 Range = ADDR_NOT_IN_RANGE;
 
 	/**
 	 * Input:	   |==============|
@@ -375,7 +375,7 @@ static XStatus IsRangeOutsideExclusionList(u64 RegionAddr, u64 RegionSize) {
 		 * Ex Range3:             |-------| 		(given range completely inside excluded range)
 		 * Ex Range4: |-------------------------------| (given range fully contains excluded range)
 		 */
-		if ((1U == isRangeOverlapExclusion) || (ADDR_IN_RANGE == isExclusionInRange)) {
+		if ((TRUE == isRangeOverlapExclusion) || (ADDR_IN_RANGE == isExclusionInRange)) {
 			Status = XPM_FAILURE;
 			goto done;
 		}
