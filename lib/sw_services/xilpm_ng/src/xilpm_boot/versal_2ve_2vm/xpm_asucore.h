@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -12,6 +12,11 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/** ASU MB soft reset deassert value */
+#define XPM_ASU_SOFT_RST_DEASSERT	(0U)
+/** Index of ASU base address within BaseAddress[] passed to init */
+#define XPM_ASU_BASEADDR_IDX		(0U)
+
 typedef struct XPm_AsuCore XPm_AsuCore;
 struct XPm_AsuCore {
 	XPm_Core Core; /**< Processor core devices */

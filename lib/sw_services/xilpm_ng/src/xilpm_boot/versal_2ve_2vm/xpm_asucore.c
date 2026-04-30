@@ -17,7 +17,7 @@ XStatus XPmAsuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	(void)Address;
 
 	/* ASU is special, we don't need to do direct power on. Because it is never power off until POR */
-	if (1U == Core->isCoreUp) {
+	if (TRUE == Core->isCoreUp) {
 		/* This should never happen but just in case */
 		PmWarn("ASU core is already up.\r\n");
 		Status = XST_SUCCESS;
@@ -29,9 +29,9 @@ XStatus XPmAsuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 	/* Bring ASU out of reset by toggling the soft rst */
 	XPm_Out32(ASU_GLOBAL_ASU_MB_SOFT_RST, ASU_GLOBAL_ASU_MB_SOFT_RST_VAL_MASK);
 	/*.. deassert the reset bit*/
-	XPm_Out32(ASU_GLOBAL_ASU_MB_SOFT_RST, 0U);
+	XPm_Out32(ASU_GLOBAL_ASU_MB_SOFT_RST, XPM_ASU_SOFT_RST_DEASSERT);
 
-	Core->isCoreUp = 1;
+	Core->isCoreUp = TRUE;
 	Status = XST_SUCCESS;
 done:
 	PmInfo("ASU Core Wakeup Status: 0x%x\r\n", Status);
@@ -57,7 +57,7 @@ XStatus XPmAsuCore_Init(struct XPm_AsuCore *AsuCore, u32 Id, u32 Ipi, const u32 
 		goto done;
 	}
 
-	AsuCore->AsuBaseAddr = BaseAddress[0];
+	AsuCore->AsuBaseAddr = BaseAddress[XPM_ASU_BASEADDR_IDX];
 
 done:
 	return Status;
