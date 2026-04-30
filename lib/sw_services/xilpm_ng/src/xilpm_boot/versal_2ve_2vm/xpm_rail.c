@@ -833,13 +833,15 @@ XStatus XPmRail_AdjustVID(XPm_Rail *Rail)
 	}
 
 	/*
-	 * Index plus 2 selects which power state the rail needs to transition
-	 * to.  The reason for plus 2 is because 0 is assigned for OFF and 1
-	 * for ON power states.
+	 * Index plus XPM_RAIL_PERF_MODE_STATE_OFFSET selects which power
+	 * state the rail needs to transition to.  The offset accounts for
+	 * power-state values 0 (OFF) and 1 (ON) being reserved, so
+	 * performance-mode entry 0 maps to power-state value 2.
 	 */
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, XPmRail_Control,
 			       Rail, (u8)XPM_POWER_STATE_ON,
-			       (u8)(Index + 2));
+			       (u8)((u32)Index +
+				    XPM_RAIL_PERF_MODE_STATE_OFFSET));
 	if ((XST_SUCCESS == Status) && (XST_SUCCESS == StatusTmp)) {
 		VIDAdj->VIDAdjusted = 1;
 	} else {
