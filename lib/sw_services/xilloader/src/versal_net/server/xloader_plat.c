@@ -66,6 +66,7 @@
 * 		abh  10/09/2025 Fixed MISRA-C violations
 *       rmv  01/30/2026 Renamed OCP header files and keymanagment macro
 *       vns  04/04/2026 Lock DAP during PLM update via XLoader_DisableJtagIfOpenedByAuthJtag
+*       obs  02/05/2026 Implement peripheral pre-allocation at handoff time
 *
 * </pre>
 *
@@ -320,6 +321,8 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  * 			- XLOADER_ERR_WAKEUP_A78_3 if waking up the A78_3 failed during
  * 			handoff.
  * 			- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during handoff.
+ * 			- XLOADER_ERR_CONFIG_SUBSYSTEM if subsystem peripheral
+ * 			pre-allocation fails during handoff.
  *
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -333,6 +336,19 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
 	u32 RequestWakeup = (u32)FALSE;
+
+	/** Pre-allocate peripheral devices to subsystem images now */
+	if (NODECLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID)
+			== XPM_NODECLASS_SUBSYSTEM) {
+		Status = XPmSubsystem_Configure(
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID,
+			PREALLOC_PERIPH_ONLY);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
+			goto END;
+		}
+	}
 
 	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {

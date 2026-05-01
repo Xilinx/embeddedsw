@@ -55,6 +55,7 @@
 *       pre  12/12/2025 Added warning message for user indication if PCR info
 *                       is added in BIF without enabling TPM feature.
 *       obs  12/23/2025 Added explicit CPU validation in XLoader_ProcessElf
+*       obs  02/05/2026 Implement peripheral pre-allocation at handoff time
 *       pre  03/12/2026 Moved PCR number validation to XTpm_MeasurePartition API
 *       pre  03/16/2026 Updated PCR Info validation logic in XLoader_DataMeasurement API
 *
@@ -357,6 +358,8 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  * 			handoff.
  * 			- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during
  * 			handoff.
+ * 			- XLOADER_ERR_CONFIG_SUBSYSTEM if subsystem peripheral
+ * 			pre-allocation fails during handoff.
  *
  *****************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -370,6 +373,19 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u32 DeviceId;
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
+
+	/** Pre-allocate peripheral devices to subsystem images now */
+	if (NODECLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID)
+			== XPM_NODECLASS_SUBSYSTEM) {
+		Status = XPmSubsystem_Configure(
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID,
+			PREALLOC_PERIPH_ONLY);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
+			goto END;
+		}
+	}
 
 	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {

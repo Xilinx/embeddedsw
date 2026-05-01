@@ -25,6 +25,7 @@
 *       pre  12/16/25 Handled PCR info invalid case in case of OCP key management disabled
 * 2.4   gnr  01/06/26 Added explicit CPU validation in XLoader_ProcessElf
 *       rmv  01/30/26 Renamed OCP header files and keymanagment macro
+*       obs  02/05/26 Implement peripheral pre-allocation at handoff time
 *
 * </pre>
 *
@@ -329,6 +330,8 @@ XilBootPdiInfo* XLoader_GetBootPdiInfo(void)
  *		- XLOADER_ERR_WAKEUP_R5_1 if waking up the R5-1 failed during handoff.
  *		- XLOADER_ERR_WAKEUP_R5_L if waking up the R5-L failed during handoff.
  *		- XLOADER_ERR_WAKEUP_PSM if waking up the PSM failed during handoff.
+ *		- XLOADER_ERR_CONFIG_SUBSYSTEM if subsystem peripheral
+ *		  pre-allocation fails during handoff.
  *
  **************************************************************************************************/
 int XLoader_StartImage(XilPdi *PdiPtr)
@@ -342,6 +345,19 @@ int XLoader_StartImage(XilPdi *PdiPtr)
 	u32 DeviceId;
 	u8 SetAddress = 1U;
 	u32 ErrorCode;
+
+	/** Pre-allocate peripheral devices to subsystem images now */
+	if (NODECLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID)
+			== XPM_NODECLASS_SUBSYSTEM) {
+		Status = XPmSubsystem_Configure(
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID,
+			PREALLOC_PERIPH_ONLY);
+		if (Status != XST_SUCCESS) {
+			Status = XPlmi_UpdateStatus(
+				XLOADER_ERR_CONFIG_SUBSYSTEM, Status);
+			goto END;
+		}
+	}
 
 	/** - Start Handoff to the cpus */
 	for (Index = 0U; Index < PdiPtr->NoOfHandoffCpus; Index++) {
@@ -1390,7 +1406,7 @@ END:
 
 /**************************************************************************************************/
 /**
- * @brief	This function is used to check whether cpu has handoff address stroed in the handoff
+ * @brief	This function is used to check whether cpu has handoff address stored in the handoff
  * 		structure.
  *
  * @param	PdiPtr is pointer to XilPdi instance.
