@@ -141,7 +141,7 @@
 *       ma   08/08/2022 Check EAM errors between each image load
 *       ng   08/18/2022 Modified DelayedHandoffCpus condition to handle all possible values
 * 1.07  sk   11/22/2022 Added Subsystems ValidHeader member variable init to
-*                       XLoader_Init function to handle in-place update scenerio
+*                       XLoader_Init function to handle in-place update scenario
 *       ng   11/23/2022 Updated doxygen comments
 *       ng   01/02/2023 Check to bypass entire ID Code Check
 *       kpt  01/04/2023 Added check to update FIPS state
@@ -206,6 +206,7 @@
 * 		abh 10/09/2025 Fixed MISRA-C violations
 *       tvp 01/23/2026 Run SHA KAT during boot
 *       rmv 01/30/2026 Renamed OCP header files and keymanagment macro
+*       obs 02/05/2026 Implement two-phase subsystem activation for boot device isolation
 *       sd  03/03/2026 Added redundant check for XLoader_ValidateMHHashBlockIntegrity
 *       aa  03/10/2026 Added check to restrict USB as primary boot
 *       tvp 03/13/2026 Modify Image Header Table Details prints for VERSAL_2VP_P
@@ -1012,6 +1013,9 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 	u8 ImageNum;
 	u8 PrtnNum;
 	u8 PrtnIndex;
+	u32 PrtnIdx;
+	u32 PrtnNumLocal;
+	u32 DstnCpu;
 
 	/**
 	 * From the meta header present in PDI pointer, read the subsystem
@@ -1032,6 +1036,33 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		PdiPtr->DelayLoad = (u8)(XilPdi_GetDelayLoad(
 			&PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT);
+
+		/* If default subsystem and not delay-loaded, always delay handoff */
+		if ((PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID == PM_SUBSYS_DEFAULT) &&
+			(PdiPtr->DelayLoad == (u8)FALSE)) {
+			PdiPtr->DelayHandoff = (u8)TRUE;
+		}
+
+		/* PSM/ASU FW must never be deferred - force immediate handoff */
+		for (PrtnIdx = 0U; PrtnIdx < PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].NoOfPrtns; PrtnIdx++) {
+			PrtnNumLocal = PdiPtr->PrtnNum + PrtnIdx;
+			DstnCpu = PdiPtr->MetaHdr->PrtnHdr[PrtnNumLocal].PrtnAttrb & XIH_PH_ATTRB_DSTN_CPU_MASK;
+
+#ifdef XIH_PH_ATTRB_DSTN_CPU_PSM
+			if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_PSM) {
+				/* PSM FW cannot be deferred - force immediate handoff */
+				PdiPtr->DelayHandoff = (u8)FALSE;
+				break;
+			}
+#endif
+#ifdef XIH_PH_ATTRB_DSTN_CPU_ASU
+			if (DstnCpu == XIH_PH_ATTRB_DSTN_CPU_ASU) {
+				/* ASU FW cannot be deferred - force immediate handoff */
+				PdiPtr->DelayHandoff = (u8)FALSE;
+				break;
+			}
+#endif
+		}
 
 		if (PdiPtr->DelayHandoff == (u8)TRUE) {
 			if (PdiPtr->DelayLoad == (u8)TRUE) {
@@ -1088,36 +1119,47 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 		(void)XPlmi_ErrorTaskHandler(NULL);
 	}
 
-	/** Execute Delay Handoff after all images are loaded. */
+	Status = XST_SUCCESS;
+
+END:
+	/** Release boot device once image loading completes or on error */
+	if (DeviceOps[PdiPtr->PdiIndex].Release != NULL) {
+		SStatus = DeviceOps[PdiPtr->PdiIndex].Release();
+		if (Status == XST_SUCCESS) {
+			/** Update with current status if no failures observed before */
+			Status = SStatus;
+		}
+	}
+	if (Status != XST_SUCCESS) {
+		/* Do not proceed with delayed handoff if failure */
+		goto END1;
+	}
+
+	/** Execute delayed handoff after the boot device is released */
 	for (Index = 0U; Index < NoOfDelayedHandoffCpus; ++Index) {
 		ImageNum = DelayHandoffImageNum[Index];
 		PrtnNum = DelayHandoffPrtnNum[Index];
+		PdiPtr->ImageNum = ImageNum;
 		PdiPtr->PrtnNum = PrtnNum;
 		for (PrtnIndex = 0U;
 			PrtnIndex < (u8)PdiPtr->MetaHdr->ImgHdr[ImageNum].NoOfPrtns;
 			PrtnIndex++) {
 			Status = XLoader_UpdateHandoffParam(PdiPtr);
 			if (Status != XST_SUCCESS) {
-				goto END;
+				goto END1;
 			}
 			PdiPtr->PrtnNum++;
 		}
 
 		Status = XLoader_StartImage(PdiPtr);
 		if (Status != XST_SUCCESS) {
-			goto END;
+			goto END1;
 		}
 	}
 
 	Status = XST_SUCCESS;
 
-END:
-	if (DeviceOps[PdiPtr->PdiIndex].Release != NULL) {
-		SStatus = DeviceOps[PdiPtr->PdiIndex].Release();
-		if (Status == XST_SUCCESS) {
-			Status = SStatus;
-		}
-	}
+END1:
 
 #ifndef PLM_DEBUG_MODE
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_CHUNK_MEMORY, XPLMI_DATA_INIT_PZM,
@@ -1618,14 +1660,17 @@ int XLoader_LoadImage(XilPdi *PdiPtr)
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
-	/* Configure preallocs for subsystem */
+	/* Configure preallocs for subsystem (proc and memory only) */
 	if (NODECLASS(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID)
 			== XPM_NODECLASS_SUBSYSTEM) {
 #ifdef VERSAL_2VE_2VM
-		Status = XPm_PmcActivateSubsystem(PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
+		Status = XPm_PmcActivateSubsystem(
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID);
 #else
+		/* Two-phase activation: Phase 1 - processors and memory only */
 		Status = XPmSubsystem_Configure(
-			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID, PREALLOC_ALL);
+			PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID,
+			PREALLOC_PROC_MEM_ONLY);
 #endif
 
 		if (Status != XST_SUCCESS) {
