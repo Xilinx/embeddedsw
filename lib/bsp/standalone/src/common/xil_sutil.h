@@ -285,6 +285,12 @@ s32 Xil_SReverseData(void *Buf, u32 Size);
 /**< Copies data from 64 bit address Src to 64 bit address Dst */
 void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt);
 
+/**< Copies data from 64 bit source address to 32 bit destination address */
+void Xil_MemCpyFrom64To32Addr(u32 DstAddr, u64 SrcAddr, u32 Count);
+
+/**< Copies data from 32 bit source address to 64 bit destination address */
+void Xil_MemCpyFrom32To64Addr(u64 DstAddr, u32 SrcAddr, u32 Count);
+
 /**< Increments buffer data by specified value */
 void Xil_IncrementBuffer(u8* Buffer, u32 BufferSize, u8 IncVal);
 

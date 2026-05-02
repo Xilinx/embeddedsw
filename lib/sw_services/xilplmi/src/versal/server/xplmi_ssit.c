@@ -73,6 +73,7 @@
 *       pre  10/11/2024 Added slave error notification at slave and processing at master
 *       obs  03/17/2025 Fixed GCC Warnings
 * 2.10  obs  08/26/2025 Added support for Verifying address range
+*       vss  04/15/2026 Fix for aliasing issue.
 *
 * </pre>
 *
@@ -1087,8 +1088,8 @@ static int XPlmi_SsitEventHandler(void *Data)
 			sizeof(XPlmi_SsitEventVectorTable_t));
 
 	/* Read the Event Table of the remote SLR */
-	Xil_MemCpy64((u64)(u32)&RemoteEventTable, RemoteEventTableAddr,
-	              sizeof(XPlmi_SsitEventVectorTable_t));
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&RemoteEventTable,
+	              RemoteEventTableAddr, sizeof(XPlmi_SsitEventVectorTable_t));
 
 	/* Loop through the event table and execute the pending event handlers */
 	for ( ; Index < XPLMI_SSIT_MAX_EVENT32_INDEX; ++Index) {
@@ -2254,7 +2255,7 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 
         /* Update IV1 as IV if it is 1st CfgSecComm Cmd */
         if (SecKeyIVEstablished != ESTABLISHED) {
-            Xil_MemCpy64((u64)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
+            Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)IvAddr, SrcAddr, XPLMI_IV_SIZE_BYTES);
         }
 
         /* Frame full command with IV1,IV2,Key as payload */
@@ -2262,7 +2263,7 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 		                         ((u32)XPLMI_SSITCFG_CMD_PAYLOAD_LEN << LEN_BYTES_SHIFT);
         TempBuf[PAYLOAD_OFFSET] = SlrIndex;
 
-        Xil_MemCpy64((u64)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
+        Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)&TempBuf[XPLMI_IV1_OFFSET_INCMD], SrcAddr,
 			  ((XPLMI_IV_SIZE_BYTES * XPLMI_NOOF_IVS) + XPLMI_KEY_SIZE_BYTES));
 
         /* Trigger message event to SLR given and get response */
@@ -2278,8 +2279,12 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
 		 * also set SecKeyIVEstablished flag
 		 */
         if (RespBuf[0] == XST_SUCCESS) {
-            Xil_MemCpy64((u64)(UINTPTR)IvAddr, (u64)(UINTPTR)&TempBuf[XPLMI_IV2_OFFSET_INCMD],
-			                XPLMI_IV_SIZE_BYTES);
+            Status = Xil_SMemCpy((void *)IvAddr, XPLMI_IV_SIZE_BYTES,
+				    (const void *)&TempBuf[XPLMI_IV2_OFFSET_INCMD], XPLMI_IV_SIZE_BYTES,
+				    XPLMI_IV_SIZE_BYTES);
+            if (Status != XST_SUCCESS) {
+				goto END;
+			}
 
             Status = (XPlmi_SsitCommPtr->AesKeyWrite)(SlrIndex, (u32)&TempBuf[XPLMI_KEY_OFFSET_INCMD]);
 			if (Status != XST_SUCCESS) {
@@ -2297,10 +2302,19 @@ int XPlmi_SsitCfgSecComm(XPlmi_Cmd *Cmd)
       }
       else {
 		/* update new IV and new key with IV2 and key */
-        Xil_MemCpy64((u64)XPLMI_SLR_NEWIV_ADDR, (u64)(UINTPTR)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD],
-		       XPLMI_IV_SIZE_BYTES);
-        Xil_MemCpy64((u64)XPlmi_SsitCommPtr->NewKeyAddr,
-		            (u64)(UINTPTR)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD], XPLMI_KEY_SIZE_BYTES);
+        Status = Xil_SMemCpy((void *)(UINTPTR)XPLMI_SLR_NEWIV_ADDR, XPLMI_IV_SIZE_BYTES,
+				    (const void *)&Cmd->Payload[XPLMI_IV2_OFFSET_INPAYLOAD], XPLMI_IV_SIZE_BYTES,
+				    XPLMI_IV_SIZE_BYTES);
+        if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
+        Status = Xil_SMemCpy((void *)(UINTPTR)XPlmi_SsitCommPtr->NewKeyAddr, XPLMI_KEY_SIZE_BYTES,
+				    (const void *)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD], XPLMI_KEY_SIZE_BYTES,
+				    XPLMI_KEY_SIZE_BYTES);
+        if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 		Status = (int)Xil_SecureZeroize((u8 *)&Cmd->Payload[XPLMI_KEY_OFFSET_INPAYLOAD],
 		                                       XPLMI_KEY_SIZE_BYTES);

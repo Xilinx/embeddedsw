@@ -32,6 +32,7 @@
 *       kd   09/11/2025 Modified status and ZeroizeStatus variables to volatile in XPlm_SsitCommAesKeyWrite
 *       tvp  04/03/2026 Use generic API to increment IV
 *       obs  04/13/2026 Remove deadcode from xplm_ssitcomm
+*       vss  04/15/2026 Fix for aliasing issue.
 *</pre>
 *
 * @note
@@ -167,33 +168,6 @@ static inline XSecure_AesKeySrc XPlm_SsitSecCommGetKeySrcofSlr(u32 SlrIndex)
 static inline  u32 *XPlm_SsitSecCommGetIvofSlr(u32 SlrIndex)
 {
 	return ((u32 *)(XPLMI_RTCFG_SSLR1_IV_ADDR + (XPLMI_IV_SIZE_BYTES * (SlrIndex - 1U))));
-}
-
-/*************************************************************************************************/
-/**
-* @brief This function writes AAD of first configure secure communication command
-*
-* @param DestAddr Address to which the AAD has to be written
-* @param SrcAddr  Address where AAD data is present
-*
-**************************************************************************************************/
-static inline void XPlm_SsitComm1stSecCfgCmdSetAad(u64 DestAddr, u64 SrcAddr)
-{
-	Xil_MemCpy64(DestAddr, SrcAddr,
-					(XPLMI_IV_SIZE_BYTES + XPLMI_WORD_LEN + XPLM_HEADER_LEN_BYTES));
-}
-
-/*************************************************************************************************/
-/**
-* @brief This function writes AAD for all the commands
-*
-* @param DestAddr Address to which the AAD has to be written
-* @param SrcAddr  Address where AAD data is present
-*
-**************************************************************************************************/
-static inline void XPlm_SsitCommSetAad(u64 DestAddr, u64 SrcAddr)
-{
-	Xil_MemCpy64(DestAddr, SrcAddr, XPLM_HEADER_LEN_BYTES);
 }
 
 /************************** Function Prototypes **************************************************/
@@ -353,12 +327,13 @@ static void XPlm_SsitCommPrepareEncParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 		 * based on secure communication status and command
 		 */
 		if ((EncParams->IsCfgSecCommCmd == TRUE) && (SecSsitCommEst != ESTABLISHED)) {
-			XPlm_SsitComm1stSecCfgCmdSetAad(SsitBufAddr, (u64)(UINTPTR)Buf);
+			Xil_MemCpyFrom32To64Addr(SsitBufAddr, (u32)(UINTPTR)Buf,
+				XPLMI_IV_SIZE_BYTES + XPLMI_WORD_LEN + XPLM_HEADER_LEN_BYTES);
 			EncParams->InDataAddr = (u64)(UINTPTR)&Buf[XPLMI_IV2_OFFSET_INCMD];
 			EncParams->DataLen = XPLM_IV2_AND_KEY_SIZE_BYTES;
 		}
 		else {
-			XPlm_SsitCommSetAad(SsitBufAddr, (u64)(UINTPTR)Buf);
+			Xil_MemCpyFrom32To64Addr(SsitBufAddr, (u32)(UINTPTR)Buf, XPLM_HEADER_LEN_BYTES);
 			EncParams->InDataAddr = (u64)(UINTPTR)&Buf[PAYLOAD_OFFSET];
 			if(EncParams->IsCfgSecCommCmd == TRUE) {
 				EncParams->DataLen = XPLM_LEN_CALC(Buf[HEADER_OFFSET]);
@@ -393,17 +368,21 @@ static void XPlm_SsitCommPrepareEncParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 
 /*************************************************************************************************/
 /**
-* @brief This function writes parameters needed to decrypt the data in buffer
+* @brief This function prepares decryption parameters for secure SSIT communication.
 *
-* @param SecSsitCommEst Status of secure communication establishment status
-* @param DecParams   Contains parameters to decrypt the data
-* @param SsitBufAddr    Address of SSIT buffer which contains encrypted data
-* @param Buf            Address of buffer to which decrypted data has to written
+* @param SecSsitCommEst Status of secure communication establishment.
+* @param DecParams      Pointer to decryption parameter structure.
+* @param SsitBufAddr    Address of SSIT buffer containing encrypted data.
+* @param Buf            Address of output buffer for decrypted data.
+*
+* @return XST_SUCCESS on successful parameter preparation.
+*         Error code on failure.
 *
 **************************************************************************************************/
-static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, XPlm_SsitCommParams
+static int XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, XPlm_SsitCommParams
                                          *DecParams, u64 SsitBufAddr, u32 *Buf)
 {
+	int Status = XST_FAILURE;
 	/* Fetch SLR type */
 	u32 SlrType = XPlm_SsitCommGetSlrType();
 
@@ -415,10 +394,13 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 		DecParams->DataLen = (XPLMI_CMD_RESP_SIZE * XPLMI_WORD_LEN);
 
 		/* Use (currentIV+1) for decryption */
-		Xil_MemCpy64((u64)(UINTPTR)XPlm_SsitCommIV, (u64)(UINTPTR)DecParams->IvPtr,
-		                 XPLMI_IV_SIZE_BYTES);
+		Status = Xil_SMemCpy(XPlm_SsitCommIV, XPLMI_IV_SIZE_BYTES,
+				    DecParams->IvPtr, XPLMI_IV_SIZE_BYTES,
+				    XPLMI_IV_SIZE_BYTES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 		Xil_IncrementBuffer((u8 *)XPlm_SsitCommIV, XPLMI_IV_SIZE_BYTES, 1U);
-
 		/* Take IvPtr, start address of buf to place decrypted data */
 		DecParams->OutDataPtr =  &DecParams->TempRespBuf[0];
 		DecParams->IvPtr = XPlm_SsitCommIV;
@@ -433,20 +415,21 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 		 * decrypted data based on secure communication status and command
 		 */
 		if ((DecParams->IsCfgSecCommCmd == TRUE) && (SecSsitCommEst != ESTABLISHED)) {
-			XPlm_SsitComm1stSecCfgCmdSetAad((u64)(UINTPTR)Buf, SsitBufAddr);
+			Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)Buf, SsitBufAddr,
+				XPLMI_IV_SIZE_BYTES + XPLMI_WORD_LEN + XPLM_HEADER_LEN_BYTES);
 
 			/* Prepare DataLen */
 			DecParams->DataLen = XPLM_IV2_AND_KEY_SIZE_BYTES;
 
 			/* Update IV with IV1 */
-			Xil_MemCpy64((u64)XPLMI_SLR_CURRENTIV_ADDR,
-			                (SsitBufAddr + XPLM_IV_OFFSET_IN_ENCRYPTED_CMD), XPLMI_IV_SIZE_BYTES);
+			Xil_MemCpyFrom64To32Addr(XPLMI_SLR_CURRENTIV_ADDR, (SsitBufAddr + XPLM_IV_OFFSET_IN_ENCRYPTED_CMD),
+				XPLMI_IV_SIZE_BYTES);
 
 			/* Take start address of buf to place decrypted data */
 			DecParams->OutDataPtr = &Buf[XPLMI_IV2_OFFSET_INCMD];
 		}
 		else {
-			XPlm_SsitCommSetAad((u64)(UINTPTR)Buf, SsitBufAddr);
+			Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)Buf, SsitBufAddr, XPLM_HEADER_LEN_BYTES);
 
 			/* Prepare DataLen */
 			if(DecParams->IsCfgSecCommCmd == TRUE) {
@@ -457,10 +440,13 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 			}
 
 			/* use (currentIV+1) for decryption */
-			Xil_MemCpy64((u64)(UINTPTR)XPlm_SsitCommIV, (u64)XPLMI_SLR_CURRENTIV_ADDR,
-					                 XPLMI_IV_SIZE_BYTES);
+			Status = Xil_SMemCpy(XPlm_SsitCommIV, XPLMI_IV_SIZE_BYTES,
+					    (const void *)(UINTPTR)XPLMI_SLR_CURRENTIV_ADDR,
+					    XPLMI_IV_SIZE_BYTES, XPLMI_IV_SIZE_BYTES);
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 			Xil_IncrementBuffer((u8 *)XPlm_SsitCommIV, XPLMI_IV_SIZE_BYTES, 1U);
-
 			/* Take IvPtr, start address of buf to place decrypted data */
 			DecParams->OutDataPtr = &Buf[PAYLOAD_OFFSET];
 			DecParams->IvPtr = XPlm_SsitCommIV;
@@ -471,6 +457,10 @@ static void XPlm_SsitCommPrepareDecParams(XPlmi_SecCommEstFlag SecSsitCommEst, X
 	DecParams->AadAddr = SsitBufAddr;
 	DecParams->InDataAddr = SsitBufAddr + DecParams->AADLen;
 	DecParams->TagAddr = SsitBufAddr + DecParams->AADLen + DecParams->DataLen;
+	Status = XST_SUCCESS;
+END:
+
+	return Status;
 }
 
 /*************************************************************************************************/
@@ -527,8 +517,14 @@ static int XPlm_SsitCommKeyIvUpdate(XPlmi_Cmd *Cmd)
 		 *  Update existing key-IV pair with new key-IV pair and set SecKeyIVEstablished
 		 * flag
 		 */
-		Xil_MemCpy64((u64)XPLMI_SLR_CURRENTIV_ADDR, (u64)XPLMI_SLR_NEWIV_ADDR,
-		                      XPLMI_IV_SIZE_BYTES);
+		Status = Xil_SMemCpy((void *)(UINTPTR)XPLMI_SLR_CURRENTIV_ADDR,
+				    XPLMI_IV_SIZE_BYTES,
+				    (const void *)(UINTPTR)XPLMI_SLR_NEWIV_ADDR,
+				    XPLMI_IV_SIZE_BYTES,
+				    XPLMI_IV_SIZE_BYTES);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 
 		/* Write key */
 		Status = XPlm_SsitCommAesKeyWrite(SECCOMM_SLAVE_INDEX, XPlm_SsitCommVar.NewKeyAddr);
@@ -597,6 +593,7 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 		EncParams.SlrIndex = SlrIndex;
 		EncParams.IsCfgSecCommCmd = IsCfgSecCommCmdTemp;
 		XPlm_SsitCommPrepareEncParams(SecSsitCommEst, &EncParams, (u64)SsitBufAddr, Buf);
+
 		Status = XPlm_SsitCommEncryptMsg(&EncParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
@@ -604,9 +601,9 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 	}
 	else {
 		/* Copy data from buf to SSIT buf */
-		Xil_MemCpy64(SsitBufAddr, (u64)(UINTPTR)Buf,
+		Status = Xil_SMemCpy((void *)(UINTPTR)SsitBufAddr, (BufSize * XPLMI_WORD_LEN),
+		                       (const void *)Buf, (BufSize * XPLMI_WORD_LEN),
 		                       (BufSize * XPLMI_WORD_LEN));
-		Status = XST_SUCCESS;
 	}
 END:
 	if(Status != XST_SUCCESS) {
@@ -671,20 +668,28 @@ static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 
 			(MsgTypeTmp == XPLM_SSIT_COMM_SECURE_MSG)) {
 		DecParams.SlrIndex = SlrIndex;
 		DecParams.IsCfgSecCommCmd = IsCfgSecCommCmdTemp;
-		XPlm_SsitCommPrepareDecParams(SecSsitCommEst, &DecParams, SsitBufAddr, Buf);
+		Status = XPlm_SsitCommPrepareDecParams(SecSsitCommEst, &DecParams, SsitBufAddr, Buf);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
+
 		Status = XPlm_SsitCommDecryptMsg(&DecParams);
 		if (Status != XST_SUCCESS) {
 			goto END;
 		}
 		if (SlrType == XPLMI_SSIT_MASTER_SLR) {
-			Xil_MemCpy64((u64)(UINTPTR)Buf, (u64)(UINTPTR)DecParams.TempRespBuf,
-			                 (BufSize * XPLMI_WORD_LEN));
+			Status = Xil_SMemCpy(Buf, (BufSize * XPLMI_WORD_LEN),
+					    DecParams.TempRespBuf,
+					    (XPLMI_CMD_RESP_SIZE * XPLMI_WORD_LEN),
+					    (BufSize * XPLMI_WORD_LEN));
+			if (Status != XST_SUCCESS) {
+				goto END;
+			}
 		}
 	}
 	else {
-		/* Copy data from buf to ssit msg buf */
-		Xil_MemCpy64((u64)(UINTPTR)Buf, SsitBufAddr,
-						(BufSize * XPLMI_WORD_LEN));
+		/** - Copy data from SSIT message buffer to Buf */
+		Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)Buf, SsitBufAddr, (BufSize * XPLMI_WORD_LEN));
 		Status = XST_SUCCESS;
 	}
 END:
@@ -739,9 +744,9 @@ static int XPlm_SsitCommSendMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsC
 	}
 
 	/* Copy data from buf to SSIT buf */
-	Xil_MemCpy64(SsitBufAddr, (u64)(UINTPTR)Buf,
+	return Xil_SMemCpy((void *)(UINTPTR)SsitBufAddr, (BufSize * XPLMI_WORD_LEN),
+		                    (const void *)Buf, (BufSize * XPLMI_WORD_LEN),
 		                    (BufSize * XPLMI_WORD_LEN));
-	return XST_SUCCESS;
 }
 
 
@@ -778,9 +783,8 @@ static int XPlm_SsitCommReceiveMessage(u32* Buf, u32 BufSize, u32 SlrIndex, u32 
 		SsitBufAddr = XPlmi_SsitGetSlrAddr(BufAddr, XPLMI_SSIT_MASTER_SLR_INDEX);
 	}
 
-	/* Copy data from buf to ssit msg buf */
-	Xil_MemCpy64((u64)(UINTPTR)Buf, SsitBufAddr,
-						(BufSize * XPLMI_WORD_LEN));
+	/** - Copy data from SSIT message buffer to Buf */
+	Xil_MemCpyFrom64To32Addr((u32)(UINTPTR)Buf, SsitBufAddr, (BufSize * XPLMI_WORD_LEN));
 	return XST_SUCCESS;
 }
 
