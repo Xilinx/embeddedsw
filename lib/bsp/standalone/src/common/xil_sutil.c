@@ -37,6 +37,7 @@
 * 9.5   hae      05/02/26 Replaced standard memcpy with Xil_MemCpy in Xil_SMemCpy
 *       aa       02/26/26 Replaced standard memcpy with Xil_MemCpy in Xil_Memcpy64
 *       tvp      02/04/26 Add doxygen note for Xil_IncrementBuffer
+*       vss      04/15/26 Fix for aliasing issue.
 *
 * </pre>
 *
@@ -57,6 +58,7 @@
 #define XIL_ONE_BYTE	(1U) /**< One byte length */
 #define XIL_LSB_MASK_VALUE	(0xFFU) /**< LSB mask value */
 #define XIL_ONE_BYTE_SHIFT	(8U) /**< One byte shift value */
+#define XIL_WORD_LEN_IN_BITS	(32U) /**< 32-bit width */
 
 /************************** Function Prototypes *****************************/
 
@@ -941,6 +943,12 @@ END:
  * @param	SrcAddr is the 64 bit source address
  * @param	Cnt is the number of bytes of data to be copied
  *
+ * @note	This API is impacted by aliasing issues when handling SRC/DST addresses.
+ * 		This API will be deprecated from 2027.1.
+ *		To ensure correct behavior, new APIs have been introduced that explicitly
+ *		support correct 64-bit source and destination addressing. Users must migrate
+ *		to Xil_MemCpyFrom64To32Addr() and Xil_MemCpyFrom32To64Addr().
+ *
  *************************************************************************************************/
 void Xil_MemCpy64(u64 DstAddr, u64 SrcAddr, u32 Cnt)
 {
@@ -1011,4 +1019,118 @@ void Xil_IncrementBuffer(u8* Buffer, u32 BufferSize, u8 IncVal)
 			break;
 		}
 	}
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies data from a 64 bit source address
+ * to a 32 bit destination address
+ *
+ * @param	DstAddr is the 32 bit destination address
+ * @param	SrcAddr is the 64 bit source address
+ * @param	Count is the number of bytes of data to be copied
+ *
+ * @note	This function does not handle overlapping memory regions.
+ *		No copy is performed if source and destination overlap or are the same.
+ *
+ *************************************************************************************************/
+void Xil_MemCpyFrom64To32Addr(u32 DstAddr, u64 SrcAddr, u32 Count)
+{
+	u32 Cnt = Count;
+	u64 Src = SrcAddr;
+	u32 Dst = DstAddr;
+
+	if (Cnt == 0U) {
+		goto END;
+	}
+
+	/**  - No-op when source and destination are the same */
+	if (SrcAddr == (u64)DstAddr) {
+		goto END;
+	}
+
+	/** - Copy only when source and destination do not overlap (cast to u64 to prevent 32-bit overflow) */
+	if (((SrcAddr < (u64)DstAddr) && ((SrcAddr + (u64)Cnt) <= (u64)DstAddr)) ||
+	    (((u64)DstAddr < SrcAddr) && (((u64)DstAddr + (u64)Cnt) <= SrcAddr))) {
+#if (defined(__riscv) && (__riscv_xlen == XIL_WORD_LEN_IN_BITS) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > XIL_WORD_LEN_IN_BITS)) || \
+	(defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > XIL_WORD_LEN_IN_BITS) && (XPAR_MICROBLAZE_DATA_SIZE == XIL_WORD_LEN_IN_BITS)) || \
+    defined(VERSAL_PLM)
+		if (((Dst & XIL_WORD_ALIGN_MASK) == 0U) &&
+		    ((Src & XIL_WORD_ALIGN_MASK) == 0U)) {
+			while (Cnt >= XIL_WORD_SIZE) {
+				Xil_Out32(Dst, lwea(Src));
+				Dst += XIL_WORD_SIZE;
+				Src += XIL_WORD_SIZE;
+				Cnt -= XIL_WORD_SIZE;
+			}
+		}
+		while (Cnt > 0U) {
+			Xil_Out8(Dst, lbuea(Src));
+			Dst += 1U;
+			Src += 1U;
+			Cnt -= 1U;
+		}
+#else
+		Xil_MemCpy((void *)(UINTPTR)Dst, (const void *)(UINTPTR)Src, Cnt);
+#endif
+	}
+END:
+	return;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function copies data from a 32 bit source address
+ * to a 64 bit destination address
+ *
+ * @param	DstAddr is the 64 bit destination address
+ * @param	SrcAddr is the 32 bit source address
+ * @param	Count is the number of bytes of data to be copied
+ *
+ * @note	This function does not handle overlapping memory regions.
+ *		No copy is performed if source and destination overlap or are the same.
+ *
+ *************************************************************************************************/
+void Xil_MemCpyFrom32To64Addr(u64 DstAddr, u32 SrcAddr, u32 Count)
+{
+	u32 Cnt = Count;
+	u32 Src = SrcAddr;
+	u64 Dst = DstAddr;
+
+	if (Cnt == 0U) {
+		goto END;
+	}
+
+	/** - No-op when source and destination are the same */
+	if ((u64)SrcAddr == DstAddr) {
+		goto END;
+	}
+
+	/** - Copy only when source and destination do not overlap (cast to u64 to prevent 32-bit overflow) */
+	if ((((u64)SrcAddr < DstAddr) && (((u64)SrcAddr + (u64)Cnt) <= DstAddr)) ||
+	    ((DstAddr < (u64)SrcAddr) && ((DstAddr + (u64)Cnt) <= (u64)SrcAddr))) {
+#if (defined(__riscv) && (__riscv_xlen == XIL_WORD_LEN_IN_BITS) && (XPAR_MICROBLAZE_RISCV_ADDR_SIZE > XIL_WORD_LEN_IN_BITS)) || \
+    (defined(__MICROBLAZE__) && (XPAR_MICROBLAZE_ADDR_SIZE > XIL_WORD_LEN_IN_BITS) && (XPAR_MICROBLAZE_DATA_SIZE == XIL_WORD_LEN_IN_BITS)) || \
+    defined(VERSAL_PLM)
+		if (((Dst & XIL_WORD_ALIGN_MASK) == 0U) &&
+		    ((Src & XIL_WORD_ALIGN_MASK) == 0U)) {
+			while (Cnt >= XIL_WORD_SIZE) {
+				swea(Dst, Xil_In32(Src));
+				Dst += XIL_WORD_SIZE;
+				Src += XIL_WORD_SIZE;
+				Cnt -= XIL_WORD_SIZE;
+			}
+		}
+		while (Cnt > 0U) {
+			sbea(Dst, Xil_In8(Src));
+			Dst += 1U;
+			Src += 1U;
+			Cnt -= 1U;
+		}
+#else
+		Xil_MemCpy((void *)(UINTPTR)Dst, (const void *)(UINTPTR)Src, Cnt);
+#endif
+	}
+END:
+	return;
 }
