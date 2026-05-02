@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -369,6 +369,71 @@ FlashInfo Flash_Config_Table[] = {
 	{
 		0xef8022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
 		0x100000, 0x10000000, 4
+	},
+	/*w25q256jviq 3.3V*/
+	{
+		0xef4019, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x20000, 0x2000000, 1
+	},
+	/*w25q256jvim 3.3V*/
+	{
+		0xef7019, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x20000, 0x2000000, 1
+	},
+	/*w25q512jviq 3.3V*/
+	{
+		0xef4020, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 1
+	},
+	/*w25q256jwiq 1.8V*/
+	{
+		0xef6019, SECTOR_SIZE_64K, NUM_OF_SECTORS512, BYTES256_PER_PAGE,
+		0x20000, 0x2000000, 1
+	},
+	/*w25q512nwiq 1.8V*/
+	{
+		0xef6020, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 1
+	},
+	/*w25q512nwim 1.8V*/
+	{
+		0xef8020, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 1
+	},
+	/*w25q02jvim 3.3V*/
+	{
+		0xef7022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 4
+	},
+	/*w25q01nwiq 1.8V*/
+	{
+		0xef6021, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 2
+	},
+	/*w25q01nwim 1.8V*/
+	{
+		0xef8021, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 2
+	},
+	/*w25h512nwam 1.8V*/
+	{
+		0xefa020, SECTOR_SIZE_64K, NUM_OF_SECTORS1024, BYTES256_PER_PAGE,
+		0x40000, 0x4000000, 1
+	},
+	/*w25h01nwam 1.8V*/
+	{
+		0xefa021, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 2
+	},
+	/*w25h02nwam 1.8V*/
+	{
+		0xefa022, SECTOR_SIZE_64K, NUM_OF_SECTORS4096, BYTES256_PER_PAGE,
+		0x100000, 0x10000000, 4
+	},
+	/*w25q01jviq 3.3V*/
+	{
+		0xef4021, SECTOR_SIZE_64K, NUM_OF_SECTORS2048, BYTES256_PER_PAGE,
+		0x80000, 0x8000000, 2
 	},
 	/* Macronix */
 	/*mx66l1g45g*/
