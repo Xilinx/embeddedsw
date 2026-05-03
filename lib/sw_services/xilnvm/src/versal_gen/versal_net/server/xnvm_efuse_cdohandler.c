@@ -396,7 +396,7 @@ int XNvm_EfuseCdoHandler(XPlmi_Cmd *Cmd)
 				DmeKeyWrPload->AddrLow, DmeKeyWrPload->AddrHigh);
 		break;
 	case XNVM_API(XNVM_API_ID_EFUSE_CHECK_AES_KEY_CRC):
-		Status = XNvm_EfuseAesCheckCrc(Cmd->Payload[0U], Cmd->Payload[1U]);
+		Status = XNvm_EfuseAesCheckCrc(Cmd->Payload[0U], (XNvm_AesKeyType)Cmd->Payload[1U]);
 		break;
 	default:
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
