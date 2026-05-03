@@ -307,7 +307,6 @@ int XSecure_MakeResFree(XPlmi_CoreType Core)
 		default:
 		Status = XST_INVALID_PARAM;
 		goto END;
-		break;
 	}
 
 	/** - Free resource by clearing its IPI mask and timeout */
