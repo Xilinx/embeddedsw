@@ -36,7 +36,7 @@
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-sha384_context ShaCtx;
+static sha384_context ShaCtx;
 
 /************************** Function Prototypes ******************************/
 
