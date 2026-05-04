@@ -16,6 +16,8 @@
 * ----- ------  -------- ------------------------------------------------------
 * 2.2  mmd     07/04/23 Initial Release
 *      vss     09/21/23 Fixed doxygen warnings
+*      mb      05/04/26 Updated minor version to 2.7
+*
 * </pre>
 *
 ******************************************************************************/
@@ -32,7 +34,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XPUF_MAJOR_VERSION	2 /**< Major version of Xilpuf */
-#define XPUF_MINOR_VERSION	2 /**< Minor version of Xilpuf */
+#define XPUF_MINOR_VERSION	7 /**< Minor version of Xilpuf */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
