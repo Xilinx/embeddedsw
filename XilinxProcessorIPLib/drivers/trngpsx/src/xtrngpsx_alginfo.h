@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -18,6 +18,8 @@
 * 1.2   mb      04/01/24 Updated minor version
 * 1.4   vss     04/25/25 Updated minor version
 * 1.5   ank     09/26/25 Fixed MISRA-C Violations
+* 1.6   mb      04/28/26 Updated minor version to 1.6
+*
 * </pre>
 *
 ******************************************************************************/
@@ -34,8 +36,8 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XTRNGPSX_MAJOR_VERSION	1U
-#define XTRNGPSX_MINOR_VERSION	5U
+#define XTRNGPSX_MAJOR_VERSION	1U /**< Major version of Trngpsx driver */
+#define XTRNGPSX_MINOR_VERSION	6U /**< Minor version of Trngpsx driver */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 

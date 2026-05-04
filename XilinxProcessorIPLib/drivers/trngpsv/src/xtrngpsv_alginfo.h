@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -20,6 +20,7 @@
 *       mb      09/14/23 Fix MISRA- C violations for Rule 10.1
 * 1.5   mb      04/01/24 Update minor version number
 * 1.7   vss     04/25/25 Updated minor version
+* 1.8   mb      04/28/26 Updated minor version to 1.9
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XTRNGPSV_MAJOR_VERSION	1U /**< Major version of Trngpsv driver */
-#define XTRNGPSV_MINOR_VERSION	8U /**< Minor version of Trngpsv driver */
+#define XTRNGPSV_MINOR_VERSION	9U /**< Minor version of Trngpsv driver */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
