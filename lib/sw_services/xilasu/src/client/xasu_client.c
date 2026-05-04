@@ -632,10 +632,11 @@ static u8 XAsu_GetFreeIndex(u8 Priority)
  *************************************************************************************************/
 s32 XAsu_FreeCtx(void *Context)
 {
-	s32 Status = XASU_FREE_CTX_FAIL;
+	s32 Status = XST_FAILURE;
 	/* Clear context buffer */
 	Status = Xil_SMemSet(Context, sizeof(XAsu_ClientCtx), 0U, sizeof(XAsu_ClientCtx));
-	if(Status != XST_SUCCESS) {
+	if (Status != XST_SUCCESS) {
+		Status = XASU_FREE_CTX_FAIL;
 		goto END;
 	}
 

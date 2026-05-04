@@ -197,9 +197,9 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId);
 s32 XKeyManager_GenerateKeyIv(XAsufw_Dma *DmaPtr,
 			const XAsu_KeyManagerParams *ParamsPtr, u32 *KeyIdPtr, u32 SubSystemId,
 			XAsu_KeyManagerSubVaultType KeyType);
-u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase);
+u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase, u8 IsKeyUsed);
 s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
-			u32 *KeyIdPtr, u32 SubSystemId, XAsu_KeyManagerSubVaultType KeyType);
+			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_GenerateEccKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerParams *ParamsPtr,
 			u32 *KeyIdPtr, u32 SubSystemId);
 s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId);

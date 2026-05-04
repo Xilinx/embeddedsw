@@ -71,10 +71,40 @@ s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr)
 	}
 
 	/** Validate key metadata. */
-	if ((KmParamsPtr->KeyObjectAddr == 0U) && ((KmParamsPtr->KeyMetadata.KeyUseCase == 0U) ||
-	    (KmParamsPtr->KeyMetadata.UsageCount == 0U) ||
-	    (KmParamsPtr->KeyMetadata.VaultId == 0U) ||
-	    (KmParamsPtr->KeyMetadata.VaultId >= XASU_KM_MAX_VAULTS))) {
+	if ((KmParamsPtr->KeyObjectAddr == 0U) &&
+	    (XAsu_KmValidateKeyMetadata(&KmParamsPtr->KeyMetadata) != XST_SUCCESS)) {
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	This function validates key metadata fields.
+ *
+ * @param	MetadataPtr	Pointer to XAsu_KeyManagerKeyMetadata structure.
+ *
+ * @return
+ *	- XST_SUCCESS, if metadata validation is successful.
+ *	- XST_FAILURE, if metadata validation fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_KmValidateKeyMetadata(const XAsu_KeyManagerKeyMetadata *MetadataPtr)
+{
+	s32 Status = XST_FAILURE;
+
+	if (MetadataPtr == NULL) {
+		goto END;
+	}
+
+	if ((MetadataPtr->KeyUseCase == 0U) ||
+	    (MetadataPtr->UsageCount == 0U) ||
+	    (MetadataPtr->VaultId == 0U) ||
+	    (MetadataPtr->VaultId >= XASU_KM_MAX_VAULTS)) {
 		goto END;
 	}
 
@@ -88,40 +118,38 @@ END:
 /**
  * @brief	This function validates key length parameters for a given key.
  *
- * @param	KmSubVaultParamPtr	Pointer to XAsu_KeyManagerParams structure that holds the input
- *					parameters for Key manager
- * @param	KeyType			Type of key to be validated.
+ * @param	KeyLength	Length of the key material in bytes.
+ * @param	KeyType		Type of key to be validated (see XASU_KM_*_KEYTYPE).
  *
  * @return
  *	- XST_SUCCESS, if input validation is successful.
  *	- XST_FAILURE, if input validation fails.
  *
  *************************************************************************************************/
-s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8 KeyType)
+s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType)
 {
 	volatile s32 Status = XST_FAILURE;
 
 	/** Validate key length is either 128-bit or 256-bit for AES. */
 	if (KeyType == XASU_KM_AES_KEYTYPE) {
-		if ((KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
-		    (KmSubVaultParamPtr->KeyMetadata.Length != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
+		if ((KeyLength != XASU_AES_KEY_SIZE_128BIT_IN_BYTES) &&
+		    (KeyLength != XASU_AES_KEY_SIZE_256BIT_IN_BYTES)) {
 			goto END;
 		}
 	}
 
 	/** Validate IV length is non-zero and does not exceed maximum size. */
 	if (KeyType == XASU_KM_IV_KEYTYPE) {
-		if ((KmSubVaultParamPtr->KeyMetadata.Length == 0U) ||
-		    (KmSubVaultParamPtr->KeyMetadata.Length >
-		    XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
+		if ((KeyLength == 0U) ||
+		    (KeyLength > XASU_AES_IV_SIZE_128BIT_IN_BYTES)) {
 			goto END;
 		}
 	}
 
 	/** Validate key length is non-zero and does not exceed maximum size for KDF/HMAC. */
 	if (KeyType == XASU_KM_KDF_HMAC_KEYTYPE) {
-		if ((KmSubVaultParamPtr->KeyMetadata.Length == 0U) ||
-		    (KmSubVaultParamPtr->KeyMetadata.Length > XASU_KM_KDF_HMAC_MAX_KEY_LENGTH)) {
+		if ((KeyLength == 0U) ||
+		    (KeyLength > XASU_KM_KDF_HMAC_MAX_KEY_LENGTH)) {
 			goto END;
 		}
 	}
@@ -129,15 +157,15 @@ s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8
 	/** Validate key length based on compile-time RSA key generation configuration. */
 	if (KeyType == XASU_KM_RSA_KEYTYPE) {
 #if defined(XASU_RSA_3072_KEYGEN_ENABLE)
-		if (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_3072_KEY_SIZE) {
+		if (KeyLength != XRSA_3072_KEY_SIZE) {
 			goto END;
 		}
 #elif defined(XASU_RSA_2048_KEYGEN_ENABLE)
-		if (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_2048_KEY_SIZE) {
+		if (KeyLength != XRSA_2048_KEY_SIZE) {
 			goto END;
 		}
 #else
-		if (KmSubVaultParamPtr->KeyMetadata.Length != XRSA_4096_KEY_SIZE) {
+		if (KeyLength != XRSA_4096_KEY_SIZE) {
 			goto END;
 		}
 #endif

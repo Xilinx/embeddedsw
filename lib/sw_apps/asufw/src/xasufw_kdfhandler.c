@@ -201,6 +201,8 @@ static s32 XAsufw_KdfGenerate(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
 		}
+		/* Clear KeyId since keyaddress is fetched. */
+		KdfParams.KeyObject.KeyId = 0U;
 	}
 #else
 	(void)SubsystemId;

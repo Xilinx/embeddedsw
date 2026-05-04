@@ -39,34 +39,34 @@ extern "C" {
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-#define XASUFW_TRNG_MAJOR_VERSION		(1U) /**< Major version number of TRNG module */
+#define XASUFW_TRNG_MAJOR_VERSION		(2U) /**< Major version number of TRNG module */
 #define XASUFW_TRNG_MINOR_VERSION		(0U) /**< Minor version number of TRNG module */
 
-#define XASUFW_SHA2_MAJOR_VERSION		(1U) /**< Major version number of SHA2 module */
+#define XASUFW_SHA2_MAJOR_VERSION		(2U) /**< Major version number of SHA2 module */
 #define XASUFW_SHA2_MINOR_VERSION		(0U) /**< Minor version number of SHA2 module */
 
-#define XASUFW_SHA3_MAJOR_VERSION		(1U) /**< Major version number of SHA3 module */
+#define XASUFW_SHA3_MAJOR_VERSION		(2U) /**< Major version number of SHA3 module */
 #define XASUFW_SHA3_MINOR_VERSION		(0U) /**< Minor version number of SHA3 module */
 
-#define XASUFW_ECC_MAJOR_VERSION		(1U) /**< Major version number of ECC module */
+#define XASUFW_ECC_MAJOR_VERSION		(2U) /**< Major version number of ECC module */
 #define XASUFW_ECC_MINOR_VERSION		(0U) /**< Minor version number of ECC module */
 
-#define XASUFW_RSA_MAJOR_VERSION		(1U) /**< Major version number of RSA module */
+#define XASUFW_RSA_MAJOR_VERSION		(2U) /**< Major version number of RSA module */
 #define XASUFW_RSA_MINOR_VERSION		(0U) /**< Minor version number of RSA module */
 
-#define XASUFW_AES_MAJOR_VERSION		(1U) /**< Major version number of AES module */
+#define XASUFW_AES_MAJOR_VERSION		(2U) /**< Major version number of AES module */
 #define XASUFW_AES_MINOR_VERSION		(0U) /**< Minor version number of AES module */
 
-#define XASUFW_HMAC_MAJOR_VERSION		(1U) /**< Major version number of HMAC module */
+#define XASUFW_HMAC_MAJOR_VERSION		(2U) /**< Major version number of HMAC module */
 #define XASUFW_HMAC_MINOR_VERSION		(0U) /**< Minor version number of HMAC module */
 
-#define XASUFW_KDF_MAJOR_VERSION		(1U) /**< Major version number of KDF module */
+#define XASUFW_KDF_MAJOR_VERSION		(2U) /**< Major version number of KDF module */
 #define XASUFW_KDF_MINOR_VERSION		(0U) /**< Minor version number of KDF module */
 
-#define XASUFW_ECIES_MAJOR_VERSION		(1U) /**< Major version number of ECIES module */
+#define XASUFW_ECIES_MAJOR_VERSION		(2U) /**< Major version number of ECIES module */
 #define XASUFW_ECIES_MINOR_VERSION		(0U) /**< Minor version number of ECIES module */
 
-#define XASUFW_KEYWRAP_MAJOR_VERSION		(1U) /**< Major version number of Keywrap module */
+#define XASUFW_KEYWRAP_MAJOR_VERSION		(2U) /**< Major version number of Keywrap module */
 #define XASUFW_KEYWRAP_MINOR_VERSION		(0U) /**< Minor version number of Keywrap module */
 
 #define XASUFW_LMS_MAJOR_VERSION		(1U) /**< Major version number of LMS module */
