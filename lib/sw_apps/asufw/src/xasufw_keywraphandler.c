@@ -27,6 +27,7 @@
 /*************************************** Include Files *******************************************/
 #include "xasufw_keywraphandler.h"
 #include "xkeywrap.h"
+#include "xkeymanager.h"
 #include "xaes_hw.h"
 #include "xsha_hw.h"
 #include "xasufw_status.h"
@@ -35,6 +36,7 @@
 #include "xasufw_kat.h"
 #include "xasufw_aeshandler.h"
 #include "xasu_sharedmem.h"
+#include "xil_sutil.h"
 
 #ifdef XASU_KEYWRAP_ENABLE
 /************************************ Function Prototypes ****************************************/
@@ -203,14 +205,25 @@ END:
 static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
+	XAsu_KeyWrapParams KeyWrapParams;
 	u32 *OutLenAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
+	XAsu_AesKeyObject AesKeyObj;
+	const XAsu_AesKeyObject *AesKeyObjPtr = NULL;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyWrapParams);
 
+	/** Copy key wrap parameters from request buffer. */
+	Status = Xil_SMemCpy(&KeyWrapParams, sizeof(XAsu_KeyWrapParams),
+			ReqBuf->Arg, sizeof(XAsu_KeyWrapParams), sizeof(XAsu_KeyWrapParams));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -218,11 +231,48 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Resolve RSA public key from vault if key ID is provided. */
+	if (KeyWrapParams.RsaKeyId != 0U) {
+		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() +
+						XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KeyWrapModule.AsuDmaPtr,
+						KeyWrapParams.RsaKeyId,
+						KeyWrapParams.KeyCompAddr, SubsystemId,
+						XASU_KEYMANAGER_RSA_PUB_KEY_TRANSPORT_USE_CASE,
+						XKEYMANAGER_RSA_OP_NONE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+	}
+
+	/** Resolve AES key from vault if key ID is provided. */
+	if (KeyWrapParams.AesKeyId != 0U) {
+		AesKeyObj.KeyId = KeyWrapParams.AesKeyId;
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KeyWrapModule.AsuDmaPtr,
+						AesKeyObj.KeyId, (u64)(UINTPTR)&AesKeyObj,
+						SubsystemId,
+						XASU_KEYMANAGER_AES_KEY_WRAP_USE_CASE,
+						XKEYMANAGER_RSA_OP_NONE);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+		AesKeyObjPtr = &AesKeyObj;
+	}
+#else
+	(void)IpiMask;
+	(void)SubsystemId;
+	(void)AesKeyObj;
+#endif
+
 	/** Perform Key wrap operation using given SHA crypto engine. */
 	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
-	Status = XKeyWrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
-				XAsufw_KeyWrapModule.AesPtr, OutLenAddr, SubsystemId);
+	Status = XKeyWrap(&KeyWrapParams, XAsufw_KeyWrapModule.AsuDmaPtr,
+				XAsufw_KeyWrapModule.ShaPtr, XAsufw_KeyWrapModule.AesPtr,
+				OutLenAddr, AesKeyObjPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL);
 	}
@@ -258,7 +308,7 @@ END:
 static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAsu_KeyWrapParams *Cmd = (const XAsu_KeyWrapParams *)ReqBuf->Arg;
+	XAsu_KeyWrapParams KeyWrapParams;
 	u32 *OutLenAddr;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
@@ -266,6 +316,15 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyWrapParams);
 
+	/** Copy key unwrap parameters from request buffer. */
+	Status = Xil_SMemCpy(&KeyWrapParams, sizeof(XAsu_KeyWrapParams),
+			ReqBuf->Arg, sizeof(XAsu_KeyWrapParams), sizeof(XAsu_KeyWrapParams));
+	if (Status != XASUFW_SUCCESS) {
+		Status = XASUFW_MEM_COPY_FAIL;
+		goto END;
+	}
+
+#ifdef XASU_KEYMANAGER_ENABLE
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -273,11 +332,32 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 		goto END;
 	}
 
+	/** Resolve RSA private key from vault if key ID is provided. */
+	if (KeyWrapParams.RsaKeyId != 0U) {
+		KeyWrapParams.KeyCompAddr = (u64)(UINTPTR)(XRsa_GetDataBlockAddr() +
+						XRSA_MAX_KEY_SIZE_IN_BYTES);
+
+		Status = XKeyManager_UpdateKeyObjFromVault(XAsufw_KeyWrapModule.AsuDmaPtr,
+						KeyWrapParams.RsaKeyId,
+						KeyWrapParams.KeyCompAddr, SubsystemId,
+						XASU_KEYMANAGER_RSA_PVT_KEY_TRANSPORT_USE_CASE,
+						XKEYMANAGER_RSA_OP_NONCRT);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
+			goto END;
+		}
+	}
+#else
+	(void)IpiMask;
+	(void)SubsystemId;
+#endif
+
 	/** Perform Key unwrap operation using given SHA crypto engine. */
 	OutLenAddr = (u32 *)XAsufw_GetRespBuf(ReqBuf, XAsu_ChannelQueueBuf, RespBuf) +
 						XASUFW_RESP_DATA_OFFSET;
-	Status = XKeyUnwrap(Cmd, XAsufw_KeyWrapModule.AsuDmaPtr, XAsufw_KeyWrapModule.ShaPtr,
-				XAsufw_KeyWrapModule.AesPtr, OutLenAddr, SubsystemId);
+	Status = XKeyUnwrap(&KeyWrapParams, XAsufw_KeyWrapModule.AsuDmaPtr,
+				XAsufw_KeyWrapModule.ShaPtr, XAsufw_KeyWrapModule.AesPtr,
+				OutLenAddr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL);
 	}

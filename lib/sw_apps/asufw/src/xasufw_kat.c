@@ -1868,7 +1868,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.RsaKeyId = 0U;
 
 	/** Perform key wrap operation with known inputs. */
-	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal, 0U);
+	Status = XKeyWrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal, NULL);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_GEN_WRAPPED_KEY_OPERATION_FAIL;
 		goto END;
@@ -1889,7 +1889,7 @@ s32 XAsufw_KeyWrapOperationKat(XAsufw_Dma *AsuDmaPtr)
 	KwpunwpParam.ShaMode = XASU_SHA_MODE_256;
 
 	/** Perform key unwrap operation with known inputs. */
-	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal, 0U);
+	Status = XKeyUnwrap(&KwpunwpParam, AsuDmaPtr, Sha2Ptr, AesPtr, &OutLengthVal);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_KEYWRAP_GEN_UNWRAPPED_KEY_OPERATION_FAIL;
 		goto END;
