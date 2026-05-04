@@ -59,7 +59,8 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 s32 XAsu_KmValidateVaultParams(const XAsu_KeyManagerParams *KmParamsPtr);
-s32 XAsu_KmValidateKeyLength(const XAsu_KeyManagerParams *KmSubVaultParamPtr, u8 KeyType);
+s32 XAsu_KmValidateKeyMetadata(const XAsu_KeyManagerKeyMetadata *MetadataPtr);
+s32 XAsu_KmValidateKeyLength(u32 KeyLength, u8 KeyType);
 s32 XAsu_KmValidateKeyAddrNdKeyId(u64 KeyCompAddr, u32 KeyId);
 s32 XAsu_KmValidateVaultCreateParams(const XAsu_KeyManagerSubVaultParams *ParamsPtr);
 

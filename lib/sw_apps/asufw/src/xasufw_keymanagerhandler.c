@@ -461,12 +461,10 @@ END:
 static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
-	u32 CmdId = ReqBuf->Header & XASU_COMMAND_ID_MASK;
 	const XAsu_KeyManagerParams *Cmd = (const XAsu_KeyManagerParams *)ReqBuf->Arg;
 	u32 *OutId;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
-	u32 KeyType = CmdId - XASUFW_KEYMANAGER_KEY_TYPE_OFFSET;
 
 	/** Verify command length. */
 	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_KeyManagerParams);
@@ -482,7 +480,7 @@ static s32 XAsufw_KeyManagerRsaKeyPairGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 
 	/** Perform RSA key pair generation operation. */
 	Status = XKeyManager_GenerateRsaKeyPair(XAsufw_KeyManagerModule.AsuDmaPtr, Cmd, OutId,
-					SubsystemId, (XAsu_KeyManagerSubVaultType)KeyType);
+					SubsystemId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_KEY_OBJ_GEN_ERROR);
 	}

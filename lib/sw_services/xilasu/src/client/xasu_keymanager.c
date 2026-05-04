@@ -153,7 +153,8 @@ s32 XAsu_KmGenerateAesKey(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_AES_KEYTYPE);
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
+					  XASU_KM_AES_KEYTYPE);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -217,7 +218,8 @@ s32 XAsu_KmGenerateAesIv(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_IV_KEYTYPE);
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
+					  XASU_KM_IV_KEYTYPE);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -390,7 +392,8 @@ s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 	}
 
 	/** Validate key length is either 2078-bit or 3072-bit or 4096-bit for RSA. */
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_RSA_KEYTYPE);
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
+					  XASU_KM_RSA_KEYTYPE);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
@@ -543,8 +546,13 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 		goto END;
 	}
 
-	Status = XAsu_KmValidateVaultParams(KeyParams);
-	if (Status != XST_SUCCESS) {
+	if ((KeyParams->KeyObjectAddr == 0U) || (KeyParams->KeyIdAddr == 0U)) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate key metadata. */
+	if (XAsu_KmValidateKeyMetadata(&KeyParams->KeyMetadata) != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
@@ -608,7 +616,8 @@ s32 XAsu_KmGenerateRawKey(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr, XASU_KM_KDF_HMAC_KEYTYPE);
+	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
+					  XASU_KM_KDF_HMAC_KEYTYPE);
 	if (Status != XST_SUCCESS) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;

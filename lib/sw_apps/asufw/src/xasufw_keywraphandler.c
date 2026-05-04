@@ -245,6 +245,8 @@ static s32 XAsufw_KeyWrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
 		}
+		/* Clear KeyId since keyaddress is fetched. */
+		KeyWrapParams.RsaKeyId = 0U;
 	}
 
 	/** Resolve AES key from vault if key ID is provided. */
@@ -346,6 +348,8 @@ static s32 XAsufw_KeyUnwrap(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED;
 			goto END;
 		}
+		/* Clear KeyId since keyaddress is fetched. */
+		KeyWrapParams.RsaKeyId = 0U;
 	}
 #else
 	(void)IpiMask;

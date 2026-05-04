@@ -226,6 +226,8 @@ static s32 XAsufw_LmsSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 			goto END;
 		}
+		/* Clear KeyId since keyaddress is fetched. */
+		LmsParams.LmsHssKeyObj.PubKeyId = 0U;
 	}
 #else
 	(void)SubSystemId;
@@ -328,6 +330,8 @@ static s32 XAsufw_HssSignVerify(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 				Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_GET_KEYOBJ_FAILED);
 				goto END;
 			}
+			/* Clear KeyId since keyaddress is fetched. */
+			HssParams.LmsHssKeyObj.PubKeyId = 0U;
 		}
 #else
 	(void)SubSystemId;
