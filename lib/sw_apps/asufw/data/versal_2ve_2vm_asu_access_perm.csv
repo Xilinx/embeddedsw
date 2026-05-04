@@ -8,7 +8,7 @@ sha3_kat,SHA3(0x2),0x201,3,3,3,3,3,3,3,3,Performs Known Answer Test on SHA3 cryp
 ecc_sign_generation,ECC(0x3),0x300,3,3,3,3,3,3,3,3,Performs ECC sign generation operation
 ecc_sign_verification,ECC(0x3),0x301,3,3,3,3,3,3,3,3,Performs ECC sign verification operation
 ecc_kat,ECC(0x3),0x302,3,3,3,3,3,3,3,3,Performs Known Answer Test on ECC crypto engine
-ecdh_shared_secret,ECC(0x3),0x303,3,3,3,3,3,3,3,3,Performs ECDH shared secrete generation operation
+ecdh_shared_secret,ECC(0x3),0x303,3,3,3,3,3,3,3,3,Performs ECDH shared secret generation operation
 ecdh_kat,ECC(0x3),0x304,3,3,3,3,3,3,3,3,Performs ECDH Known Answer Test on RSA crypto engine
 ecc_pubkey_generation,ECC(0x3),0x305,3,3,3,3,3,3,3,3,Performs ECC public key generation operation
 rsa_pub_encrypt,RSA(0x4),0x400,3,3,3,3,3,3,3,3,Performs RSA encryption operation using public key
@@ -23,7 +23,7 @@ rsa_pss_sign_verification_sha2,RSA(0x4),0x408,3,3,3,3,3,3,3,3,Performs RSA PSS s
 rsa_pss_sign_generation_sha3,RSA(0x4),0x409,3,3,3,3,3,3,3,3,Performs RSA PSS sign generation operation using SHA3 crypto engine
 rsa_pss_sign_verification_sha3,RSA(0x4),0x40A,3,3,3,3,3,3,3,3,Performs RSA PSS sign verification operation using SHA3 crypto engine
 rsa_oaep_enc_dec_kat,RSA(0x4),0x40B,3,3,3,3,3,3,3,3,Performs Known Answer Test on RSA OAEP algorithm
-rsa pss_sign_gen_verify_kat,RSA(0x4),0x40C,3,3,3,3,3,3,3,3,Performs Known Answer Test on RSA PSS signature algorithm
+rsa_pss_sign_gen_verify_kat,RSA(0x4),0x40C,3,3,3,3,3,3,3,3,Performs Known Answer Test on RSA PSS signature algorithm
 aes_operation,AES(0x5),0x500,3,3,3,3,3,3,3,3,Performs AES operation
 aes_kat,AES(0x5),0x501,3,3,3,3,3,3,3,3,Performs Known Answer Test on AES crypto engine
 hmac_compute_sha2,HMAC(0x6),0x600,3,3,3,3,3,3,3,3,Performs HMAC compute operation using SHA2 crypto engine
@@ -48,3 +48,20 @@ ocp_devik_csr_x509_cert_gen,OCP(0xB),0xB02,3,3,3,3,3,3,3,3,Performs DevIK CSR X5
 ocp_devak_attestation,OCP(0xB),0xB03,3,3,3,3,3,3,3,3,Performs DevAK attestation operation
 ocp_ude_challenge_req,OCP(0xB),0xB04,3,3,3,3,3,3,3,3,Performs UDE challenge request operation
 ocp_ude_pvt_key_encrypt,OCP(0xB),0xB05,3,3,3,3,3,3,3,3,Performs UDE private keys encryption operation
+ocp_get_huk,OCP(0xB),0xB06,3,3,3,3,3,3,3,3,Performs Hardware Unique Key generation operation
+km_create_keyvault,KeyManager(0xC),0xC00,3,3,3,3,3,3,3,3,Performs key vault creation operation
+km_delete_keyvault,KeyManager(0xC),0xC01,3,3,3,3,3,3,3,3,Performs key vault deletion operation
+km_delete_key,KeyManager(0xC),0xC02,3,3,3,3,3,3,3,3,Performs key deletion operation from key vault
+km_gen_aes_key,KeyManager(0xC),0xC03,3,3,3,3,3,3,3,3,Performs AES key generation and stores it in the key vault or returns it to the user buffer based on input
+km_gen_aes_iv,KeyManager(0xC),0xC04,3,3,3,3,3,3,3,3,Performs AES IV generation and stores it in the key vault or returns it to the user buffer based on input
+km_gen_raw_key,KeyManager(0xC),0xC05,3,3,3,3,3,3,3,3,Performs raw key generation (for KDF/HMAC) and stores it in the key vault or returns it to the user buffer based on input
+km_gen_rsa_key_pair,KeyManager(0xC),0xC06,3,3,3,3,3,3,3,3,Performs RSA key pair generation and stores it in the key vault or returns it to the user buffer based on input
+km_gen_ecc_key_pair,KeyManager(0xC),0xC07,3,3,3,3,3,3,3,3,Performs ECC key pair generation and stores it in the key vault or returns it to the user buffer based on input
+km_store_key,KeyManager(0xC),0xC08,3,3,3,3,3,3,3,3,Stores a pre-generated key into the key vault
+km_export_keyvault,KeyManager(0xC),0xC09,3,3,3,3,3,3,3,3,Exports the contents of a key vault
+km_import_keyvault,KeyManager(0xC),0xC0A,3,3,3,3,3,3,3,3,Imports a previously exported key vault
+lms_sign_verify_sha2,LMS(0xD),0xD00,3,3,3,3,3,3,3,3,Performs LMS signature verification using SHA2 crypto engine
+lms_sign_verify_sha3,LMS(0xD),0xD01,3,3,3,3,3,3,3,3,Performs LMS signature verification using SHA3 crypto engine
+hss_sign_verify_sha2,LMS(0xD),0xD02,3,3,3,3,3,3,3,3,Performs HSS signature verification using SHA2 crypto engine
+hss_sign_verify_sha3,LMS(0xD),0xD03,3,3,3,3,3,3,3,3,Performs HSS signature verification using SHA3 crypto engine
+hss_kat,LMS(0xD),0xD04,3,3,3,3,3,3,3,3,Performs Known Answer Test on HSS/LMS crypto algorithm
