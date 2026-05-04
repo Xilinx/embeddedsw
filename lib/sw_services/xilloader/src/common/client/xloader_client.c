@@ -36,9 +36,7 @@
 /*************************************** Include Files *******************************************/
 
 #include "xloader_client.h"
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-#include "xloader_smc.h"
-#endif
+#include "xloader_generic.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -77,52 +75,21 @@ int XLoader_LoadPartialPdi(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc P
 		u64 PdiAddr, u32 *PlmErrStatus)
 {
 	int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
 	/** Performs input parameters validation */
 	if (PlmErrStatus == NULL) {
 		goto END;
 	}
 
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Response[SMC_RESPONSE_LEN] = {0U};
-
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI;
-	Payload[1U] = (u32)PdiSrc;
-	Payload[2U] = (u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)(PdiAddr);
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
-
-	*PlmErrStatus = Response[0U];
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD3(Payload, (u32)XLOADER_CMD_ID_LOAD_SUBSYSTEM_PDI, PdiSrc,
 			(u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)(PdiAddr));
 
-    /**
-	 * - Send an IPI request to the PLM by using the XLoader_LOAD_SUBSYSTEM_PDI CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	*PlmErrStatus = InstancePtr->Response[1U];
-#endif
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
+	*PlmErrStatus = Response[0U];
 
 END:
 	return Status;
@@ -144,42 +111,14 @@ END:
 int XLoader_LoadImage(XLoader_ClientInstance *InstancePtr, u32 NodeId, u32 FunctionId)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
 
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_LOAD_DDRCPY_IMG;
-	Payload[1U] = NodeId;
-	Payload[2U] = FunctionId;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD2(Payload, (u32)XLOADER_CMD_ID_LOAD_DDRCPY_IMG, NodeId, FunctionId);
 
-    /**
-	 * - Send an IPI request to the PLM by using the XLoader_LoadImage CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
-#endif
 	return Status;
 }
 
@@ -201,58 +140,24 @@ int XLoader_GetImageInfo(XLoader_ClientInstance *InstancePtr, u32 NodeId,
 		XLoader_ImageInfo *ImageInfo)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
-
-	 /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
 	/** Performs input parameters validation */
 	if (ImageInfo == NULL) {
 		goto END;
 	}
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Response[SMC_RESPONSE_LEN] = {0U};
 
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_GET_IMAGE_INFO;
-	Payload[1U] = NodeId;
+	/** Fill Payload */
+	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_GET_IMAGE_INFO, NodeId);
 
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
 
 	ImageInfo->ImgID = NodeId;
 	ImageInfo->UID = Response[0U];
 	ImageInfo->PUID = Response[1U];
 	ImageInfo->FuncID = Response[2U];
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
-	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_GET_IMAGE_INFO, NodeId);
-
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_GetImageInfo CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	ImageInfo->ImgID = NodeId;
-	ImageInfo->UID = InstancePtr->Response[1];
-	ImageInfo->PUID = InstancePtr->Response[2];
-	ImageInfo->FuncID = InstancePtr->Response[3];
-#endif
 
 END:
 	return Status;
@@ -276,11 +181,8 @@ int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,
 		u32 *NumEntries)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 	u32 Continue = 0;
 
 	/** Performs input parameters validation */
@@ -299,40 +201,13 @@ int XLoader_GetImageInfoList(XLoader_ClientInstance *InstancePtr, u64 Buff_Addr,
 		goto END;
 	}
 
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Response[SMC_RESPONSE_LEN] = {0U};
-
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_GET_IMAGE_INFO_LIST;
-	Payload[1U] = (u32)(Buff_Addr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[2U] = (u32)(Buff_Addr);
-	Payload[3U] = Maxsize;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
-
-	*NumEntries = Response[0U];
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD3(Payload, (u32)XLOADER_CMD_ID_GET_IMAGE_INFO_LIST,
 			(u32)(Buff_Addr >> XLOADER_ADDR_HIGH_SHIFT), (u32)(Buff_Addr), Maxsize);
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_GetImageInfoList CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	*NumEntries = InstancePtr->Response[1];
-#endif
+
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
+	*NumEntries = Response[0U];
 
 END:
 	return Status;
@@ -356,48 +231,17 @@ int XLoader_ExtractMetaheader(XLoader_ClientInstance *InstancePtr, u64 PdiSrcAdd
 		u64 DestBuffAddr, u32 DestBuffSize)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
 
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_EXTRACT_METAHEADER;
-	Payload[1U] = (u32)(PdiSrcAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[2U] = (u32)(PdiSrcAddr);
-	Payload[3U] = (u32)(DestBuffAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[4U] = (u32)(DestBuffAddr);
-	Payload[5U] = DestBuffSize;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD5(Payload, (u32)XLOADER_CMD_ID_EXTRACT_METAHEADER,
 			(u32)(PdiSrcAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)(PdiSrcAddr),
 			(u32)(DestBuffAddr >> XLOADER_ADDR_HIGH_SHIFT),
 			(u32)(DestBuffAddr), DestBuffSize);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_ExtractMetaheader CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
-#endif
 	return Status;
 }
 
@@ -420,43 +264,15 @@ int XLoader_UpdateMultiboot(XLoader_ClientInstance *InstancePtr, XLoader_PdiSrc 
 		XLoader_FlashType Type, u32 ImageLocation)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
 	u32 BootModeType = Type | BootMode << 8;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
 
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_UPDATE_MULTIBOOT;
-	Payload[1U] = BootModeType;
-	Payload[2U] = ImageLocation;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD2(Payload, (u32)XLOADER_CMD_ID_UPDATE_MULTIBOOT, BootModeType, ImageLocation);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_UpdateMultiboot CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
-#endif
 	return Status;
 }
 
@@ -478,45 +294,15 @@ int XLoader_AddImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId,
 		const u64 PdiAddr, u32 PdiSize)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
 
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_ADD_IMAGESTORE_PDI;
-	Payload[1U] = PdiId;
-	Payload[2U] = (u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[3U] = (u32)(PdiAddr);
-	Payload[4U] = PdiSize;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD4(Payload, (u32)XLOADER_CMD_ID_ADD_IMAGESTORE_PDI, PdiId,
 			(u32)(PdiAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)(PdiAddr), PdiSize);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_AddImageStorePdi CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
-#endif
 	return Status;
 }
 
@@ -535,38 +321,14 @@ END:
 int XLoader_RemoveImageStorePdi(XLoader_ClientInstance *InstancePtr, u32 PdiId)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_2U] = {0U};
-
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI;
-	Payload[1U] = PdiId;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD1(Payload, (u32)XLOADER_CMD_ID_REMOVE_IMAGESTORE_PDI, PdiId);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_RemoveImageStorePdi CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
-END:
-#endif
 	return Status;
 }
 
@@ -588,52 +350,22 @@ int XLoader_GetATFHandOffParams(XLoader_ClientInstance *InstancePtr, u64 BuffAdd
 		 u32 *BufferSize)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_4U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
 	/** Performs input parameters validation */
 	if (BufferSize == NULL) {
 		goto END;
 	}
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Response[SMC_RESPONSE_LEN] = {0U};
 
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS;
-	Payload[1U] = (u32)(BuffAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[2U] = (u32)(BuffAddr);
-	Payload[3U] = Size;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
-
-	*BufferSize = Response[0U];
-#else
-
-    /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/** Fill IPI Payload */
+	/** Fill Payload */
 	XLOADER_PACK_PAYLOAD3(Payload, (u32)XLOADER_CMD_ID_GET_ATF_HANDOFF_PARAMS,
 			(u32)(BuffAddr >> XLOADER_ADDR_HIGH_SHIFT),
 			(u32)(BuffAddr), Size);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_GetATFHandOffParams CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	*BufferSize = InstancePtr->Response[1];
-#endif
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
+	*BufferSize = Response[0U];
 
 END:
 	return Status;
@@ -656,50 +388,28 @@ int XLoader_CfiSelectiveReadback(XLoader_ClientInstance *InstancePtr,
                                  XLoader_CfiSelReadbackParams *SelectiveReadbackPtr)
 {
 	volatile int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U] = {0U};
-	/** Pack frame parameters into Arg1 */
-	u32 Arg1 = ((SelectiveReadbackPtr->Row << XLOADER_SELREADBACK_ROW_START_POS) &
-		XLOADER_SELREADBACK_ROW_MASK) |
-		((SelectiveReadbackPtr->Blocktype << XLOADER_SELREADBACK_BLKTYPE_START_POS) &
-		XLOADER_SLEREADBACK_BLKTYPE_MASK) |
-		((SelectiveReadbackPtr->FrameAddr) & XLOADER_SLEREADBACK_FRAMEADDR_MASK);
-
-	/** Prepare payload buffer with ApiId and arguments */
-	Payload[0U] = (u32)XLOADER_CFI_SEL_READBACK_ID;
-	Payload[1U] = Arg1;
-	Payload[2U] = SelectiveReadbackPtr->FrameCnt;
-	Payload[3U] = (u32)(SelectiveReadbackPtr->DestAddr >> XLOADER_ADDR_HIGH_SHIFT);
-	Payload[4U] = (u32)(SelectiveReadbackPtr->DestAddr);
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), NULL);
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-     /**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
-		(SelectiveReadbackPtr == NULL)) {
+	u32 ApiId = (u32)XLOADER_CFI_SEL_READBACK_ID;
+
+	/** Performs input parameters validation */
+	if ((SelectiveReadbackPtr == NULL) || (InstancePtr == NULL)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
-	/** Fill IPI Payload */
-	XLOADER_PACK_PAYLOAD4(Payload, (InstancePtr->SlrIndex << XLOADER_SLR_INDEX_SHIFT) | (u32)XLOADER_CFI_SEL_READBACK_ID,
+	/** Include SLR index in API ID */
+	ApiId |= (InstancePtr->SlrIndex << XLOADER_SLR_INDEX_SHIFT);
+
+	/** Fill Payload */
+	XLOADER_PACK_PAYLOAD4(Payload, ApiId,
 			((SelectiveReadbackPtr->Row << XLOADER_SELREADBACK_ROW_START_POS) & XLOADER_SELREADBACK_ROW_MASK)|
 			((SelectiveReadbackPtr->Blocktype << XLOADER_SELREADBACK_BLKTYPE_START_POS) & XLOADER_SLEREADBACK_BLKTYPE_MASK) |
 			((SelectiveReadbackPtr->FrameAddr) & XLOADER_SLEREADBACK_FRAMEADDR_MASK),
 			SelectiveReadbackPtr->FrameCnt,
 			(u32)(SelectiveReadbackPtr->DestAddr >> XLOADER_ADDR_HIGH_SHIFT), (u32)SelectiveReadbackPtr->DestAddr);
 
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_CfiSelectiveReadback CDO command
-	 * Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-#endif
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, NULL, 0U);
 
 END:
 	return Status;
@@ -747,11 +457,8 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 	const XLoader_OptionalDataInfo* OptionalDataInfo, u64 DestAddr, u32 *DestSize)
 {
 	int Status = XST_FAILURE;
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_7U] = {0U};
-#else
 	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
-#endif
+	u32 Response[RESPONSE_ARG_CNT] = {0U};
 
 	/** Performs input parameters validation */
 	if ((OptionalDataInfo == NULL) || (DestSize == NULL)) {
@@ -776,34 +483,9 @@ int XLoader_GetOptionalData(XLoader_ClientInstance *InstancePtr,
 		goto END;
 	}
 
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-	u32 Response[SMC_RESPONSE_LEN] = {0U};
-
-	/** Prepare ApiId for SMC call */
-	Payload[0U] = (u32)XLOADER_CMD_ID_EXTRACT_METAHEADER;
-
-	/** Perform SMC call */
-	Status = XLoader_SmcCall(Payload, (u32)(sizeof(Payload) / sizeof(u32)), Response);
-
+	/** Send request using generic API */
+	Status = XLoader_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
 	*DestSize = Response[0U];
-#else
-
-	/**
-	 * - Performs input parameters validation. Return error code if input parameters are invalid
-	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
-		goto END;
-	}
-
-	/**
-	 * - Send an IPI request to the PLM by using the XLoader_GetOptionalData command
-	 * - Wait for IPI response from PLM with a timeout.
-	 * - If the timeout exceeds then error is returned otherwise it returns the status of the IPI
-	 * response.
-	 */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
-	*DestSize = InstancePtr->Response[1U];
-#endif
 
 END:
 	return Status;

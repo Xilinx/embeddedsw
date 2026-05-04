@@ -16,6 +16,7 @@
  * Ver   Who  Date     Changes
  * ----- ---- -------- ----------------------------------------------------------------------------
  * 2.4   tbk  02/10/26 Initial release for SMC support
+ * 2.4   sms  04/16/26 Updated the Payload and Response buffer length parameters in the function
  *
  * </pre>
  *
@@ -49,6 +50,7 @@ extern "C" {
 #define XLOADER_SMC_PAYLOAD_INDEX_3	(3U)	/**< Payload buffer index 3 */
 #define XLOADER_SMC_PAYLOAD_INDEX_4	(4U)	/**< Payload buffer index 4 */
 #define XLOADER_SMC_PAYLOAD_INDEX_5	(5U)	/**< Payload buffer index 5 */
+#define XLOADER_SMC_PAYLOAD_INDEX_6	(6U)	/**< Payload buffer index 6 */
 
 /** Response array index macros */
 #define XLOADER_SMC_RESPONSE_INDEX_0	(0U)	/**< Response array index 0 */
@@ -60,7 +62,7 @@ extern "C" {
 
 /************************************ Function Prototypes ****************************************/
 
-int XLoader_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *Response);
+int XLoader_SmcCall(u32 *PayloadBuf, u32 PayloadLen, u32 *ResponseBuf, u32 ResponseLen);
 
 /************************************ Variable Definitions ***************************************/
 
