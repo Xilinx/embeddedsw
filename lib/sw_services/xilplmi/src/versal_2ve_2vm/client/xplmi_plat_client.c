@@ -57,15 +57,14 @@ static int XPlmi_InPlaceAsuUpdate(XPlmi_ClientInstance *InstancePtr, const u32 F
 static int XPlmi_InPlaceAsuUpdate(XPlmi_ClientInstance *InstancePtr, const u32 Flag, u32 PdiValue)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_3U];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
 	/** Prepare payload for In-Place ASU update command */
-	Payload[0U] = PACK_XPLMI_HEADER(XPLMI_HEADER_LEN_2, XPLMI_INPLACE_ASU_UPDATE_CMD_ID);
-	Payload[1U] = Flag;
-	Payload[2U] = PdiValue;
+	XPLMI_PACK_PAYLOAD2(Payload, (u32)XPLMI_INPLACE_ASU_UPDATE_CMD_ID, Flag, PdiValue);
 
 	/** Send an IPI request to the PLM for In-Place ASU update */
-	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, sizeof(Payload) / sizeof(u32));
+	Status = XPlmi_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
+
 
 	return Status;
 }

@@ -19,6 +19,7 @@
  * 1.00  gnr  02/09/26 Initial release
  * 2.40  gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
  * 2.40  sri  03/26/26 Added client API to validate authenticated PDI
+ * 2.4   sms  04/16/26 Updated the Payload and Response buffer length parameters in the function
  *
  * </pre>
  *
@@ -956,21 +957,15 @@ END:
 static int XLoader_VerifyAuthHashBlock(XLoader_ClientInstance *InstancePtr, u64 HBSignParamsAddr, u64 HBInstanceAddr)
 {
 	volatile int Status = XST_FAILURE;
-	u32 Payload[XMAILBOX_PAYLOAD_LEN_5U];
+	u32 Payload[PAYLOAD_ARG_CNT] = {0U};
 
-	/* Build the IPI payload: command header followed by 64-bit addresses split into low/high words */
-	Payload[0U] = PACK_XLOADER_HEADER(0, XLOADER_CMD_ID_DATA_AUTH);
-	/* Lower 32 bits of HBSignParams address */
-	Payload[1U] = (u32)HBSignParamsAddr;
-	/* Upper 32 bits of HBSignParams address */
-	Payload[2U] = (u32)(HBSignParamsAddr >> 32U);
-	/* Lower 32 bits of HashBlock instance address */
-	Payload[3U] = (u32)HBInstanceAddr;
-	/* Upper 32 bits of HashBlock instance address */
-	Payload[4U] = (u32)(HBInstanceAddr >> 32U);
+	/** Fill IPI Payload */
+	XLOADER_PACK_PAYLOAD4(Payload, (u32)XLOADER_CMD_ID_DATA_AUTH,
+			(u32)HBSignParamsAddr, (u32)(HBSignParamsAddr >> 32U),
+			(u32)HBInstanceAddr, (u32)(HBInstanceAddr >> 32U));
 
 	/* Send IPI request to XilLoader server to verify the Hash Block signature */
-	Status = XLoader_ProcessMailbox(InstancePtr, Payload, sizeof(Payload)/sizeof(u32));
+	Status = XLoader_ProcessMailbox(InstancePtr, Payload, PAYLOAD_ARG_CNT);
 
 	return Status;
 }

@@ -20,6 +20,7 @@
  * 1.01  pre  08/21/24 Added SlrIndex in XLoader_ClientInstance structure
  * 1.02  obs  02/18/25 Fixed IPI message length
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XLOADER_PACK_PAYLOAD macros
+ * 2.4   sms  04/16/26 Updated the Payload and Response buffer length parameters in the function prototypes
  *
  * </pre>
  *
@@ -111,10 +112,18 @@ typedef struct {
  *		Header of the command
  *
  **************************************************************************************************/
+#if defined (__aarch64__) && (EL1_NONSECURE == 1)
+static inline u32 PACK_XLOADER_HEADER(u32 Len, u32 ApiId)
+{
+	(void)Len;
+	return (XILLOADER_MODULE_ID_MASK | (ApiId));
+}
+#else
 static inline u32 PACK_XLOADER_HEADER(u32 Len, u32 ApiId)
 {
 	return ((Len << XLOADER_PAYLOAD_LEN_SHIFT) | XILLOADER_MODULE_ID_MASK | (ApiId));
 }
+#endif
 
 /************************************ Function Prototypes ****************************************/
 
