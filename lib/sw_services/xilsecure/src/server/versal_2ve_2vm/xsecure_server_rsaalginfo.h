@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------------------------------
 * 5.7   tbk     02/05/26 Initial Release
+*       mb      04/28/26 Updated minor version to 6.1
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
  */
 
 #define XSECURE_RSA_MODULE_MAJOR_VERSION (6U) /**< RSA module major version */
-#define XSECURE_RSA_MODULE_MINOR_VERSION (0U) /**< RSA module minor version */
+#define XSECURE_RSA_MODULE_MINOR_VERSION (1U) /**< RSA module minor version */
 
 /** @} */
 

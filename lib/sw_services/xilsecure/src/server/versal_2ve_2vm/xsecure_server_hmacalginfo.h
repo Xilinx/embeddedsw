@@ -16,6 +16,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ---------------------------------------------------------------------------
 * 5.7   tbk     04/09/26 Initial Release
+*       mb      04/28/26 Updated minor version to 6.1
 *
 * </pre>
 *
@@ -37,7 +38,7 @@ extern "C" {
  */
 
 #define XSECURE_HMAC_MODULE_MAJOR_VERSION (6U) /**< HMAC module major version */
-#define XSECURE_HMAC_MODULE_MINOR_VERSION (0U) /**< HMAC module minor version */
+#define XSECURE_HMAC_MODULE_MINOR_VERSION (1U) /**< HMAC module minor version */
 
 /** @} */
 
