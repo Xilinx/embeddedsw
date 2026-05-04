@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -15,6 +15,7 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 3.2   mmd     07/04/23 Initial Release
+*       mb      05/04/26 Updated minor version to 3.7
 * </pre>
 *
 ******************************************************************************/
@@ -31,7 +32,7 @@ extern "C" {
 
 /**************************** Constant Definitions ****************************/
 #define XNVM_MAJOR_VERSION	3 /**< Major Version of XilNvm */
-#define XNVM_MINOR_VERSION	2 /**< Minor version of XilNvm */
+#define XNVM_MINOR_VERSION	7 /**< Minor version of XilNvm */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
