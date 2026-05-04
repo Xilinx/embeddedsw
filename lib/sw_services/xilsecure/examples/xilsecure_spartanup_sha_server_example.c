@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 /*****************************************************************************/
@@ -43,6 +43,8 @@
 * 1.2   mb     06/10/25 Add description on usage of shared memory
 * 5.6   mb     09/11/25 Added support to calculate hash in SHA3_384 mode
 *       mb     11/17/25 Corrected hash length definitions
+* 5.7   tus    05/04/26 Moved SHA and PmcDma instances to data section
+*                       which is mapped to shared memory by linker script
 *
 * </pre>
 ******************************************************************************/
@@ -53,6 +55,7 @@
 #include "xsecure_sha.h"
 #include "xsecure_plat.h"
 #include "xil_util.h"
+#include "xpmcdma.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -83,6 +86,21 @@ static int SecureShaCompareHash(u8 *Hash, u8 *ExpectedHash);
 static void SecureShaPrintHash(u8 *Hash);
 
 /************************** Variable Definitions *****************************/
+
+/*
+ * Secure_Sha holds PartialData[] which is read by PMC-DMA when SW NIST
+ * padding is performed (zero-/short-data-length case in XSecure_ShaFinish).
+ * It must live in shared_mem so PMC-DMA can fetch from it; therefore it is
+ * placed in .data.SecureSha which the linker script maps to shared_mem.
+ */
+static XSecure_Sha Secure_Sha __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.SecureSha"))) = {0U};
+/*
+ * XPmcDma instance is read by the CPU only (it holds register base
+ * addresses + small state), but is kept in shared_mem for symmetry.
+ */
+static XPmcDma PmcDma __attribute__ ((aligned (64)))
+			__attribute__ ((section (".data.PmcDma"))) = {0U};
 
 static const char Data[SHA_INPUT_DATA_LEN + 1U] __attribute__ ((aligned (64)))
 			__attribute__ ((section (".data.Data"))) = "SHA3_256";
@@ -155,8 +173,6 @@ int main(void)
 static int SecureShaExample()
 {
 	int Status = XST_FAILURE;
-	XSecure_Sha  Secure_Sha = {0U};
-	XPmcDma PmcDma;
 	XPmcDma_Config *Config;
 	u8 Out[SHA_HASH_LEN_IN_BYTES];
 	u32 Size = 0U;
