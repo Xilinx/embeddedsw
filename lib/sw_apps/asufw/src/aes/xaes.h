@@ -114,7 +114,7 @@ u8 XAes_GetEngineMode(const XAes *InstancePtr);
 s32 XAes_KeyClear(const XAes *InstancePtr, u32 KeySrc);
 void XAes_SetReset(XAes *InstancePtr);
 u8 XAes_GetAndValidateInternalState(const XAes *InstancePtr);
-XAes_ContextInfo *XAes_GetAesContext(void);
+s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr);
 s32 XAes_SaveContext(XAes *InstancePtr);
 s32 XAes_RestoreContext(XAes *InstancePtr);
 

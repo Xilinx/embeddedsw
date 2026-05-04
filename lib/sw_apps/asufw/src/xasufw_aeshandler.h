@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -45,6 +45,7 @@ extern "C" {
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_AesInit(void);
 s32 XAsufw_AesCheckAndSaveContext(u32 ReqId);
+u32 XAsufw_IsAesContextSaveSupported(void);
 
 /************************************ Variable Definitions ***************************************/
 

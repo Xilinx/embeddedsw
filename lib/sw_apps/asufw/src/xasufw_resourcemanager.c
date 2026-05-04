@@ -45,6 +45,7 @@
 #include "xasufw_trnghandler.h"
 #include "xasufw_ecchandler.h"
 #include "xasufw_error_manager.h"
+#include "xasufw_aeshandler.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -230,7 +231,8 @@ static s32 XAsufw_IsResourceAvailable(XAsufw_Resource Resource, u32 ReqId)
 			((ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
 			(ResourceManager[Resource].OwnerId != ReqId))) {
 		if ((Resource == XASUFW_AES) &&
-				(ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE)) {
+				(ResourceManager[Resource].State == XASUFW_RESOURCE_IS_IDLE) &&
+				(XAsufw_IsAesContextSaveSupported() == XASU_STATUS_PASS)) {
 			Status = XAsufw_CheckPreemption(ReqId,
 				ResourceManager[Resource].OwnerId);
 		}
