@@ -334,7 +334,6 @@ static s32 XAes_CfgDmaWithAesAndXfer(const XAes *InstancePtr, u64 InDataAddr, u6
 static s32 XAes_DummyEncryption(XAes *InstancePtr);
 static s32 XAes_FinalizeAadUpdate(XAes *InstancePtr);
 static s32 XAes_CheckAndRestoreUserKeyContext(const XAes *InstancePtr, XAes_ContextInfo *CtxPtr);
-static s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr);
 static s32 XAes_CcmValidatePlainTextLength(u32 PlainTextLen, u8 LengthFieldSize);
 static s32 XAes_WaitForDone(const XAes *InstancePtr);
 static s32 XAes_WaitForReady(const XAes *InstancePtr);
@@ -413,22 +412,7 @@ END:
 	return Status;
 }
 
-/*************************************************************************************************/
-/**
- * @brief	This function gets the AES context instance.
- *
- * @return
- * 		- Returns pointer to XAes_ContextInfo.
- *
- *************************************************************************************************/
-XAes_ContextInfo *XAes_GetAesContext(void)
-{
-	XAes_ContextInfo *CtxPtr = NULL;
 
-	(void)XAes_GetContextDdrPtr(&CtxPtr);
-
-	return CtxPtr;
-}
 
 /*************************************************************************************************/
 /**
@@ -1763,7 +1747,7 @@ s32 XAes_RestoreContext(XAes *InstancePtr)
 
 END:
 	/** Clear saved AES context in DDR. */
-	if (CtxPtr != NULL) {
+	if (XAes_GetContextDdrPtr(&CtxPtr) == XASUFW_SUCCESS) {
 		XFIH_CALL(Xil_SecureZeroize, XFihAesCtxClear, ClearStatus,
 			(u8 *)(UINTPTR)CtxPtr, sizeof(XAes_ContextInfo));
 
@@ -2664,7 +2648,7 @@ END:
  *		- XASUFW_AES_INVALID_PARAM, if CtxPtrPtr is NULL or DDR is not configured.
  *
  *************************************************************************************************/
-static s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr)
+s32 XAes_GetContextDdrPtr(XAes_ContextInfo **CtxPtrPtr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	u32 DdrRsvdAddr = 0U;

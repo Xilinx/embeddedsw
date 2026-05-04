@@ -355,11 +355,11 @@ END:
 static void XAsufw_CheckAndRestoreAesContext(void)
 {
 	s32 Status = XASUFW_FAILURE;
-	const XAes_ContextInfo *Ctx = XAes_GetAesContext();
+	XAes_ContextInfo *Ctx = NULL;
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
 	u32 ReqId = 0U;
 
-	if (Ctx != NULL) {
+	if (XAes_GetContextDdrPtr(&Ctx) == XASUFW_SUCCESS) {
 		if (Ctx->IsContextRestoreReq == XASU_TRUE) {
 			ReqId = Ctx->ReqId;
 			Status = XAes_RestoreContext(AesInstancePtr);

@@ -43,6 +43,7 @@
 #include "xasu_aes_common.h"
 #include "xkeymanager.h"
 #include "xasu_sharedmem.h"
+#include "xasufw_memory.h"
 
 /************************************ Constant Definitions ***************************************/
 
@@ -61,6 +62,7 @@ static s32 XAsufw_AesResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_AesModule; /**< ASUFW AES Module ID and commands array */
+static u32 AesCtxSaveSupported = XASU_STATUS_FAIL; /**< AES context save supported (DDR reserved size check). */
 
 /*************************************************************************************************/
 /**
@@ -114,6 +116,11 @@ s32 XAsufw_AesInit(void)
 	Status = XAes_CfgInitialize(XAsufw_Aes);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_AES_INIT_FAILED);
+	}
+
+	/** Check if AES context can be saved successfully. */
+	if (XAsufw_ReadReg(XASU_RTCA_DDR_SIZE_ADDR) >= XASUFW_DDR_RSVD_SIZE) {
+		AesCtxSaveSupported = XASU_STATUS_PASS;
 	}
 
 END:
@@ -498,10 +505,10 @@ s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
 {
 	s32 Status = XASUFW_FAILURE;
 	XAes *AesInstancePtr = XAes_GetInstance(XASU_XAES_0_DEVICE_ID);
-	XAes_ContextInfo *Ctx = XAes_GetAesContext();
+	XAes_ContextInfo *Ctx = NULL;
 	u8 EngineMode = XAes_GetEngineMode(AesInstancePtr);
 
-	if (Ctx != NULL) {
+	if (XAes_GetContextDdrPtr(&Ctx) == XASUFW_SUCCESS) {
 		if (!(XAsufw_IsResourceBusy(XASUFW_AES, ReqId)) && (Ctx->IsContextSaved != XASU_TRUE) &&
 				(XAes_GetAndValidateInternalState(AesInstancePtr))) {
 			/** AES-ECB and AES-CCM mode doesn't support context switching. */
@@ -525,5 +532,19 @@ s32 XAsufw_AesCheckAndSaveContext(u32 ReqId)
 
 END:
 	return Status;
+}
+
+/*************************************************************************************************/
+/**
+ * @brief	Check if AES context save is supported.
+ *
+ * @return
+ * 	- XASU_STATUS_PASS, if AES context save is supported.
+ * 	- XASU_STATUS_FAIL, if AES context save is not supported.
+ *
+ *************************************************************************************************/
+u32 XAsufw_IsAesContextSaveSupported(void)
+{
+	return AesCtxSaveSupported;
 }
 /** @} */
