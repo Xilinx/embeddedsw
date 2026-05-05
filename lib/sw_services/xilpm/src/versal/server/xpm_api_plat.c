@@ -799,6 +799,12 @@ static XStatus XPm_AddReqsDefaultSubsystem(XPm_Subsystem *Subsystem)
 			continue;
 		}
 
+		/* Skip MEM_CTRLR prealloc: PMC subsystem requests DDRMCs when
+		 * PL device is added from RNPI, moving those to RUNNING state. */
+		if ((u32)XPM_NODESUBCL_DEV_MEM_CTRLR == NODESUBCLASS(Device->Node.Id)) {
+			continue;
+		}
+
 		/* All MEM devices need CAP_CONTEXT */
 		if ((u32)XPM_NODESUBCL_DEV_MEM == NODESUBCLASS(Device->Node.Id)) {
 			Capability |= (u32)PM_CAP_CONTEXT;
