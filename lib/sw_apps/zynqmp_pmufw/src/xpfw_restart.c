@@ -695,11 +695,15 @@ s32 XPfw_StoreFsblToDDR(void)
 			XPfw_Printf(DEBUG_DETAILED, "FSBL copy to DDR is skipped.\r\n"
 					"Note: APU-only restart will not work if XilFPGA uses OCM "
 					"for secure bit-stream loading.\r\n");
+			/* Encrypted FSBL: skip is by design, not a failure. */
+			Status = XST_SUCCESS;
 		}
 	} else {
 		XPfw_Printf(DEBUG_PRINT_ALWAYS, "FSBL is running on RPU. \r\n"
 				"Warning: APU-only restart is not supported "
 				"if FSBL boots on RPU.\r\n");
+		/* FSBL-on-RPU is by design; not a failure of this routine. */
+		Status = XST_SUCCESS;
 	}
 END:
 	return Status;
