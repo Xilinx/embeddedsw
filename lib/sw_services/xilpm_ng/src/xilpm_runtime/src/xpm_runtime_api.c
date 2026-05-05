@@ -84,7 +84,8 @@ static XStatus XPm_DoSelfSuspend(XPlmi_Cmd* Cmd);
 static XStatus XPm_DoForcePowerdown(XPlmi_Cmd* Cmd);
 
 static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency);
-static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result);
+/** @brief Read the current SoC-wide temperature via SysMon. */
+static XStatus XPm_GetSocTemperature(u32 *Result);
 
 static XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *Result);
 static XStatus XPm_RegisterNotifier(const u32 SubsystemId, const u32 NodeId,
@@ -522,7 +523,14 @@ static XStatus XPm_GetOpCharacteristic(u32 const DeviceId, u32 const Type, u32 *
 
 	switch(Type) {
 	case (u32)PM_OPCHAR_TYPE_TEMP:
-		Status = XPm_GetTemperature(DeviceId, Result);
+		/*
+		 * Temperature is reported for the whole SoC; the per-device
+		 * DeviceId is intentionally not used here. The EEMI signature
+		 * keeps DeviceId for ABI compatibility with callers issuing
+		 * PM_GET_OP_CHARACTERISTIC for any node.
+		 */
+		(void)DeviceId;
+		Status = XPm_GetSocTemperature(Result);
 		break;
 	case (u32)PM_OPCHAR_TYPE_LATENCY:
 		Status = XPm_GetLatency(DeviceId, Result);
@@ -543,24 +551,24 @@ static inline u32 AbsDiffU32(u32 X, u32 Y)
 	return (X > Y) ? (X - Y) : (Y - X);
 }
 
-static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result)
+/**
+ * @brief  Read the current SoC-wide temperature via SysMon.
+ *
+ * Per-node temperature reporting is not supported on this platform, so
+ * this helper deliberately does not take a DeviceId. The EEMI dispatcher
+ * reports the SoC temperature for any DeviceId the caller passes.
+ *
+ * @param  Result   Pointer to receive the raw temperature value.
+ *
+ * @return XST_SUCCESS on success, XST_DEVICE_NOT_FOUND if the SysMon
+ *         instance is not available, XST_GLITCH_ERROR if two consecutive
+ *         reads disagree by more than TEMP_TOL_LSB, or XST_FAILURE.
+ */
+static XStatus XPm_GetSocTemperature(u32 *Result)
 {
 	volatile XStatus Status = XST_FAILURE;
 	XSysMonPsv *SysMonInstPtr;
 	u32 RawTemp1, RawTemp2, StableTemp;
-
-	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
-		goto done;
-	}
-
-	/*
-	 * TODO - need to implement getting temperature, beside the
-	 * temperature of entire SoC.
-	 */
-	if ((u32)XPM_NODETYPE_DEV_SOC != NODETYPE(DeviceId)) {
-		Status = XST_NO_FEATURE;
-		goto done;
-	}
 
 	SysMonInstPtr = XPlmi_GetSysmonInst();
 	if (NULL == SysMonInstPtr) {
