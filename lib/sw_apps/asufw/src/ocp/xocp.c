@@ -67,6 +67,7 @@
 /********************************** Variable Definitions *****************************************/
 static XOcp_DeviceKeys DevIkData;	/**< Device identity key data */
 static XOcp_DeviceKeys DevAkData[XOCP_MAX_USER_OCP_SUBSYS];	/**< Device attestation key data */
+static u8 AsuCdiValid = (u8)XASU_STATUS_FAIL;	/**< ASU CDI validation flag */
 
 /************************************ Function Prototypes ****************************************/
 static s32 XOcp_GenerateDevIkAkPvtKey(const XOcp_PrivateKeyGen *PvtKeyInfo);
@@ -160,6 +161,11 @@ s32 XOcp_GenerateDeviceKeys(XAsufw_Dma *DmaPtr, u32 EventMask)
 
 	/** Generate DevIK key pair. */
 	if (((EvtMask & XOCP_SUBSYS_EVENT_MASK) == XOCP_SUBSYS_EVENT_MASK)) {
+		/**
+		 * Reset ASU CDI validation flag as it is needed to generate CDI for each ASUFW/PLM
+		 * update.
+		 */
+		AsuCdiValid = (u8)XASU_STATUS_FAIL;
 		Status = XOcp_GenerateDevIk(DmaPtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -898,7 +904,6 @@ static s32 XOcp_GetAsuCdiAddr(u32 *AsuCdiAddr)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	static const u8 XOcpAsuCdi[XOCP_DICE_CDI_SIZE_IN_BYTES] = {0U};
-	static u8 AsuCdiValid = (u8)XASU_STATUS_FAIL;
 
 	/** Send IPI request to PLM if ASU CDI is not available. */
 	if (AsuCdiValid != (u8)XASU_STATUS_PASS) {
