@@ -3397,7 +3397,7 @@ done:
  ****************************************************************************/
 static XStatus XPm_ReleaseAllDevices(const u32 SubsystemId, const u32 DeviceId, const u32 CmdType)
 {
-	XStatus Status = XST_FAILURE;
+	volatile XStatus Status = XST_FAILURE;
 	const XPm_Subsystem* Subsystem = NULL;
 	const XPm_Requirement *Reqm;
 	u32 TargetClass = NODECLASS(DeviceId);
