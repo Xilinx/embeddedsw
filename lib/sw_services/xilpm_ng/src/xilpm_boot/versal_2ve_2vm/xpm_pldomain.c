@@ -71,7 +71,7 @@ static XStatus ReduceCfuClkFreq(void)
 	 */
 	SavedCfuDivider = CfuDivider;
 
-	/* Write clock freq divided by 2 */
+	/* Double the divisor to halve (divide by 2) the CFU clock frequency */
 	CfuDivider <<= 1U;
 
 	/* Write clock freq */
