@@ -227,73 +227,56 @@ def openamp_lopper_run(bsp_sdt, linker_cmd, obj, esw_app_dir, soc):
     Returns:
         None
     """
-    fname = ""
-    header_location = os.path.join(
-        obj.app_src_dir, "openamp-system-reference", "examples"
-    )
-    overlay_dst = os.path.join(obj.domain_path, "hw_artifacts", "domain.yaml")
-    output_sdt = os.path.join(
-        obj.app_src_dir, "openamp-system-reference", "openamp_output.dts"
-    )
-    cmd1 = f"lopper -f --enhanced --auto -i {overlay_dst} -O {obj.app_src_dir} {bsp_sdt} {output_sdt}"
-    cmd2 = f"lopper -f --enhanced --permissive -O {obj.app_src_dir} {output_sdt} -- openamp "
-    overlay_prefix = ""
+    # YAML repository location has different naming convention
+    # return original soc if key not found
+    soc = {"versalnet": "versal-net", "versal_2ve_2vm": "versal-2ve-2vm"}.get(soc, soc)
+
+    md_base_yaml = f"{soc}-multidomain-base.yaml"
+
+    base_dir = os.path.join(obj.app_src_dir, "openamp-system-reference")
+    examples_dir = os.path.join(base_dir, "examples")
+    output_sdt = os.path.join(base_dir, "openamp_output.dts")
 
     if obj.template == "libmetal_echo_demo":
+        domain_yaml = f"{soc}-libmetal-overlay.yaml"
         fname = "rpu.cmake"
-        header_location = os.path.join(
-            header_location, "libmetal", "machine", "remote", "amd_rpu"
-        )
-        cmd2 += " --libmetal_output_file --compatible-string=libmetal,ipc-v1 "
-        cmd2 += f" --processor={obj.proc} --openamp_output_filename={fname} --os=baremetal_dt "
-        overlay_prefix = "libmetal"
+        header_location = os.path.join(examples_dir, "libmetal", "machine", "remote", "amd_rpu")
+        cmd2_substr = " --libmetal_output_file --compatible-string=libmetal,ipc-v1 "
+        cmd2_substr += f" --processor={obj.proc} --openamp_output_filename={fname} --os=baremetal_dt "
     else:
+        domain_yaml = f"{soc}-openamp-overlay.yaml"
         fname = "amd_platform_info.h"
-        header_location = os.path.join(
-            header_location, "legacy_apps", "machine", "xlnx", "zynqmp_r5"
-        )
-        cmd2 += f"-- openamp --openamp_header_only --openamp_output_filename={fname} --openamp_remote={obj.proc} "
-        overlay_prefix = "openamp"
+        header_location = os.path.join(examples_dir, "legacy_apps", "machine", "xlnx", "zynqmp_r5")
+        cmd2_substr = f" --openamp_header_only --openamp_output_filename={fname} --openamp_remote={obj.proc} "
 
-    if os.path.exists(overlay_dst):
-        logger.info(
-            "%s already exists. not copying in a new one. please remove this file if you want default one copied in."
-            % overlay_dst
-        )
-    else:
-        r52_socs = {"versalnet": "versal-net", "versal_2ve_2vm": "versal-2ve-2vm"}
-        if soc in r52_socs.keys():
-            soc = r52_socs[soc]
+    cmd1 = f"lopper -f --enhanced --auto -i {md_base_yaml} -i {domain_yaml} -O {obj.app_src_dir} {bsp_sdt} {output_sdt}"
+    cmd2 = f"lopper -f --enhanced -O {obj.app_src_dir} {output_sdt} -- openamp {cmd2_substr}"
 
-        utils.copy_file(
-            os.path.join(
-                os.environ.get("XILINX_VITIS"),
-                "data",
-                f"{overlay_prefix}-metadata",
-                f"{overlay_prefix}-overlay-{soc}.yaml",
-            ),
-            overlay_dst,
-        )
+    hw_dir = os.path.join(obj.domain_path, "hw_artifacts")
+    yaml_dir = os.path.join(os.environ.get("XILINX_VITIS"), "data", "openamp-metadata")
 
-    utils.runcmd(
-        cmd1, log_message="OpenAMP Lopper Run 1 - create an openamp DT for remote"
-    )
-    utils.runcmd(
-        cmd2, log_message="OpenAMP Lopper Run 2 - Generate Header or Config object"
-    )
+    for yaml_file in [ domain_yaml, md_base_yaml ]:
+        dst = os.path.join(hw_dir, yaml_file)
+        if os.path.exists(dst):
+            logger.info(f"{yaml_file} already exists. Remove it to use the default copy.")
+        else:
+            utils.copy_file(os.path.join(yaml_dir, yaml_file), dst)
 
-    if utils.is_file(fname):
-        utils.copy_file(fname, os.path.join(header_location, fname))
-        utils.remove(fname)
+        # insert correct path for the YAML files to be picked up from
+        cmd1 = cmd1.replace(yaml_file, dst)
 
-        # Change out SDT to use OpenAMP SDT here
-        linker_cmd = linker_cmd.replace(obj.sdt, output_sdt)
+    utils.runcmd(cmd1, log_message="OpenAMP Lopper Run 1 - create DT")
+    utils.runcmd(cmd2, log_message="OpenAMP Lopper Run 2 - generate output")
 
-        # Add flag at the end to denote this is for OpenAMP case
-        linker_cmd += " openamp "
-
-        return linker_cmd
-    else:
+    if not utils.is_file(fname):
         logger.error("OpenAMP Lopper run failed.")
         sys.exit(1)
-    return 0
+
+    utils.copy_file(fname, os.path.join(header_location, fname))
+    utils.remove(fname)
+
+
+    # Change out SDT to use OpenAMP SDT here
+    # Add flag at the end to denote this is for OpenAMP case
+    linker_cmd = linker_cmd.replace(obj.sdt, output_sdt) + " openamp "
+    return linker_cmd
