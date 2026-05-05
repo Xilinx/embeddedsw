@@ -1127,6 +1127,7 @@ int XSecure_HssInit(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr, XSecure_HssInitPar
 	for (Index = 0U; Index < XSECURE_LMS_PUB_KEY_TOTAL_SIZE; Index++) {
 		AuthenticatedKey.Buff[Index] = TmpPublicKeyPtr[Index];
 		if (TmpPublicKeyPtr[Index] != AuthenticatedKey.Buff[Index]) {
+			Status = XSECURE_LMS_PUB_OP_FAILED_ERROR;
 			XSecure_Printf(XSECURE_DEBUG_GENERAL, "LMS HSS Init - public key copy failed location 0x%x\n\r", Index);
 			goto END;
 		}
