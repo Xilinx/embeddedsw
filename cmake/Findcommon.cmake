@@ -205,6 +205,30 @@ function (linker_gen path)
             file (REMOVE_RECURSE ${path})
         endif()
     endif()
+
+    # For MicroBlaze RISC-V: Detect if the linker script maps any memory at or above
+    # address 0x80000000 (2 GiB), which is outside the range supported by the default
+    # -mcmodel=medlow. If so, a warning will be issued during the create_app and build_app steps.
+    if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv" AND EXISTS "${USER_LINKER_SCRIPT}")
+        set(_ld_file "${USER_LINKER_SCRIPT}")
+        file(READ "${_ld_file}" _ld_content)
+        string(REGEX MATCHALL "ORIGIN[ ]*=[ ]*(0x[0-9a-fA-F]+)" _origin_matches "${_ld_content}")
+        foreach(_origin_match ${_origin_matches})
+            string(REGEX MATCH "0x[0-9a-fA-F]+" _origin_addr "${_origin_match}")
+            math(EXPR _origin_val "${_origin_addr}")
+            if(_origin_val GREATER_EQUAL 2147483648)
+                string(CONCAT _medlow_warn
+                    "The linker script has one of the memory region (${_origin_addr}) is >= 0x80000000, "
+                    "which exceeds the addressable range of the default -mcmodel=medlow "
+                    "for MicroBlaze RISC-V.\n"
+                    "Use -mcmodel=medany in your compiler flags for the platform(bsp) and application "
+                    "(eg: proc_extra_compiler_flags += -mcmodel=medany) if you are targeting your elf to memory region > 2GB."
+                )
+                cmake_warning("${_medlow_warn}")
+                break()
+            endif()
+        endforeach()
+    endif()
 endfunction(linker_gen)
 
 function(gen_exheader path drvname addr prefix)
