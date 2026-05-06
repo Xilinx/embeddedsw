@@ -137,6 +137,11 @@ XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable)
 		goto done;
 	}
 
+	if (NULL == Pmc) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
 	/* PMC Global base address */
 	BaseAddress = Pmc->PmcGlobalBaseAddr;
 
@@ -169,6 +174,11 @@ static XStatus XPmGicProxy_Enable(void)
 	volatile u32 RegAddressTmp = 0U;
 	u32 g;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	if (NULL == Pmc) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
@@ -215,6 +225,11 @@ static XStatus XPm_GicProxyDisable(void)
 	volatile u32 MaskAddrTmp = 0U;
 	u32 g;
 	const XPm_Pmc *Pmc = (XPm_Pmc *)XPmDevice_GetById(PM_DEV_PMC_PROC);
+
+	if (NULL == Pmc) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
 
 	for (g = 0U; g < XPm_GicProxy.GroupsCnt; g++) {
 		/* PMC Global base address */
