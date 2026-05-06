@@ -359,8 +359,8 @@ void DpPt_pe_vs_adjustHandler(void *InstancePtr){
 				}
 
 #ifdef versal
-        GtCtrl(GT_VSWING_MASK ,(diff_swing << 8), 1);
-        GtCtrl(GT_POSTCUR_MASK,(preemp << 18), 1);
+        GtCtrl(GT_VSWING_MASK ,(diff_swing << VSWING_VAR), 1);
+        GtCtrl(GT_POSTCUR_MASK,(preemp << POSTCUR_VAR), 1);
 #else
 				//setting vswing
 				XVphy_SetTxVoltageSwing(&VPhyInst, 0, XVPHY_CHANNEL_ID_CH1,
@@ -1327,6 +1327,9 @@ u32 config_phy(int LineRate_init_tx){
 	u8 linerate;
 	u32 dptx_sts = 0;
 
+#ifdef VERSAL_2VE_2VM
+usleep (1000);
+#endif
 #if TX_BUFFER_BYPASS
     switch(LineRate_init_tx){
             case XDP_TX_LINK_BW_SET_162GBPS:

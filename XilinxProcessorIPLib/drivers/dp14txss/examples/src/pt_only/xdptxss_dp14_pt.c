@@ -57,6 +57,7 @@
 * 1.15 ND 08/05/22 2022.2 - Added support for gpio to monitor gt_powergood
 * 1.16 ND 08/26/22 2022.2 - Added DELAY macro to increase delay in IDT_8T49N24x_SetClock()
 * 					   		if encountering iic race condition.
+* 1.17 SS 04/24/26 2026.1 - Added support for VEK385 PassThrough Example Design
 *
 * </pre>
 *
@@ -977,7 +978,10 @@ char XUartPs_RecvByte_NonBlocking()
 {
 	u32 RecievedByte;
 #ifdef versal
-	RecievedByte = XUartPsv_RecvByte(STDIN_BASEADDRESS);
+	if (XUartPsv_IsReceiveData(STDIN_BASEADDRESS))
+		RecievedByte = XUartPsv_RecvByte(STDIN_BASEADDRESS);
+	else
+		return 0;
 #else
 	RecievedByte = XUartPs_ReadReg(STDIN_BASEADDRESS, XUARTPS_FIFO_OFFSET);
 #endif
@@ -1440,9 +1444,9 @@ u32 DpSs_PlatformInit(void)
 #endif
 //   /* Initialize PS IIC1 */
 #ifndef SDT
-	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_DEVICE_ID);
+	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(PS_IIC_DEVICE_ID);
 #else
-	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(XPAR_XIICPS_1_BASEADDR);
+	XIic1Ps_ConfigPtr = XIicPs_LookupConfig(PS_IIC_BASEADDR);
 #endif
 	if (NULL == XIic1Ps_ConfigPtr) {
 			return XST_FAILURE;
@@ -1462,7 +1466,9 @@ u32 DpSs_PlatformInit(void)
 
 	/* Set the I2C Mux to select the HPC FMC */
 #ifdef versal
+#ifndef VERSAL_2VE_2VM
 	I2cMux_Ps(0x04);
+#endif
 #else
 	Buffer[0] = 0x01;
 	ByteCount = XIic_Send(XPAR_IIC_0_BASEADDR, I2C_MUX_ADDR,
