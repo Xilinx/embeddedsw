@@ -1,5 +1,5 @@
 
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 
 option(YOCTO "Yocto based embeddedsw FLOW" OFF)
@@ -92,7 +92,6 @@ function(get_headers headers)
 	list(APPEND clean_headers ${CMAKE_INCLUDE_PATH}/${header})
 	set(clean_headers ${clean_headers} PARENT_SCOPE)
     endforeach()
-    return(${clean_headers})
 endfunction()
 
 macro(subdirlist result curdir)

@@ -867,7 +867,7 @@ def create_domain(args):
     # Create new CMakeLists.txt
     cmake_file = os.path.join(obj.domain_dir, "CMakeLists.txt")
     cmake_file_cmds = f"""
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.24.2)
 project(bsp)
 find_package(common)
 find_package(commonmeta)
