@@ -27,6 +27,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 1.00  hbm  07/28/09 Initial release
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
+* 9.5   ml   04/23/26 Add XIL_EXCEPTION_ALL, mask/save/restore APIs (CR-1262632).
 * </pre>
 *
 ******************************************************************************/
@@ -64,6 +65,15 @@ extern "C" {
 #define XIL_EXCEPTION_ID_LAST		      XIL_EXCEPTION_ID_MMU
 #define XIL_EXCEPTION_MASK		      0x100U
 #define XIL_INTERRUPTS_MASK		      0x2U
+/**
+ * @def XIL_EXCEPTION_ALL
+ * @brief Combined mask of all interrupt and hardware exception enable
+ *        bits in the MicroBlaze MSR (IE | EE).
+ *
+ * Used with Xil_ExceptionEnableMask(), Xil_ExceptionDisableMask(),
+ * Xil_ExceptionSaveDisable(), and Xil_ExceptionRestoreEnable().
+ */
+#define XIL_EXCEPTION_ALL (XIL_INTERRUPTS_MASK | XIL_EXCEPTION_MASK)
 /*
  * XIL_EXCEPTION_ID_INT is defined for all processors, but with different value.
  */
@@ -98,6 +108,11 @@ extern void Xil_ExceptionRemoveHandler(u32 Exception_id);
 extern void Xil_ExceptionInit(void);
 extern void Xil_ExceptionEnable(void);
 extern void Xil_ExceptionDisable(void);
+
+extern void Xil_ExceptionEnableMask(u32 Mask);
+extern void Xil_ExceptionDisableMask(u32 Mask);
+extern u32 Xil_ExceptionSaveDisable(void);
+extern void Xil_ExceptionRestoreEnable(u32 flags);
 
 #ifdef __cplusplus
 }

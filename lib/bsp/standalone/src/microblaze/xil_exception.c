@@ -28,6 +28,7 @@
 * 		      to fix misra_c_2012_rule_8_5 violations.
 * 9.0   ml   03/03/23 Add description to fix doxygen warnings.
 * 9.2   mus  07/30/24 Fix bug in microblaze_disable_interrupts API in SDT flow.
+* 9.5   ml   04/23/26 Add MSR mask save/restore APIs (CR-1262972).
 * </pre>
 *
 ******************************************************************************/
@@ -123,6 +124,105 @@ void Xil_ExceptionDisable(void)
 	microblaze_disable_exceptions();
 #endif
 	microblaze_disable_interrupts();
+}
+
+/**
+ * @def XIL_EXCEPTIONS_MASK
+ * @brief MSR bits that the mask-based exception APIs are allowed to
+ *        manipulate. Equals XIL_EXCEPTION_ALL when hardware exceptions
+ *        are configured, or XIL_INTERRUPTS_MASK (IE only) otherwise,
+ *        matching the guard used by Xil_ExceptionEnable() /
+ *        Xil_ExceptionDisable().
+ */
+#ifdef MICROBLAZE_EXCEPTIONS_ENABLED
+#define XIL_EXCEPTIONS_MASK	XIL_EXCEPTION_ALL
+#else
+#define XIL_EXCEPTIONS_MASK	XIL_INTERRUPTS_MASK
+#endif
+
+/*****************************************************************************/
+/**
+* @brief	Enable interrupt and/or hardware exception bits in MSR.
+*		Only bits present in XIL_EXCEPTIONS_MASK are applied;
+*		XIL_EXCEPTION_MASK (EE) is ignored when
+*		MICROBLAZE_EXCEPTIONS_ENABLED is not defined.
+*
+* @param	Mask bits to set (typically XIL_INTERRUPTS_MASK,
+*		XIL_EXCEPTION_MASK, or XIL_EXCEPTION_ALL).
+*
+*****************************************************************************/
+void Xil_ExceptionEnableMask(u32 Mask)
+{
+	UINTPTR bits = (UINTPTR)((Mask) & XIL_EXCEPTIONS_MASK);
+	UINTPTR val = mfmsr();
+
+	__asm__ __volatile__ ("" ::: "memory");
+	mtmsr(val | bits);
+	__asm__ __volatile__ ("" ::: "memory");
+}
+
+/*****************************************************************************/
+/**
+* @brief	Disable interrupt and/or hardware exception bits in MSR.
+*		Only bits present in XIL_EXCEPTIONS_MASK are applied;
+*		XIL_EXCEPTION_MASK (EE) is ignored when
+*		MICROBLAZE_EXCEPTIONS_ENABLED is not defined.
+*
+* @param	Mask bits to clear (typically XIL_INTERRUPTS_MASK,
+*		XIL_EXCEPTION_MASK, or XIL_EXCEPTION_ALL).
+*
+*****************************************************************************/
+void Xil_ExceptionDisableMask(u32 Mask)
+{
+	UINTPTR bits = (UINTPTR)((Mask) & XIL_EXCEPTIONS_MASK);
+	UINTPTR val = mfmsr();
+
+	mtmsr(val & ~bits);
+	__asm__ __volatile__ ("" ::: "memory");
+}
+
+/*****************************************************************************/
+/**
+* @brief	Save MSR interrupt/exception enable bits and disable them
+*		(critical section enter). Pair with
+*		Xil_ExceptionRestoreEnable(). Only bits in
+*		XIL_EXCEPTIONS_MASK are saved and disabled;
+*		XIL_EXCEPTION_MASK (EE) is excluded when
+*		MICROBLAZE_EXCEPTIONS_ENABLED is not defined.
+*
+* @return	Previous MSR enable bits for use with
+*		Xil_ExceptionRestoreEnable().
+*
+*****************************************************************************/
+u32 Xil_ExceptionSaveDisable(void)
+{
+	UINTPTR msr = mfmsr();
+	UINTPTR state = msr & (UINTPTR)XIL_EXCEPTIONS_MASK;
+
+	if (state != 0U) {
+		mtmsr(msr & ~(UINTPTR)XIL_EXCEPTIONS_MASK);
+	}
+	__asm__ __volatile__ ("" ::: "memory");
+	return (u32)state;
+}
+
+/*****************************************************************************/
+/**
+* @brief	Restore MSR interrupt/exception enable bits saved by
+*		Xil_ExceptionSaveDisable() (critical section exit).
+*		Only bits in XIL_EXCEPTIONS_MASK are restored.
+*
+* @param	flags value returned from Xil_ExceptionSaveDisable().
+*
+*****************************************************************************/
+void Xil_ExceptionRestoreEnable(u32 flags)
+{
+	UINTPTR msr = mfmsr();
+	UINTPTR f = (UINTPTR)(flags & XIL_EXCEPTIONS_MASK);
+
+	__asm__ __volatile__ ("" ::: "memory");
+	mtmsr((msr & ~(UINTPTR)XIL_EXCEPTIONS_MASK) | f);
+	__asm__ __volatile__ ("" ::: "memory");
 }
 
 /*****************************************************************************/
