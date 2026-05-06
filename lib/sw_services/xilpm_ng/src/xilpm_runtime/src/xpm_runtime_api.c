@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -786,7 +786,10 @@ static XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId
 		Status = XST_FAILURE;
 		goto done;
 	}
-	XPmGicProxy_WakeEventSet(Periph, (u8)Enable);
+	Status = XPmGicProxy_WakeEventSet(Periph, (u8)Enable);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
 
 
 done:

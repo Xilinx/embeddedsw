@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (C) 2024 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,7 +33,7 @@ typedef struct {
 typedef struct {
 	XPm_GicProxyGroup* const Groups;
 	void (*const Clear)(void);
-	void (*const Enable)(void);
+	XStatus (*const Enable)(void);
 	const u8 GroupsCnt;
 	u8 Flags;
 } XPm_GicProxy_t;
@@ -44,7 +44,7 @@ typedef struct {
 
 extern XPm_GicProxy_t XPm_GicProxy;
 
-void XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
+XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable);
 
 #ifdef __cplusplus
 }
