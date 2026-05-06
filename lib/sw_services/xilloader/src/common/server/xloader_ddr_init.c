@@ -1,6 +1,6 @@
 /******************************************************************************
  * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -24,6 +24,7 @@
  *       bm   11/11/2024 Move I2C Handshake feature to common code
  * 2.0   sk   09/29/2025 Added SDT Support
  *       sk   10/16/2025 Added stub function for XLoader_MbPmcI2cHandshake
+ * 2.1   sk   05/05/2026 Reset the i2c instance state after release request
  * </pre>
  *
  *
@@ -200,6 +201,9 @@ UPDATE_INDEX:
 END:
 #ifdef VERSAL_2VE_2VM
 	SStatus = XPm_PmcReleaseDevice(PM_DEV_I2C_PMC);
+	if (NULL != IicInstance) {
+		IicInstance->IsReady = 0U;
+	}
 #else
 	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, XPLMI_CMD_SECURE);
 #endif
