@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -34,6 +34,9 @@
 *                     access to memory
 *       dd   13/01/23 Added Gigadevice flash support
 * 7.1   ng   07/13/23 Added SDT support
+* 8.0   sd   05/04/26 Added Spansion/Infineon FL-L series (S25FL256L) support
+*                     for QSPI 24-bit boot mode. L-series parts do not support
+*                     legacy BRWR/BRRD bank register commands.
 *
 * </pre>
 *
@@ -86,6 +89,7 @@ static u8 TxBfrPtr __attribute__ ((aligned(32)));
 static u8 ReadBuffer[10] __attribute__ ((aligned(32)));
 static u8 WriteBuffer[10] __attribute__ ((aligned(32)));
 static u32 MacronixFlash = 0U;
+static u32 SpansionLSeries = 0U;
 u8 MultiDie = (u8)FALSE;
 
 /******************************************************************************
@@ -137,12 +141,18 @@ static u32 FlashReadID(XQspiPsu *QspiPsuPtr)
 	 * Deduce flash make
 	 */
 	MacronixFlash = 0U;
+	SpansionLSeries = 0U;
 	if (ReadBuffer[0] == MICRON_ID) {
 		QspiFlashMake = MICRON_ID;
 		XFsbl_Printf(DEBUG_INFO, "MICRON ");
 	} else if(ReadBuffer[0] == SPANSION_ID) {
 		QspiFlashMake = SPANSION_ID;
-		XFsbl_Printf(DEBUG_INFO, "SPANSION ");
+		if (ReadBuffer[1] == SPANSION_DEVICE_TYPE_L) {
+			SpansionLSeries = 1U;
+			XFsbl_Printf(DEBUG_INFO, "SPANSION L-Series ");
+		} else {
+			XFsbl_Printf(DEBUG_INFO, "SPANSION ");
+		}
 	} else if(ReadBuffer[0] == WINBOND_ID) {
 		QspiFlashMake = WINBOND_ID;
 		XFsbl_Printf(DEBUG_INFO, "WINBOND ");
@@ -512,7 +522,7 @@ static u32 SendBankSelect(u32 BankSel)
 		}
 	}
 
-	if (QspiFlashMake == SPANSION_ID) {
+	if ((QspiFlashMake == SPANSION_ID) && (SpansionLSeries == 0U)) {
 		/*
 		 * Send the Extended address register write command
 		 * written, no receive buffer required
@@ -532,6 +542,26 @@ static u32 SendBankSelect(u32 BankSel)
 			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_QSPI_READ\r\n");
 			goto END;
 		}
+	} else if ((QspiFlashMake == SPANSION_ID) && (SpansionLSeries == 1U)) {
+		/*
+		 * Spansion/Infineon L-series (e.g. S25FL256L) does not support
+		 * BRWR (0x17) / BRRD (0x16) or WREAR (0xC5) / RDEAR (0xC8).
+		 * In 3-byte address mode, the lower 16MB is accessed by default.
+		 * No bank register operation is needed for bank 0.
+		 */
+		if (BankSel != 0U) {
+			XFsbl_Printf(DEBUG_GENERAL,
+				"XFSBL_ERROR: Spansion L-series does not support "
+				"bank switching in 24-bit mode for bank %d\r\n",
+				BankSel);
+			UStatus = XFSBL_ERROR_UNSUPPORTED_QSPI;
+			XFsbl_Printf(DEBUG_GENERAL,"XFSBL_ERROR_UNSUPPORTED_QSPI\r\n");
+			goto END;
+		}
+		UStatus = XFSBL_SUCCESS;
+		goto END;
+	} else {
+		/* Misra-C Compliance */
 	}
 
 	/*
@@ -563,9 +593,9 @@ static u32 SendBankSelect(u32 BankSel)
 		}
 	}
 
-	if (QspiFlashMake == SPANSION_ID) {
+	if ((QspiFlashMake == SPANSION_ID) && (SpansionLSeries == 0U)) {
 		/*
-		 * Bank register read command
+		 * Bank register read command (S-series only)
 		 */
 		WriteBuffer[COMMAND_OFFSET]   = BANK_REG_RD_CMD;
 		FlashMsg[0].TxBfrPtr = WriteBuffer;

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2015 - 2023 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022-2023, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -28,7 +28,8 @@
 * 5.0   bsv  11/15/20 Added Macronix 2G flash support
 * 6.0   bsv  07/29/21 Added Winbond 2G flash support
 *       bsv  09/08/21 Added MultiDie read support for Micron 2G flash part
-*	 	dd   13/01/23 Added Gigadevice flash support
+*       dd   13/01/23 Added Gigadevice flash support
+* 8.0   sd   05/04/26 Added Spansion/Infineon FL-L series device type macro
 * </pre>
 *
 * @note
@@ -148,6 +149,7 @@ extern "C" {
  * Spansion:
  * Byte 0 is Manufacturer ID;
  * Byte 1 is Device ID - Memory Interface type - 0x20 or 0x02
+ *         FL-L series Memory Interface type - 0x60
  * Byte 2 is second byte of Device ID describes flash size:
  * 128Mbit : 0x18; 256Mbit : 0x19; 512Mbit : 0x20
  */
@@ -158,6 +160,9 @@ extern "C" {
 #define MACRONIX_ID		(0xC2U)
 #define ISSI_ID			(0x9DU)
 #define GIGADEVICE_ID  	(0xC8U)
+
+/* Spansion/Infineon device type identifiers (ReadBuffer[1]) */
+#define SPANSION_DEVICE_TYPE_L	(0x60U)	/* FL-L series (e.g. S25FL256L) */
 
 #define FLASH_SIZE_ID_8M		(0x14U)
 #define FLASH_SIZE_ID_16M		(0x15U)
