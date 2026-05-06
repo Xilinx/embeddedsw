@@ -18,7 +18,7 @@ extern "C" {
  *		are set in this variable
  */
 typedef struct {
-	u32 SetMask;
+	u32 SetMask; /**< Interrupt mask enabled when GIC Proxy is enabled. */
 } XPm_GicProxyGroup;
 
 /**
@@ -27,15 +27,15 @@ typedef struct {
  * @GroupsCnt	Number of elements in the array of GIC Proxy Groups
  * @Clear	Clear all set wake-up sources (Flags for all Groups)
  * @Enable	Function that Enables GIC Proxy and all interrupts that are set
- *		as wake sources
+ *		as wake sources. Returns XST_SUCCESS or an error code.
  * @Flags	GIC Proxy Flags (is Enabled or not)
  */
 typedef struct {
-	XPm_GicProxyGroup* const Groups;
-	void (*const Clear)(void);
-	XStatus (*const Enable)(void);
-	const u8 GroupsCnt;
-	u8 Flags;
+	XPm_GicProxyGroup* const Groups; /**< Pointer to GIC Proxy group data. */
+	void (*const Clear)(void); /**< Clear all cached wake-up sources. */
+	XStatus (*const Enable)(void); /**< Enable GIC Proxy wake interrupts. */
+	const u8 GroupsCnt; /**< Number of GIC Proxy groups. */
+	u8 Flags; /**< GIC Proxy state flags. */
 } XPm_GicProxy_t;
 
 /*********************************************************************
