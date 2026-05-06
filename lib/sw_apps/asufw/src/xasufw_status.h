@@ -100,7 +100,7 @@ enum {
 	XASUFW_IOMODULE_SELF_TEST_FAILED, /**< 0x0EU - IOModule self-test failed */
 	XASUFW_IOMODULE_START_FAILED, /**< 0x0FU - IOModule start failed */
 	XASUFW_IOMODULE_CONNECT_FAILED, /**< 0x10U - IOModule connect failed */
-	XASUFW_IPI_LOOKUP_CONFIG_FAILED, /**< 0x11U - IPI lookup config failed */
+	XASUFW_ERR_RESERVED_11, /**< 0x11U - Reserved */
 	XASUFW_IPI_INVALID_INPUT_PARAMETERS, /**< 0x12U - Received invalid input arguments for IPI
 						send/receive */
 	XASUFW_IPI_POLL_FOR_ACK_FAILED, /**< 0x13U - IPI Poll for ack failed */

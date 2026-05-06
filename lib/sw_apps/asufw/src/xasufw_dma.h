@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -75,7 +75,6 @@ typedef struct {
 /************************************ Function Prototypes ****************************************/
 s32 XAsufw_DmaInit(void);
 XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress);
-s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel);
 s32 XAsufw_StartDmaXfr(XAsufw_Dma *DmaPtr, u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
 s32 XAsufw_DmaXfr(XAsufw_Dma *AsuDmaPtr, u64 SrcAddr, u64 DstAddr, const u32 Size, u32 Flags);
 void XAsufw_DmaCfgNonBlocking(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,

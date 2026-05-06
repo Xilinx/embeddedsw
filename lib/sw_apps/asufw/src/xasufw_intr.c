@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 
@@ -50,20 +50,23 @@
 void XAsufw_HandlePendingInterrupts(void)
 {
 	u32 IrqStatus = XAsufw_ReadReg(ASU_IO_BUS_IRQ_STATUS);
+	u32 HandledMask = 0U;
 
 	/** Call the DMA interrupt handler if the received interrupt is DMA0 Done interrupt. */
 	if ((IrqStatus & ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_MASK) ==
 			ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_MASK) {
 		XAsufw_HandleDmaDoneIntr(ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_NUM);
+		HandledMask |= ASU_IO_BUS_IRQ_STATUS_DMA0_DONE_INTR_MASK;
 	}
 
 	/** Call the DMA interrupt handler if the received interrupt is DMA1 Done interrupt. */
 	if ((IrqStatus & ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_MASK) ==
 			ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_MASK) {
 		XAsufw_HandleDmaDoneIntr(ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_NUM);
+		HandledMask |= ASU_IO_BUS_IRQ_STATUS_DMA1_DONE_INTR_MASK;
 	}
 
 	/** Acknowledge the interrupts at the ASU IO Module. */
-	XAsufw_WriteReg(ASU_IO_BUS_IRQ_ACK, IrqStatus);
+	XAsufw_WriteReg(ASU_IO_BUS_IRQ_ACK, HandledMask);
 }
 /** @} */

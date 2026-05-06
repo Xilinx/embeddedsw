@@ -56,7 +56,6 @@ static XIpiPsu IpiInst; /**< Instance of IPI Driver */
  *
  * @return
  *		- XASUFW_SUCCESS, if initialization of IPI and shared memory is successful.
- *		- XASUFW_IPI_LOOKUP_CONFIG_FAILED, if IPI lookup config failed fails.
  *
  *************************************************************************************************/
 s32 XAsufw_IpiInit(void)
@@ -67,13 +66,14 @@ s32 XAsufw_IpiInit(void)
 	/** Load Config for ASU IPI. */
 	IpiCfgPtr = XIpiPsu_LookupConfig(XASUFW_IPI_DEVICE_ID);
 	if (IpiCfgPtr == NULL) {
-		Status = XAsufw_UpdateErrorStatus(XASUFW_IPI_LOOKUP_CONFIG_FAILED, Status);
 		goto END;
 	}
 
 	/** Initialize the IPI driver. */
 	Status = XIpiPsu_CfgInitialize(&IpiInst, IpiCfgPtr, IpiCfgPtr->BaseAddress);
-
+	if (XASUFW_SUCCESS != Status) {
+		goto END;
+	}
 	/** Enable IPI interrupt from PMC. */
 	XIpiPsu_InterruptEnable(&IpiInst, IPI_ASU_ISR_PMC_MASK);
 
