@@ -54,6 +54,7 @@
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_DmaDrvInit(XAsufw_Dma *DmaPtr, u32 DeviceId);
+static s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel);
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Dma AsuDma0;		/**< Instance of the ASU DMA0 Device */
@@ -197,7 +198,7 @@ XAsufw_Dma *XAsufw_GetDmaInstance(u32 BaseAddress)
  * 	  destination channel WaitForDone.
  *
  *************************************************************************************************/
-s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
+static s32 XAsufw_WaitForDmaDone(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel)
 {
 	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 
@@ -235,17 +236,19 @@ END:
 void XAsufw_DmaCfgNonBlocking(XAsufw_Dma *DmaPtr, XAsuDma_Channel Channel,
 			      const XAsu_ReqBuf *ReqBuf, u32 ReqId, XAsufw_DmaState DmaState)
 {
-	/** Set the required parameters for DMA non-blocking wait operation. */
-	DmaPtr->Channel = Channel;
-	DmaPtr->ReqId = ReqId;
-	DmaPtr->ReqBuf = ReqBuf;
-	DmaPtr->DmaState = DmaState;
+	if ((DmaPtr != NULL) && (ReqBuf != NULL) && (ReqId != 0U)) {
+		/** Set the required parameters for DMA non-blocking wait operation. */
+		DmaPtr->Channel = Channel;
+		DmaPtr->ReqId = ReqId;
+		DmaPtr->ReqBuf = ReqBuf;
+		DmaPtr->DmaState = DmaState;
 
-	/** Enable the interrupt for the specified DMA channel. */
-	XCsuDma_WriteReg(DmaPtr->AsuDma.Config.BaseAddress,
-			 (XCSUDMA_I_EN_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF)),
-			 XCSUDMA_IXR_DONE_MASK);
-	XAsufw_Printf(DEBUG_GENERAL, "Enabled DMA interrupt and going to non-blocking wait.\r\n");
+		/** Enable the interrupt for the specified DMA channel. */
+		XCsuDma_WriteReg(DmaPtr->AsuDma.Config.BaseAddress,
+				 (XCSUDMA_I_EN_OFFSET + ((u32)(DmaPtr->Channel) * XCSUDMA_OFFSET_DIFF)),
+				 XCSUDMA_IXR_DONE_MASK);
+		XAsufw_Printf(DEBUG_GENERAL, "Enabled DMA interrupt and going to non-blocking wait.\r\n");
+	}
 }
 
 /*************************************************************************************************/

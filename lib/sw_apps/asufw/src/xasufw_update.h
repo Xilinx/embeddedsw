@@ -88,7 +88,6 @@ static inline void XAsufw_SetUpdateState(u32 State)
 }
 
 /************************************ Function Prototypes ****************************************/
-s32 XAsufw_ShutdownModules(u32 Op);
 s32 XAsufw_PerformAsufwUpdate(void);
 s32 XAsufw_RestoreDataBackup(void);
 
