@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -357,6 +357,15 @@ XPAR_PROCESSOR_HIER_0_AXI_TIMER_0_CLOCK_FREQUENCY
 
 #define AUXFIFOSIZE 4
 #define XDP_DPCD_EXT_DPCD_FEATURE 0x2210
+
+#ifdef VERSAL_2VE_2VM
+#define PS_IIC_DEVICE_ID XPAR_XIICPS_0_DEVICE_ID
+#define PS_IIC_BASEADDR XPAR_XIICPS_0_BASEADDR
+#else
+#define PS_IIC_DEVICE_ID XPAR_XIICPS_1_DEVICE_ID
+#define PS_IIC_BASEADDR XPAR_XIICPS_1_BASEADDR
+#endif
+
 
 /***************** Macros (Inline Functions) Definitions *********************/
 

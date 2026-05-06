@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2020 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -129,6 +129,16 @@ extern "C" {
 #define XVPHY_DRP_RXCLK25 		0x6D
 #define XVPHY_DRP_TXCLK25 		0x7A
 #define XVPHY_DRP_TXOUT_DIV 		0x7C
+
+#ifdef versal
+#ifdef VERSAL_2VE_2VM
+#define VSWING_VAR 7
+#define POSTCUR_VAR 17
+#else
+#define VSWING_VAR 8
+#define POSTCUR_VAR 18
+#endif
+#endif
 
 /***************** Macros (Inline Functions) Definitions *********************/
 
