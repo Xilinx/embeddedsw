@@ -101,6 +101,20 @@ static XStatus XPmGicProxy_GetTopRegAddr(u32 BaseAddress, u32 RegOffset,
 	return XST_SUCCESS;
 }
 
+/**
+ * @brief  Enable or disable a wake event in the GIC Proxy for a peripheral.
+ *
+ * When enabling, clears any pending IRQ for the peripheral in the GIC Proxy
+ * status register and remembers the wake-source bit so a later call to
+ * XPm_GicProxy.Enable() can program the IRQ-enable register. When disabling,
+ * the wake-source bit is cleared in the cached SetMask only.
+ *
+ * @param  Periph  Pointer to the peripheral whose wake event is configured.
+ * @param  Enable  Non-zero to remember the wake source and clear pending IRQ;
+ *                 zero to clear the cached wake-source bit.
+ *
+ * @return XST_SUCCESS on success, error code on failure.
+ */
 XStatus XPmGicProxy_WakeEventSet(const XPm_Periph *Periph, u8 Enable)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -143,7 +157,9 @@ done:
 }
 
 /**
- * XPmGicProxy_Enable() - Enable all interrupts that are requested
+ * @brief  Enable all interrupts requested as GIC Proxy wake sources.
+ *
+ * @return XST_SUCCESS on success, error code on failure.
  */
 static XStatus XPmGicProxy_Enable(void)
 {
@@ -185,7 +201,9 @@ done:
 }
 
 /**
- * XPm_GicProxyDisable() - Disable all interrupts in the GIC Proxy
+ * @brief  Disable all interrupts in the GIC Proxy.
+ *
+ * @return XST_SUCCESS on success, error code on failure.
  */
 static XStatus XPm_GicProxyDisable(void)
 {
