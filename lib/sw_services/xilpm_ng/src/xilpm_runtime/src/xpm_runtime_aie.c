@@ -1091,7 +1091,11 @@ static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
 		goto done;
 	}
 
-	if ((AIE_OPS_MAX_BUF_SIZE < Size) || (0U == Size)) {
+	if ((AIE_OPS_MAX_BUF_SIZE < Size) ||
+	    (sizeof(struct XPm_AieTypeLen) > Size)) {
+		PmErr("Invalid AIE ops buffer size %u (must be %u..%u)\r\n",
+		      Size, sizeof(struct XPm_AieTypeLen),
+		      AIE_OPS_MAX_BUF_SIZE);
 		Status = XST_INVALID_PARAM;
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
@@ -1117,7 +1121,7 @@ static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
 		goto done;
 	}
 
-	while (Buf < End) {
+	while ((Buf < End) && ((u32)(End - Buf) >= sizeof(struct XPm_AieTypeLen))) {
 		/* Initialize for each Aie operation */
 		Status = XST_FAILURE;
 
