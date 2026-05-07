@@ -352,6 +352,15 @@ int XV_HdmiRx_SetCallback(XV_HdmiRx *InstancePtr,
             Status = (XST_SUCCESS);
             break;
 
+        /* PHY Error */
+        case (XV_HDMIRX_HANDLER_PHY_ERROR):
+            InstancePtr->PhyErrorCallback =
+                                  (XV_HdmiRx_Callback)CallbackFunc;
+            InstancePtr->PhyErrorRef = CallbackRef;
+            InstancePtr->IsPhyErrorCallbackSet = (TRUE);
+            Status = (XST_SUCCESS);
+            break;
+
         default:
             Status = (XST_INVALID_PARAM);
             break;
@@ -875,6 +884,15 @@ static void HdmiRx_TmrIntrHandler(XV_HdmiRx *InstancePtr)
 
             /* Set stream status to lock */
             InstancePtr->Stream.State = XV_HDMIRX_STATE_STREAM_LOCK;
+            XV_HdmiRx_TmrStart(InstancePtr,
+                               XV_HdmiRx_GetTime500Ms(InstancePtr));
+        }
+
+        /* Locked state: stream up did not occur before 500 ms timer */
+        else if (InstancePtr->Stream.State == XV_HDMIRX_STATE_STREAM_LOCK) {
+            if (InstancePtr->IsPhyErrorCallbackSet) {
+                InstancePtr->PhyErrorCallback(InstancePtr->PhyErrorRef);
+            }
         }
     }
 }

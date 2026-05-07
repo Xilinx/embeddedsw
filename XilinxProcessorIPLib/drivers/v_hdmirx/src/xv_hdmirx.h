@@ -176,7 +176,8 @@ typedef enum {
 	XV_HDMIRX_HANDLER_SYNC_LOSS,       /**< Interrupt type for sync loss */
 	XV_HDMIRX_HANDLER_MODE,            /**< Interrupt type for mode */
 	XV_HDMIRX_HANDLER_TMDS_CLK_RATIO, /**< Interrupt type for TMDS clock ratio */
-	XV_HDMIRX_HANDLER_VIC_ERROR	/**< Interrupt type for VIC error */
+	XV_HDMIRX_HANDLER_VIC_ERROR,	/**< Interrupt type for VIC error */
+	XV_HDMIRX_HANDLER_PHY_ERROR	/**< Interrupt type for PHY error */
 } XV_HdmiRx_HandlerType;
 /** @} */
 
@@ -350,6 +351,10 @@ typedef struct {
 	void *VicErrorRef;			/**< To be passed to the vic error callback */
 	u32 IsVicErrorCallbackSet;		/**< Set flag. This flag is set to true when the callback has been registered */
 
+	XV_HdmiRx_Callback PhyErrorCallback;	/**< Callback for PHY error detection */
+	void *PhyErrorRef;			/**< To be passed to the PHY error callback */
+	u32 IsPhyErrorCallbackSet;		/**< Set flag. This flag is set to true when the callback has been registered */
+
 	/* HDMI RX stream */
 	XV_HdmiRx_Stream Stream;				/**< HDMI RX stream information */
 
@@ -408,6 +413,22 @@ typedef struct {
 ******************************************************************************/
 #define XV_HdmiRx_GetTime200Ms(InstancePtr) \
   (InstancePtr)->Config.AxiLiteClkFreq/5
+
+/*****************************************************************************/
+/**
+*
+* This macro returns the clock cycles required to count up to 500MS with
+* respect to AXI Lite Frequency
+*
+* @param  InstancePtr is a pointer to the XV_HdmiRX core instance.
+*
+* @return None.
+*
+* @note		None.
+*
+******************************************************************************/
+#define XV_HdmiRx_GetTime500Ms(InstancePtr) \
+  (InstancePtr)->Config.AxiLiteClkFreq/2
 
 /*****************************************************************************/
 /**
