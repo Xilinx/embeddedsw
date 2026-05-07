@@ -307,7 +307,8 @@ proc xgen_opts_file {libhandle} {
 
 	puts $file_handle "\n/* Debug level option */"
 	if {((($sem_cfrscan_en > 0) || ($sem_npiscan_en > 0)) && ($sem_print_flag == true)) || \
-	    ($opt_data_en == true) || ($proc_type == "psv_pmc" && $macronix_ospi_ddr_en == true)} {
+	    ($proc_type == "psv_pmc" && $opt_data_en == true) || \
+	    ($proc_type == "psv_pmc" && $macronix_ospi_ddr_en == true)} {
 		puts "Level_0 is selected"
 		puts $file_handle "#define PLM_PRINT"
 	} elseif {$value == "level0"} {

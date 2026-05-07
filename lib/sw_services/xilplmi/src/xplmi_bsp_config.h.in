@@ -14,7 +14,7 @@
 #cmakedefine    PLM_MACRONIX_OSPI_DDR
 #if ((((defined(XSEM_CFRSCAN_EN)) || (defined(XSEM_NPISCAN_EN))) && \
 	(defined(PLM_SEM_PRINT_OVERRIDE))) || \
-	(defined(PLM_GET_OPT_DATA_EN)) || \
+	((defined(PLM_GET_OPT_DATA_EN) && (defined(VERSAL)))) || \
 	((defined(PLM_MACRONIX_OSPI_DDR)) && (defined(VERSAL))) || \
 	(defined(PLM_PRINT_LEVEL0)))
 #define PLM_PRINT
