@@ -32,6 +32,9 @@
 * 		      re-initialization that clears interrupt enables.
 * 9.5   ml   26/02/26 Fixed PPI interrupt ID encoding.
 * 9.5   ml   13/03/26 Fixed XSetPriorityTriggerType trigger mapping.
+* 9.5   ml   31/03/26 Bridge INTC through GIC in XSetupInterruptSystem for
+*                     cascaded INTC-to-GIC topologies. Fixed XDisableIntrId
+*                     to decode IntrId before passing to XIntc_Disable.
 * </pre>
 *
 ******************************************************************************/
@@ -68,6 +71,10 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 	int Status = XST_FAILURE;
 	UINTPTR BaseAddr = XGet_BaseAddr(IntcParent);
 #endif
+#if defined (XPAR_AXI_INTC)
+	XIntc_Config *PrimaryCfg;
+	UINTPTR InitBaseAddr;
+#endif
 
 	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
 #if defined (XPAR_SCUGIC)
@@ -78,8 +85,11 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 #else
 			CfgPtr = XScuGic_LookupConfigBaseAddr(BaseAddr);
 #endif
+			if (CfgPtr == NULL) {
+				return XST_FAILURE;
+			}
 			if (!ScuGicInitialized) {
-				Status = XScuGic_CfgInitialize(&XScuGicInstance, CfgPtr, 0);
+				Status = XScuGic_CfgInitialize(&XScuGicInstance, CfgPtr, CfgPtr->DistBaseAddress);
 			} else {
 				Status = XST_SUCCESS;
 			}
@@ -93,7 +103,21 @@ int XConfigInterruptCntrl(UINTPTR IntcParent)
 	} else {
 #if defined (XPAR_AXI_INTC)
 		if (XIntcInstance.IsReady != XIL_COMPONENT_IS_READY) {
-			Status = XIntc_Initialize(&XIntcInstance, BaseAddr);
+			/*
+			 * In cascade mode, override the caller-supplied BaseAddr
+			 * with the PRIMARY controller's address, since
+			 * XIntc_Initialize must always target the root controller
+			 * that connects to the CPU (or GIC).
+			 */
+			PrimaryCfg = XIntc_GetPrimaryController();
+			if (PrimaryCfg != NULL &&
+			    PrimaryCfg->IntcType != XIN_INTC_NOCASCADE) {
+				InitBaseAddr = PrimaryCfg->BaseAddress;
+			} else {
+				InitBaseAddr = BaseAddr;
+			}
+
+			Status = XIntc_Initialize(&XIntcInstance, InitBaseAddr);
 		} else {
 			Status = XST_SUCCESS;
 		}
@@ -349,7 +373,8 @@ void XDisableIntrId( u32 IntrId, UINTPTR IntcParent)
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
-		XIntc_Disable(&XIntcInstance, IntrId);
+		u16 IntrNum = XGet_IntrId(IntrId);
+		XIntc_Disable(&XIntcInstance, IntrNum);
 #endif
 	}
 }
@@ -473,6 +498,11 @@ void XRegisterInterruptHandler(void *IntrHandler,  UINTPTR IntcParent)
 #endif
 	} else {
 #if defined (XPAR_AXI_INTC)
+		/*
+		 * For cascade mode, the exception handler must always be registered with
+		 * the PRIMARY controller (connected to CPU), not secondary controllers.
+		 * Use XIntcInstance which is initialized with the PRIMARY controller.
+		 */
 		if (IntrHandler == NULL) {
 			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT, \
 						     (Xil_ExceptionHandler) XIntc_InterruptHandler,
@@ -513,7 +543,10 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 		return XST_FAILURE;
 	}
 #if defined (XPAR_SCUGIC)
-	ScuGicInitialized = TRUE;
+	/* Only set ScuGicInitialized if we actually initialized a GIC */
+	if (XGet_IntcType(IntcParent) == XINTC_TYPE_IS_SCUGIC) {
+		ScuGicInitialized = TRUE;
+	}
 	XSetPriorityTriggerType( IntrId, Priority, IntcParent);
 #else
 	(void)Priority;
@@ -526,9 +559,62 @@ int XSetupInterruptSystem(void *DriverInstance, void *IntrHandler, u32 IntrId,  
 #if defined (XPAR_AXI_INTC)
 	XStartInterruptCntrl(XIN_REAL_MODE, IntcParent);
 #endif
-	XRegisterInterruptHandler(NULL, IntcParent);
-	XEnableIntrId(IntrId, IntcParent);
 	Xil_ExceptionInit();
+
+#if defined (XPAR_AXI_INTC) && defined (XPAR_SCUGIC) && defined (SDT)
+	{
+		static int GicIntcSetup = 0;
+		XIntc_Config *PrimaryCfg = XIntc_GetPrimaryController();
+
+		if (!GicIntcSetup && PrimaryCfg != NULL &&
+		    (PrimaryCfg->IntrParent != XINTC_NO_PARENT) &&
+		    XGet_IntcType(PrimaryCfg->IntrParent) == XINTC_TYPE_IS_SCUGIC) {
+			u16 GicIntrNum;
+
+			/* Initialize GIC if needed for INTC->GIC connection */
+			if (!ScuGicInitialized) {
+				Status = XConfigInterruptCntrl(PrimaryCfg->IntrParent);
+				if (Status != XST_SUCCESS) {
+					return XST_FAILURE;
+				}
+				ScuGicInitialized = TRUE;
+			}
+
+			GicIntrNum = XGet_IntrId(PrimaryCfg->IntrId) +
+				     XGet_IntrOffset(PrimaryCfg->IntrId);
+
+			XScuGic_SetPriorityTriggerType(&XScuGicInstance,
+						       GicIntrNum,
+						       XINTERRUPT_DEFAULT_PRIORITY,
+						       XINTR_IS_LEVEL_TRIGGERED);
+
+			Status = XScuGic_Connect(&XScuGicInstance, GicIntrNum,
+						 (Xil_ExceptionHandler)XIntc_InterruptHandler,
+						 &XIntcInstance);
+			if (Status != XST_SUCCESS) {
+				return XST_FAILURE;
+			}
+
+			XScuGic_Enable(&XScuGicInstance, GicIntrNum);
+
+			/*
+			 * In INTC->GIC mode, register GIC as the CPU exception
+			 * handler since it is the top-level controller.
+			 */
+			Xil_ExceptionRegisterHandler(XIL_EXCEPTION_ID_INT,
+						     (Xil_ExceptionHandler)XScuGic_InterruptHandler,
+						     &XScuGicInstance);
+
+			GicIntcSetup = 1;
+		} else {
+			XRegisterInterruptHandler(NULL, IntcParent);
+		}
+	}
+#else
+	XRegisterInterruptHandler(NULL, IntcParent);
+#endif
+
+	XEnableIntrId(IntrId, IntcParent);
 	Xil_ExceptionEnable();
 	return XST_SUCCESS;
 }

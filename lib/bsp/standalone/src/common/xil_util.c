@@ -155,7 +155,6 @@ u32 Xil_IsValidHexChar(const char *Ch)
 
 		Status = XST_SUCCESS;
 	}
-END:
 	return Status;
 }
 
@@ -334,7 +333,6 @@ u32 Xil_Strnlen(const char *Str, u32 MaxLen)
 		InStr++;
 	}
 
-END:
 	return StrLen;
 }
 
