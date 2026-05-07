@@ -207,6 +207,8 @@
 *                      usage
 * 3.21   ml   09/13/25 Added support for IntrId and IntrParent to enable interrupt
 *                      routing through the GIC from the INTC.
+* 3.22   ml   26/02/26 Added cascade helper macros and XIntc_GetPrimaryController()
+*                      API to support topology-aware cascade in SDT flow.
 * </pre>
 *
 ******************************************************************************/
@@ -280,6 +282,32 @@ extern "C" {
 					       interrupt pins */
 
 #define XINTC_STANDARD_VECTOR_ADDRESS_WIDTH	32U
+
+/**
+ * Bitmask for the cascade interrupt input (bit 31) used by PRIMARY and
+ * SECONDARY controllers to chain to the next controller in cascade mode.
+ */
+#define XIN_CASCADE_IRQ_MASK		0x80000000U
+
+/**
+ * Maximum number of interrupt controllers that can be daisy-chained
+ * together in cascade mode. Limited to 8 because the driver API uses
+ * u8 for global interrupt IDs (max 255), and each controller owns 32
+ * interrupt positions (8 * 32 = 256).
+ */
+#define XINTC_MAX_CASCADE_CONTROLLERS	8U
+
+/**
+ * Mask used to extract the parent controller base address from IntrParent
+ * by clearing the LSB which encodes the parent type (GIC vs INTC).
+ */
+#define XINTC_INTR_PARENT_MASK		(~(UINTPTR)1U)
+
+/**
+ * Sentinel value indicating that an interrupt controller has no parent
+ * controller (i.e. it is the root of the interrupt hierarchy).
+ */
+#define XINTC_NO_PARENT			((UINTPTR)0xFFFF)
 /*@}*/
 
 /**************************** Type Definitions *******************************/
@@ -309,15 +337,14 @@ typedef struct {
 				               3 - last instance */
 
 	/** Static vector table of interrupt handlers */
-#if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
-	XIntc_VectorTableEntry HandlerTable[XIN_CONTROLLER_MAX_INTRS];
-#else
 	XIntc_VectorTableEntry HandlerTable[XPAR_INTC_MAX_NUM_INTR_INPUTS];
-#endif
 	int NumberofSwIntrs;      /**< Number of SW interrupts */
 #if defined(SDT)
-	u32 IntrId;
-	UINTPTR IntrParent;
+	u32 IntrId;		/**< Interrupt ID used to register this controller
+				     with the parent interrupt controller or GIC */
+	UINTPTR IntrParent;	/**< Base address of the parent interrupt controller;
+				     LSB encodes type (0 = GIC, 1 = INTC),
+				     XINTC_NO_PARENT if no parent exists */
 #endif
 } XIntc_Config;
 
@@ -366,6 +393,7 @@ XIntc_Config *XIntc_LookupConfig(u16 DeviceId);
 XIntc_Config *XIntc_LookupConfig(UINTPTR BaseAddr);
 #endif
 XIntc_Config *LookupConfigByBaseAddress(UINTPTR BaseAddress);
+XIntc_Config *XIntc_GetPrimaryController(void);
 
 extern XIntc_Config XIntc_ConfigTable[];
 
