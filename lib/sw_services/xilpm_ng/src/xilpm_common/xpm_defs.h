@@ -718,8 +718,8 @@ enum XPmNotifyEvent {
 	(u8)XPM_DSTN_CLUSTER_0: (u8)XPM_DSTN_CLUSTER_1)
 
 #define GET_RPU_CORE_NUM(DeviceId) \
-	((((DeviceId) == PM_DEV_RPU_A_0) || ((DeviceId) == PM_DEV_RPU_B_0)) ? \
-	XPM_DSTN_CORE_0 : XPM_DSTN_CORE_1)
+	((DeviceId == PM_DEV_RPU_A_0) || (DeviceId == PM_DEV_RPU_B_0)? \
+	XPM_DSTN_CORE_0:XPM_DSTN_CORE_1)
 /** @} */
 
 #ifdef __cplusplus
