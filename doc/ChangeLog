@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Changes for 2026.1
 ===============================
 axidma_v9_21:
@@ -379,9 +378,6 @@ Update HMAC maximum input key length to 1KB
 
 
 
-
-=======
-Changes For 2026.1
 
 New Files Added For 2026.1:
 
@@ -852,7 +848,6 @@ lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.c
 lib/sw_services/xilsecure/src/server/core/lms_hss/xsecure_lms_ots.h
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_eio.c
 lib/sw_services/xilpm_ng/src/xilpm_boot/versal_2ve_2vm/xpm_repair_vip.c
->>>>>>> e651ef87c7 (ESW license update)
 
 
 
