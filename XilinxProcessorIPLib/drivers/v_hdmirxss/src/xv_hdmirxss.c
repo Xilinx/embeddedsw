@@ -154,6 +154,7 @@ static void XV_HdmiRxSs_SyncLossCallback(void *CallbackRef);
 static void XV_HdmiRxSs_ModeCallback(void *CallbackRef);
 static void XV_HdmiRxSs_TmdsClkRatioCallback(void *CallbackRef);
 static void XV_HdmiRxSs_VicErrorCallback(void *CallbackRef);
+static void XV_HdmiRxSs_PhyErrorCallback(void *CallbackRef);
 
 static void XV_HdmiRxSs_ReportCoreInfo(XV_HdmiRxSs *InstancePtr);
 static void XV_HdmiRxSs_ReportTiming(XV_HdmiRxSs *InstancePtr);
@@ -429,6 +430,11 @@ static int XV_HdmiRxSs_RegisterSubsysCallbacks(XV_HdmiRxSs *InstancePtr)
     XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
                           XV_HDMIRX_HANDLER_VIC_ERROR,
                           (void *)XV_HdmiRxSs_VicErrorCallback,
+                          (void *)InstancePtr);
+
+    XV_HdmiRx_SetCallback(HdmiRxSsPtr->HdmiRxPtr,
+                          XV_HDMIRX_HANDLER_PHY_ERROR,
+                          (void *)XV_HdmiRxSs_PhyErrorCallback,
                           (void *)InstancePtr);
   }
 
@@ -1076,6 +1082,28 @@ static void XV_HdmiRxSs_VicErrorCallback(void *CallbackRef)
 /*****************************************************************************/
 /**
 *
+* This function is called when a PHY error has occurred (e.g. stream up
+* timeout while locked; application may reset the video PHY).
+*
+* @param  CallbackRef is a reference to the HDMI RX Subsystem instance.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+static void XV_HdmiRxSs_PhyErrorCallback(void *CallbackRef)
+{
+  XV_HdmiRxSs *HdmiRxSsPtr = (XV_HdmiRxSs *)CallbackRef;
+
+  if (HdmiRxSsPtr->PhyErrorCallback) {
+    HdmiRxSsPtr->PhyErrorCallback(HdmiRxSsPtr->PhyErrorRef);
+  }
+}
+
+/*****************************************************************************/
+/**
+*
 * This function retrieves the Vendor Specific Info Frame.
 *
 * @param  None.
@@ -1444,6 +1472,12 @@ int XV_HdmiRxSs_SetCallback(XV_HdmiRxSs *InstancePtr,
         case (XV_HDMIRXSS_HANDLER_VIC_ERROR):
             InstancePtr->VicErrorCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
             InstancePtr->VicErrorRef = CallbackRef;
+            Status = (XST_SUCCESS);
+            break;
+
+        case (XV_HDMIRXSS_HANDLER_PHY_ERROR):
+            InstancePtr->PhyErrorCallback = (XV_HdmiRxSs_Callback)CallbackFunc;
+            InstancePtr->PhyErrorRef = CallbackRef;
             Status = (XST_SUCCESS);
             break;
 

@@ -300,8 +300,10 @@ typedef enum {
   XV_HDMIRXSS_HANDLER_TMDS_CLK_RATIO,               /**< Handler type for
                                                          TMDS clock ratio
                                                          change */
-  XV_HDMIRXSS_HANDLER_VIC_ERROR                     /**< Handler type for
+  XV_HDMIRXSS_HANDLER_VIC_ERROR,                    /**< Handler type for
                                                          VIC error change */
+  XV_HDMIRXSS_HANDLER_PHY_ERROR                     /**< Handler type for
+                                                         PHY error event */
 } XV_HdmiRxSs_HandlerType;
 /*@}*/
 
@@ -429,6 +431,9 @@ typedef struct
   XV_HdmiRxSs_Callback VicErrorCallback;  /**< Callback for VIC error
                                                detection */
    void *VicErrorRef;   /**< To be passed to the VIC error callback */
+
+  XV_HdmiRxSs_Callback PhyErrorCallback;  /**< Callback for PHY error detection */
+  void *PhyErrorRef;   /**< To be passed to the PHY error callback */
 
 /*  Scratch pad */
   u8 IsStreamConnected;         /**< HDMI RX Stream Connected */
