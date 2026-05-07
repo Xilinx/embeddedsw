@@ -49,7 +49,6 @@ void XPmRpuCore_AssignRegAddr(struct XPm_RpuCore *RpuCore, const u32 Id, const u
 void XPm_GetCoreId(u32 *Rpu0, u32 *Rpu1, const u32 DeviceId);
 void XPmRpuCore_SetTcmBoot(const u32 DeviceId, const u8 TcmBootFlag);
 XStatus XPmRpuCore_ReleaseReset(u32 CoreId);
-XStatus XPmRpuCore_IsValidCoreInLockstep(u32 DeviceId);
 XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address);
 XStatus XPmRpuCore_PwrDwn(XPm_Core *Core);
 #ifdef __cplusplus

@@ -10,7 +10,6 @@
 #include "xpm_api.h"
 #include "xpm_pslpdomain.h"
 #include "xpm_mem.h"
-#include "xpm_debug.h"
 
 static XStatus SetResetState(const XPm_RpuCore *Core, u32 Value);
 static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
@@ -18,62 +17,10 @@ static XStatus XPm_PlatRpucoreHalt(u32 CoreId);
 static XStatus XPm_PlatRpuSetOperMode(const struct XPm_RpuCore *RpuCore, const u32 Mode, u32 *Val);
 /** @brief Returns the current RPU cluster operating mode. */
 static u32 XPm_PlatRpuGetOperMode(const struct XPm_RpuCore *RpuCore);
-
-/**
- * @brief Check if RPU core is valid in lockstep mode
- *
- * @param DeviceId Device ID of the RPU core
- *
- * @return XST_SUCCESS if core is valid, XST_INVALID_PARAM otherwise
- *
- * @note In lockstep mode for Versal Gen 2, only RPU0 (R52-0) is valid for each cluster.
- * RPU1 (R52-1) is invalid and should not be allowed to wake up or power down.
- */
-XStatus XPmRpuCore_IsValidCoreInLockstep(u32 DeviceId)
-{
-	XStatus Status = XST_FAILURE;
-	u32 OperMode = XPM_INVAL_OPER_MODE;
-
-	/* Get the operation mode */
-	Status = XPm_RpuGetOperMode(DeviceId, &OperMode);
-	if (XST_SUCCESS != Status) {
-		PmErr("Failed to get RPU operation mode\r\n");
-		goto done;
-	}
-
-	/* If in split mode, all cores are valid */
-	if (XPM_RPU_MODE_SPLIT == OperMode) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	/* In lockstep mode, only core 0 of each cluster is valid */
-	if((u32)XPM_DSTN_CORE_0 != GET_RPU_CORE_NUM(DeviceId)) {
-		PmErr("Invalid RPU core 0x%x in lockstep mode\r\n", DeviceId);
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	Status = XST_SUCCESS;
-done:
-	return Status;
-}
-
 XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_RpuCore *RpuCore = (XPm_RpuCore *)Core;
-
-	if (Core == NULL) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Check if this core is valid in lockstep mode */
-	Status = XPmRpuCore_IsValidCoreInLockstep(Core->Device.Node.Id);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
 	Status = XPmCore_WakeUp(Core, SetAddress, Address);
 	if (XST_SUCCESS != Status) {
@@ -91,17 +38,6 @@ XStatus XPmRpuCore_WakeUp(XPm_Core *Core, u32 SetAddress, u64 Address)
 XStatus XPmRpuCore_PwrDwn(XPm_Core *Core)
 {
 	XStatus Status = XST_FAILURE;
-
-	if (Core == NULL) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
-	/* Check if this core is valid in lockstep mode */
-	Status = XPmRpuCore_IsValidCoreInLockstep(Core->Device.Node.Id);
-	if (XST_SUCCESS != Status) {
-		goto done;
-	}
 
 	Status = XPm_PlatRpucoreHalt(Core->Device.Node.Id);
 	if (XST_SUCCESS != Status) {

@@ -58,14 +58,6 @@ XStatus XPm_RpuBootAddrConfig(const u32 DeviceId, const u32 BootAddr)
 		PmErr("Unable to get RPU Core for Id: 0x%x\n\r", DeviceId);
 		goto done;
 	}
-
-	/* Check if this core is valid in lockstep mode */
-	Status = XPmRpuCore_IsValidCoreInLockstep(DeviceId);
-	if (XST_SUCCESS != Status) {
-		Status = XST_INVALID_PARAM;
-		goto done;
-	}
-
 	XSECURE_REDUNDANT_CALL(Status, StatusTmp, SetBootAddr, RpuCore, BootAddr);
 	if ((XST_SUCCESS != Status) || (XST_SUCCESS != StatusTmp)) {
 		Status |= StatusTmp;
