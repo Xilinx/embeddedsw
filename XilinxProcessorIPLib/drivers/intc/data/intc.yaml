@@ -1,4 +1,4 @@
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
@@ -32,8 +32,8 @@ properties:
     description: Vector address width supported by controller
   options:
     description: Options to be enabled
-  xlnx,intctype:
-    description:0 Normal, no cascade mode. 1 - Primary/Master controller, 2- secondary instance, 3-last instance
+  xlnx,intc-type:
+    description: 0 Normal, no cascade mode. 1 - Primary/Master controller, 2 - secondary instance, 3 - last instance
 
 config:
     - XIntc_Config
@@ -47,7 +47,7 @@ required:
     - xlnx,num-intr-inputs
     - xlnx,addr-width
     - options
-    - xlnx,intctype
+    - xlnx,intc-type
     - Handler-table
     - xlnx,num-sw-intr
     - interrupts
@@ -58,6 +58,7 @@ additionalProperties:
     - xlnx,has-cie
     - xlnx,has-sie
     - xlnx,has-ipr
+    - xlnx,has-fast
 
 examples:
     xintc_example.c:

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2002 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,6 +66,10 @@
 * 3.19  ml   09/11/24 Typecasted the return value of XIntc_GetIntrStatus to void
 *                     to fix compilation warning  [-Wunused-value]
 * 3.20  ml   12/19/24 Fixed GCC warnings
+* 3.22  ml   26/02/26 Updated cascade handler to resolve child controllers via
+*                     config table lookup in SDT flow. Extended interrupt
+*                     service loop to cover cascade bit 31. Fixed preprocessor
+*                     guards to enable cascade support in SDT builds.
 * </pre>
 *
 ******************************************************************************/
@@ -91,7 +95,7 @@
 
 /************************** Function Prototypes ******************************/
 
-#if XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE
+#if defined(SDT) || (defined(XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE))
 static void XIntc_CascadeHandler(void *DeviceId);
 #endif
 
@@ -176,7 +180,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 {
 	u32 IntrStatus;
 	u32 IntrMask = 1;
-	int IntrNumber;
+	u32 IntrNumber;
 	XIntc_Config *CfgPtr;
 	u32 Imr;
 
@@ -187,7 +191,7 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 	CfgPtr = &XIntc_ConfigTable[(UINTPTR)DeviceId];
 #endif
 
-#if defined (XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE)
+#if defined(SDT) || (defined(XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE))
 	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE) {
 		XIntc_CascadeHandler(DeviceId);
 	} else
@@ -217,7 +221,8 @@ void XIntc_DeviceInterruptHandler(void *DeviceId)
 		 * checking each bit in the register from LSB to MSB which
 		 * corresponds to an interrupt input signal
 		 */
-		for (IntrNumber = 0; IntrNumber < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs);
+		for (IntrNumber = 0;
+		     IntrNumber < (u32)(CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs);
 		     IntrNumber++) {
 			if (IntrStatus & 1) {
 				XIntc_VectorTableEntry *TablePtr;
@@ -593,7 +598,7 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 	}
 }
 
-#if defined (XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE)
+#if defined(SDT) || (defined(XPAR_INTC_0_INTC_TYPE) && (XPAR_INTC_0_INTC_TYPE != XIN_INTC_NOCASCADE))
 /*****************************************************************************/
 /**
 *
@@ -617,17 +622,49 @@ void XIntc_RegisterFastHandler(UINTPTR BaseAddress, u8 Id,
 * @note
 *
 ******************************************************************************/
+
+#ifdef SDT
+/*
+ * Returns the base address of the first child controller whose
+ * interrupt-parent points to ParentBaseAddr. In cascade mode each
+ * controller uses IRQ 31 as its single cascade output, so there is
+ * at most one child per parent.
+ */
+static UINTPTR XIntc_GetChildBaseAddress(UINTPTR ParentBaseAddr)
+{
+	u32 i;
+	UINTPTR ParentAddr;
+
+	for (i = 0; i < XPAR_INTC_NUM_DRV_INSTANCES; i++) {
+		ParentAddr = XIntc_ConfigTable[i].IntrParent &
+			     XINTC_INTR_PARENT_MASK;
+		if (ParentAddr == ParentBaseAddr) {
+			return XIntc_ConfigTable[i].BaseAddress;
+		}
+	}
+	return 0;
+}
+#endif
+
 static void XIntc_CascadeHandler(void *DeviceId)
 {
 	u32 IntrStatus;
 	u32 IntrMask = 1;
-	int IntrNumber;
+	u32 IntrNumber;
 	u32 Imr;
 	XIntc_Config *CfgPtr;
+	u32 LoopBound;
+#ifndef SDT
 	static int Id = 0;
+#endif
 
 	/* Get the configuration data using the device ID */
+#ifndef SDT
 	CfgPtr = &XIntc_ConfigTable[(UINTPTR)DeviceId];
+#else
+	CfgPtr = LookupConfigByBaseAddress((UINTPTR)DeviceId);
+#endif
+
 	if (CfgPtr == NULL) {
 		return;
 	}
@@ -641,11 +678,23 @@ static void XIntc_CascadeHandler(void *DeviceId)
 		IntrStatus &=  ~Imr;
 	}
 
+	/*
+	 * In cascade mode, PRIMARY and SECONDARY controllers use bit 31 for
+	 * cascading to child controllers. NumberofIntrs may not include this
+	 * cascade bit, so extend the loop to cover all 32 positions.
+	 */
+	LoopBound = CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs;
+	if (CfgPtr->IntcType != XIN_INTC_NOCASCADE &&
+	    CfgPtr->IntcType != XIN_INTC_LAST &&
+	    LoopBound < XIN_CONTROLLER_MAX_INTRS) {
+		LoopBound = XIN_CONTROLLER_MAX_INTRS;
+	}
+
 	/* Service each interrupt that is active and enabled by
 	 * checking each bit in the register from LSB to MSB which
 	 * corresponds to an interrupt input signal
 	 */
-	for (IntrNumber = 0; IntrNumber < (CfgPtr->NumberofIntrs + CfgPtr->NumberofSwIntrs); IntrNumber++) {
+	for (IntrNumber = 0; IntrNumber < LoopBound; IntrNumber++) {
 		if (IntrStatus & 1) {
 			XIntc_VectorTableEntry *TablePtr;
 
@@ -656,8 +705,17 @@ static void XIntc_CascadeHandler(void *DeviceId)
 			if ((IntrNumber == 31) &&
 			    (CfgPtr->IntcType != XIN_INTC_LAST) &&
 			    (CfgPtr->IntcType != XIN_INTC_NOCASCADE)) {
+#ifdef SDT
+				/* In SDT flow, find child controller by searching config table */
+				UINTPTR ChildBaseAddr = XIntc_GetChildBaseAddress(CfgPtr->BaseAddress);
+				if (ChildBaseAddr != 0) {
+					XIntc_CascadeHandler((void *)ChildBaseAddr);
+				}
+#else
+				/* In non-SDT flow, use device ID incremented by 1 */
 				XIntc_CascadeHandler((void *)++Id);
 				Id--;
+#endif
 			}
 
 			/* If the interrupt has been setup to
