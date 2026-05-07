@@ -169,6 +169,9 @@ int XV_HdmiRx_CfgInitialize(XV_HdmiRx *InstancePtr, XV_HdmiRx_Config *CfgPtr, UI
     InstancePtr->VicErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
     InstancePtr->IsVicErrorCallbackSet = (FALSE);
 
+    InstancePtr->PhyErrorCallback = (XV_HdmiRx_Callback)((void *)StubCallback);
+    InstancePtr->IsPhyErrorCallbackSet = (FALSE);
+
     /* Clear HDMI variables */
     XV_HdmiRx_Clear(InstancePtr);
 
