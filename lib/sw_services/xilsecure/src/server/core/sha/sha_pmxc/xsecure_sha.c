@@ -840,6 +840,13 @@ u64 DataAddr, u32 DataSize, u64 HashAddr, u32 HashBufSize)
 		goto END;
 	}
 
+	/** - Validate the SHA mode and initialize SHA instance based on SHA mode. */
+	Status = XSecure_ShaValidateModeAndCfgInstance(InstancePtr, ShaMode);
+	if(Status != XST_SUCCESS) {
+		Status = (int)XSECURE_SHA_INVALID_PARAM;
+		goto END;
+	}
+
 	if (HashBufSize < ShaPlatConfig->ShaDigestSize) {
 		Status = (int)XSECURE_SHA_INVALID_PARAM;
 		goto END;
