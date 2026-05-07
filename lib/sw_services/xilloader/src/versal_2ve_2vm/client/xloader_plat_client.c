@@ -205,9 +205,10 @@ typedef struct {
 static int XLoader_ComputeSha3Hash(u64 DataAddr, u32 DataSize, u64 HashOut);
 static int XLoader_ValidateBhHBCertAndAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, u64 *MhOffset);
 static int XLoader_VerifyPlmNPmcCdoAuth(u64 PdiAddr, u64 BhAddr);
-static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u64 MhOffset,
-		u32 PrtnStartIdx);
-static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr, u64 PrtnIdx);
+static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr,
+	const u64 MhOffset, u32 PrtnStartIdx, const u32 PdiType);
+static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr, u64 PrtnIdx,
+	const u32 PdiType);
 static int XLoader_VerifyAuthHashBlock(XLoader_ClientInstance *InstancePtr, u64 HBSignParamsAddr, u64 HBInstanceAddr);
 
 /************************** Variable Definitions *****************************/
@@ -606,12 +607,14 @@ END:
  * @param	PdiAddr	Address where authenticated PDI is present
  * @param	PrtnHdr	Pointer to partition header information
  * @param	PrtnIdx	Partition index in the hash block
+ * @param	PdiType	Type of PDI (full or partial) to determine hash block indexing
  *
  * @return
  *		 - XST_SUCCESS on success and error code on failure
  *
  ******************************************************************************/
-static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr, u64 PrtnIdx)
+static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr, u64 PrtnIdx,
+	const u32 PdiType)
 {
 	volatile int Status = XST_FAILURE;
 	/* Convert word offsets to byte addresses for partition data access */
@@ -621,6 +624,17 @@ static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr,
 	u64 Sha3DstAddr = (UINTPTR)&Sha3Hash;
 	u32 LastChunk = FALSE;
 	u32 ChunkLen;
+	u64 HBPrtnIdx;
+
+	/* For partial PDI, index starts from 0 for PLM loadable partitions as there is no PLM
+	 * but the hash block still starts from index 0 for the IHT, from 1 for partitions.
+	 */
+	if (PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+		HBPrtnIdx = PrtnIdx;
+	}
+	else {
+		HBPrtnIdx = PrtnIdx + 1U;
+	}
 
 	/* Iterate over each chunk of the partition, verifying SHA3 hash incrementally */
 	do {
@@ -644,7 +658,7 @@ static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr,
 		if (Block == 0U) {
 			/* First block: compare hash against the partition's Hash Block entry */
 			Block++;
-			Status = Xil_SMemCmp((void *)&HashBlock.HashData[PrtnIdx].PrtnHash,
+			Status = Xil_SMemCmp((void *)&HashBlock.HashData[HBPrtnIdx].PrtnHash,
 					XLOADER_SHA3_HASH_LEN_IN_BYTES, (void *)(UINTPTR)Sha3Hash,
 					XLOADER_SHA3_HASH_LEN_IN_BYTES,
 					XLOADER_SHA3_HASH_LEN_IN_BYTES);
@@ -695,23 +709,22 @@ END:
  * @param	InstancePtr	Pointer to XLoader_ClientInstance
  * @param	PdiAddr		Base address of the PDI in memory
  * @param	MhOffset	Byte offset from PdiAddr to the IHT
- * @param	PrtnStartIdx	Partition index to start from (1 for full PDI,
- *				0 for partial PDI)
+ * @param	PrtnStartIdx	Partition index to start from (1 for full PDI, 0 for partial PDI)
+ * @param	PdiType		Type of PDI (full or partial) to determine hash block indexing
  *
  * @return
  *		 - XST_SUCCESS on success
  *		 - Error code on failure
  *
  ******************************************************************************/
-static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr, const u64 MhOffset,
-		u32 PrtnStartIdx)
+static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAddr,
+	const u64 MhOffset, u32 PrtnStartIdx, const u32 PdiType)
 {
 	volatile int Status = XST_FAILURE;
 	u64 MhAddr = PdiAddr + MhOffset;
 	const XilLoader_ImgHdrTbl *IhtPtr = (const XilLoader_ImgHdrTbl *)(UINTPTR)MhAddr;
 	u64 Sha3DstAddr = (UINTPTR)&Sha3Hash;
-	/* Hash Block 1 is located at the word offset stored in the Image Header Table */
-	u64 Hb1Addr = PdiAddr + ((u64)IhtPtr->HashBlockOffset << XLOADER_WORD_LEN_SHIFT);
+	u64 Hb1Addr;
 	u32 MhDataSize;
 	XilLoader_PrtnHdr PrtnHdr[XLOADER_IH_MAX_PRTNS] = {0U};
 	u32 TotalLengthOfPrtnHdr;
@@ -746,29 +759,35 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 		goto END;
 	}
 
-	/* Compute SHA3 for Hash Block 1 (to validate with hash in the Hash Block 0) */
-	Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
-	Status = XLoader_ComputeSha3Hash(Hb1Addr, (IhtPtr->HashBlockSize * XLOADER_WORD_LEN), Sha3DstAddr);
-	if(Status != XST_SUCCESS) {
-		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for Hash Block 1 failed, Status = 0x%x\r\n", Status);
-		goto END;
-	}
+	/* In case of Partial PDI, there is no HB0 to verify hash of HB1 */
+	if (PdiType != XLOADER_PDI_TYPE_PARTIAL) {
+		/* Hash Block 1 is located at the word offset stored in the Image Header Table */
+		Hb1Addr = PdiAddr + ((u64)IhtPtr->HashBlockOffset << XLOADER_WORD_LEN_SHIFT);
 
-	/* Compare computed SHA3 hash with the hash in the Hash Block 0 3rd partition index */
-	Status = Xil_SMemCmp((void *)&HashBlock0.HashData[XLOADER_HB0_INDEX_3_HB1].PrtnHash,
-			XLOADER_SHA3_HASH_LEN_IN_BYTES,	(void *)(UINTPTR)Sha3Hash,
-			XLOADER_SHA3_HASH_LEN_IN_BYTES, XLOADER_SHA3_HASH_LEN_IN_BYTES);
-	if (Status != XST_SUCCESS) {
-		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Hash mismatch for Hash Block 1, Status = 0x%x\r\n", Status);
-		goto END;
-	}
+		/* Compute SHA3 for Hash Block 1 (to validate with hash in the Hash Block 0) */
+		Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		Status = XLoader_ComputeSha3Hash(Hb1Addr, (IhtPtr->HashBlockSize * XLOADER_WORD_LEN), Sha3DstAddr);
+		if(Status != XST_SUCCESS) {
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for Hash Block 1 failed, Status = 0x%x\r\n", Status);
+			goto END;
+		}
 
-	XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Verified hash of Hash Block 1\r\n");
+		/* Compare computed SHA3 hash with the hash in the Hash Block 0 3rd partition index */
+		Status = Xil_SMemCmp((void *)&HashBlock0.HashData[XLOADER_HB0_INDEX_3_HB1].PrtnHash,
+				XLOADER_SHA3_HASH_LEN_IN_BYTES,	(void *)(UINTPTR)Sha3Hash,
+				XLOADER_SHA3_HASH_LEN_IN_BYTES, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		if (Status != XST_SUCCESS) {
+			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Hash mismatch for Hash Block 1, Status = 0x%x\r\n", Status);
+			goto END;
+		}
+
+		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Verified hash of Hash Block 1\r\n");
+	}
 
 	/* Compute SHA3 for Meta Header (to validate with hash in the Hash Block 1) */
 	/* The size of MH for which SHA3 to be computed */
 	MhDataSize =  XLOADER_IHT_SIZE;
-	MhDataSize += (IhtPtr->OptionalDataLen * XLOADER_WORD_LEN) ;
+	MhDataSize += (IhtPtr->OptionalDataLen * XLOADER_WORD_LEN);
 	MhDataSize += (IhtPtr->NoOfImgs * XLOADER_IH_SIZE);
 	/* Include all partition headers in the MH size */
 	MhDataSize += TotalLengthOfPrtnHdr;
@@ -827,7 +846,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 
 	/* Validate all the partitions individually with hash from Hash Blocks */
 	for (Idx = PrtnStartIdx; Idx < IhtPtr->NoOfPrtns; ++Idx) {
-		Status = XLoader_VerifyPrtnAuth(PdiAddr, &PrtnHdr[Idx], Idx);
+		Status = XLoader_VerifyPrtnAuth(PdiAddr, &PrtnHdr[Idx], Idx, PdiType);
 		if (Status != XST_SUCCESS) {
 			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "Verification of Partition %d failed, Status = 0x%x\r\n", Idx, Status);
 			goto END;
@@ -916,7 +935,7 @@ int XLoader_ValidatePdiAuth(XLoader_ClientInstance *InstancePtr, const u64 PdiAd
 	}
 
 	/* Validate the Meta Header and authenticate all partitions from PrtnIdx onwards */
-	Status = XLoader_ValidateMhAndPrtnAuth(InstancePtr, PdiAddr, MhOffset, PrtnIdx);
+	Status = XLoader_ValidateMhAndPrtnAuth(InstancePtr, PdiAddr, MhOffset, PrtnIdx, PdiType);
 
 END:
 	return Status;
