@@ -92,11 +92,7 @@ typedef struct
 
 /**************************** Local Global ***********************************/
 /** Driver instance of all sub-cores included in the design */
-#ifndef SDT
 XVprocSs_SubCores subcoreRepo[XPAR_XVPROCSS_NUM_INSTANCES]; /**< Subcore repository indexed by device instance */
-#else
-XVprocSs_SubCores subcoreRepo[]; /**< Subcore repository */
-#endif
 
 static const char *XVprocSsIpStr[XVPROCSS_SUBCORE_MAX] =  {
     "VidOut",

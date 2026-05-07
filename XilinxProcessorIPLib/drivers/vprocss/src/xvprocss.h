@@ -203,6 +203,7 @@ extern "C" {
 #include "xvidc.h"
 #include "xaxivdma.h"
 #include "xvprocss_log.h"
+#include "xparameters.h"
 
 /**
  *  Subsystem sub-core layer 2 header files
