@@ -155,6 +155,7 @@ void RxStreamUpCallback(void *CallbackRef);
 void RxStreamDownCallback(void *CallbackRef);
 void VphyHdmiRxInitCallback(void *CallbackRef);
 void VphyHdmiRxReadyCallback(void *CallbackRef);
+void RxPhyErrorCallback(void *CallbackRef);
 #endif
 void VphyErrorCallback(void *CallbackRef);
 #if (XPAR_VPHY_0_TRANSCEIVER == XVPHY_GTXE2)
@@ -955,6 +956,25 @@ void RxStreamUpCallback(void *CallbackRef) {
 /*****************************************************************************/
 /**
 *
+* This function is called when Phy Error occurs.
+*
+* @param  None.
+*
+* @return None.
+*
+* @note   None.
+*
+******************************************************************************/
+void RxPhyErrorCallback(void *CallbackRef) {
+	XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
+	usleep(10);
+	XVphy_MmcmPowerDown(&Vphy, 0, XVPHY_DIR_RX, (FALSE));
+	XVphy_IBufDsEnable(&Vphy, 0, XVPHY_DIR_RX, (TRUE));
+
+}
+/*****************************************************************************/
+/**
+*
 * This function is called when a RX Bridge Overflow event has occurred.
 * RX Video Bridge Debug Utility
 *
@@ -1525,6 +1545,10 @@ int main() {
 	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
 				XV_HDMIRXSS_HANDLER_STREAM_UP,
 				(void *)RxStreamUpCallback,
+				(void *)&HdmiRxSs);
+	XV_HdmiRxSs_SetCallback(&HdmiRxSs,
+				XV_HDMIRXSS_HANDLER_PHY_ERROR,
+				(void *)RxPhyErrorCallback,
 				(void *)&HdmiRxSs);
 
 #ifdef USE_HDCP
