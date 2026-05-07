@@ -432,9 +432,9 @@ extern "C" {
 #define XREG_MHPMEVENT31			mhpmevent31   /* 0x33F      */
 
 /* Custom CSR Defines */
-#define XREG_MSTREAM                            mstream     /* 0x7C0      */
-#define XREG_MWFI                               mwfi        /* 0x7C4      */
-#define XREG_STREAM                             stream      /* 0x8C0      */
+#define XREG_MSTREAM                           0x7C0
+#define XREG_MWFI                              0x7C4
+#define XREG_STREAM                            0x8C0
 
 /* MSTATUS bits */
 #define XREG_MSTATUS_MSS_MASK                   (0x00001800U)
