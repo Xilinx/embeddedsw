@@ -87,27 +87,16 @@
 /************************************** Type Definitions *****************************************/
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
-/*
- * Lowest user-allowed GCC constructor priority (0-100 are reserved). Ensures
- * sbss is cleared before any default-priority constructor (e.g. xtimerinit())
- * on the in-place update path, where startup code does not re-zero sbss.
- */
-#define XASUFW_CLEAR_SBSS_CTOR_PRIORITY		(101)
 
 /************************************ Function Prototypes ****************************************/
 static s32 XAsufw_Init(void);
 static s32 XAsufw_ModulesInit(void);
 static void XAsufw_SetAsufwPresentBit(void);
-static void XAsufw_ClearSbss(void) __attribute__((constructor(XASUFW_CLEAR_SBSS_CTOR_PRIORITY)));
 #ifdef XASU_OCP_ENABLE
 static s32 XAsufw_RunOcpKeyGeneration(void);
 #endif
 
 /************************************ Variable Definitions ***************************************/
-/* Symbols provided by the linker script demarcating the sbss section. */
-extern u8 __sbss_start[];
-extern u8 __sbss_end[];
-
 
 /*************************************************************************************************/
 /**
@@ -469,40 +458,6 @@ static void XAsufw_SetAsufwPresentBit(void)
 		   ASU_GLOBAL_GLOBAL_CNTRL_FW_IS_PRESENT_MASK);
 	XAsufw_RMW(XASU_RTCA_EXEC_STATUS_ADDR, XASU_RTCA_FW_IS_PRESENT_STATUS_MASK,
 			XASU_RTCA_FW_IS_PRESENT_STATUS_VALUE);
-}
-
-/*************************************************************************************************/
-/**
- * @brief	This function clears the sbss section.
- *
- * @note	Registered as a GCC constructor with priority 101 so that it runs before
- *		the default-priority xtimerinit() constructor in xiltimer.c. This ensures
- *		that on the in-place update path (where startup code does not re-zero sbss),
- *		sbss is cleared first and then xtimerinit() (and other constructors) can
- *		re-initialize their state cleanly.
- *
- *************************************************************************************************/
-static void __attribute__((constructor(XASUFW_CLEAR_SBSS_CTOR_PRIORITY))) XAsufw_ClearSbss(void)
-{
-	s32 Status = XASUFW_FAILURE;
-	u32 SbssLen;
-
-	/*
-	 * If the linker-provided symbols are inverted or equal, there is no
-	 * sbss to clear. Treat this as a no-op rather than computing a
-	 * negative/underflowed length.
-	 */
-	if ((UINTPTR)__sbss_end <= (UINTPTR)__sbss_start) {
-		return;
-	}
-
-	SbssLen = (u32)((UINTPTR)__sbss_end - (UINTPTR)__sbss_start);
-
-	Status = Xil_SMemSet(__sbss_start, SbssLen, 0U, SbssLen);
-	if (Status != XASUFW_SUCCESS) {
-		XAsufw_Printf(DEBUG_PRINT_ALWAYS, "Clearing sbss failed. Status = 0x%08x\r\n",
-			      (u32)Status);
-	}
 }
 
 #ifdef XASU_OCP_ENABLE
