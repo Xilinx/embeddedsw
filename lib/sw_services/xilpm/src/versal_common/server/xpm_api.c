@@ -988,7 +988,6 @@ XStatus XPm_SetWakeUpSource(const u32 SubsystemId, const u32 TargetNodeId,
 	XPM_EXPORT_CMD(PM_SET_WAKEUP_SOURCE, XPLMI_CMD_ARG_CNT_THREE, XPLMI_CMD_ARG_CNT_THREE);
 	XStatus Status = XST_FAILURE;
 	XPm_Periph *Periph = NULL;
-	const XPm_Subsystem *Subsystem;
 
 	/* Check if given target node is valid and present in device list */
 	if ((NODECLASS(TargetNodeId) != (u32)XPM_NODECLASS_DEVICE) ||
