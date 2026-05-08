@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc.  All rights reserve.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc.  All rights reserve.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -126,6 +126,10 @@ XStatus XPm_GetRpuDevice(const XPm_Device **Rpu0Device,const XPm_Device **Rpu1De
 				const u32 Id);
 u32 XPm_CombTcm(const u32 Id, const u32 Mode);
 XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize);
+
+/* DDRMC validation list -- populated by PldMemCtrlrMap, read by XPm_IsMemAddressValid */
+extern const XPm_MemCtrlrDevice *DdrmcValidationList[];
+extern u8 DdrmcValidationCount;
 
 #ifdef __cplusplus
 }

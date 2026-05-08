@@ -27,6 +27,37 @@
 #endif
 #define NOT_INITIALIZED			0xFFU
 
+/*
+ * Pre-built DDRMC validation list. Populated here during CDO processing
+ * for local DDRMCs and remote (SSIT) DDRMCs. Read by XPm_IsMemAddressValid()
+ * in xpm_mem.c via extern declarations in xpm_mem.h.
+ *
+ * On SSIT builds, the array is doubled to hold both local and remote DDRMCs.
+ * Remote DDRMC entries and this validation list are intentionally monotonic
+ * for the lifetime of PLM on SSIT slave SLRs.
+ *
+ * Assumption:
+ * Remote-primary DDR topology is boot/static metadata replicated from the
+ * primary SLR and is not expected to be removed at runtime without being
+ * replaced in-place by updated modeling for the same DDRMC.
+ *
+ * Consequence:
+ * Remote DDRMC entries are allocated once, may be updated in place, and are
+ * not invalidated during PLD teardown. XPm_IsMemAddressValid() relies on
+ * this lifecycle contract when treating remote entries as valid DDR topology.
+ */
+/**
+ * @def DDRMC_VALIDATION_LIST_MAX
+ * @brief Maximum number of entries in the DDRMC validation list.
+ */
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+#define DDRMC_VALIDATION_LIST_MAX	(MAX_PLAT_DDRMC_COUNT * 2U)
+#else
+#define DDRMC_VALIDATION_LIST_MAX	MAX_PLAT_DDRMC_COUNT
+#endif
+const XPm_MemCtrlrDevice *DdrmcValidationList[DDRMC_VALIDATION_LIST_MAX];
+u8 DdrmcValidationCount = 0U;
+
 /* NoC clock gating definitions */
 #define MAX_NOC_CLOCK_BITS			256U
 #define PREVIOUS_ARRAY_MASK			0x0002U
@@ -731,6 +762,71 @@ done:
 
 }
 
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+/**
+ * Capture remote DDRMC modeling data from primary SLR on a slave SLR.
+ * Uses XPm_MemCtrlrDevice so the validation list can iterate local and
+ * remote DDRMCs uniformly. State is set to RUNNING since remote DDRMCs
+ * are managed by the primary SLR PLM.
+ *
+ * Find-or-update by BaseAddress: if the same DDRMC is modeled again
+ * (via parent RM or static image), update in place rather than duplicating.
+ * Remote entries are monotonic pool allocations with no free path.
+ */
+static XPm_MemCtrlrDevice *RemoteDdrmcList[MAX_PLAT_DDRMC_COUNT];
+static u8 RemoteDdrmcCount = 0U;
+
+static XStatus GetRemoteDdrmc(const u32 *Args, XPm_MemCtrlrDevice **MCDev)
+{
+	XStatus Status = XST_FAILURE;
+	XPm_MemCtrlrDevice *RDev = NULL;
+	u32 UbBaseAddr = Args[0U];
+	u8 IsExisting = 0U;
+
+	/*
+	 * This helper relies on the monotonic-lifetime assumption for remote
+	 * DDRMC modeling: entries persist for the lifetime of PLM and are
+	 * updated in place if the same remote DDRMC is modeled again.
+	 */
+
+	/* Search for existing entry by DDRMC UB base address */
+	for (u32 i = 0U; i < RemoteDdrmcCount; i++) {
+		if (RemoteDdrmcList[i]->Device.Node.BaseAddress == UbBaseAddr) {
+			RDev = RemoteDdrmcList[i];
+			IsExisting = 1U;
+			Status = XST_SUCCESS;
+			break;
+		}
+	}
+
+	/* Allocate new entry if not found */
+	if (0U == IsExisting) {
+		if (RemoteDdrmcCount >= (u8)MAX_PLAT_DDRMC_COUNT) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		RDev = (XPm_MemCtrlrDevice *)XPm_AllocBytes(sizeof(XPm_MemCtrlrDevice));
+		if (NULL == RDev) {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+		/* Populate identity and state for transparent validation */
+		RDev->Device.Node.BaseAddress = UbBaseAddr;
+		RDev->Device.Node.State = (u8)XPM_DEVSTATE_RUNNING;
+		/* Register new entry */
+		RemoteDdrmcList[RemoteDdrmcCount] = RDev;
+		RemoteDdrmcCount++;
+		Status = XST_SUCCESS;
+	}
+
+	/* Return remote ddrmc handle */
+	*MCDev = RDev;
+
+done:
+	return Status;
+}
+#endif
+
 /****************************************************************************/
 /**
  * @brief  DDRMC mapping/annotation for PlDevice
@@ -753,6 +849,13 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 	XPm_MemCtrlrDevice *MCDev = NULL;
 	u32 Offset = 2U;
 	u32 Idx = (u32)XPM_NODEIDX_DEV_DDRMC_MIN;
+	u8 CdoSlrIdx = 0U;
+	u8 LocalSlrIdx = XPm_PlatGetSlrIndex();
+	u8 DdrmcAlreadyRegistered = 0U;
+
+	/* Used only under PLM_ENABLE_PLM_TO_PLM_COMM */
+	(void)CdoSlrIdx;
+	(void)LocalSlrIdx;
 
 	if ((6U != NumArgs) && (10U != NumArgs)) {
 		Status = XST_INVALID_PARAM;
@@ -760,21 +863,8 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		goto done;
 	}
 
-#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
-	/*
-	 * In SSIT devices, DDR modeling data for the primary SLR may be
-	 * replicated in secondary SLR CDOs. The SLR Index field identifies
-	 * which SLR the DDRMC belongs to. Skip if it doesn't match the
-	 * local SLR since the device node won't exist in the local topology.
-	 */
-	u8 CdoSlrIdx = (u8)((Args[1U] >> 20U) & 0xFU);
-	u8 LocalSlrIdx = XPm_PlatGetSlrIndex();
-
-	if (CdoSlrIdx != LocalSlrIdx) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-#endif
+	/* Extract SLR index from the ddrmc modeling */
+	CdoSlrIdx = (u8)((Args[1U] >> 20U) & 0xFU);
 
 	/*
 	 * Current PLD or one of parents from the tree must be in an initializing state
@@ -824,31 +914,27 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		}
 		Idx++;
 	}
+
 	if (XST_SUCCESS != Status) {
-		Status = XST_INVALID_PARAM;
-		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
-		goto done;
-	}
-
-	/* Link DDRMC to PLD */
-	if (NULL == MCDev->PlDevice) {
-		MCDev->PlDevice = PlDevice;
-	} else {
-		/* Error if previously linked to another PLD */
-		Status = XST_DEVICE_BUSY;
-		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
-		goto done;
-	}
-
-	/* Link PLD to DDRMC */
-	if (PlDevice->MemCtrlrCount < ARRAY_SIZE(PlDevice->MemCtrlr)) {
-		PlDevice->MemCtrlr[PlDevice->MemCtrlrCount] = MCDev;
-		PlDevice->MemCtrlrCount++;
-	} else {
-		/* Fatal error if not enough space */
-		Status = XST_BUFFER_TOO_SMALL;
-		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
-		goto done;
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+		/*
+		 * In SSIT devices, DDR modeling data for the primary SLR may be
+		 * replicated in secondary SLR CDOs. The SLR Index field identifies
+		 * which SLR the DDRMC belongs to. If no local DDRMC matched,
+		 * create a remote DDRMC entry for address validation.
+		 */
+		if (CdoSlrIdx != LocalSlrIdx) {
+			Status = GetRemoteDdrmc(Args, &MCDev);
+			if ((XST_SUCCESS != Status) || (NULL == MCDev)) {
+				goto done;
+			}
+		}
+#endif
+		if (XST_SUCCESS != Status) {
+			Status = XST_INVALID_PARAM;
+			DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
+			goto done;
+		}
 	}
 
 	/* DDRMC address region count */
@@ -870,6 +956,53 @@ static XStatus PldMemCtrlrMap(XPm_PlDevice *PlDevice, const u32 *Args, u32 NumAr
 		MCDev->Region[Cnt].Address = ((u64)Args[Offset + 1U] << 32U) | (u64)(Args[Offset]);
 		MCDev->Region[Cnt].Size = ((u64)Args[Offset + 3U] << 32U) | (u64)(Args[Offset + 2U]);
 		Offset += 4U;
+	}
+
+	/* Register DDRMC in validation list, skip if already present (PLD re-init) */
+	DdrmcAlreadyRegistered = 0U;
+	for (u32 j = 0U; j < DdrmcValidationCount; j++) {
+		if (DdrmcValidationList[j] == MCDev) {
+			DdrmcAlreadyRegistered = 1U;
+			break;
+		}
+	}
+	if (0U == DdrmcAlreadyRegistered) {
+		if (DdrmcValidationCount < (u8)DDRMC_VALIDATION_LIST_MAX) {
+			DdrmcValidationList[DdrmcValidationCount] = MCDev;
+			DdrmcValidationCount++;
+		}
+		else {
+			Status = XST_BUFFER_TOO_SMALL;
+			goto done;
+		}
+	}
+
+#ifdef PLM_ENABLE_PLM_TO_PLM_COMM
+	/* Remote DDRMCs skip PLD linkage and device request */
+	if (CdoSlrIdx != LocalSlrIdx) {
+		goto done;
+	}
+#endif
+
+	/* Link DDRMC to PLD */
+	if (NULL == MCDev->PlDevice) {
+		MCDev->PlDevice = PlDevice;
+	} else {
+		/* Error if previously linked to another PLD */
+		Status = XST_DEVICE_BUSY;
+		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
+		goto done;
+	}
+
+	/* Link PLD to DDRMC */
+	if (PlDevice->MemCtrlrCount < ARRAY_SIZE(PlDevice->MemCtrlr)) {
+		PlDevice->MemCtrlr[PlDevice->MemCtrlrCount] = MCDev;
+		PlDevice->MemCtrlrCount++;
+	} else {
+		/* Fatal error if not enough space */
+		Status = XST_BUFFER_TOO_SMALL;
+		DbgErr = XPM_INT_ERR_PLDEVICE_FUNC_MEM_CTRLR_MAP;
+		goto done;
 	}
 
 	/* Request DDRMC for this PLD */

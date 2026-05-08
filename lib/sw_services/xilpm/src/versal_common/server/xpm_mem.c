@@ -694,27 +694,18 @@ XStatus XPm_IsMemAddressValid(u32 SubsystemId, u64 RegionAddr, u64 RegionSize) {
 	/* Reset for DDR iteration */
 	IsOverlapMemRegion = 0U;
 
-	/** We iterate over DDR Regions
-	 * FIXME: TODO: Currently we support only overlapping across ranges within
-	 * a given DDRMC. We don't support overlapping across multiple DDRMCs
+	/**
+	 * Iterate DDRMCs from pre-built validation list (local + remote).
 	 *
-	 * Note: In future, we expect to an agreement with design output for DDRMCs
-	 * which will be used to implement overlapping across multiple DDRMCs (specially interleaved case)
-	*/
-	for (u32 i = (u32)XPM_NODEIDX_DEV_MIN; i <= (u32)XPM_NODEIDX_DEV_MAX; i++) {
-
-		const XPm_Device *Device = XPmDevice_GetByIndex(i);
-		if (NULL == Device) {
-			continue;
-		}
-		DeviceId = Device->Node.Id;
-
-		if (!IS_MEM_DEV_DDRMC(DeviceId)) {
-			continue;
-		}
-
-		/* DDR Case */
-		MCDev = (const XPm_MemCtrlrDevice *)Device;
+	 * FIXME: TODO: Currently we support only overlapping across ranges
+	 * within a given DDRMC. We don't support overlapping across multiple
+	 * DDRMCs (because of design limitations on interleaving DDRMCs).
+	 *
+	 * Remote DDRMC entries on slave SLRs rely on the monotonic
+	 * remote-topology lifecycle contract documented in xpm_pldevice.c.
+	 */
+	for (u32 i = 0U; i < DdrmcValidationCount; i++) {
+		MCDev = DdrmcValidationList[i];
 
 		for (u32 Cnt = 0U; Cnt < MCDev->RegionCount; Cnt++) {
 			u64 StartAddress = MCDev->Region[Cnt].Address;
