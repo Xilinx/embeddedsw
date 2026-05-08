@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file common/versal_2ve_2vm/xsecure_lmsalginfo.h
+* @file client/core/lms_hss/xsecure_lmsalginfo.h
 *
 * <pre>
 * MODIFICATION HISTORY:
@@ -15,6 +15,8 @@
 * Ver   Who     Date     Changes
 * ----- ------  -------- ------------------------------------------------------
 * 5.6   vss     09/18/25 Added FIPS info read support for lms
+* 5.7   tvp     04/29/26 Changed file path and modified XSecure_LmsGetCryptoAlgInfo
+*                         Moved function implementation to .c file
 *
 * </pre>
 *
@@ -32,26 +34,18 @@ extern "C" {
 #include "xil_sutil.h"
 
 /**************************** Constant Definitions ****************************/
-#define XSECURE_LMS_MAJOR_VERSION	6U /**< Major version of LMS */
-#define XSECURE_LMS_MINOR_VERSION	0U /**< Minor version of LMS */
 
 /****************** Macros (Inline Functions) Definitions *********************/
 
-/******************************************************************************/
-/**
- *
- * This function returns the LMS crypto algorithm information.
- *
- * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
- *
- * @return	None
- *
- ******************************************************************************/
-static XSECURE_ALWAYS_INLINE void XSecure_LmsGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
-{
-	AlgInfo->Version = XIL_BUILD_VERSION(XSECURE_LMS_MAJOR_VERSION, XSECURE_LMS_MINOR_VERSION);
-	AlgInfo->NistStatus = NIST_COMPLIANT;
-}
+/************************** Function Prototypes ******************************/
+
+/** @addtogroup xsecure_lms_client_apis XilSecure LMS Client APIs
+ * @{
+ */
+
+void XSecure_LmsGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo);
+
+/** @} */
 
 #ifdef __cplusplus
 }

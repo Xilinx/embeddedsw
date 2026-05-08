@@ -114,6 +114,9 @@ extern "C" {
 				/**< Multiplier to double size */
 #define XSECURE_IPI_MASK_DEF_VAL           (0U)
 				/**< Default IPI mask value */
+#define XSECURE_IPI_PARAMS_SIZE_ALIGN_MASK	(0x7U)
+				/**< Mask used to validate that IPI parameter
+				 *   structure size is 8-byte aligned */
 #define XSECURE_ECDSA_PRIME		(XSECURE_ECC_PRIME)
 	/**< This macro is for backward compatibility. For ECC Prime curves, use XSECURE_ECC_PRIME */
 #define XSecure_EllipticCrvClass	XSecure_EccCrvClass
