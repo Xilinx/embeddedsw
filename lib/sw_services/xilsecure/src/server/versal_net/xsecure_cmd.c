@@ -38,6 +38,7 @@
 *       mb   07/31/2024 Added the check to validate Payload for NULL pointer
 *       pre  03/02/2025 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
 * 5.7   tbk  04/09/2026 Added support for getting crypto algorithm's version
+*       tvp  04/29/2026 Added IPI for HMAC
 *
 * </pre>
 *
@@ -75,6 +76,7 @@
 #include "xsecure_server_hmacalginfo.h"
 #include "xtrngpsx_alginfo.h"
 #include "xsecure_server_keyunwrapalginfo.h"
+#include "xsecure_hmac_ipihandler.h"
 
 #ifdef SDT
 #include "xsecure_config.h"
@@ -126,6 +128,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_KEY_UNWRAP),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_RSA_RELEASE_KEY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_HMAC_OPERATION),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -363,6 +366,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 #endif
 #endif
 		Status = XSecure_PlatIpiHandler(Cmd);
+		break;
+	case XSECURE_API(XSECURE_API_HMAC_OPERATION):
+		Status = XSecure_HmacIpiHandler(Cmd);
 		break;
 #ifndef PLM_SECURE_EXCLUDE
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):

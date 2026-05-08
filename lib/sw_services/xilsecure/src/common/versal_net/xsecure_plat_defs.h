@@ -361,6 +361,19 @@ typedef struct {
 	XSecure_RsaOperationMode OpMode; /**< RSA operation mode */
 } XSecure_RsaKeyParam;
 
+/** HMAC input parameters */
+typedef struct {
+	u64 KeyAddr;		/**< HMAC key address */
+	u64 MsgAddr;		/**< Input message address */
+	u64 OutputAddr;		/**< Output hash address */
+	u32 KeyLen;		/**< HMAC key length in bytes */
+	u32 MsgLen;		/**< Input message length in bytes */
+	u32 OutputLen;		/**< Output buffer length in bytes */
+	u8 IsLast;		/**< Is last update */
+	u8 OperationFlags;	/**< SHA3 operation flags */
+	u8 Reserved[2U];	/**< Explicit padding for alignment */
+} XSecure_HmacParams;
+
 /**************************** Constant Definitions ****************************/
 /****************** Macros (Inline Functions) Definitions *********************/
 
