@@ -19,6 +19,7 @@
 *       sk   08/22/24 Added support for key transfer to ASU
 *       am   02/24/25 Moved XSECURE_API_ASU_KEY_TRANSFER to xilplmi
 *       pre  03/02/25 Added API IDs for SHA2 operation
+* 5.7   tvp  04/30/26 Added API IDs for ELLIPTIC_PRIVATE_KEY_GEN
 *
 * </pre>
 *
@@ -159,7 +160,8 @@ typedef enum {
 	XSECURE_API_SHA2_OPERATION, 		/**< 38U */
 	XSECURE_API_HMAC_OPERATION,		/**< 39U */
 	XSECURE_API_LMS_SIGN_VERIFY = 42U,	/**< 42U */
-	XSECURE_API_MAX,			/**< 43U */
+	XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN,	/**< 43U */
+	XSECURE_API_MAX,			/**< 44U */
 } XSecure_ApiId;
 
 /** XilSecure KAT ids */

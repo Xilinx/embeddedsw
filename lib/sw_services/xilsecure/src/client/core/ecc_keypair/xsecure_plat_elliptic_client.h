@@ -18,6 +18,7 @@
 * ----- ---- -------- -------------------------------------------------------
 * 5.2   har  06/15/23 Initial release
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
+* 5.7   tvp  04/30/26 Added prototype for XSecure_EllipticPrivateKeyGenerate
 *
 * </pre>
 *
@@ -36,6 +37,8 @@ extern "C" {
 
 /***************************** Include Files *********************************/
 #include "xil_types.h"
+#include "xsecure_mailbox.h"
+#include "xsecure_defs.h"
 #include "xsecure_plat_defs.h"
 
 /**************************** Type Definitions *******************************/
@@ -47,6 +50,8 @@ extern "C" {
 /************************** Function Definitions *****************************/
 int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, const u8* PrivateKey,
 	const u8* PublicKey, u8 *SharedSecret);
+int XSecure_EllipticPrivateKeyGenerate(XSecure_ClientInstance *InstancePtr,
+		const XSecure_EccPrivateKeyParams *ParamsPtr);
 
 /** @} */
 #ifdef __cplusplus
