@@ -216,6 +216,77 @@ END:
 
 /*************************************************************************************************/
 /**
+ * @brief	This function sends a command to validate the provided ECC public key.
+ *
+ * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client
+ * 				input parameters.
+ * @param	EccKeyParamsPtr	Pointer to XAsu_EccKeyParams structure which holds the parameters
+ * 				of ECC input arguments.
+ *
+ * @return
+ * 		- XST_SUCCESS, if IPI request to ASU is sent successfully.
+ * 		- XASU_INVALID_ARGUMENT, if any argument is invalid.
+ * 		- XASU_INVALID_CURVEINFO, if curve info is invalid.
+ * 		- XASU_INVALID_UNIQUE_ID, if received Queue ID is invalid.
+ * 		- XST_FAILURE, if sending an IPI request to ASU fails.
+ *
+ *************************************************************************************************/
+s32 XAsu_EccValidatePubKey(XAsu_ClientParams *ClientParamsPtr, XAsu_EccKeyParams *EccKeyParamsPtr)
+{
+	s32 Status = XST_FAILURE;
+	u32 Header;
+	u8 UniqueId;
+
+	/** Validate input parameters. */
+	Status = XAsu_ValidateClientParameters(ClientParamsPtr);
+	if (Status != XST_SUCCESS) {
+		goto END;
+	}
+
+	if (EccKeyParamsPtr == NULL) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	if (EccKeyParamsPtr->PubKeyAddr == 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Key manager is not supported for ECC validate public key; KeyId must be 0. */
+	if (EccKeyParamsPtr->PvtKey.KeyId != 0U) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	Status = XAsu_EccValidateCurveInfo(EccKeyParamsPtr->CurveType, EccKeyParamsPtr->PvtKey.KeyLen);
+	if (Status != XST_SUCCESS) {
+		Status = XASU_INVALID_CURVEINFO;
+		goto END;
+	}
+
+	/** Generate a unique ID and register the callback function. */
+	UniqueId = XAsu_RegCallBackNGetUniqueId(ClientParamsPtr, NULL, 0U, XASU_TRUE);
+	if (UniqueId >= XASU_UNIQUE_ID_MAX) {
+		Status = XASU_INVALID_UNIQUE_ID;
+		goto END;
+	}
+
+	/** Create command header. */
+	Header = XAsu_CreateHeader(XASU_ECC_VAL_PUBKEY_CMD_ID, UniqueId, XASU_MODULE_ECC_ID,
+				(u8)(sizeof(XAsu_EccKeyParams) / XASU_WORD_LEN_IN_BYTES),
+				ClientParamsPtr->SecureFlag);
+
+	/** Update request buffer and send an IPI request to ASU. */
+	Status = XAsu_SendCmdToAsu(ClientParamsPtr, EccKeyParamsPtr,
+					sizeof(XAsu_EccKeyParams), Header);
+
+END:
+	return Status;
+}
+
+/*************************************************************************************************/
+/**
  * @brief	This function sends a command to perform ECC Known Answer Tests (KAT's).
  *
  * @param	ClientParamsPtr	Pointer to the XAsu_ClientParams structure which holds the client

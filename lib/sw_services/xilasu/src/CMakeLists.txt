@@ -23,6 +23,18 @@ if((NOT (XILASU_rsa_keygen_2048_support)) AND NOT ((XILASU_rsa_keygen_3072_suppo
    set(XILASU_rsa_keygen_4096_support TRUE CACHE BOOL "By default RSA 4096 bit key generation is defined" FORCE)
 endif()
 
+if((XILASU_cavp_support) AND NOT ((XILASU_ecies_support)))
+  set(XILASU_ecies_support TRUE CACHE BOOL "ECIES is enabled as CAVP depends on ECIES" FORCE)
+endif()
+
+if((XILASU_cavp_support) AND NOT ((XILASU_kdf_support)))
+  set(XILASU_kdf_support TRUE CACHE BOOL "KDF is enabled as CAVP depends on KDF" FORCE)
+endif()
+
+if((XILASU_cavp_support) AND NOT ((XILASU_hmac_support)))
+  set(XILASU_hmac_support TRUE CACHE BOOL "HMAC is enabled as CAVP depends on HMAC" FORCE)
+endif()
+
 if("${CMAKE_SYSTEM_PROCESSOR}" STREQUAL "microblaze_riscv")
   if((XILASU_keywrap_support) AND NOT ((XILASU_rsa_padding_support)))
     set(XILASU_rsa_padding_support TRUE CACHE BOOL "Padding is enabled as keywrap depends on RSA padding" FORCE)

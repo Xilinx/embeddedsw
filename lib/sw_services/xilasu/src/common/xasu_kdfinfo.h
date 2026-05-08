@@ -46,7 +46,10 @@ extern "C" {
 #define XASU_KDF_GENERATE_SHA2_CMD_ID	(0U) /**< Command ID for KDF generate for SHA2 command */
 #define XASU_KDF_GENERATE_SHA3_CMD_ID	(1U) /**< Command ID for KDF generate for SHA3 command */
 #define XASU_KDF_KAT_CMD_ID		(2U) /**< Command ID for KDF KAT command */
-#define XASU_KDF_MAX_CMDS		(3U) /**< Maximum number of commands supported by KDF module */
+#define XASU_KDF_CMAC_CMD_ID		(3U) /**< Command ID for CMAC based KDF generate command */
+#define XASU_KDF_HKDF_SHA2_CMD_ID	(4U) /**< Command ID for HKDF generate using SHA2 command */
+#define XASU_KDF_HKDF_SHA3_CMD_ID	(5U) /**< Command ID for HKDF generate using SHA3 command */
+#define XASU_KDF_MAX_CMDS		(6U) /**< Maximum number of commands supported by KDF module */
 
 #define XASU_KDF_MAX_CONTEXT_LEN		(1024U) /**< Maximum context length */
 #define XASU_KDF_MAX_KEY_LENGTH			(1024U) /**< Maximum key length for KDF */
@@ -66,6 +69,21 @@ typedef struct {
 		* XASU_SHA_MODE_SHAKE256) */
 	u8 Reserved[6]; /**< Reserved for 8-byte alignment */
 } XAsu_KdfParams;
+
+/** This structure contains HKDF params info. */
+typedef struct {
+	XAsu_KdfParams KdfParams; /**< KDF Parameters for HKDF operation */
+	u64 SaltAddr; /**< Address of the buffer holding salt which is optional */
+	u32 SaltLen; /**< Length of the Salt */
+	u8 Reserved[4]; /**< Reserved for 8-byte alignment */
+} XAsu_HkdfParams;
+
+/** This structure contains CMAC based KDF params info. */
+typedef struct {
+	XAsu_KdfParams KdfParams; /**< KDF parameters */
+	u32 AesKeySrc; /**< AES Key source to be used for CMAC based KDF */
+	u8 Reserved[4]; /**< Reserved for 8-byte alignment */
+} XAsu_CmacKdfParams;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 
