@@ -21,6 +21,7 @@
 *       pre  03/02/25 Disabled XSecure_PlatAesIpiHandler for SECURE_EXCLUDE case
 *       mb   04/17/26 Update XSecure_CryptoCheck API definition
 * 5.7   tbk  02/05/26 Added support for getting crypto algorithm's version
+*       tvp  04/29/26 Added IPI for HMAC
 *
 * </pre>
 *
@@ -44,6 +45,7 @@
 #include "xsecure_plat_elliptic_ipihandler.h"
 #include "xsecure_plat_kat_ipihandler.h"
 #include "xsecure_plat_ipihandler.h"
+#include "xsecure_hmac_ipihandler.h"
 #include "xsecure_cmd.h"
 #include "xplmi.h"
 #include "xplmi_tamper.h"
@@ -102,6 +104,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA3_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_LMS_SIGN_VERIFY),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_HMAC_OPERATION),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -312,6 +315,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		Status = XSecure_TrngIpiHandler(Cmd);
 		break;
 #endif
+	case XSECURE_API(XSECURE_API_HMAC_OPERATION):
+		Status = XSecure_HmacIpiHandler(Cmd);
+		break;
 	case XSECURE_API(XSECURE_API_KAT):
 		XPLMI_HALT_BOOT_SLD_TEMPORAL_CHECK_FOR_INPRGRESS_STS(XSECURE_KAT_MAJOR_ERROR,
 			                   Status, StatusTmp, XSecure_KatPlatIpiHandler, Cmd)

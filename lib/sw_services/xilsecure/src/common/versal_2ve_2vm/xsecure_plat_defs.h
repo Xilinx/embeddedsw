@@ -114,6 +114,19 @@ typedef struct {
 	u8 OperationFlags; /**< SHA2/3 operation flags */
 } XSecure_ShaOpParams;
 
+/** Structure for HMAC operation parameters */
+typedef struct {
+	u64 KeyAddr;		/**< HMAC key address */
+	u64 MsgAddr;		/**< Message data address */
+	u64 OutputAddr;		/**< Output HMAC result address */
+	u32 KeyLen;		/**< HMAC key length in bytes */
+	u32 MsgLen;		/**< Message length in bytes */
+	u32 OutputLen;		/**< Output buffer length in bytes */
+	u8 IsLast;		/**< Is last update */
+	u8 OperationFlags;	/**< HMAC operation flags */
+	u8 Reserved[2U];	/**< Explicit padding for alignment */
+} XSecure_HmacParams;
+
 /** XilSecure API ids */
 typedef enum {
 	XSECURE_API_FEATURES = 0U,		/**< 0U */
