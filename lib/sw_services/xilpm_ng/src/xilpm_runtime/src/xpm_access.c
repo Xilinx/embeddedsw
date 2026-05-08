@@ -134,6 +134,14 @@ static XStatus XPmAccess_BaseHandler(pm_ioctl_id Op, XPm_NodeAccessTypes AccessT
 	case ACCESS_SEC_RO:
 	case ACCESS_SEC_NS_SUBSYS_RO:
 	case ACCESS_SEC_SUBSYS_RO:
+		/* Verify switch landed on a RO case */
+		if ((ACCESS_ANY_RO != AccessTypeCheckTmp) &&
+		    (ACCESS_SEC_RO != AccessTypeCheckTmp) &&
+		    (ACCESS_SEC_NS_SUBSYS_RO != AccessTypeCheckTmp) &&
+		    (ACCESS_SEC_SUBSYS_RO != AccessTypeCheckTmp)) {
+			Status = XST_GLITCH_ERROR;
+			goto done;
+		}
 		/* When access is set to RO, only RO operation is allowed */
 		{
 			volatile pm_ioctl_id OpCheck = Op;
@@ -148,6 +156,14 @@ static XStatus XPmAccess_BaseHandler(pm_ioctl_id Op, XPm_NodeAccessTypes AccessT
 	case ACCESS_SEC_RW:
 	case ACCESS_SEC_NS_SUBSYS_RW:
 	case ACCESS_SEC_SUBSYS_RW:
+		/* Verify switch landed on a RW case */
+		if ((ACCESS_ANY_RW != AccessTypeCheckTmp) &&
+		    (ACCESS_SEC_RW != AccessTypeCheckTmp) &&
+		    (ACCESS_SEC_NS_SUBSYS_RW != AccessTypeCheckTmp) &&
+		    (ACCESS_SEC_SUBSYS_RW != AccessTypeCheckTmp)) {
+			Status = XST_GLITCH_ERROR;
+			goto done;
+		}
 		/* When access is set to RW, either RO/WR operations are allowed */
 		Status = XST_SUCCESS;
 		break;
