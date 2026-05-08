@@ -42,10 +42,10 @@
 * 2. In this example ".data" section elements that are passed by reference to the server-side
 * 	should be stored in the above shared memory section. To make it happen in below example,
 *	replace ".data" in attribute section with ".sharedmemory". For example,
-* 	static const char Sha2Hash[ASU_SHA2_HASH_LEN_IN_BYTES]
+* 	static char Sha2Hash[ASU_SHA2_HASH_LEN_IN_BYTES]
 * 				__attribute__ ((section (".data.Sha2Hash")));
 * 			should be changed to
-* 	static const char Sha2Hash[ASU_SHA2_HASH_LEN_IN_BYTES]
+* 	static char Sha2Hash[ASU_SHA2_HASH_LEN_IN_BYTES]
 *				__attribute__ ((section (".sharedmemory.Sha2Hash")));
 *
 * To keep things simple, by default the cache is disabled for this example
@@ -85,7 +85,7 @@ static void XAsu_Sha2CallBackRef(void *CallBackRef, u32 Status);
 static const char Data[ASU_SHA2_INPUT_DATA_LEN + 1U] __attribute__ ((section (".data.Data"))) =
 								"HELLO";
 
-static const char Sha2Hash[ASU_SHA2_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
+static char Sha2Hash[ASU_SHA2_HASH_LEN_IN_BYTES] __attribute__ ((section (".data.Sha2Hash")));
 
 static const u8 ExpHash[ASU_SHA2_HASH_LEN_IN_BYTES] = {
 	0x37, 0x33, 0xCD, 0x97, 0x7F, 0xF8, 0xEB, 0x18, 0xB9, 0x87, 0x35, 0x7E, 0x22, 0xCE, 0xD9, 0x9F,

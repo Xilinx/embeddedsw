@@ -1,5 +1,5 @@
 /**************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
 /*************************************************************************************************/
@@ -43,16 +43,9 @@ extern "C" {
 /************************************ Variable Definitions ***************************************/
 
 /************************************ Macro Definitions ******************************************/
-/** @cond xhkdf_internal */
-/************************************ Type Definitions *******************************************/
-/** This structure contains HKDF params info. */
-typedef struct {
-	XAsu_KdfParams KdfParams; /**< Kdf Parameters for HKDF operation */
-	u64 SaltAddr; /**< Address of the buffer holding salt which is optional */
-	u32 SaltLen; /**< Length of the Salt */
-} XAsu_HkdfParams;
 
-/** @endcond */
+/************************************ Type Definitions *******************************************/
+
 /************************************ Function Prototypes ****************************************/
 s32 XHkdf_Generate(XAsufw_Dma *DmaPtr, XSha *ShaInstancePtr, const XAsu_HkdfParams *HkdfParams);
 #endif /* XASU_ECIES_ENABLE */

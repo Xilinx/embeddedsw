@@ -33,5 +33,6 @@
 #cmakedefine    XASU_RSA_4096_KEYGEN_ENABLE
 #cmakedefine    XASU_RSA_3072_KEYGEN_ENABLE
 #cmakedefine    XASU_RSA_2048_KEYGEN_ENABLE
+#cmakedefine    XASU_ENABLE_CAVP_SUPPORT
 
 #endif /* XASU_BSP_CONFIG_H */
