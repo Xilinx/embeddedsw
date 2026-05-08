@@ -172,7 +172,8 @@ get_key_wrap_rsa_public_key,0x522,1,1,1,1,1,1,0,1,IPI,Get Key Wrap Rsa Public Ke
 key_unwrap,0x523,1,1,1,1,1,1,0,1,IPI,Key Unwrap
 aes_perform_operation_and_zeroize_key,0x524,1,1,1,1,1,1,0,1,IPI,Perform Aes operation and zeroize key
 Rsa_release_key,0x526,3,3,3,3,3,3,0,3,IPI,Destroys the RSA key in use
-sha_finish,0x527,0,0,0,0,0,0,0,0,Unsupported,Unsupported command
+hmac_operation,0x527,1,1,1,1,1,1,0,0,IPI,HMAC-SHA-384 operation
+elliptic_private_key_generate,0x52B,1,1,1,1,1,1,0,0,IPI,Ecc private key generation
 pm_psm_to_plm_event,0x601,3,3,3,3,3,3,0,3,IPI,PSM to PLM Event
 loader_features,0x700,3,3,3,3,3,3,0,3,IPI,Loader Features
 load_subsystem_pdi,0x701,3,3,3,3,3,3,0,3,IPI,Load Subsystem PDI
