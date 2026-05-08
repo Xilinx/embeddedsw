@@ -14,6 +14,7 @@ collect (PROJECT_LIB_HEADERS xsecure_server_ellipticalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_server_rsaalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_server_shaalginfo.h)
 collect (PROJECT_LIB_HEADERS xsecure_server_hmacalginfo.h)
+collect (PROJECT_LIB_HEADERS xsecure_server_lmsalginfo.h)
 
 collect (PROJECT_LIB_SOURCES xsecure_cmd.c)
 collect (PROJECT_LIB_SOURCES xsecure_plat.c)

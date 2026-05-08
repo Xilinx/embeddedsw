@@ -56,6 +56,8 @@
 #include "xsecure_server_ecdhalginfo.h"
 #include "xsecure_server_shaalginfo.h"
 #include "xsecure_server_hmacalginfo.h"
+#include "xsecure_server_lmsalginfo.h"
+#include "xsecure_lms_ipihandler.h"
 #include "xtrngpsx_alginfo.h"
 
 #ifdef SDT
@@ -99,6 +101,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA3_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_OPERATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_LMS_SIGN_VERIFY),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -209,6 +212,10 @@ static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 	case XSECURE_API(XSECURE_API_KAT):
 		break;
 #endif
+	case XSECURE_API(XSECURE_API_LMS_SIGN_VERIFY):
+		AlgoVersion = XIL_BUILD_VERSION(XSECURE_LMS_MODULE_MAJOR_VERSION, XSECURE_LMS_MODULE_MINOR_VERSION);
+		NistStatus = NIST_COMPLIANT;
+		break;
 	default:
 		/* Skip CryptoCheck for unsupported APIs */
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "Cmd not supported\r\n");
@@ -319,6 +326,9 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 		Status = XSecure_PlatAesIpiHandler(Cmd);
 		break;
 #endif
+	case XSECURE_API(XSECURE_API_LMS_SIGN_VERIFY):
+		Status = XSecure_LmsIpiHandler(Cmd);
+		break;
 	default:
 		XSecure_Printf(XSECURE_DEBUG_GENERAL, "CMD: INVALID PARAM\r\n");
 		Status = XST_INVALID_PARAM;

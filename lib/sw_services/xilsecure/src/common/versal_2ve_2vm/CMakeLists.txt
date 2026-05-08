@@ -2,4 +2,3 @@
 # SPDX-License-Identifier: MIT
 
 collect (PROJECT_LIB_HEADERS xsecure_plat_defs.h)
-collect (PROJECT_LIB_HEADERS xsecure_lmsalginfo.h)

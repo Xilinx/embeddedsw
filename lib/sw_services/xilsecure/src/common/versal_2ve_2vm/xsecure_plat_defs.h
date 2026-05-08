@@ -85,6 +85,24 @@ typedef struct {
 	XSecure_RsaOperationMode OpMode; /**< RSA operation mode */
 } XSecure_RsaKeyParam;
 
+/** Structure for LMS Signature verification parameters (portable across
+ * 32/64-bit) */
+typedef struct {
+	u64 DataAddr;		/**< Address of buffer to store data which is
+				  signed */
+	u64 LmsSignAddr;	/**< Address of buffer to store signature to be
+				  verified */
+	u64 ExpectedPubKeyAddr;	/**< Address of buffer to store expected public
+				  key */
+	u32 DataLen;		/**< Length of data which is signed */
+	u32 LmsSignLen;		/**< Length of signature to be verified */
+	u32 PubKeyLen;		/**< Length of public key to verify signature */
+	u8 HashAlgo;		/**< Hash algorithm to be used for LMS signature
+				  verification */
+	u8 PreHashedMsg;	/**< Flag to indicate if data is prehashed */
+	u8 Reserved[2U];	/**< Explicit padding for alignment */
+} XSecure_LmsParams;
+
 /** SHA operation parameters */
 typedef struct {
 	u64 DataAddr; /**< SHA2/3 data address */
@@ -127,7 +145,8 @@ typedef enum {
 	XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY,/**< 37U */
 	XSECURE_API_SHA2_OPERATION, 		/**< 38U */
 	XSECURE_API_HMAC_OPERATION,		/**< 39U */
-	XSECURE_API_MAX,			/**< 40U */
+	XSECURE_API_LMS_SIGN_VERIFY = 42U,	/**< 42U */
+	XSECURE_API_MAX,			/**< 43U */
 } XSecure_ApiId;
 
 /** XilSecure KAT ids */
