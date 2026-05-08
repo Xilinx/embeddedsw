@@ -20,6 +20,7 @@
 * 5.2   har  06/15/23 Initial release
 * 5.4   yog  04/29/24 Fixed doxygen grouping.
 *       yog  03/18/25 Defined a structure and updated the ECDH input params to that structure.
+* 5.7   tvp  04/30/26 Added XSecure_EllipticPrivateKeyGenerate
 *
 * </pre>
 *
@@ -112,6 +113,45 @@ int XSecure_GenSharedSecret(XSecure_ClientInstance *InstancePtr, u32 CrvType, co
 	 *   API and returns the status of the IPI response.
 	 */
 	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload, PAYLOAD_ARG_CNT);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+ *
+ * @brief	This function sends IPI request for ECC private key generation.
+ *
+ * @param	InstancePtr	Pointer to the client instance.
+ * @param	ParamsPtr	Pointer to the XSecure_EccPrivateKeyParams
+ *				structure.
+ *
+ * @return
+ *		 - XST_SUCCESS  On Success.
+ *		 - XST_INVALID_PARAM  If any input parameter is invalid.
+ *		 - XST_FAILURE  If there is a failure.
+ *
+ ******************************************************************************/
+int XSecure_EllipticPrivateKeyGenerate(XSecure_ClientInstance *InstancePtr,
+		const XSecure_EccPrivateKeyParams *ParamsPtr)
+{
+	volatile int Status = XST_FAILURE;
+	u32 Payload[PAYLOAD_ARG_CNT];
+	u64 Addr = (u64)(UINTPTR)ParamsPtr;
+
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) ||
+	    (ParamsPtr == NULL)) {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	XSECURE_PACK_PAYLOAD3(Payload, XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN,
+			(u32)Addr, (u32)(Addr >> XSECURE_ADDR_HIGH_SHIFT),
+			(u32)sizeof(XSecure_EccPrivateKeyParams));
+
+	Status = XSecure_ProcessMailbox(InstancePtr->MailboxPtr, Payload,
+			PAYLOAD_ARG_CNT);
 
 END:
 	return Status;

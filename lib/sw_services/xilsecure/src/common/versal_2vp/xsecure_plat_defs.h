@@ -73,7 +73,8 @@ typedef enum {
 	XSECURE_API_AES_PERFORM_OPERATION = 23U, /**< 23U */
 	/**< 24U to 32U reserved for versal_net*/
 	XSECURE_API_GEN_SHARED_SECRET = 33U,	/**< 33U */
-	XSECURE_API_MAX,			/**< 34U */
+	XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN = 43U,	/**< 43U */
+	XSECURE_API_MAX,			/**< 44U */
 } XSecure_ApiId;
 
 /** XilSecure API KAT ids */

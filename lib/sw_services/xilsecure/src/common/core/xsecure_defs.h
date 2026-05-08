@@ -186,6 +186,13 @@ typedef struct {
 	u32 SharedSecretAddrLow;/**< Lower 32-bit address of Shared secret to be copied */
 } XSecure_EcdhParams;
 
+/** Structure for ECC private key generation parameters */
+typedef struct {
+	u64 PrivKeyAddr;		/**< Private key address */
+	u32 PrivKeyLen;			/**< Length of private key in bytes */
+	u8 Reserved[4U];		/**< Explicit padding for alignment */
+} XSecure_EccPrivateKeyParams;
+
 /**
  * Structure for input parameters for AES
  * Encryption and Decryption of single block of data.

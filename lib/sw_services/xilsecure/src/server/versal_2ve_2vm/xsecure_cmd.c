@@ -22,6 +22,8 @@
 *       mb   04/17/26 Update XSecure_CryptoCheck API definition
 * 5.7   tbk  02/05/26 Added support for getting crypto algorithm's version
 *       tvp  04/29/26 Added IPI for HMAC
+*       tvp  04/30/26 Routed XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN through
+*                     XSecure_PlatEllipticIpiHandler
 *
 * </pre>
 *
@@ -105,6 +107,7 @@ static XPlmi_AccessPerm_t XSecure_AccessPermBuff[XSECURE_API_MAX] =
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_SHA2_OPERATION),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_LMS_SIGN_VERIFY),
 	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_HMAC_OPERATION),
+	XPLMI_ALL_IPI_FULL_ACCESS(XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN),
 };
 
 static XPlmi_Module XPlmi_Secure =
@@ -187,6 +190,7 @@ static int XSecure_FeaturesCmd(XPlmi_Cmd *Cmd)
 		AlgoVersion = XIL_BUILD_VERSION(XSECURE_ELLIPTIC_MODULE_MAJOR_VERSION, XSECURE_ELLIPTIC_MODULE_MINOR_VERSION);
 		NistStatus = NIST_COMPLIANT;
 		break;
+	case XSECURE_API(XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN):
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
 		AlgoVersion = XIL_BUILD_VERSION(XSECURE_ECDH_MODULE_MAJOR_VERSION, XSECURE_ECDH_MODULE_MINOR_VERSION);
 		NistStatus = NIST_COMPLIANT;
@@ -325,6 +329,7 @@ static int XSecure_ProcessCmd(XPlmi_Cmd *Cmd)
 #ifndef PLM_SECURE_EXCLUDE
 #ifndef PLM_ECDSA_EXCLUDE
 	case XSECURE_API(XSECURE_API_GEN_SHARED_SECRET):
+	case XSECURE_API(XSECURE_API_ELLIPTIC_PRIVATE_KEY_GEN):
 		Status = XSecure_PlatEllipticIpiHandler(Cmd);
 		break;
 #endif
