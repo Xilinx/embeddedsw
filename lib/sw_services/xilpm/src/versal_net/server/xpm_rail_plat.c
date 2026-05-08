@@ -1,5 +1,5 @@
 /******************************************************************************
-* Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -7,13 +7,6 @@
 #include "xpm_device.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
-
-#define RENESAS_ISL69260_ID	0x81D249
-#define INFINEON_XDPE15284D_ID	0x38A
-#define TI_TPS53689_ID		0x544953689000
-
-#define PMBUS_IC_DEVICE_ID	0xAD
-#define DEVICE_ID_LEN_MAX	8
 
 /*
  * eFuse values for VID power rails
@@ -30,6 +23,17 @@ u8 VCC_CPM5N_VIDTable[] = { \
 	48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 0 \
 };
 
+#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
+    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
+    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
+
+#define RENESAS_ISL69260_ID	0x81D249
+#define INFINEON_XDPE15284D_ID	0x38A
+#define TI_TPS53689_ID		0x544953689000
+
+#define PMBUS_IC_DEVICE_ID	0xAD
+#define DEVICE_ID_LEN_MAX	8
+
 static struct {
 	u32 RailId;
 	u32 RegulatorId;
@@ -42,9 +46,6 @@ static struct {
 	{ PM_POWER_VCCINT_CPM5N, 0x442c005, INFINEON_XDPE15284D_ID }, \
 	{ PM_POWER_VCCINT_CPM5N, 0x442c006, TI_TPS53689_ID }, \
 };
-#if defined (XPAR_XIICPS_0_DEVICE_ID) || defined (XPAR_XIICPS_1_DEVICE_ID) || \
-    defined (XPAR_XIICPS_2_DEVICE_ID) || defined (XPAR_XIICPS_0_BASEADDR)  || \
-    defined (XPAR_XIICPS_1_BASEADDR)  || defined (XPAR_XIICPS_2_BASEADDR)
 
 /*
  * TBD - This routine should be moved to common code when a use case for it is
