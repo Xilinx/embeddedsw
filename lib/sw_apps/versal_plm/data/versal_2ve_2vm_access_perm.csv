@@ -170,6 +170,9 @@ update_pki_kat_status,0x520,1,1,1,1,1,1,0,0,IPI,Update Pki Kat Status
 gen_shared_secret,0x521,1,1,1,1,1,1,0,0,IPI,Gen shared secret with user provided public and private key
 aes_perform_operation_and_zeroize_key,0x525,1,1,1,1,1,1,0,0,IPI,Perform Aes operation and zeroize key
 sha2_operation,0x526,1,1,1,1,1,1,0,0,IPI,Sha2 Digest Calculation
+hmac_operation,0x527,1,1,1,1,1,1,0,0,IPI,HMAC-SHA-384 operation
+lms_verify_sign,0x52A,1,1,1,1,1,1,0,0,IPI,Lms/Lms-hss verify signature
+elliptic_private_key_generate,0x52B,1,1,1,1,1,1,0,0,IPI,Ecc private key generation
 loader_features,0x700,3,3,3,3,3,3,0,0,IPI,Features
 load_subsystem_pdi,0x701,3,3,3,3,3,3,0,0,IPI,Load Subsystem Pdi
 load_ddrcpy_img,0x702,3,3,3,3,3,3,0,0,IPI,Load Ddrcpy Img
