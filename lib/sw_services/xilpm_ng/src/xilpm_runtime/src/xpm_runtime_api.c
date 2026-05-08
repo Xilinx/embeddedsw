@@ -3919,13 +3919,35 @@ static XStatus XPm_DoSetNodeAccess(XPlmi_Cmd * Cmd)
 
 	return Status;
 }
+/****************************************************************************/
+/**
+ * @brief  Hook called after boot PDI loading is complete. On QEMU/COSIM
+ *         platforms, creates the AIE device node if not already present.
+ *         Initialises pin runtime ops and calculates clock rates.
+ *
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error code
+ *
+ * @note   This is the strong (runtime) override of the weak boot version
+ *
+ ****************************************************************************/
 XStatus XPm_HookAfterBootPdi(void)
 {
+	XStatus Status = XST_FAILURE;
+	u32 Platform = XPm_GetPlatform();
+
 	/* TODO: Review where interrupts need to be enabled */
 	/* Enable power related interrupts to PMC */
 
 	XPm_RMW32(PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN, PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK,
 		  PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK);
+
+	if ((PLATFORM_VERSION_QEMU == Platform) ||
+	    (PLATFORM_VERSION_COSIM == Platform)) {
+		Status = XPm_CosimAddAieDeviceNode();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
 
 	if (XPlmi_IsPlmUpdateDone() == TRUE){
 		/* Skip during PLM update */
@@ -3949,8 +3971,10 @@ XStatus XPm_HookAfterBootPdi(void)
 		}
 	}
 
+	Status = XST_SUCCESS;
+
 done:
-	return XST_SUCCESS;
+	return Status;
 }
 
 /**

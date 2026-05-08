@@ -108,6 +108,7 @@ XStatus XPm_HnicxNpiDataXfer(u32 Address, u32 Value);
 u32 XPm_GetSubsystemId(u32 ImageId);
 XPlmi_ModuleCmd* XPm_GetPmCmds(void);
 XStatus XPm_AddNode(XPlmi_Cmd *Cmd);
+XStatus XPm_CosimAddAieDeviceNode(void);
 XStatus XPm_HookAfterBootPdi(void);
 
 /**
