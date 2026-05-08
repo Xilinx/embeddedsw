@@ -2708,12 +2708,74 @@ done:
 	return Status;
 }
 
+/**
+ * @brief  Add AIE device node for QEMU/COSIM platforms where the CDO does not
+ *         contain a pm_add_node command for the AIE partition device. This
+ *         ensures the AIE device (0x18800000) is present so that Linux can
+ *         request and operate on it.
+ *
+ * @return XST_SUCCESS if the node was added (or already exists), error otherwise
+ */
+XStatus XPm_CosimAddAieDeviceNode(void)
+{
+	XStatus Status = XST_FAILURE;
+	u32 NodeId = 0x18800000U;
+	u32 NodeIdx = NODEINDEX(NodeId);
+	u32 ParentId = PM_DEV_PLD_0;
+	XPm_AieDevice *AieDevice;
+
+	/* Check if any AIE partition node is already present */
+	u32 Temp = NodeId;
+	while ((u32)XPM_NODEIDX_DEV_AIE_MAX > NodeIdx) {
+		AieDevice = (XPm_AieDevice *)XPmDevice_GetById(Temp);
+		if (NULL != AieDevice) {
+			/* AIE partition node already present, nothing to do */
+			Status = XST_SUCCESS;
+			goto done;
+		}
+		Temp++;
+		NodeIdx++;
+	}
+
+	/* Allocate and initialise the AIE device node */
+	AieDevice = (XPm_AieDevice *)XPm_AllocBytes(sizeof(XPm_AieDevice));
+	if (NULL == AieDevice) {
+		Status = XST_BUFFER_TOO_SMALL;
+		goto done;
+	}
+
+	Status = XPmAieDevice_Init(AieDevice, NodeId, 0U, NULL, NULL, NULL);
+	if (XST_SUCCESS != Status) {
+		goto done;
+	}
+
+	/* Set PM_DEV_PLD_0 as the parent of this AIE device */
+	Status = XPmDevice_AddParent(NodeId, &ParentId, 1U);
+
+done:
+	return Status;
+}
+
 XStatus __attribute__((weak, noinline)) XPm_HookAfterBootPdi(void)
 {
+	XStatus Status = XST_FAILURE;
+	u32 Platform = XPm_GetPlatform();
+
 	/* TODO: Review where interrupts need to be enabled */
 	/* Enable power related interrupts to PMC */
 	XPm_RMW32(PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN, PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK,
 		  PSXC_LPX_SLCR_PMC_IRQ_PWR_MB_IRQ_EN_MASK);
 
-	return XST_SUCCESS;
+	if ((PLATFORM_VERSION_QEMU == Platform) ||
+	    (PLATFORM_VERSION_COSIM == Platform)) {
+		Status = XPm_CosimAddAieDeviceNode();
+		if (XST_SUCCESS != Status) {
+			goto done;
+		}
+	}
+
+	Status = XST_SUCCESS;
+
+done:
+	return Status;
 }
