@@ -171,7 +171,6 @@ static XStatus SendPowerDownReq(const XPm_Node *Node)
 		}
 	}
 
-done:
 	return Status;
 }
 
