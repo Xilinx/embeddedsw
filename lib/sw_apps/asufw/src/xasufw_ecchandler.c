@@ -60,6 +60,9 @@ static s32 XAsufw_EcdhGenSharedSecret(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EcdhKat(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccResourceHandler(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
 static s32 XAsufw_EccGenPubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#ifdef XASU_ENABLE_CAVP_SUPPORT
+static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId);
+#endif /* XASU_ENABLE_CAVP_SUPPORT */
 
 /************************************ Variable Definitions ***************************************/
 static XAsufw_Module XAsufw_EccModule; /**< ASUFW ECC Module ID and commands array */
@@ -87,6 +90,9 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhGenSharedSecret),
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EcdhKat),
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccGenPubKey),
+#ifdef XASU_ENABLE_CAVP_SUPPORT
+		[XASU_ECC_VAL_PUBKEY_CMD_ID] = XASUFW_MODULE_COMMAND(XAsufw_EccValidatePubKey),
+#endif /* XASU_ENABLE_CAVP_SUPPORT */
 	};
 
 	/** The XAsufw_EccResourcesBuf contains the required resources for each supported command. */
@@ -111,6 +117,10 @@ s32 XAsufw_EccInit(void)
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK,
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
 		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
+#ifdef XASU_ENABLE_CAVP_SUPPORT
+		[XASU_ECC_VAL_PUBKEY_CMD_ID] = XASUFW_DMA_RESOURCE_MASK | XASUFW_ECC_RESOURCE_MASK |
+		XASUFW_TRNG_RESOURCE_MASK | XASUFW_TRNG_RANDOM_BYTES_MASK | XASUFW_RSA_SHA_RESOURCE_MASK,
+#endif /* XASU_ENABLE_CAVP_SUPPORT */
 	};
 
 	/** The XAsufw_EccAccessPermBuf contains the IPI access permissions for each supported command. */
@@ -121,6 +131,9 @@ s32 XAsufw_EccInit(void)
 		[XASU_ECDH_SHARED_SECRET_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECDH_SHARED_SECRET_CMD_ID),
 		[XASU_ECDH_KAT_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECDH_KAT_CMD_ID),
 		[XASU_ECC_GEN_PUBKEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_GEN_PUBKEY_CMD_ID),
+#ifdef XASU_ENABLE_CAVP_SUPPORT
+		[XASU_ECC_VAL_PUBKEY_CMD_ID] = XASUFW_ALL_IPI_FULL_ACCESS(XASU_ECC_VAL_PUBKEY_CMD_ID),
+#endif /* XASU_ENABLE_CAVP_SUPPORT */
 	};
 
 	XAsufw_EccModule.Id = XASU_MODULE_ECC_ID;
@@ -450,6 +463,60 @@ END:
 	return Status;
 }
 
+#ifdef XASU_ENABLE_CAVP_SUPPORT
+/*************************************************************************************************/
+/**
+ * @brief	This function is a handler for ECC public key validation operation command.
+ *
+ * @param	ReqBuf	Pointer to the request buffer.
+ * @param	ReqId	Request Unique ID.
+ *
+ * @return
+ * 	- XASUFW_SUCCESS, if public key validation operation is successful.
+ * 	- XASUFW_RESOURCE_RELEASE_NOT_ALLOWED, upon illegal resource release.
+ * 	- XASUFW_INVALID_PARAM, if any argument is invalid.
+ *
+ *************************************************************************************************/
+static s32 XAsufw_EccValidatePubKey(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
+{
+	s32 Status = XASUFW_FAILURE;
+	XEcc *EccInstancePtr = XEcc_GetInstance(XASU_XECC_0_DEVICE_ID);
+	const XAsu_EccKeyParams *EccParamsPtr = (const XAsu_EccKeyParams *)ReqBuf->Arg;
+	XAsufw_Resource ResourceId = XASUFW_INVALID;
+
+	if ((EccParamsPtr->CurveType == XASU_ECC_NIST_P256) ||
+		(EccParamsPtr->CurveType == XASU_ECC_NIST_P384)) {
+		ResourceId = XASUFW_ECC;
+	} else {
+		ResourceId = XASUFW_RSA;
+	}
+
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_EccKeyParams);
+
+	/**
+	 * Validate the public key using core API XEcc_ValidatePublicKey or XRsa_EccValidatePubKey
+	 * based on curve type.
+	 */
+	if (ResourceId == XASUFW_ECC) {
+		Status = XEcc_ValidatePublicKey(EccInstancePtr, XAsufw_EccModule.AsuDmaPtr,
+				EccParamsPtr->CurveType, EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
+	} else {
+		Status = XRsa_EccValidatePubKey(XAsufw_EccModule.AsuDmaPtr, EccParamsPtr->CurveType,
+			EccParamsPtr->PvtKey.KeyLen, EccParamsPtr->PubKeyAddr);
+	}
+
+END:
+	/** Release resources. */
+	if (XAsufw_ReleaseResource(ResourceId, ReqId) != XASUFW_SUCCESS) {
+		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
+	}
+	XAsufw_EccModule.AsuDmaPtr = NULL;
+
+	return Status;
+}
+#endif /* XASU_ENABLE_CAVP_SUPPORT */
+
 /*************************************************************************************************/
 /**
  * @brief	This function is a handler for ECDH secret generation operation command.
@@ -624,7 +691,7 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 	XAsufw_Resource Resource = XASUFW_INVALID;
 
 	/** Get CurveType based on command ID. */
-	if (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) {
+	if ((CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) || (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
 		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->CurveType;
 	} else {
 		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->CurveType;
@@ -633,7 +700,8 @@ XAsufw_Resource XAsufw_GetEccMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 	if (ModuleId == XASU_MODULE_ECC_ID) {
 		if (((CmdId == XASU_ECC_GEN_SIGNATURE_CMD_ID) ||
 		    (CmdId == XASU_ECC_VERIFY_SIGNATURE_CMD_ID) ||
-		    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID)) &&
+		    (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) ||
+		    (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) &&
 		    ((CurveType == XASU_ECC_NIST_P256) ||
 		    (CurveType == XASU_ECC_NIST_P384))) {
 			Resource = XASUFW_ECC;
@@ -672,7 +740,7 @@ XAsufw_Resource XAsufw_GetRsaShaMaskResourceId(const XAsu_ReqBuf *ReqBuf)
 	XAsufw_Resource Resource = XASUFW_INVALID;
 
 	/** Get CurveType based on command ID. */
-	if (CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) {
+	if ((CmdId == XASU_ECC_GEN_PUBKEY_CMD_ID) || (CmdId == XASU_ECC_VAL_PUBKEY_CMD_ID)) {
 		CurveType = ((const XAsu_EccKeyParams *)ReqBuf->Arg)->CurveType;
 	} else {
 		CurveType = ((const XAsu_EccParams *)ReqBuf->Arg)->CurveType;
