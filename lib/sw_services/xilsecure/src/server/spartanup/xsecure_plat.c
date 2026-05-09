@@ -453,17 +453,59 @@ END:
 	return Status;
 }
 
-/*******************************************************************************************/
+/*****************************************************************************/
 /**
-* @brief	This function stages input data through the DMA-safe PartialData
-*		buffer and transfers it block-by-block to the SHA engine.
+* @brief	This function issues a single PMC-DMA SRC transfer to the SHA
+*		engine and waits for the DONE bit.
 *
-*		On Spartan UltraScale+, the DMA controller can only access a
-*		restricted memory region. This function accumulates incoming data
-*		in the PartialData buffer (which resides in DMA-reachable memory),
-*		and DMA's complete blocks to the SHA engine one at a time. Any
-*		remaining data less than one block is kept in PartialData for
-*		the next call or for NIST padding during ShaFinish.
+* @param	DmaPtr	Pointer to the PMC-DMA instance.
+* @param	SrcAddr	Word-aligned source address.
+* @param	Words	Transfer length in 32-bit words.
+* @param	IsLast	When TRUE, asserts data_inp_last on the final word.
+*
+* @return
+*		- XST_SUCCESS - On DMA DONE asserted within timeout.
+*		- XST_FAILURE - On DMA transfer timeout.
+*
+******************************************************************************/
+static int XSecure_ShaIssueDmaAndWait(XPmcDma *DmaPtr, u64 SrcAddr,
+				      u32 Words, u8 IsLast)
+{
+	volatile int Status = XST_FAILURE;
+
+	XPmcDma_Transfer(DmaPtr, XPMCDMA_SRC_CHANNEL, SrcAddr, Words, IsLast);
+
+	Status = XPmcDma_WaitForDoneTimeout(DmaPtr, XPMCDMA_SRC_CHANNEL);
+	if (Status != XST_SUCCESS) {
+		Status = XST_FAILURE;
+		goto END;
+	}
+
+	XPmcDma_IntrClear(DmaPtr, XPMCDMA_SRC_CHANNEL, XPMCDMA_IXR_DONE_MASK);
+
+END:
+	return Status;
+}
+
+/*****************************************************************************/
+/**
+* @brief	This function transfers input data to the SHA engine via PMC-DMA,
+*		using PartialData[] as a small residue buffer for sub-word and
+*		sub-block leftovers between calls.
+*
+*		If there is no prior residue and the caller address is word-
+*		aligned, the word-aligned portion is DMA'd directly from the
+*		caller buffer and any 0..3 trailing bytes are stashed into
+*		PartialData[] for the next call.
+*
+*		Otherwise the caller bytes are staged through PartialData[]
+*		and DMA'd in fixed BlockLen chunks (one Keccak rate / SHA
+*		absorber block) sourced from &PartialData[0]; the trailing
+*		< BlockLen residue is deferred to SW NIST padding via
+*		XSecure_TransferNistPad. Constant DMA size and constant
+*		source address are required here to keep the PMC-DMA source
+*		channel stable across back-to-back transfers on Spartan
+*		UltraScale+.
 *
 * @param	InstancePtr	Pointer to the SHA instance.
 * @param	DataAddr	Address of the input data.
@@ -472,20 +514,24 @@ END:
 *
 * @return
 *		- XST_SUCCESS - Upon successful data transfer.
-*		- XST_FAILURE - Upon failure.
+*		- XST_FAILURE - Upon DMA transfer failure.
 *		- XSECURE_SHA_INVALID_PARAM - Upon invalid parameter.
 *
- *******************************************************************************************/
+******************************************************************************/
 int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdate)
 {
 	volatile int Status = XST_FAILURE;
 	XSecure_Sha *ShaInstancePtr = (XSecure_Sha *)InstancePtr;
-	u32 RemainingDataLen;
-	u8 IsLastBlock;
-	u32 PrevPartialLen;
 	u8 *PartialData;
+	u32 PrevPartialLen = 0U;
 	u64 InDataAddr = DataAddr;
+	u32 InSize = Size;
+	u32 DmableDataLen;
+	u32 RemainingDataLen;
 	u32 BlockLen;
+	u32 Idx;
+	u8 IsLastForDma;
+	const u8 *Src;
 	const XSecure_ShaPlatConfig *ShaPlatConfig;
 
 	if (InstancePtr == NULL) {
@@ -498,78 +544,97 @@ int XSecure_ShaDmaXfer(void *InstancePtr, u64 DataAddr, u32 Size, u8 IsLastUpdat
 		goto END;
 	}
 
-	ShaPlatConfig = (const XSecure_ShaPlatConfig *)ShaInstancePtr->ShaPlatConfig;
-
-	BlockLen = XSecure_ShaGetBlockLen(ShaPlatConfig->HashAlgo);
-	if (BlockLen == 0U) {
-		Status = (int)XSECURE_SHA_INVALID_PARAM;
-		goto END;
-	}
-
-	PrevPartialLen = ShaInstancePtr->PartialLen;
 	PartialData = ShaInstancePtr->PartialData;
+	PrevPartialLen = ShaInstancePtr->PartialLen;
 
-	RemainingDataLen = Size + PrevPartialLen;
-	IsLastBlock = (u8)FALSE;
+	/**  No prior residue and caller address is word-aligned. **/
+	if ((PrevPartialLen == 0U) &&
+	    ((InDataAddr & (u64)XSECURE_WORD_ALIGN_MASK) == 0U)) {
+		DmableDataLen   = InSize & ~(u32)XSECURE_WORD_ALIGN_MASK;
+		RemainingDataLen = InSize & (u32)XSECURE_WORD_ALIGN_MASK;
+		/** HW IsLast only when word-aligned DMA consumes every remaining caller byte. **/
+		IsLastForDma = (RemainingDataLen == 0U) ? IsLastUpdate : (u8)FALSE;
 
-	while (RemainingDataLen >= BlockLen) {
-		if (PrevPartialLen != 0U) {
-			if ((u64)(UINTPTR)&PartialData[PrevPartialLen] != InDataAddr) {
-				XSecure_MemCpy64(
-					(u64)(UINTPTR)&PartialData[PrevPartialLen],
-					InDataAddr, BlockLen - PrevPartialLen);
+		if (DmableDataLen > 0U) {
+			/** DMA caller buffer directly to SHA engine. **/
+			Status = XSecure_ShaIssueDmaAndWait(ShaInstancePtr->DmaPtr,
+							    InDataAddr,
+							    DmableDataLen / XSECURE_WORD_SIZE,
+							    IsLastForDma);
+			if (Status != XST_SUCCESS) {
+				Status |= Xil_SMemSet(ShaInstancePtr->PartialData,
+						sizeof(ShaInstancePtr->PartialData), 0U,
+						sizeof(ShaInstancePtr->PartialData));
+				ShaInstancePtr->PartialLen = 0U;
+				goto END;
 			}
-			InDataAddr += (BlockLen - PrevPartialLen);
-		}
-		else {
-			if ((u64)(UINTPTR)PartialData != InDataAddr) {
-				XSecure_MemCpy64(
-					(u64)(UINTPTR)PartialData,
-					InDataAddr, BlockLen);
-			}
-			InDataAddr += (u64)BlockLen;
-		}
-
-		RemainingDataLen -= BlockLen;
-
-		if ((RemainingDataLen == 0U) &&
-		    (IsLastUpdate == (u8)TRUE)) {
-			IsLastBlock = (u8)TRUE;
 		}
 
-		XPmcDma_Transfer(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
-			(u64)(UINTPTR)PartialData,
-			BlockLen / XSECURE_WORD_SIZE, IsLastBlock);
+		/** Stash 0..3 byte tail in PartialData[] for next call. **/
+		Src = (const u8 *)(UINTPTR)(InDataAddr + DmableDataLen);
+		for (Idx = 0U; Idx < RemainingDataLen; Idx++) {
+			PartialData[Idx] = Src[Idx];
+		}
 
-		Status = XPmcDma_WaitForDoneTimeout(ShaInstancePtr->DmaPtr,
-				XPMCDMA_SRC_CHANNEL);
-		if (Status != XST_SUCCESS) {
-			if (Xil_SMemSet(ShaInstancePtr->PartialData,
-				sizeof(ShaInstancePtr->PartialData), 0U,
-				sizeof(ShaInstancePtr->PartialData)) != XST_SUCCESS) {
-				Status = XST_FAILURE;
-			}
-			ShaInstancePtr->PartialLen = 0U;
+		PrevPartialLen = RemainingDataLen;
+	}
+	else {
+		/** Prior residue in PartialData[] or caller address is not word-aligned. **/
+		ShaPlatConfig = (const XSecure_ShaPlatConfig *)ShaInstancePtr->ShaPlatConfig;
+		BlockLen = XSecure_ShaGetBlockLen(ShaPlatConfig->HashAlgo);
+		if (BlockLen == 0U) {
+			Status = (int)XSECURE_SHA_INVALID_PARAM;
 			goto END;
 		}
 
-		XPmcDma_IntrClear(ShaInstancePtr->DmaPtr, XPMCDMA_SRC_CHANNEL,
-				XPMCDMA_IXR_DONE_MASK);
-		PrevPartialLen = 0U;
+		RemainingDataLen = InSize + PrevPartialLen;
+
+		/** Drain PartialData[] one BlockLen at a time; constant DMA size keeps the PMC-DMA channel stable. **/
+		while (RemainingDataLen >= BlockLen) {
+			if (PrevPartialLen != 0U) {
+				/** Top up PartialData[] to a full BlockLen. **/
+				XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
+						 InDataAddr, BlockLen - PrevPartialLen);
+				InDataAddr += (BlockLen - PrevPartialLen);
+			} else {
+				/** Copy a full BlockLen from caller into PartialData[]. **/
+				XSecure_MemCpy64((u64)(UINTPTR)PartialData,
+						 InDataAddr, BlockLen);
+				InDataAddr += (u64)BlockLen;
+			}
+
+			RemainingDataLen -= BlockLen;
+
+			/** HW IsLast only when this is the last block AND IsLastUpdate. **/
+			IsLastForDma = ((RemainingDataLen == 0U) && (IsLastUpdate == (u8)TRUE))
+					? (u8)TRUE : (u8)FALSE;
+
+			/** DMA exactly one BlockLen from PartialData[] to SHA engine. **/
+			Status = XSecure_ShaIssueDmaAndWait(ShaInstancePtr->DmaPtr,
+							    (u64)(UINTPTR)PartialData,
+							    BlockLen / XSECURE_WORD_SIZE,
+							    IsLastForDma);
+			if (Status != XST_SUCCESS) {
+				Status |= Xil_SMemSet(ShaInstancePtr->PartialData,
+						sizeof(ShaInstancePtr->PartialData), 0U,
+						sizeof(ShaInstancePtr->PartialData));
+				ShaInstancePtr->PartialLen = 0U;
+				goto END;
+			}
+
+			PrevPartialLen = 0U;
+		}
+
+		/** Stash trailing < BlockLen bytes for next ShaUpdate or SW NIST padding. **/
+		if (RemainingDataLen > 0U) {
+			XSecure_MemCpy64((u64)(UINTPTR)&PartialData[PrevPartialLen],
+					 InDataAddr,
+					 RemainingDataLen - PrevPartialLen);
+		}
+		PrevPartialLen = RemainingDataLen;
 	}
 
-	/**
-	 * - Store remaining data (< BlockLen) in PartialData for the next
-	 *   call or for NIST padding in ShaFinish.
-	 */
-	if ((RemainingDataLen > 0U) &&
-	    ((u64)(UINTPTR)&PartialData[PrevPartialLen] != InDataAddr)) {
-		XSecure_MemCpy64(
-			(u64)(UINTPTR)&PartialData[PrevPartialLen],
-			InDataAddr, RemainingDataLen - PrevPartialLen);
-	}
-	ShaInstancePtr->PartialLen = RemainingDataLen;
-
+	ShaInstancePtr->PartialLen = PrevPartialLen;
 	Status = XST_SUCCESS;
 
 END:
