@@ -85,7 +85,7 @@ struct XPm_AieCtrlPktTlastErr {
 	u16 State;	/* Value to set CTRL_PKT_TLAST_ERR bit in module clock control register */
 } __attribute__ ((aligned(4)));
 
-XStatus XPmAie_Operations(u32 Part, u32 Ops, u32 Arg3);
+XStatus XPmAie_Operations(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr);
 XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider);
 XStatus XPmAieDevice_QueryDivider(u32 *Response);
 

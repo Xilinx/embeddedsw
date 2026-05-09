@@ -9,6 +9,7 @@
 #include "xpm_power.h"
 #include "xpm_debug.h"
 #include "xpm_regs.h"
+#include "xpm_mem.h"
 #define AIE2PS_COL_SHIFT 25U
 #define AIE2PS_ROW_SHIFT 20U
 #define AIE2PS_TILE_BADDR(NocAddr, col, row)	\
@@ -43,7 +44,7 @@ static XStatus Aie2ps_ColRst(u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_ShimRst(const u32 StartCol, const u32 EndCol, const void* Buffer);
 static XStatus Aie2ps_EnbColClkBuff(u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_UcZeroization(u32 StartCol, u32 EndCol, const void *Buffer);
-static XStatus Aie2ps_HandShake(u32 StartCol, u32 EndCol, const void *Buffer);
+static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_IntcHwSts(u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_Zeroization(u32 StartCol, u32 EndCol, const void *Buffer);
 static XStatus Aie2ps_EnbAxiMmIsolation(u32 StartCol, u32 EndCol, const void *Buffer);
@@ -67,7 +68,9 @@ static const struct XPmAieOpsHandlers AieOpsHandlers[] = {
 	{AIE_OPS_SHIM_RST,		Aie2ps_ShimRst},
 	{AIE_OPS_UC_ZEROIZATION,	Aie2ps_UcZeroization},
 	{AIE_OPS_ENB_COL_CLK_BUFF,	Aie2ps_EnbColClkBuff},
-	{AIE_OPS_HANDSHAKE,		Aie2ps_HandShake},
+	/* AIE_OPS_HANDSHAKE is dispatched directly in Aie2ps_Operation()
+	 * because it needs SubsystemId for caller-DDR range validation
+	 * which is not part of the generic AieOpsHandlers signature. */
 	{AIE_OPS_CLR_HW_ERR_STS,	Aie2ps_IntcHwSts},
 	{AIE_OPS_ALL_MEM_ZEROIZATION,	Aie2ps_Zeroization},
 	{AIE_OPS_AXIMM_ISOLATION,	Aie2ps_EnbAxiMmIsolation},
@@ -954,7 +957,7 @@ static XStatus Aie2ps_DisMemInterleave(u32 StartCol, u32 EndCol, const void *Buf
  *
  * @return XST_SUCCESS if successful else error code.
  ***************************************************************************/
-static XStatus Aie2ps_HandShake(u32 StartCol, u32 EndCol, const void *Buffer)
+static XStatus Aie2ps_HandShake(u32 SubsystemId, u32 StartCol, u32 EndCol, const void *Buffer)
 {
 	XStatus Status = XST_FAILURE;
 	const XPm_AieDomain *AieDomain = (XPm_AieDomain*)XPmPower_GetById(PM_POWER_ME2);
@@ -975,6 +978,17 @@ static XStatus Aie2ps_HandShake(u32 StartCol, u32 EndCol, const void *Buffer)
 	if (AIE2PS_UC_PRIVATE_DM_MAX_SIZE < (Len + Offset)) {
 		DbgErr = XPM_INT_ERR_UC_PRIVATE_DM_MAX_SIZE;
 		Status = XPM_ERR_AIE_OPS_HANDSHAKE;
+		goto done;
+	}
+
+	/* Validate caller-supplied DDR source range against the requesting
+	 * subsystem's allowed memory regions before pulling bytes into the
+	 * per-column AIE UC Core Private Data Memory via PMC DMA. */
+	Status = XPm_IsMemAddressValid(SubsystemId, DdrAddr, (u64)Len);
+	if (XPM_SUCCESS != Status) {
+		PmErr("AIE handshake DDR src 0x%x_%08x len %u not allowed for subsystem 0x%x (Status=0x%x)\r\n",
+		      HighAddr, LowAddr, Len, SubsystemId, Status);
+		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
 
@@ -1070,7 +1084,7 @@ static XStatus Aie2ps_CtrlPktTlastErr(u32 StartCol, u32 EndCol, const void *Buff
  * @return XST_SUCCESS if successful else error code
  *
  ******************************************************/
-static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
+static XStatus Aie2ps_Operation(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr)
 {
 	XStatus Status = XST_FAILURE;
 	u64 DdrAddr =  LowAddr | (u64)HighAddr << 32U;
@@ -1101,9 +1115,15 @@ static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
 		goto done;
 	}
 
-	/* @TODO Validate address for DDR memory range */
-	if ((0U == LowAddr) && (0U == HighAddr)) {
-		Status = XST_INVALID_PARAM;
+	/* Validate caller-supplied DDR source range against the requesting
+	 * subsystem's allowed memory regions before copying the AIE op buffer
+	 * into the local Buffer[] via PMC DMA. The helper rejects size==0,
+	 * (Addr+Size) overflow, and addresses outside the subsystem's allowed
+	 * MemRegn list, which subsumes the previous (0,0) null check. */
+	Status = XPm_IsMemAddressValid(SubsystemId, DdrAddr, (u64)Size);
+	if (XPM_SUCCESS != Status) {
+		PmErr("AIE op buffer DDR src 0x%x_%08x size %u not allowed for subsystem 0x%x (Status=0x%x)\r\n",
+		      HighAddr, LowAddr, Size, SubsystemId, Status);
 		DbgErr = XPM_INT_ERR_INVALID_PARAM;
 		goto done;
 	}
@@ -1132,6 +1152,17 @@ static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
 			}
 
 			Buf += OpTypeLen->Len;
+		} else if (AIE_OPS_HANDSHAKE == OpTypeLen->Type) {
+			/* HandShake is dispatched directly because it needs
+			 * SubsystemId for caller-DDR range validation. */
+			Status = Aie2ps_HandShake(SubsystemId, StartCol, EndCol, Buf);
+			if (XST_SUCCESS != Status) {
+				goto done;
+			}
+			/* Len from the XPm_AieOpHandShake structure is total
+			 * length of structure + handshake operation
+			 * so only consider structure length for traversing buffer */
+			Buf += sizeof(struct XPm_AieOpHandShake);
 		} else {
 			for (Index = 0U; Index < sizeof(AieOpsHandlers)/sizeof(struct XPmAieOpsHandlers); Index++) {
 				if (AieOpsHandlers[Index].Ops == OpTypeLen->Type) {
@@ -1145,15 +1176,9 @@ static XStatus Aie2ps_Operation(u32 Size, u32 HighAddr, u32 LowAddr)
 
 			if (XST_SUCCESS != Status) {
 				goto done;
-			} else if (AIE_OPS_HANDSHAKE == OpTypeLen->Type) {
-				/* Len from the XPm_AieOpHandShake structure is total
-				 * length of structure + handshake operation
-				 * so only consider structure length for traversing buffer */
-				Buf += sizeof(struct XPm_AieOpHandShake);
-			} else {
-				/* Move to next operation in buffer */
-				Buf += OpTypeLen->Len;
 			}
+			/* Move to next operation in buffer */
+			Buf += OpTypeLen->Len;
 		}
 
 		OpTypeLen = (struct XPm_AieTypeLen *)Buf;
@@ -1168,20 +1193,23 @@ done:
 
 /***************************************************************************/
 /**
- * @brief  Execute AIE operations from a DDR buffer.
+ * @brief  Execute AIE operations from a caller-supplied DDR buffer.
  *
- * @param  Size         Buffer size
+ * @param  SubsystemId  Requesting subsystem ID; used to validate the source
+ *                      DDR range against the subsystem's allowed memory
+ *                      regions before any DMA fetch.
+ * @param  Size         Buffer size in bytes
  * @param  HighAddr     Upper 32 bits of the buffer address
  * @param  LowAddr      Lower 32 bits of the buffer address
  *
  * @return XST_SUCCESS if successful else error code
  ***************************************************************************/
-XStatus XPmAie_Operations(u32 Size, u32 HighAddr, u32 LowAddr)
+XStatus XPmAie_Operations(u32 SubsystemId, u32 Size, u32 HighAddr, u32 LowAddr)
 {
 	XStatus Status = XST_FAILURE;
 
 	/* @TODO: Check if AIE device is added and initialized */
-	Status = Aie2ps_Operation(Size, HighAddr, LowAddr);
+	Status = Aie2ps_Operation(SubsystemId, Size, HighAddr, LowAddr);
 
 	return Status;
 }
