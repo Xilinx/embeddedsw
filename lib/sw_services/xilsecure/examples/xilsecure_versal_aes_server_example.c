@@ -42,10 +42,9 @@
 *        __data_end = .;
 *       } > shared_mem
 *
-* Note: In case of SPARTANUPLUS device, shared_mem section should be mapped to 0x0402C000.
-*       In case of SPARTANUPLUSAES1 device, shared_mem section should be mapped to 0x0403C000.
-*       In case of Versal device, shared_mem section should be mapped to
-*       versal_cips_0_pspmc_0_psv_ocm_ram_0_memory_0.
+* Note: The shared_mem section address is design and platform dependent.
+*       Users must map shared_mem to a memory region that is accessible
+*       to both the PMC and the PL, based on the target device and Vivado design.
 *
 * MODIFICATION HISTORY:
 * <pre>
@@ -62,6 +61,8 @@
 * 5.6   rpu    08/22/25 Updated the print statement to show error code when the example fails
 * 5.7   bha    02/25/26 Removed ICCARM related code
 *       mb     02/29/26 Add section attribute to global variables
+*       mb     03/25/26 Remove hard code shared_mem section address
+*
 * </pre>
 ******************************************************************************/
 

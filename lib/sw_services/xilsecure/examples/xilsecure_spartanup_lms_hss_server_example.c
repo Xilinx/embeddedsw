@@ -20,7 +20,7 @@
 *    The region must be at least 0x3000 bytes to accommodate the LMS/HSS
 *    test vectors (~12 KB):
 *
-*       shared_mem : ORIGIN = 0x0402C000, LENGTH = 0x3000
+*       shared_mem : ORIGIN = SHARED_MEM, LENGTH = 0x3000
 *
 2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
 *  Change the .data section region to point to the new shared_mem region created in step 1. as below
@@ -34,11 +34,16 @@
 *			__data_end = .;
 *			} > shared_mem
 *
+* Note: The shared_mem section address is design and platform dependent.
+*       Users must map shared_mem to a memory region that is accessible
+*       to both the PMC and the PL, based on the target device and Vivado design.
+*
 * MODIFICATION HISTORY:
 * <pre>
 * Ver   Who    Date     Changes
 * ----- ------ -------- -------------------------------------------------
 * 1.0   har    03/15/26 First Release
+*       mb     03/25/26 Remove hard code shared_mem section address
 * </pre>
 ******************************************************************************/
 
