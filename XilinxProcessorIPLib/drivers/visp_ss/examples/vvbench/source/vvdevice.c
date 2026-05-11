@@ -3168,10 +3168,6 @@ void VsiVvdeviceShowBuffer
 		// LOGI("showbuffer: bufferSize:%d,", bufferSize);
 		// LOGI("showbuffer: Phy_Addr:0x%x,", pNowBuffer->baseAddress);
 		// LOGI("showbuffer: Ipl_Addr:%p", pNowBuffer->pIplAddress);
-		if (pBuffer->pIplAddress == NULL && pBuffer->baseAddress == 0) {
-			//LOGE("%s: show buffer pIplAddress error", __func__);
-			return;
-		}
 
 		/* Reconstruct full 64-bit CPU address from 32-bit ATM address */
 		uint64_t showFullAddr;
