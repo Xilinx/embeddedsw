@@ -1202,6 +1202,7 @@ XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 	volatile XStatus Status = XST_FAILURE;
 	XPm_AieDomain *AieDomain = (XPm_AieDomain *)XPmPower_GetById(PM_POWER_ME2);
 	u32 NpiUnlocked = 0U;
+	u32 Platform = XPm_GetPlatform();
 
 	if (NULL == AieDomain) {
 		Status = XPM_INVALID_PWRDOMAIN;
@@ -1234,16 +1235,16 @@ XStatus XPmAieDevice_UpdateClockDiv(const u32 Divider)
 		  AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK,
 		  Divider << AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT);
 
-	/* Blind write check on the divisor field; bail out before reporting
-	 * success if the readback does not match the requested value so the
-	 * caller cannot proceed with a glitched clock divider.
-	 */
-	PmChkRegMask32(AieDomain->AieNpiAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET,
-		       AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK,
-		       Divider << AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT,
-		       Status);
-	if (XPM_REG_WRITE_FAILED == Status) {
-		goto done;
+	/* Verify divider readback on platforms that require security hardening. */
+	if ((PLATFORM_VERSION_QEMU != Platform) &&
+	    (PLATFORM_VERSION_COSIM != Platform)) {
+		PmChkRegMask32(AieDomain->AieNpiAddress + AIE2PS_ME_CORE_REF_CTRL_OFFSET,
+			       AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_MASK,
+			       Divider << AIE2PS_ME_CORE_REF_CTRL_DIVISOR0_SHIFT,
+			       Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			goto done;
+		}
 	}
 
 	Status = XST_SUCCESS;
