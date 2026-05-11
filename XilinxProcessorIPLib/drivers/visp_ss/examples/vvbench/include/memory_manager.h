@@ -16,8 +16,10 @@ struct aligned_buf {
 
 /* Memory manager functions provided by libvisp.a */
 int mm_init(void);
+void *mm_malloc(size_t size);
+void mm_free(void *ptr);
+void *mm_realloc(void *ptr, size_t size);
 void *mm_aligned_malloc(size_t size, size_t alignment, struct aligned_buf *metadata);
 void mm_print_stats(void);
-void mm_free(struct aligned_buf *buf);
 
 #endif /* MEMORY_MANAGER_H */
