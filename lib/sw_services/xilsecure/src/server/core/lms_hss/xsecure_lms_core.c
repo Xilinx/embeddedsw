@@ -422,6 +422,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	XSecure_LmsSignVerifyParams *LmsSignVerifyParams)
 {
 	volatile int Status = XST_FAILURE;
+	volatile int StatusTmp = XST_FAILURE;
 	volatile int ReturnStatus = XST_GLITCH_ERROR;
 	u32 LoopError = XST_FAILURE;
 	volatile XSecure_LmsType PubKeyLmsType = XSECURE_LMS_NOT_SUPPORTED;
@@ -433,6 +434,7 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 	const u8* Path = NULL;
 	const XSecure_LmsParam* LmsSignParam = NULL;
 	u32 CurrentNodeNum = 0U;
+	volatile u32 LoopCount = 0U;
 	volatile u32 PathIndex = 0U;
 	volatile u32 Index = 0U;
 	static u8 TmpBuff[XSECURE_LMS_M_BYTE_FIELD_SIZE];
@@ -798,28 +800,37 @@ int XSecure_LmsSignatureVerification(XSecure_Sha *ShaInstPtr, XPmcDma *DmaPtr,
 		}
 
 		/** - Start till finish HASH to calculate digest */
-		{
-			volatile int StatusTmp = XST_FAILURE;
-			XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
-					(u64)(UINTPTR)LmsPubKeyTmpBuff.Buff,
-					XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE,
-					(u64)(UINTPTR)TmpBuff,
-					XSECURE_LMS_M_BYTE_FIELD_SIZE);
-			if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
-				if ((Status != StatusTmp) || (Status == XST_SUCCESS)) {
-					Status = XST_GLITCH_ERROR;
-				}
-				else {
-					Status = (int)LoopError;
-				}
-				goto END;
+		XSECURE_TEMPORAL_IMPL(Status, StatusTmp, XSecure_ShaDigest, ShaInstPtr, LmsOtsSignParam->H,
+				(u64)(UINTPTR)LmsPubKeyTmpBuff.Buff,
+				XSECURE_LMS_PUB_KEY_TMP_BUFFER_INTR_TOTAL_SIZE,
+				(u64)(UINTPTR)TmpBuff,
+				XSECURE_LMS_M_BYTE_FIELD_SIZE);
+		if ((Status != XST_SUCCESS) || (StatusTmp != XST_SUCCESS)) {
+			if ((Status != StatusTmp) || (Status == XST_SUCCESS)) {
+				Status = XST_GLITCH_ERROR;
 			}
+			else {
+				Status = (int)LoopError;
+			}
+			goto END;
 		}
 
 		CurrentNodeNum = CurrentNodeNum / 2U;
 
 		/** - If following operation is glitched, we will end up with wrong root value which can be detected */
 		PathIndex += XSECURE_LMS_M_BYTE_FIELD_SIZE;
+		LoopCount++;
+	}
+
+	/**
+	 * - Halving the leaf node number (2^h + q) down to root (node 1) always
+	 *   takes exactly h steps, where (2^h + q) is the Merkle tree node number
+	 *   assigned to leaf index q in a tree of height h.
+	 *   LoopCount < h indicates a glitch caused the loop to exit early.
+	 */
+	if (LoopCount != (u32)LmsSignParam->h) {
+		Status = XST_GLITCH_ERROR;
+		goto END;
 	}
 
 	/**
