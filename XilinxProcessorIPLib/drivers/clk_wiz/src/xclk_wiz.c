@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -33,6 +33,7 @@
 * 1.11 sd  9/27/25 Added XClk_Wiz_GetInputRate.
 *      sd  10/29/25 Conditionally compile XClk_Wiz_GetInputRate.
 * 1.12 sd  11/21/25 Fix a typo in strcmp.
+* 1.13 sd  5/7/26  Add the CP and Res update on rate change.
 * </pre>
 ******************************************************************************/
 
@@ -43,6 +44,7 @@
 #include "xparameters.h"
 #endif
 #include "xclk_wiz.h"
+#include "xil_sutil.h"
 
 /************************** Constant Definitions *****************************/
 
@@ -231,8 +233,6 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 	u64 Fvco;
 	u64 Freq;
 	u64 Diff;
-	u64 Minerr = InstancePtr->MinErr;
-	u32 Status = XST_FAILURE;
 	u64 VcoMin;
 	u64 VcoMax;
 	u32 Platform;
@@ -242,6 +242,7 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 	u32 Dmax;
 	u32 Omin;
 	u32 Omax;
+	u64 BestDiv = -1ULL;
 
 	Platform = XGetPlatform_Info();
 
@@ -276,7 +277,7 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 #else
 			Fvco = InstancePtr->Config.PrimInClkFreq  * m / d;
 #endif
-			if ( Fvco >= VcoMin * XCLK_MHZ && Fvco <= VcoMax * XCLK_MHZ ) {
+			if ( Fvco >= (VcoMin * XCLK_MHZ) && Fvco <= (VcoMax * XCLK_MHZ) ) {
 
 				for (Div = Omin; Div <= Omax; Div++ ) {
 					Freq = Fvco / Div;
@@ -286,18 +287,20 @@ static u32  XClk_Wiz_CalculateDivisorsHz (XClk_Wiz  *InstancePtr, u64 SetRate)
 					} else {
 						Diff = SetRate - Freq;
 					}
-					if (Diff < Minerr) {
+					if (Diff < BestDiv) {
+						BestDiv = Diff;
 						InstancePtr->MVal = m;
 						InstancePtr->DVal = d;
 						InstancePtr->OVal = Div;
-						return XST_SUCCESS;
+						if (!Diff)
+							return XST_SUCCESS;
 					}
 
 				}
 			}
 		}
 	}
-	return Status;
+	return XST_SUCCESS;
 }
 
 /****************************************************************************/
@@ -367,11 +370,16 @@ static void XClk_Wiz_UpdateD(XClk_Wiz  *InstancePtr)
 	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG13_OFFSET, Reg);
 
 }
+
 static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
 {
 	u32 HighTime;
 	u32 DivEdge;
 	u32 Reg;
+	u32 Cp = 15, Res = 15;
+	u32 LockRefDly = 16;
+	u32 LockFbDly  = 16;
+	u32 LockCnt	 = 250;
 	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG25_OFFSET, 0);
 
 	DivEdge = InstancePtr->MVal % 2;
@@ -386,6 +394,227 @@ static void XClk_Wiz_UpdateM(XClk_Wiz  *InstancePtr)
 		Reg = Reg & ~(1 << XCLK_WIZ_REG1_EDGE_SHIFT);
 	}
 	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG1_OFFSET, Reg);
+
+	if (InstancePtr->MVal == 4) {
+		Cp = 5;
+		Res = 15;
+	} else if (InstancePtr->MVal == 5) {
+		Cp = 6;
+		Res = 15;
+	} else if (InstancePtr->MVal == 6) {
+		Cp = 7;
+		Res = 15;
+	} else if (InstancePtr->MVal == 7) {
+		Cp = 13;
+		Res = 15;
+	} else if (InstancePtr->MVal == 8) {
+		Cp = 14;
+		Res = 15;
+	} else if (InstancePtr->MVal == 9) {
+		Cp = 15;
+		Res = 15;
+	} else if (InstancePtr->MVal == 10) {
+		Cp = 14;
+		Res = 7;
+	} else if (InstancePtr->MVal == 11) {
+		Cp = 15;
+		Res = 7;
+	} else if (InstancePtr->MVal >= 12 && InstancePtr->MVal <= 13) {
+		Cp = 15;
+		Res = 11;
+	} else if (InstancePtr->MVal == 14) {
+		Cp = 15;
+		Res = 13;
+	} else if (InstancePtr->MVal == 15) {
+		Cp = 15;
+		Res = 3;
+	} else if (InstancePtr->MVal >= 16 && InstancePtr->MVal <= 17) {
+		Cp = 14;
+		Res = 5;
+	} else if (InstancePtr->MVal >= 18 && InstancePtr->MVal <= 19) {
+		Cp = 15;
+		Res = 5;
+	} else if (InstancePtr->MVal >= 20 && InstancePtr->MVal <= 21) {
+		Cp = 15;
+		Res = 9;
+	} else if (InstancePtr->MVal >= 22 && InstancePtr->MVal <= 23) {
+		Cp = 14;
+		Res = 14;
+	} else if (InstancePtr->MVal >= 24 && InstancePtr->MVal <= 26) {
+		Cp = 15;
+		Res = 14;
+	} else if (InstancePtr->MVal >= 27 && InstancePtr->MVal <= 28) {
+		Cp = 14;
+		Res = 1;
+	} else if (InstancePtr->MVal >= 29 && InstancePtr->MVal <= 33) {
+		Cp = 15;
+		Res = 1;
+	} else if (InstancePtr->MVal >= 34 && InstancePtr->MVal <= 37) {
+		Cp = 14;
+		Res = 6;
+	} else if (InstancePtr->MVal >= 38 && InstancePtr->MVal <= 44) {
+		Cp = 15;
+		Res = 6;
+	} else if (InstancePtr->MVal >= 45 && InstancePtr->MVal <= 57) {
+		Cp = 15;
+		Res = 10;
+	} else if (InstancePtr->MVal >= 58 && InstancePtr->MVal <= 63) {
+		Cp = 13;
+		Res = 12;
+	} else if (InstancePtr->MVal >= 64 && InstancePtr->MVal <= 70) {
+		Cp = 14;
+		Res = 12;
+	} else if (InstancePtr->MVal >= 71 && InstancePtr->MVal <= 86) {
+		Cp = 15;
+		Res = 12;
+	} else if (InstancePtr->MVal >= 87 && InstancePtr->MVal <= 94) {
+		Cp = 14;
+		Res = 2;
+	} else if (InstancePtr->MVal >= 95 && InstancePtr->MVal <= 145) {
+		Cp = 15;
+		Res = 2;
+	} else if (InstancePtr->MVal >= 146 && InstancePtr->MVal <= 163) {
+		Cp = 12;
+		Res = 4;
+	} else if (InstancePtr->MVal >= 164 && InstancePtr->MVal <= 181) {
+		Cp = 13;
+		Res = 4;
+	} else if (InstancePtr->MVal >= 182 && InstancePtr->MVal <= 200) {
+		Cp = 14;
+		Res = 4;
+	} else if (InstancePtr->MVal >= 201 && InstancePtr->MVal <= 273) {
+		Cp = 15;
+		Res = 4;
+	} else if (InstancePtr->MVal >= 274 && InstancePtr->MVal <= 300) {
+		Cp = 13;
+		Res = 8;
+	} else if (InstancePtr->MVal >= 301 && InstancePtr->MVal <= 325) {
+		Cp = 14;
+		Res = 8;
+	} else if (InstancePtr->MVal >= 326 && InstancePtr->MVal <= 432) {
+		Cp = 15;
+		Res = 8;
+	}
+
+	Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET);
+	Reg = Reg | (Cp & XCLK_WIZ_REG11_CP_MASK);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, Reg);
+
+	Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG17_OFFSET);
+	Reg = Reg | ((Res & XCLK_WIZ_REG17_RES_MASK) << XCLK_WIZ_REG17_RES_SHIFT);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG17_OFFSET, Reg);
+
+	if (InstancePtr->MVal == 4) {
+		LockRefDly = 4;
+		LockFbDly  = 4;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal == 5) {
+		LockRefDly = 6;
+		LockFbDly  = 6;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal >= 6 && InstancePtr->MVal <= 7) {
+		LockRefDly = 7;
+		LockFbDly  = 7;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal == 8) {
+		LockRefDly = 7;
+		LockFbDly  = 7;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal >= 9 && InstancePtr->MVal <= 12) {
+		LockRefDly = 8;
+		LockFbDly  = 8;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal == 13) {
+		LockRefDly = 10;
+		LockFbDly  = 10;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal >= 14 && InstancePtr->MVal <= 16) {
+		LockRefDly = 13;
+		LockFbDly  = 13;
+		LockCnt	 = 1000;
+	} else if (InstancePtr->MVal == 17) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 825;
+	} else if (InstancePtr->MVal == 18) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 750;
+	} else if (InstancePtr->MVal >= 19 && InstancePtr->MVal <= 20) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 700;
+	} else if (InstancePtr->MVal == 21) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 650;
+	} else if (InstancePtr->MVal >= 22 && InstancePtr->MVal <= 23) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 625;
+	} else if (InstancePtr->MVal == 24) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 575;
+	} else if (InstancePtr->MVal == 25) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 550;
+	} else if (InstancePtr->MVal >= 26 && InstancePtr->MVal <= 28) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 525;
+	} else if (InstancePtr->MVal >= 29 && InstancePtr->MVal <= 30) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 475;
+	} else if (InstancePtr->MVal == 31) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 450;
+	} else if (InstancePtr->MVal >= 32 && InstancePtr->MVal <= 33) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 425;
+	} else if (InstancePtr->MVal >= 34 && InstancePtr->MVal <= 36) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 400;
+	} else if (InstancePtr->MVal == 37) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 375;
+	} else if (InstancePtr->MVal >= 38 && InstancePtr->MVal <= 40) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 350;
+	} else if (InstancePtr->MVal >= 41 && InstancePtr->MVal <= 43) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 325;
+	} else if (InstancePtr->MVal >= 44 && InstancePtr->MVal <= 47) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 300;
+	} else if (InstancePtr->MVal >= 48 && InstancePtr->MVal <= 51) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 275;
+	} else if (InstancePtr->MVal >= 52 && InstancePtr->MVal <= 205) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 250;
+	} else if (InstancePtr->MVal >= 206 && InstancePtr->MVal <= 432) {
+		LockRefDly = 16;
+		LockFbDly  = 16;
+		LockCnt	 = 225;
+	}
+
+	Reg = LockCnt | LockFbDly << XCLK_WIZ_REG15_LOCK_FB_DLY_SHIFT;
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, Reg);
+	Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET);
+	Reg = Reg | (LockRefDly << XCLK_WIZ_REG16_LOCK_REF_DLY_SHIFT);
+	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, Reg);
 }
 /****************************************************************************/
 /**
@@ -437,12 +666,9 @@ u32 XClk_Wiz_SetRateHz(XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	/* Implement M*/
 	XClk_Wiz_UpdateM(InstancePtr);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
+
+	XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_RECONFIG_OFFSET,
+			  (XCLK_WIZ_RECONFIG_LOAD | XCLK_WIZ_RECONFIG_SADDR));
 
 	return XST_SUCCESS;
 }
@@ -476,7 +702,7 @@ static u64 XClk_Wiz_GetVco(XClk_Wiz  *InstancePtr)
 		Low = Reg & XCLK_WIZ_CLKFBOUT_L_MASK;
 		High = (Reg & XCLK_WIZ_CLKFBOUT_H_MASK) >> XCLK_WIZ_CLKFBOUT_H_SHIFT;
 		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_REG12_OFFSET);
-		Edge  = !!(Reg & XCLK_WIZ_EDGE_MASK);
+		Edge  = !!(Reg & XCLK_WIZ_REG12_EDGE_MASK);
 		Div = Low + High + Edge;
 	}
 
@@ -548,8 +774,8 @@ s32 XClk_Wiz_GetRate(XClk_Wiz  *InstancePtr, u32 ClockId, u64 *Rate)
 		}
 
 		Reg = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, RegisterOffset);
-		Edge  = !!(Reg & XCLK_WIZ_CLKOUT0_P5FEDGE_MASK);
-		P5en  = !!(Reg & XCLK_WIZ_P5EN_MASK);
+		Edge  = !!(Reg & XCLK_WIZ_REG3_EDGE_MASK);
+		P5en  = !!(Reg & XCLK_WIZ_REG3_P5EN_MASK);
 		Prediv  = !!(Reg & XCLK_WIZ_REG3_PREDIV2);
 
 		RegisterOffset = RegisterOffset + 4;
@@ -667,12 +893,6 @@ u32 XClk_Wiz_SetRate(XClk_Wiz  *InstancePtr, u64 SetRate)
 
 	/* Implement M*/
 	XClk_Wiz_UpdateM(InstancePtr);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG11_OFFSET, 0x2e);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG14_OFFSET, 0xe80);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG15_OFFSET, 0x4271);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG16_OFFSET, 0x43e9);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG17_OFFSET, 0x001C);
-	XClk_Wiz_WriteReg(InstancePtr->Config.BaseAddr, XCLK_WIZ_REG26_OFFSET, 0x0001);
 
 	return XST_SUCCESS;
 }
@@ -770,29 +990,11 @@ u32 XClk_Wiz_DisableClock(XClk_Wiz  *InstancePtr, u32 ClockId)
 *****************************************************************************/
 u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr)
 {
-	u32 Platform;
-	u32 Count = 0;
-	u32 RegisterOffset;
-
 	Xil_AssertNonvoid(InstancePtr != NULL);
 	Xil_AssertNonvoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 
-	Platform = XGetPlatform_Info();
-
-	if (Platform != (u32)XPLAT_VERSAL) {
-		RegisterOffset = XCLK_WIZ_STATUS_OFFSET;
-	} else {
-		RegisterOffset = XCLK_WIZ_REG4_OFFSET;
-	}
-
-	while (!XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, RegisterOffset) & XCLK_WIZ_LOCK) {
-		if (Count == 10000) {
-			return XST_FAILURE;
-		}
-		usleep(100);
-		Count++;
-	}
-	return XST_SUCCESS;
+	return Xil_WaitForEvent(InstancePtr->Config.BaseAddr + XCLK_WIZ_STATUS_OFFSET, XCLK_WIZ_LOCK,
+					  XCLK_WIZ_LOCK, 100U);
 
 }
 /****************************************************************************/
@@ -809,10 +1011,27 @@ u32 XClk_Wiz_WaitForLock(XClk_Wiz  *InstancePtr)
 *****************************************************************************/
 void XClk_Wiz_SetInputRate(XClk_Wiz  *InstancePtr, double Rate)
 {
+#ifdef SDT
+	u64 RateKhz;
+	u32 RegLow;
+	u32 RegHigh = 0;
+#endif
+
 	Xil_AssertVoid(InstancePtr != NULL);
 	Xil_AssertVoid(InstancePtr->IsReady == XIL_COMPONENT_IS_READY);
 	Xil_AssertVoid(Rate != 0);
 	InstancePtr->Config.PrimInClkFreq  = Rate;
+
+#ifdef SDT
+	RateKhz = ((u64) Rate / XCLK_KHZ);
+	RegLow = RateKhz & 0xFFFF;
+	RegHigh = (RateKhz >> 16 ) & 0xFFFF;
+
+	if ((strcmp(InstancePtr->Config.Name, "xlnx,clkx5-wiz-1.0") >= 0)) {
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_L_OFFSET, RegLow);
+		XClk_Wiz_WriteReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_H_OFFSET, RegHigh);
+	}
+#endif
 
 }
 
@@ -840,7 +1059,7 @@ u32 XClk_Wiz_GetInputRate(XClk_Wiz  *InstancePtr)
 		RegLow = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_L_OFFSET);
 		RegHigh = XClk_Wiz_ReadReg((InstancePtr)->Config.BaseAddr, XCLK_WIZ_PRIM_H_OFFSET) << 16 | RegLow;
 	}
-	return RegHigh;
+	return RegHigh * XCLK_KHZ;
 #else
 	(void)InstancePtr;
 	return 0;

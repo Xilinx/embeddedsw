@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2023-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2023-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -89,14 +89,23 @@ extern "C" {
 #define XCLK_WIZ_P5EN_MASK			(1 << 8)  /** p5en */
 #define XCLK_WIZ_LOCK				1    /** Lock */
 #define XCLK_WIZ_REG3_PREDIV2			(1 << 11)    /**< Prediv2  3*/
+#define XCLK_WIZ_REG3_P5EN_MASK			(1 << 13)  /** p5en */
 #define XCLK_WIZ_REG3_USED			(1 << 12)    /**< Prediv2  3*/
 #define XCLK_WIZ_REG3_MX			(1 << 9)    /**< MX*/
+#define XCLK_WIZ_REG3_EDGE_MASK			(1 << 8)    /* EDGE */
 #define XCLK_WIZ_REG1_PREDIV2			(1 << 12)    /**< Prediv2  3*/
 #define XCLK_WIZ_REG1_EN			(1 << 9)    /**< FBout enable*/
 #define XCLK_WIZ_REG1_MX			(1 << 10)    /**< MX  3*/
 #define XCLK_WIZ_RECONFIG_LOAD			1
 #define XCLK_WIZ_RECONFIG_SADDR			2
 
+#define XCLK_WIZ_REG11_CP_MASK			(0xF) /**< Mask for Charge Pump */
+#define XCLK_WIZ_REG17_RES_SHIFT		1 /**< Shift bits for Res */
+#define XCLK_WIZ_REG17_RES_MASK			(0xF) /**< Shift bits for Res */
+#define XCLK_WIZ_REG15_LOCK_FB_DLY_SHIFT	10  /**< Shift bits for FB DELAY */
+#define XCLK_WIZ_REG16_LOCK_REF_DLY_SHIFT	10  /**< Shift bits for Reference DELAY */
+#define XCLK_WIZ_REG12_EDGE_SHIFT		10  /**< Shift bits for DIVCLK_EDGE */
+#define XCLK_WIZ_REG12_EDGE_MASK		(1 << 10)  /**< Mask for DIVCLK_EDGE */
 #define XCLK_WIZ_CLKOUT0_PREDIV2_SHIFT		11   /**< Shift bits for Prediv2 */
 #define XCLK_WIZ_CLKOUT0_MX_SHIFT		9   /**< Shift bits for MUX */
 #define XCLK_WIZ_CLKOUT0_P5EN_SHIFT		13   /**< Shift bits for P5EN */
