@@ -103,6 +103,15 @@
 #define HALF_FSR_START		   (48U)
 #endif
 
+/**
+ *  @brief Known bad LPD BISR data word used to mitigate a Versal Gen1 ROM
+ *         USB boot vulnerability.
+ *
+ *  Program this all-F vector into the first BISR RSVD eFuse slot
+ *  XilPM must skip it when searching for a valid LPD BISR entry.
+ */
+#define KNOWN_BAD_LPD_BISR_VECTOR_WORD			(0xFFFFFFFFU)
+
 typedef struct XPm_NidbEfuseGrpInfo {
 	u8 RdnCntl;
 	u16 NpiBase;
@@ -150,6 +159,44 @@ static XStatus XPmBisr_TagSupportCheck(u32 TagId,
 }
 
 
+
+/*****************************************************************************/
+/**
+ * @brief	Check if an LPD BISR tag's data vector is the known bad all-F
+ *		pattern that must be skipped during the eFuse search.
+ *
+ * @param	EfuseTagAddr		eFuse address of the BISR tag header
+ * @param	TagSize			Number of data words in the tag
+ * @param	EfuseTagBitS1Addr	Address of the first tbit row to skip
+ * @param	EfuseTagBitS2Addr	Address of the second tbit row to skip
+ *
+ * @return	1U if all data words are 0xFFFFFFFF, 0U otherwise
+ *
+ *****************************************************************************/
+static u32 XPmBisr_IsLpdAllFVector(u32 EfuseTagAddr, u32 TagSize,
+				    u32 EfuseTagBitS1Addr, u32 EfuseTagBitS2Addr)
+{
+	u32 TagDataAddr = EfuseTagAddr + 4U;
+	u32 TagRow = 0U;
+	u32 TagData;
+	u32 IsAllF = 1U;
+
+	while (TagRow < TagSize) {
+		if ((TagDataAddr == EfuseTagBitS1Addr) ||
+		    (TagDataAddr == EfuseTagBitS2Addr)) {
+			TagDataAddr += 4U;
+		}
+		TagData = XPm_In32(TagDataAddr);
+		if (TagData != KNOWN_BAD_LPD_BISR_VECTOR_WORD) {
+			IsAllF = 0U;
+			break;
+		}
+		TagRow++;
+		TagDataAddr += 4U;
+	}
+
+	return IsAllF;
+}
 
 static XStatus XPmBisr_RepairLpd(u32 EfuseTagAddr, u32 TagSize, u32 *TagDataAddr)
 {
@@ -1054,7 +1101,19 @@ XStatus XPmBisr_Repair(u32 TagId)
 						Status = XPmBisr_RepairME(EfuseCurrAddr,EfuseBisrTagId,EfuseBisrSize,EfuseBisrOptional, &EfuseNextAddr);
 						break;
 					case TAG_ID_TYPE_LPD:
-						Status = XPmBisr_RepairLpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						/* Skip known bad all-F vector (USB boot vulnerability mitigation) */
+						if (0U != XPmBisr_IsLpdAllFVector(EfuseCurrAddr, EfuseBisrSize,
+										  EfuseTagBitS1Addr, EfuseTagBitS2Addr)) {
+							EfuseNextAddr = (EfuseCurrAddr + 4U);
+							EfuseNextAddr += (EfuseBisrSize << 2U);
+							if (((EfuseCurrAddr < EfuseTagBitS1Addr) && (EfuseNextAddr > EfuseTagBitS1Addr)) ||
+							    ((EfuseCurrAddr < EfuseTagBitS2Addr) && (EfuseNextAddr > EfuseTagBitS2Addr))) {
+								EfuseNextAddr += 4U;
+							}
+							Status = XST_SUCCESS;
+						} else {
+							Status = XPmBisr_RepairLpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
+						}
 						break;
 					case TAG_ID_TYPE_FPD:
 						Status = XPmBisr_RepairFpd(EfuseCurrAddr, EfuseBisrSize, &EfuseNextAddr);
