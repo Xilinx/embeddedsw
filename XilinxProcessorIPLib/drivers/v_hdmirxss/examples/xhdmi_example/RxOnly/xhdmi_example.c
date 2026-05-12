@@ -122,18 +122,29 @@
 #define APP_MIN_VERSION 4
 
 #ifdef SDT
+/* HDCP interrupt name definitions for SDT build */
 #ifdef USE_HDCP
-#define INTRNAME_HDMIRX 4
-#define INTRNAME_HDCP1XRX 0
-#define INTRNAME_HDCP1XRX_TIMER 1
-#define INTRNAME_HDCP2XRX_TIMER   3
+/* Check if HDCP 2.2 RX is available */
+#if defined(XPAR_XHDCP22_RX_NUM_INSTANCES) && \
+(XPAR_XHDCP22_RX_NUM_INSTANCES > 0 || \
+(defined(XPAR_XV_HDMIRXSS_NUM_INSTANCES) && XPAR_XV_HDMIRXSS_NUM_INSTANCES > 0))
+#define INTRNAME_HDMIRX         4
+#define INTRNAME_HDCP2XRX_TIMER 3
 #else
-#define INTRNAME_HDMIRX 0
-#define INTRNAME_HDCP1XRX 1
+#define INTRNAME_HDMIRX         2
+#endif
+
+/* Common HDCP 1.x definitions */
+#define INTRNAME_HDCP1XRX       0
+#define INTRNAME_HDCP1XRX_TIMER 1
+#else
+/* Non-HDCP SDT build - simplified interrupt names */
+#define INTRNAME_HDMIRX         0
+#define INTRNAME_HDCP1XRX       1
 #define INTRNAME_HDCP1XRX_TIMER 2
-#define INTRNAME_HDCP2XRX_TIMER   3
-#endif
-#endif
+#define INTRNAME_HDCP2XRX_TIMER 3
+#endif /* USE_HDCP */
+#endif /* SDT */
 /**************************** Type Definitions *******************************/
 
 /************************** Function Prototypes ******************************/
@@ -1424,6 +1435,29 @@ int main() {
 			XPAR_INTC_0_V_HDMIRXSS_0_HDCP14_TIMER_IRQ_VEC_ID,
 			(XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
 			(void *)&HdmiRxSs);
+#else
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP1X Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
+	Status = XSetupInterruptSystem(&HdmiRxSs,
+				       (XInterruptHandler)XV_HdmiRxSS_HdcpTimerIntrHandler,
+				       HdmiRxSs.Config.IntrId[INTRNAME_HDCP1XRX_TIMER],
+				       HdmiRxSs.Config.IntrParent,
+				       XINTERRUPT_DEFAULT_PRIORITY);
+	if (Status != XST_SUCCESS) {
+		xil_printf
+		("ERR:: HDMI RX HDCP1X Timer Interrupt Initialization failed %d\r\n",
+		Status);
+		return XST_FAILURE;
+	}
 #endif
 #endif
 
