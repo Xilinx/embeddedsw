@@ -216,6 +216,8 @@ extern "C" {
 
 /** ASU RAM ECC ONOFF register offset */
 #define ASU_RAM_ECC_CTRL_ONOFF_OFFSET		(0x008U)
+/** ASU RAM ECC ONOFF disable mask */
+#define ASU_RAM_ECC_CTRL_ONOFF_DIS_MASK		(0x00000000U)
 /** ASU RAM ECC ONOFF enable mask */
 #define ASU_RAM_ECC_CTRL_ONOFF_EN_MASK		(0x00000001U)
 
@@ -264,7 +266,13 @@ extern "C" {
 #endif
 
 #if defined(XASUFW_RAM_INSTR_ECC_ENABLE) && defined(XASUFW_RAM_DATA_ECC_ENABLE)
+/** Indicates that ECC is enabled for both instruction and data RAM controllers. */
 #define XASUFW_RAM_ECC_ENABLE
+/** RAM ECC ONOFF control register value: enable if RAM_ECC is enabled */
+#define XASUFW_RAM_ECC_CTRL_CONFIG	ASU_RAM_ECC_CTRL_ONOFF_EN_MASK
+#else
+/** RAM ECC ONOFF control register value: disable if RAM_ECC is disabled */
+#define XASUFW_RAM_ECC_CTRL_CONFIG	ASU_RAM_ECC_CTRL_ONOFF_DIS_MASK
 #endif
 
 /************************************** Type Definitions *****************************************/

@@ -116,9 +116,9 @@ static void XAsufw_ExceptionHandler(void *Data);
 static void XAsufw_InitPitTimer(u8 Timer, u32 ResetValue);
 static void XAsufw_Pit3TimerHandler(const void *Data);
 static s32 XAsufw_RegisterNotifier(u32 EventErrMask, u32 Enable);
+static void XAsufw_RamEccCtrl(u32 BaseAddr);
 #ifdef XASUFW_RAM_ECC_ENABLE
 static void XAsufw_RamEccIntrHandler(void *CallbackRef);
-static void XAsufw_RamEccEnableCtrl(u32 BaseAddr);
 #endif
 
 /************************************ Variable Definitions ***************************************/
@@ -238,22 +238,22 @@ static void XAsufw_Pit3TimerHandler(const void *Data)
 	TaskTimeNow += XASUFW_PIT3_TIMER_TICK;
 }
 
-#ifdef XASUFW_RAM_ECC_ENABLE
 /*************************************************************************************************/
 /**
- * @brief	This function enables the ECC controller of instruction or data RAM at the given
- *		base address. It turns on ECC checking, enables CE and UE interrupts, and clears
- *		any pending status.
+ * @brief	This function configures the ECC controller of instruction or data RAM at the given
+ *		base address. ONOFF.ECC_EN is set or cleared based on XASUFW_RAM_ECC_CTRL_CONFIG.
+ *		When XASUFW_RAM_ECC_ENABLE is defined, any pending CE/UE status is also cleared
+ *		and CE/UE interrupts are enabled.
  *
  * @param	BaseAddr	Base address of the ECC controller.
  *
  *************************************************************************************************/
-static void XAsufw_RamEccEnableCtrl(u32 BaseAddr)
+static void XAsufw_RamEccCtrl(u32 BaseAddr)
 {
-	/** Enable ECC checking. */
-	XAsufw_RMW(BaseAddr + ASU_RAM_ECC_CTRL_ONOFF_OFFSET,
-		   ASU_RAM_ECC_CTRL_ONOFF_EN_MASK, ASU_RAM_ECC_CTRL_ONOFF_EN_MASK);
+	/** Program ONOFF.ECC_EN to enable or disable ECC checking as per xparameter config. */
+	XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_ONOFF_OFFSET, XASUFW_RAM_ECC_CTRL_CONFIG);
 
+#ifdef XASUFW_RAM_ECC_ENABLE
 	/** Clear any pending CE/UE status before enabling interrupts. */
 	XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_STATUS_OFFSET,
 			ASU_RAM_ECC_CTRL_STATUS_UE_MASK | ASU_RAM_ECC_CTRL_STATUS_CE_MASK);
@@ -261,8 +261,10 @@ static void XAsufw_RamEccEnableCtrl(u32 BaseAddr)
 	/** Enable both CE and UE interrupts. */
 	XAsufw_WriteReg(BaseAddr + ASU_RAM_ECC_CTRL_EN_IRQ_OFFSET,
 			ASU_RAM_ECC_CTRL_EN_IRQ_UE_MASK | ASU_RAM_ECC_CTRL_EN_IRQ_CE_MASK);
+#endif
 }
 
+#ifdef XASUFW_RAM_ECC_ENABLE
 /*************************************************************************************************/
 /**
  * @brief	This is the unified interrupt handler for ASU RAM ECC events. It handles both
@@ -334,15 +336,14 @@ static void XAsufw_RamEccIntrHandler(void *CallbackRef)
 
 /*************************************************************************************************/
 /**
- * @brief	This function enables ECC for both instruction and data RAM controllers.
+ * @brief	This function configures ECC for both the instruction and data RAM controllers via
+ *		XAsufw_RamEccCtrl().
  *
  *************************************************************************************************/
 void XAsufw_RamEccInit(void)
 {
-#ifdef XASUFW_RAM_ECC_ENABLE
-	XAsufw_RamEccEnableCtrl(ASU_RAM_INSTR_ECC_CTRL_BASEADDR);
-	XAsufw_RamEccEnableCtrl(ASU_RAM_DATA_ECC_CTRL_BASEADDR);
-#endif
+	XAsufw_RamEccCtrl(ASU_RAM_INSTR_ECC_CTRL_BASEADDR);
+	XAsufw_RamEccCtrl(ASU_RAM_DATA_ECC_CTRL_BASEADDR);
 }
 
 /*************************************************************************************************/
@@ -405,16 +406,14 @@ END:
 
 /*************************************************************************************************/
 /**
- * @brief	Mark the IO module driver as stopped.
- *
- * @details	Wraps XIOModule_Stop(), which clears the driver's IsStarted flag so that
- *		the IO module can be re-initialized cleanly by the next ASUFW image.
- *		It does not disable interrupt sources in hardware; callers that need to
- *		quiesce interrupts must disable or otherwise quiesce the relevant interrupt
- *		sources separately (e.g. via XAsufw_DisableInterruptSystem()) before invoking
- *		this function. Intended to be called from ASUFW teardown paths such as the
- *		in-place update flow, before control is transferred away from the running
- *		firmware image.
+ * @brief	This function marks the IO module driver as stopped by wrapping XIOModule_Stop(),
+ *		which clears the driver's IsStarted flag so that the IO module can be
+ *		re-initialized cleanly by the next ASUFW image. It does not disable interrupt
+ *		sources in hardware; callers that need to quiesce interrupts must disable or
+ *		otherwise quiesce the relevant interrupt sources separately (e.g. via
+ *		XAsufw_DisableInterruptSystem()) before invoking this function. Intended to be
+ *		called from ASUFW teardown paths such as the in-place update flow, before
+ *		control is transferred away from the running firmware image.
  *
  *************************************************************************************************/
 void XAsufw_StopIoModule(void)
