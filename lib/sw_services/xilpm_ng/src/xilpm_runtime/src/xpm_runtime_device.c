@@ -259,9 +259,18 @@ done:
 	return DevOps;
 }
 
+/**
+ * @brief  Look up device operations structure by device ID
+ *
+ * @param  DeviceId	ID of the device to look up
+ *
+ * @return Pointer to the device operations structure, or NULL if not found
+ */
 XPmRuntime_DeviceOps *XPm_GetDevOps_ById(u32 DeviceId) {
 	LIST_FOREACH(DevOpsList, DevOpsNode){
-		if (DevOpsNode->Data->Device->Node.Id == DeviceId) {
+		if ((NULL != DevOpsNode->Data) &&
+		    (NULL != DevOpsNode->Data->Device) &&
+		    (DevOpsNode->Data->Device->Node.Id == DeviceId)) {
 			return DevOpsNode->Data;
 		}
 	}
