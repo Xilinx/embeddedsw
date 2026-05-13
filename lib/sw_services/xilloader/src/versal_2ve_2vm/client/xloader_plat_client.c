@@ -400,7 +400,7 @@ static int XLoader_VerifyPlmNPmcCdoAuth(u64 PdiAddr, u64 BhAddr)
 		}
 
 		/* Compute SHA3 for PLM (to validate with hash in the Hash Block 0) */
-		Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		Xil_DCacheInvalidateRange((INTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 		Status = XLoader_ComputeSha3Hash(PrtnAddr, ChunkLen, Sha3DstAddr);
 		if(Status != XST_SUCCESS) {
 			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for PLM failed, Status = 0x%x\r\n", Status);
@@ -462,7 +462,7 @@ static int XLoader_VerifyPlmNPmcCdoAuth(u64 PdiAddr, u64 BhAddr)
 		}
 
 		/* Compute SHA3 for PMC CDO (to validate with hash in the Hash Block 0) */
-		Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		Xil_DCacheInvalidateRange((INTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 		Status = XLoader_ComputeSha3Hash(PrtnAddr, ChunkLen, Sha3DstAddr);
 		if(Status != XST_SUCCESS) {
 			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for PMC CDO failed, Status = 0x%x\r\n", Status);
@@ -566,7 +566,7 @@ static int XLoader_ValidateBhHBCertAndAuth(XLoader_ClientInstance *InstancePtr, 
 
 	/* Compute SHA3 for Boot Header (to validate with hash in the Hash Block 0) */
 	Sha3DstAddr = (UINTPTR)&Sha3Hash;
-	Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+	Xil_DCacheInvalidateRange((INTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 	Status = XLoader_ComputeSha3Hash(BhAddr, XLOADER_BH_SIZE, Sha3DstAddr);
 	if(Status != XST_SUCCESS) {
 		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for Boot Header failed, Status = 0x%x\r\n", Status);
@@ -649,7 +649,7 @@ static int XLoader_VerifyPrtnAuth(u64 PdiAddr, const XilLoader_PrtnHdr *PrtnHdr,
 		}
 
 		/* Compute SHA3 for Partition (to validate with hash in the Hash Block) */
-		Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		Xil_DCacheInvalidateRange((INTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 		Status = XLoader_ComputeSha3Hash(PrtnAddr, ChunkLen, Sha3DstAddr);
 		if(Status != XST_SUCCESS) {
 			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for Partition %d failed, Status = 0x%x\r\n", PrtnIdx, Status);
@@ -766,7 +766,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 		Hb1Addr = PdiAddr + ((u64)IhtPtr->HashBlockOffset << XLOADER_WORD_LEN_SHIFT);
 
 		/* Compute SHA3 for Hash Block 1 (to validate with hash in the Hash Block 0) */
-		Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+		Xil_DCacheInvalidateRange((INTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 		Status = XLoader_ComputeSha3Hash(Hb1Addr, (IhtPtr->HashBlockSize * XLOADER_WORD_LEN), Sha3DstAddr);
 		if(Status != XST_SUCCESS) {
 			XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for Hash Block 1 failed, Status = 0x%x\r\n", Status);
@@ -793,7 +793,7 @@ static int XLoader_ValidateMhAndPrtnAuth(XLoader_ClientInstance *InstancePtr, co
 	/* Include all partition headers in the MH size */
 	MhDataSize += TotalLengthOfPrtnHdr;
 
-	Xil_DCacheInvalidateRange((UINTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
+	Xil_DCacheInvalidateRange((INTPTR)Sha3DstAddr, XLOADER_SHA3_HASH_LEN_IN_BYTES);
 	Status = XLoader_ComputeSha3Hash(MhAddr, MhDataSize, Sha3DstAddr);
 	if(Status != XST_SUCCESS) {
 		XLoader_Client_Printf(XLOADER_DEBUG_GENERAL, "SHA3 digest calculation for Meta Header failed, Status = 0x%x\r\n", Status);
