@@ -378,10 +378,21 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 		}
 	}
 
+	/* Disable write protection on SLCR Secure registers */
 	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
 		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x0U);
+		PmChkRegOut32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET,
+			      0x0U, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			goto done;
+		}
 	} else if (BaseAddr == Fpd->FpdSlcrSecureBaseAddr) {
 		XPm_Out32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET, 0x0U);
+		PmChkRegOut32(Fpd->FpdSlcrSecureBaseAddr + FPD_SLCR_SECURE_WPROT0_OFFSET,
+			      0x0U, Status);
+		if (XPM_REG_WRITE_FAILED == Status) {
+			goto done;
+		}
 	} else {
 		/* Required due to MISRA */
 	}
@@ -415,6 +426,7 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 		}
 	}
 
+	/* Re-enable write protection on SLCR Secure registers */
 	if (BaseAddr == Lpd->LpdSlcrSecureBaseAddr) {
 		XPm_Out32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U);
 		PmChkRegOut32(Lpd->LpdSlcrSecureBaseAddr + LPD_SLCR_SECURE_WPROT0_OFFSET, 0x1U, Status);
