@@ -26,6 +26,7 @@
 #define DEV_SECURE			(0U)
 /** Strong 32-bit constants for fault injection resistance */
 #define XPM_SEC_ALLOWED			(0x5A5A5A5AU)
+/** Strong 32-bit constant for denied policy entries */
 #define XPM_SEC_DENIED			(0xA5A5A5A5U)
 static XPmRuntime_DeviceOpsList* DevOpsList XPM_INIT_DATA(DevOpsList) = NULL;
 static const u32 IpiMasks[][2] = {
@@ -47,6 +48,16 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 /**
  * @brief  Check TrustZone security access for a device request
  *
+ * Validates whether a device request is permitted based on the device's
+ * TrustZone security attributes and the caller's requested capabilities.
+ *
+ * Policy axes:
+ *   SlaveTz  - security of the device's MMIO register space
+ *              (who can program the device's configuration registers)
+ *   MasterTz - whether PM_CAP_SECURE is requested, i.e. whether the
+ *              device's bus-master port should emit secure AXI transactions
+ *   CmdType  - whether the PM API call arrived via a secure or non-secure IPI
+ *
  * @param  Reqm		Pointer to the requirement structure
  * @param  ReqCaps	Requested capabilities bitmask
  * @param  CmdType	Command type (secure or non-secure)
@@ -62,18 +73,26 @@ maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32
 
 	static const struct XPm_SecPolicy SecPolicy[2U][2U] = {
 		[REQ_ACCESS_SECURE] = {
-			/* Slave: secure, master: non-secure, allowed for S/NS commands */
+			/* Secure slave, NS master: allow via S or NS command */
 			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE),
 				 .Allowed = XPM_SEC_ALLOWED },
-			/* Slave: secure, master: secure, allowed for only S commands */
+			/* Secure slave, S master: allow via S command only */
 			[1U] = { .CmdType = BIT16(XPLMI_CMD_SECURE),
 				 .Allowed = XPM_SEC_ALLOWED },
 		},
 		[REQ_ACCESS_SECURE_NONSECURE] = {
-			/* Slave: non-secure, master: non-secure, allowed for S/NS commands */
+			/* NS slave, NS master: allow via S or NS command */
 			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE),
 				 .Allowed = XPM_SEC_ALLOWED },
-			/* Slave: non-secure, master: secure, not allowed */
+			/*
+			 * NS slave, S master: DENIED.
+			 * A non-secure register space means any NS-world software
+			 * can program the device. Allowing PM_CAP_SECURE would
+			 * configure the device's bus-master port to emit secure
+			 * AXI transactions, creating a DMA attack vector where
+			 * the NS world uses the device as a confused deputy to
+			 * read/write secure memory.
+			 */
 			[1U] = { .CmdType = 0U, .Allowed = XPM_SEC_DENIED },
 		},
 	};
