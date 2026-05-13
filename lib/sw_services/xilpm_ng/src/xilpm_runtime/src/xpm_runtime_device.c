@@ -20,9 +20,13 @@
 #include "xpm_runtime_aie.h"
 #include "xpm_rpucore.h"
 
-/* Device security bit in register */
+/** Device security bit: non-secure */
 #define DEV_NONSECURE			(1U)
+/** Device security bit: secure */
 #define DEV_SECURE			(0U)
+/** Strong 32-bit constants for fault injection resistance */
+#define XPM_SEC_ALLOWED			(0x5A5A5A5AU)
+#define XPM_SEC_DENIED			(0xA5A5A5A5U)
 static XPmRuntime_DeviceOpsList* DevOpsList XPM_INIT_DATA(DevOpsList) = NULL;
 static const u32 IpiMasks[][2] = {
 	{ PM_DEV_IPI_ASU, ASU_IPI_MASK },
@@ -52,27 +56,30 @@ static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsys
 maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps, u32 CmdType)
 {
 	volatile XStatus Status = XPM_PM_NO_ACCESS;
-	struct XPm_SecPolicy { u16 CmdType; u16 Allowed; };
+	struct XPm_SecPolicy { u16 CmdType; u32 Allowed; };
 	u16 SlaveTz = SECURITY_POLICY(Reqm->Flags);
 	u16 MasterTz = (0U != (ReqCaps & (u32)PM_CAP_SECURE)) ? 1U : 0U;
 
 	static const struct XPm_SecPolicy SecPolicy[2U][2U] = {
 		[REQ_ACCESS_SECURE] = {
 			/* Slave: secure, master: non-secure, allowed for S/NS commands */
-			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE), .Allowed = 1U },
+			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE),
+				 .Allowed = XPM_SEC_ALLOWED },
 			/* Slave: secure, master: secure, allowed for only S commands */
-			[1U] = { .CmdType = BIT16(XPLMI_CMD_SECURE), .Allowed = 1U },
+			[1U] = { .CmdType = BIT16(XPLMI_CMD_SECURE),
+				 .Allowed = XPM_SEC_ALLOWED },
 		},
 		[REQ_ACCESS_SECURE_NONSECURE] = {
 			/* Slave: non-secure, master: non-secure, allowed for S/NS commands */
-			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE), .Allowed = 1U },
+			[0U] = { .CmdType = BIT16(XPLMI_CMD_SECURE) | BIT16(XPLMI_CMD_NON_SECURE),
+				 .Allowed = XPM_SEC_ALLOWED },
 			/* Slave: non-secure, master: secure, not allowed */
-			[1U] = { .CmdType = 0U, .Allowed = 0U },
+			[1U] = { .CmdType = 0U, .Allowed = XPM_SEC_DENIED },
 		},
 	};
 
 	if ((0U != (BIT16(CmdType) & SecPolicy[SlaveTz][MasterTz].CmdType)) &&
-	    (0U != SecPolicy[SlaveTz][MasterTz].Allowed)) {
+	    (XPM_SEC_ALLOWED == SecPolicy[SlaveTz][MasterTz].Allowed)) {
 		Status = XST_SUCCESS;
 	}
 
