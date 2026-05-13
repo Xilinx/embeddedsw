@@ -16,28 +16,6 @@
  * To build this application, xilnvm library must be in server mode.
  * This example is supported for Spartan ultrascale plus devices.
  *
- * Procedure to link and compile the example for the default DDR-less designs
- * ------------------------------------------------------------------------------------------------------------
- * The default linker settings places a software stack, heap and data in DDR memory. For this example to work,
- * any data shared between PL and PMC peripherals, should be placed in area which is accessible to both PL and PMC.
- *
- * Following is the procedure to compile the example on any memory region which can be accessed by both PL and PMC
- *
- *		1. In linker script(lscript.ld) user can add new memory region in declaration section as shown below
- *			shared_mem : ORIGIN = 0x0402C000, LENGTH = 0x2000
- *
- *		2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
- *                 Change the .data section region to point to the new shared_mem region created in step 1. as below
- *
- *			.data : {
- *			. = ALIGN(4);
- *			__data_start = .;
- *			*(.data)
- *			*(.data.*)
- *			*(.gnu.linkonce.d.*)
- *			__data_end = .;
- *			} > shared_mem
- *
  * <pre>
  * MODIFICATION HISTORY:
  *
@@ -62,6 +40,7 @@
  *                        and ROM_RSVD_OSPI_DEV_RESET_CHOICE
  *                        and ROM_OSPI_CMD_SEQ_CTRL eFuse bit programming
  *       mb    04/18/2026 Initialize the AesRevokeId structure only when user intends to program revoke IDs
+ *       mb    05/13/2026 Removed shared memory section details from header comments as it is not required for efuse programming.
  *
  * </pre>
  *

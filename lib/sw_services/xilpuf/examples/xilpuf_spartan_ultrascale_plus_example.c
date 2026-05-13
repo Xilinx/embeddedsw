@@ -21,7 +21,7 @@
   * Following is the procedure to compile the example on any memory region which can be accessed by both PL and PMC
   *
   *		1. In linker script(lscript.ld) user can add new memory region in declaration section as shown below
-  *			shared_mem : ORIGIN = 0x0402C000, LENGTH = 0x2000
+  *			shared_mem : ORIGIN = SHARED_MEM, LENGTH = 0x2000
   *
   *		2. Data elements that are passed by reference to the PMC side should be stored in the above shared memory section.
   *                Change the .data section region to point to the new shared_mem region created in step 1. as below
@@ -34,6 +34,10 @@
   *			*(.gnu.linkonce.d.*)
   *			__data_end = .;
   *			} > shared_mem
+  *
+  * Note: The shared_mem section address is design and platform dependent.
+  *       Users must map shared_mem to a memory region that is accessible
+  *       to both the PMC and the PL, based on the target device and Vivado design.
   *
   * <pre>
   * MODIFICATION HISTORY:
@@ -55,6 +59,8 @@
   *                     added PUF-ID only Regeneration support
   *       mb   02/09/26 Rename secure control bit names for SPARTANUPLUSAES1
   *       bha  02/25/26 Removed ICCARM related code
+  *       mb   05/25/26 Remove hard code shared_mem section address
+  *
   * </pre>
   *
   *@note
