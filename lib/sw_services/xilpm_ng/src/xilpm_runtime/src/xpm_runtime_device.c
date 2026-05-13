@@ -118,10 +118,18 @@ maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32
 static XStatus IsDevAllocatedToSubsys(const XPm_Subsystem *Subsystem, const XPm_Device *Device, const XPm_Requirement *Reqm) {
 
 	volatile XStatus Status = XPM_FAILURE;
-	if (NULL != Subsystem) {
+	volatile const XPm_Subsystem *SubsysCheck = Subsystem;
+	volatile const XPm_Subsystem *SubsysCheckTmp = Subsystem;
+	if ((NULL != SubsysCheck) && (NULL != SubsysCheckTmp)) {
 		Reqm = FindReqm(Device, Subsystem);
-		if ((NULL != Reqm) && (1U == Reqm->Allocated)) {
-			Status = XPM_SUCCESS;
+		volatile const XPm_Requirement *ReqmCheck = Reqm;
+		volatile const XPm_Requirement *ReqmCheckTmp = Reqm;
+		if ((NULL != ReqmCheck) && (NULL != ReqmCheckTmp)) {
+			volatile u8 AllocCheck = Reqm->Allocated;
+			volatile u8 AllocCheckTmp = Reqm->Allocated;
+			if ((1U == AllocCheck) && (1U == AllocCheckTmp)) {
+				Status = XPM_SUCCESS;
+			}
 		}
 	}
 	return Status;
