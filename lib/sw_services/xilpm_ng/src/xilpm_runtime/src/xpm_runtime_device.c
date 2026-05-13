@@ -1750,7 +1750,8 @@ u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 	u32 SubsysIdx = XPmSubsystem_GetMaxSubsysIdx();
 
 	volatile XStatus Status = XPM_FAILURE;
-	volatile XStatus StatusTmp = XPM_SUCCESS;
+	volatile XStatus StatusTmp = XPM_FAILURE;
+	volatile u32 IdxCheck = 0U;
 	for (Idx = 0; Idx <= SubsysIdx; Idx++) {
 		Subsystem = XPmSubsystem_GetByIndex(Idx);
 		XSECURE_REDUNDANT_CALL(Status, StatusTmp, IsDevAllocatedToSubsys, Subsystem, Device, Reqm);
@@ -1759,9 +1760,10 @@ u32 XPmDevice_GetSubsystemIdOfCore(const XPm_Device *Device)
 		}
 		Status = XPM_FAILURE;
 		StatusTmp = XPM_FAILURE;
+		IdxCheck++;
 	}
 
-	if (SubsysIdx < Idx) {
+	if ((SubsysIdx < Idx) || (SubsysIdx < IdxCheck)) {
 		SubSystemId = INVALID_SUBSYSID;
 	} else {
 		SubSystemId = Subsystem->Id;
