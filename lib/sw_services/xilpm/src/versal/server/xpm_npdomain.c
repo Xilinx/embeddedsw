@@ -297,6 +297,20 @@ static XStatus NpdInitFinish(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 	}
 
 	if (PM_HOUSECLEAN_CHECK(NPD, NPD_EFUSE)) {
+		/*
+		 * In xc2vp3602 device LPD_CPM6_DFX isolation must be removed
+		 * to enable CPM6 SSC bypass before running NPD secure efuse
+		 * transfer.
+		 */
+		#if defined(XC2VP3602)
+		/* Remove LPD_CPM6_DFX isolation */
+		Status = XPmDomainIso_Control((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX, FALSE_IMMEDIATE);
+		if (XST_SUCCESS != Status) {
+			DbgErr = XPM_INT_ERR_LPD_CPM6_DFX_ISO;
+			goto done;
+		}
+		#endif
+
 		Status = XPmPowerDomain_SecureEfuseTransfer(PM_POWER_NOC);
 	}
 
@@ -780,7 +794,6 @@ static XStatus NpdMbist(const XPm_PowerDomain *PwrDomain, const u32 *Args,
 		PmRmw32(DdrMcAddresses[i] + NOC_DDRMC_UB_CLK_GATE_OFFSET,
 			NOC_DDRMC_UB_CLK_GATE_ILA_EN_MASK, 0);
 	}
-
 
 	/* Unwrite trigger bits */
 	CleanupMemClearNpd(DdrMcAddresses, DdrMcAddrLength);
