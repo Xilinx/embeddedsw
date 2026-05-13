@@ -276,6 +276,16 @@ XPmRuntime_DeviceOps *XPm_GetDevOps_ById(u32 DeviceId) {
 	}
 	return NULL;
 }
+
+/**
+ * @brief  Set security attributes for a device in SLCR registers
+ *
+ * @param  Reqm		Pointer to the requirement structure
+ * @param  ReqCaps	Requested capabilities bitmask
+ * @param  PrevState	Previous device state
+ *
+ * @return XST_SUCCESS on success, error code on failure
+ */
 static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState)
 {
 	volatile XStatus Status = XST_FAILURE;
@@ -334,25 +344,37 @@ static XStatus SetSecurityAttr(XPm_Requirement *Reqm, u32 ReqCaps, u32 PrevState
 	CurrSecState = XPm_In32(BaseAddr + Offset1) & Mask1;
 
 	/* Do nothing if device is still ON after release */
-	if ((0U == Reqm->Allocated) &&
-	    ((u8)XPM_DEVSTATE_RUNNING == Reqm->Device->Node.State)) {
-		Status = XST_SUCCESS;
-		goto done;
-	}
-
-	if ((1U == Reqm->Allocated) &&
-	    ((u32)XPM_DEVSTATE_RUNNING == PrevState)) {
-		/**
-		 * Return error if current device state does not match
-		 * with the received request.
-		 */
-		if (((1U == Is_CapSecure) && (DEV_NONSECURE == CurrSecState)) ||
-		    ((0U == Is_CapSecure) && (DEV_SECURE == CurrSecState))) {
-			Status = XPM_PM_NO_ACCESS;
-			goto done;
-		} else {
+	{
+		volatile u8 AllocCheck = Reqm->Allocated;
+		volatile u8 AllocCheckTmp = Reqm->Allocated;
+		if ((0U == AllocCheck) && (0U == AllocCheckTmp) &&
+		    ((u8)XPM_DEVSTATE_RUNNING == Reqm->Device->Node.State)) {
 			Status = XST_SUCCESS;
 			goto done;
+		}
+
+		/*
+		 * If device is allocated and was already running, verify that
+		 * the requested security capability matches the current SLCR
+		 * register state. Deny if there is a mismatch (e.g. secure
+		 * request on a device whose master port is currently non-secure).
+		 */
+		if ((1U == AllocCheck) && (1U == AllocCheckTmp) &&
+		    ((u32)XPM_DEVSTATE_RUNNING == PrevState)) {
+			volatile u32 CapSecCheck = Is_CapSecure;
+			volatile u32 CapSecCheckTmp = Is_CapSecure;
+			if (CapSecCheck != CapSecCheckTmp) {
+				Status = XST_GLITCH_ERROR;
+				goto done;
+			}
+			if (((1U == CapSecCheck) && (DEV_NONSECURE == CurrSecState)) ||
+			    ((0U == CapSecCheck) && (DEV_SECURE == CurrSecState))) {
+				Status = XPM_PM_NO_ACCESS;
+				goto done;
+			} else {
+				Status = XST_SUCCESS;
+				goto done;
+			}
 		}
 	}
 
