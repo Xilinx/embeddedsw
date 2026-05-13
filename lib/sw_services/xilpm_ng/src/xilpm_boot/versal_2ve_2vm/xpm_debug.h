@@ -65,8 +65,6 @@ extern "C" {
 #define XPM_INT_ERR_MBIST_GOOD			0x310CU
 /* MBIST GO bit not set */
 #define XPM_INT_ERR_MBIST_GO			0x310DU
-/* Error during power domain init and house clean*/
-#define XPM_INT_ERR_DOMAIN_INIT_AND_HC		0x310DU
 /* Invalid trim type */
 #define XPM_INT_ERR_INVALID_TRIM_TYPE		0x310EU
 /* Error during self test */
@@ -121,6 +119,8 @@ extern "C" {
 #define XPM_INT_ERR_CFU_CLK_DIVIDER		0x3127U
 /* Error during ams trim routine */
 #define XPM_INT_ERR_FUNC_AMS_TRIM		0x3128U
+/** Error during power domain init and house clean */
+#define XPM_INT_ERR_DOMAIN_INIT_AND_HC		0x3129U
 /************************** LPD specific Errors ******************************/
 /************************** (0x3200) - (0x32FF) ******************************/
 /* Error during PMC-LPD DFX Isolation enable/disable */
