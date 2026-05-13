@@ -1101,7 +1101,7 @@ done:
 /**
  * @brief  Find minimum of all latency requirements
  *
- * @Param  Device	Device whose min required latency is requested
+ * @param  Device	Device whose min required latency is requested
  *
  * @return Latency in microseconds
  *
@@ -1505,7 +1505,7 @@ done:
 /**
  * @brief  Get the current usage status for a given device.
  * @param  Subsystem   Subsystem for which usage status is in query
- * @slave  Device      Device for which usage status need to be calculated
+ * @param  Device      Device for which usage status need to be calculated
  *
  * @return  Usage status:
  *          - 0: No subsystem is currently using the device
