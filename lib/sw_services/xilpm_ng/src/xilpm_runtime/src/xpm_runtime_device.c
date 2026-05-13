@@ -40,9 +40,18 @@ static XStatus DevRelease(XPm_Device *Device,  XPm_Subsystem *Subsystem, u32 Cmd
 static XStatus SetDevRequirement(XPm_Device *Device, const XPm_Subsystem *Subsystem,
 			      u32 Capabilities, const u32 QoS);
 
+/**
+ * @brief  Check TrustZone security access for a device request
+ *
+ * @param  Reqm		Pointer to the requirement structure
+ * @param  ReqCaps	Requested capabilities bitmask
+ * @param  CmdType	Command type (secure or non-secure)
+ *
+ * @return XST_SUCCESS if access is allowed, XPM_PM_NO_ACCESS otherwise
+ */
 maybe_unused static XStatus CheckSecurityAccess(const XPm_Requirement *Reqm, u32 ReqCaps, u32 CmdType)
 {
-	XStatus Status = XPM_PM_NO_ACCESS;
+	volatile XStatus Status = XPM_PM_NO_ACCESS;
 	struct XPm_SecPolicy { u16 CmdType; u16 Allowed; };
 	u16 SlaveTz = SECURITY_POLICY(Reqm->Flags);
 	u16 MasterTz = (0U != (ReqCaps & (u32)PM_CAP_SECURE)) ? 1U : 0U;
