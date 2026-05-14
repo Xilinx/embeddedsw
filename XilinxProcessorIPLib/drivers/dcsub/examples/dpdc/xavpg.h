@@ -30,24 +30,24 @@ extern "C" {
 #include "xil_io.h"
 #include "mmi_dpdc_example.h"
 
-#define XAV_PATGEN_EN                       0x0
-#define XAV_PATGEN_VRES                     0x1C
-#define XAV_PATGEN_HRES                     0x2C
-#define XAV_PATGEN_FORMAT_BPC               0x300
-#define XAV_PATGEN_MODE_PATTERN             0x308
+#define XAV_PATGEN_EN			0x0
+#define XAV_PATGEN_VRES 		0x1C
+#define XAV_PATGEN_HRES			0x2C
+#define XAV_PATGEN_FORMAT_BPC		0x300
+#define XAV_PATGEN_MODE_PATTERN		0x308
 
-#define XAVPATGEN_PPC_DUAL  2
-#define XAVPATGEN_PPC_QUAD  4
+#define XAVPATGEN_PPC_DUAL  		2
+#define XAVPATGEN_PPC_QUAD		4
 
-#define XAVPATGEN_BPC_8     1
-#define XAVPATGEN_BPC_10    2
-#define XAVPATGEN_BPC_12    3
+#define XAVPATGEN_BPC_8			1
+#define XAVPATGEN_BPC_10		2
+#define XAVPATGEN_BPC_12		3
 
-#define XAVPATGEN_CS_RGB      0
-#define XAVPATGEN_CS_YUV422   1
+#define XAVPATGEN_CS_RGB                0
+#define XAVPATGEN_CS_YUV422             1
 
-#define XAVPATGEN_COL_BT601         0
-#define XAVPATGEN_COL_BT709         1
+#define XAVPATGEN_COL_BT601             0
+#define XAVPATGEN_COL_BT709             1
 
 #define XAVPATGEN_PIXFMT_SHIFT          1
 #define XAVPATGEN_COLORIMETRY_SHIFT     4
@@ -55,13 +55,13 @@ extern "C" {
 #define XAVPATGEN_PPC_QUAD_MASK         (1 << 9)
 #define XAVPATGEN_PPC_DUAL_MASK         (1 << 8)
 
-#define XAVPATGEN_INST_0    0
-#define XAVPATGEN_INST_1    1
-#define XAVPATGEN_INST_2    2
-#define XAVPATGEN_INST_3    3
+#define XAVPATGEN_INST_0        0
+#define XAVPATGEN_INST_1        1
+#define XAVPATGEN_INST_2        2
+#define XAVPATGEN_INST_3        3
 
-#define XAVPATGEN_INST_MAX_COUNT  4
-#define XAVPATGEN_INST_LIVE_EX_MAX_COUNT  2
+#define XAVPATGEN_INST_MAX_COUNT                4
+#define XAVPATGEN_INST_LIVE_EX_MAX_COUNT        2
 
 /******************* Macros (Inline Functions) Definitions ********************/
 

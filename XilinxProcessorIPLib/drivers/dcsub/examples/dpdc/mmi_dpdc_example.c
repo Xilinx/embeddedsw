@@ -393,8 +393,6 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
 *
 * This is the main function for the application
 *
-* @param    None
-*
 * @return   XST_SUCCESS if successful, otherwise XST_FAILURE
 *
 * @note     None
