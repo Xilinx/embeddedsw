@@ -21,9 +21,11 @@
  *
  ******************************************************************************/
 
+#include <xparameters.h>
 #include "xavpg.h"
 #include "mmi_dpdc_example.h"
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
 /*****************************************************************************/
 /**
  *
@@ -77,3 +79,4 @@ void XAvpgSetConfig(UINTPTR BaseAddr, AvpgRunConfig *avpgcfg, u32 width,
 	XAvpg_WriteReg(BaseAddr, XAV_PATGEN_MODE_PATTERN, val);
 
 }
+#endif /* defined (XPAR_XVTC_NUM_INSTANCES) */

@@ -36,6 +36,7 @@ extern "C" {
 #include "xdcdma.h"
 #include "xdcsub.h"
 #include "xmmidp.h"
+#include "xparameters.h"
 
 /************************** Constant Definitions *****************************/
 

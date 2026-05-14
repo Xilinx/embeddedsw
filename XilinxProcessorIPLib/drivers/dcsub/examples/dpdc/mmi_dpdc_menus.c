@@ -21,6 +21,7 @@
 *
 ******************************************************************************/
 
+#include "xparameters.h"
 #include "mmi_dpdc_example.h"
 #include "mmi_dpdc_platform.h"
 #include "mmi_dpdc_menus.h"
@@ -467,6 +468,7 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
         }
     }
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
     if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
         (config->presentationmode == XDCSUB_PPTMODE_LIVE ||
          config->presentationmode == XDCSUB_PPTMODE_MIXED)) {
@@ -484,6 +486,7 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
                 config->avpg[idx].pix_fmt ? "YUV 422" : "RGB",
                 config->avpg[idx].colorimetry ? "BT.709" : "BT.601");
     }
+#endif
 
     xil_printf("Audio Enable:           %s\r\n", config->audio_enable ? "Yes" : "No");
     if (config->audio_enable) {
@@ -647,6 +650,7 @@ u32 XDpDc_ConfigureResolution(InitRunConfig *config)
     return XST_SUCCESS;
 }
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
 void XAvpg_Config_printcfg(InitRunConfig *config, u8 idx)
 {
     xil_printf("\r\n ==== AVPG #%d configuration ==== \r\n", idx);
@@ -945,6 +949,7 @@ avpg_cfg_menu:
             goto avpg_cfg_menu;
     }
 }
+#endif /* defined (XPAR_XVTC_NUM_INSTANCES) */
 
 /*****************************************************************************/
 /**
@@ -1413,9 +1418,11 @@ void XDpDc_MenuLoop(InitRunConfig *config)
                 if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
                     if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE)
                         XDpDc_ConfigureFormat(&config->stream1_format, "Stream1 Format");
+#if defined (XPAR_XVTC_NUM_INSTANCES)
                     if (config->presentationmode == XDCSUB_PPTMODE_LIVE ||
                         config->presentationmode == XDCSUB_PPTMODE_MIXED)
                         XAvpg_Config(config, XAVPATGEN_INST_0);
+#endif
                 }
                 break;
 
@@ -1425,8 +1432,10 @@ void XDpDc_MenuLoop(InitRunConfig *config)
                     if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE ||
                         config->presentationmode == XDCSUB_PPTMODE_MIXED)
                         XDpDc_ConfigureFormat(&config->stream2_format, "Stream2 Format");
+#if defined (XPAR_XVTC_NUM_INSTANCES)
                     if (config->presentationmode == XDCSUB_PPTMODE_LIVE)
                         XAvpg_Config(config, XAVPATGEN_INST_1);
+#endif
                 }
                 break;
 
@@ -1724,7 +1733,6 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
     const char *dcmodev02 = "V02";
     const char *avmode = "Audio_&_Video";
     const char *vidonlymode = "Video_only";
-    u32 idx;
 
     DcSubCfgPtr = XDcSub_LookupConfig(DC_BASEADDR);
 
@@ -1769,6 +1777,7 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
 
     config->byp_streams = DcSubCfgPtr->DcConfig.streams;
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
     if (config->byp_streams > 0) {
         u32 i;
 
@@ -1782,6 +1791,7 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
             config->byp_stream_sdp_en[i] = DcSubCfgPtr->DcConfig.StreamConfig[i].sdpen;
         }
     }
+#endif
 
     if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
 
@@ -1819,8 +1829,10 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
             config->cursor_size_y = 128;
         }
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
         /* Functional Live mode */
         if (config->presentationmode == XDCSUB_PPTMODE_LIVE) {
+	        u32 idx;
 
             config->stream1_format = APP_DEFAULT_LIVE_PIXFMT;
             config->stream2_format = APP_DEFAULT_LIVE_PIXFMT;
@@ -1844,7 +1856,7 @@ void XDpDc_InitConfigDefaults(InitRunConfig *config)
                 config->avpg[0].colorimetry = 0;
                 config->avpg[0].ppc = 0;
         }
-
+#endif
         XDpDc_ValidateModeSpecificConfig(config);
 
         xil_printf("InitRunConfig initialized with default values\r\n");

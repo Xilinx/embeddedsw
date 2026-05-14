@@ -29,8 +29,10 @@
 #include "xdcsub.h"
 #include "mmi_dpdc_menus.h"
 #include "mmi_dc_nonlive_test.h"
+#if defined (XPAR_XVTC_NUM_INSTANCES)
 #include "mmi_dc_live_test.h"
 #include "mmi_dc_mixed_test.h"
+#endif
 #include "mmi_dp_init.h"
 
 /* External declarations from mmi_dc_nonlive_test.c */
@@ -369,6 +371,7 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
         }
     }
 
+#if defined (XPAR_XVTC_NUM_INSTANCES)
     if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
         (runConfig->presentationmode == XDCSUB_PPTMODE_LIVE ||
          runConfig->presentationmode == XDCSUB_PPTMODE_MIXED)) {
@@ -388,6 +391,7 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
                 runConfig->avpg[idx].pix_fmt ? "YUV 422" : "RGB",
                 runConfig->avpg[idx].colorimetry ? "BT.709" : "BT.601");
     }
+#endif
 
     xil_printf("OutStreamFormat:        %s (%d)\r\n", format_to_string(runConfig->OutStreamFormat), runConfig->OutStreamFormat);
     xil_printf("AudioEnable:            %s\r\n", runConfig->AudioEnable ? "ENABLED" : "DISABLED");
@@ -501,10 +505,12 @@ restart:
     if (RunCfg.operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
         if (RunCfg.presentationmode == XDCSUB_PPTMODE_NONLIVE)
             Status = XDpDc_MmiDcNonliveTest(&RunCfg);
+#if defined (XPAR_XVTC_NUM_INSTANCES)
         else if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
             Status = XDpDc_MmiDcLiveTest(&RunCfg);
         else if (RunCfg.presentationmode == XDCSUB_PPTMODE_MIXED)
             Status = XDpDc_MmiDcMixedTest(&RunCfg);
+#endif
         else {
             Status = XST_FAILURE;
             xil_printf("Invalid presentation mode!\r\n");
@@ -525,12 +531,13 @@ restart:
     if (RunCfg.operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
         if (RunCfg.presentationmode == XDCSUB_PPTMODE_NONLIVE)
             xil_printf(" MMI_DC_NONLIVE_TEST\r\n");
-
+#if defined (XPAR_XVTC_NUM_INSTANCES)
         if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
             xil_printf("MMI_DC_LIVE_TEST\r\n");
 
         if (RunCfg.presentationmode == XDCSUB_PPTMODE_MIXED)
             xil_printf("MMI_DC_MIXED_TEST\r\n");
+#endif
     }
 
     xil_printf("\r\n");
