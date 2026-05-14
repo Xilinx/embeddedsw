@@ -29,6 +29,7 @@
 #include "xdc.h"
 #include "xmmidp.h"
 #include <string.h>
+#include "xavpg.h"
 
 
 extern void outbyte(char c);
@@ -389,15 +390,29 @@ void XDpDc_MainHelpMenu(InitRunConfig *config)
     xil_printf("====================================================\r\n");
     xil_printf("Available Commands:\r\n");
     xil_printf("  r - Configure Resolution\r\n");
-    xil_printf("  f - Configure Stream1 Format\r\n");
-    xil_printf("  g - Configure Stream2 Format\r\n");
-    xil_printf("  o - Configure Output Format\r\n");
-    xil_printf("  c - Toggle Cursor Enable (with Position & Size config)\r\n");
-    xil_printf("  x - Configure Cursor Position & Size\r\n");
-    xil_printf("  a - Toggle Audio Enable (and select channels 1-8)\r\n");
-    xil_printf("  n - Toggle SDP Enable\r\n");
-    xil_printf("  p - Toggle Partial Plane Blend Enable\r\n");
-    xil_printf("  b - Configure Partial Plane Blend Parameters\r\n");
+    if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+        if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+            xil_printf("  f - Configure Stream1 Format\r\n");
+            xil_printf("  g - Configure Stream2 Format\r\n");
+            xil_printf("  c - Toggle Cursor Enable (with Position & Size config)\r\n");
+            xil_printf("  x - Configure Cursor Position & Size\r\n");
+            xil_printf("  a - Toggle Audio Enable (and select channels 1-8)\r\n");
+            xil_printf("  n - Toggle SDP Enable\r\n");
+        }
+
+        if (config->presentationmode == XDCSUB_PPTMODE_LIVE) {
+            /* TODO - Add SDP and audio */
+            xil_printf("  f - config AVPG 1\r\n");
+            xil_printf("  g - config AVPG 2\r\n");
+        }
+
+        if (config->livevidselect == XDCSUB_LIVVID_SEL_BOTH) {
+            xil_printf("  p - Toggle Partial Plane Blend Enable\r\n");
+            xil_printf("  b - Configure Partial Plane Blend Parameters\r\n");
+        }
+
+        xil_printf("  o - Configure Output Format\r\n");
+    }
     xil_printf("  l - Configure DP Link (Lane Count & Link Rate)\r\n");
     xil_printf("  m - Toggle Power Cycle Monitor on Start\r\n");
     xil_printf("  d - Display Current Configuration\r\n");
@@ -426,14 +441,45 @@ void XDpDc_DisplayConfig(InitRunConfig *config)
     xil_printf("\r\n");
     xil_printf("=== Current Configuration ===\r\n");
     xil_printf("Resolution:             %d x %d @%dHz\r\n", config->width, config->height, config->frame_rate);
-    xil_printf("Stream1 Format:         %s (%d)\r\n", format_to_string(config->stream1_format), config->stream1_format);
-    xil_printf("Stream2 Format:         %s (%d)\r\n", format_to_string(config->stream2_format), config->stream2_format);
-    xil_printf("Output Format:          %s (%d)\r\n", format_to_string(config->output_format), config->output_format);
-    xil_printf("Cursor Enable:          %s\r\n", config->cursor_enable ? "Yes" : "No");
-    if (config->cursor_enable) {
-        xil_printf("  Cursor Position:      (%d, %d)\r\n", config->cursor_coord_x, config->cursor_coord_y);
-        xil_printf("  Cursor Size:          %d x %d\r\n", config->cursor_size_x, config->cursor_size_y);
+
+    xil_printf("Stream1 Format:         %s (%d)\r\n",
+               format_to_string(config->stream1_format),
+               config->stream1_format);
+    xil_printf("Stream2 Format:         %s (%d)\r\n",
+               format_to_string(config->stream2_format),
+               config->stream2_format);
+    xil_printf("Output Format:          %s (%d)\r\n",
+               format_to_string(config->output_format), config->output_format);
+
+    if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+        config->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+
+        xil_printf("Cursor Enable:          %s\r\n",
+                   config->cursor_enable ? "Yes" : "No");
+        if (config->cursor_enable) {
+            xil_printf("  Cursor Position:      (%d, %d)\r\n",
+                       config->cursor_coord_x, config->cursor_coord_y);
+            xil_printf("  Cursor Size:          %d x %d\r\n",
+                       config->cursor_size_x, config->cursor_size_y);
+        }
     }
+
+    if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+        config->presentationmode == XDCSUB_PPTMODE_LIVE &&
+        config->livevidselect == XDCSUB_LIVVID_SEL_BOTH) {
+        u8 idx;
+
+        for (idx = 0; idx < 2; idx++)
+            xil_printf(
+                "AVPAT #%d:\t\t%d bpc, %s ppc, pattern %d, %s, %s \r\n",
+                idx,
+                config->avpg[idx].bpc,
+                config->avpg[idx].ppc ? "Quad" : "Dual",
+                config->avpg[idx].pattern,
+                config->avpg[idx].pix_fmt ? "YUV 422" : "RGB",
+                config->avpg[idx].colorimetry ? "BT.709" : "BT.601");
+    }
+
     xil_printf("Audio Enable:           %s\r\n", config->audio_enable ? "Yes" : "No");
     if (config->audio_enable) {
         xil_printf("Audio Channels:         %d\r\n", config->audio_channels);
@@ -594,6 +640,305 @@ u32 XDpDc_ConfigureResolution(InitRunConfig *config)
 
     xil_printf("Resolution set to: %dx%d @%dHz\r\n", config->width, config->height, config->frame_rate);
     return XST_SUCCESS;
+}
+
+void XAvpg_Config_printcfg(InitRunConfig *config, u8 idx)
+{
+    xil_printf("\r\n ==== AVPG #%d configuration ==== \r\n", idx);
+
+    xil_printf("  bits per component = %d\r\n", config->avpg[idx].bpc);
+    xil_printf("  pixels per clock   = %d\r\n", config->avpg[idx].ppc ? XAVPATGEN_PPC_QUAD : XAVPATGEN_PPC_DUAL);
+    xil_printf("  pixel format       = %s\r\n", config->avpg[idx].pix_fmt ? "YUV422" : "RGB");
+    xil_printf("  colorimetry        = BT.%d\r\n", config->avpg[idx].colorimetry ? 709 : 601);
+    xil_printf("  pattern            = ");
+
+    switch(config->avpg[idx].pattern) {
+        case 1:
+            xil_printf("Color Ramp");
+            break;
+        case 2:
+            xil_printf("Black and white vertical lines");
+            break;
+        case 3:
+            xil_printf("Color Square Pattern");
+            break;
+        case 4:
+            xil_printf("Flat Red");
+            break;
+        case 5:
+            xil_printf("Flat Green");
+            break;
+        case 6:
+            xil_printf("Flat Blue");
+            break;
+        case 7:
+            xil_printf("Flat Yellow");
+            break;
+        default:
+            xil_printf("None");
+    }
+
+    xil_printf("\r\n");
+    xil_printf("\r\n ================================ \r\n");
+}
+
+void XAvpg_Config_bpc(InitRunConfig *config, u8 idx)
+{
+    char choice;
+
+avpg_cfg_bpc_menu:
+    /* Print the options */
+    xil_printf("\r\nAV PAT GEN bits per component options\r\n");
+    xil_printf("  8 - Set  8 bpc\r\n");
+    xil_printf("  A - Set 10 bpc\r\n");
+    xil_printf("  C - Set 12 bpc\r\n");
+    xil_printf("Enter choice: ");
+
+    choice = read_char();
+    /* Read the options */
+    switch (choice) {
+        case '8':
+            config->avpg[idx].bpc = 8;
+            break;
+        case 'A':
+            /* fall through */
+        case 'a':
+            config->avpg[idx].bpc = 10;
+            break;
+        case 'C':
+            /* fall through */
+        case 'c':
+            config->avpg[idx].bpc = 12;
+            break;
+        default:
+            xil_printf("Invalid input \r\n");
+            goto avpg_cfg_bpc_menu;
+    }
+
+    XAvpg_Config_printcfg(config, idx);
+}
+
+void XAvpg_Config_ppc(InitRunConfig *config, u8 idx)
+{
+    char choice;
+
+avpg_cfg_ppc_menu:
+    /* Default value */
+    config->avpg[idx].ppc = 0;
+
+    /* Print the options */
+    xil_printf("\r\nAV PAT GEN pixels per clock options\r\n");
+    xil_printf("  2 - Dual pixel per clock\r\n");
+    if (config->operatingmode == XDCSUB_OPMODE_BYPASS) {
+        /* Only valid for DC Bypass mode */
+        xil_printf("  4 - Quad pixel per clock\r\n");
+        xil_printf("Enter choice: ");
+
+        choice = read_char();
+        /* Read the options */
+        switch (choice) {
+            case '2':
+                config->avpg[idx].ppc = 0;
+                break;
+            case '4':
+                config->avpg[idx].ppc = 1;
+                break;
+            default:
+                xil_printf("Invalid input\r\n");
+                goto avpg_cfg_ppc_menu;
+        }
+    }
+
+    XAvpg_Config_printcfg(config, idx);
+}
+
+void XAvpg_Config_pat(InitRunConfig *config, u8 idx)
+{
+    char choice;
+
+avpg_cfg_pat_menu:
+    /* Print the options */
+    xil_printf("\r\nAV PAT GEN pattern options\r\n");
+    xil_printf("  1 - Color ramp\r\n");
+    xil_printf("  2 - Black and white vertical lines\r\n");
+    xil_printf("  3 - Color square\r\n");
+    xil_printf("  4 - Flat Red\r\n");
+    xil_printf("  5 - Flat Green\r\n");
+    xil_printf("  6 - Flat Blue\r\n");
+    xil_printf("  7 - Flat Yellow\r\n");
+    xil_printf("Enter choice: ");
+
+    choice = read_char();
+    if (choice < '1' || choice > '7') {
+        xil_printf("Invalid input. \r\n");
+        goto avpg_cfg_pat_menu;
+    }
+
+    config->avpg[idx].pattern = choice - '0';
+
+    XAvpg_Config_printcfg(config, idx);
+}
+
+void XAvpg_Config_col(InitRunConfig *config, u8 idx)
+{
+    char choice;
+
+avpg_cfg_col_menu:
+    /* Print the options */
+    xil_printf("\r\nAV PAT GEN colorimetry options\r\n");
+    xil_printf("  0 - BT. 601\r\n");
+    xil_printf("  1 - BT. 709\r\n");
+    xil_printf("Enter choice: ");
+
+    choice = read_char();
+    if (choice < '0' || choice > '1') {
+        xil_printf("Invalid input. \r\n");
+        goto avpg_cfg_col_menu;
+    }
+
+    config->avpg[idx].colorimetry = choice - '0';
+
+    XAvpg_Config_printcfg(config, idx);
+}
+
+void XAvpg_Config_fmt(InitRunConfig *config, u8 idx)
+{
+    char choice;
+
+avpg_cfg_fmt_menu:
+    /* Print the options */
+    xil_printf("\r\nAV PAT GEN pixel format options\r\n");
+    xil_printf("  0 - RGB\r\n");
+    xil_printf("  1 - YUV422\r\n");
+    xil_printf("Enter choice: ");
+
+    choice = read_char();
+    if (choice < '0' || choice > '1') {
+        xil_printf("Invalid input. \r\n");
+        goto avpg_cfg_fmt_menu;
+    }
+
+    config->avpg[idx].pix_fmt = choice - '0';
+
+    XAvpg_Config_printcfg(config, idx);
+}
+
+void XAvpg_Config(InitRunConfig *config, u8 idx)
+{
+    char choice;
+
+    if (config->avpg[idx].bpc == 0)
+        config->avpg[idx].bpc = 8;
+
+    /* Disable audio */
+    config->audio_enable = 0;
+    config->audio_channels = 0;
+
+avpg_cfg_menu:
+
+    /* For the first AVPATGEN */
+    if(idx == XAVPATGEN_INST_0) {
+        /* For RGB color space */
+        if (config->avpg[idx].pix_fmt == XAVPATGEN_CS_RGB) {
+            switch(config->avpg[idx].bpc) {
+                case 8:
+                config->stream1_format = RGB_8BPC;
+                break;
+                case 10:
+                config->stream1_format = RGB_10BPC;
+                break;
+                case 12:
+                config->stream1_format = RGB_12BPC;
+                break;
+            }
+        } else {
+            switch(config->avpg[idx].bpc) {
+                case 8:
+                config->stream1_format = YCbCr422_8BPC;
+                break;
+                case 10:
+                config->stream1_format = YCbCr422_10BPC;
+                break;
+                case 12:
+                config->stream1_format = YCbCr422_12BPC;
+                break;
+            }
+        }
+    }
+
+    if(idx == XAVPATGEN_INST_1) {
+        if (config->avpg[idx].pix_fmt == XAVPATGEN_CS_RGB) {
+            switch(config->avpg[idx].bpc) {
+                case 8:
+                config->stream2_format = RGB_8BPC;
+                break;
+                case 10:
+                config->stream2_format = RGB_10BPC;
+                break;
+                case 12:
+                config->stream2_format = RGB_12BPC;
+                break;
+            }
+        } else {
+            switch(config->avpg[idx].bpc) {
+                case 8:
+                config->stream2_format = YCbCr422_8BPC;
+                break;
+                case 10:
+                config->stream2_format = YCbCr422_10BPC;
+                break;
+                case 12:
+                config->stream2_format = YCbCr422_12BPC;
+                break;
+            }
+        }
+    }
+
+    /* Print the options */
+    xil_printf("\r\nAV PAT GEN %d config options\r\n", idx);
+    xil_printf("  1 - Set bits per component\r\n");
+    xil_printf("  2 - Set pixels per clock\r\n");
+    xil_printf("  3 - Set pattern\r\n");
+    xil_printf("  4 - Set colorimetry\r\n");
+    xil_printf("  5 - Set pixel format\r\n");
+    xil_printf("  6 - Print AVPG config\r\n");
+    xil_printf("  9 - Exit\r\n");
+    xil_printf("Enter choice (1-9): ");
+
+    choice = read_char();
+
+    switch (choice) {
+        case '1':
+            XAvpg_Config_bpc(config, idx);
+            goto avpg_cfg_menu;
+            break;
+        case '2':
+            XAvpg_Config_ppc(config, idx);
+            goto avpg_cfg_menu;
+            break;
+        case '3':
+            XAvpg_Config_pat(config, idx);
+            goto avpg_cfg_menu;
+            break;
+        case '4':
+            XAvpg_Config_col(config, idx);
+            goto avpg_cfg_menu;
+            break;
+        case '5':
+            XAvpg_Config_fmt(config, idx);
+            goto avpg_cfg_menu;
+            break;
+        case '6':
+            XAvpg_Config_printcfg(config, idx);
+            goto avpg_cfg_menu;
+            break;
+        case '9':
+            /* Exit case */
+            break;
+        default:
+            xil_printf("Invalid input \r\n");
+            goto avpg_cfg_menu;
+    }
 }
 
 /*****************************************************************************/
@@ -956,12 +1301,22 @@ void XDpDc_MenuLoop(InitRunConfig *config)
 
             case 'f':
             case 'F':
-                XDpDc_ConfigureFormat(&config->stream1_format, "Stream1 Format");
+                if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+                    if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE)
+                        XDpDc_ConfigureFormat(&config->stream1_format, "Stream1 Format");
+                    if (config->presentationmode == XDCSUB_PPTMODE_LIVE)
+                        XAvpg_Config(config, XAVPATGEN_INST_0);
+                }
                 break;
 
             case 'g':
             case 'G':
-                XDpDc_ConfigureFormat(&config->stream2_format, "Stream2 Format");
+                if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+                    if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE)
+                        XDpDc_ConfigureFormat(&config->stream2_format, "Stream2 Format");
+                    if (config->presentationmode == XDCSUB_PPTMODE_LIVE)
+                        XAvpg_Config(config, XAVPATGEN_INST_1);
+                }
                 break;
 
             case 'o':
@@ -1241,41 +1596,135 @@ void XDpDc_AuxMenu(XMmiDp *DpPtr)
 ******************************************************************************/
 void XDpDc_InitConfigDefaults(InitRunConfig *config)
 {
-    config->width = 640;
-    config->height = 480;
-    config->frame_rate = 60;
-    config->stream1_format = RGBA8888;
-    config->stream2_format = RGBA8888;
-    config->output_format = RGB_8BPC;
-    config->cursor_enable = 0;
-    config->audio_enable = 0;
-    config->audio_channels = 0;
-    config->sdp_enable = 0;
-    config->partial_plane_blend_enable = 0;
-    /* Default to Stream1 as source */
-    config->ppb_stream_select = 1;
-    config->cursor_coord_x = 50;
-    config->cursor_coord_y = 50;
-    /* Hardware fixed size - use alpha=0 for smaller cursor */
-    config->cursor_size_x = 128;
-    /* Hardware fixed size - use alpha=0 for smaller cursor */
-    config->cursor_size_y = 128;
-    /* Default partial plane blend parameters (from reference) */
-    config->ppb_coord_x = 0;
-    config->ppb_coord_y = 0;
-    config->ppb_size_x = 256;
-    config->ppb_size_y = 256;
-    config->ppb_offset_x = 80;
-    config->ppb_offset_y = 80;
+    XDcSub_Config *DcSubCfgPtr;
+    const char *opmodefunc = "DC_Functional";
+    const char *opmodebypass = "DC_Bypass";
+    const char *nlmode = "Non_Live";
+    const char *livemode = "Live";
+    const char *mixmode = "Mixed";
+    const char *dclivmodeboth = "Both";
+    const char *dcmodev01 = "V01";
+    const char *dcmodev02 = "V02";
+    const char *avmode = "Audio_&_Video";
+    const char *vidonlymode = "Video_only";
+    u32 idx;
+
+    DcSubCfgPtr = XDcSub_LookupConfig(DC_BASEADDR);
+
+    if (!strncmp(DcSubCfgPtr->DcConfig.operatingmode, opmodefunc, strlen(opmodefunc)))
+        config->operatingmode = XDCSUB_OPMODE_FUNCTIONAL;
+
+    if (!strncmp(DcSubCfgPtr->DcConfig.operatingmode, opmodebypass, strlen(opmodebypass)))
+        config->operatingmode = XDCSUB_OPMODE_BYPASS;
+
+    if (!strncmp(DcSubCfgPtr->DcConfig.presentationmode, nlmode, strlen(nlmode)))
+        config->presentationmode = XDCSUB_PPTMODE_NONLIVE;
+    else if (!strncmp(DcSubCfgPtr->DcConfig.presentationmode, livemode, strlen(livemode)))
+        config->presentationmode = XDCSUB_PPTMODE_LIVE;
+    else if (!strncmp(DcSubCfgPtr->DcConfig.presentationmode, mixmode, strlen(mixmode)))
+        config->presentationmode = XDCSUB_PPTMODE_MIXED;
+    else
+        config->presentationmode = XDCSUB_PPTMODE_NONLIVE;
+
+    if (!strncmp(DcSubCfgPtr->DcConfig.livevideoselect, dclivmodeboth, strlen(dclivmodeboth)))
+        config->livevidselect = XDCSUB_LIVVID_SEL_BOTH;
+    else if (!strncmp(DcSubCfgPtr->DcConfig.livevideoselect, dcmodev01, strlen(dcmodev01)))
+        config->livevidselect = XDCSUB_LIVVID_SEL_V01;
+    else
+        config->livevidselect = XDCSUB_LIVVID_SEL_V02;
+
+    if (!strncmp(DcSubCfgPtr->DcConfig.livevideo01mode, avmode, strlen(avmode)))
+        config->livevideo01mode = XDCSUB_VIDMODE_AV;
+    else
+        config->livevideo01mode = XDCSUB_VIDMODE_VONLY;
+
+    if (!strncmp(DcSubCfgPtr->DcConfig.livevideo02mode, vidonlymode, strlen(vidonlymode)))
+        config->livevideo02mode = XDCSUB_VIDMODE_VONLY;
+
+    config->livevideosdpen = DcSubCfgPtr->DcConfig.livevideosdpen;
+    config->livevideoalphaen = DcSubCfgPtr->DcConfig.livevideoalphaen;
+
+    config->byp_streams = DcSubCfgPtr->DcConfig.streams;
+
+    if (config->byp_streams > 0) {
+        u32 i;
+
+        for (i = 0; i < XAVPATGEN_INST_MAX_COUNT; i++) {
+            if (!strncmp(DcSubCfgPtr->DcConfig.StreamConfig[i].mode, avmode, strlen(avmode)))
+                config->byp_stream_vid_mode[i] = XDCSUB_VIDMODE_AV;
+            else
+                config->byp_stream_vid_mode[i] = XDCSUB_VIDMODE_VONLY;
+
+            config->byp_stream_pix_mode[i] = DcSubCfgPtr->DcConfig.StreamConfig[i].pixel_mode;
+            config->byp_stream_sdp_en[i] = DcSubCfgPtr->DcConfig.StreamConfig[i].sdpen;
+        }
+    }
+
+    if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+
+        config->width = APP_DEFAULT_WIDTH;
+        config->height = APP_DEFAULT_HEIGHT;
+        config->frame_rate = APP_DEFAULT_FPS;
+        config->output_format = APP_DEFAULT_DC_OUT_FMT;
+
+        config->partial_plane_blend_enable = 0;
+        /* Default to Stream1 as source */
+        config->ppb_stream_select = 1;
+        config->cursor_coord_x = 50;
+        config->cursor_coord_y = 50;
+
+        /* Default partial plane blend parameters (from reference) */
+        config->ppb_coord_x = 0;
+        config->ppb_coord_y = 0;
+        config->ppb_size_x = 256;
+        config->ppb_size_y = 256;
+        config->ppb_offset_x = 80;
+        config->ppb_offset_y = 80;
+
+        if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+            config->stream1_format = APP_DEFAULT_NL_PIXFMT;
+            config->stream2_format = APP_DEFAULT_NL_PIXFMT;
+
+            config->cursor_enable = 0;
+            /* Hardware fixed size - use alpha=0 for smaller cursor */
+            config->cursor_size_x = 128;
+            /* Hardware fixed size - use alpha=0 for smaller cursor */
+            config->cursor_size_y = 128;
+        }
+
+        /* Functional Live mode */
+        if (config->presentationmode == XDCSUB_PPTMODE_LIVE) {
+
+            config->stream1_format = APP_DEFAULT_LIVE_PIXFMT;
+            config->stream2_format = APP_DEFAULT_LIVE_PIXFMT;
+
+            for (idx = 0; idx < 4; idx++) {
+                /* Set up AVTPG as 8 bpc RGB, Color ramp, BT.601, dual pixel */
+                config->avpg[idx].bpc = 8;
+                config->avpg[idx].pix_fmt = 0;
+                config->avpg[idx].pattern = 1;
+                config->avpg[idx].colorimetry = 0;
+                config->avpg[idx].ppc = 0;
+            }
+        }
+
+        /* TODO - Add audio and SDP enabled */
+        config->audio_enable = 0;
+        config->audio_channels = 0;
+        config->sdp_enable = 0;
+
+        xil_printf("InitRunConfig initialized with default values\r\n");
+        xil_printf("  Resolution: 640x480 @%dHz\r\n", config->frame_rate);
+        xil_printf("  Stream1/2 Format: RGBA8888\r\n");
+        xil_printf("  Output Format: RGB_8BPC\r\n");
+        xil_printf("  Cursor: Disabled, Position (50,50), Size (128x128)\r\n");
+        xil_printf("  Audio: Disabled, Channels: %d\r\n",
+                   config->audio_channels);
+        xil_printf("  SDP: Disabled\r\n");
+    }
+
     config->lane_count = 0;
     config->link_rate = 0;
 
-    xil_printf("InitRunConfig initialized with default values\r\n");
-    xil_printf("  Resolution: 640x480 @%dHz\r\n", config->frame_rate);
-    xil_printf("  Stream1/2 Format: RGBA8888\r\n");
-    xil_printf("  Output Format: RGB_8BPC\r\n");
-    xil_printf("  Cursor: Disabled, Position (50,50), Size (128x128)\r\n");
-    xil_printf("  Audio: Disabled, Channels: %d\r\n", config->audio_channels);
-    xil_printf("  SDP: Disabled\r\n");
     xil_printf("  DP Link: Auto (sink max)\r\n");
 }

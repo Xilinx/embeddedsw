@@ -23,6 +23,9 @@
 
 /* InitRunConfig structure */
 typedef struct {
+
+    AvpgRunConfig avpg[4];
+
     u32 width;
     u32 height;
     u32 frame_rate;
