@@ -241,6 +241,10 @@ void XI3cPsx_RdRxFifo(XI3cPsx *InstancePtr, u32 *RxBuf, u16 RxLen)
 
 	(void)RxBuf;
 
+	if (RxLen > InstancePtr->RecvByteCount) {
+		RxLen = InstancePtr->RecvByteCount;
+	}
+
 	/* FIFO is word base, so read the data accordingly */
 	while (RxLen > 0 && InstancePtr->RecvByteCount > 0) {
 		Data = XI3cPsx_ReadReg(InstancePtr->Config.BaseAddress, XI3CPSX_TX_RX_DATA_PORT);
