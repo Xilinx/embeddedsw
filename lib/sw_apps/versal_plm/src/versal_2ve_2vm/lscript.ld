@@ -1,7 +1,7 @@
 /******************************************************************************
  *
  * Copyright (c) 2022 Xilinx, Inc.  All rights reserved.
- * Copyright (c) 2023 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+ * Copyright (c) 2023 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
  * SPDX-License-Identifier: MIT
  *****************************************************************************/
 
@@ -278,8 +278,12 @@ _SDA2_BASE_ = __sdata2_start + ((__sbss2_end - __sdata2_start) / 2 );
    KEEP(*(.RefTable))
    . = ALIGN(4);
    KEEP(*(SORT(.RefTable.*)))
+   . = ALIGN(4);
     __xpm_init_data_end = .;
 } > tmr_ram_cntlr_Mem
+__xpm_init_data_size = __xpm_init_data_end - __xpm_init_data_start;
+ASSERT((__xpm_init_data_size & 0x3) == 0,
+       "xpm_init_data section size must be 4-byte aligned for IPU save/restore")
 
 /******************************************************************************************
  * @brief xpm_bss_data XilPm Uninitialized Data Section
