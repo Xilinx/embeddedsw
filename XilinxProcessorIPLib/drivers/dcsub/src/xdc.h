@@ -1,5 +1,5 @@
 /*******************************************************************************
-* Copyright (C) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+* Copyright (C) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -27,14 +27,46 @@ extern "C" {
 
 /******************************* Include Files ********************************/
 #include "xdc_hw.h"
+
+/**
+ * Maximum number of input streams allowed.
+ *
+ * @def XDC_MAX_IN_STREAMS
+ */
+#define XDC_MAX_IN_STREAMS		4
+
 /****************************** Type Definitions ******************************/
 
 /**
- * This structure stores the XDC configuration information.
-**/
+ * This structure stores the per-stream configuration.
+ */
 typedef struct {
-	const char *Name;
-	u32 BaseAddr;
+	const char *mode;	/**< Stream mode: Audio_&_Video or Video_only */
+	u8 pixel_mode;		/**< Pixels per clock: 1, 2, or 4 */
+	u8 sdpen;		/**< SDP enabled flag */
+} XDc_StreamConfig;
+
+/**
+ * This structure stores the XDC configuration information.
+ */
+typedef struct {
+	const char *Name;		/**< Instance name */
+	u32 BaseAddr;			/**< Base address */
+	const char *RegNames;		/**< Register names */
+	u32 interruptId;		/**< Interrupt ID */
+	u32 interruptParent;		/**< Interrupt parent */
+	u32 port;			/**< Port number */
+	const char *operatingmode;	/**< DC_Functional or DC_Bypass */
+	const char *presentationmode;	/**< Non-live, Live, or Mixed */
+	const char *livevideoselect;	/**< Live video select: V01, V02,
+					  *  or Both */
+	const char *livevideo01mode;	/**< Live video 01 mode */
+	const char *livevideo02mode;	/**< Live video 02 mode */
+	u8 livevideoalphaen;		/**< Live video alpha enable */
+	u8 livevideosdpen;		/**< Live video SDP enable */
+	u8 streams;			/**< Number of input streams */
+	XDc_StreamConfig StreamConfig[XDC_MAX_IN_STREAMS];
+					/**< Per-stream configuration */
 } XDc_Config;
 
 /**
