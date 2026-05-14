@@ -42,7 +42,7 @@ extern const XDc_VideoAttribute XDc_SupportedFormats[XDC_NUM_SUPPORTED];
 
 /******************************************************************************/
 /**
- * This function intializes the configuration for the DC Instance.
+ * This function initializes the configuration for the DC Instance.
  *
  * @param       InstancePtr is a pointer to the XDc instance.
  * @param       BaseAddr sets the base address of the DC instance
@@ -502,7 +502,7 @@ static void XDc_SetScalingFactors(XDc *InstancePtr, u32 RegOffset, const u32 *Sc
 
 /******************************************************************************/
 /**
- * This function programs the coeffitients for Input Color Space Conversion.
+ * This function programs the coefficients for Input Color Space Conversion.
  *
  * @param       InstancePtr is an pointer to the XDc Instance.
  * @param       RegOffset is a register offset for Video or Graphics

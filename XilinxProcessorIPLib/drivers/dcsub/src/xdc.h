@@ -346,7 +346,7 @@ typedef struct {
 } XDc_Cursor;
 
 /**
- * This typedef describes the parital blend coords
+ * This typedef describes the partial blend coords
  * */
 typedef struct {
 
