@@ -33,6 +33,25 @@
 #define XDCSUB_AUD_CH_SELECT_MASK	0x00FFU
 #define XDCSUB_AUD_CH_STATUS_SHIFT	8U
 
+
+#ifdef SDT
+XDcSub_Config *XDcSub_LookupConfig(UINTPTR BaseAddress)
+{
+	XDcSub_Config *CfgPtr = NULL;
+	u32 Index;
+
+	for (Index = 0; XDcSub_ConfigTable[Index].DcConfig.Name != NULL; Index++) {
+		if (XDcSub_ConfigTable[Index].DcConfig.BaseAddr == BaseAddress ||
+		    !BaseAddress) {
+			CfgPtr = &XDcSub_ConfigTable[Index];
+			break;
+		}
+	}
+
+	return (XDcSub_Config *)CfgPtr;
+}
+#endif
+
 /******************************************************************************/
 /**
  * This function initializes the configuration of all instances part of DC
