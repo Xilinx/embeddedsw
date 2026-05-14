@@ -2662,6 +2662,12 @@ void PmProcessRequest(PmMaster *const master, const u32 *pload)
 	}
 #endif
 
+	if (PM_MASTER_STATE_UNINITIALIZED == master->state) {
+		master->state = PM_MASTER_STATE_ACTIVE;
+		PmInfo("%s> Auto-activate: state set to ACTIVE\r\n",
+		       master->name);
+	}
+
 	switch (apiId) {
 	case PM_API(PM_SELF_SUSPEND):
 		address = ((u64) pload[5]) << 32ULL;
