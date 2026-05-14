@@ -244,6 +244,23 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     runConfig->Width = userConfig->width;
     runConfig->Height = userConfig->height;
 
+    runConfig->operatingmode = userConfig->operatingmode;
+    runConfig->presentationmode = userConfig->presentationmode;
+    runConfig->livevidselect = userConfig->livevidselect;
+    runConfig->livevideo01mode = userConfig->livevideo01mode;
+    runConfig->livevideo02mode = userConfig->livevideo02mode;
+    runConfig->livevideoalphaen = userConfig->livevideoalphaen;
+    runConfig->livevideosdpen = userConfig->livevideosdpen;
+    runConfig->byp_streams = userConfig->byp_streams;
+
+    for (idx = 0; idx < 4; idx++) {
+        runConfig->avpg[idx].bpc = userConfig->avpg[idx].bpc;
+        runConfig->avpg[idx].ppc = userConfig->avpg[idx].ppc;
+        runConfig->avpg[idx].pix_fmt = userConfig->avpg[idx].pix_fmt;
+        runConfig->avpg[idx].pattern = userConfig->avpg[idx].pattern;
+        runConfig->avpg[idx].colorimetry = userConfig->avpg[idx].colorimetry;
+    }
+
     /* Resolve standard video mode and pixel clock */
     runConfig->VideoMode = XVidC_GetVideoModeId(
         userConfig->width, userConfig->height,
@@ -264,18 +281,23 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
                (runConfig->PixelClkHz % 1000000) / 1000);
 
     /* Set video formats */
-    runConfig->Stream1Format = MapFormat(userConfig->stream1_format);
-    runConfig->Stream2Format = MapFormat(userConfig->stream2_format);
+    if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+        runConfig->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+        runConfig->Stream1Format = MapFormat(userConfig->stream1_format);
+        runConfig->Stream2Format = MapFormat(userConfig->stream2_format);
+
+        /* Set cursor enable */
+        runConfig->CursorEnable =
+            userConfig->cursor_enable ? CB_ENABLE : CB_DISABLE;
+
+        /* Set cursor coordinates and size */
+        runConfig->CursorCoordX = userConfig->cursor_coord_x;
+        runConfig->CursorCoordY = userConfig->cursor_coord_y;
+        runConfig->CursorSizeX = userConfig->cursor_size_x;
+        runConfig->CursorSizeY = userConfig->cursor_size_y;
+    }
+
     runConfig->OutStreamFormat = MapFormat(userConfig->output_format);
-
-    /* Set cursor enable */
-    runConfig->CursorEnable = userConfig->cursor_enable ? CB_ENABLE : CB_DISABLE;
-
-    /* Set cursor coordinates and size */
-    runConfig->CursorCoordX = userConfig->cursor_coord_x;
-    runConfig->CursorCoordY = userConfig->cursor_coord_y;
-    runConfig->CursorSizeX = userConfig->cursor_size_x;
-    runConfig->CursorSizeY = userConfig->cursor_size_y;
 
     /* Set audio enable */
     runConfig->AudioEnable = userConfig->audio_enable ? XDC_AUD_ENABLE : XDC_AUD_DISABLE;
@@ -319,14 +341,43 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     xil_printf("\r\n=== Applied Configuration to RunConfig ===\r\n");
     xil_printf("Width:                  %d\r\n", runConfig->Width);
     xil_printf("Height:                 %d\r\n", runConfig->Height);
-    xil_printf("Stream1Format:          %s (%d)\r\n", format_to_string(runConfig->Stream1Format), runConfig->Stream1Format);
-    xil_printf("Stream2Format:          %s (%d)\r\n", format_to_string(runConfig->Stream2Format), runConfig->Stream2Format);
-    xil_printf("OutStreamFormat:        %s (%d)\r\n", format_to_string(runConfig->OutStreamFormat), runConfig->OutStreamFormat);
-    xil_printf("CursorEnable:           %s\r\n", runConfig->CursorEnable ? "ENABLED" : "DISABLED");
-    if (runConfig->CursorEnable) {
-        xil_printf("  CursorPosition:       (%d, %d)\r\n", runConfig->CursorCoordX, runConfig->CursorCoordY);
-        xil_printf("  CursorSize:           %d x %d\r\n", runConfig->CursorSizeX, runConfig->CursorSizeY);
+
+    if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+        runConfig->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+        xil_printf("Stream1Format:          %s (%d)\r\n",
+                   format_to_string(runConfig->Stream1Format),
+                   runConfig->Stream1Format);
+        xil_printf("Stream2Format:          %s (%d)\r\n",
+                   format_to_string(runConfig->Stream2Format),
+                   runConfig->Stream2Format);
+
+        xil_printf("CursorEnable:           %s\r\n",
+                   runConfig->CursorEnable ? "ENABLED" : "DISABLED");
+        if (runConfig->CursorEnable) {
+            xil_printf("  CursorPosition:       (%d, %d)\r\n",
+                       runConfig->CursorCoordX, runConfig->CursorCoordY);
+            xil_printf("  CursorSize:           %d x %d\r\n",
+                       runConfig->CursorSizeX, runConfig->CursorSizeY);
+        }
     }
+
+    if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+        runConfig->presentationmode == XDCSUB_PPTMODE_LIVE) {
+            /* Print AVPG configuration */
+        u8 idx;
+
+        for (idx = 0; idx < XDC_LIVE_EX_MAX_AVPATGEN_COUNT; idx++)
+            xil_printf(
+                "AVPAT #%d:\t\t%d bpc, %s ppc, pattern %d, %s, %s \r\n",
+                idx,
+                runConfig->avpg[idx].bpc,
+                runConfig->avpg[idx].ppc ? "Quad" : "Dual",
+                runConfig->avpg[idx].pattern,
+                runConfig->avpg[idx].pix_fmt ? "YUV 422" : "RGB",
+                runConfig->avpg[idx].colorimetry ? "BT.709" : "BT.601");
+    }
+
+    xil_printf("OutStreamFormat:        %s (%d)\r\n", format_to_string(runConfig->OutStreamFormat), runConfig->OutStreamFormat);
     xil_printf("AudioEnable:            %s\r\n", runConfig->AudioEnable ? "ENABLED" : "DISABLED");
     if (runConfig->AudioEnable) {
         xil_printf("AudioChannels:          %d\r\n", runConfig->AudioChannels);
@@ -437,17 +488,32 @@ restart:
         xil_printf("==================================================\r\n");
     }
 
-    /* Initialize and run the DC/DP test */
-    Status = XDpDc_MmiDcNonliveTest(&RunCfg);
+    if (RunCfg.operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+        if (RunCfg.presentationmode == XDCSUB_PPTMODE_NONLIVE)
+            Status = XDpDc_MmiDcNonliveTest(&RunCfg);
+
+        if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
+            Status = XDpDc_MmiDcLiveTest(&RunCfg);
+    }
+
     if (Status != XST_SUCCESS) {
-        xil_printf("\r\n**************************************************\r\n");
+        xil_printf(
+            "\r\n**************************************************\r\n");
         xil_printf("  Pipeline initialization FAILED\r\n");
         xil_printf("  Returning to main menu...\r\n");
-        xil_printf("**************************************************\r\n\r\n");
+        xil_printf(
+            "**************************************************\r\n\r\n");
         goto restart;
     }
 
-    xil_printf("Successfully ran MMI_DC_NONLIVE_TEST\r\n");
+    xil_printf("Successfully ran ");
+    if (RunCfg.operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+        if (RunCfg.presentationmode == XDCSUB_PPTMODE_NONLIVE)
+            xil_printf(" MMI_DC_NONLIVE_TEST\r\n");
+
+        if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
+            xil_printf("MMI_DC_LIVE_TEST\r\n");
+    }
 
     xil_printf("\r\n");
     xil_printf("==================================================\r\n");
