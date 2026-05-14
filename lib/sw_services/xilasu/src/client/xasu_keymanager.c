@@ -90,8 +90,7 @@ s32 XAsu_KmCreateKeyVault(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	if ((KmVaultParamPtr->AccessRights == 0U) ||
-		(!XASU_IS_REDUNDANT_BYTE_VALID(KmVaultParamPtr->AccessRights))) {
+	if ((!XASU_IS_REDUNDANT_BYTE_VALID(KmVaultParamPtr->AccessRights))) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
