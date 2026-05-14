@@ -38,12 +38,12 @@
 #define XDCDMA_INTR_ID			179
 #define XDCDMA_INTR_PARENT		0xe2000000
 
-RunConfig RunCfg;
-XDcSub DcSub;
-XDcDma DcDma;
-XDc Dc;
+extern RunConfig RunCfg;
+extern XDcSub DcSub;
+extern XDcDma DcDma;
+extern XDc Dc;
+extern XMmiDp DpPsuPtr;
 
-XMmiDp DpPsuPtr;
 FrameInfo Video1FbPtr;
 FrameInfo Video2FbPtr;
 FrameInfo Video3FbPtr;
@@ -70,17 +70,9 @@ XDcDma_Descriptor *AudDesc5 = (XDcDma_Descriptor *)0x08000500;
 XDcDma_Descriptor *AudDesc6 = (XDcDma_Descriptor *)0x08000600;
 XDcDma_Descriptor *AudDesc7 = (XDcDma_Descriptor *)0x08000700;
 
-/* SDTV CSC Coefficients */
-u32 CSCCoeff_RGB[] = { 0x1000, 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000, 0x0000, 0x1000 };
-u32 CSCOffset_RGB[] = { 0x0000, 0x0000, 0x0000 };
-
-/* YUV-to-RGB input conversion (SDTV BT.601) */
-u32 In_CSCCoeff_YUV[] = { 0x1000, 0x0000, 0x166F, 0x1000, 0x7A7F, 0x7493, 0x1000, 0x1C5A, 0x0000 };
-u32 In_CSCOffset_YUV[] = { 0x0000, 0x1800, 0x1800 };
-
-/* RGB-to-YUV output conversion (SDTV BT.601) */
-u32 Out_CSCCoeff_YUV[] = { 0x04C8, 0x0964, 0x01D3, 0x7D4C, 0x7AB4, 0x0800, 0x0800, 0x7945, 0x7EB5 };
-u32 Out_CSCOffset_YUV[] = { 0x0000, 0x0800, 0x0800 };
+extern u32 CSCCoeff_RGB[], CSCOffset_RGB[];
+extern u32 In_CSCCoeff_YUV[], In_CSCOffset_YUV[];
+extern u32 Out_CSCCoeff_YUV[], Out_CSCOffset_YUV[];
 
 XDc_VideoTiming VidTiming_640_480 = { .HTotal = 800, .HSWidth = 96, .HRes = 640, .HStart = 144, .VTotal = 525, .VSWidth = 2, .VRes = 480, .VStart = 35};
 
@@ -282,9 +274,6 @@ u32 XDpDc_InitializeRunConfig(RunConfig *RunCfgPtr)
 	RunCfgPtr->Desc6 = Desc6;
 	RunCfgPtr->Desc7 = Desc7;
 
-	RunCfgPtr->DcBaseAddr = DC_BASEADDR;
-	RunCfgPtr->DcDmaBaseAddr = DCDMA_BASEADDR;
-
 	XDpDc_InitFrames(RunCfgPtr);
 	Status = XDpDc_InitDcSubPtr(RunCfgPtr);
 	if (Status != XST_SUCCESS) {
@@ -293,7 +282,6 @@ u32 XDpDc_InitializeRunConfig(RunConfig *RunCfgPtr)
 	}
 
 	return Status;
-
 }
 
 /*****************************************************************************/

@@ -21,6 +21,8 @@
 *
 ******************************************************************************/
 
+#include "mmi_dpdc_example.h"
+#include "mmi_dpdc_platform.h"
 #include "mmi_dpdc_menus.h"
 #include "xil_printf.h"
 #include "xdcsub.h"
@@ -373,11 +375,17 @@ void XDpDc_ListLiveFormats(void)
 * @note     None
 *
 ******************************************************************************/
-void XDpDc_MainHelpMenu(void)
+void XDpDc_MainHelpMenu(InitRunConfig *config)
 {
     xil_printf("\r\n");
     xil_printf("====================================================\r\n");
-    xil_printf("--              InitRunConfig Menu                 --\r\n");
+    if (config->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
+        if (config->presentationmode == XDCSUB_PPTMODE_NONLIVE)
+            xil_printf("--           Non Live InitRunConfig Menu             --\r\n");
+        if (config->presentationmode == XDCSUB_PPTMODE_LIVE)
+            xil_printf("--               Live InitRunConfig Menu             --\r\n");
+    }
+
     xil_printf("====================================================\r\n");
     xil_printf("Available Commands:\r\n");
     xil_printf("  r - Configure Resolution\r\n");
@@ -931,7 +939,7 @@ void XDpDc_MenuLoop(InitRunConfig *config)
     char cmd;
     u8 done = 0;
 
-    XDpDc_MainHelpMenu();
+    XDpDc_MainHelpMenu(config);
 
     while (!done) {
         xil_printf("\r\nEnter command (h for help): ");
@@ -1066,7 +1074,7 @@ void XDpDc_MenuLoop(InitRunConfig *config)
 
             case 'h':
             case 'H':
-                XDpDc_MainHelpMenu();
+                XDpDc_MainHelpMenu(config);
                 break;
 
             case 's':

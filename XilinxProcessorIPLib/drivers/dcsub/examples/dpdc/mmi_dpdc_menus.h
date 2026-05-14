@@ -18,6 +18,8 @@
 #include "xil_types.h"
 #include "xstatus.h"
 #include "xmmidp.h"
+#include "mmi_dpdc_example.h"
+
 
 /* InitRunConfig structure */
 typedef struct {
@@ -50,12 +52,35 @@ typedef struct {
     /* 0=auto (sink max), 6=RBR, 10=HBR, 20=HBR2, 30=HBR3 */
     u8 link_rate;
     u8 power_cycle_on_start;
+
+    /* 0 - DC_Functional, 1 - DC_Bypass */
+    u8 operatingmode;
+    /* 0 - Non-live, 1 - Live, 2 - Mixed */
+    u8 presentationmode;
+    /* 0 - V01, 1 - V02, 2 - Both */
+    u8 livevidselect;
+    /* 0 - Audio & Video, 1 - Video only */
+    u8 livevideo01mode;
+    /* 1 - Video only */
+    u8 livevideo02mode;
+    /* 0 - Disabled , 1 - Enabled */
+    u8 livevideoalphaen;
+    /* 0 - Disabled , 1 - Enabled */
+    u8 livevideosdpen;
+    /* no of streams input to DC in bypass mode */
+    u8 byp_streams;
+    /* 1, 2, 4 ppc */
+    u8 byp_stream_pix_mode[4];
+    /* 0 - Disabled , 1 - Enabled */
+    u8 byp_stream_sdp_en[4];
+     /* 0 - Audio & Video, 1 - Video only */
+    u8 byp_stream_vid_mode[4];
 } InitRunConfig;
 
 /* Function prototypes */
 void XDpDc_ResolutionHelpMenu(void);
 void XDpDc_FormatHelpMenu(void);
-void XDpDc_MainHelpMenu(void);
+void XDpDc_MainHelpMenu(InitRunConfig *config);
 void XDpDc_ListNonliveFormats(void);
 void XDpDc_ListLiveFormats(void);
 void XDpDc_DisplayConfig(InitRunConfig *config);

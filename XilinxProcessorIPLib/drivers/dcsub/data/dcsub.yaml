@@ -278,6 +278,7 @@ examples:
         - dpdc/mmi_dc_setup_frames.h
         - dpdc/mmi_dp_init.c
         - dpdc/mmi_dp_init.h
+        - dpdc/mmi_dpdc_example.h
         - dpdc/mmi_dpdc_menus.c
         - dpdc/mmi_dpdc_menus.h
         - dpdc/mmi_dpdc_platform.c

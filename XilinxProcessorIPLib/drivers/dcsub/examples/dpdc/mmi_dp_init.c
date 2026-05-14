@@ -17,6 +17,7 @@
 #include <xil_printf.h>
 #include <sleep.h>
 
+#include "mmi_dpdc_platform.h"
 #include "xmmidp.h"
 #include "mmi_dp_init.h"
 #include "mmi_dp_intr.h"

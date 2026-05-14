@@ -26,11 +26,10 @@ extern "C" {
 #include "xdcsub.h"
 #include "xmmidp.h"
 
-#define DC_BASEADDR            	0xEDD00000
-#define DCDMA_BASEADDR         	0xEDD10000
+#include "mmi_dpdc_example.h"
+
 #define CLK_WIZ_BASEADDR	0xB0A00000
 #define CLK_WIZ_AUD_BASEADDR	0xB0A10000
-#define DP_BASEADDR   		0xEDE00000
 
 /*
  * Video frame buffer addresses -- spaced 64 MB (0x04000000) apart
@@ -62,78 +61,6 @@ extern "C" {
 #define CH6_BUFFER_ADDR_10 	0x7D1E0000
 #define CH6_BUFFER_ADDR_11 	0x7D210000
 #define CH6_BUFFER_ADDR_12 	0x7D240000
-
-typedef struct {
-	u64 Address;
-	u32 Size;
-	u32 Stride;
-	u32 LineSize;
-	u32 Width;
-	u32 Height;
-	u32 Bpc;
-	XDc_VideoFormat VideoFormat;
-} FrameInfo;
-
-typedef struct {
-
-	XDcSub *DcSubPtr;
-	XMmiDp *DpPsuPtr;
-
-	XDcDma_Descriptor *Desc1;
-	XDcDma_Descriptor *Desc2;
-	XDcDma_Descriptor *Desc3;
-	XDcDma_Descriptor *Desc4;
-	XDcDma_Descriptor *Desc5;
-	XDcDma_Descriptor *Desc6;
-	XDcDma_Descriptor *Desc7;
-
-	FrameInfo *V1_FbInfo;
-	FrameInfo *V2_FbInfo;
-	FrameInfo *V3_FbInfo;
-	FrameInfo *V4_FbInfo;
-	FrameInfo *V5_FbInfo;
-	FrameInfo *V6_FbInfo;
-	FrameInfo *Cursor_FbInfo;
-	FrameInfo *Sdp_FbInfo;
-
-	u32 DcBaseAddr;
-	u32 DcDmaBaseAddr;
-	u32 Width;
-	u32 Height;
-	XVidC_VideoMode VideoMode;
-	u64 PixelClkHz;
-
-	u8 PPC;
-
-	XDc_VideoFormat Stream1Format;
-	XDc_VideoFormat Stream2Format;
-	XDc_VideoFormat OutStreamFormat;
-	XDc_CursorBlend CursorEnable;
-	XDc_AudEn AudioEnable;
-	u8 AudioChannels;
-	u8 SdpEnable;
-	XDc_PartialBlendEn Stream1PbEnable;
-	XDc_PartialBlendEn Stream2PbEnable;
-
-	u32 CursorCoordX;
-	u32 CursorCoordY;
-	u32 CursorSizeX;
-	u32 CursorSizeY;
-
-	/* Partial Plane Blend parameters */
-	u32 PpbCoordX;
-	u32 PpbCoordY;
-	u32 PpbSizeX;
-	u32 PpbSizeY;
-	u32 PpbOffsetX;
-	u32 PpbOffsetY;
-
-	/* 0=auto, 1, 2, or 4 */
-	u8 MaxLaneCount;
-	/* 0=auto, 6=RBR, 10=HBR, 20=HBR2, 30=HBR3 (DPCD BW values) */
-	u8 MaxLinkRate;
-
-} RunConfig;
 
 u32 XDpDc_MmiDcNonliveTest(RunConfig *RunCfgPtr);
 u32 XDpDc_InitializeRunConfig(RunConfig *RunCfgPtr);
