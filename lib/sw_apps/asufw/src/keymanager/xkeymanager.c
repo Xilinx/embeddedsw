@@ -382,8 +382,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 			goto END;
 		}
 	} else {
-		if ((ParamsPtr->AccessRights == 0U) ||
-		(!XASU_IS_REDUNDANT_BYTE_VALID(ParamsPtr->AccessRights))) {
+		if ((!XASU_IS_REDUNDANT_BYTE_VALID(ParamsPtr->AccessRights))) {
 			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 			goto END;
 		}
@@ -2457,8 +2456,7 @@ static s32 XKeyManager_CheckKeyValidity(u32 SubSystemId, u8 *SubVaultPtr, u8 Key
 			goto END;
 		}
 	} else {
-		if ((AllowedAccessRights == 0U) ||
-		(!XASU_IS_REDUNDANT_BYTE_VALID(AllowedAccessRights))) {
+		if ((!XASU_IS_REDUNDANT_BYTE_VALID(AllowedAccessRights))) {
 			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 			goto END;
 		}
