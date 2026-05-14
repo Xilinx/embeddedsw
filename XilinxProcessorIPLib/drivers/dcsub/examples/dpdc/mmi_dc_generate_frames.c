@@ -84,14 +84,22 @@ static const u16 SMPTE_GRAY_12BPC[7] = {3760, 3360, 2720, 2320, 1696, 1296, 656}
 ******************************************************************************/
 void XDpDc_GenerateFrames(RunConfig *RunCfgPtr)
 {
-	u32 width = RunCfgPtr->Width;
-	u32 height = RunCfgPtr->Height;
 	XDc_VideoFormat fmt = RunCfgPtr->Stream1Format;
-
+	u32 stream2_rgba_alpha = 0xFF000000U;
+	u32 height = RunCfgPtr->Height;
+	u32 width = RunCfgPtr->Width;
 	/* For V1 vertical bars */
 	u32 bar_width = width / 7;
 	/* For V4 horizontal bars */
 	u32 bar_height = height / 7;
+
+	/*
+	 * In mixed mode, make Stream2 (non-live) semi-transparent for RGBA paths
+	 * so Stream1 live content remains visible through the blend.
+	 */
+	if (RunCfgPtr->presentationmode == XDCSUB_PPTMODE_MIXED) {
+		stream2_rgba_alpha = 0x40000000U;
+	}
 
 	xil_printf("\r\n=== Video Frame Generation ===\r\n");
 	xil_printf("  Format: %d\r\n", fmt);
@@ -865,7 +873,7 @@ void XDpDc_GenerateFrames(RunConfig *RunCfgPtr)
 					u32 bar_v2 = (y / bar_height >= 7) ? 6 : (y / bar_height);
 
 					u32 color_v1 = 0xFF000000 | (SMPTE_RGB[bar_v1][2] << 16) | (SMPTE_RGB[bar_v1][1] << 8) | SMPTE_RGB[bar_v1][0];
-					u32 color_v2 = 0xFF000000 | (SMPTE_RGB[bar_v2][2] << 16) | (SMPTE_RGB[bar_v2][1] << 8) | SMPTE_RGB[bar_v2][0];
+					u32 color_v2 = stream2_rgba_alpha | (SMPTE_RGB[bar_v2][2] << 16) | (SMPTE_RGB[bar_v2][1] << 8) | SMPTE_RGB[bar_v2][0];
 
 					XDc_WriteReg(IN_BUFFER_0_ADDR_V1, pixel_idx * 4, color_v1);
 					XDc_WriteReg(IN_BUFFER_0_ADDR_V4, pixel_idx * 4, color_v2);
@@ -1747,7 +1755,7 @@ void XDpDc_GenerateFrames(RunConfig *RunCfgPtr)
 					u32 bar_v2 = (y / bar_height >= 7) ? 6 : (y / bar_height);
 
 					u32 color_v1 = 0xFF000000 | (SMPTE_RGB[bar_v1][2] << 16) | (SMPTE_RGB[bar_v1][1] << 8) | SMPTE_RGB[bar_v1][0];
-					u32 color_v2 = 0xFF000000 | (SMPTE_RGB[bar_v2][2] << 16) | (SMPTE_RGB[bar_v2][1] << 8) | SMPTE_RGB[bar_v2][0];
+					u32 color_v2 = stream2_rgba_alpha | (SMPTE_RGB[bar_v2][2] << 16) | (SMPTE_RGB[bar_v2][1] << 8) | SMPTE_RGB[bar_v2][0];
 
 					XDc_WriteReg(IN_BUFFER_0_ADDR_V1, pixel_idx * 4, color_v1);
 					XDc_WriteReg(IN_BUFFER_0_ADDR_V4, pixel_idx * 4, color_v2);

@@ -230,10 +230,14 @@ u32 XDpDc_InitDcSubsystem(RunConfig *RunCfgPtr) {
         }
 
         if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
-            RunCfgPtr->presentationmode == XDCSUB_PPTMODE_NONLIVE)
+            (RunCfgPtr->presentationmode == XDCSUB_PPTMODE_NONLIVE ||
+			 RunCfgPtr->presentationmode == XDCSUB_PPTMODE_MIXED))
             XDc_SetVideoTiming(DcPtr);
 
         XDcSub_ConfigureDcVideo(DcPtr);
+
+        XDpDc_CursorToSdpPending = 0;
+        XDpDc_CursorFramesRemaining = 0;
 
         if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
             RunCfgPtr->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
@@ -268,6 +272,18 @@ u32 XDpDc_InitDcSubsystem(RunConfig *RunCfgPtr) {
                         XDpDc_SetupSdpDescriptor(RunCfgPtr);
                         XDpDc_ConfigureSdpDMA(RunCfgPtr);
                 }
+        } else if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+		   RunCfgPtr->presentationmode == XDCSUB_PPTMODE_MIXED) {
+	        /* Mixed mode: stream 1 is live, stream 2 is non live DMA */
+                XDpDc_SetupStream2Descriptors(RunCfgPtr);
+                DmaPtr->Video.Video_TriggerStatus = 0;
+                DmaPtr->Gfx.VideoInfo = XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream2Format);
+                DmaPtr->Gfx.Graphics_TriggerStatus = XDCDMA_TRIGGER_EN;
+	} else if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+		   RunCfgPtr->presentationmode == XDCSUB_PPTMODE_LIVE) {
+                /* Live mode uses stream interfaces. So no DMA required */
+                DmaPtr->Video.Video_TriggerStatus = 0;
+                DmaPtr->Gfx.Graphics_TriggerStatus = 0;
         }
 
         /* Audio DMA: enable only when audio feature is enabled */

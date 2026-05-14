@@ -30,6 +30,7 @@
 #include "mmi_dpdc_menus.h"
 #include "mmi_dc_nonlive_test.h"
 #include "mmi_dc_live_test.h"
+#include "mmi_dc_mixed_test.h"
 #include "mmi_dp_init.h"
 
 /* External declarations from mmi_dc_nonlive_test.c */
@@ -53,7 +54,6 @@ u32 In_CSCOffset_YUV[] = { 0x0000, 0x1800, 0x1800 };
 /* RGB-to-YUV output conversion (SDTV BT.601) */
 u32 Out_CSCCoeff_YUV[] = { 0x04C8, 0x0964, 0x01D3, 0x7D4C, 0x7AB4, 0x0800, 0x0800, 0x7945, 0x7EB5 };
 u32 Out_CSCOffset_YUV[] = { 0x0000, 0x0800, 0x0800 };
-
 
 /*****************************************************************************/
 /**
@@ -281,20 +281,49 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
                (runConfig->PixelClkHz % 1000000) / 1000);
 
     /* Set video formats */
-    if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
-        runConfig->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
-        runConfig->Stream1Format = MapFormat(userConfig->stream1_format);
-        runConfig->Stream2Format = MapFormat(userConfig->stream2_format);
+    if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
 
-        /* Set cursor enable */
-        runConfig->CursorEnable =
-            userConfig->cursor_enable ? CB_ENABLE : CB_DISABLE;
+        if (runConfig->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+          runConfig->Stream1Format = MapFormat(userConfig->stream1_format);
+          runConfig->Stream2Format = MapFormat(userConfig->stream2_format);
 
-        /* Set cursor coordinates and size */
-        runConfig->CursorCoordX = userConfig->cursor_coord_x;
-        runConfig->CursorCoordY = userConfig->cursor_coord_y;
-        runConfig->CursorSizeX = userConfig->cursor_size_x;
-        runConfig->CursorSizeY = userConfig->cursor_size_y;
+          /* Set cursor enable */
+          runConfig->CursorEnable =
+              userConfig->cursor_enable ? CB_ENABLE : CB_DISABLE;
+
+          /* Set cursor coordinates and size */
+          runConfig->CursorCoordX = userConfig->cursor_coord_x;
+          runConfig->CursorCoordY = userConfig->cursor_coord_y;
+          runConfig->CursorSizeX = userConfig->cursor_size_x;
+          runConfig->CursorSizeY = userConfig->cursor_size_y;
+        }
+
+        if (runConfig->presentationmode == XDCSUB_PPTMODE_MIXED) {
+          runConfig->Stream2Format = MapFormat(userConfig->stream2_format);
+          /* Disable cursor */
+          runConfig->CursorEnable = CB_DISABLE;
+        }
+
+        /* Set partial plane blend enable and parameters */
+        if (userConfig->partial_plane_blend_enable) {
+          if (userConfig->ppb_stream_select == 1) {
+            runConfig->Stream1PbEnable = PB_ENABLE;
+            runConfig->Stream2PbEnable = PB_DISABLE;
+          } else {
+            runConfig->Stream1PbEnable = PB_DISABLE;
+            runConfig->Stream2PbEnable = PB_ENABLE;
+          }
+          /* Copy partial plane blend parameters */
+          runConfig->PpbCoordX = userConfig->ppb_coord_x;
+          runConfig->PpbCoordY = userConfig->ppb_coord_y;
+          runConfig->PpbSizeX = userConfig->ppb_size_x;
+          runConfig->PpbSizeY = userConfig->ppb_size_y;
+          runConfig->PpbOffsetX = userConfig->ppb_offset_x;
+          runConfig->PpbOffsetY = userConfig->ppb_offset_y;
+        } else {
+          runConfig->Stream1PbEnable = PB_DISABLE;
+          runConfig->Stream2PbEnable = PB_DISABLE;
+        }
     }
 
     runConfig->OutStreamFormat = MapFormat(userConfig->output_format);
@@ -312,27 +341,6 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     if ((runConfig->AudioEnable == XDC_AUD_ENABLE) && (runConfig->SdpEnable != 0U)) {
         xil_printf("WARNING: Audio and SDP test mode both enabled. Disabling audio.\r\n");
         runConfig->AudioEnable = XDC_AUD_DISABLE;
-    }
-
-    /* Set partial plane blend enable and parameters */
-    if (userConfig->partial_plane_blend_enable) {
-        if (userConfig->ppb_stream_select == 1) {
-            runConfig->Stream1PbEnable = PB_ENABLE;
-            runConfig->Stream2PbEnable = PB_DISABLE;
-        } else {
-            runConfig->Stream1PbEnable = PB_DISABLE;
-            runConfig->Stream2PbEnable = PB_ENABLE;
-        }
-        /* Copy partial plane blend parameters */
-        runConfig->PpbCoordX = userConfig->ppb_coord_x;
-        runConfig->PpbCoordY = userConfig->ppb_coord_y;
-        runConfig->PpbSizeX = userConfig->ppb_size_x;
-        runConfig->PpbSizeY = userConfig->ppb_size_y;
-        runConfig->PpbOffsetX = userConfig->ppb_offset_x;
-        runConfig->PpbOffsetY = userConfig->ppb_offset_y;
-    } else {
-        runConfig->Stream1PbEnable = PB_DISABLE;
-        runConfig->Stream2PbEnable = PB_DISABLE;
     }
 
     runConfig->MaxLaneCount = userConfig->lane_count;
@@ -362,11 +370,15 @@ static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfi
     }
 
     if (runConfig->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
-        runConfig->presentationmode == XDCSUB_PPTMODE_LIVE) {
-            /* Print AVPG configuration */
-        u8 idx;
+        (runConfig->presentationmode == XDCSUB_PPTMODE_LIVE ||
+         runConfig->presentationmode == XDCSUB_PPTMODE_MIXED)) {
+        /* Print AVPG configuration */
+        u8 idx, max_idx;
 
-        for (idx = 0; idx < XDC_LIVE_EX_MAX_AVPATGEN_COUNT; idx++)
+        max_idx = (runConfig->presentationmode == XDCSUB_PPTMODE_LIVE) ?
+                    XDC_LIVE_EX_MAX_AVPATGEN_COUNT : 1;
+
+        for (idx = 0; idx < max_idx; idx++)
             xil_printf(
                 "AVPAT #%d:\t\t%d bpc, %s ppc, pattern %d, %s, %s \r\n",
                 idx,
@@ -489,9 +501,14 @@ restart:
     if (RunCfg.operatingmode == XDCSUB_OPMODE_FUNCTIONAL) {
         if (RunCfg.presentationmode == XDCSUB_PPTMODE_NONLIVE)
             Status = XDpDc_MmiDcNonliveTest(&RunCfg);
-
-        if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
+        else if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
             Status = XDpDc_MmiDcLiveTest(&RunCfg);
+        else if (RunCfg.presentationmode == XDCSUB_PPTMODE_MIXED)
+            Status = XDpDc_MmiDcMixedTest(&RunCfg);
+        else {
+            Status = XST_FAILURE;
+            xil_printf("Invalid presentation mode!\r\n");
+        }
     }
 
     if (Status != XST_SUCCESS) {
@@ -511,6 +528,9 @@ restart:
 
         if (RunCfg.presentationmode == XDCSUB_PPTMODE_LIVE)
             xil_printf("MMI_DC_LIVE_TEST\r\n");
+
+        if (RunCfg.presentationmode == XDCSUB_PPTMODE_MIXED)
+            xil_printf("MMI_DC_MIXED_TEST\r\n");
     }
 
     xil_printf("\r\n");
