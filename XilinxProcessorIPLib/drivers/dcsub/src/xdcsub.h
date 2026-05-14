@@ -170,6 +170,9 @@ typedef struct {
 extern XDcSub_Config XDcSub_ConfigTable[];
 
 /****************************** Function Prototypes ******************************/
+#ifdef SDT
+XDcSub_Config *XDcSub_LookupConfig(UINTPTR BaseAddress);
+#endif
 u32 XDcSub_CfgInitialize(XDcSub *InstancePtr);
 u32 XDcSub_Initialize(XDcSub *InstancePtr);
 u32 XDcSub_SetVidInterfaceMode(XDcSub *InstancePtr, XDc_VidInterface Mode);
