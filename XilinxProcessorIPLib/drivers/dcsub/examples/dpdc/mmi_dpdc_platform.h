@@ -15,7 +15,12 @@
 #ifndef MMI_DPDC_PLATFORM_H_
 #define MMI_DPDC_PLATFORM_H_
 
+#include "xdcsub.h"
 #include "mmi_dc_nonlive_test.h"
+
+#define DC_BASEADDR            	0xEDD00000
+#define DCDMA_BASEADDR         	0xEDD10000
+#define DP_BASEADDR   		    0xEDE00000
 
 /* External descriptor declarations */
 extern XDcDma_Descriptor *AudDesc0;

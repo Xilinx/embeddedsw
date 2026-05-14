@@ -29,12 +29,31 @@
 #include "xdcsub.h"
 #include "mmi_dpdc_menus.h"
 #include "mmi_dc_nonlive_test.h"
+#include "mmi_dc_live_test.h"
 #include "mmi_dp_init.h"
 
 /* External declarations from mmi_dc_nonlive_test.c */
-extern RunConfig RunCfg;
 extern void outbyte(char c);
 extern char inbyte(void);
+
+RunConfig RunCfg;
+XDcSub DcSub;
+XDcDma DcDma;
+XDc Dc;
+XMmiDp DpPsuPtr;
+
+/* SDTV CSC Coefficients */
+u32 CSCCoeff_RGB[] = { 0x1000, 0x0000, 0x0000, 0x0000, 0x1000, 0x0000, 0x0000, 0x0000, 0x1000 };
+u32 CSCOffset_RGB[] = { 0x0000, 0x0000, 0x0000 };
+
+/* YUV-to-RGB input conversion (SDTV BT.601) */
+u32 In_CSCCoeff_YUV[] = { 0x1000, 0x0000, 0x166F, 0x1000, 0x7A7F, 0x7493, 0x1000, 0x1C5A, 0x0000 };
+u32 In_CSCOffset_YUV[] = { 0x0000, 0x1800, 0x1800 };
+
+/* RGB-to-YUV output conversion (SDTV BT.601) */
+u32 Out_CSCCoeff_YUV[] = { 0x04C8, 0x0964, 0x01D3, 0x7D4C, 0x7AB4, 0x0800, 0x0800, 0x7945, 0x7EB5 };
+u32 Out_CSCOffset_YUV[] = { 0x0000, 0x0800, 0x0800 };
+
 
 /*****************************************************************************/
 /**
@@ -219,6 +238,8 @@ static XDc_VideoFormat MapFormat(u32 format)
 ******************************************************************************/
 static void XDpDc_ApplyUserConfig(InitRunConfig *userConfig, RunConfig *runConfig)
 {
+    u32 idx;
+
     /* Set resolution */
     runConfig->Width = userConfig->width;
     runConfig->Height = userConfig->height;
@@ -340,6 +361,7 @@ int main(void)
     xil_printf("\r\n");
     xil_printf("==================================================\r\n");
     xil_printf("  DisplayPort Configuration Application\r\n");
+    xil_printf("  Build timestamp - %s %s\r\n", __DATE__, __TIME__);
     xil_printf("==================================================\r\n");
     xil_printf("\r\n");
 

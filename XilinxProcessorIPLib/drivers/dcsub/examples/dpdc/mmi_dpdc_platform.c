@@ -15,6 +15,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <xdcsub.h>
 #include <xil_exception.h>
 #include <xil_printf.h>
 #include <xil_cache.h>
@@ -198,76 +199,86 @@ u32 XDpDc_InitClkWiz(RunConfig *RunCfgPtr)
 
 /*****************************************************************************/
 /**
-*
-* This function initializes the Display Controller Subsystem
-*
-* @param	RunCfgPtr is a pointer to the application configuration structure
-*
-* @return	XST_SUCCESS if successful, else XST_FAILURE
-*
-* @note		None.
-*
-*****************************************************************************/
-u32 XDpDc_InitDcSubsystem(RunConfig *RunCfgPtr)
-{
-	XDcSub *DcSubPtr = RunCfgPtr->DcSubPtr;
-	XDc *DcPtr = DcSubPtr->DcPtr;
-	XDcDma *DmaPtr = DcSubPtr->DmaPtr;
+ *
+ * This function initializes the Display Controller Subsystem
+ *
+ * @param	RunCfgPtr is a pointer to the application configuration
+ *structure
+ *
+ * @return	XST_SUCCESS if successful, else XST_FAILURE
+ *
+ * @note		None.
+ *
+ *****************************************************************************/
+u32 XDpDc_InitDcSubsystem(RunConfig *RunCfgPtr) {
+        XDcSub *DcSubPtr = RunCfgPtr->DcSubPtr;
+        XDc *DcPtr = DcSubPtr->DcPtr;
+        XDcDma *DmaPtr = DcSubPtr->DmaPtr;
 
-	xil_printf("  Initializing DC Subsystem...\r\n");
-	XDcSub_Initialize(DcSubPtr);
-	XDcDma_CfgInitialize(DmaPtr, DCDMA_BASEADDR);
-	XDcDma_WriteProtDisable(DmaPtr);
-	XDc_VidClkSelect(DcPtr);
-	XDc_VideoSoftReset(DcPtr);
-	XDc_SetVidFrameSwitch(DcPtr);
+        xil_printf("  Initializing DC Subsystem...\r\n");
+        XDcSub_Initialize(DcSubPtr);
+        XDcDma_CfgInitialize(DmaPtr, DCDMA_BASEADDR);
+        XDcDma_WriteProtDisable(DmaPtr);
+        XDc_VidClkSelect(DcPtr);
+        XDc_VideoSoftReset(DcPtr);
+        XDc_SetVidFrameSwitch(DcPtr);
 
-	if(RunCfgPtr->AudioEnable)
-	{
-		xil_printf("  Enabling audio subsystem...\r\n");
-		XDc_AudioSoftReset(DcPtr);
-		XDc_AudClkSelect(DcPtr);
-	}
+        if (RunCfgPtr->AudioEnable) {
+                xil_printf("  Enabling audio subsystem...\r\n");
+                XDc_AudioSoftReset(DcPtr);
+                XDc_AudClkSelect(DcPtr);
+        }
 
-	XDc_SetVideoTiming(DcPtr);
-	XDcSub_ConfigureDcVideo(DcPtr);
+        if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+            RunCfgPtr->presentationmode == XDCSUB_PPTMODE_NONLIVE)
+            XDc_SetVideoTiming(DcPtr);
 
-	/* Video DMA: create descriptors and assign DMA channels per format mode */
-	XDpDc_SetupStream1Descriptors(RunCfgPtr);
-	XDpDc_SetupStream2Descriptors(RunCfgPtr);
+        XDcSub_ConfigureDcVideo(DcPtr);
 
-	DmaPtr->Video.VideoInfo = XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream1Format);
-	DmaPtr->Gfx.VideoInfo = XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream2Format);
+        if (RunCfgPtr->operatingmode == XDCSUB_OPMODE_FUNCTIONAL &&
+            RunCfgPtr->presentationmode == XDCSUB_PPTMODE_NONLIVE) {
+                /* Video DMA: create descriptors and assign DMA channels per
+                 * format mode */
+                XDpDc_SetupStream1Descriptors(RunCfgPtr);
+                XDpDc_SetupStream2Descriptors(RunCfgPtr);
 
-	DmaPtr->Video.Video_TriggerStatus = XDCDMA_TRIGGER_EN;
-	DmaPtr->Gfx.Graphics_TriggerStatus = XDCDMA_TRIGGER_EN;
+                DmaPtr->Video.VideoInfo =
+                    XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream1Format);
+                DmaPtr->Gfx.VideoInfo =
+                    XDc_GetNonLiveVideoAttribute(RunCfgPtr->Stream2Format);
 
-	/* Cursor/SDP DMA on shared channel 7 */
-	XDpDc_CursorToSdpPending = 0U;
-	XDpDc_CursorFramesRemaining = 0U;
-	if ((RunCfgPtr->CursorEnable == CB_ENABLE) && (RunCfgPtr->SdpEnable != 0U)) {
-		XDpDc_SetupCursorDescriptor(RunCfgPtr);
-		XDpDc_ConfigureCursorDMA(RunCfgPtr);
-		XDpDc_CursorToSdpPending = 1U;
-		XDpDc_CursorFramesRemaining = 1U;
-		xil_printf("  Cursor+SDP mode: cursor phase started\r\n");
-	} else if (RunCfgPtr->CursorEnable == CB_ENABLE) {
-		XDpDc_SetupCursorDescriptor(RunCfgPtr);
-		XDpDc_ConfigureCursorDMA(RunCfgPtr);
-	} else if (RunCfgPtr->SdpEnable) {
-		XDpDc_SetupSdpDescriptor(RunCfgPtr);
-		XDpDc_ConfigureSdpDMA(RunCfgPtr);
-	}
+                DmaPtr->Video.Video_TriggerStatus = XDCDMA_TRIGGER_EN;
+                DmaPtr->Gfx.Graphics_TriggerStatus = XDCDMA_TRIGGER_EN;
 
-	/* Audio DMA: enable only when audio feature is enabled */
-	if (RunCfgPtr->AudioEnable) {
-		DmaPtr->Audio.Channel.Current = AudDesc0;
-		DmaPtr->Audio.Audio_TriggerStatus = XDCDMA_TRIGGER_EN;
-	} else {
-		DmaPtr->Audio.Audio_TriggerStatus = 0U;
-	}
+                /* Cursor/SDP DMA on shared channel 7 */
+                XDpDc_CursorToSdpPending = 0U;
+                XDpDc_CursorFramesRemaining = 0U;
+                if ((RunCfgPtr->CursorEnable == CB_ENABLE) &&
+                    (RunCfgPtr->SdpEnable != 0U)) {
+                        XDpDc_SetupCursorDescriptor(RunCfgPtr);
+                        XDpDc_ConfigureCursorDMA(RunCfgPtr);
+                        XDpDc_CursorToSdpPending = 1U;
+                        XDpDc_CursorFramesRemaining = 1U;
+                        xil_printf(
+                            "  Cursor+SDP mode: cursor phase started\r\n");
+                } else if (RunCfgPtr->CursorEnable == CB_ENABLE) {
+                        XDpDc_SetupCursorDescriptor(RunCfgPtr);
+                        XDpDc_ConfigureCursorDMA(RunCfgPtr);
+                } else if (RunCfgPtr->SdpEnable) {
+                        XDpDc_SetupSdpDescriptor(RunCfgPtr);
+                        XDpDc_ConfigureSdpDMA(RunCfgPtr);
+                }
+        }
 
-	return XST_SUCCESS;
+        /* Audio DMA: enable only when audio feature is enabled */
+        if (RunCfgPtr->AudioEnable) {
+                DmaPtr->Audio.Channel.Current = AudDesc0;
+                DmaPtr->Audio.Audio_TriggerStatus = XDCDMA_TRIGGER_EN;
+        } else {
+                DmaPtr->Audio.Audio_TriggerStatus = 0U;
+        }
+
+        return XST_SUCCESS;
 }
 
 /*****************************************************************************/
@@ -307,7 +318,7 @@ void XDpDc_SetupInterrupts(RunConfig *RunCfgPtr)
 * @note		None.
 *
 *****************************************************************************/
-u32 XDpDc_InitPlatform(RunConfig *RunCfgPtr)
+u32  XDpDc_InitPlatform(RunConfig *RunCfgPtr)
 {
 	u32 Status = XST_SUCCESS;
 
