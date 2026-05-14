@@ -188,7 +188,7 @@ u32 XMmiDp_GetRxMstModeCap(XMmiDp *InstancePtr)
 }
 /******************************************************************************/
 /**
- * This function initates link training sequence with the Rx
+ * This function initiates link training sequence with the Rx
  *
  * @param       InstancePtr is a pointer to the XDpPsu instance.
  * @return
