@@ -160,7 +160,7 @@ properties:
     $ref: /schemas/graph.yaml#/properties/ports
     description: |
       Connections to the programmable logic and the DisplayPort. Each port
-      shall have a single endpoint. Inital 12 are input ports.
+      shall have a single endpoint. Initial 12 are input ports.
       Next 4 are output ports connected to DP Tx. Last 3 are output ports
       to the PL / Feedback path for video, audio and SDP in case of functional mode.
     properties:

@@ -129,7 +129,7 @@ u32 XDcSub_Initialize(XDcSub *InstancePtr)
  * DC can be either in bypass mode or functional mode.
  *
  * @param       InstancePtr is a pointer to the XDc instance.
- * @param       Mode is the enum val to enable or diasable bypass mode.
+ * @param       Mode is the enum val to enable or disable bypass mode.
  *
  * @return      XST_SUCCESS or XST_FAILURE.
  *
@@ -1212,7 +1212,7 @@ u32 XDcSub_AudClkSelect(XDcSub *InstancePtr, u32 Select)
  * DC can be either in bypass mode or functional mode.
  *
  * @param       InstancePtr is a pointer to the XDc instance.
- * @param       Mode is the enum val to enable or diasable bypass mode.
+ * @param       Mode is the enum val to enable or disable bypass mode.
  *
  * @return      XST_SUCCESS or XST_FAILURE.
  *

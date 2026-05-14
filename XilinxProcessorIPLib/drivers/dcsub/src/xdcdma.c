@@ -1017,7 +1017,7 @@ void XDcDma_DescInit(XDcDma_Descriptor *XDesc)
 
 /******************************************************************************/
 /**
- * This function incremeants the LastDescId of DcDma Instance.
+ * This function increments the LastDescId of DcDma Instance.
  *
  * @param       InstancePtr is a pointer to the XDcDma instance.
  *

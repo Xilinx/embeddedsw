@@ -228,7 +228,7 @@ typedef enum {
 } XDcDma_ChannelType;
 
 /**
- * This typedef defines the DCDMA configration.
+ * This typedef defines the DCDMA configuration.
  */
 typedef struct {
 	XDcDma_Config Config;
