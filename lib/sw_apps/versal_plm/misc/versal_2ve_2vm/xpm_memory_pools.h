@@ -14,4 +14,10 @@
 #define MAX_DEVOPS_POOL_SIZE   0x1400U
 #define MAX_OTHER_POOL_SIZE    0x2000U
 #define MAX_BOARD_POOL_SIZE    0x400U
+
+/**
+ * @brief Aggregate size of the runtime pool group (SUBSYS + REQM + DEVOPS + OTHER).
+ */
+#define MAX_RUNTIME_POOL_TOTAL_SIZE  (MAX_SUBSYS_POOL_SIZE + MAX_REQM_POOL_SIZE + \
+				MAX_DEVOPS_POOL_SIZE + MAX_OTHER_POOL_SIZE)
 #endif /* XPM_MEMORY_POOLS_H */
