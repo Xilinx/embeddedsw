@@ -35,7 +35,7 @@
 
 /******************************************************************************/
 /**
- * This function intializes the configuration of all instances part of DC
+ * This function initializes the configuration of all instances part of DC
  * subsystem i.e DC, DCDMA, Interrupts.
  *
  * @param       InstancePtr is a pointer to the XDcSub instance.
