@@ -25,6 +25,7 @@ extern "C" {
 #include "xdcsub.h"
 #include "xmmidp.h"
 #include "mmi_dpdc_example.h"
+#include "xparameters.h"
 
 #define AVPG_0_BASEADDR		0xB04D0000
 #define AVPG_1_BASEADDR		0xB0500000

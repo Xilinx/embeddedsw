@@ -33,6 +33,7 @@ extern "C" {
 /***************************** Include Files *********************************/
 
 #include "mmi_dpdc_example.h"
+#include "xparameters.h"
 
 /************************** Function Prototypes ******************************/
 

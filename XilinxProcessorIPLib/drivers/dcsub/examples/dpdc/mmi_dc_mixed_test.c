@@ -25,7 +25,8 @@
 
 #include <xstatus.h>
 #include <xil_printf.h>
-
+#include <xparameters.h>
+#if defined (XPAR_XVTC_NUM_INSTANCES)
 #include "xdc.h"
 #include "xvtc.h"
 #include "xavpg.h"
@@ -271,3 +272,4 @@ u32 XDpDc_MmiDcMixedTest(RunConfig *RunCfgPtr)
 
 	return XST_SUCCESS;
 }
+#endif /* defined (XPAR_XVTC_NUM_INSTANCES) */

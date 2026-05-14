@@ -26,7 +26,8 @@
 #include <xpseudo_asm_gcc.h>
 #include <xstatus.h>
 #include <xvidc.h>
-
+#include <xparameters.h>
+#if defined (XPAR_XVTC_NUM_INSTANCES)
 #include "mmi_dc_live_test.h"
 #include "mmi_dc_partial_plane.h"
 #include "mmi_dc_sdp.h"
@@ -384,3 +385,4 @@ u32 XDpDc_MmiDcLiveTest(RunConfig *RunCfgPtr)
 
 	return XST_SUCCESS;
 }
+#endif /* defined (XPAR_XVTC_NUM_INSTANCES) */
