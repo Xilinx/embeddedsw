@@ -242,8 +242,6 @@ void XDpDc_ResolutionHelpMenu(void)
 *
 * This function displays the format help menu
 *
-* @param    None
-*
 * @return   None
 *
 * @note     None
