@@ -359,7 +359,7 @@ static u32 XMmiDp_SetAuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Requ
 		return XST_FAILURE;
 	}
 
-	/* Request defered, re-try again */
+	/* Request deferred, re-try again */
 	if ((Status == XMMIDP_AUX_STATUS_AUX_DEFER) ||
 	    (Status == XMMIDP_AUX_STATUS_I2C_DEFER)) {
 		XMmiDp_AuxDbg("SetAuxReq: DEFER (status=0x%02X addr=0x%05X cmd=0x%X)\n",
@@ -541,7 +541,7 @@ static u32 XMmiDp_AuxRequest(XMmiDp *InstancePtr, XMmiDp_AuxTransaction *Request
  *              - XST_ERROR_COUNT_MAX if the AUX request timed out.
  *              - XST_FAILURE otherwise (if the DisplayPort TX core sees a NACK
  *                reply code or if the AUX transaction failed).
- *              - XST_DEVICE_NOT_FOUND if the sink is diconnected from the TX.
+ *              - XST_DEVICE_NOT_FOUND if the sink is disconnected from the TX.
  *
  * @note        None.
  *
@@ -730,7 +730,7 @@ u32 XMmiDp_I2cWrite(XMmiDp *InstancePtr, u32 I2cAddr, u32 Bytes, void *Data)
 /**
  * This function performs an I2C read over the AUX channel. The read message
  *  will be divided into multiple transactions if the requested data spans
- *  multiple segmetns. The segment pointer is automatically incremented and
+ *  multiple segments. The segment pointer is automatically incremented and
  *  the offset is calibrated as needed. E.g. For an overall offset of:
  *	- 128, an I2C read is done on segptr=0; offset=128.
  *	- 256, an I2C read is done on segptr=1; offset=0.
@@ -1594,7 +1594,7 @@ u32 XMmiDp_IsConnected(XMmiDp *InstancePtr)
 
 /******************************************************************************/
 /**
- * This function intializes the configuration for the XMmiDp Instance.
+ * This function initializes the configuration for the XMmiDp Instance.
  *
  * @param       InstancePtr is a pointer to the XMmiDp instance.
  * @param       BaseAddr sets the base address of the DP instance

@@ -1232,7 +1232,7 @@ extern "C" {
 /* SDP REGISTER BANK */
 #define XMMIDP_SDP_REGISTER_BANK	0x600
 
-/** DPCD Addres Mapping within DPCD Receiver Capability Field (00000h - 000FFh) */
+/** DPCD Address Mapping within DPCD Receiver Capability Field (00000h - 000FFh) */
 /*
  *  * Register: XMMIDP_DPCD_REV
  *  */
@@ -1553,7 +1553,7 @@ extern "C" {
  *  */
 #define XMMIDP_DPCD_AUD_DEL_INS23_16	0x0002D
 
-/** DPCD Addres Mapping within DPCD Link Configuration Field (00100h - 001FFh) */
+/** DPCD Address Mapping within DPCD Link Configuration Field (00100h - 001FFh) */
 
 /*
  *  * Register: XMMIDP_DPCD_LINK_BW_SET
