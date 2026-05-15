@@ -144,12 +144,12 @@ segregated NVM configuration options for chipset variants
 Update validation error messages for PUF hash programming
 Corrected user PUF helper-data eFuse row alignment in versal
 Rename PPK Secure control bits for Spartanuplusae1
-Enhancement for VersalNet/Telluride to allow use of PUF Helper Data eFUSEs for general purpose
+Enhancement for VersalNet/Versal_2VE_2VM to allow use of PUF Helper Data eFUSEs for general purpose
 Check temperature and voltage before eFUSE provisioning for Spartan ultrascale devices
 Add SMC support for client applications
 Fixed Doxygen and Coverity warnings
 Added support to operate in server mode on Versal PL Microblaze
-Added support to operate in client mode on Telluride Microblaze
+Added support to operate in client mode on Versal_2VE_2VM Microblaze
 Fix AES Revoke ID structure initialization and naming
 Fix return status check for XNvm_ManageOcpHandler
 Removed unused macros
@@ -252,7 +252,7 @@ Enhanced security best practices
 Added support for Versal_2VP devices
 Enhanced client by adding PACK payload macros
 Supported Server mode for Versal PL microblaze
-Supported client mode for Telluride PL Microbalze
+Supported client mode for Versal_2VE_2VM PL Microbalze
 Restrict BSP imports and examples for unsupported platforms in Vitis IDE.
 Fixed Doxygen and Coverity warnings
 Added ECDSA support for Spartan
@@ -275,7 +275,7 @@ Changed from error condition to a warning when no descriptors are present in seg
 Fix PL MB example failure when error injection is turned on
 Fix example code for detect only mode
 
-asu_ram_ecc(Rigel Components):
+asu_ram_ecc:
 Add device-tree YAML bindings for ASU RAM ECC to extract ECC parameters during BSP generation.
 
 asufw:
@@ -346,7 +346,7 @@ Ensure every structure in client interface structure to be 8-byte aligned
 Update AES DPA CM KAT to use 2 different masks
 Update HMAC maximum input key length to 1KB
 
-xilasu(Rigel Components):
+xilasu:
 Replace the term DME to UDE
 Populate proper nonce field for UDE functionality
 Minor enhancements to xilasu
