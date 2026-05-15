@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -71,6 +71,14 @@ extern "C" {
 #define XPSMFW_NODEIDX_ISO_CPM5_GT_DFX	(43U)
 #define XPSMFW_NODEIDX_ISO_LPD_CPM6_DFX	(79U)
 #define XPSMFW_NODEIDX_ISO_LPD_CPM6	(80U)
+/** @brief Node index for CPM6 to PL isolation */
+#define XPSMFW_NODEIDX_ISO_CPM6_PL	(86U)
+/** @brief Node index for CPM6 to PL DFX isolation */
+#define XPSMFW_NODEIDX_ISO_CPM6_PL_DFX	(87U)
+/** @brief Node index for CPM6 to GT isolation */
+#define XPSMFW_NODEIDX_ISO_CPM6_GT	(88U)
+/** @brief Node index for CPM6 to GT DFX isolation */
+#define XPSMFW_NODEIDX_ISO_CPM6_GT_DFX	(89U)
 
 /**
  * @name PSMFW Node IDs
