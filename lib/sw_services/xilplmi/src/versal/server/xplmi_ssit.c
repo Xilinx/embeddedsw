@@ -2084,7 +2084,7 @@ int XPlmi_SendIpiCmdToSlaveSlr(u32 * Payload, u32 * RespBuf)
 
 	if (((SlrIndex >= 1U) && (SlrIndex <= 3U)) && (SlrType != XPLMI_SSIT_MONOLITIC)) {
 		Status = XPlmi_SsitSendMsgEventAndGetResp((u8)SlrIndex, Payload, XPLMI_SSIT_MAX_MSG_LEN,
-				RespBuf, XPLMI_SSIT_MAX_MSG_LEN, XPLMI_SLV_EVENT_TIMEOUT);
+				RespBuf, XPLMI_CMD_RESP_SIZE, XPLMI_SLV_EVENT_TIMEOUT);
 	} else {
 		Status = XPlmi_UpdateStatus(XPLMI_ERR_CMD_APIID, 0);
 	}
