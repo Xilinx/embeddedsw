@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -140,6 +140,22 @@ static XStatus XPsmFw_DomainIso(u32 IsolationIdx, u32 Action)
 			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
 				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD,
 				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_PL == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_PL_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL_DFX,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL_DFX);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_GT == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_GT,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_GT);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_GT_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_GT_DFX,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_GT_DFX);
 		} else {
 			XPsmFw_Printf(DEBUG_ERROR, "Iso Idx:0x%x not identified\n\r",
 			   IsolationIdx);
@@ -170,6 +186,18 @@ static XStatus XPsmFw_DomainIso(u32 IsolationIdx, u32 Action)
 		} else if (XPSMFW_NODEIDX_ISO_LPD_CPM6 == IsolationIdx) {
 			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
 				     PSM_LOCAL_MISC_CNTRL_CPM5_LPD, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_PL == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_PL_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_PL_DFX, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_GT == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_GT, 0U);
+		} else if (XPSMFW_NODEIDX_ISO_CPM6_GT_DFX == IsolationIdx) {
+			XPsmFw_RMW32(PSM_LOCAL_MISC_CNTRL,
+				     PSM_LOCAL_MISC_CNTRL_CPM5_GT_DFX, 0U);
 		} else {
 			XPsmFw_Printf(DEBUG_ERROR, "Iso Idx:0x%x not identified\n\r",
 			   IsolationIdx);

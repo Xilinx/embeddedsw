@@ -379,6 +379,38 @@ static XPm_Iso XPmDomainIso_List[XPM_NODEIDX_ISO_MAX] = {
 		.Polarity = (u8)PM_ACTIVE_LOW,
 		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM6 },
 	},
+	[XPM_NODEIDX_ISO_CPM6_PL] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM6_PL),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM6 },
+	},
+	[XPM_NODEIDX_ISO_CPM6_PL_DFX] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM6_PL_DFX),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_DEV_PLD_0, PM_POWER_CPM6 },
+	},
+	[XPM_NODEIDX_ISO_CPM6_GT] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM6_GT),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM6 },
+	},
+	[XPM_NODEIDX_ISO_CPM6_GT_DFX] = {
+		.Node.Id = ISOID(XPM_NODEIDX_ISO_CPM6_GT_DFX),
+		.Node.BaseAddress = CPM6_SLCR_BASEADDR,
+		.Node.State = (u8)PM_ISOLATION_ON,
+		.Mask = 0U,
+		.Polarity = (u8)PM_ACTIVE_HIGH,
+		.DependencyNodeHandles = { PM_POWER_LPD, PM_POWER_CPM6 },
+	},
 
 };
 
@@ -490,6 +522,35 @@ static void DisableCpmPcieIso(u32 IsoNode)
 	XPmDomainIso_List[IsoNode].Node.State = (u8)PM_ISOLATION_OFF;
 }
 
+/**
+ * @brief Check if the given isolation node index is managed by PSM.
+ *
+ * @param IsoIdx	Isolation node index to check.
+ *
+ * @return 1U if the isolation node is PSM-managed, 0U otherwise.
+ */
+static inline u32 XPmDomainIso_IsPsmIso(u32 IsoIdx)
+{
+	u32 IsPsmIso = 0U;
+
+	if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM6_PL == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM6_PL_DFX == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM6_GT == IsoIdx) ||
+	    ((u32)XPM_NODEIDX_ISO_CPM6_GT_DFX == IsoIdx)) {
+		IsPsmIso = 1U;
+	}
+
+	return IsPsmIso;
+}
+
 static XStatus XPmDomainIso_SendEventToPsm(u32 IsoIdx, u32 Enable)
 {
 	XStatus Status = XST_FAILURE;
@@ -563,14 +624,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 	 */
 	if ((TRUE_VALUE == Enable) || (TRUE_PENDING_REMOVE == Enable)) {
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
-			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx)) {
+			if (1U == XPmDomainIso_IsPsmIso(IsoIdx)) {
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     TRUE_VALUE);
 			} else {
@@ -638,15 +692,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			DisablePlXramIso();
 		}
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
-			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx)) {
-
+			if (1U == XPmDomainIso_IsPsmIso(IsoIdx)) {
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     FALSE_VALUE);
 			} else {
@@ -714,14 +760,7 @@ XStatus XPmDomainIso_Control(u32 IsoIdx, u32 Enable)
 			DisablePlXramIso();
 		}
 		if (XPmDomainIso_List[IsoIdx].Polarity == (u8)PM_ACTIVE_HIGH) {
-			if (((u32)XPM_NODEIDX_ISO_LPD_CPM5_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM5 == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_PL == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_PL_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_CPM5_GT_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6_DFX == IsoIdx) ||
-			    ((u32)XPM_NODEIDX_ISO_LPD_CPM6 == IsoIdx)) {
+			if (1U == XPmDomainIso_IsPsmIso(IsoIdx)) {
 				Status = XPmDomainIso_SendEventToPsm(IsoIdx,
 								     FALSE_VALUE);
 			} else {
