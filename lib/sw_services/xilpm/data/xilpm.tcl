@@ -167,7 +167,6 @@ proc xgen_opts_file {libhandle} {
 	set part_name [string range $part 0 [expr {[string first "-" $part] - 1}]]
 	set speed_grade [lindex [split $part "-"] 2]
 
-	# Add macro for enabling P80 related code
 	if { [string match -nocase "xcvp1902" $part_name] } {
 		puts $file_handle "\#define XCVP1902"
 	}
@@ -182,9 +181,6 @@ proc xgen_opts_file {libhandle} {
 	}
 	if { [string match -nocase "xc2vp3602" $part_name] } {
 		puts $file_handle "\#define XC2VP3602"
-	}
-	if { [string match -nocase "xc2vp3102" $part_name] } {
-		puts $file_handle "\#define XC2VP3202" ;# xc2vp3102 is derivative of xc2vp3202
 	}
 	if { [string match -nocase "xc2vp3402" $part_name] } {
 		puts $file_handle "\#define XC2VP3602" ;# xc2vp3402 is derivative of xc2vp3602

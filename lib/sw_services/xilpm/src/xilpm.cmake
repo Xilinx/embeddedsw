@@ -25,10 +25,6 @@ string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3602" IS_DEVICE_ID_PRESENT)
 if (IS_DEVICE_ID_PRESENT)
   set(XC2VP3602 " ")
 endif()
-string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3102" IS_DEVICE_ID_PRESENT)
-if (IS_DEVICE_ID_PRESENT)
-  set(XC2VP3202 " ") # xc2vp3102 is derivative of xc2vp3202
-endif()
 string(COMPARE EQUAL "${DEVICE_ID}" "xc2vp3402" IS_DEVICE_ID_PRESENT)
 if (IS_DEVICE_ID_PRESENT)
   set(XC2VP3602 " ") # xc2vp3402 is derivative of xc2vp3602
