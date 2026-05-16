@@ -1439,6 +1439,10 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
   int Status,i;
  XAxiVdma_Config *Config;
  XAxiVdma_FrameCounter FrameCfgPtr;
+#ifdef SDT
+ extern XAxiVdma_Config XAxiVdma_ConfigTable[];
+ u32 CtxIdx;
+#endif
 
   /* This is one time initialization of state machine context.
    * In first call it will be done for all VDMA instances in the system.
@@ -1467,26 +1471,37 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
   #ifndef SDT
     Config = XAxiVdma_LookupConfig(DeviceId);
   #else
-    Config = XAxiVdma_LookupConfig(XPAR_AXI_VDMA_0_BASEADDR);
+    Config = XAxiVdma_LookupConfig(XPAR_XAXIVDMA_0_BASEADDR);
   #endif
   if (!Config) {
 	xil_printf("No video DMA found for ID %d\r\n",DeviceId );
 	return XST_FAILURE;
   }
 
+#ifdef SDT
+  /* In SDT flow the DeviceId parameter holds a base address, not an index.
+   * Derive the sequential context index by searching the ConfigTable
+   * (same pattern as XCsiSs_GetDrvIndex / XDsiTxSs_GetDrvIndex).
+   */
+  for (CtxIdx = 0U; XAxiVdma_ConfigTable[CtxIdx].Name != NULL; CtxIdx++) {
+    if (XAxiVdma_ConfigTable[CtxIdx].BaseAddress == Config->BaseAddress)
+      break;
+  }
+#endif
+
 #ifndef SDT
   if(vdma_context[DeviceId].init_done ==0) {
 	vdma_context[DeviceId].InstancePtr = InstancePtr;
 #else
-  if(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].init_done ==0) {
-	vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr = InstancePtr;
+  if(vdma_context[CtxIdx].init_done ==0) {
+	vdma_context[CtxIdx].InstancePtr = InstancePtr;
 #endif
 	/* Initialize DMA engine */
     #ifndef SDT
 	    Status = XAxiVdma_CfgInitialize(vdma_context[DeviceId].InstancePtr,
 						Config, Config->BaseAddress);
     #else
-        Status = XAxiVdma_CfgInitialize(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr,
+        Status = XAxiVdma_CfgInitialize(vdma_context[CtxIdx].InstancePtr,
 						Config, Config->BaseAddress);
     #endif
 	if (Status != XST_SUCCESS) {
@@ -1498,7 +1513,7 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
     #ifndef SDT
 	  vdma_context[DeviceId].init_done = 1;
     #else
-      vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].init_done = 1;
+      vdma_context[CtxIdx].init_done = 1;
     #endif
   }
 
@@ -1510,18 +1525,18 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
   vdma_context[DeviceId].number_of_frame_count = number_frame_count;
   vdma_context[DeviceId].hsize = hsize * (Config->Mm2SStreamWidth>>3);
 #else
-  vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].device_id = XPAR_AXI_VDMA_0_BASEADDR;
-  vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].vsize = vsize;
-  vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].enable_frm_cnt_intr = enable_frm_cnt_intr;
-  vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].buffer_address = buf_base_addr;
-  vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].number_of_frame_count = number_frame_count;
-  vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].hsize = hsize * (Config->Mm2SStreamWidth>>3);
+  vdma_context[CtxIdx].device_id = CtxIdx;
+  vdma_context[CtxIdx].vsize = vsize;
+  vdma_context[CtxIdx].enable_frm_cnt_intr = enable_frm_cnt_intr;
+  vdma_context[CtxIdx].buffer_address = buf_base_addr;
+  vdma_context[CtxIdx].number_of_frame_count = number_frame_count;
+  vdma_context[CtxIdx].hsize = hsize * (Config->Mm2SStreamWidth>>3);
 #endif
   /* Setup the write channel */
 #ifndef SDT
   Status = WriteSetup(&vdma_context[DeviceId]);
 #else
-  Status = WriteSetup(&vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES]);
+  Status = WriteSetup(&vdma_context[CtxIdx]);
 #endif
   if (Status != XST_SUCCESS) {
 	xil_printf("Write channel setup failed %d\r\n", Status);
@@ -1534,7 +1549,7 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
   #ifndef SDT
     Status = ReadSetup(&vdma_context[DeviceId]);
   #else
-    Status = ReadSetup(&vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES]);
+    Status = ReadSetup(&vdma_context[CtxIdx]);
   #endif
   if (Status != XST_SUCCESS) {
 	xil_printf("Read channel setup failed %d\r\n", Status);
@@ -1547,7 +1562,7 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 #ifndef SDT
   if(vdma_context[DeviceId].enable_frm_cnt_intr) {
 #else
-  if(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].enable_frm_cnt_intr) {
+  if(vdma_context[CtxIdx].enable_frm_cnt_intr) {
 #endif
 	FrameCfgPtr.ReadDelayTimerCount = 1;
 	FrameCfgPtr.ReadFrameCount = number_frame_count;
@@ -1557,7 +1572,7 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 	XAxiVdma_SetFrameCounter(vdma_context[DeviceId].InstancePtr,
 			&FrameCfgPtr);
 #else
-	XAxiVdma_SetFrameCounter(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr,
+	XAxiVdma_SetFrameCounter(vdma_context[CtxIdx].InstancePtr,
 			&FrameCfgPtr);
 #endif
 	/* Enable DMA read and write channel interrupts.
@@ -1571,10 +1586,10 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 				XAXIVDMA_IXR_ERROR_MASK |
 				XAXIVDMA_IXR_FRMCNT_MASK,XAXIVDMA_READ);
 #else
-	XAxiVdma_IntrEnable(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr,
+	XAxiVdma_IntrEnable(vdma_context[CtxIdx].InstancePtr,
 				XAXIVDMA_IXR_ERROR_MASK |
 				XAXIVDMA_IXR_FRMCNT_MASK,XAXIVDMA_WRITE);
-	XAxiVdma_IntrEnable(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr,
+	XAxiVdma_IntrEnable(vdma_context[CtxIdx].InstancePtr,
 				XAXIVDMA_IXR_ERROR_MASK |
 				XAXIVDMA_IXR_FRMCNT_MASK,XAXIVDMA_READ);
 #endif
@@ -1588,9 +1603,9 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 	XAxiVdma_IntrEnable(vdma_context[DeviceId].InstancePtr,
 				XAXIVDMA_IXR_ERROR_MASK ,XAXIVDMA_READ);
 #else
-	XAxiVdma_IntrEnable(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr,
+	XAxiVdma_IntrEnable(vdma_context[CtxIdx].InstancePtr,
 				XAXIVDMA_IXR_ERROR_MASK,XAXIVDMA_WRITE);
-	XAxiVdma_IntrEnable(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr,
+	XAxiVdma_IntrEnable(vdma_context[CtxIdx].InstancePtr,
 				XAXIVDMA_IXR_ERROR_MASK ,XAXIVDMA_READ);
 #endif
   }
@@ -1599,7 +1614,7 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 #ifndef SDT
   Status = StartTransfer(vdma_context[DeviceId].InstancePtr);
 #else
-  Status = StartTransfer(vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].InstancePtr);
+  Status = StartTransfer(vdma_context[CtxIdx].InstancePtr);
 #endif
   if (Status != XST_SUCCESS) {
 	if(Status == XST_VDMA_MISMATCH_ERROR)
@@ -1616,15 +1631,15 @@ int RunVDMA(XAxiVdma* InstancePtr, int DeviceId, int hsize,
 #ifndef SDT
     u32 pixels,j,Addr = vdma_context[DeviceId].buffer_address;
 #else
-    u32 pixels,j,Addr = vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].buffer_address;
+    u32 pixels,j,Addr = vdma_context[CtxIdx].buffer_address;
 #endif
 	u8 *dst,*src;
 #ifndef SDT
 	u32 total_pixel = vdma_context[DeviceId].stride * \
 			vdma_context[DeviceId].vsize;
 #else
-	u32 total_pixel = vdma_context[XPAR_XAXIVDMA_NUM_INSTANCES].stride * \
-			vdma_context[DeviceId].vsize;
+	u32 total_pixel = vdma_context[CtxIdx].stride * \
+			vdma_context[CtxIdx].vsize;
 #endif
 	src = (unsigned char *)Addr;
 	dst = (unsigned char *)Addr + (total_pixel * \
