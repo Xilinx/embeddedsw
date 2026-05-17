@@ -32,6 +32,7 @@
 *       pre  03/17/2026 Removed reconfiguration skip for XPLMI_ERROR_OCP_SUBSYS_UPDATE event
 *       vm   03/16/2026 Added ASU update event
 *       gnr  04/07/2026 Added redundancy on checking the errors and carrying out the actions
+*       gnr  05/17/2026 Default error action of IPI_ERR changed to XPLMI_EM_ACTION_SRST
 *
 * </pre>
 *
@@ -319,7 +320,7 @@ static XPlmi_Error_t ErrorTable[XPLMI_ERROR_SW_ERR_MAX] = {
 	[XPLMI_ERROR_RSVD_7] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_IPI_ERR] =
-	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
+	{ .Handler = NULL, .Action = XPLMI_EM_ACTION_SRST, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_CPI] =
 	{ .Handler = XPlmi_ErrPrintToLog, .Action = XPLMI_EM_ACTION_PRINT_TO_LOG, .SubsystemId = 0U, },
 	[XPLMI_ERROR_FPD_WDT0] =
