@@ -18,16 +18,12 @@ depends:
     - reg
 
 supported_processors:
-  - psv_cortexa72
-  - psv_cortexr5
-  - psv_pmc
-  - psv_psm
-  - psx_cortexr52
-  - psx_cortexa78
-  - psx_pmc
-  - psx_psm
-  - microblaze_riscv
-  - microblaze
+  - condition: |
+      supported_processors = ["psv_cortexa72", "psv_cortexr5", "psv_pmc",
+      "psv_psm", "psx_cortexr52", "psx_cortexa78", "psx_pmc","psx_psm",
+      "microblaze", "microblaze_riscv"]
+      if platform in ("microblaze", "microblaze_riscv") and "spartanuplus" not in variant:
+          supported_processors = []
 
 supported_os:
   - standalone

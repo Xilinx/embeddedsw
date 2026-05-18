@@ -1,5 +1,5 @@
 # Copyright (c) 2021 - 2022 Xilinx, Inc.  All rights reserved.
-# Copyright (C) 2023 - 2025 Advanced Micro Devices, Inc.  All rights reserved.
+# Copyright (C) 2023 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
 # SPDX-License-Identifier: MIT
 %YAML 1.2
 ---
@@ -14,6 +14,7 @@ description: Simple bootloader for loading SREC images from non volatile memory 
 
 depends_libs:
     xiltimer: {}
+    xilsfl: {}
 
 depends:
     spi:

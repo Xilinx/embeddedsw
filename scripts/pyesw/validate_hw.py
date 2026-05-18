@@ -104,7 +104,7 @@ class ValidateHW(Repo):
                     [
                         self.domain_dir,
                         "module,baremetal_validate_comp_xlnx",
-                        f"{self.proc} {comp_srcdir} {self.repo_yaml_path}",
+                        f"{self.proc} {comp_srcdir} {self.repo_yaml_path} {self.name}",
                     ]
                 )
 
