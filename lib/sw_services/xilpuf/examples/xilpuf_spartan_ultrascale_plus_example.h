@@ -23,6 +23,8 @@
 * 2.7   bha     01/06/26 Fixed Doxygen warnings
 *       bha     01/23/26 Fixed Compilation errors,Code clean-up and
 *                        added PUF-ID only Regeneration support
+*       tus     05/18/26 Remove 128 bit key support description from example as
+*                        it is not supported during boot
 * </pre>
 *
 * User configurable parameters for PUF
@@ -30,8 +32,7 @@
 * \#define XPUF_RED_KEY
 * 	      "0000000000000000000000000000000000000000000000000000000000000000"
 * Red Key to be encrypted by PUF KEY should be provided in string format.It
-* should be either 32 or 64 characters long as only 128 bit and 256 bit key
-* are supported.
+* should be 64 characters long as only 256 bit key is supported.
 *
 * \#define XPUF_BLACK_KEY_IV		"000000000000000000000000"
 * IV should be provided in string format.It should be 24 characters long, valid
