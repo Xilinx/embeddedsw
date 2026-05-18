@@ -564,17 +564,14 @@ static void XHdcp1x_PortDpRxProcessBinfoRead(void *CallbackRef)
 ******************************************************************************/
 const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortDpRxAdaptor =
 {
-	&XHdcp1x_PortDpRxInit,
-	&XHdcp1x_PortDpRxEnable,
-	&XHdcp1x_PortDpRxDisable,
-	&XHdcp1x_PortDpRxRead,
-	&XHdcp1x_PortDpRxWrite,
-	NULL,
-	NULL,
-	&XHdcp1x_PortDpRxSetRepeater,
-	NULL,
-	NULL,
-	NULL,
+	.Init        = &XHdcp1x_PortDpRxInit,
+	.Enable      = &XHdcp1x_PortDpRxEnable,
+	.Disable     = &XHdcp1x_PortDpRxDisable,
+	.Read        = &XHdcp1x_PortDpRxRead,
+	.Write       = &XHdcp1x_PortDpRxWrite,
+	.SetRepeater = &XHdcp1x_PortDpRxSetRepeater,
+	/* IsCapable, IsRepeater, GetRepeaterInfo, IntrHandler,
+	 * CallbackHandler, SetEcfSlots default to NULL. */
 };
 
 #endif

@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -389,17 +389,15 @@ static void XHdcp1x_ProcessAKsvWrite(void *CallbackRef)
 ******************************************************************************/
 const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiRxAdaptor =
 {
-	&XHdcp1x_PortHdmiRxInit,
-	&XHdcp1x_PortHdmiRxEnable,
-	&XHdcp1x_PortHdmiRxDisable,
-	&XHdcp1x_PortHdmiRxRead,
-	&XHdcp1x_PortHdmiRxWrite,
-	NULL,
-	NULL,
-	&XHdcp1x_PortHdmiRxSetRepeater,
-	NULL,
-	NULL,
-	&XHdcp1x_ProcessAKsvWrite
+	.Init            = &XHdcp1x_PortHdmiRxInit,
+	.Enable          = &XHdcp1x_PortHdmiRxEnable,
+	.Disable         = &XHdcp1x_PortHdmiRxDisable,
+	.Read            = &XHdcp1x_PortHdmiRxRead,
+	.Write           = &XHdcp1x_PortHdmiRxWrite,
+	.SetRepeater     = &XHdcp1x_PortHdmiRxSetRepeater,
+	.CallbackHandler = &XHdcp1x_ProcessAKsvWrite,
+	/* IsCapable, IsRepeater, GetRepeaterInfo, IntrHandler,
+	 * SetEcfSlots default to NULL via C zero-initialization. */
 };
 
 #endif

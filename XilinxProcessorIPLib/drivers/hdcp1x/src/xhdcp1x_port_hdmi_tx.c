@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -443,17 +443,16 @@ static int XHdcp1x_PortHdmiTxWrite(XHdcp1x *InstancePtr, u8 Offset,
 ******************************************************************************/
 const XHdcp1x_PortPhyIfAdaptor XHdcp1x_PortHdmiTxAdaptor =
 {
-	&XHdcp1x_PortHdmiTxInit,
-	&XHdcp1x_PortHdmiTxEnable,
-	&XHdcp1x_PortHdmiTxDisable,
-	&XHdcp1x_PortHdmiTxRead,
-	&XHdcp1x_PortHdmiTxWrite,
-	&XHdcp1x_PortHdmiTxIsCapable,
-	&XHdcp1x_PortHdmiTxIsRepeater,
-	NULL,
-	&XHdcp1x_PortHdmiTxGetRepeaterInfo,
-	NULL,
-	NULL
+	.Init            = &XHdcp1x_PortHdmiTxInit,
+	.Enable          = &XHdcp1x_PortHdmiTxEnable,
+	.Disable         = &XHdcp1x_PortHdmiTxDisable,
+	.Read            = &XHdcp1x_PortHdmiTxRead,
+	.Write           = &XHdcp1x_PortHdmiTxWrite,
+	.IsCapable       = &XHdcp1x_PortHdmiTxIsCapable,
+	.IsRepeater      = &XHdcp1x_PortHdmiTxIsRepeater,
+	.GetRepeaterInfo = &XHdcp1x_PortHdmiTxGetRepeaterInfo,
+	/* SetRepeater, IntrHandler, CallbackHandler, SetEcfSlots
+	 * default to NULL via C zero-initialization. */
 };
 
 #endif

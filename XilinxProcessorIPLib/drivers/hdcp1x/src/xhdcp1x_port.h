@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc. All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -66,12 +66,12 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 	int (*Write)(XHdcp1x *, u8, const void *, u32); /**< Reg write */
 	int (*IsCapable)(const XHdcp1x *);	/**< Tests for HDCP capable */
 	int (*IsRepeater)(const XHdcp1x *);	/**< Tests for repeater */
-	int (*SetEcfSlots)(const XHdcp1x *);	/**< Tests for repeater */
 	int (*SetRepeater)(XHdcp1x *, u8);	/**< Sets repeater */
 	int (*GetRepeaterInfo)(const XHdcp1x *, u16 *); /**< Gets repeater
 							  *  info */
 	void (*IntrHandler)(XHdcp1x *, u32); /**< Interrupt handler */
 	void (*CallbackHandler)(void *CallbackRef); /**< Callback handler */
+	int (*SetEcfSlots)(XHdcp1x *, u64);	/**< Sets ECF timeslots (DP MST) */
 } XHdcp1x_PortPhyIfAdaptor;
 
 /***************** Macros (Inline Functions) Definitions *********************/
@@ -82,21 +82,21 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 * buffer
 *
 * @param	buf the buffer to write to
-* @param	uint the unsigned integer to convert
+* @param	Value the unsigned integer to convert
 * @param	numbits the number of bits within the unsigned integer to use
 *
 * @return	None.
 *
-* @note		The value of the "uint" parameter is destroyed by a call to this
+* @note		The value of the "Value" parameter is destroyed by a call to this
 *		macro
 *
 ******************************************************************************/
-#define XHDCP1X_PORT_UINT_TO_BUF(buf, uint, numbits)			\
+#define XHDCP1X_PORT_UINT_TO_BUF(buf, Value, numbits)			\
 	if ((numbits) > 0) {						\
 		int byte;						\
 		for (byte = 0; byte <= (int)(((numbits) - 1) >> 3); byte++) { \
-			buf[byte] = (uint8_t) (uint & 0xFFu);		\
-			uint >>= 8;					\
+			buf[byte] = (uint8_t) (Value & 0xFFu);		\
+			Value >>= 8;					\
 		}							\
 	}
 
@@ -105,7 +105,7 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 * This macro converts from a little endian formatted buffer to an unsigned
 * integer value
 *
-* @param	uint the unsigned integer to write
+* @param	Value the unsigned integer to write
 * @param	buf the buffer to convert
 * @param	numbits the number of bits within the buffer to use
 *
@@ -114,13 +114,13 @@ typedef struct XHdcp1x_PortPhyIfAdaptorS {
 * @note		None.
 *
 ******************************************************************************/
-#define XHDCP1X_PORT_BUF_TO_UINT(uint, buf, numbits)			\
+#define XHDCP1X_PORT_BUF_TO_UINT(Value, buf, numbits)			\
 	if ((numbits) > 0) {						\
 		int byte;						\
-		uint = 0;	 					\
+		Value = 0;	 					\
 		for (byte = (((numbits) - 1) >> 3); byte >= 0; byte--) { \
-			uint <<= 8;					\
-			uint  |= buf[byte];				\
+			Value <<= 8;					\
+			Value  |= buf[byte];				\
 		}							\
 	}
 
