@@ -60,6 +60,8 @@
   *       mb   02/09/26 Rename secure control bit names for SPARTANUPLUSAES1
   *       bha  02/25/26 Removed ICCARM related code
   *       mb   05/25/26 Remove hard code shared_mem section address
+  *       tus  05/15/26 Remove 128-bit key support from XPuf_FormatAesKey
+  *                     as it is not supported during boot
   *
   * </pre>
   *
@@ -100,7 +102,6 @@
 						XPUF_CHASH_AND_AUX_IN_WORDS)
 						/**< 127U Syn_data + 1 Aux + 1 Chash */
 
-#define XPUF_AES_KEY_SIZE_128BIT_WORDS		(4U) /**< AES key size 128 in words */
 #define XPUF_AES_KEY_SIZE_256BIT_WORDS		(8U) /**< AES key size 256 in words */
 #define XNVM_EFUSE_AES_KEY_LEN_IN_BYTES     (32U) /**< AES key length in bytes */
 
@@ -990,9 +991,8 @@ static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen)
 	u32 *InputKey = (u32 *)Key;
 	u32 *OutputKey  = (u32 *)FormattedKey;
 
-	if ((KeyLen != (XPUF_AES_KEY_SIZE_128BIT_WORDS * XPUF_WORD_LENGTH)) &&
-	    (KeyLen != (XPUF_AES_KEY_SIZE_256BIT_WORDS * XPUF_WORD_LENGTH))) {
-		xil_printf("Only 128-bit keys and 256-bit keys are supported \r\n");
+	if (KeyLen != (XPUF_AES_KEY_SIZE_256BIT_WORDS * XPUF_WORD_LENGTH)) {
+		xil_printf("Only 256-bit keys are supported \r\n");
 		Status = XST_FAILURE;
 		goto END;
 	}
@@ -1001,12 +1001,11 @@ static int XPuf_FormatAesKey(const u8 *Key, u8 *FormattedKey, u32 KeyLen)
 		OutputKey[Index] = InputKey[WordIndex];
 		WordIndex++;
 		/*
-		 * AES word size = 128 bits
-		 * So to change the endianness, code should swap lower 64bits
-		 * with upper 64 bits
-		 * 64 bits = 8 bytes
+		 * For a 256-bit key (8 x 32-bit words), swap the lower
+		 * 128 bits (words 0-3) with the upper 128 bits (words 4-7)
+		 * to match the AES IP register layout expected by the hardware.
 		 */
-		WordIndex = WordIndex % 8U;
+		WordIndex = WordIndex % Words;
 	}
 	Status = XST_SUCCESS;
 END:
