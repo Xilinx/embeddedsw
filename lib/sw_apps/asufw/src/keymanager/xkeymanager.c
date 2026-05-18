@@ -72,7 +72,9 @@
 							value per access */
 #define XKEYMANAGER_PVT_KEY_ID_OFFSET	(1U) /**< Offset to update private key ID in
 							RSA/ECC key pair generation */
-
+#define XKEYMANAGER_RSA_PUB_KEY_MODULUS_OFFSET	((u32)offsetof(XAsu_RsaPubKeyComp, Modulus))
+		/**< Offset to update RSA public key modulus in RSA key pair generation,
+		 *   derived from the XAsu_RsaPubKeyComp. */
 #define XKEYMANAGER_IS_BIT_SET(Value, Index) (((Value) & ((u16)1U << (Index))) != 0U) /**< Check if a bit is set */
 
 #define XKEYMANAGER_EXTRACT_KEYTYPE(KeyId) (((KeyId) & XKEYMANAGER_KEY_TYPE_MASK_VAL) >> \
@@ -906,6 +908,12 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 		goto END;
 	}
 
+	/** Key attribute should be set to indicate presence of prime components for RSA private key. */
+	if (ParamsPtr->KeyMetadata.KeyAttributes != XRSA_PRIME_NUM_IS_PRSNT) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Fetch a pre-generated RSA key pair from the ASU vault. */
 	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XKeyManager_FetchRsaKeyPairFromAsuVault(DmaPtr, ModulusArr, XKEYMANAGER_ASU_VAULT_ID,
@@ -1467,25 +1475,27 @@ static s32 XKeyManager_UpdateRsaPvtKeyObjectFromVault(XAsufw_Dma *DmaPtr, u64 Ke
 		goto END;
 	}
 
-	KeyObject->PrimeCompOrTotientPrsnt = XRSA_PRIME_NUM_IS_PRSNT;
+	KeyObject->PrimeCompOrTotientPrsnt = KeyVaultKeyObjectPtr->Metadata.KeyAttributes;
 
-	/* Copy Prime1 from key vault to key object. */
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Prime1,
-			       (u64)(UINTPTR)KeyObject->PrimeCompOrTotient,
-			       XKEYMANAGER_HALF_KEY_LEN(KeyObject->PubKeyComp.Keysize), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-		goto END;
-	}
+	if (KeyObject->PrimeCompOrTotientPrsnt != XRSA_NO_PRIME_NO_TOT_PRSNT) {
+		/* Copy Prime1 from key vault to key object. */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Prime1,
+				       (u64)(UINTPTR)KeyObject->PrimeCompOrTotient,
+				       XKEYMANAGER_HALF_KEY_LEN(KeyObject->PubKeyComp.Keysize), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
 
-	/* Copy Prime2 from key vault to key object. */
-	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Prime2,
-			       (u64)(UINTPTR)((u8 *)KeyObject->PrimeCompOrTotient +
-			       XRSA_MAX_HALF_KEY_SIZE_IN_BYTES),
-			       XKEYMANAGER_HALF_KEY_LEN(KeyObject->PubKeyComp.Keysize), 0U);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_DMA_COPY_FAIL;
-		goto END;
+		/* Copy Prime2 from key vault to key object. */
+		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.Prime2,
+				       (u64)(UINTPTR)((u8 *)KeyObject->PrimeCompOrTotient +
+				       XRSA_MAX_HALF_KEY_SIZE_IN_BYTES),
+				       XKEYMANAGER_HALF_KEY_LEN(KeyObject->PubKeyComp.Keysize), 0U);
+		if (Status != XASUFW_SUCCESS) {
+			Status = XASUFW_DMA_COPY_FAIL;
+			goto END;
+		}
 	}
 
 	Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyVaultKeyObjectPtr->RsaPvtKeyPair.PvtExp,
@@ -1796,6 +1806,18 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
+	/**
+	 * KeyType may have the wrapped-key bit set by the caller. Mask it out before
+	 * comparing against the sub-vault identifier to validate key attributes.
+	 */
+	if (((KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
+			(u8)XASU_RSA_PVT_SUBVAULT_ID) &&
+	    (KeyParams->KeyMetadata.KeyAttributes > XASU_KM_RSA_PVT_ATTR_MAX)) {
+		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
+		goto END;
+	}
+
 	/** Validate vault exists and belongs to the subsystem. */
 	if ((VaultManager.VaultInfo[KeyParams->KeyMetadata.VaultId].VaultSize == 0U) ||
 	    (VaultManager.VaultInfo[KeyParams->KeyMetadata.VaultId].SubSystemId != SubSystemId)) {
@@ -1892,6 +1914,11 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CERT_PARSE_FAIL);
 			goto END_KEY_CLR;
 		}
+	}
+
+	/* If the key type is unwrapped RSA public key, adjust the buffer address to point to the modulus. */
+	if (KeyParams->KeyMetadata.KeyType == (u8)XASU_RSA_PUB_SUBVAULT_ID) {
+		LocalBuffAddr = LocalBuffAddr + XKEYMANAGER_RSA_PUB_KEY_MODULUS_OFFSET;
 	}
 
 	/** Update the key vault with the provided key data. */
@@ -2372,6 +2399,7 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	KeyMetadataPtr->UsageCount = ParamsPtr->KeyMetadata.UsageCount;
 	KeyMetadataPtr->Length = ParamsPtr->KeyMetadata.Length;
 	KeyMetadataPtr->KeyUseCase = ParamsPtr->KeyMetadata.KeyUseCase;
+	KeyMetadataPtr->KeyAttributes = ParamsPtr->KeyMetadata.KeyAttributes;
 
 	/** Increment active keys counter in sub-vault header. */
 	KeyVaultPtr->SubVaultHeaders[KeyType].ActiveKeys++;
