@@ -199,7 +199,7 @@ int XHdcp1x_SetEcfSlots(XHdcp1x *InstancePtr, u64 timeslots)
 	}
 	/* Invoke adaptor function if present */
 	else if (Adaptor->SetEcfSlots != NULL) {
-		Status = (*(Adaptor->SetEcfSlots))(InstancePtr);
+		Status = (*(Adaptor->SetEcfSlots))(InstancePtr, timeslots);
 	}
 
 	return (Status);
