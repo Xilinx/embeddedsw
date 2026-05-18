@@ -118,6 +118,9 @@ extern "C" {
 /* Key usecases for LMS public key type. */
 #define XASU_KEYMANAGER_LMS_PUB_SIGN_VER_USE_CASE	(0x01U)	/**< LMS public key signature verification use case */
 
+/* Key attribute for RSA private decrypt operation. */
+#define XASU_KM_RSA_PVT_ATTR_MAX	(2U) /**< Maximum allowed value for RSA private key attribute */
+
 /** @} */
 /************************************** Type Definitions *****************************************/
 /** This enum contains sub vault ID related information. */
@@ -138,11 +141,16 @@ typedef enum {
 typedef struct {
 	u16 KeyId;	/**< Key identifier within sub-vault.
 					This field is applicable only in server context and NA for client. */
-	u8 KeyType;	/**< Type of key stored. This field is applicable only for Store Key API. */
+	u8 KeyType;	/**< Type of key stored. This field is applicable only for Store Key API.
+			Lower bits map to the SubVault ID and use XAsu_KeyManagerSubVaultType enum values.
+			For wrapped keys, OR with XASU_KM_KEYTYPE_WRAPPED_BIT_MASK.
+			Mask out this bit before comparing with XAsu_KeyManagerSubVaultType values. */
 	u8 VaultId;	/**< Identifier of the vault for which the API is intended. */
 	u8 KeyUseCase;	/**< Usage scenario stored alongside the key. */
-	u8 KeyAttributes;	/**< Additional attribute for the key (applicable only for ECC keys) */
-	u16 Length;	/**< Key length. */
+	u8 KeyAttributes;	/**< Additional attribute for the key (applicable for ECC keys
+				and RSA private keys to represent prime/totient presence information) */
+	u16 Length;	/**< For ECC module: this parameter refers to Curve Length.
+				For other modules: this parameter refers to Key length. */
 	u32 EpochTime;	/**< Time stamp expiry for the key. */
 	u32 UsageCount;	/**< Number of times the key can be used. */
 } XAsu_KeyManagerKeyMetadata;

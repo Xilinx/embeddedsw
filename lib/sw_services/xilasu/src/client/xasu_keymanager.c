@@ -40,6 +40,8 @@
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 #define XASU_KM_NUM_OF_KEY_IDS	(2U) /**< Number of key IDs returned for RSA/ECC key pair generation command */
+#define XASU_KM_RSA_PVT_PRIME_NUM_PRESENT	(2U) /**< Exact RSA private key attribute value
+							indicating presence of prime components */
 
 /************************************ Function Prototypes ****************************************/
 
@@ -390,7 +392,13 @@ s32 XAsu_KmGenerateRsaKeyPair(XAsu_ClientParams *ClientParamPtr,
 		goto END;
 	}
 
-	/** Validate key length is either 2078-bit or 3072-bit or 4096-bit for RSA. */
+	/** Key attribute should be set to indicate presence of prime components for RSA private key. */
+	if (KmSubVaultParamPtr->KeyMetadata.KeyAttributes != XASU_KM_RSA_PVT_PRIME_NUM_PRESENT) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/** Validate key length is either 2048-bit or 3072-bit or 4096-bit for RSA. */
 	Status = XAsu_KmValidateKeyLength(KmSubVaultParamPtr->KeyMetadata.Length,
 					  XASU_KM_RSA_KEYTYPE);
 	if (Status != XST_SUCCESS) {
@@ -552,6 +560,17 @@ s32 XAsu_KmStoreKey(XAsu_ClientParams *ClientParamPtr, XAsu_KeyManagerParams *Ke
 
 	/** Validate key metadata. */
 	if (XAsu_KmValidateKeyMetadata(&KeyParams->KeyMetadata) != XST_SUCCESS) {
+		Status = XASU_INVALID_ARGUMENT;
+		goto END;
+	}
+
+	/**
+	 * KeyType may have the wrapped-key bit set by the caller. Mask it out before
+	 * comparing against the sub-vault identifier to validate key attributes.
+	 */
+	if (((KeyParams->KeyMetadata.KeyType & ~XASU_KM_KEYTYPE_WRAPPED_BIT_MASK) ==
+			(u8)XASU_RSA_PVT_SUBVAULT_ID) &&
+	    (KeyParams->KeyMetadata.KeyAttributes > XASU_KM_RSA_PVT_ATTR_MAX)) {
 		Status = XASU_INVALID_ARGUMENT;
 		goto END;
 	}
