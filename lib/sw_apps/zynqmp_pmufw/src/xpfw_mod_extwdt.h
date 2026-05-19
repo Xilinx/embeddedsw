@@ -20,7 +20,7 @@ extern "C" {
 
 s32 ExtWdtCfgInit(void);
 s32 ExtWdtCfgDeInit(void);
-void SetExtWdtInterval(u32 Interval);
+s32 SetExtWdtInterval(u32 Interval);
 u32 GetExtWdtInterval(void);
 u32 IsExtWdtScheduled(void);
 #endif

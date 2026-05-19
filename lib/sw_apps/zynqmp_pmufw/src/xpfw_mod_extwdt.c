@@ -55,14 +55,30 @@ static void ExtWdtToggle(void)
  *
  * @param  Interval The EXT WDT timer interval value in ms
  *
- * @return None.
+ * @return XST_SUCCESS if successful else XST_FAILURE or an error
+ * 	   code or a reason code
  *
- * @note   None.
+ * @note   Re-arms the running kick task if needed.
  *
  ****************************************************************************/
-void SetExtWdtInterval(u32 Interval)
+s32 SetExtWdtInterval(u32 Interval)
 {
-	ExtWdtInterval = Interval;
+	s32 Status = XST_FAILURE;
+
+	if ((Interval != ExtWdtInterval) && (1U == ExtWdtIsScheduled)) {
+		/* Re-arm at the new rate. */
+		Status = ExtWdtCfgDeInit();
+		if (XST_SUCCESS == Status) {
+			ExtWdtInterval = Interval;
+			Status = ExtWdtCfgInit();
+		}
+	} else {
+		/* Just save the value. */
+		ExtWdtInterval = Interval;
+		Status = XST_SUCCESS;
+	}
+
+	return Status;
 }
 
 /****************************************************************************/

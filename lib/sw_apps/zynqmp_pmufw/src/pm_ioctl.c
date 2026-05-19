@@ -112,8 +112,7 @@ s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value)
 		break;
 	case XPM_FEATURE_EXTWDT_VALUE:
 		if ((value >= EWDT_LIMIT_MIN) && (value <= EWDT_LIMIT_MAX)) {
-			SetExtWdtInterval(value);
-			status = XST_SUCCESS;
+			status = SetExtWdtInterval(value);
 		} else {
 			status = XST_INVALID_PARAM;
 		}
