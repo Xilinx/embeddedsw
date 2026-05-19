@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -21,6 +22,7 @@ s32 ExtWdtCfgInit(void);
 s32 ExtWdtCfgDeInit(void);
 void SetExtWdtInterval(u32 Interval);
 u32 GetExtWdtInterval(void);
+u32 IsExtWdtScheduled(void);
 #endif
 void ModExtWdtInit(void);
 

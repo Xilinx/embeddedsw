@@ -1,5 +1,6 @@
 /*
 * Copyright (c) 2021 Xilinx, Inc.  All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
  */
 
@@ -60,9 +61,6 @@
 static u32 OverTempState = 0U;
 #endif /* ENABLE_RUNTIME_OVERTEMP */
 
-#ifdef ENABLE_RUNTIME_EXTWDT
-static u32 ExtWdtState = 0U;
-#endif /* ENABLE_RUNTIME_EXTWDT */
 
 /**
  * PmSetFeatureConfig() - The feature can be configured by using IOCTL.
@@ -102,14 +100,12 @@ s32 PmSetFeatureConfig(XPm_FeatureConfigId configId, u32 value)
 #endif /* ENABLE_RUNTIME_OVERTEMP */
 #ifdef ENABLE_RUNTIME_EXTWDT
 	case XPM_FEATURE_EXTWDT_STATUS:
-		if ((1U == value) && (0U == ExtWdtState)) {
+		if ((1U == value) && (0U == IsExtWdtScheduled())) {
 			/* Initialize external watchdog */
 			status = ExtWdtCfgInit();
-			ExtWdtState = 1U;
-		} else if ((0U == value) && (1U == ExtWdtState)) {
+		} else if ((0U == value) && (1U == IsExtWdtScheduled())) {
 			/* De-initialize external watchdog */
 			status = ExtWdtCfgDeInit();
-			ExtWdtState = 0U;
 		} else {
 			status = XST_INVALID_PARAM;
 		}
@@ -156,7 +152,7 @@ s32 PmGetFeatureConfig(XPm_FeatureConfigId configId, u32 *value)
 #endif /* ENABLE_RUNTIME_OVERTEMP */
 #ifdef ENABLE_RUNTIME_EXTWDT
 	case XPM_FEATURE_EXTWDT_STATUS:
-		*value = ExtWdtState;
+		*value = IsExtWdtScheduled();
 		status = XST_SUCCESS;
 		break;
 	case XPM_FEATURE_EXTWDT_VALUE:

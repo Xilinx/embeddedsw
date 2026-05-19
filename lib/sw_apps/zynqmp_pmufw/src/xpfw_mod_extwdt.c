@@ -1,5 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2021 Xilinx, Inc. All rights reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All rights reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -31,6 +32,8 @@
 #ifdef ENABLE_RUNTIME_EXTWDT
 static const XPfw_Module_t *ModPtr;
 static u32 ExtWdtInterval = EXTWDT_INTERVAL_MS / 2U;
+/* Tracks whether the kick task is currently scheduled. */
+static u32 ExtWdtIsScheduled = 0U;
 #endif
 
 /* Toggle PMU GPO1 bit specified for EXTWDT */
@@ -95,14 +98,23 @@ s32 ExtWdtCfgDeInit(void)
 	s32 Status = XST_FAILURE;
 	u32 Interval = GetExtWdtInterval();
 
+	/* Nothing to do if not scheduled. */
+	if (0U == ExtWdtIsScheduled) {
+		Status = XST_SUCCESS;
+		goto Done;
+	}
+
 	/* De-Register scheduled task for External WDT service*/
 	Status = XPfw_CoreRemoveTask(ModPtr,
 				     Interval,
 				     ExtWdtToggle);
-	if (XST_SUCCESS != Status) {
+	if (XST_SUCCESS == Status) {
+		ExtWdtIsScheduled = 0U;
+	} else {
 		XPfw_Printf(DEBUG_DETAILED,"EXTWDT: Failed to De-Init EXT WDT Task\r\n");
 	}
 
+Done:
 	return Status;
 }
 
@@ -123,15 +135,49 @@ s32 ExtWdtCfgInit(void)
 	s32 Status = XST_FAILURE;
 	u32 Interval = GetExtWdtInterval();
 
+	/* Nothing to do if already scheduled. */
+	if (1U == ExtWdtIsScheduled) {
+		Status = XST_SUCCESS;
+		goto Done;
+	}
+
 	/* Register scheduler task for External WDT service*/
 	Status = XPfw_CoreScheduleTask(ModPtr,
 				       Interval,
 				       ExtWdtToggle);
-	if (XST_SUCCESS != Status) {
+	if (XST_SUCCESS == Status) {
+		ExtWdtIsScheduled = 1U;
+	} else {
 		XPfw_Printf(DEBUG_DETAILED,"EXTWDT: Failed to Init EXT WDT Task\r\n");
 	}
 
+Done:
 	return Status;
+}
+
+/****************************************************************************/
+/**
+ * @brief  Query whether the EXT WDT scheduler task is currently registered.
+ *
+ * @return 1U if scheduled, 0U otherwise.
+ *
+ * @note   None.
+ *
+ ****************************************************************************/
+u32 IsExtWdtScheduled(void)
+{
+	return ExtWdtIsScheduled;
+}
+
+/* Cfg handler that schedules the kick at boot. */
+static void ExtWdtCfgInitHandler(const XPfw_Module_t *ModPtrParam,
+				 const u32 *CfgData, u32 Len)
+{
+	(void)ModPtrParam;
+	(void)CfgData;
+	(void)Len;
+
+	(void)ExtWdtCfgInit();
 }
 
 /*
@@ -140,7 +186,15 @@ s32 ExtWdtCfgInit(void)
  */
 void ModExtWdtInit(void)
 {
+	s32 Status = XST_FAILURE;
+
 	ModPtr = XPfw_CoreCreateMod();
+
+	Status = XPfw_CoreSetCfgHandler(ModPtr, ExtWdtCfgInitHandler);
+	if (XST_SUCCESS != Status) {
+		XPfw_Printf(DEBUG_DETAILED,
+			    "EXTWDT: Set Cfg handler failed\r\n");
+	}
 }
 #else
 static void ExtWdtCfgInit(const XPfw_Module_t *ModPtr, const u32 *CfgData, u32 Len)
