@@ -3962,6 +3962,7 @@ XStatus XPm_HookAfterBootPdi(void)
 
 	if (XPlmi_IsPlmUpdateDone() == TRUE){
 		/* Skip during PLM update */
+		Status = XST_SUCCESS;
 		goto done;
 	}
 
