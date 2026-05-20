@@ -27,6 +27,8 @@
 * 6.2   ka       09/24/25 Increase USB control reply buffer size for FSBL
 * 6.3   sd       02/06/26 Implement USB download timeout to prevent indefinite
 *                         waiting during PDI download operations
+* 6.4   sd       05/20/26 Add DCache invalidation after CSU DMA transfer in
+*                         XFsbl_UsbCopy to fix authenticated USB boot failure
 *
 * </pre>
 *
@@ -42,7 +44,7 @@
 #include "sleep.h"
 #include "xcsudma.h"
 #include "xfsbl_csu_dma.h"
-#include "xfsbl_dfu_util.h"
+#include "xil_cache.h"
 
 /************************** Constant Definitions ****************************/
 #ifndef SDT
@@ -211,6 +213,13 @@ u32 XFsbl_UsbCopy(u32 SrcAddress, PTRSIZE DestAddress, u32 Length)
 	/* To acknowledge the transfer has completed */
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_SRC_CHANNEL, XCSUDMA_IXR_DONE_MASK);
 	XCsuDma_IntrClear(&CsuDma, XCSUDMA_DST_CHANNEL, XCSUDMA_IXR_DONE_MASK);
+
+	/*
+	 * Invalidate the destination cache range so that subsequent CPU reads
+	 * (e.g. authentication certificate verification) see the data written
+	 * by the CSU DMA rather than stale cache lines.
+	 */
+	Xil_DCacheInvalidateRange((INTPTR)DestAddress, Length);
 
 	Status = XFSBL_SUCCESS;
 END:
