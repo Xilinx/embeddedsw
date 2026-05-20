@@ -537,11 +537,25 @@ u32 XDpTxSs_Start(XDpTxSs *InstancePtr)
 		}
 	}
 #endif
+
+	/* Disable all TX interrupts during link training to
+	 * prevent spurious HPD interrupts from racing the training sequence.
+	 */
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, XDPTXSS_INTERRUPT_MASK_ALL_MASK);
+
 	/* Start DisplayPort sub-core configuration */
 	Status = XDpTxSs_DpTxStart(InstancePtr->DpPtr,
 			InstancePtr->UsrOpt.MstSupport,
 				InstancePtr->UsrOpt.Bpc,
 					InstancePtr->UsrOpt.VmId);
+
+	/* Re-enable normal TX interrupts (HPD + IRQ) after
+	 * the training sequence completes, regardless of outcome.
+	 */
+	XDp_WriteReg(InstancePtr->DpPtr->Config.BaseAddr,
+			XDP_TX_INTERRUPT_MASK, XDPTXSS_INTERRUPT_MASK_NORMAL_MASK);
+
 	if (Status != XST_SUCCESS) {
 		xdbg_printf(XDBG_DEBUG_GENERAL,"SS ERR: DP Start failed "
 			"in %s!\n\r",
