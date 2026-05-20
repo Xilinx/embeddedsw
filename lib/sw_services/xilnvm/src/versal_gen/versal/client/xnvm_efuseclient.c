@@ -257,6 +257,7 @@ int XNvm_EfuseRevokePpk(const XNvm_ClientInstance *InstancePtr, const XNvm_PpkTy
 	}
 #endif
 	else {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
@@ -346,6 +347,7 @@ int XNvm_EfuseWriteRevocationId(const XNvm_ClientInstance *InstancePtr, const u3
 	RevokeIdBit = RevokeId & XNVM_REVOKE_ID_COL_MASK;
 
 	if (RevokeIdRow > (XNVM_NUM_OF_REVOKE_ID_FUSES - 1U)) {
+		Status = XST_INVALID_PARAM;
 		goto END;
 	}
 
