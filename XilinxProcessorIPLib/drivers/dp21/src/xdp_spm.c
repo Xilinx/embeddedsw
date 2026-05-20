@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2015 - 2020 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -1569,14 +1569,14 @@ static void XDp_TxCalculateTs(XDp *InstancePtr, u8 Stream, u8 BitsPerPixel)
 		MsaConfig->TransferUnitSize++;
 	}
 	if (LinkConfig->TrainingMode != XDP_TX_TRAINING_MODE_DP21) {
-		if (InstancePtr->Config.PayloadDataWidth == 4 &&
-		    MsaConfig->TransferUnitSize % 4 != 0) {
-			/* Set to a multiple of 4 boundary. */
-			MsaConfig->TransferUnitSize += (4 -
-						(MsaConfig->TransferUnitSize % 4));
-		} else if ((MsaConfig->TransferUnitSize % 2) != 0) {
-			/* Set to an even boundary. */
-			MsaConfig->TransferUnitSize++;
+		u8 align;
+		align = (InstancePtr->Config.PayloadDataWidth >= 4) ? 4U : 2U;
+		if ((MsaConfig->TransferUnitSize % align) != 0U) {
+			u8 tu_aligned = MsaConfig->TransferUnitSize +
+					(align - (MsaConfig->TransferUnitSize % align));
+			if (tu_aligned <= XDP_TX_MAX_NUM_OF_TIMESLOTS) {
+				MsaConfig->TransferUnitSize = tu_aligned;
+			}
 		}
 	}
 	/* Store TsInt and TsFrac in AvgBytesPerTU. */
