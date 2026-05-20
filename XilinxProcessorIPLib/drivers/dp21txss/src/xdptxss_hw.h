@@ -120,6 +120,13 @@ extern "C" {
 		XDP_TX_INTERRUPT_MASK_HPD_EVENT_MASK	/**< Mask HPD event
 							  *  interrupt. */
 
+#define XDPTXSS_INTERRUPT_MASK_ALL_MASK		0xFFFFFFFF /**< Mask all
+							     *  interrupts */
+#define XDPTXSS_INTERRUPT_MASK_NORMAL_MASK	0xFFFFF000 /**< Mask for normal
+							     *  TX operation
+							     *  (HPD + IRQ
+							     *  enabled) */
+
 #define XDPTXSS_NUM_STREAMS		4	/**< Maximum number of
 						  *  streams supported */
 
