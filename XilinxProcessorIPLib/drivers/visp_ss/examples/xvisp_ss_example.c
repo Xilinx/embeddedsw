@@ -337,8 +337,9 @@ int config_visp_ss()
 		xil_printf("base address 0x%x %d\n", CfgPtr->BaseAddress, __LINE__);
 	}
 	/* Verify single-stream operation - this example doesn't support MCM mode */
-	if (VispSsInst[ISP_ID].Config.NumStreams > 1) {
+	if (VispSsInst[ISP_ID].Config.NumStreams > 1 && custom_json != 1) {
 		xil_printf("This ISP example only works for NON-MCM mode.\r\n");
+		xil_printf("Use the MCM JSON configuration to enable MCM mode\r\n");
 		return XST_INVALID_VERSION;
 	}
 
