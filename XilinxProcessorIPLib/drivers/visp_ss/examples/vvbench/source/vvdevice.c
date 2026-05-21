@@ -854,6 +854,18 @@ int VsiVvdeviceExecuteCaseline
 				bufIoArray[bufIoArrayCount++] = bufIo;
 			}
 		}
+		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
+			//set sensor fps
+			result = VsiCamDeviceSensorSetFrameRate(pVvbenchInstance->hCamDevice[index],
+								&caseCtx->instanceCfgCtx[index].sensorCfg.fps);
+			if (0 != result) {
+				LOGE("Vsi cam device sensor set frame rate failed for sensor name:%s, modeIndex:%d",
+				     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
+				     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
+				mm_free(pVvbenchInstance);
+				return -1;
+			}
+		}
 		if (caseCtx->instanceCfgCtx[index].startPathSimultaneous) {
 			LOGI("VsiVvdevicePathEnable called Simultaneously");
 			result = VsiVvdevicePathEnable(pVvbenchInstance, caseCtx, index, bufIoArray, bufIoArrayCount);
@@ -929,16 +941,6 @@ int VsiVvdeviceExecuteCaseline
 
 		if (CAMDEV_INPUT_TYPE_SENSOR == caseCtx->instanceCfgCtx[index].inputType) {
 			sensor_stream_flag = index;
-			//set sensor fps
-			result = VsiCamDeviceSensorSetFrameRate(pVvbenchInstance->hCamDevice[index],
-								&caseCtx->instanceCfgCtx[index].sensorCfg.fps);
-			if (0 != result) {
-				LOGE("Vsi cam device sensor set frame rate failed for sensor name:%s, modeIndex:%d",
-				     caseCtx->instanceCfgCtx[index].sensorCfg.sensorName,
-				     caseCtx->instanceCfgCtx[index].sensorCfg.modeIndex);
-				mm_free(pVvbenchInstance);
-				return -1;
-			}
 
 			//get sensor fps
 			float fps;
