@@ -467,10 +467,6 @@ END:
 	 */
 	XFIH_CALL(Xil_SecureZeroize, XFihUde, ClearStatus, UdeKek, XOCP_UDE_KEK_SIZE_IN_BYTES);
 	Status = XAsufw_UpdateBufStatus(Status, ClearStatus);
-	if (Status != XASUFW_SUCCESS) {
-		Status = XASUFW_OCP_UDE_KEK_ZEROIZE_FAIL;
-		goto END_CLR;
-	}
 
 	return Status;
 }

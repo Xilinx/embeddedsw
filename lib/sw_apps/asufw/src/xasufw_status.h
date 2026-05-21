@@ -552,7 +552,7 @@ enum {
 	XASUFW_INVALID_SUBSYSTEM_ID, /**< 0x175U - Error when subsystem ID is invalid */
 	XASUFW_OCP_KEY_MGMT_NOT_READY, /**< 0x176U - Error when DevIk pair is not ready */
 	XASUFW_OCP_DEVAK_NOT_READY, /**< 0x177U - Error when DevAk pair is not ready */
-	XASUFW_OCP_UDE_KEK_ZEROIZE_FAIL, /**< 0x178U - Error when UDE KEK zeroization fails */
+	XASUFW_ERR_RESERVED_178, /**< 0x178U - Reserved */
 	XASUFW_OCP_UDE_KEK_GEN_FAIL, /**< 0x179U - Error when UDE KEK generation fails */
 	XASUFW_OCP_UDE_PUF_KEK_GEN_FAIL, /**< 0x17AU - Error when PUF KEK generation fails */
 	XASUFW_OCP_INVALID_BUF_SIZE, /**< 0x17B - Error when OCP buffer size is invalid */
