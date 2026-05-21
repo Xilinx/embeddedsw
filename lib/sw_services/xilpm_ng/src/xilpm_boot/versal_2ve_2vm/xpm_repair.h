@@ -1,5 +1,5 @@
 /******************************************************************************
- * Copyright (c) 2025 Advanced Micro Devices, Inc.  All rights reserved.
+ * Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc.  All rights reserved.
  * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -337,8 +337,8 @@ enum BISR_TAG_IDs {
 	LPXC_TAG_ID = 0x2C,		//  XPmRepair_Lpd
 	AIE2PS_TAG_ID = 0x2D,		//  XPmRepair_Aie2p_s
 	MMI_GTYP_TAG_ID = 0x2E,		//  XPmRepair_Mmi_Gtyp
-	VIP_TAG_ID = 0x33,		//  XPmRepair_Svip
-	EIO_TAG_ID = 0x34,		//  XPmRepair_Seio
+	VIP_TAG_ID = 0x33,		//  XPmRepair_Vip
+	EIO_TAG_ID = 0x34,		//  XPmRepair_Eio
 	MAX_BISR_TAG_NUM = 0x35
 };
 
