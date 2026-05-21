@@ -295,8 +295,13 @@ static void XPmGicProxy_Clear(void)
 	}
 }
 
-/* FPD GIC Proxy has interrupts organized in 5 Groups */
-static XPm_GicProxyGroup XPm_GicProxyGroups[5] XPM_INIT_DATA(XPm_GicProxyGroups);
+/**
+ * @brief  GIC Proxy group state cache.
+ *
+ * Versal 2VE/2VM has 8 GICP groups; RTC, GPIO_PMC, SDIO and PMC_WWDT live
+ * in groups 5..7, so the array is sized for all 8.
+ */
+static XPm_GicProxyGroup XPm_GicProxyGroups[8] XPM_INIT_DATA(XPm_GicProxyGroups);
 
 XPm_GicProxy_t XPm_GicProxy = {
 	.Groups = XPm_GicProxyGroups,
