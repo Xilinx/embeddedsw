@@ -214,6 +214,7 @@
 *                      does not incorrectly remove entries that were legitimately added via Set
 *                      Image Info commands.
 *       vm  03/30/2026 Added support for OSPI as pdi source to get the optional data
+*       obs 05/20/2026 Add boot PDI guard and ELF partition filter in delayed handoff loop
 *
 * </pre>
 *
@@ -1037,9 +1038,10 @@ static int XLoader_LoadAndStartSubSystemImages(XilPdi *PdiPtr)
 			&PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum]) >>
 			XILPDI_IH_ATTRIB_DELAY_LOAD_SHIFT);
 
-		/* If default subsystem and not delay-loaded, always delay handoff */
+		/* If default subsystem, boot PDI, and not delay-loaded, always delay handoff */
 		if ((PdiPtr->MetaHdr->ImgHdr[PdiPtr->ImageNum].ImgID == PM_SUBSYS_DEFAULT) &&
-			(PdiPtr->DelayLoad == (u8)FALSE)) {
+			(PdiPtr->DelayLoad == (u8)FALSE) &&
+			(XPlmi_IsLoadBootPdiDone() != (u8)TRUE)) {
 			PdiPtr->DelayHandoff = (u8)TRUE;
 		}
 
@@ -1144,9 +1146,18 @@ END:
 		for (PrtnIndex = 0U;
 			PrtnIndex < (u8)PdiPtr->MetaHdr->ImgHdr[ImageNum].NoOfPrtns;
 			PrtnIndex++) {
-			Status = XLoader_UpdateHandoffParam(PdiPtr);
-			if (Status != XST_SUCCESS) {
-				goto END1;
+			/**
+			 * Only update handoff params for ELF partitions.
+			 * CDO/data partitions may have DstnCpu set for
+			 * ownership but should not trigger CPU wakeup.
+			 */
+			if (XilPdi_GetPrtnType(
+				&PdiPtr->MetaHdr->PrtnHdr[PdiPtr->PrtnNum])
+					== XIH_PH_ATTRB_PRTN_TYPE_ELF) {
+				Status = XLoader_UpdateHandoffParam(PdiPtr);
+				if (Status != XST_SUCCESS) {
+					goto END1;
+				}
 			}
 			PdiPtr->PrtnNum++;
 		}
