@@ -63,11 +63,19 @@
 /** Number of scaler outputs */
 #define XNUM_OUTPUTS 2
 
+#if defined(__MICROBLAZE__)
+  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+#elif defined(__riscv)
+  #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
+#else
+  #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+#endif
+
 /** Source buffer start address */
-#define SRC_BUF_START_ADDR 0x10000000
+#define SRC_BUF_START_ADDR (DDR_BASEADDR + 0x10000000)
 
 /** Destination buffer start address */
-#define DST_BUF_START_ADDR 0x30000000
+#define DST_BUF_START_ADDR (DDR_BASEADDR + 0x20000000)
 
 /** Define GIC Device ID based on platform */
 #if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
@@ -79,8 +87,8 @@
 #endif
 
 /** GPIO base address */
-#if defined XPAR_GPIO_0_BASEADDR
-#define GPIO_BASE XPAR_GPIO_0_BASEADDR
+#if defined XPAR_XGPIO_NUM_INSTANCES
+#define GPIO_BASE XPAR_XGPIO_0_BASEADDR
 #endif
 
 /** SDT GPIO base address mapping */
@@ -102,7 +110,9 @@ static u32 CalcStride(u16 Cfmt, u16 AXIMMDataWidth, u32 width);
 
 /************************** Variable Definitions *****************************/
 /** Global interrupt controller instance */
+#ifndef SDT
 XScuGic Intc;
+#endif
 
 /** MultiScaler instance */
 XV_multi_scaler MultiScalerInst;
@@ -114,6 +124,28 @@ XV_multi_scaler_Video_Config *thisCase;
 u32 interrupt_flag;
 
 /** List of test use cases with video configuration parameters */
+#if defined(XPS_BOARD_SCU200) || defined(__MICROBLAZE__)
+XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
+	{
+		{
+			0, SRC_BUF_START_ADDR, SRC_BUF_START_ADDR + 1 *
+			XV_MAX_BUF_SIZE, 720, 540, 1920, 1920,
+			XV_MULTI_SCALER_RGB8, XV_MULTI_SCALER_RGB8, 0, 0,
+			DST_BUF_START_ADDR, DST_BUF_START_ADDR + 1 *
+			XV_MAX_BUF_SIZE,
+			{0, 0, 0, 0, 0}
+		},
+		{
+			1, SRC_BUF_START_ADDR + 2 * XV_MAX_BUF_SIZE,
+			SRC_BUF_START_ADDR + 3 * XV_MAX_BUF_SIZE, 1280, 1920,
+			720, 720, XV_MULTI_SCALER_RGB8,	XV_MULTI_SCALER_RGB8, 0,
+			0, DST_BUF_START_ADDR + 2 * XV_MAX_BUF_SIZE,
+			DST_BUF_START_ADDR + 3 * XV_MAX_BUF_SIZE,
+			{800, 600, 0, 0, 1}
+		}
+	}
+};
+#else
 XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 	{
 		{
@@ -134,6 +166,7 @@ XV_multi_scaler_Video_Config useCase[USECASE_COUNT][XNUM_OUTPUTS] = {
 		}
 	}
 };
+#endif
 
 /*****************************************************************************/
 /*                       Function Implementations                            */
@@ -209,7 +242,7 @@ static int SetupInterruptSystem(void)
  *******************************************************************************/
 void XV_Reset_MultiScaler(void)
 {
-#if defined XPAR_GPIO_0_BASEADDR
+#if defined XPAR_XGPIO_NUM_INSTANCES
 	u32 count;
 	*(u32 *)(GPIO_BASE) = 0xFF;
 	for (count = 0; count <1000; count++);

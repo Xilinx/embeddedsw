@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2016 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -63,14 +63,16 @@
 #include "xinterrupt_wrap.h"
 #endif
 
-#if defined(__MICROBLAZE__) || defined(__riscv)
-#ifndef  SDT
-#define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#if defined(__MICROBLAZE__)
+  #ifndef  SDT
+  #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+  #else
+  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+  #endif
+#elif defined(__riscv)
+  #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
 #else
-#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-#endif
-#else
-#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+  #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
 
 #if defined XPAR_PSU_ACPU_GIC_DEVICE_ID
