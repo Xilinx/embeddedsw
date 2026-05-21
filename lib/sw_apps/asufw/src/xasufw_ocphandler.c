@@ -316,6 +316,9 @@ static s32 XAsufw_OcpDevAkAttestation(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpDevAkAttest);
+
 	/** Get subsystem ID from IPI mask. */
 	SubsystemId = XAsu_GetSubsysIdFromIpiMask(IpiMask);
 	if (SubsystemId == XASUFW_INVALID_SUBSYS_ID) {
@@ -354,11 +357,15 @@ static s32 XAsufw_OcpUdeChallengeReq(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpUdeParams *OcpUdeParamsPtr = (const XAsu_OcpUdeParams *)(UINTPTR)ReqBuf->Arg;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpUdeParams);
+
 	Status = XOcp_GenerateUdeResponse(XAsufw_OcpModule.AsuDmaPtr, OcpUdeParamsPtr);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_CHALLENGE_RESPONSE_FAIL);
 	}
 
+END:
 	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}
@@ -386,11 +393,15 @@ static s32 XAsufw_OcpUdePvtKeysEncrypt(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 	s32 Status = XASUFW_FAILURE;
 	const XAsu_OcpUdeKeyEncrypt *OcpUdeKeyEnc = (const XAsu_OcpUdeKeyEncrypt *)ReqBuf->Arg;
 
+	/** Verify command length. */
+	XASUFW_VERIFY_CMD_LEN(END, Status, ReqBuf, XAsu_OcpUdeKeyEncrypt);
+
 	Status = XOcp_EncryptUdeKeys(XAsufw_OcpModule.AsuDmaPtr, OcpUdeKeyEnc);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_OCP_UDE_KEY_ENCRYPT_FAIL);
 	}
 
+END:
 	if (XAsufw_ReleaseResource(XASUFW_OCP, ReqId) != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_RESOURCE_RELEASE_NOT_ALLOWED);
 	}

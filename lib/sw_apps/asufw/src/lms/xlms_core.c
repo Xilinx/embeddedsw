@@ -204,6 +204,7 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 * OTS_PROCESS: Resume OtsSignatureProcess after DMA, skip ValidateInputs and OTS init.
 	 * IDLE: Full path - ValidateInputs, OTS init, OTS process.
 	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	switch (SignVerifyDmaState) {
 	case XLMS_DMA_STATE_IDLE:
 	case XLMS_SIGN_VERIFY_STATE_VALIDATE_INPUTS:
@@ -245,6 +246,7 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 */
 	if ((Status == XASUFW_SUCCESS) &&
 		(ResumeState != XLMS_SIGN_VERIFY_STATE_OTS_PROCESS)) {
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/**
 		 * Verify SHA algorithm consistency: LMS and OTS types must use the same hash,
 		 * and the caller-selected SHA mode must match.
@@ -260,7 +262,6 @@ s32 XLms_SignatureVerification(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * Step 2: Initialize OTS signature verification.
 		 * Validates OTS type in signature matches public key and looks up parameters.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XLms_OtsSignatureInit(&LmsLocalSignatureBuff[XLMS_Q_FIELD_SIZE],
 						Ctx.LmsOtsSignParam->SignLen, Ctx.PubKeyLmsOtsType);
 		if (Status != XASUFW_SUCCESS) {
@@ -482,6 +483,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	 * SIGN_VERIFY: resume after inner SignatureVerification DMA, advance loop and continue.
 	 * IDLE: Full path - validate, DMA copy, then process signatures.
 	 */
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	switch (HssInitDmaState) {
 	case XLMS_HSS_INIT_STATE_SIG_COPY:
 		HssInitDmaState = XLMS_DMA_STATE_IDLE;
@@ -696,6 +698,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			goto END;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/**
 		 * Before we proceed to LMS OTS, we also need to check if SHA algo selected matches
 		 * the type selected in signature.
@@ -737,7 +740,6 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * as data to be authenticated, with sig[0], output of operation should match with
 		 * HSS public key.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XLms_SignatureVerification(ShaInstPtr, DmaPtr, &LmsSignVerifyParams);
 		if (Status == XASUFW_CMD_IN_PROGRESS) {
 			/* Inner SignatureVerification needs non-blocking DMA */
@@ -769,6 +771,7 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * if copy fails, immediate read-back comparison detects the fault.
 		 */
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Copy all bytes of pub[Nspk] (LMS public key) for use in final message verification */
 		for (Index = 0U; Index < CurrentPubKeyActualSize; Index++) {
 			AuthenticatedKey.Buff[Index] = TmpPublicKeyPtr[Index];
@@ -796,7 +799,6 @@ s32 XLms_HssInit(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		 * RFC 8554 Section 4.6 Step 2: Extract 'I' (16-byte tree identifier) from authenticated
 		 * public key for use in message digest computation: Q = H(I || q || D_MESG || C || message).
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy((void*)DigestPrefixFields.Fields.DigestTreeId, XLMS_I_FIELD_SIZE,
 			(const void*)AuthenticatedKey.Fields.PubKeyTreeId, XLMS_I_FIELD_SIZE, XLMS_I_FIELD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
@@ -1055,6 +1057,7 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 			goto END;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/* Remaining signature must have at least 4 bytes for minimal validation */
 		if (XLMS_OTS_TYPE_SIZE > Sign1Len) {
 			Status = XASUFW_LMS_HSS_OTS_SIGN_INVALID_LEN_1_ERROR;
@@ -1081,7 +1084,6 @@ s32 XLms_HssFinish(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr, u64 SignatureAddr, u32 
 		 * the authenticated lowest-level public key.
 		 * For large signatures (> XASUFW_DMA_BLOCKING_SIZE), use non-blocking DMA transfer.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		if (SignNpskLen_s > XASUFW_DMA_BLOCKING_SIZE) {
 			Status = XAsufw_StartDmaXfr(DmaPtr, SignatureAddr + SignatureLengthConsumed,
 				(u64)(UINTPTR)LmsLocalSignatureBuff, SignNpskLen_s, 0U);
@@ -1342,7 +1344,6 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 	case XLMS_OTS_PROCESS_STATE_HASH_MESSAGE:
 		OtsProcessDmaState = XLMS_DMA_STATE_IDLE;
 		/* Need to call HashMessage again to complete - it has internal state to resume */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XLms_HashMessage(ShaInstPtr, DmaPtr, LmsSignVerifyParams->MsgAddr,
 					LmsSignVerifyParams->MsgLen, LmsOtsSignParam_g->HashAlgId);
 		if (Status != XASUFW_SUCCESS) {
@@ -1402,7 +1403,6 @@ static s32 XLms_OtsSignatureProcess(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 			 * Skip DMA if source is already DigestChecksum (internal HSS path).
 			 */
 			if (LmsSignVerifyParams->MsgAddr != (u64)(UINTPTR)DigestChecksum.Buff) {
-				ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 				Status = XAsufw_DmaXfr(DmaPtr, LmsSignVerifyParams->MsgAddr,
 						(u64)(UINTPTR)DigestChecksum.Buff, n, 0U);
 				if (Status != XASUFW_SUCCESS) {
@@ -1679,7 +1679,6 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 		 * Source is AuthenticatedKey.Buff, copy to LmsLocalPubKeyBuff.
 		 * This is a local-to-local copy, use memcpy for efficiency.
 		 */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemCpy((void*)LmsLocalPubKeyBuff, XLMS_PUB_KEY_TOTAL_SIZE,
 				(const void *)(UINTPTR)&AuthenticatedKey.Buff,
 				LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen,
@@ -1709,6 +1708,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Verify public key length matches: fixed fields + hash output size (m bytes) */
 	if ((XLMS_PUB_KEY_FIXED_FIELD_SIZE + CtxPtr->LmsPubKeyParam->HashOutputBytes) !=
 		LmsSignVerifyParams->LmsHssKeyObj.PubKeyLen) {
@@ -1728,7 +1728,6 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 	 * For large signatures from external memory (> XASUFW_DMA_BLOCKING_SIZE), use non-blocking DMA.
 	 */
 	if (LmsSignVerifyParams->SignatureAddr != (u64)(UINTPTR)LmsLocalSignatureBuff) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		if (LmsSignVerifyParams->SignatureLen > XASUFW_DMA_BLOCKING_SIZE) {
 			Status = XAsufw_StartDmaXfr(DmaPtr, LmsSignVerifyParams->SignatureAddr,
 				(u64)(UINTPTR)LmsLocalSignatureBuff, LmsSignVerifyParams->SignatureLen, 0U);
@@ -1802,6 +1801,7 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 			goto END;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Verify signature contains complete OTS signature portion */
 		if ((CtxPtr->LmsOtsSignParam->SignLen + XLMS_Q_FIELD_SIZE + XLMS_TYPE_SIZE) >
 			LmsSignVerifyParams->SignatureLen) {
@@ -1824,13 +1824,13 @@ static s32 XLms_ValidateInputs(XAsufw_Dma *DmaPtr,
 		}
 
 		/** Lookup LMS signature parameters (tree height for auth path depth) */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XLms_LookupParamSet(SignLmsType, &CtxPtr->LmsSignParam);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XASUFW_LMS_SIGN_UNSUPPORTED_TYPE_1_ERROR;
 			goto END;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/**
 		 * Validate node number q is within valid tree range.
 		 * For tree height h, valid leaf indices are 0 to (2^h - 1).
@@ -1985,8 +1985,6 @@ static s32 XLms_ComputeMerkleRoot(XSha *ShaInstPtr, XAsufw_Dma *DmaPtr,
 		Status = XASUFW_LMS_PUB_KEY_AUTHENTICATION_FAILED_ERROR;
 		goto END;
 	}
-
-	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;

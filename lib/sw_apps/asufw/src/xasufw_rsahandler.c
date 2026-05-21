@@ -671,7 +671,7 @@ END:
  *************************************************************************************************/
 static s32 XAsufw_RsaPssSignGen(const XAsu_ReqBuf *ReqBuf, u32 ReqId)
 {
-	u32 Status = XASUFW_FAILURE;
+	s32 Status = XASUFW_FAILURE;
 	const XAsu_RsaPaddingParams *Cmd = (const XAsu_RsaPaddingParams *)ReqBuf->Arg;
 	u32 SubsystemId = 0U;
 	u32 IpiMask = ReqId >> XASUFW_IPI_BITMASK_SHIFT;

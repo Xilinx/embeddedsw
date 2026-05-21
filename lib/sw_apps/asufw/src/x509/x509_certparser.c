@@ -57,16 +57,6 @@ typedef struct {
 #define X509_MAX_HOURS_IN_DAY		(23U)	/**< Maximum hours in a day */
 #define X509_MAX_VALID_YEAR		(9999U)	/**< Maximum year value */
 
-#define X509_ECC_SIGN_LEN			(2U * XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)
-						/**< ECC signature length */
-#define X509_ECC_PUB_KEY_LEN			(2U * XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)
-						/**< ECC public key length */
-#define X509_ASN1_SIGN_COMPONENT_MIN_LEN	(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES)
-						/**< Minimum length of signature component */
-#define X509_ASN1_SIGN_COMPONENT_MAX_LEN	(XASU_ECC_P384_PVT_KEY_SIZE_IN_BYTES + 1U)
-						/**< Maximum length of signature component */
-#define X509_ASN1_SIGN_UNUSED_BIT_VALUE	(0x00U) /**< Unused bit value of signature */
-
 /************************************ Function Prototypes ****************************************/
 static inline s32 X509_UpdateOffsetToNextField(u32 Len);
 static s32 X509_ValidateTag(u8 Tag);

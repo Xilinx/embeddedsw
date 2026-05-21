@@ -98,7 +98,6 @@
 #define XKEYMANAGER_AES_TAG_LEN_IN_BYTES		(16U)	/**< GCM tag length in bytes */
 #define XKEYMANAGER_AES_KEK_LEN_IN_BYTES		(32U)	/**< KEK length in bytes */
 #define XKEYMANAGER_AES_IV_LEN_IN_BYTES			(16U)	/**< AES IV length in bytes */
-#define XKEYMANAGER_AES_AAD_LEN_IN_BYTES		(16U)	/**< AES AAD length in bytes */
 #define XKEYMANAGER_KV_KEK_CONTEXT			"KEY_VAULT_ENCRYPTION_KEY"
 								/**< KV KEK context */
 #define XKEYMANAGER_KV_KEK_CONTEXT_LEN			(24U)	/**< KV KEK context length */
@@ -209,6 +208,7 @@ s32 XKeyManager_CfgInitialize(void)
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Initialize vault size from RTCA registers. */
 	AllocatedDdrSize = XAsufw_ReadReg(XASU_RTCA_DDR_SIZE_ADDR);
 	if (AllocatedDdrSize == 0U) {
@@ -220,7 +220,6 @@ s32 XKeyManager_CfgInitialize(void)
 		VaultManager.TotalVaultSize = AllocatedDdrSize - XASUFW_DDR_RSVD_SIZE;
 
 		/** Initialize the reserved DDR area to zero. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = Xil_SMemSet((u8 *)(XAsufw_ReadReg(XASU_RTCA_DDR_BASEADDR_LOW)),
 				XASUFW_DDR_RSVD_SIZE, 0U, XASUFW_DDR_RSVD_SIZE);
 		if (Status != XASUFW_SUCCESS) {
@@ -229,6 +228,7 @@ s32 XKeyManager_CfgInitialize(void)
 		}
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (VaultManager.TotalVaultSize != 0U) {
 
 		VaultHeaderPtr = (XKeyManager_VaultMainHeader *)XKEYMANAGER_GET_VAULT_BASE_PTR;
@@ -284,7 +284,7 @@ END:
  *************************************************************************************************/
 u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase, u8 IsKeyUsed)
 {
-	volatile s32 Status = XASUFW_FAILURE;
+	CREATE_VOLATILE(Status, XASUFW_FAILURE);
 	XKeyManager* KeyVaultPtr;
 	u32 VaultId = XKEYMANAGER_EXTRACT_VAULTID(KeyId);
 	u32 KeyType = XKEYMANAGER_EXTRACT_KEYTYPE(KeyId);
@@ -322,6 +322,7 @@ u8* XKeyManager_GetKeyObjectPtr(u32 KeyId, u32 SubSystemId, u8 KeyUsecase, u8 Is
 	if ((Status == XASUFW_SUCCESS) && (Status == XASUFW_SUCCESS)) {
 		SubVaultPtr = TempPtr;
 	}
+
 END:
 	return SubVaultPtr;
 }
@@ -378,6 +379,7 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (SubsystemId == XKEYMANAGER_ASU_SUBSYSTEM_ID) {
 		if (ParamsPtr->AccessRights != 0U) {
 			Status = XASUFW_KEYMANAGER_INVALID_PARAM;
@@ -456,7 +458,6 @@ s32 XKeyManager_CreateKeyVault(const XAsu_KeyManagerSubVaultParams *ParamsPtr, u
 	}
 
 	/** Update sub-system ID and vault ID to vault info for a subsystem. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XKeyManager_UpdateVaultInfo(SubsystemId, &VaultId);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XAsufw_UpdateErrorStatus(Status, XASUFW_KEYMANAGER_UPDATE_INFO_FAIL);
@@ -639,8 +640,6 @@ s32 XKeyManager_DeleteKeyVault(u32 SubsystemId, u32 VaultId)
 		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
 	}
 
-	Status = XASUFW_SUCCESS;
-
 	/**
 	 * Measure and print the performance time for the key vault deletion operation, if
 	 * performance measurement is enabled.
@@ -742,7 +741,6 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 	}
 
 	/** Securely zeroize the entire key object (metadata + content). */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = Xil_SecureZeroize(KeyObjectPtr, KeyObjectSize);
 	if (Status != XASUFW_SUCCESS) {
 		Status = XASUFW_ZEROIZE_MEMSET_FAIL;
@@ -753,8 +751,6 @@ s32 XKeyManager_DeleteKey(u32 KeyId, u32 SubSystemId)
 	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
 		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
 	}
-
-	Status = XASUFW_SUCCESS;
 
 	/**
 	 * Measure and print the performance time for the key deletion operation, if
@@ -908,6 +904,7 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	/** Key attribute should be set to indicate presence of prime components for RSA private key. */
 	if (ParamsPtr->KeyMetadata.KeyAttributes != XRSA_PRIME_NUM_IS_PRSNT) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
@@ -915,7 +912,6 @@ s32 XKeyManager_GenerateRsaKeyPair(XAsufw_Dma *DmaPtr, const XAsu_KeyManagerPara
 	}
 
 	/** Fetch a pre-generated RSA key pair from the ASU vault. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XKeyManager_FetchRsaKeyPairFromAsuVault(DmaPtr, ModulusArr, XKEYMANAGER_ASU_VAULT_ID,
 				ParamsPtr->KeyObjectAddr);
 	if (Status != XASUFW_SUCCESS) {
@@ -1858,7 +1854,6 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 		if ((KeyParams->AesKeyObj.KeyAddress == 0U) && (KeyParams->AesKeyObj.KeyId != 0U)) {
 			AesKeyObj.KeyAddress = 0U;
 			AesKeyObj.KeyId = KeyParams->AesKeyObj.KeyId;
-			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XKeyManager_UpdateAesKeyObjectFromVault(&AesKeyObj, SubSystemId,
 								XASU_KEYMANAGER_AES_KEY_UNWRAP_USE_CASE);
 			if (Status != XASUFW_SUCCESS) {
@@ -1888,6 +1883,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 			goto END_KEY_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		if (OutDataLen != KeyParams->KeyMetadata.Length) {
 			Status = XASUFW_KEYWRAP_AES_UNWRAPPED_KEY_ERROR;
 			goto END_KEY_CLR;
@@ -1908,7 +1904,6 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 	 * needed for storing the raw public key in the appropriate sub-vault.
 	 */
 	if (KeyType == (u8)XASU_X509_SUBVAULT_ID) {
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = X509_ParseCertificate(LocalBuffAddr, KeyParams->KeyMetadata.Length, &CertInfo);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status, XASUFW_X509_CERT_PARSE_FAIL);
@@ -1943,6 +1938,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 			goto END_KEY_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Store the raw key ID in the X.509 certificate object (no usage decrement). */
 		X509KeyObjectPtr = (XKeyManager_X509KeyObject *)XKeyManager_GetKeyObjectPtr(*KeyIdPtr,
 										SubSystemId,
@@ -1953,6 +1949,7 @@ s32 XKeyManager_StoreKeyInVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, const 
 			goto END_KEY_CLR;
 		}
 		X509KeyObjectPtr->RawKeyId = X509RawKeyId;
+		Status = XASUFW_SUCCESS;
 	}
 
 	/**
@@ -2093,7 +2090,6 @@ s32 XKeyManager_FetchRsaKeyPairFromAsuVault(XAsufw_Dma *DmaPtr, u8 *DestBuf, u8 
 	}
 
 	/** Phase 2: Copy private key content to the destination. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (KeyAddr != 0U) {
 		SrcKeyPtr = (XAsu_RsaKeyPairObject *)((u8 *)PvtKeyMetaPtr +
 				sizeof(XAsu_KeyManagerKeyMetadata));
@@ -2243,6 +2239,7 @@ s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 Vaul
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
 		Status = XASUFW_KEYMANAGER_INVALID_PARAM;
 		goto END;
@@ -2261,7 +2258,6 @@ s32 XKeyManager_StoreRsaKeyPairInAsuVault(const u8 *KeyData, u32 KeyLen, u8 Vaul
 	KmParams.KeyMetadata.VaultId = VaultId;
 
 	/** Store private key in vault. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	Status = XKeyManager_UpdateKeyVault(NULL, XASU_RSA_PVT_SUBVAULT_ID, &KmParams,
 					    KeyData, &PvtKeyId);
 	if (Status != XASUFW_SUCCESS) {
@@ -2335,6 +2331,7 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 		goto END;
 	}
 
+	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	KeyCopyLength = ParamsPtr->KeyMetadata.Length;
 	/* Determine maximum key size based on key type. */
 	if (KeyType == XASU_AES_SUBVAULT_ID) {
@@ -2378,7 +2375,6 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	KeyContentPtr = (u8 *)KeyMetadataPtr + sizeof(XAsu_KeyManagerKeyMetadata);
 
 	/** Copy key data to vault using. */
-	ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 	if (DmaPtr != NULL) {
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)KeyData, (u64)(UINTPTR)KeyContentPtr,
 				       KeyCopyLength, 0U);
@@ -2413,8 +2409,6 @@ static s32 XKeyManager_UpdateKeyVault(XAsufw_Dma *DmaPtr, XAsu_KeyManagerSubVaul
 	if (VaultId != XKEYMANAGER_ASU_VAULT_ID) {
 		IsKeyVaultDirty = XKEYMANAGER_VAULT_DIRTY_VALUE;
 	}
-
-	Status = XASUFW_SUCCESS;
 
 END:
 	return Status;
@@ -2749,7 +2743,6 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 		}
 
 		/** Generate KV KEK and write to AES engine for key vault encryption. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XKeyManager_GenerateAndWriteAesKey(DmaPtr, AesInstancePtr);
 		if (Status != XASUFW_SUCCESS) {
 			Status = XAsufw_UpdateErrorStatus(Status,
@@ -2826,7 +2819,6 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 			}
 
 			/** Encrypt this vault's data. */
-			ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 			Status = XAes_Update(AesInstancePtr, DmaPtr,
 					     (u64)(UINTPTR)KeyVaultPtr,
 					     ExportAddr + CurrentOutputOffset,
@@ -2872,6 +2864,7 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 			goto END_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Check if the export buffer has enough space for the tag. */
 		if (ExportBufSize < (CurrentOutputOffset + XKEYMANAGER_AES_TAG_LEN_IN_BYTES)) {
 			Status = XASUFW_KEYMANAGER_INVALID_BUF_SIZE;
@@ -2879,7 +2872,6 @@ s32 XKeyManager_ExportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Exp
 		}
 
 		/** Copy the generated tag to the export buffer after encrypted data. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAsufw_DmaXfr(DmaPtr, (u64)(UINTPTR)TagBuf,
 				       ExportAddr + CurrentOutputOffset,
 				       XKEYMANAGER_AES_TAG_LEN_IN_BYTES, 0U);
@@ -3130,7 +3122,6 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 		/* fall through */
 	case XKEYMANAGER_AES_CMD_STAGE_UPDATE_INPROGRESS:
 		/** Decrypt main vault header. */
-		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		Status = XAes_Update(AesInstancePtr, DmaPtr,
 				     ImportAddr + XKEYMANAGER_AES_IV_LEN_IN_BYTES,
 				     (u64)(UINTPTR)VaultMainHeader,
@@ -3149,6 +3140,7 @@ s32 XKeyManager_ImportKeyVault(XAsufw_Dma *DmaPtr, XAes *AesInstancePtr, u64 Imp
 			goto END_CLR;
 		}
 
+		ASSIGN_VOLATILE(Status, XASUFW_FAILURE);
 		/** Map decrypted main header to the vault header structure. */
 		ImportedVaultHeaderPtr = (XKeyManager_VaultMainHeader *)VaultMainHeader;
 
