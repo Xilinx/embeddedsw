@@ -1,6 +1,6 @@
 /*******************************************************************************
 * Copyright (C) 2016 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 *******************************************************************************/
 
@@ -52,14 +52,16 @@
 #include "xvtc.h"
 #include "xgpio.h"
 
-#if defined(__MICROBLAZE__) || defined(__riscv)
-#ifndef  SDT
-#define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+#if defined(__MICROBLAZE__)
+  #ifndef  SDT
+  #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+  #else
+  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+  #endif
+#elif defined(__riscv)
+  #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
 #else
-#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
-#endif
-#else
-#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
+  #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
 
 #define XVFRMBUFRD_BUFFER_BASEADDR (DDR_BASEADDR + (0x20000000))

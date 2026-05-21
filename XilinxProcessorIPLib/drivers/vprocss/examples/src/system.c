@@ -29,14 +29,17 @@
 
 /************************** Constant Definitions *****************************/
 #if defined(__MICROBLAZE__)
-#ifndef SDT
-#define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+  #ifndef  SDT
+  #define DDR_BASEADDR XPAR_MIG7SERIES_0_BASEADDR
+  #else
+  #define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+  #endif
+#elif defined(__riscv)
+  #define DDR_BASEADDR XPAR_LPDDRMC_0_BASEADDR
 #else
-#define DDR_BASEADDR XPAR_MIG_0_BASEADDRESS
+  #define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
 #endif
-#else
-#define DDR_BASEADDR XPAR_DDR_MEM_BASEADDR
-#endif
+
 #define USR_FRAME_BUF_BASEADDR     (DDR_BASEADDR + (0x20000000))
 
 /**************************** Type Definitions *******************************/
