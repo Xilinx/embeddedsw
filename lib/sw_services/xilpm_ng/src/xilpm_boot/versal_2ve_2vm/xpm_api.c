@@ -782,6 +782,15 @@ static XStatus AddPeriphDevice(const u32 *Args, u32 PowerId)
 	BaseAddr = Args[2];
 	GicProxyMask = Args[3];
 	GicProxyGroup = Args[4];
+
+	/*
+	 * RTC topology says bit9, HW uses bit8 of FPD GICP6. Force both.
+	 * FIXME: remove this block once the topology CDO is updated.
+	 */
+	if (PM_DEV_RTC == DeviceId) {
+		GicProxyMask = 0x300U;
+	}
+
 	Type = NODETYPE(DeviceId);
 
 	Power = XPmPower_GetById(PowerId);
