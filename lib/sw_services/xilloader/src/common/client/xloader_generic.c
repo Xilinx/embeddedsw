@@ -17,6 +17,7 @@
 * Ver   Who  Date     Changes
 * ----- ---- -------- ---------------------------------------------------------------------------
 * 2.4   sms  04/16/26 Initial release for unified SMC/Mailbox handling
+*       tbk  05/21/26 Copy IPI response into caller's ResponseBuf on mailbox path
 *
 * </pre>
 *
@@ -65,9 +66,12 @@ int XLoader_SendRequest(XLoader_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 			u32 *ResponseBuf, u32 ResponseLen)
 {
 	volatile int Status = XST_FAILURE;
+	u32 Idx = 0U;
 
 	/** Validate input parameters */
-	if ((PayloadBuf == NULL) || (PayloadLen == 0U)) {
+	if ((PayloadBuf == NULL) || (PayloadLen == 0U) ||
+	    (ResponseLen > (u32)RESPONSE_ARG_CNT) ||
+	    ((ResponseLen > 0U) && (ResponseBuf == NULL))) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -88,12 +92,20 @@ int XLoader_SendRequest(XLoader_ClientInstance *InstancePtr, u32 *PayloadBuf, u3
 	/** Send request through IPI mailbox */
 	Status = XLoader_ProcessMailbox(InstancePtr, PayloadBuf, PayloadLen);
 
-	/**
-	 * - Note: For mailbox path, response is not directly returned.
-	 *   The caller should handle response retrieval if needed.
+	/** Cap ResponseLen: the mailbox shift below consumes Response[0], leaving
+	 *  RESPONSE_ARG_CNT - 1 data slots reachable via Response[Idx + 1U].
 	 */
-	(void)ResponseBuf; /* Unused in mailbox path */
-	(void)ResponseLen; /* Unused in mailbox path */
+	if (ResponseLen > ((u32)RESPONSE_ARG_CNT - 1U)) {
+		ResponseLen = (u32)RESPONSE_ARG_CNT - 1U;
+	}
+
+	/** Copy IPI response data from InstancePtr->Response[] into caller's ResponseBuf.
+	 *  Skip Response[0] (PLM exec status, returned via Status) so ResponseBuf[0]
+	 *  holds the first data word, matching the SMC path layout.
+	 */
+	for (Idx = 0U; Idx < ResponseLen; Idx++) {
+		ResponseBuf[Idx] = InstancePtr->Response[Idx + 1U];
+	}
 #endif
 
 END:

@@ -25,6 +25,7 @@
  * 2.00  sk   01/23/26 Updated event logging for all sub commands
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *       tbk  02/24/26 Added SMC support for client applications
+ *       tbk  05/19/26 Unified response indexing; helper now handles SMC/mailbox shift
  *
  * </pre>
  *
@@ -81,15 +82,8 @@ int XPlmi_GetDeviceID(XPlmi_ClientInstance *InstancePtr, XLoader_DeviceIdCode *D
 	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
 			(u32)RESPONSE_ARG_CNT);
 	if (Status == XST_SUCCESS) {
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-		/* For SMC, response starts at index 0 */
 		DeviceIdCode->IdCode = Response[0U];
 		DeviceIdCode->ExtIdCode = Response[1U];
-#else
-		/* For mailbox, response starts at index 1 */
-		DeviceIdCode->IdCode = Response[1U];
-		DeviceIdCode->ExtIdCode = Response[2U];
-#endif
 	}
 
 END:
@@ -128,13 +122,7 @@ int XPlmi_GetBoard(XPlmi_ClientInstance *InstancePtr, u64 Addr, u32 Size, u32 *R
 	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
 			(u32)RESPONSE_ARG_CNT);
 	if (Status == XST_SUCCESS) {
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-		/* For SMC, response starts at index 0 */
 		*ResponseLength = Response[0U];
-#else
-		/* For mailbox, response starts at index 1 */
-		*ResponseLength = Response[1U];
-#endif
 	}
 
 END:
@@ -248,15 +236,8 @@ int XPlmi_EventLogging(XPlmi_ClientInstance *InstancePtr, u32 sub_cmd, u64 Arg, 
 			(u32)RESPONSE_ARG_CNT);
 	if ((Status == XST_SUCCESS) && ((sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_LOG_BUFFER_INFO) ||
 			(sub_cmd == XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO))) {
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-		/* For SMC, response starts at index 0 */
 		xil_printf("Received Data: 0x%x 0x%x 0x%x 0x%x 0x%x,\n\r",
 			Response[0U], Response[1U], Response[2U], Response[3U], Response[4U]);
-#else
-		/* For mailbox, response starts at index 1 */
-		xil_printf("Received Data: 0x%x 0x%x 0x%x 0x%x 0x%x,\n\r",
-			Response[1U], Response[2U], Response[3U], Response[4U], Response[5U]);
-#endif
 	}
 
 END:
@@ -328,13 +309,7 @@ int XPlmi_GetSecureCommStatus(XPlmi_ClientInstance *InstancePtr, u32 SlrIndex, u
 	Status = XPlmi_SendRequest(InstancePtr, Payload, (u32)PAYLOAD_ARG_CNT, Response,
 			(u32)RESPONSE_ARG_CNT);
 	if (Status == XST_SUCCESS) {
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-		/* For SMC, response starts at index 0 */
 		*SecCommStatus = Response[0U];
-#else
-		/* For mailbox, response starts at index 1 */
-		*SecCommStatus = Response[1U];
-#endif
 	}
 
 END:

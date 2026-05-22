@@ -25,6 +25,7 @@
  * 1.01   abh   07/22/2025 Added doxygen tag
  * 2.4   gnr  03/18/26 Updated the Payload assignments with XPLMI_PACK_PAYLOAD macros
  *       tbk  02/24/26 Added SMC support for client applications
+ *       tbk  05/19/26 Unified response indexing; helper now handles SMC/mailbox shift
  * </pre>
  *
  * @note
@@ -181,13 +182,7 @@ int XPlmi_ReadReg32(u32 Offset, u32 *Data)
 	Status = XPlmi_SendRequest(&PlmiClientInstance, Payload,
 			(u32)PAYLOAD_ARG_CNT, Response, (u32)RESPONSE_ARG_CNT);
 	if (Status == XST_SUCCESS) {
-#if defined (__aarch64__) && (EL1_NONSECURE == 1)
-		/* For SMC, response starts at index 0 */
 		*Data = Response[0U];
-#else
-		/* For mailbox, response starts at index 1 */
-		*Data = Response[1U];
-#endif
 	}
 
 #else
