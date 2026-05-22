@@ -2506,7 +2506,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
 
-	XNVM_GET_HADDR(&ReadDmeFipsReg, HighAddr);
+	XNVM_GET_HADDR(&ReadIpDisable0Reg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadIpDisable0Reg;
 	XNvm_EfuseCreateReadEfuseCacheCmd(RdCacheCdo, XNVM_EFUSE_CACHE_IP_DISABLE_0_OFFSET, 1U, LowAddr,
 		HighAddr);
