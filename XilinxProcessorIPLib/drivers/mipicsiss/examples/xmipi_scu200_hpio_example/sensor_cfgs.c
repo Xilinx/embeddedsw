@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (C) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright 2022-2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
  ******************************************************************************/
 
@@ -57,6 +57,20 @@ struct regval_list IMX219_config_1080p_60fps_regs[] = {
 {0x016E, 0x04}, // y-output size = 1080
 {0x016F, 0x38},
 {0x0170, 0x01}, //
+
+// {0x015A, 0x03}, // Coarse Integration Time MSB
+// {0x015B, 0xE8}, // Coarse Integration Time LSB  } = 1000 lines exposure
+// {0x0157, 0x80}, // Analogue Gain = 2x (128/256 code)
+// {0x0158, 0x01}, // Digital Gain MSB = 1x (no digital gain)
+// {0x0159, 0x00}, // Digital Gain LSB
+
+{0x015A, 0x04}, // Coarse Integration Time MSB
+{0x015B, 0x50}, // Coarse Integration Time LSB  } = 1104 lines (near max)
+{0x0157, 0xC0}, // Analogue Gain = 4x
+{0x0158, 0x02}, // Digital Gain = 2x
+{0x0159, 0x00},
+
+
 {0x0171, 0x01},
 {0x0174, 0x00},
 {0x0175, 0x00},
