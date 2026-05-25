@@ -127,10 +127,10 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	XNvm_EfuseWriteDataAddr *EfuseData = (XNvm_EfuseWriteDataAddr *)(UINTPTR)DataAddr;
-	XNvm_EfuseAesKeys *AesKeys = (XNvm_EfuseAesKeys *)(UINTPTR)EfuseData->AesKeyAddr;
-	XNvm_EfusePpkHash *EfusePpk = (XNvm_EfusePpkHash *)(UINTPTR)EfuseData->PpkHashAddr;
-	XNvm_EfuseIvs *Ivs = (XNvm_EfuseIvs *)(UINTPTR)EfuseData->IvAddr;
+	const XNvm_EfuseWriteDataAddr *EfuseData = NULL;
+	XNvm_EfuseAesKeys *AesKeys = NULL;
+	XNvm_EfusePpkHash *EfusePpk = NULL;
+	XNvm_EfuseIvs *Ivs = NULL;
 	XNvm_AesKeyWriteCdo *KeyWrCdo = (XNvm_AesKeyWriteCdo *)Payload;
 	XNvm_PpkWriteCdo *PpkWrCdo = (XNvm_PpkWriteCdo *)Payload;
 
@@ -138,10 +138,16 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DataAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	EfuseData = (const XNvm_EfuseWriteDataAddr *)(UINTPTR)DataAddr;
+
+	AesKeys = (XNvm_EfuseAesKeys *)(UINTPTR)EfuseData->AesKeyAddr;
+	EfusePpk = (XNvm_EfusePpkHash *)(UINTPTR)EfuseData->PpkHashAddr;
+	Ivs = (XNvm_EfuseIvs *)(UINTPTR)EfuseData->IvAddr;
 
 	/**
 	 *  - Validate AES,UsrKey,PPK0,PPK1,PPK2,IVs write request.
@@ -149,7 +155,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *  If the timeout exceeds then return the error else return status of the IPI response.
 	 */
-	if (AesKeys->PrgmAesKey == TRUE) {
+	if ((AesKeys != NULL) && (AesKeys->PrgmAesKey == TRUE)) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming AES Key \r\n");
 		Status = XNvm_EfuseValidateNdWriteAesKey(InstancePtr, KeyWrCdo, XNVM_EFUSE_AES_KEY,
 					(u64)(UINTPTR)(AesKeys->AesKey), (u32)EfuseData->EnvMonDisFlag);
@@ -163,7 +169,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
-	if (AesKeys->PrgmUserKey0 == TRUE) {
+	if ((AesKeys != NULL) && (AesKeys->PrgmUserKey0 == TRUE)) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming User Key 0 \r\n");
 		Status = XNvm_EfuseValidateNdWriteAesKey(InstancePtr, KeyWrCdo, XNVM_EFUSE_USER_KEY_0,
 					(u64)(UINTPTR)(AesKeys->UserKey0), (u32)EfuseData->EnvMonDisFlag);
@@ -177,7 +183,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
-	if (AesKeys->PrgmUserKey1 == TRUE) {
+	if ((AesKeys != NULL) && (AesKeys->PrgmUserKey1 == TRUE)) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming User Key 1 \r\n");
 		Status = XNvm_EfuseValidateNdWriteAesKey(InstancePtr, KeyWrCdo, XNVM_EFUSE_USER_KEY_1,
 					(u64)(UINTPTR)(AesKeys->UserKey1), (u32)EfuseData->EnvMonDisFlag);
@@ -197,7 +203,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *  If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
-	if (EfusePpk->PrgmPpk0Hash == TRUE) {
+	if ((EfusePpk != NULL) && (EfusePpk->PrgmPpk0Hash == TRUE)) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 0 \r\n");
 		Status = XNvm_EfuseValidatNdWritePpkHash(InstancePtr, PpkWrCdo,
 				XNVM_EFUSE_PPK0, (u64)(UINTPTR)EfusePpk->Ppk0Hash, (u32)EfuseData->EnvMonDisFlag);
@@ -211,7 +217,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
-	if (EfusePpk->PrgmPpk1Hash == TRUE) {
+	if ((EfusePpk != NULL) && (EfusePpk->PrgmPpk1Hash == TRUE)) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 1 \r\n");
 		Status = XNvm_EfuseValidatNdWritePpkHash(InstancePtr, PpkWrCdo,
 				XNVM_EFUSE_PPK1, (u64)(UINTPTR)EfusePpk->Ppk1Hash, (u32)EfuseData->EnvMonDisFlag);
@@ -225,7 +231,7 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
-	if (EfusePpk->PrgmPpk2Hash == TRUE) {
+	if ((EfusePpk != NULL) && (EfusePpk->PrgmPpk2Hash == TRUE)) {
 		XNvm_Printf(XNVM_DEBUG_GENERAL, "Started programming PPK Hash 2 \r\n");
 		Status = XNvm_EfuseValidatNdWritePpkHash(InstancePtr, PpkWrCdo,
 				XNVM_EFUSE_PPK2, (u64)(UINTPTR)EfusePpk->Ppk2Hash, (u32)EfuseData->EnvMonDisFlag);
@@ -239,16 +245,19 @@ int XNvm_EfuseWrite(XNvm_ClientInstance *InstancePtr, const u64 DataAddr)
 		}
 	}
 
+
 	/**
 	 *  - Validates IV and sends an IPI request to the PLM by using the
 	 *  XNVM_API_ID_EFUSE_WRITE_IV CDO command.
 	 *  Wait for IPI response from PLM  with a default timeout of 300 seconds.
 	 *  If the timeout exceeds then error is returned otherwise it returns the status of the IPI response
 	 */
-	Status = XST_FAILURE;
-	Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, (u32)EfuseData->EnvMonDisFlag);
-	if (Status != XST_SUCCESS) {
-		goto END;
+	if (Ivs != NULL) {
+		Status = XST_FAILURE;
+		Status = XNvm_EfuseWriteIVs(InstancePtr, (u64)(UINTPTR)Ivs, (u32)EfuseData->EnvMonDisFlag);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	Status = XST_FAILURE;
@@ -296,7 +305,7 @@ int XNvm_EfuseWriteIVs(XNvm_ClientInstance *InstancePtr, const u64 IvAddr, const
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (IvAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -423,16 +432,18 @@ int XNvm_EfuseWriteDiceUds(XNvm_ClientInstance *InstancePtr, const u64 UdsAddr, 
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	XNvm_Uds *Uds = (XNvm_Uds *)(UINTPTR)UdsAddr;
+	XNvm_Uds *Uds = NULL;
 	XNvm_UdsWriteCdo *UdsWriteCdo = (XNvm_UdsWriteCdo *)Payload;
 
 	/**
 	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (UdsAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	Uds = (XNvm_Uds *)(UINTPTR)UdsAddr;
 
 	Xil_DCacheFlushRange((UINTPTR)Uds, sizeof(XNvm_Uds));
 
@@ -494,13 +505,13 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 	volatile int Status = XST_FAILURE;
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	XNvm_DmeKey *DmeKey = (XNvm_DmeKey *)(UINTPTR)DmeKeyAddr;
+	XNvm_DmeKey *DmeKey = NULL;
 	XNvm_DmeKeyWriteCdo *DmeKeyWriteCdo = (XNvm_DmeKeyWriteCdo *)Payload;
 
 	/**
 	 *  - Perform input parameter validation on InstancePtr. Return XST_INVALID_PARAM If input parameters are invalid
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DmeKeyAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -509,6 +520,8 @@ int XNvm_WriteDmePrivateKey(XNvm_ClientInstance *InstancePtr, u32 DmeKeyType, co
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	DmeKey = (XNvm_DmeKey *)(UINTPTR)DmeKeyAddr;
 
 	Xil_DCacheFlushRange((UINTPTR)DmeKey, sizeof(XNvm_DmeKey));
 
@@ -1577,7 +1590,7 @@ int XNvm_EfuseReadPufAsUserFuses(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufUserFuseAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
@@ -1629,7 +1642,7 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 {
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
-	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
+	XNvm_EfusePufHdAddr *EfusePuf = NULL;
 	XNvm_PufWriteCdo *PufWrCdo = (XNvm_PufWriteCdo *)Payload;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -1638,10 +1651,12 @@ int XNvm_EfuseWritePuf(XNvm_ClientInstance *InstancePtr, const u64 PufHdAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufHdAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 
 	Xil_DCacheFlushRange((UINTPTR)EfusePuf, sizeof(XNvm_EfusePufHdAddr));
 
@@ -1696,7 +1711,7 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	volatile int RetStatus = XST_GLITCH_ERROR;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	XNvm_EfusePufHdAddr *EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
+	XNvm_EfusePufHdAddr *EfusePuf = NULL;
 	u32 ReadPufHd[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS] = {0U};
 	u32 ReadChash = 0U;
 	u32 ReadAux = 0U;
@@ -1708,10 +1723,12 @@ int XNvm_EfuseReadPuf(XNvm_ClientInstance *InstancePtr, u64 PufHdAddr)
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufHdAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	EfusePuf = (XNvm_EfusePufHdAddr *)(UINTPTR)PufHdAddr;
 
 	Xil_DCacheInvalidateRange((UINTPTR)ReadPufHd, (XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS * XNVM_WORD_LEN));
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadChash, XNVM_WORD_LEN);
@@ -1959,8 +1976,8 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	XNvm_EfuseUserDataAddr *UserFuseData = (XNvm_EfuseUserDataAddr *)(UINTPTR)UserFuseAddr;
-	u16 StartOffset = XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET + UserFuseData->StartUserFuseNum * XNVM_WORD_LEN;
+	XNvm_EfuseUserDataAddr *UserFuseData = NULL;
+	u16 StartOffset;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -1968,10 +1985,14 @@ int XNvm_EfuseReadUserFuses(XNvm_ClientInstance *InstancePtr, u64 UserFuseAddr)
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (UserFuseAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	UserFuseData = (XNvm_EfuseUserDataAddr *)(UINTPTR)UserFuseAddr;
+	StartOffset = XNVM_EFUSE_CACHE_USER_FUSE_START_OFFSET +
+			(UserFuseData->StartUserFuseNum * XNVM_WORD_LEN);
 
 #ifndef VERSAL_2VE_2VM
 	Status = XNvm_IsDmeModeEn();
@@ -2017,7 +2038,7 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseMiscCtrlBits *MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)(UINTPTR)MiscCtrlBits;
+	XNvm_EfuseMiscCtrlBits *MiscCtrlBitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2025,10 +2046,12 @@ int XNvm_EfuseReadMiscCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 MiscC
 	 * - Validate input parameters.
 	 * Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (MiscCtrlBits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	MiscCtrlBitsData = (XNvm_EfuseMiscCtrlBits *)(UINTPTR)MiscCtrlBits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
@@ -2116,7 +2139,7 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseSecCtrlBits *SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)(UINTPTR)SecCtrlBits;
+	XNvm_EfuseSecCtrlBits *SecCtrlBitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2124,10 +2147,12 @@ int XNvm_EfuseReadSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 SecCtr
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecCtrlBits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	SecCtrlBitsData = (XNvm_EfuseSecCtrlBits *)(UINTPTR)SecCtrlBits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
@@ -2250,7 +2275,7 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseSecMisc1Bits *SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)(UINTPTR)SecMisc1Bits;
+	XNvm_EfuseSecMisc1Bits *SecMisc1BitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2258,10 +2283,12 @@ int XNvm_EfuseReadSecMisc1Bits(XNvm_ClientInstance *InstancePtr, const u64 SecMi
 	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (SecMisc1Bits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	SecMisc1BitsData = (XNvm_EfuseSecMisc1Bits *)(UINTPTR)SecMisc1Bits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
@@ -2329,7 +2356,7 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)(UINTPTR)BootEnvCtrlBits;
+	XNvm_EfuseBootEnvCtrlBits *BootEnvCtrlBitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2337,10 +2364,12 @@ int XNvm_EfuseReadBootEnvCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Bo
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (BootEnvCtrlBits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	BootEnvCtrlBitsData = (XNvm_EfuseBootEnvCtrlBits *)(UINTPTR)BootEnvCtrlBits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
@@ -2416,7 +2445,7 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadReg;
-	XNvm_EfuseRomRsvdBits *RomRsvdBitsData = (XNvm_EfuseRomRsvdBits *)(UINTPTR)RomRsvdBits;
+	XNvm_EfuseRomRsvdBits *RomRsvdBitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2424,10 +2453,12 @@ int XNvm_EfuseReadRomRsvdBits(XNvm_ClientInstance *InstancePtr, const u64 RomRsv
 	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (RomRsvdBits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	RomRsvdBitsData = (XNvm_EfuseRomRsvdBits *)(UINTPTR)RomRsvdBits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadReg, XNVM_WORD_LEN);
 
@@ -2495,7 +2526,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadDmeFipsReg;
 	u32 ReadIpDisable0Reg;
-	XNvm_EfuseFipsInfoBits *FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)(UINTPTR)FipsInfoBits;
+	XNvm_EfuseFipsInfoBits *FipsInfoBitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2503,10 +2534,12 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	 *  - Perform input parameter validation on InstancePtr.
 	 *  Return XST_INVALID_PARAM If input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (FipsInfoBits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)(UINTPTR)FipsInfoBits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadDmeFipsReg, XNVM_WORD_LEN);
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadIpDisable0Reg, XNVM_WORD_LEN);
@@ -2553,6 +2586,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	FipsInfoBitsData->FipsMode = (u8)((ReadDmeFipsReg &
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK) >>
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT);
+
 	FipsInfoBitsData->FipsVersion = XNvm_EfuseCache_GetFipsVersion(ReadIpDisable0Reg);
 
 END:
@@ -2580,7 +2614,7 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
 	u32 ReadSecurityCtrlReg;
 	u32 ReadEccCtrlReg;
-	XNvm_EfusePufSecCtrlBits *PufSecCtrlBitsData = (XNvm_EfusePufSecCtrlBits *)(UINTPTR)PufSecCtrlBits;
+	XNvm_EfusePufSecCtrlBits *PufSecCtrlBitsData = NULL;
 	u32 HighAddr;
 	u32 LowAddr;
 
@@ -2588,10 +2622,12 @@ int XNvm_EfuseReadPufSecCtrlBits(XNvm_ClientInstance *InstancePtr, const u64 Puf
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (PufSecCtrlBits == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	PufSecCtrlBitsData = (XNvm_EfusePufSecCtrlBits *)(UINTPTR)PufSecCtrlBits;
 
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadEccCtrlReg, XNVM_WORD_LEN);
 	Xil_DCacheInvalidateRange((UINTPTR)&ReadSecurityCtrlReg, XNVM_WORD_LEN);
@@ -2900,7 +2936,7 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 	volatile int Status = XST_FAILURE;
 	u32 Payload[PAYLOAD_ARG_CNT];
 	XNvm_RdCacheCdo* RdCacheCdo =  (XNvm_RdCacheCdo*)Payload;
-	XNvm_EfuseDmeRevokeId* DmeRevokeId = (XNvm_EfuseDmeRevokeId *)(UINTPTR)DmeRevokeIdAddr;
+	XNvm_EfuseDmeRevokeId* DmeRevokeId = NULL;
 	u64 ReadReg;
 	u32 HighAddr;
 	u32 LowAddr;
@@ -2908,10 +2944,12 @@ int XNvm_EfuseReadDmeRevokeId(XNvm_ClientInstance *InstancePtr, const u64 DmeRev
 	 *  - Validate input parameters.
 	 *  Return XST_INVALID_PARAM, if input parameters are invalid.
 	 */
-	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL)) {
+	if ((InstancePtr == NULL) || (InstancePtr->MailboxPtr == NULL) || (DmeRevokeIdAddr == 0U)) {
 		Status = XST_INVALID_PARAM;
 		goto END;
 	}
+
+	DmeRevokeId = (XNvm_EfuseDmeRevokeId *)(UINTPTR)DmeRevokeIdAddr;
 
 	XNVM_GET_HADDR(&ReadReg, HighAddr);
 	LowAddr = (u32)(UINTPTR)&ReadReg;
