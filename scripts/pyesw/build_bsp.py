@@ -59,6 +59,18 @@ class BSP:
         else:
             self.cmake_paths_append += " -Wno-dev "
 
+        # Normalize path separators to forward slashes so cmake doesn't
+        # misinterpret Windows backslashes as escape sequences (e.g. \U in
+        # C:\Users\...) when it writes cmake_install.cmake. This is a no-op
+        # on Linux where paths never contain backslashes.
+        self.domain_path = self.domain_path.replace("\\", "/")
+        self.include_folder = self.include_folder.replace("\\", "/")
+        self.lib_folder = self.lib_folder.replace("\\", "/")
+        self.libsrc_folder = self.libsrc_folder.replace("\\", "/")
+        self.toolchain_file = self.toolchain_file.replace("\\", "/")
+        self.specs_file = self.specs_file.replace("\\", "/")
+        self.cmake_paths_append = self.cmake_paths_append.replace("\\", "/")
+
         self.drvlist = self.getdrv_list()
         self.lib_config = domain_data["lib_config"]
         self.template = domain_data["template"]
