@@ -763,7 +763,7 @@ extern "C" {
 /**
  * DDRMC Registers
  */
-#if defined(VERSAL_2VP) || defined(VERSAL_2VP_P) || defined(XCVM2152)
+#if defined(VERSAL_2VP) || defined(VERSAL_2VP_P) || defined(XCVM2152) || defined(XCVR1602) || defined(XCVR1652)
 #define DDRMC_MAIN_UB_OFFSET					(0x30000U)
 #define DDRMC_MAIN_REG_COM_4_OFFSET				(0xCC8U)
 #define DDRMC_UB_PMC2UB_INTERRUPT_OFFSET			(0x220U)
