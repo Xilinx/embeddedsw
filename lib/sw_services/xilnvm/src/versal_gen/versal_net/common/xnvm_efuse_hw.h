@@ -433,12 +433,23 @@ extern "C" {
                         /**< eFUSE FIPS mode start column */
 #define XNVM_EFUSE_FIPS_MODE_END_COL_NUM		(15U)
                         /**< eFUSE FIPS mode end column */
+#ifdef VERSAL_2VE_2VM
+#define XNVM_EFUSE_FIPS_VERSION_COL_0_NUM		(30U)
+                        /**< eFUSE FIPS version column 0 */
+#define XNVM_EFUSE_FIPS_VERSION_COL_1_NUM		(31U)
+                        /**< eFUSE FIPS version column 1 */
+#define XNVM_EFUSE_MAX_FIPS_VERSION	(3U) /**< Max Value of FIPS version */
+
+#else
 #define XNVM_EFUSE_FIPS_VERSION_COL_0_NUM		(2U)
                         /**< eFUSE FIPS version column 0 */
 #define XNVM_EFUSE_FIPS_VERSION_COL_1_NUM		(30U)
                         /**< eFUSE FIPS version column 1 */
 #define XNVM_EFUSE_FIPS_VERSION_COL_2_NUM		(31U)
                         /**< eFUSE FIPS version column 2 */
+#define XNVM_EFUSE_MAX_FIPS_VERSION	(7U) /**< Max Value of FIPS version */
+#endif
+
 #define XNVM_EFUSE_PUF_SYN_DATA_START_COL_NUM		(0U)
                         /**< eFUSE PUF syndrome data start column */
 #define XNVM_EFUSE_PUF_SYN_DATA_END_COL_NUM		(31U)

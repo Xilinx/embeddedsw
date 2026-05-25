@@ -374,15 +374,17 @@ extern "C" {
  * @name  Register: EFUSE_CACHE_IP_DISABLE_0
  * @{
  */
-#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_MASK	(0xC0000000U)
-                        /**< Bit mask for FIPS version bits [2:1] in IP disable register */
-#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_MASK	(0x00000004U)
-                        /**< Bit mask for FIPS version bit 0 in IP disable register */
+#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_MASK		(0xC0000000U)
+                        /**< Bit mask for upper FIPS version bits in IP disable register */
+#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_SHIFT	(30U)
+                        /**< Bit shift for upper FIPS version bits in IP disable register */
 
-#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT	(30U)
-                        /**< Bit shift for FIPS version bits [2:1] in IP disable register */
-#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT	(2U)
-                        /**< Bit shift for FIPS version bit 0 in IP disable register */
+#ifndef VERSAL_2VE_2VM
+#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_MASK		(0x00000004U)
+                        /**< Bit mask for lower FIPS version bit in IP disable register */
+#define XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_SHIFT	(2U)
+                        /**< Bit shift for lower FIPS version bit in IP disable register */
+#endif
 /** @} */
 
 /**

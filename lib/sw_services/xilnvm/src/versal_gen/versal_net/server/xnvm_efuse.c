@@ -109,7 +109,6 @@ static int XNvm_EfusePrgmPufFuses(const XNvm_EfusePufFuse *WritePufFuses);
 /************************** Constant Definitions *****************************/
 #define XNVM_EFUSE_ERROR_BYTE_SHIFT	(8U) /**< Byte shift used in error code */
 #define XNVM_EFUSE_ERROR_NIBBLE_SHIFT	(4U) /**< Nibble shift used in error code */
-#define XNVM_EFUSE_MAX_FIPS_VERSION	(7U) /**< Max Value of FIPS version */
 #define XNVM_EFUSE_MAX_FIPS_MODE	(0xFFU) /**< Max value of FIPS mode */
 #define XNVM_EFUSE_BITS_IN_A_BYTE	(8U) /**< Number of bits in a byte */
 #define XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET	(0xFFFFFFFFU)
@@ -2258,16 +2257,18 @@ static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion)
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 PrgmFipsVer = FipsVersion;
 
-	EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_FIPS_ROW;
-	EfusePrgmInfo.ColStart = XNVM_EFUSE_FIPS_MODE_START_COL_NUM;
-	EfusePrgmInfo.ColEnd = XNVM_EFUSE_FIPS_MODE_END_COL_NUM;
-	EfusePrgmInfo.NumOfRows = XNVM_EFUSE_DME_FIPS_NUM_OF_ROWS;
-	EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
+	if (FipsMode != 0U) {
+		EfusePrgmInfo.StartRow = XNVM_EFUSE_DME_FIPS_ROW;
+		EfusePrgmInfo.ColStart = XNVM_EFUSE_FIPS_MODE_START_COL_NUM;
+		EfusePrgmInfo.ColEnd = XNVM_EFUSE_FIPS_MODE_END_COL_NUM;
+		EfusePrgmInfo.NumOfRows = XNVM_EFUSE_DME_FIPS_NUM_OF_ROWS;
+		EfusePrgmInfo.EfuseType = XNVM_EFUSE_PAGE_0;
 
-	Status = XST_FAILURE;
-	Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &FipsMode);
-	if (Status != XST_SUCCESS) {
-		goto END;
+		Status = XST_FAILURE;
+		Status = XNvm_EfusePgmAndVerifyData(&EfusePrgmInfo, &FipsMode);
+		if (Status != XST_SUCCESS) {
+			goto END;
+		}
 	}
 
 	if ((PrgmFipsVer & 0x01U) == 0x01U) {
@@ -2292,7 +2293,7 @@ static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion)
 			goto END;
 		}
 	}
-
+#ifndef VERSAL_2VE_2VM
 	PrgmFipsVer = PrgmFipsVer >> 1U;
 	if ((PrgmFipsVer & 0x01U) == 0x01U) {
 		Status = XST_FAILURE;
@@ -2301,6 +2302,7 @@ static int XNvm_EfusePrgmFipsInfo(u32 FipsMode, u32 FipsVersion)
 				XNVM_EFUSE_FIPS_VERSION_COL_2_NUM,
 				XNVM_EFUSE_PROGRAM_VERIFY);
 	}
+#endif
 
 END:
 	return Status;
