@@ -66,6 +66,32 @@
 #define XNVM_SHIFT_1_BIT					(1U)
 						/**< Shift value for 1 bit shift */
 
+/*****************************************************************************/
+/**
+ * @brief	Extracts normalized FIPS version value from IP disable register.
+ *
+ * @param	RegVal	IP disable register value.
+ *
+ * @return	Normalized FIPS version value.
+ *
+******************************************************************************/
+static inline u8 XNvm_EfuseCache_GetFipsVersion(const u32 RegVal)
+{
+#ifndef VERSAL_2VE_2VM
+	u32 FipsVersion;
+
+	FipsVersion = ((RegVal & XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_MASK) >>
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_SHIFT) << XNVM_SHIFT_1_BIT;
+	FipsVersion |= ((RegVal & XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_MASK) >>
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_LSB_SHIFT);
+
+	return (u8)FipsVersion;
+#else
+	return (u8)((RegVal & XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_MASK) >>
+		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_SHIFT);
+#endif
+}
+
 /************************** Function Prototypes ******************************/
 static void XNvm_EfuseCreateWriteKeyCmd(XNvm_AesKeyWriteCdo* AesKeyWrCdo, XNvm_AesKeyType KeyType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
 static void XNvm_EfuseCreateWritePpkCmd(XNvm_PpkWriteCdo* PpkWrCdo, XNvm_PpkType PpkType, u32 AddrLow, u32 AddrHigh, u32 EnvMonDis);
@@ -2472,8 +2498,6 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	XNvm_EfuseFipsInfoBits *FipsInfoBitsData = (XNvm_EfuseFipsInfoBits *)(UINTPTR)FipsInfoBits;
 	u32 HighAddr;
 	u32 LowAddr;
-	u8 FipsVersionUpperBits;
-	u8 FipsVersionLowerBit;
 
 	/**
 	 *  - Perform input parameter validation on InstancePtr.
@@ -2529,16 +2553,7 @@ int XNvm_EfuseReadFipsInfoBits(XNvm_ClientInstance *InstancePtr, const u64 FipsI
 	FipsInfoBitsData->FipsMode = (u8)((ReadDmeFipsReg &
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_MASK) >>
 		XNVM_EFUSE_CACHE_DME_FIPS_FIPS_MODE_SHIFT);
-
-	FipsVersionUpperBits = (u8)((ReadIpDisable0Reg &
-		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_MASK) >>
-		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_2_1_SHIFT);
-
-	FipsVersionLowerBit = (u8)(ReadIpDisable0Reg &
-		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_MASK) >>
-		XNVM_EFUSE_CACHE_IP_DISABLE_0_FIPS_VERSION_0_SHIFT;
-
-	FipsInfoBitsData->FipsVersion = (FipsVersionUpperBits << XNVM_SHIFT_1_BIT) | FipsVersionLowerBit;
+	FipsInfoBitsData->FipsVersion = XNvm_EfuseCache_GetFipsVersion(ReadIpDisable0Reg);
 
 END:
 	return Status;
