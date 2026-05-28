@@ -18,7 +18,7 @@ set( CMAKE_MACHINE "ZynqMP" CACHE STRING "cmake machine" FORCE)
 set( CMAKE_SYSTEM_NAME "Generic" )
 set( CMAKE_SPECS_FILE "$ENV{ESW_REPO}/scripts/specs/microblaze/Xilinx.spec" CACHE STRING "Specs file path for using CMAKE toolchain files" )
 # FIXME: Use generic microblaze toolchain file for pmu microblaze processor as well.
-set( TOOLCHAIN_PMU_C_FLAGS " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mxl-reorder -mxl-soft-mul -mxl-soft-div -O2 -pipe -g -feliminate-unused-debug-types -Os -ffile-prefix-map=${CMAKE_CURRENT_SOURCE_DIR}=. -flto -ffat-lto-objects -DPSU_PMU=1U -mcpu=v9.2")
+set( TOOLCHAIN_PMU_C_FLAGS " -mlittle-endian -mxl-barrel-shift -mxl-pattern-compare -mxl-reorder -mxl-soft-mul -mxl-soft-div -O2 -pipe -g -feliminate-unused-debug-types -Os -ffile-prefix-map=${CMAKE_CURRENT_SOURCE_DIR}=. -flto -ffat-lto-objects -fno-function-sections -fno-data-sections -DPSU_PMU=1U -mcpu=v9.2")
 set( TOOLCHAIN_C_FLAGS " -O2 ${TOOLCHAIN_PMU_C_FLAGS} -DSDT" CACHE STRING "CFLAGS" )
 set( TOOLCHAIN_CXX_FLAGS " -O2 ${TOOLCHAIN_PMU_C_FLAGS} -DSDT" CACHE STRING "CXXFLAGS" )
 set( TOOLCHAIN_ASM_FLAGS " -O2 ${TOOLCHAIN_PMU_C_FLAGS} -DSDT" CACHE STRING "ASM FLAGS" )
