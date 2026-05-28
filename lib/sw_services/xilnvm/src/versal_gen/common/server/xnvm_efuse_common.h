@@ -20,9 +20,12 @@
 * 3.0   kal  07/16/2022 Initial release
 * 3.1   skg  10/25/2022 Added comments for macros and enums
 * 3.2   kum  04/11/2023 Moved Voltage and Temp macros for LP,MP,HP ranges from versal xnvm_efuse.h
-*	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
+*	    vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
 * 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       ng   11/22/2023 Fixed doxygen grouping
+* 3.7   obs  03/26/2026 Updated function signatures to use XNvm_SysmonPsv type
+*                       Added XNVM_SYSMON_* macros and XNvm_SysMon_*() inline
+*                       wrappers using proper XNVM namespace
 *
 * </pre>
 *
@@ -44,7 +47,11 @@ extern "C" {
 #include "xil_io.h"
 #include "xil_types.h"
 #include "xstatus.h"
+#ifdef VERSAL_PLM
+#include "xplmi_sysmon.h"
+#else
 #include "xsysmonpsv.h"
+#endif
 #include "xnvm_defs.h"
 #include "xnvm_efuse_error.h"
 
@@ -110,7 +117,31 @@ extern "C" {
 #define XNVM_EFUSE_PROTECTION_BIT_CLEAR		(0U)
                         /**< To check the corresponding protection eFuse is set or not */
 
+/**
+ *  @name SysMon register offset aliases for XilNvm
+ */
+#ifdef VERSAL_PLM
+#define XNVM_SYSMON_PCSR_LOCK		XPLMI_SYSMON_PCSR_LOCK       /**< PCSR Lock register offset */
+#define XNVM_SYSMON_NEW_DATA_FLAG0	XPLMI_SYSMON_NEW_DATA_FLAG0  /**< New Data Flag 0 register offset (Supply[0-31]) */
+#define XNVM_SYSMON_NEW_DATA_FLAG1	XPLMI_SYSMON_NEW_DATA_FLAG1  /**< New Data Flag 1 register offset (Supply[32-63]) */
+#define XNVM_SYSMON_SUPPLY_OFFSET	XPLMI_SYSMON_SUPPLY_OFFSET   /**< Supply register base offset */
+#define XNVM_SYSMON_TEMP_SAT		XPLMI_SYSMON_TEMP_SAT        /**< Internal temperature register offset */
+#else
+#define XNVM_SYSMON_PCSR_LOCK		XSYSMONPSV_PCSR_LOCK         /**< PCSR Lock register offset */
+#define XNVM_SYSMON_NEW_DATA_FLAG0	XSYSMONPSV_NEW_DATA_FLAG0    /**< New Data Flag 0 register offset (Supply[0-31]) */
+#define XNVM_SYSMON_NEW_DATA_FLAG1	XSYSMONPSV_NEW_DATA_FLAG1    /**< New Data Flag 1 register offset (Supply[32-63]) */
+#define XNVM_SYSMON_SUPPLY_OFFSET	XSYSMONPSV_SUPPLY            /**< Supply register base offset */
+#define XNVM_SYSMON_TEMP_SAT		XSYSMONPSV_TEMP_SAT          /**< Internal temperature register offset */
+#endif
+/** @} */
+
 /***************************** Type Definitions *******************************/
+#ifdef VERSAL_PLM
+typedef XPlmi_SysMonPsv XNvm_SysmonPsv;
+#else
+typedef XSysMonPsv XNvm_SysmonPsv;
+#endif
+
 /**
  * Operation mode
  */
@@ -136,7 +167,63 @@ typedef enum {
 	XNVM_EFUSE_PAGE_2 /**< Efuse page 2*/
 } XNvm_EfuseType;
 
+/***************** Macros (Inline Functions) Definitions *********************/
 
+/****************************************************************************/
+/**
+ * @brief  Converts raw AdcData into Voltage value.
+ *
+ * @param  AdcData	System Monitor ADC Raw Data.
+ *
+ * @return The Voltage in volts.
+ *
+ ****************************************************************************/
+static inline float XNvm_SysMon_RawToVoltage(u32 AdcData)
+{
+#ifdef VERSAL_PLM
+	return XPlmi_SysMon_RawToVoltage(AdcData);
+#else
+	return XSysMonPsv_RawToVoltage(AdcData);
+#endif
+}
+
+/****************************************************************************/
+/**
+ * @brief  Converts the fixed point to degree celsius.
+ *
+ * @param  FixedQFmt	Q8.7 representation of temperature value.
+ *
+ * @return The Temperature in degree celsius.
+ *
+ ****************************************************************************/
+static inline float XNvm_SysMon_FixedToFloat(u32 FixedQFmt)
+{
+#ifdef VERSAL_PLM
+	return XPlmi_SysMon_FixedToFloat(FixedQFmt);
+#else
+	return XSysMonPsv_FixedToFloat(FixedQFmt);
+#endif
+}
+
+/****************************************************************************/
+/**
+ * @brief  Reads the device temperature from SysMon registers.
+ *
+ * @param  InstancePtr	Pointer to the SysMon instance.
+ *
+ * @return Temperature value in signed Q8.7 format.
+ *
+ ****************************************************************************/
+static inline u32 XNvm_SysMon_ReadDeviceTemp(
+		XNvm_SysmonPsv *InstancePtr)
+{
+#ifdef VERSAL_PLM
+	return XPlmi_SysMon_ReadDeviceTemp(InstancePtr);
+#else
+	return XSysMonPsv_ReadDeviceTemp((XSysMonPsv *)InstancePtr,
+					 XSYSMONPSV_VAL);
+#endif
+}
 
 /*************************** Function Prototypes ******************************/
 int XNvm_EfuseCacheReload(void);
@@ -150,7 +237,7 @@ void XNvm_EfuseInitTimers(void);
 int XNvm_EfuseSetupController(XNvm_EfuseOpMode Op, XNvm_EfuseRdMode RdMode);
 int XNvm_EfuseCheckForTBits(void);
 u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr);
-int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr);
+int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr);
 u32 XNvm_EfuseReadProtectionBits(u32 Mask);
 
 

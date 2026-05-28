@@ -21,7 +21,6 @@
 #include "xpm_psm.h"
 #include "xpm_regs.h"
 #include "xpm_subsystem.h"
-#include "xsysmonpsv.h"
 #include "xpm_ioctl.h"
 #include "xpm_ipi.h"
 #include "xpm_psm_api.h"

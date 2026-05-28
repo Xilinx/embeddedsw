@@ -12,7 +12,6 @@ ospipsv
 rtcpsu
 sdps
 spips
-sysmonpsv
 tmr_inject
 tmr_manager
 ttcps

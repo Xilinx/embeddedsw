@@ -36,6 +36,7 @@
 * 3.6	obs  08/26/2025 Added support for Verifying Address Range
 * 3.7   mb   12/31/2025 Added IPI support for AES key CRC check
 *       ng   02/10/2026 Fixed undefined END label usage in XNvm_EfuseRead
+*       obs  03/26/2026 Replaced XSysMonPsv casts with XNvm_SysmonPsv
 *
 * </pre>
 *
@@ -1401,7 +1402,7 @@ static int XNvm_EfuseIvWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&Ivs, sizeof(Ivs));
@@ -1443,7 +1444,7 @@ static int XNvm_EfuseSecMisc1WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&SecMisc1Bits, sizeof(SecMisc1Bits));
@@ -1485,7 +1486,7 @@ static int XNvm_EfuseAnlgTrimWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&GlitchCfgBits, sizeof(GlitchCfgBits));
@@ -1527,7 +1528,7 @@ static int XNvm_EfuseBootEnvCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMon
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&BootEnvCtrl, sizeof(BootEnvCtrl));
@@ -1570,7 +1571,7 @@ static int XNvm_EfusePufWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitorDis)
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PufHdAddr, sizeof(PufHdAddr));
@@ -1625,7 +1626,7 @@ static int XNvm_EfuseSecMisc0WriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&DecOnly, sizeof(DecOnly));
@@ -1667,7 +1668,7 @@ static int XNvm_EfuseAesKeysWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&AesKeys, sizeof(AesKeys));
@@ -1711,7 +1712,7 @@ static int XNvm_EfuseOffChipIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMoni
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&OffChipIds, sizeof(OffChipIds));
@@ -1753,7 +1754,7 @@ static int XNvm_EfuseRevokeIdsWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonit
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&RevokeIds, sizeof(RevokeIds));
@@ -1795,7 +1796,7 @@ static int XNvm_EfusePpkhashWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&PpkHash, sizeof(PpkHash));
@@ -1839,7 +1840,7 @@ static int XNvm_EfuseUserFuseWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&UserFuses, sizeof(UserFuses));
@@ -1884,7 +1885,7 @@ static int XNvm_EfuseMiscCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonito
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&MiscCtrlBits, sizeof(MiscCtrlBits));
@@ -1945,7 +1946,7 @@ static int XNvm_EfuseSecCtrlWriteAccess(u32 SubsystemId, u64 Addr, u8 EnvMonitor
 
 	EfuseData.EnvMonitorDis = EnvMonitorDis;
 	if (EfuseData.EnvMonitorDis == FALSE) {
-		EfuseData.SysMonInstPtr = (XSysMonPsv *)XPlmi_GetSysmonInst();
+		EfuseData.SysMonInstPtr = XPlmi_GetSysmonInst();
 	}
 
 	Status = XNvm_EfuseMemCopy(Addr, (u64)(UINTPTR)&SecCtrlBits, sizeof(SecCtrlBits));

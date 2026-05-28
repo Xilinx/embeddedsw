@@ -15,7 +15,6 @@
 #include "xpm_feature_check.h"
 #include "xpm_periph.h"
 #include "xpm_gic_proxy.h"
-#include "xsysmonpsv.h"
 #include "xpm_core.h"
 #include "xplmi_scheduler.h"
 #include "xpm_regs.h"
@@ -567,18 +566,20 @@ static inline u32 AbsDiffU32(u32 X, u32 Y)
 static XStatus XPm_GetSocTemperature(u32 *Result)
 {
 	volatile XStatus Status = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr;
+	XPlmi_SysMonPsv *SysMonInstPtr;
 	u32 RawTemp1, RawTemp2, StableTemp;
 
 	SysMonInstPtr = XPlmi_GetSysmonInst();
-	if (NULL == SysMonInstPtr) {
+	if ((NULL == SysMonInstPtr) ||
+	    (0U == SysMonInstPtr->Config.BaseAddress) ||
+	    (XIL_COMPONENT_IS_READY != SysMonInstPtr->IsReady)) {
 		Status = XST_DEVICE_NOT_FOUND;
 		goto done;
 	}
 
-	/* Production silicon: use XSYSMONPSV_VAL (current value) */
-	RawTemp1 = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
-	RawTemp2 = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
+	/* Production silicon: use direct register read for current temperature */
+	RawTemp1 = XPlmi_SysMon_ReadDeviceTemp(SysMonInstPtr);
+	RawTemp2 = XPlmi_SysMon_ReadDeviceTemp(SysMonInstPtr);
 
 	if (AbsDiffU32(RawTemp1, RawTemp2) >= TEMP_TOL_LSB) {
 		Status = XST_GLITCH_ERROR;

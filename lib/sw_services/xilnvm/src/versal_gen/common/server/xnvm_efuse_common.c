@@ -25,10 +25,12 @@
 * 3.1   skg  10/25/2022 Added in body comments for APIs
 *       kal  03/07/2023 Added volatile keyword for Status variables
 * 3.2   kum  04/11/2023 Moved Env monitor API's from versal xnvm_efuse.c to make use for both versal and versalnet
-*	vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
+*	    vss  09/19/2023	Fixed MISRA-C Rule 8.7 violation
 * 3.3   vss  12/31/2023 Added support for Program the eFuse protection bits only once
 *       ng   11/22/2023 Fixed doxygen grouping
 * 3.7   mb   03/26/2026 Add support to read pss ref clock freq from RTCA for PL-Microblaze
+*       obs  03/26/2026 Replaced XSysMonPsv driver APIs with direct register
+*                       access via XPlmi_SysMon helpers
 *
 * </pre>
 *
@@ -668,7 +670,7 @@ u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
 	u32 Mode;
 
 	for (Index = 0U; Index < XNVM_EFUSE_SYSMON_NUM_MEASURE_REGS; Index++) {
-		ReadReg = XSysMonPsv_ReadReg((UINTPTR)(BaseAddr +
+		ReadReg = Xil_In32((UINTPTR)(BaseAddr +
 				XNVM_EFUSE_SYSMONPSV_SAT_MEASURE0_OFFSET +
 				(XNVM_EFUSE_WORD_LEN * Index)));
 		AbusSw0 = (ReadReg &
@@ -712,7 +714,7 @@ u32 XNvm_GetSysmonSupplyRegId(UINTPTR SysmonpsvSatBaseAddr)
  * 		- XNVM_EFUSE_ERROR_READ_TEMPERATURE_OUT_OF_RANGE - Temperature is out of range
  *
  ******************************************************************************/
-int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
+int XNvm_EfuseTempAndVoltChecks(const XNvm_SysmonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	u32 ReadReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
@@ -739,8 +741,8 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	}
 
 	/** - Unlock the sysmon register space */
-	XSysMonPsv_WriteReg(
-			SysMonInstPtr->Config.BaseAddress + XSYSMONPSV_PCSR_LOCK,
+	Xil_Out32(
+			SysMonInstPtr->Config.BaseAddress + XNVM_SYSMON_PCSR_LOCK,
 			XNVM_EFUSE_SYSMON_LOCK_CODE);
 	/**
 	 * - Get the sysmon supply register id.
@@ -770,7 +772,7 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	SysmonEventsMask = (u32)1U << Shift;
 
 	Status = (int)Xil_WaitForEvents((SysMonInstPtr->Config.BaseAddress +
-		Offset + XSYSMONPSV_NEW_DATA_FLAG0), SysmonEventsMask,
+		Offset + XNVM_SYSMON_NEW_DATA_FLAG0), SysmonEventsMask,
 		SysmonEventsMask, XNVM_EFUSE_SYSMONPSV_TIMEOUT, &ReadReg);
 	if(Status != XST_SUCCESS) {
 		Status = (int)XNVM_EFUSE_ERROR_SYSMON_NO_NEW_DATA;
@@ -780,23 +782,23 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 		/**
 		 * Else, clear the New data flag if its set
 		 */
-		XSysMonPsv_WriteReg(SysMonInstPtr->Config.BaseAddress +
-			Offset + XSYSMONPSV_NEW_DATA_FLAG0, ReadReg);
+		Xil_Out32(SysMonInstPtr->Config.BaseAddress +
+			Offset + XNVM_SYSMON_NEW_DATA_FLAG0, ReadReg);
 	}
 
 	if (ReadReg != 0x00U) {
 		/**
 		 * - Read the raw voltage value from the supply.
 		 */
-		RawVoltage = XSysMonPsv_ReadReg(
+		RawVoltage = Xil_In32(
 				SysMonInstPtr->Config.BaseAddress +
-				XSYSMONPSV_SUPPLY +
+				XNVM_SYSMON_SUPPLY_OFFSET +
 				(SupplyReg * XNVM_EFUSE_WORD_LEN));
 
 		/**
 		 * - Convert raw to voltage.
 		 */
-		Voltage = XSysMonPsv_RawToVoltage(RawVoltage);
+		Voltage = XNvm_SysMon_RawToVoltage(RawVoltage);
 		IntegralPart = (int)Voltage;
 		FractionalPart = (Voltage - IntegralPart) *
 					XNVM_EFUSE_FRACTION_MUL_VALUE;
@@ -815,9 +817,9 @@ int XNvm_EfuseTempAndVoltChecks(const XSysMonPsv *SysMonInstPtr)
 	/**
 	 * - Read the raw temperature value from the sysmon satellite.
 	 */
-	RawTemp = XSysMonPsv_ReadReg(SysMonInstPtr->Config.BaseAddress +
-			XSYSMONPSV_TEMP_SAT);
-	Temparature = XSysMonPsv_FixedToFloat(RawTemp);
+	RawTemp = Xil_In32(SysMonInstPtr->Config.BaseAddress +
+			XNVM_SYSMON_TEMP_SAT);
+	Temparature = XNvm_SysMon_FixedToFloat(RawTemp);
 
 	if (Temparature < 0.0f) {
 		Signchar = '-';

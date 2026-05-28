@@ -42,6 +42,7 @@
 *       vss  08/08/2025 Added DME support for versal_2ve_2vm.
 *       ng   09/19/2025 Replaced XNVM_EFUSE_XLNX_MANFAC_BITS_CRC_ERROR with XST_FAILURE
 * 3.7   nik  01/06/2026 Added support to allow use of PUF Helper Data eFUSEs for general purpose.
+*       obs  03/26/2026 Replaced XSysMonPsv types with XNvm_SysmonPsv
 * </pre>
 *
 *******************************************************************************/
@@ -58,8 +59,6 @@
 #include "xnvm_utils.h"
 #include "xnvm_validate.h"
 #include "xnvm_efuse_common.h"
-#include "xsysmonpsv.h"
-#include "xplmi_sysmon.h"
 /**************************** Type Definitions *******************************/
 /**
  * Structure to hold eFuse programming information
@@ -257,7 +256,7 @@ int XNvm_EfuseWriteAesKey(u32 EnvDisFlag, XNvm_AesKeyType KeyType, XNvm_AesKey *
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  - Validate input parameters.
@@ -353,7 +352,7 @@ int XNvm_EfuseWritePpkHash(u32 EnvDisFlag, XNvm_PpkType PpkType, XNvm_PpkHash *E
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -453,7 +452,7 @@ int XNvm_EfuseWriteIv(u32 EnvDisFlag, XNvm_IvType IvType, XNvm_Iv *EfuseIv)
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  - Validate input parameters.
@@ -549,7 +548,7 @@ int XNvm_EfuseWriteGlitchConfigBits(u32 EnvDisFlag, u32 GlitchConfig)
 	u32 GlitchDetVal = 0U;
 	u32 GlitchDetWrLk = 0U;
 	u32 PrgmGlitchConfig = 0U;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -653,7 +652,7 @@ int XNvm_EfuseWriteDecOnly(u32 EnvDisFlag)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 Data = XNVM_EFUSE_CACHE_DEC_EFUSE_ONLY_MASK;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -744,7 +743,7 @@ int XNvm_EfuseWriteRevocationID(u32 EnvDisFlag, u32 RevokeIdNum)
 	u32 RevokeIdCol;
 	u32 Offset;
 	u32 StartCol;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -841,7 +840,7 @@ int XNvm_EfuseWriteOffChipRevokeID(u32 EnvDisFlag, u32 OffchipIdNum)
 	int CloseStatus = XST_FAILURE;
 	u32 OffchipIdRow;
 	u32 OffchipIdCol;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -924,7 +923,7 @@ int XNvm_EfuseWriteMiscCtrlBits(u32 EnvDisFlag, u32 MiscCtrlBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdMiscCtrlBits = 0U;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1011,7 +1010,7 @@ int XNvm_EfuseWriteSecCtrlBits(u32 EnvDisFlag, u32 SecCtrlBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdSecCtrlBits = 0U;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1097,7 +1096,7 @@ int XNvm_EfuseWriteMisc1Bits(u32 EnvDisFlag, u32 Misc1Bits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdMisc1Bits = 0U;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1184,7 +1183,7 @@ int XNvm_EfuseWriteBootEnvCtrlBits(u32 EnvDisFlag, u32 BootEnvCtrlBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 RdBootEnvCtrlBits = 0U;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1271,7 +1270,7 @@ int XNvm_EfuseWriteFipsInfo(u32 EnvDisFlag, u32 FipsMode, u32 FipsVersion)
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -1362,7 +1361,7 @@ int XNvm_EfuseWriteUds(u32 EnvDisFlag, XNvm_Uds *EfuseUds)
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 SecCtrlBits = 0U;
 	u32 Crc;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -1523,7 +1522,7 @@ int XNvm_EfuseWriteDmeUserKey(u32 EnvDisFlag, XNvm_DmeKeyType KeyType, XNvm_DmeK
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	const XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	const XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -1616,7 +1615,7 @@ int XNvm_EfuseWriteDmeRevoke(u32 EnvDisFlag, XNvm_DmeRevoke RevokeNum)
 	u32 Col_0_Num = 0U;
 	u32 Col_1_Num = 0U;
 	volatile XNvm_DmeRevoke RevokeNumTmp;
-	const XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	const XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  - Validate input parameters.
@@ -1738,7 +1737,7 @@ int XNvm_EfuseWriteDisableInplacePlmUpdate(u32 EnvDisFlag)
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1810,7 +1809,7 @@ int XNvm_EfuseWriteBootModeDisable(u32 EnvDisFlag, u32 BootModeMask)
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1885,7 +1884,7 @@ int XNvm_EfuseWriteDmeMode(u32 EnvDisFlag, u32 DmeMode)
 #ifndef VERSAL_2VE_2VM
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -1965,7 +1964,7 @@ int XNvm_EfuseWriteCrc(u32 EnvDisFlag, u32 Crc)
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 CrcSalt = XNVM_EFUSE_CRC_SALT;
 	u32 ReadReg = 0U;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**
@@ -2068,7 +2067,7 @@ int XNvm_EfuseWritePuf(const XNvm_EfusePufHdAddr *PufHelperData)
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
 	u32 PufSecurityCtrlReg = XNVM_EFUSE_SEC_DEF_VAL_ALL_BIT_SET;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  - Validate input parameters.
@@ -2334,7 +2333,7 @@ END:
 {
 	volatile int Status = XST_FAILURE;
 	int CloseStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 * - Validate input parameters.
@@ -2703,7 +2702,7 @@ int XNvm_EfuseWritePufAsUserFuses(const XNvm_EfusePufFuse *PufFuse)
 	volatile int LockStatus = XST_FAILURE;
 	volatile int ResetStatus = XST_FAILURE;
 	volatile int DisableStatus = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	/**
 	 *  - Validate input parameters.
@@ -3819,7 +3818,7 @@ int XNvm_EfuseWriteRomRsvdBits(u32 EnvDisFlag, u32 RomRsvdBits)
 	int CloseStatus = XST_FAILURE;
 	XNvm_EfusePrgmInfo EfusePrgmInfo = {0U};
 	u32 WrRomRsvdBits;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XNvm_SysmonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if (EnvDisFlag != TRUE) {
 		/**

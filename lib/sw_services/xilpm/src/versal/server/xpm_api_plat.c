@@ -34,7 +34,6 @@
 #include "xpm_regs.h"
 #include "xpm_ioctl.h"
 #include "xpm_ipi.h"
-#include "xsysmonpsv.h"
 #include "xpm_notifier.h"
 #include "xplmi_error_node.h"
 #include "xpm_rail.h"

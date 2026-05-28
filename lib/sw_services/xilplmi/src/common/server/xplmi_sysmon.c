@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -39,7 +39,9 @@
  *       dd   03/28/2023 Updated doxygen comments
  * 1.08  rama 08/10/2023 Changed OT print to DEBUG_ALWAYS for
  *                       debug level_0 option
- *       mss  03/13/2024 MISRA-C violatiom Rule 17.8 fixed
+ *       mss  03/13/2024 MISRA-C violation Rule 17.8 fixed
+ * 2.40  obs  02/12/2025 Removed XSysMonPsv driver dependency, use direct
+ *                       register access for PLM operations
  *
  * </pre>
  *
@@ -59,8 +61,8 @@
 #include "xplmi_wdt.h"
 
 /************************** Constant Definitions *****************************/
-#define XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET		(0x10000U) /**< SAT0 PCSR mask offset */
-#define XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET		(0x20000U) /**< SAT1 PCSR mask offset */
+#define XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET	(0x10000U) /**< SAT0 PCSR mask offset */
+#define XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET	(0x20000U) /**< SAT1 PCSR mask offset */
 #define XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK	(0x80000U) /**< PCSR control slave error enable mask */
 
 /**************************** Type Definitions *******************************/
@@ -68,9 +70,11 @@
 /***************** Macros (Inline Functions) Definitions *********************/
 
 /************************** Function Prototypes ******************************/
-static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value);
+static void XPlmi_WriteSysmonCtrlReg(UINTPTR Addr, u32 Value);
 
 /************************** Variable Definitions *****************************/
+/** SysMon instance - stores only base address */
+static XPlmi_SysMonPsv SysMonInst = {0U};
 
 /*****************************************************************************/
 
@@ -81,10 +85,8 @@ static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value);
  * @return	Address of SysmonInst
  *
  *****************************************************************************/
-XSysMonPsv* XPlmi_GetSysmonInst(void)
+XPlmi_SysMonPsv *XPlmi_GetSysmonInst(void)
 {
-	static XSysMonPsv SysMonInst;
-
 	return &SysMonInst;
 }
 
@@ -96,21 +98,22 @@ XSysMonPsv* XPlmi_GetSysmonInst(void)
  * @param	Value is the configuration to be written to Control register
  *
  *****************************************************************************/
-static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
+static void XPlmi_WriteSysmonCtrlReg(UINTPTR Addr, u32 Value)
 {
 	/*
 	 * We need to unlock PCSR to write to control register.
 	 * Lock it back in after write.
 	 */
-	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), PCSR_UNLOCK_VAL);
-	XPlmi_UtilRMW(Addr, Value, Value);
-	XPlmi_UtilRMW((Addr + (u32)XSYSMONPSV_PCSR_CONTROL), Value, Value);
-	XPlmi_Out32((Addr + (u32)XSYSMONPSV_PCSR_LOCK), PCSR_LOCK_VAL);
+	XPlmi_Out32((Addr + XPLMI_SYSMON_PCSR_LOCK), XPLMI_SYSMON_PCSR_UNLOCK_VAL);
+	/* SysMon registers are in 32-bit address space, safe to cast for RMW */
+	XPlmi_UtilRMW((u32)Addr, Value, Value);
+	XPlmi_UtilRMW((u32)(Addr + XPLMI_SYSMON_PCSR_CONTROL), Value, Value);
+	XPlmi_Out32((Addr + XPLMI_SYSMON_PCSR_LOCK), XPLMI_SYSMON_PCSR_LOCK_VAL);
 }
 
 /*****************************************************************************/
 /**
- * @brief	This function initializes the SysMon.
+ * @brief	This function initializes the SysMon using direct register access.
  *
  * @return	XST_SUCCESS on success and error code on failure
  *
@@ -118,52 +121,46 @@ static void XPlmi_WriteSysmonCtrlReg(u32 Addr, u32 Value)
 int XPlmi_SysMonInit(void)
 {
 	int Status = XST_FAILURE;
+	UINTPTR BaseAddress = XPLMI_SYSMON_BASEADDR;
+
+	/* Initialize SysMon instance with base address */
+	SysMonInst.Config.BaseAddress = BaseAddress;
+	SysMonInst.IsReady = XIL_COMPONENT_IS_READY;
+
 	/**
-	 * Get Instance of SysMon Driver
+	 * Enable SLVERR for Sysmon
 	 */
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
-	XSysMonPsv_Config *ConfigPtr;
+	XPlmi_WriteSysmonCtrlReg(BaseAddress,
+			XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 
-	ConfigPtr = XSysMonPsv_LookupConfig();
-	if (ConfigPtr != NULL) {
-		Status = (int) XSysMonPsv_CfgInitialize(SysMonInstPtr, ConfigPtr);
-		if (Status != XST_SUCCESS) {
-			goto END;
-		}
+	/**
+	 * Enable SLVERR for Sysmon SAT0
+	 */
+	XPlmi_WriteSysmonCtrlReg((BaseAddress + XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET),
+			XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 
-		/**
-		* Enable Over-temperature handling.  We need to unlock PCSR to
-		* enable SysMon interrupt.  Lock it back in after write.
-		*/
-		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK,
-			PCSR_UNLOCK_VAL);
-		XSysMonPsv_IntrEnable(SysMonInstPtr, (u32)XSYSMONPSV_IER0_OT_MASK, 0U);
-		XPlmi_Out32(ConfigPtr->BaseAddress + (u32)XSYSMONPSV_PCSR_LOCK, 0U);
+	/**
+	 * Enable SLVERR for Sysmon SAT1
+	 */
+	XPlmi_WriteSysmonCtrlReg((BaseAddress + XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET),
+			XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
 
-		/**
-		 * Enable SLVERR for Sysmon
-		 */
-		XPlmi_WriteSysmonCtrlReg(ConfigPtr->BaseAddress,
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
+	/**
+	 * Enable Over-temperature handling. We need to unlock PCSR to
+	 * enable SysMon interrupt. Lock it back in after write.
+	 */
+	XPlmi_Out32(BaseAddress + XPLMI_SYSMON_PCSR_LOCK,
+			XPLMI_SYSMON_PCSR_UNLOCK_VAL);
+	XPlmi_Out32(BaseAddress + XPLMI_SYSMON_IER0_OFFSET,
+			XPLMI_SYSMON_IER0_OT_MASK);
+	XPlmi_Out32(BaseAddress + XPLMI_SYSMON_PCSR_LOCK,
+			XPLMI_SYSMON_PCSR_LOCK_VAL);
 
-		/**
-		 * Enable SLVERR for Sysmon SAT0
-		 */
-		XPlmi_WriteSysmonCtrlReg((ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT0_PCSR_MASK_OFFSET),
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
+	Status = XST_SUCCESS;
 
-		/**
-		 * Enable SLVERR for Sysmon SAT1
-		 */
-		XPlmi_WriteSysmonCtrlReg((ConfigPtr->BaseAddress +
-				(u32)XPLMI_SYSMON_SAT1_PCSR_MASK_OFFSET),
-				XPLMI_SYSMON_PCSR_CTRL_SLVERREN_MASK);
-	}
 	XPlmi_Printf(DEBUG_DETAILED,
 		 "%s: SysMon init status: 0x%x\n\r", __func__, Status);
 
-END:
 	return Status;
 }
 
@@ -180,25 +177,26 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)
 	u32 WaitInMSec = WaitInMSecVal;
 	u32 Val;
 	u32 Count;
+	UINTPTR BaseAddress = XPLMI_SYSMON_BASEADDR;
 
 	/**
 	 * Check for over-temperature condition in Interrupt Status Register.
 	 */
-	Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
-	if (0U == (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
+	Val = XPlmi_In32(BaseAddress + XPLMI_SYSMON_ISR_OFFSET);
+	if (0U == (Val & XPLMI_SYSMON_ISR_OT_MASK)) {
 		goto END;
 	}
 
-	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK,
-		PCSR_UNLOCK_VAL);
+	XPlmi_Out32(BaseAddress + XPLMI_SYSMON_PCSR_LOCK,
+		XPLMI_SYSMON_PCSR_UNLOCK_VAL);
 
 	/**
 	 * Wait until over-temperature condition is resolved.
 	 */
 	Count = 1000U;
-	while (0U != (Val & (u32)XSYSMONPSV_ISR_OT_MASK)) {
-		XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET,
-			XSYSMONPSV_ISR_OT_MASK);
+	while (0U != (Val & XPLMI_SYSMON_ISR_OT_MASK)) {
+		XPlmi_Out32(BaseAddress + XPLMI_SYSMON_ISR_OFFSET,
+			XPLMI_SYSMON_ISR_OT_MASK);
 		usleep(1000U);
 		XPlmi_SetPlmLiveStatus();
 		Count--;
@@ -207,7 +205,7 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)
 				"Warning: Over-temperature condition!\r\n");
 			Count = 1000U;
 		}
-		Val = XPlmi_In32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_ISR_OFFSET);
+		Val = XPlmi_In32(BaseAddress + XPLMI_SYSMON_ISR_OFFSET);
 	}
 
 	/**
@@ -219,7 +217,8 @@ void XPlmi_SysMonOTDetect(u32 WaitInMSecVal)
 		XPlmi_SetPlmLiveStatus();
 	}
 
-	XPlmi_Out32((UINTPTR)XSYSMONPSV_BASEADDR + (UINTPTR)XSYSMONPSV_PCSR_LOCK, 0U);
+	XPlmi_Out32(BaseAddress + XPLMI_SYSMON_PCSR_LOCK,
+		XPLMI_SYSMON_PCSR_LOCK_VAL);
 
 END:
 	return;

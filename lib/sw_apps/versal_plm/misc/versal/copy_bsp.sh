@@ -133,7 +133,6 @@ cp $WORKING_DIR/microblaze_interrupts_g.c $BSP_DIR/libsrc/standalone/src/
 cp $WORKING_DIR/bspconfig.h  $BSP_DIR/include/
 cp $WORKING_DIR/Makefile $BSP_DIR/../
 cp $WORKING_DIR/dep.mk $BSP_DIR/../
-cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/include/
 
 # copy the bsp drivers
 while read line
@@ -173,7 +172,6 @@ cp $WORKING_DIR/xqspipsu_g.c $BSP_DIR/libsrc/qspipsu/src/
 cp $WORKING_DIR/xrtcpsu_g.c $BSP_DIR/libsrc/rtcpsu/src/
 cp $WORKING_DIR/xsdps_g.c $BSP_DIR/libsrc/sdps/src/
 cp $WORKING_DIR/xuartlite_g.c $BSP_DIR/libsrc/uartlite/src/
-cp $WORKING_DIR/xsysmonpsv_supplylist.h $BSP_DIR/libsrc/sysmonpsv/src/
 cp $STANDALONE_DIR/common/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/common/clocking/*.h  $BSP_DIR/include/
 cp $STANDALONE_DIR/microblaze/*.h  $BSP_DIR/include/

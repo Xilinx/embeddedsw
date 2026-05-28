@@ -463,7 +463,7 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 	u8 UpperVoltMode, LowerVoltMode;
 	u32 CurrentTemp;
 	u8 *CurrentVoltMode;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XPlmi_SysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	UpperTempThresh = Rail->TempVoltAdj->UpperTempThresh;
 	LowerTempThresh = Rail->TempVoltAdj->LowerTempThresh;
@@ -487,8 +487,8 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 		goto done;
 	}
 
-	/* Read DEVICE_TEMP_MAX register through SysMon driver */
-	CurrentTemp = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr, XSYSMONPSV_VAL);
+	/* Read current device temperature through SysMon */
+	CurrentTemp = XPlmi_SysMon_ReadDeviceTemp(SysMonInstPtr);
 
 	/*
 	 * If the current temperature is at or below lower threshold and
@@ -498,8 +498,8 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 	 * to lower voltage.  If the temperature is between lower and upper
 	 * threshold, no adjustment is needed.
 	 */
-	if ((XSysMonPsv_FixedToFloat(CurrentTemp) <=
-	     XSysMonPsv_FixedToFloat(LowerTempThresh)) &&
+	if ((XPlmi_SysMon_FixedToFloat(CurrentTemp) <=
+	     XPlmi_SysMon_FixedToFloat(LowerTempThresh)) &&
 	    (*CurrentVoltMode != UpperVoltMode)) {
 		PmDbg("Current temperature is 0x%x, Set voltage to upper mode "
 		      "%d\n\r", CurrentTemp, UpperVoltMode);
@@ -511,8 +511,8 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 		}
 
 		*CurrentVoltMode = UpperVoltMode;
-	} else if ((XSysMonPsv_FixedToFloat(CurrentTemp) >=
-		    XSysMonPsv_FixedToFloat(UpperTempThresh)) &&
+	} else if ((XPlmi_SysMon_FixedToFloat(CurrentTemp) >=
+		    XPlmi_SysMon_FixedToFloat(UpperTempThresh)) &&
 		   (*CurrentVoltMode != LowerVoltMode)) {
 		PmDbg("Current temperature is 0x%x, Set voltage to lower mode "
 		      "%d\n\r", CurrentTemp, LowerVoltMode);
@@ -524,10 +524,10 @@ static int XPmRail_CyclicTempVoltAdj(void *Arg)
 		}
 
 		*CurrentVoltMode = LowerVoltMode;
-	} else if ((XSysMonPsv_FixedToFloat(CurrentTemp) <
-		    XSysMonPsv_FixedToFloat(UpperTempThresh)) &&
-		   (XSysMonPsv_FixedToFloat(CurrentTemp) >
-		    XSysMonPsv_FixedToFloat(LowerTempThresh)) &&
+	} else if ((XPlmi_SysMon_FixedToFloat(CurrentTemp) <
+		    XPlmi_SysMon_FixedToFloat(UpperTempThresh)) &&
+		   (XPlmi_SysMon_FixedToFloat(CurrentTemp) >
+		    XPlmi_SysMon_FixedToFloat(LowerTempThresh)) &&
 		   (0U == *CurrentVoltMode)) {
 		PmDbg("Current temperature is 0x%x, Set voltage to lower mode "
 		      "%d\n\r", CurrentTemp, LowerVoltMode);
@@ -890,7 +890,7 @@ static XStatus XPmRail_InitTempVoltAdj(const u32 *Args, u32 NumArgs)
 	 * the upper temperature threshold.  Validate that value of lower
 	 * threshold is less than value of upper threshold.
 	 */
-	if (XSysMonPsv_FixedToFloat(Args[2]) >= XSysMonPsv_FixedToFloat(Args[4])) {
+	if (XPlmi_SysMon_FixedToFloat(Args[2]) >= XPlmi_SysMon_FixedToFloat(Args[4])) {
 		DbgErr = XPM_INT_ERR_INVALID_ARGS;
 		Status = XST_INVALID_PARAM;
 		goto done;

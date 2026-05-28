@@ -53,6 +53,7 @@
 *       kpt  02/21/2024 Added generic handler
 *	    vss  02/23/2024	Added IPI support for eFuse read and write
 *       ng   12/12/2023 Fixed doxygen grouping
+* 3.7   obs  03/26/2026 Replaced XSysMonPsv types with XNvm_SysmonPsv
 *
 * </pre>
 *
@@ -68,7 +69,6 @@ extern "C" {
 #include "xil_io.h"
 #include "xil_types.h"
 #include "xstatus.h"
-#include "xsysmonpsv.h"
 #include "xnvm_defs.h"
 #include "xnvm_efuse_common.h"
 
@@ -208,7 +208,7 @@ typedef struct {
 typedef struct {
 	u8 EnvMonitorDis;	/**< Environment monitor disable */
 	u8 PrgmPufFuse; 	/**< Program PUF fuse */
-	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance */
+	XNvm_SysmonPsv *SysMonInstPtr; /**< Pointer to SysMon instance */
 	u32 StartPufFuseRow; 	/**< Start PUF fuse row */
 	u32 NumOfPufFusesRows;	/**< Number of PUF fuse rows */
 	u32 *PufFuseData; 	/**< Pointer to PUF fuse data */
@@ -223,7 +223,7 @@ typedef struct {
 	u8 PrgmPufHelperData; /**< Program puf helper data*/
 	u8 PrgmPufSecCtrlBits; /**< Program puf security control bits*/
 	u8 EnvMonitorDis; /**< Environment monitor disable*/
-	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
+	XNvm_SysmonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
 	u32 EfuseSynData[XNVM_PUF_FORMATTED_SYN_DATA_LEN_IN_WORDS]; /**< Array of efuse syndrome data*/
 	u32 Chash; /**< Chash value*/
 	u32 Aux; /**< Aux value*/
@@ -234,7 +234,7 @@ typedef struct {
  */
 typedef struct {
 	u8 EnvMonitorDis; /**< Environmental Monitor Disable */
-	XSysMonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
+	XNvm_SysmonPsv *SysMonInstPtr; /**< Pointer to SysMon instance*/
 	XNvm_EfuseAesKeys *AesKeys; /**< Pointer to Aes keys*/
 	XNvm_EfusePpkHash *PpkHash; /**< Pointer to ppk hash*/
 	XNvm_EfuseDecOnly *DecOnly; /**< Pointer to the DecOnly structure*/
@@ -254,11 +254,11 @@ typedef struct {
 
 /*************************** Function Prototypes ******************************/
 int XNvm_EfuseWrite(const XNvm_EfuseData *WriteNvm);
-int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr);
-int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr);
-int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr);
+int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XNvm_SysmonPsv *SysMonInstPtr);
+int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XNvm_SysmonPsv *SysMonInstPtr);
+int XNvm_EfuseWriteRevocationId(u32 RevokeId, XNvm_SysmonPsv *SysMonInstPtr);
 int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
-	XSysMonPsv *SysMonInstPtr);
+	XNvm_SysmonPsv *SysMonInstPtr);
 int XNvm_EfuseReadIv(XNvm_Iv *EfuseIv, XNvm_IvType IvType);
 int XNvm_EfuseReadRevocationId(u32 *RevokeFusePtr,
 	XNvm_RevocationId RevokeFuseNum);

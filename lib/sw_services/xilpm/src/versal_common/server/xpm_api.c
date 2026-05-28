@@ -43,7 +43,6 @@
 #include "xpm_reset.h"
 #include "xpm_rpucore.h"
 #include "xpm_subsystem.h"
-#include "xsysmonpsv.h"
 #include "xpm_pldevice.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"
@@ -3044,7 +3043,7 @@ static XStatus XPm_GetLatency(const u32 DeviceId, u32 *Latency)
 static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 {
 	XStatus Status = XST_FAILURE;
-	XSysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
+	XPlmi_SysMonPsv *SysMonInstPtr = XPlmi_GetSysmonInst();
 
 	if ((u32)XPM_NODECLASS_DEVICE != NODECLASS(DeviceId)) {
 		goto done;
@@ -3059,8 +3058,14 @@ static XStatus XPm_GetTemperature(u32 const DeviceId, u32 *Result)
 		goto done;
 	}
 
-	*Result = XSysMonPsv_ReadDeviceTemp(SysMonInstPtr,
-					    XSYSMONPSV_VAL_VREF_MAX);
+	if ((NULL == SysMonInstPtr) ||
+	    (0U == SysMonInstPtr->Config.BaseAddress) ||
+	    (XIL_COMPONENT_IS_READY != SysMonInstPtr->IsReady)) {
+		Status = XST_DEVICE_NOT_FOUND;
+		goto done;
+	}
+
+	*Result = XPlmi_SysMon_ReadDeviceTemp(SysMonInstPtr);
 	Status = XST_SUCCESS;
 
 done:

@@ -34,7 +34,6 @@
 #include "xpm_repair.h"
 #include "xpm_reset.h"
 #include "xpm_rpucore.h"
-#include "xsysmonpsv.h"
 #include "xpm_pldevice.h"
 #include "xpm_rail.h"
 #include "xpm_regulator.h"

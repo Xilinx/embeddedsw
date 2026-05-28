@@ -101,6 +101,7 @@
 * 3.6   rpu  07/21/2025 Fixed GCC warnings
 *       hj   09/19/2025 Program PUF_RSVD efuse as user data
 * 3.7   mb   01/10/2026 Removed extra lines in XNvm_EfusePgmAndVerifyRows function
+*       obs  03/26/2026 Replaced XSysMonPsv types with XNvm_SysmonPsv
 *       mb   04/23/2026 Remove unused macros and variables
 *
 * </pre>
@@ -1439,8 +1440,8 @@ END:
  *
  * @param	EfuseIv - Pointer to the XNvm_EfuseIvs, which contains IVs data
  * 				to be written to the Efuse..
- * @param   	SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
- *              XSysmonPsv driver instance data
+ * @param   	SysMonInstPtr - Pointer to the XNvm_SysmonPsv structure which contains
+ *              SysMon manager instance data
  *
  * @return
  *		- XST_SUCCESS  On Successful Write.
@@ -1452,7 +1453,7 @@ END:
  *		- XNVM_EFUSE_ERR_NTHG_TO_BE_PROGRAMMED  If NULL request is sent.
  *
  ******************************************************************************/
-int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XSysMonPsv *SysMonInstPtr)
+int XNvm_EfuseWriteIVs(XNvm_EfuseIvs *EfuseIv, XNvm_SysmonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseData WriteIvs = {0U};
@@ -1821,15 +1822,15 @@ END:
  * @brief	This function revokes the Ppk.
  *
  * @param	PpkRevoke - Xnvm_RevokePpkFlags that tells which Ppk to revoke.
- * @param   	SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
- *              XSysmonPsv driver instance data
+ * @param   	SysMonInstPtr - Pointer to the XNvm_SysmonPsv structure which contains
+ *              SysMon manager instance data
  *
  * @return
  *		- XST_SUCCESS  On Successful Revocation.
  *		- XNVM_EFUSE_ERR_INVALID_PARAM  Input validation failure.
  *
  ******************************************************************************/
-int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XSysMonPsv *SysMonInstPtr)
+int XNvm_EfuseRevokePpk(XNvm_PpkType PpkRevoke, XNvm_SysmonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseData EfuseData = {0U};
@@ -1885,8 +1886,8 @@ END:
  * @brief	This function writes Revocation eFuses.
  *
  * @param	RevokeId - RevokeId number to program Revocation Id eFuses.
- * @param   	SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
- *              XSysmonPsv driver instance data
+ * @param   	SysMonInstPtr - Pointer to the XNvm_SysmonPsv structure which contains
+ *              SysMon manager instance data
  *
  * @return
  *		- XST_SUCCESS  On successful write to eFuse.
@@ -1898,7 +1899,7 @@ END:
  * 		of the REVOCATION_ID_2 eFuse row.
  *
  ******************************************************************************/
-int XNvm_EfuseWriteRevocationId(u32 RevokeId, XSysMonPsv *SysMonInstPtr)
+int XNvm_EfuseWriteRevocationId(u32 RevokeId, XNvm_SysmonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	u32 RevokeIdRow;
@@ -2104,8 +2105,8 @@ END:
  * @brief	This function Programs User eFuses.
  *
  * @param	WriteUserFuses - Pointer to the XNvm_EfuseUserData structure.
- * @param	SysMonInstPtr - Pointer to the XSysMonPsv structure which contains
- *              XSysmonPsv driver instance data
+ * @param	SysMonInstPtr - Pointer to the XNvm_SysmonPsv structure which contains
+ *              SysMon manager instance data
  *
  * @return
  *		- XST_SUCCESS  If programming is successful.
@@ -2113,7 +2114,7 @@ END:
  *
  ******************************************************************************/
 int XNvm_EfuseWriteUserFuses(XNvm_EfuseUserData *WriteUserFuses,
-	XSysMonPsv *SysMonInstPtr)
+	XNvm_SysmonPsv *SysMonInstPtr)
 {
 	int Status = XST_FAILURE;
 	XNvm_EfuseData UserFusesData = {0};
