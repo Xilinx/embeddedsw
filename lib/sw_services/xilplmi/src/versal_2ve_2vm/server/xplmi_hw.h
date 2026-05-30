@@ -64,6 +64,7 @@
 *                       in Versal_2VE_2VM and can be used for other purposes
 *       obs  12/31/2025 Fixed GCC warnings
 *       pre  03/12/2026 Added register addresses of ROM and PLM hashes
+*       pre  05/30/2026 Added PS I2C instances check for I2C handshake feature
 *
 * </pre>
 *
@@ -1000,7 +1001,55 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
        (defined(XPAR_XIICPS_1_BASEADDR) &&\
                                (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) ||\
        (defined(XPAR_XIICPS_2_BASEADDR) &&\
-                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+                        (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1940000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1940000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1940000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1950000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1950000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1950000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1960000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1960000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1960000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1970000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1970000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1970000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1980000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1980000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1980000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF1990000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF1990000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF1990000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF19A0000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF19A0000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF19A0000U)) ||\
+	   (defined(XPAR_XIICPS_0_BASEADDR) &&\
+                (XPAR_XIICPS_0_BASEADDR == 0xF19B0000U)) ||\
+       (defined(XPAR_XIICPS_1_BASEADDR) &&\
+                (XPAR_XIICPS_1_BASEADDR == 0xF19B0000U)) ||\
+       (defined(XPAR_XIICPS_2_BASEADDR) &&\
+                (XPAR_XIICPS_2_BASEADDR == 0xF19B0000U)))
 #define XLOADER_PMC_IIC
 
 #endif

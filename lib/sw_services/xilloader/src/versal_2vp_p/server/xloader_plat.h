@@ -15,6 +15,7 @@
 * ----- ---- -------- ----------------------------------------------------------------------------
 * 2.3   sd  10/13/25 Initial release
 * 2.4   rmv 01/30/26 Renamed OCP keymanagment macro
+*       pre 05/25/26 Added function to calculate I2C device ID for I2C handshake feature
 *
 * </pre>
 *
@@ -244,6 +245,9 @@ enum {
 	XLOADER_ERR_I2C_DEV_RELEASE,
 
 	/* Platform specific Minor Error Codes start from 0x100 */
+	/** 0x104 - Error in parsing I2C master while reading device ID */
+	XLOADER_ERR_I2C_MASTER_DEVID_READ = 0x104,
+
 };
 
 /************************************** Type Definitions ******************************************/
@@ -463,6 +467,9 @@ int XLoader_PlatInit(void);
 XSecure_Sha384Hash* XLoader_GetPtrnHashTable(void);
 #endif
 int XLoader_UpdateDataMeasurement(const XilPdi* PdiPtr, u64 DataAddr, u32 DataLen);
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID);
+#endif
 
 /************************************ Variable Definitions ****************************************/
 

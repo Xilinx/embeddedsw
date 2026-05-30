@@ -19,6 +19,7 @@
 * 2.3   tvp  07/07/25 Initial release
 *       sk   09/13/25 Updated IOModule IRQ Address
 * 2.4   sk   01/18/2026 Added define for Domain Init Status Register
+*       pre  05/30/2026 Added PS I2C instances check for I2C handshake feature
 *
 * </pre>
 *
@@ -770,7 +771,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) || \
      (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) || \
-     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)) || \
+	 (defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xFF020000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xFF020000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xFF020000U)) || \
+	 (defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xFF030000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xFF030000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xFF030000U)))
 #define XLOADER_PMC_IIC
 
 #endif

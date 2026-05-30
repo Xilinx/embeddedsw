@@ -20,6 +20,7 @@
 * 2.4   obs 01/19/26 Fixed GCC warnings
 *       sk  01/23/26 Added define for Domain Init Status Register
 *       sd  03/13/26 Added macros for hardware interrupt registers
+*       pre 05/30/26 Added PS I2C instances check for I2C handshake feature
 * </pre>
 *
 
@@ -905,7 +906,13 @@ static inline void XPlmi_OutByte64(u64 Addr, u8 Data)
 
 #if ((defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xF1000000U)) || \
      (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xF1000000U)) || \
-     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)))
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xF1000000U)) || \
+	 (defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xFF020000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xFF020000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xFF020000U)) || \
+	 (defined(XPAR_XIICPS_0_BASEADDR) && (XPAR_XIICPS_0_BASEADDR == 0xFF030000U)) || \
+     (defined(XPAR_XIICPS_1_BASEADDR) && (XPAR_XIICPS_1_BASEADDR == 0xFF030000U)) || \
+     (defined(XPAR_XIICPS_2_BASEADDR) && (XPAR_XIICPS_2_BASEADDR == 0xFF030000U)))
 #define XLOADER_PMC_IIC
 
 #endif

@@ -26,6 +26,7 @@
 * 2.4   gnr  01/06/26 Added explicit CPU validation in XLoader_ProcessElf
 *       rmv  01/30/26 Renamed OCP header files and keymanagment macro
 *       obs  02/05/26 Implement peripheral pre-allocation at handoff time
+*       pre  05/25/26 Added function to calculate I2C device ID for I2C handshake feature
 *
 * </pre>
 *
@@ -1859,4 +1860,41 @@ int XLoader_PlatInit(void)
 }
 #endif /* PLM_OCP */
 
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+/*************************************************************************************************/
+/**
+ * @brief	This function gets the I2C device ID based on the input string.
+ *	        The input string can be "PMC", "PS_I2C0", "PS_I2C1".
+ *
+ * @param	str is the input string representing the I2C device
+ * @param	I2CDevID is the pointer to store the I2C device ID
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XST_INVALID_PARAM if the input string is not valid.
+ *************************************************************************************************/
+int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID)
+{
+	int Status = XST_FAILURE;
+
+	if (strcmp(str, "PMC") == 0) {
+		*I2CDevID = PM_DEV_I2C_PMC;
+	}
+	else if (strcmp(str, "PS_I2C0") == 0) {
+		*I2CDevID = PM_DEV_I2C_0;
+	}
+	else if (strcmp(str, "PS_I2C1") == 0) {
+		*I2CDevID = PM_DEV_I2C_1;
+	}
+	else {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+    return Status;
+}
+#endif
 /** @} end of xloader_server_apis group */

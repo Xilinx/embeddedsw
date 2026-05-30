@@ -77,6 +77,7 @@
 *       pre  03/23/2026 Added support to extend to TPM PCRs
 *       sk   04/02/2026 Added unlock and lock before TAP register access
 *       vns  04/04/2026 Lock DAP during PLM update via XLoader_DisableJtagIfOpenedByAuthJtag
+*       pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
 *
 * </pre>
 *
@@ -1915,4 +1916,61 @@ int XLoader_LoadAsuImage(void)
 END:
 	return Status;
 }
+
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+/*************************************************************************************************/
+/**
+ * @brief	This function gets the I2C device ID based on the input string.
+ *	        The input string can be "PMC", "PS_I2C_I3C0", "PS_I2C_I3C1", "PS_I2C_I3C2",
+ *	        "PS_I2C_I3C3", "PS_I2C_I3C4", "PS_I2C_I3C5", "PS_I2C_I3C6" or "PS_I2C_I3C7".
+ *
+ * @param	str is the input string representing the I2C device
+ * @param	I2CDevID is the pointer to store the I2C device ID
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XST_INVALID_PARAM if the input string is not valid.
+ *************************************************************************************************/
+int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID)
+{
+	int Status = XST_FAILURE;
+
+	if (strcmp(str, "PMC") == 0) {
+		*I2CDevID = PM_DEV_I2C_PMC;
+	}
+	else if (strcmp(str, "PS_I2C_I3C0") == 0) {
+		*I2CDevID = PM_DEV_I2C_0;
+	}
+	else if (strcmp(str, "PS_I2C_I3C1") == 0) {
+		*I2CDevID = PM_DEV_I2C_1;
+	}
+	else if (strcmp(str, "PS_I2C_I3C2") == 0) {
+		*I2CDevID = PM_DEV_I2C_2;
+	}
+	else if (strcmp(str, "PS_I2C_I3C3") == 0) {
+		*I2CDevID = PM_DEV_I2C_3;
+	}
+	else if (strcmp(str, "PS_I2C_I3C4") == 0) {
+		*I2CDevID = PM_DEV_I2C_4;
+	}
+	else if (strcmp(str, "PS_I2C_I3C5") == 0) {
+		*I2CDevID = PM_DEV_I2C_5;
+	}
+	else if (strcmp(str, "PS_I2C_I3C6") == 0) {
+		*I2CDevID = PM_DEV_I2C_6;
+	}
+	else if (strcmp(str, "PS_I2C_I3C7") == 0) {
+		*I2CDevID = PM_DEV_I2C_7;
+	}
+	else {
+		Status = XST_INVALID_PARAM;
+		goto END;
+	}
+
+	Status = XST_SUCCESS;
+
+END:
+	return Status;
+}
+#endif
 /** @} end of xloader_server_apis group */

@@ -25,6 +25,7 @@
  * 2.0   sk   09/29/2025 Added SDT Support
  *       sk   10/16/2025 Added stub function for XLoader_MbPmcI2cHandshake
  * 2.1   sk   05/05/2026 Reset the i2c instance state after release request
+ *       pre  05/25/2026 For VersalGen2, updated I2C handshake with user defined I2C controller
  * </pre>
  *
  *
@@ -115,11 +116,27 @@ int XLoader_MbPmcI2cHandshake(XPlmi_Cmd *Cmd)
 	u32 CtrlReg = 0U;
 	static XLoader_I2cHsCmd I2cHsCmd;
 	XIicPs *IicInstance; /**< Instance of the IicInstance Device */
+#if (defined(DDRMC5_I2C_MASTER) && (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P) \
+     || defined(VERSAL_2VP)))
+	u32 I2cDevID;
+
+	Status = Xloader_GetI2CDeviceID(DDRMC5_I2C_MASTER, &I2cDevID);
+	if (Status != XST_SUCCESS) {
+		Status = XLOADER_ERR_I2C_MASTER_DEVID_READ;
+		goto END1;
+	}
+#endif
 
 	IicInstance = XPmRail_GetIicInstance();
 
 	if (IicInstance->IsReady != (u32) XIL_COMPONENT_IS_READY) {
+#if (defined(DDRMC5_I2C_MASTER) && (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P) \
+     || defined(VERSAL_2VP)))
+		Status = I2CInitialize(IicInstance, I2cDevID);
+#else
 		Status = I2CInitialize(IicInstance, PM_DEV_I2C_PMC);
+#endif
+
 		if (Status != XST_SUCCESS) {
 			Status = XLOADER_ERR_I2C_TRANSACTION;
 			goto END;
@@ -200,16 +217,29 @@ UPDATE_INDEX:
 
 END:
 #ifdef VERSAL_2VE_2VM
+#ifdef DDRMC5_I2C_MASTER
+	SStatus = XPm_PmcReleaseDevice(I2cDevID);
+#else
 	SStatus = XPm_PmcReleaseDevice(PM_DEV_I2C_PMC);
+#endif
 	if (NULL != IicInstance) {
 		IicInstance->IsReady = 0U;
 	}
 #else
+#if (defined(DDRMC5_I2C_MASTER) && (defined(VERSAL_2VP_P) || defined(VERSAL_2VP)))
+	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, I2cDevID,
+	                            XPLMI_CMD_SECURE);
+#else
 	SStatus = XPm_ReleaseDevice(PM_SUBSYS_PMC, PM_DEV_I2C_PMC, XPLMI_CMD_SECURE);
+#endif
 #endif
 	if ((Status == XST_SUCCESS) && (SStatus != XST_SUCCESS)) {
 		Status = XLOADER_ERR_I2C_DEV_RELEASE;
 	}
+#if (defined(DDRMC5_I2C_MASTER) && (defined(VERSAL_2VE_2VM) || defined(VERSAL_2VP_P) \
+     || defined(VERSAL_2VP)))
+END1:
+#endif
 	return Status;
 }
 /*****************************************************************************/
