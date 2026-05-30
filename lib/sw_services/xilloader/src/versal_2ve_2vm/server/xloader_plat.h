@@ -57,6 +57,7 @@
 *       pre  03/23/2026 Added support to extend to TPM PCRs
 *       sri  03/26/2026 Added IPI API definition for Versal 2VE and 2VM devices
 *       sk   04/02/2026 Added TAP Unlock register defines
+*       pre  05/25/2026 Added function to calculate I2C device ID for I2C handshake feature
 *
 * </pre>
 *
@@ -316,11 +317,14 @@ enum {
 	/** 0x103 - Error during memset on UFS Bootfile */
 	XLOADER_ERR_MEMSET_UFS_BOOT_FILE,
 
+	/** 0x104 - Error in parsing I2C master while reading device ID */
+	XLOADER_ERR_I2C_MASTER_DEVID_READ,
+
 };
 
 /**************************** Type Definitions *******************************/
 
-/** Structure to store DDRMC registers and there memory offsets */
+/** Structure to store DDRMC registers and their memory offsets */
 typedef struct {
 	char *RegStr;	/**< DDRMC Dump Resiter */
 	u32 Offset;		/**< Register Offset */
@@ -508,6 +512,9 @@ int XLoader_MeasureNLoad(XilPdi* PdiPtr);
 void XLoader_ShaInstance1Reset(void);
 u32 XLoader_GetBootHeaderIvAddr(void);
 int XLoader_MeasureRomAndPlm(void);
+#if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
+int Xloader_GetI2CDeviceID(const char *str, u32 *I2CDevID);
+#endif
 
 /************************** Variable Definitions *****************************/
 

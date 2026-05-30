@@ -81,6 +81,7 @@ XStatus I2CInitialize(XIicPs *Iic, const u32 ControllerID)
 	Config = XIicPs_LookupConfig(Device->Node.BaseAddress);
 #endif
 	if (NULL == Config) {
+		Status = XST_FAILURE;
 		goto done;
 	}
 
