@@ -63,12 +63,10 @@ lib/sw_services/xilsecure/src/server/versal_2ve_2vm/xsecure_server_shaalginfo.h
 Changes for 2026.1
 ===============================
 axidma_v9_21:
-Update the copyrights
-axidma: Fix code Spell warnings.
+Fix code Spell warnings.
 
 axivdma_v6_17:
-Update the copyrights
-axivdma: Fix Code Spell warnings.
+Fix Code Spell warnings.
 
 mcdma_v1_14:
 mcdma: fix Mcdma_Poll to return failure status on the data mismatch.
@@ -360,7 +358,7 @@ Add support LMS and HSS signature verification
 Update PLM event handling functionality between PLM and ASU
 Add redundancy to command permission data copy
 Consolidate SSS configuration redundancy checks
-Explicitly program 0 IV for AES CMAC mode as it doesn't use IV provided for user
+Explicitly program 0 IV for AES CMAC mode as it doesnt use IV provided for user
 Increase maximum OCP subsystems from 4 to 6
 Map all the linker sections to ASU instruction RAM
 Add readback validation for key and mode configuration in AES
@@ -407,6 +405,7 @@ HMAC data is zero and when last is not flagged in previous update call
 Ensure every structure in client interface structure to be 8-byte aligned
 Update AES DPA CM KAT to use 2 different masks
 Update HMAC maximum input key length to 1KB
+Add client interface support for ECC public key validation, HKDF and CMAC-KDF for CAVP
 
 xilasu:
 Replace the term DME to UDE
@@ -434,6 +433,583 @@ Unify operations flags from SHA, AES and HMAC to common flags
 Refine AES AAD validation check for AES GCM/CCM exceptions
 Add explicit 8-byte padding to structures to have consistent sizes between different architectures
 Update HMAC maximum input key length to 1KB
+Add client support for ECC public key validation, HKDF and CMAC-KDF for CAVP
+
+
+audio_formatter_v1_4:
+Fixed the codespell issues, doxygen warnings, banner addition for all APIs, and code redundancy issues.
+
+axicdma_v4_16:
+axicdma: update Doxygen documentation for SDT flow
+
+axiethernet_v5_19:
+Fix incorrect TX interrupt handler registration for MCDMA
+Add support system device tree in AXI Ethernet FIFO example
+Fix code spell errors
+Fix RX BD length in checksum offload examples
+Update Doxygen documentation for sdt flow
+
+
+axipcie_v3_5:
+Fix codespell errors
+
+axipmon_v6_14:
+Fix codespell errors
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+axis_switch_v1_8:
+update SPDX license to MIT
+Update Doxygen comments to include SDT flow details
+Update the example macro/port mapping
+
+bram_v4_14:
+Update Doxygen comments to include SDT flow details
+
+csudma_v1_19:
+Remove CSUDMA from the peripheral test
+Update Doxygen documentation for sdt flow
+Fix Code Spell warnings
+
+dp21_v2_6:
+Fix VFREQ register offset definitions for TX and RX.
+Added Extended DPCD register macro for Max Lane count
+Fix the HDCP2x configuration
+Fix the address assignment for MSA
+Fix the doxygen and codespell errors
+
+dp21rxss_v1_6:
+Add HDCP pass-through example
+Add MST mode pass-through example
+Add SST mode pass-through example
+Fix Vfreq regsiter offset handling in GetMsa function.
+examples: pdate DP21 RXO application to use refactored driver APIs
+Refactor DP21rxss driver and restricted the core driver access
+Fix the getMSA function for MST
+Add RISC-V platform support to dp21_rx_only example
+Fix the codespell and doxygen errors
+Improve formatting and remove non-PARRETTO FMC code
+
+dp21txss_v2_7:
+Skip frequency lock read in Video FMC init
+Remove pass-through example
+Resolved Doxygen warning
+AV capabilities parsing from EDID
+Max lane count and Max Link rate read sequence update
+XDpTxSs_SendAudioInfoFrame API update
+Fix the HDCP2x in dp21
+Add RISC-V platform support to dp21_tx_only example
+Fix the codespell and doxygen errors
+Improve formatting and remove non-PARRETTO FMC code
+
+dsi2rx_v1_1:
+Fix codespell errors
+
+emaclite_v4_13:
+Fix code spell errors
+Fix endianness detection for RISC-V
+example: Update ICMP macros to support 56-byte payload
+Update Doxygen documentation for sdt flow
+
+emacps_v3_24:
+Replace assert() with Xil_AssertNonvoid()
+Modify MASK value to transmit zero quantum pause frame.
+Fix codespell errors and update copyright year
+Resolve u8-u32 datatype mismatch due to MaxQueues member variable.
+
+gpio_v4_13:
+Add GlobalIntrMask initialization in SDT flow
+Update Doxygen comments to include SDT flow details
+
+gpiops_v3_15:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+iic_v3_15:
+Resolve u8/int type mismatch in RecvMasterData loop counter
+Add 64-bit addressing support
+Add AXI clock and SCL delay properties
+Add dynamic clock configuration support
+Update EEPROM and MUX configuration details
+Update Doxygen comments to include SDT flow details
+Fix codespell errors
+Update EEPROM examples description with SPARTANUP boards details
+Add timeout handling to examples
+Add PMBus examples for polled and interrupt modes
+Update EEPROM examples description with SPARTANUP boards details
+Fix missed NACK detection on last byte in SendData() and DynSendData()
+
+iicps_v3_23:
+Update Doxygen comments to include SDT flow details
+Add 64-bit addressing support
+Add PS I2C bus recovery API using HOLD feature
+
+mipi_rx_phy_v1_2:
+Fix MMCM register write ordering for dynamic linerate
+Add dynamic line rate support
+Fix import of selftest application
+Fix the doxygen and codespell errors
+
+mipi_tx_phy_v1_1:
+Fix the documentation,  doxygen and codespell errors
+Fix import of selftest application
+
+pciepsu_v2_3:
+Fix codespell errors
+Fix all the outstanding GCC Warnings
+Enable ECAM translation for 32-bit PCIe accesses on RPU
+
+qspipsu_v1_23:
+examples: Add support for Winbond NOR flash devices
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+examples: Add support for SPI-NOR gigadevice flash parts
+
+scugic_v5_7:
+scugic: Clear pending interrupts during GIC initialization
+scugic: Fix DT trigger type values in XGetEncodedIntrId
+scugic: Add PPI interrupt test for ARM Generic Timer
+scugic: Fix PPI/SGI interrupt disable operation in GICv3
+drivers: Fix codespell warnings
+scugic: Update Doxygen comments to support SDT flow documentation
+scugic: Fix MISRA-C violation for Rule 20.9
+scugic: Fix MISRA-C violation for Rule 8.3
+
+sdps_v4_6:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+trngpsv_v1_8:
+Codespell errors fix
+Doxygen Fixes
+
+trngpsx_v1_6:
+Codespell errors fix
+Fix continuous random generation sequence
+Fix Doxygen warnings for trngpsx
+
+ttcps_v3_23:
+drivers: Fix codespell warnings in CPU and peripheral drivers
+ttcps: Update Doxygen comments to support SDT flow documentation
+ttcps: Fix MISRA C violation for Rules 5.8 and 8.3
+
+uartlite_v3_13:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+uartns550_v3_14:
+Add 64-bit addressing support
+Update Doxygen comments to include SDT flow details
+
+uartps_v3_18:
+wait for TX/RX reset completion after baud rate update
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+uartpsv_v1_14:
+Add 64-bit addressing support
+Update Doxygen comments to include SDT flow details
+
+v_warp_filter_v1_5:
+Fixed codespell, gcc and doxygen warnings for driver quality
+
+v_warp_init_v1_6:
+Fixed codespell, gcc and doxygen warnings for driver quality
+
+visp_ss_v2_1:
+New Features & Enhancements
+Added HDMI TX support in ISP driver for VEK385.
+Enabled multi‑ISP support in both LIMO and LILO modes.
+Registered MIPI CSI2 RX interrupts to handle MIPI errors.
+Extended high‑resolution sensor support (up to 8MP).
+Added dynamic FPS configuration support via JSON.
+Added ATM (64‑bit) support.
+Driver & Mailbox Updates
+Ported M17 latest driver into visp library and visp_ss.
+Updated APU mailbox layer to align with latest RPU firmware.
+Fixed DQBUF timeout and improved buffer handling with per‑instance ring buffers.
+Library & Build Improvements
+Unified libvisp.a and removed libvisp_lilo.a.
+Moved buffer allocations out of the library for user‑level control.
+Bug Fixes
+Resolved image corruption in MIMO mode (cache handling).
+Fixed LILO print issue in ISP dump commands.
+Code Quality & Reliability
+Fixed codespell errors.
+Applied multiple reliability and safety fixes (timeouts, bounds checks, overflow guards, memory leak prevention, improved error handling).
+
+vprocss_v2_16:
+Fixed codespell warnings
+Add support to handle multiple instances of VPSS IPs
+VTC Clock generation is corrected in example app
+Fix LPDDRMC base address selection for RISC-V platform
+
+v_hcresampler_v3_5:
+Provided function banners, fixed codespell errors & doxygen issues
+
+v_gamma_lut_v1_6:
+Added function banners, Fixed codespell, gcc and doxygen warnings for driver quality improments
+
+v_mix_v7_1:
+Fix LPDDRMC base address selection for RISC-V platform
+Fixed codespell, gcc and doxygen warnings for driver quality
+Added support for VCU2 raster video formats
+
+v_frmbuf_wr_v5_2:
+Fix LPDDRMC base address selection for RISC-V platform
+Fixed codespell and doxygen warnings for driver quality
+Added support for VCU2 raster video formats
+
+v_frmbuf_rd_v5_2:
+Fix LPDDRMC base address selection for RISC-V platform
+Fixed codespell and doxygen warnings for driver quality
+Added support for VCU2 raster video formats
+
+v_hscaler_v3_7:
+Fixed codespell issues.
+
+v_demosaic_v1_5:
+Add function banners and remove doxygen warnings
+
+v_csc_v2_8:
+Coefficients were swapped for BT 601 and BT 709 video standards in csc driver. Fixed the coefficients by swapping ranges.
+
+v_axi4s_remap_v1_5:
+Provided function banners, fixed codespell errors & doxygen issues
+
+xdmapcie_v3_2:
+Fix codespell errors
+Fix all the outstanding GCC Warnings
+
+xxvethernet_v1_13:
+Fix code spell errors
+Update Doxygen documentation for sdt flow
+
+xilmailbox_v1_13:
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+Extend example support for PL MB processors
+Fix BSP generation for PMU and filter interrupt example
+
+xilocp_v1_7:
+Fix RTF review comments
+Fix MISRA-C Violation
+Updated typecast of U64 variables to access correct u64 addresses
+Added support for Versal_2VP
+Return error if CDI generation fails
+Update the Payload assignments with XOCP_PACK_PAYLOAD macros
+Restrict BSP imports and examples for unsupported platforms in Vitis IDE.
+Restructure xilocp library
+Codespell errors fix
+use event management framework for OCP events
+Skip PCR config during InPlacePlm update
+Fix build failure when cache is enabled
+Use generic API to increment IV
+Add parameter validation
+
+xilpuf_v2_7:
+Fix MISRA C violation
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+Refactor the example to remove certain dependencies on DME functionality
+Added Versal_2VP support
+Fix address range verification related gaps
+Update the Payload assignments with XPUF_PACK_PAYLOAD macros
+Fix Doxygen warnings
+Restrict BSP imports and examples for unsupported platforms in Vitis IDE.
+Replace undefined macro with correct AES key length macro
+Use Ppk1Hash for Spartan Ultrascale when XPUF_WRITE_PUF_HASH_IN_EFUSE is true
+Fix Compilation warnings for KEK_ID disabled with registration flow
+Code clean up
+Update validation error messages for PUF hash programming
+Support ID-Only Regeneration for spartan example
+Fix wrong macro used in ID-Only Regeneration
+Correct memory size for MemSet
+add SPU+ PUF key-based encrypt/decrypt validation support Codespell errors fix
+Rename PPK Secure control bits for Spartanuplusae1
+Add SMC support for client applications
+Fix misleading code
+Add support for xilpuf on PL-Microblaze in server mode
+Add support for xilpuf on PL-Microblaze in server mode
+example: Use generic API to increment IV
+
+xilsfl_v1_3:
+Add support for W25Q128JW flash
+Add micron flash support
+Fix codespell errors
+data: Add dependency on ospi driver property
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+scripts:pyesw:validate_hw: Fix srec_spi_bootloader build failure on Spartan US+ OSPI-enabled design
+
+xilskey_v7_9:
+Restrict BSP imports and examples for unsupported platforms in Vitis IDE.
+CodeSpell errors fix
+
+xiltimer_v2_4:
+lib: Fix codespell warnings
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+xiltimer: Fix MISRA-C violations for rules 17.7 and 10.1
+
+xiltpm_v1_2:
+Implement retry count limit for TPM access request
+Add SPI dependency for TPM lib
+Fix Versal Net build failure in XSCT flow
+Add Get PCR log feature
+Add TPM client support
+Add support for measurement extension to TPM PCRs in Versal_2VE_2VM
+Fix TPM command transmission
+MISRA-C fixes for TPM library
+
+lwip220_v1_4:
+xaxiemacif_dma: fix buffer alignment for no-DRE AXI DMA
+Add examples section in lwip220.yaml
+Add SDT support for FreeRTOS webserver example
+Add SDT support for FreeRTOS TFTP server example
+Add SDT support for FreeRTOS TFTP client example
+Add SDT support for FreeRTOS IGMP example
+Add SDT support for webserver raw example
+Add SDT support for TFTP server raw example
+Add SDT support for TFTP client raw example
+Add SDT support for IGMP raw example
+lwip: emacps: reorganize emacps PHY code for fixed and autodetect speeds
+autoip: Choose next address after rate limit
+ip4_frag/ip6_frag: fix potential NULL-pointer access on memory errors
+Increment the driver version
+
+standalone_v9_5:
+bsp: standalone: add macro to calculate Ceil value
+xilpm/xilpm_ng: Add new IOCTL to set AIE clock divider
+bsp:standalone:riscv: Add custom user CSR define
+bsp:standalone:riscv: Add global pointer register init in boot sequence
+bsp: standalone: Document in-place buffer modification in Xil_IncrementBuffer
+bsp: standalone: Fix off-by-one bug in Xil_SetTlbAttributesR52
+bsp: Initialize TCM regions before stack pointer setup
+xilpm_ng: Add PM_CLOCK_PROGRAM_RATE API
+xilpm_ng: Add PM_CLOCK_GETRATE API
+xilpm_ng: Add GET_NODE_NAME and GET_NODE_COUNT query IDs
+bsp: standalone: Replace BFI with UBFX for Cortex-R52 CPSR mode detection
+sw_services: xilplmi: Add impact less ASUFW update for Versal_2VE_2VM
+lib: sw_services: xilloader: Add SMC support for client applications
+lib: bsp: standalone: Update IOCTL platform support and add ZynqMP query IDs
+bsp: standalone: Clarify trigger type decoding in XSetPriorityTriggerType
+Refactor: Move IV increment logic to generic utility function
+sw_services: xilfpga: Add support to set config regs and read frame data via PMUFWbsp:standalone: Add PS-PL LPD, FPD and MMI IRQ numbers for ease of use
+bsp: standalone: Fix PPI interrupt ID encoding
+zynqmp_pmufw: src: Bump-up getnode status version
+bsp:standalone:Replace standard memcpy with Xil_MemCpy
+bsp: standalone: Replace the standard memcpy with Xil_MemCpy
+bsp: standalone: Fix memcpy() alignment issue
+lib: add support for OCP subsystem update event
+bsp: standalone: Remove NULL address check
+lib: Fix codespell warnings
+bsp: standalone: Add support for cache coherency at EL3 for Versal Gen2
+XILLOADER:Fix MISRA-C 10.4 Violations
+XILLOADER:Fix MISRA-c 20.7 Violation
+bsp: standalone: Add missing sys_* stub implementations for armclang
+bsp: standalone: Fix interrupt loss due to XIntc re-initialization
+standalone: Add hex interrupt IDs for PL interrupts
+esw: Integrate Cortex-R52 support for ARMCLANG compiler
+bsp: standalone: Update Doxygen comments to support SDT flow documentation
+bsp: standalone: Fix MISRA-C violations for Rules 10.1, 18.4 and 10.3
+sw_services:xilsecure: Fix for glitch detection
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+bsp: standalone: Fix MISRA-C violation for Rule 12.1
+sw_apps: versal_plm: Add SDT build support for VERSAL_2VP_P devices
+bsp:standalone: Add PS-PL LPD, FPD and MMI IRQ numbers for ease of use
+
+v_hdmitxss1_v3_9:
+Added raw clk reporting prints
+Implement FRL Bandwidth Calculation for HDMI21 TX
+Fix the TMDS only mode support
+Fix codespell errors
+
+v_hdmitxss_v6_8:
+Registered the interrupt for HDCP1.4
+Added PHY Error callback
+Added raw clk reporting prints
+Fix codespell & GCC warnings
+
+v_hdmitx1_v2_7:
+Fix DSC color format and depth settings
+Add TMDS-only mode support to reduce the driver footprint
+Fix codespell & GCC warnings
+
+v_hdmitx_v2_9:
+Fix codespell & GCC warnings
+
+v_hdmirxss1_v3_9:
+Added raw clk reporting prints
+Fix the TMDS only mode support
+Fix GCC & codespell errors
+
+v_hdmirxss_v6_9:
+Registered the interrupt for HDCP1.4
+Added PHY Error callback
+propagate PHY error to application
+Added raw clk reporting prints
+Fix codespell & doxygen errors
+
+v_hdmirx1_v1_11:
+Fix compilation warning when RX FRL is disabled
+Fix DSC YUV422/420 bridge configuration
+Fix GCC warnings
+
+v_hdmirx_v2_10:
+500 ms stream-up watchdog and PHY error callback
+Fix codespell & Doxygen errors
+
+v_hdmiphy1_v2_12:
+Added registers for raw clk reporting
+Fix codespell errors
+
+v_hdmi_common_v1_10:
+Fix the documentation,  doxygen and codespell errors
+
+v_sditxss_v4_7:
+Fix the documentation,  doxygen and codespell errors
+
+v_sditx_v3_5:
+Fix the documentation,  doxygen and codespell errors
+
+v_sdirxss_v3_6:
+Added vek385 application
+Added SCU200 Example Application for SDI
+Fix the documentation,  doxygen and codespell errors
+
+v_sdirx_v2_7:
+Fix the documentation,  doxygen and codespell errors
+
+spdif_v1_3:
+Fix the documentation,  doxygen and codespell errors
+
+i2srx_v2_5:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_rx_dp_v3_2:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_tx_v3_2:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_rx_v3_3:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_rng_v1_6:
+Fix the codespell errors for HDCP22 RNG driver
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_mmult_v1_6:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_common_v2_4:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_cipher_dp_v2_3:
+Fix the cipher for SST and MST case
+Fix the documentation,  doxygen and codespell errors
+
+hdcp22_cipher_v1_5:
+Fix the documentation,  doxygen and codespell errors
+
+hdcp1x_v4_10:
+Fix port adaptor table corruption and DP MST ECF dispatch.
+Fix the documentation,  doxygen and codespell errors
+
+dsitxss_v2_7:
+Improved API documentation, fixed doxygen warnings
+
+dsi_v1_6:
+Improved API documentation, fixed doxygen warnings
+
+dphy_v1_9:
+Fix the codespell and doxygen errors
+
+dp14txss_v6_15:
+Fixed codespell, gcc and doxygen warnings for driver quality
+Added support for video interface type flag - Native Video & Axi4_stream
+Fix the VTC configuration roundoff error in DP21TxSs
+Added API for handling user input on the Versal platform
+Add support for the VEK385 pass-through example design
+
+dp14rxss_v8_5:
+Fixed codespell, gcc and doxygen warnings for driver quality
+Fixed the VEK385 DP Rx 1.62 Gbps link‑rate issue
+
+dp14_v7_12:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+
+dp12txss_v5_9:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+
+dp12rxss_v4_9:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+
+dp12_v7_7:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+Fix the DP12 HDCP1x issue.
+
+csi2txss_v1_9:
+Fixed codespell issues
+
+csi2tx_v1_6:
+Fixed codespell issues
+
+mipicsiss_v1_15:
+Changed the LPDDR base address name at mipi_cfg.c as per xparameters.h and added gain in sensor_cfg.c to improve image quality
+Fix out-of-bounds vdma_context array access in SP701 example
+Add dynamic line rate configuration support
+Enabled CSI and changed Lanes to 3Lanes in VEK385 mipi cphy example design
+Updating yaml with HPIO Files
+Adding Support for HPIO Based CSI-2 RXSS Design
+Adding Support for DPHY XP5IO Based Example Design on SCU200
+Enabled CSI in VEK385 mipi dphy example design
+Remove xlnx,rst-disable from yaml
+Remove reset-disable handling for Versal Gen2
+Updated DPHY application for IMX715 sensor
+Fix the documentation,  doxygen and codespell errors
+
+csi_v1_9:
+Fixed codespell issues
+Corrected the fixed lanes string in the config property
+Remove the ResetDisable parameter from Csi Configure api and restore the default soft reset sequence
+
+v_multi_scaler_v1_6:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+Fix LPDDRMC base address selection for RISC-V platform
+
+v_scenechange_v1_6:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+
+vtc_v8_8:
+Fixed codespell warnings
+
+video_common_v4_19:
+Fixed codespell, gcc and doxygen warnings for driver quality
+Added DisplayID Support and its bound check to DisplayTD parsing
+Added new VCU2 based 16bit raster video formats
+Removed invalid video mode enum
+
+v_tpg_v8_7:
+Added function banner, fixed codespell, gcc and doxygen warnings for driver quality
+
+v_vscaler_v3_5:
+Fixed codespell, gcc and doxygen warnings for driver quality
+
+spips_v3_14:
+Add device_type property
+ix byte-order handling in TX/RX FIFO packing
+Examples: Refactor slave polled example to use XSpiPs_PolledTransfer
+Add runtime FIFO width/depth handling for wide FIFOs
+Add fifo-depth as required device tree property
+Add 64-bit addressing support
+Update Doxygen comments for Config init function
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+
 
 
 
