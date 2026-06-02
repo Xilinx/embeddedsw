@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -22,7 +22,7 @@
 ***************************************************************************************************/
 
 /**
- * @addtogroup xplm_apis Versal_2VP PLM APIs
+ * @addtogroup xplm_apis Versal PLM APIs
  * @{
  */
 
@@ -123,3 +123,5 @@ int XPlm_HookAfterBootPdi(void *Arg)
 
 	return Status;
 }
+
+/** @} end of xplm_apis */

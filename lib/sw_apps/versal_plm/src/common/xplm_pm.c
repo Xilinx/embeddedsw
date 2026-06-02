@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -147,10 +147,7 @@ int XPlm_PmInit(void)
 {
 	int Status = XST_FAILURE;
 
-	/**
-	 * Initialize the XilPm component. It registers the callback handlers,
-	 * variables, events
-	 */
+	/** - Initialize the XilPm component. It registers the callback handlers, variables, events */
 	Status = XPm_Init(XPlm_PmRequestCb, &XLoader_RestartImage);
 	if (Status != XST_SUCCESS) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_PM_MOD, Status);
@@ -187,10 +184,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	TaskStartTime = XPlmi_GetTimerValue();
 #endif
 
-	/**
-	 * Configure NoC frequency equivalent to the frequency ROM sets in
-	 * Slave devices
-	 */
+	/** - Configure NoC frequency equivalent to the frequency ROM sets in Slave devices */
 	SlrType = XPlmi_In32(PMC_TAP_SLR_TYPE) &
 			PMC_TAP_SLR_TYPE_VAL_MASK;
 	if (SlrType == XLOADER_SSIT_MASTER_SLR) {
@@ -201,7 +195,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	}
 
 	/**
-	 *  Pass the PLM CDO to CDO parser, PLM CDO contains
+	 * - Pass the PLM CDO to CDO parser, PLM CDO contains
 	 *  - Device topology
 	 *  - PMC block configuration
 	 */
@@ -229,7 +223,7 @@ int XPlm_ProcessPmcCdo(void *Arg)
 	Status = XPlmi_SysMonInit();
 
 END:
-	/** Clear PMC CDO memory irrespective of success or failure */
+	/** - Clear PMC CDO memory irrespective of success or failure */
 	SStatus = XPlmi_MemSet(XPLMI_PMCRAM_BASEADDR, XPLMI_DATA_INIT_PZM,
 			XPLMI_PMC_CDO_MAX_WORD_LEN);
 	if (XST_SUCCESS != SStatus) {
@@ -258,10 +252,10 @@ static int XPlm_SendKeepAliveEvent(void)
 	int Status = XST_FAILURE;
 	u32 Payload[XPLMI_IPI_MAX_MSG_LEN] = {0U};
 
-	/** Assign PSM keep alive API ID to IPI payload[0] */
+	/** - Assign PSM keep alive API ID to IPI payload[0] */
 	Payload[0U] = XPLM_PSM_API_KEEP_ALIVE;
 
-	/** Send IPI for keep alive event to PSM */
+	/** - Send IPI for keep alive event to PSM */
 	Status = XPm_IpiSend(PSM_IPI_INT_MASK, Payload);
 	if (XST_SUCCESS != Status) {
 		XPlmi_Printf(DEBUG_GENERAL, "%s Error in IPI send: %0x\r\n",
@@ -294,7 +288,7 @@ static int XPlm_KeepAliveTask(void *Arg)
 	(void)Arg;
 
 	/**
-	 * Check if PSM is running and PSMFW is loaded and no error occurred
+	 * - Check if PSM is running and PSMFW is loaded and no error occurred
 	 * from PSM Keep alive event.
 	 */
 	if (((u8)TRUE == XPmPsm_FwIsPresent()) && (XPLM_PSM_ALIVE_ERR !=
@@ -376,7 +370,7 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 	u32 MilliSeconds = *(u32*)PtrMilliSeconds;
 
 	/**
-	 * Validate input parameter (MilliSeconds) which needs to be greater
+	 * - Validate input parameter (MilliSeconds) which needs to be greater
 	 * than minimum FTTI time (10ms).
 	 */
 	if (XPLM_MIN_FTTI_TIME > MilliSeconds) {
@@ -390,10 +384,7 @@ int XPlm_CreateKeepAliveTask(void *PtrMilliSeconds)
 	(void)XPlm_UpdatePsmCounterVal(XPLM_PSM_COUNTER_CLEAR);
 	(void)XPlm_SetPsmAliveStsVal(XPLM_PSM_ALIVE_NOT_STARTED);
 
-	/**
-	 * Add keep alive task in scheduler which runs at every
-	 * XPLM_DEFAULT_FTTI_TIME period.
-	 */
+	/** - Add keep alive task in scheduler which runs at every XPLM_DEFAULT_FTTI_TIME period. */
 	Status = XPlmi_SchedulerAddTask(XPLM_PSM_HEALTH_CHK, XPlm_KeepAliveTask,
 			NULL, MilliSeconds, XPLM_TASK_PRIORITY_0, NULL,
 			XPLMI_PERIODIC_TASK);
@@ -451,5 +442,8 @@ int XPlm_RemoveKeepAliveTask(void)
 
 	return Status;
 }
-#endif /* VERSAL_AIEPGE2 */
+#endif /* VERSAL_2VE_2VM */
 #endif /* XPLMI_IPI_DEVICE_ID */
+
+/** @endcond */
+/** @} end of xplm_apis */

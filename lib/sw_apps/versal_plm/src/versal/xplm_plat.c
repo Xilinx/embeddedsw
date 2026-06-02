@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -160,3 +160,6 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
 	return CounterVal;
 }
 #endif /* XPLMI_IPI_DEVICE_ID */
+
+/** @endcond */
+/** @} end of xplm_apis */

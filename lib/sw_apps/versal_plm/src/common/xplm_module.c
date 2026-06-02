@@ -150,18 +150,18 @@ int XPlm_ModuleInit(void *Arg)
 	(void) Arg;
 
 	/**
-	 * Initialize the below modules:
-	 *  - PLMI
-	 *  - PM
-	 *  - Error manager
-	 *  - Loader
-	 *  - Secure
-	 *  - NVM
-	 *  - Puf
-	 *  - STL
-	 *  - SEM
-	 *  - OCP (only for Versal_net)
-	 *  - TPM (only for Versal)
+	 * - Initialize the below modules:
+	 *   - PLMI
+	 *   - PM
+	 *   - Error manager
+	 *   - Loader
+	 *   - Secure
+	 *   - NVM
+	 *   - Puf
+	 *   - STL
+	 *   - SEM
+	 *   - OCP (only for Versal_net)
+	 *   - TPM (only for Versal)
 	 */
 
 	Status = XPlmi_Init(XPm_IsMemAddressValid);
@@ -249,9 +249,7 @@ int XPlm_ModuleInit(void *Arg)
 #endif
 	XSECURE_TEMPORAL_CHECK(END, Status, XOcp_GenerateDevIKKeyPair);
 #endif
-	/**
-	 * Init function for OCP module for handler registration to server
-	 */
+	/** - Init function for OCP module for handler registration to server */
 	XOcp_Init();
 #endif
 
@@ -260,4 +258,4 @@ END:
 }
 
 /** @endcond */
-/** @} */
+/** @} end of xplm_apis */

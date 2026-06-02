@@ -178,3 +178,6 @@ END:
 	return Status;
 }
 #endif
+
+/** @endcond */
+/** @} end of xplm_apis */

@@ -95,8 +95,6 @@ extern XPlmi_DsEntry __data_struct_end[];
 /**
 * @brief	This function enables SLVERR for PMC related modules
 *
-* @return	None
-*
 *****************************************************************************/
 void XPlm_EnablePlatformSlaveErrors(void)
 {
@@ -265,10 +263,7 @@ int XPlm_PostPlmUpdate(void)
 	}
 #endif
 
-	/**
-	 * Update KEK red key availability status if PLM is encrypted with
-	 * Black key
-	 */
+	/** - Update KEK red key availability status if PLM is encrypted with Black key */
 #ifndef PLM_SECURE_EXCLUDE
 	XSECURE_REDUNDANT_CALL(BootPdiInfo->DecKeySrc, DecKeySrcTmp, XLoader_GetKekSrc);
 	if (BootPdiInfo->DecKeySrc != DecKeySrcTmp) {
@@ -277,10 +272,7 @@ int XPlm_PostPlmUpdate(void)
 	}
 	XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
 
-	/**
-	 * Update DecKeySrc after clearing RED keys
-	 * when RedKeyClear is set in PMCRAM
-	 */
+	/** - Update DecKeySrc after clearing RED keys when RedKeyClear is set in PMCRAM */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ClearAesKey, &BootPdiInfo->DecKeySrc);
 
 #endif
@@ -439,21 +431,21 @@ int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr)
 	XilPdi TempPdiInst;
 	XilPdi *PdiPtr = &TempPdiInst;
 
-	/** Check if PDI address is valid */
+	/** - Check if PDI address is valid */
 	if (PdiAddr == 0U) {
 		XPlmi_Printf(DEBUG_GENERAL, "ERROR: Invalid PDI address\n\r");
 		Status = XPLMI_ERR_INVALID_PAYLOAD_LEN;
 		goto END;
 	}
 
-	/** Initialize PDI structure */
+	/** - Initialize PDI structure */
 	Status = XPlmi_MemSetBytes(PdiPtr, sizeof(XilPdi), 0U, sizeof(XilPdi));
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "ERROR: PDI memset failed\n\r");
 		goto END;
 	}
 
-	/** Initialize PDI */
+	/** - Initialize PDI */
 	PdiPtr->PdiType = XLOADER_PDI_TYPE_IAU;
 	Status = XLoader_PdiInit(PdiPtr, XLOADER_PDI_SRC_DDR, (u64)PdiAddr);
 	if (Status != XST_SUCCESS) {
@@ -462,7 +454,7 @@ int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr)
 			goto END;
 	}
 
-	/** Check if ASUFW image is present in the PDI */
+	/** - Check if ASUFW image is present in the PDI */
 	Status = XLoader_GetImageAndPrtnInfo(PdiPtr, XPLMI_ASUFW_IMAGE_ID);
 	if (Status != XST_SUCCESS) {
 		XPlmi_Printf(DEBUG_GENERAL, "ERROR: ASUFW image not found in PDI\n\r");
@@ -475,3 +467,5 @@ int XPlm_CheckAsuPresenceInPdi(u32 PdiAddr)
 END:
 	return Status;
 }
+/** @endcond */
+/** @} end of xplm_apis */

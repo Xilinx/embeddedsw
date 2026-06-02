@@ -130,3 +130,6 @@ int XPlm_PeriodicStlHook(void)
 	return Status;
 }
 #endif /* PLM_ENABLE_STL */
+
+/** @endcond */
+/** @} end of xplm_apis */

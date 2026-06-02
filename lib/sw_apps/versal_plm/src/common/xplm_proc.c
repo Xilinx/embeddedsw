@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -75,7 +75,7 @@ void XPlm_ExceptionInit(void)
 	int Status = XST_FAILURE;
 	u16 Index;
 
-	/** Register exception handlers */
+	/** - Register exception handlers */
 	for (Index = XIL_EXCEPTION_ID_FIRST;
 	     Index <= XIL_EXCEPTION_ID_LAST; Index++) {
 		Status = XPlmi_UpdateStatus(XPLM_ERR_EXCEPTION, (int)Index);
@@ -83,7 +83,7 @@ void XPlm_ExceptionInit(void)
 			XPlm_ExceptionHandler, (void *)Status);
 	}
 
-	/** Write stack high and low register for stack protection */
+	/** - Write stack high and low register for stack protection */
 	mtslr(&_stack_end);
 	mtshr(&_stack);
 	microblaze_enable_exceptions();
@@ -113,17 +113,14 @@ void XPlm_ExceptionHandler(void *Data)
 
 	(void)XLoader_SecureClear();
 
-	/** Trigger SW error */
+	/** - Trigger SW error */
 	XPlmi_HandleSwError(XIL_NODETYPE_EVENT_ERROR_SW_ERR,
 			XIL_EVENT_ERROR_MASK_PLM_EXCEPTION);
 
 	Status = (int)Data;
 	XPlmi_ErrMgr(Status);
 
-	/**
-	 * Check if SLR Type is Master or Monolithic
-	 * and take error action accordingly.
-	 */
+	/** - Check if SLR Type is Master or Monolithic and take error action accordingly. */
 	if ((SlrType == XPLMI_SSIT_MASTER_SLR) ||
 		(SlrType == XPLMI_SSIT_MONOLITIC)) {
 		/**
@@ -141,3 +138,6 @@ void XPlm_ExceptionHandler(void *Data)
 		;
 	}
 }
+
+/** @endcond */
+/** @} end of xplm_apis */

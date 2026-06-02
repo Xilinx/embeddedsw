@@ -79,8 +79,6 @@ extern XPlmi_DsEntry __data_struct_end[];
 /**
 * @brief	This function enables SLVERR for PMC related modules
 *
-* @return	None
-*
 *****************************************************************************/
 void XPlm_EnablePlatformSlaveErrors(void)
 {
@@ -297,10 +295,7 @@ int XPlm_PostPlmUpdate(void)
 	volatile u32 DecKeySrcTmp;
 	#endif
 
-	/**
-	 * Update KEK red key availability status if PLM is encrypted with
-	 * Black key
-	 */
+	/** - Update KEK red key availability status if PLM is encrypted with Black key */
 #ifndef PLM_SECURE_EXCLUDE
 	XSECURE_REDUNDANT_CALL(BootPdiInfo->DecKeySrc, DecKeySrcTmp, XLoader_GetKekSrc);
 	if (BootPdiInfo->DecKeySrc != DecKeySrcTmp) {
@@ -309,10 +304,7 @@ int XPlm_PostPlmUpdate(void)
 	}
 	XPlmi_GetBootKatStatus((volatile u32*)&BootPdiInfo->PlmKatStatus);
 
-	/**
-	 * Update DecKeySrc after clearing RED keys
-	 * when RedKeyClear is set in PMCRAM
-	 */
+	/** - Update DecKeySrc after clearing RED keys when RedKeyClear is set in PMCRAM */
 	XSECURE_TEMPORAL_CHECK(END, Status, XLoader_ClearAesKey, &BootPdiInfo->DecKeySrc);
 
 #endif
@@ -412,3 +404,6 @@ int XPlm_CheckPsmPresenceInOD(u32 PdiAddr)
 END:
 	return Status;
 }
+
+/** @endcond */
+/** @} end of xplm_apis */

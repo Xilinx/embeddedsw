@@ -1,8 +1,7 @@
 /**************************************************************************************************
-* Copyright (c) 2024 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2024 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 **************************************************************************************************/
-
 
 /*************************************************************************************************/
 /**
@@ -33,9 +32,7 @@
 *       tvp  04/03/2026 Use generic API to increment IV
 *       obs  04/13/2026 Remove deadcode from xplm_ssitcomm
 *       vss  04/15/2026 Fix for aliasing issue.
-*</pre>
-*
-* @note
+* </pre>
 *
 **************************************************************************************************/
 /**
@@ -66,9 +63,13 @@
 #define XPLM_SSIT_COMM_SECURE_MSG       (0x01) /**< Constant value for secure message */
 #define XPLM_SSIT_COMM_NON_SECURE_MSG   (0x00) /**< Constant value for non-secure message */
 #define XPLM_IV_OFFSET_IN_ENCRYPTED_CMD (8U) /**< IV offset in encrypted command */
-#define XPLM_LEN_CALC(Value)            (((Value & XPLMI_CMD_LEN_MASK) >> LEN_BYTES_SHIFT) * \
-                                        XPLMI_WORD_LEN) /**< calculation of length in bytes
-										                from header */
+
+/**
+ * @brief Calculation of length in bytes from the command header.
+ * @param Value  Header word containing the encoded length field.
+ */
+#define XPLM_LEN_CALC(Value)	((((Value) & XPLMI_CMD_LEN_MASK) >> LEN_BYTES_SHIFT) * XPLMI_WORD_LEN)
+
 #define XPLM_MODULE_AND_CFG_SEC_COMMCMD (0x12B) /**< module and API ID for config secure
                                     communictaion command */
 #define XPLM_KEY_SIZE_WORDS            (XPLMI_KEY_SIZE_BYTES/sizeof(u32)) /**< Key size in words */
@@ -252,8 +253,9 @@ static int XPlm_SsitCommPerformAesOperation(XPlm_SsitCommParams *EncDecParamPtr)
 	}
 
 	/**
-	 * Updates the AES engine for encryption/decryption with provided data and
-	 * stores the encrypted/decrypted data at specified address */
+	 * - Updates the AES engine for encryption/decryption with provided
+	 * data and stores the encrypted/decrypted data at specified address.
+	 */
 	Status = OpsPtr->UpdateData(XSecureAesInstPtr, EncDecParamPtr->InDataAddr,
 	        (UINTPTR)EncDecParamPtr->OutDataPtr, EncDecParamPtr->DataLen, TRUE);
 	if (Status != XST_SUCCESS) {
@@ -804,3 +806,6 @@ XPlmi_SsitCommParams *XPlm_SsitCommGetParamsPtr(void)
 	return (&XPlm_SsitCommVar);
 }
 #endif
+
+/** @endcond */
+/** @} end of xplm_apis */

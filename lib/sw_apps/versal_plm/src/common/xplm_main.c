@@ -93,24 +93,24 @@ int main(void)
 {
 	int Status = XST_FAILURE;
 
-	/** Initialize the processor, timers and tasks list */
+	/** - Initialize the processor, timers and tasks list */
 	Status = XPlm_Init();
 	if (Status != XST_SUCCESS)
 	{
 		XPlmi_ErrMgr(Status);
 	}
 
-	/** Print PLM banner since timestamps are enabled now */
+	/** - Print PLM banner since timestamps are enabled now */
 	XPlmi_PrintPlmBanner();
 
-	/** Initialize the start up events */
+	/** - Initialize the start up events */
 	Status = XPlm_AddStartUpTasks();
 	if (Status != XST_SUCCESS)
 	{
 		XPlmi_ErrMgr(Status);
 	}
 
-	/** Run the handlers in task loop based on the priority */
+	/** - Run the handlers in task loop based on the priority */
 	XPlmi_TaskDispatchLoop();
 
 	/* Should never reach here */
@@ -135,22 +135,20 @@ static int XPlm_Init(void)
 {
 	int Status = XST_FAILURE;
 
-	/** Initialize PLM exceptions */
+	/** - Initialize PLM exceptions */
 	XPlm_ExceptionInit();
 
-	/**
-	 * Disable CFRAME isolation for VCCRAM for Versal ES1 Silicon
-	 */
+	/** - Disable CFRAME isolation for VCCRAM for Versal ES1 Silicon */
 	XPlmi_DisableCFrameIso();
 
 	/**
-	 * Reset the wakeup signal set by ROM
+	 * - Reset the wakeup signal set by ROM
 	 * Otherwise MB will always wakeup, irrespective of the sleep state
 	 */
 	XPlmi_PpuWakeUpDis();
 
 	/**
-	 * Initialize PLM Update related handlers and perform
+	 * - Initialize PLM Update related handlers and perform
 	 * DS restoring. This is applicable only for Versal Net
 	 */
 	Status = XPlmi_UpdateInit(XPlm_CompatibilityCheck, XLoader_IsPdiAddrLookup, XPlm_CheckPsmPresenceInOD);
@@ -159,7 +157,7 @@ static int XPlm_Init(void)
 	}
 
 #ifdef VERSAL_2VE_2VM
-	/** Initialize ASU in-place update subsystem for VERSAL_2VE_2VM platforms */
+	/** - Initialize ASU in-place update subsystem for VERSAL_2VE_2VM platforms */
 	Status = XPlmi_AsuUpdateInit(XLoader_IsPdiAddrLookup, XPlm_CheckAsuPresenceInPdi,
 			XLoader_LoadAsuImage);
 	if (Status != XST_SUCCESS) {
@@ -168,18 +166,18 @@ static int XPlm_Init(void)
 	}
 #endif
 
-	/** Initialize debug log buffer structure */
+	/** - Initialize debug log buffer structure */
 	if (XPlmi_IsPlmUpdateDone() != (u8)TRUE) {
 		XPlmi_InitDebugLogBuffer();
 	}
 
-	/** Initialize timers */
+	/** - Initialize timers */
 	Status = XPlmi_StartTimer();
 	if (Status != XST_SUCCESS) {
 		goto END;
 	}
 
-	/** Initializes PMC DMA */
+	/** - Initializes PMC DMA */
 	Status = XPlmi_DmaInit();
 	if (Status != XST_SUCCESS) {
 		goto END;
@@ -195,12 +193,15 @@ static int XPlm_Init(void)
 	XPlmi_InitUart();
 #endif
 
-	/** Do Internal POR if any specific case */
+	/** - Do Internal POR if any specific case */
 	XLoader_PerformInternalPOR();
 
-	/** Initialize the tasks list */
+	/** - Initialize the tasks list */
 	XPlmi_TaskInit();
 
 END:
 	return Status;
 }
+
+/** @endcond */
+/** @} end of xplm_apis */

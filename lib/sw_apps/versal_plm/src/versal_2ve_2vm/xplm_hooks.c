@@ -145,3 +145,5 @@ int XPlm_HookAfterBootPdi(void *Arg)
 
 	return Status;
 }
+
+/** @} end of xplm_apis */

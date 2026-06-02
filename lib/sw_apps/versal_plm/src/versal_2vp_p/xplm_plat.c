@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -22,7 +22,7 @@
 ***************************************************************************************************/
 
 /**
- * @addtogroup xplm_apis Versal_2VP_P PLM APIs
+ * @addtogroup xplm_apis Versal PLM APIs
  * @{
  * @cond xplm_internal
  */
@@ -155,3 +155,6 @@ u32 XPlm_UpdatePsmCounterVal(u32 Val)
 	return CounterVal;
 }
 #endif /* XPLMI_IPI_DEVICE_ID */
+
+/** @endcond */
+/** @} end of xplm_apis */
