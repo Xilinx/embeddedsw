@@ -338,6 +338,13 @@ Fix example code for detect only mode
 asu_ram_ecc:
 Add device-tree YAML bindings for ASU RAM ECC to extract ECC parameters during BSP generation.
 
+sysmonpsv_v5_3:
+Fix Coverity and MISRA-C violations
+Use static for driver instance structs in examples
+Fix secure mode compilation and PCSR re-lock in SDT flow
+Enhancements: NULL checks, range validation, standardize return values
+Correct spelling errors
+
 asufw:
 Fix incorrect serial number generation in X509 certificate generation
 Add IPI access permissions CSV file for asufw
@@ -735,6 +742,7 @@ Fix misleading code
 Add support for xilpuf on PL-Microblaze in server mode
 Add support for xilpuf on PL-Microblaze in server mode
 example: Use generic API to increment IV
+Remove 128-bit key support from XPuf_FormatAesKey and improve endianness change logic
 
 xilsfl_v1_3:
 Add support for W25Q128JW flash
@@ -1008,6 +1016,782 @@ Add 64-bit addressing support
 Update Doxygen comments for Config init function
 Fix codespell errors
 Update Doxygen comments to include SDT flow details
+
+avbuf_v2_7:
+Fix codespell errors.
+
+can_v3_12:
+Fix codespell errors
+Update Doxygen comments to include SDT flow details.
+
+canfd_v2_12:
+Fix TX buffer transmitted check
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+Add 64-bit addressing support
+
+canps_v3_12:
+Add 64-bit addressing support
+Update Doxygen comments to include SDT flow details.
+
+cframe_v2_0:
+Codespell errors fix.
+
+cfupmc_v2_0:
+Fix doxygen warnings.
+
+clk_wiz_v1_11:
+Update the charge pump, Resolution and lock delay
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+Correct strcmp condition in XClk_Wiz_GetInputRate
+
+clockps_v1_7;
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details.
+
+cpu_v2_19:
+Fix codespell warnings in CPU and peripheral drivers.
+
+cpu_cortexa53_v2_3:
+Fix codespell warnings in CPU and peripheral drivers:
+
+cpu_cortexa72_v1_6:
+Fix codespell warnings in CPU and peripheral drivers.
+
+cpu_cortexa78_v1_4:
+Fix codespell warnings in CPU and peripheral drivers.
+
+cpu_cortexr5_v2_4:
+Fix codespell warnings in CPU and peripheral drivers
+
+cpu_riscv_v1_3:
+Fix codespell warnings in CPU and peripheral drivers.
+
+ddrpsv_v1_8:
+Fix codespell errors
+
+devcfg_v3_10:
+Fix codespell errors.
+
+dfeccf_v1_10:
+Correct compiler warnings
+Correct spelling errors
+Ensure Libmetal dependent drivers pull in Libmetal Extension
+Add IsCcfOperational API
+
+dfeequ_v1_7:
+Complex mode configuration
+Correct spelling errors
+Ensure Libmetal dependent drivers pull in Libmetal Extension
+
+dfemix_v1_8:
+Correct spelling errors
+Ensure Libmetal dependent drivers pull in Libmetal Extension
+
+dfeofdm_v1_6:
+Correct compiler warnings
+Correct spelling errors
+Ensure Libmetal dependent drivers pull in Libmetal Extension
+Revert "dfeofdm: Update hw version".
+
+dfeprach_v1_9:
+Correct compiler warnings
+Correct spelling errors
+Ensure Libmetal dependent drivers pull in Libmetal Extension
+Update doxygen comments, remove not needed code
+
+dfxasm_v1_3:
+Fix codespell errors
+Update Doxygen comments to support SDT flow documentation
+
+dmaps_v2_12:
+Fix Code Spell warnings.
+Update Doxygen documentation for sdt flow
+
+dpdma_v1_7:
+Fix build issue for zynqmp platform
+Fix codespell error
+Remove unused parameter
+Move unused variable
+
+dppsu_v1_8:
+Add xlnx, max-lanes to required properties
+Revert "dppsu: Add xlnx,max-lanes to required properties"
+Add xlnx,max-lanes to required properties
+Fix codespell errors
+Initialize CfgPtr with NULL value
+
+dsirxss_v1_2:
+Fix codespell errors
+
+emc_v4_6:
+Add device_type field for hardware validation
+Update version number
+
+generic_v3_2:
+Fix codespell warnings in CPU and peripheral drivers
+
+hwicap_v11_8:
+Fix codespell errors
+
+i3c_v1_3:
+Fix codespell errors
+Add 64-bit addressing support
+
+i3cpsx_v1_7:
+Clamp RxLen to RecvByteCount in XI3cPsx_RdRxFifo
+Address internal review comments
+Revert "i3cpsx: Address internal review comments"
+Address internal review comments
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+intc_v3_22;
+Support cascaded interrupt controllers in SDT flow
+Fix codespell warnings
+Update Doxygen comments to support SDT flow documentation
+Prevent SelfTest from running in real mode
+
+iomodule_v2_20:
+Fix self-test example prototype warnings
+Fix codespell warnings
+Update Doxygen comments to support SDT flow documentation
+
+ipipsu_v2_19:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+llfifo_v6_1:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+mbox_v4_10:
+Fix doxygen warnings
+Fix GCC warnings
+Add dependency file for the example
+Fix GCC warnings in tapp example
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+mutex_v4_11:
+Fix doxygen warnings
+Fix codespell errors
+Add enable-hw-prot property under additionalProperties
+Update Doxygen comments to include SDT flow details
+
+nandps_v2_11:
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+nandpsu_v1_16:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+Revert "nandpsu: src: Add conditional cache ops for EL1_NS and EL3 modes"
+Revert "nandpsu: data: Update driver version"
+nandpsu: src: Add conditional cache ops for EL1_NS and EL3 modes
+
+ospipsv_v1_14:
+rename device_type value
+Fix MISRA-C 10.4 Violations
+Add device_type field for hardware validation
+Update Doxygen comments to include SDT flow details
+
+prc_v2_4:
+Fix codespell Errors
+
+prd_v2_4:
+Update Doxygen comments to support SDT flow documentation
+
+qspips_v3_15:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+resetps_v1_8:
+Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+rfdc_v13_1:
+Add base address definition to SDT flow
+Correct compiler warnings
+Correct spelling errors
+Ensure Libmetal dependent drivers pull in Libmetal Extension
+
+rtcpsu_v1_17:
+Fix codespell errors
+Modify weekday convention comments
+Migrate EPOCH from 2000 to 1970 Unix standard
+Update Doxygen comments to include SDT flow details
+
+scutimer_v2_8:
+Update Doxygen comments to support SDT flow documentation
+
+scuwdt_v2_7:
+Fix unused parameter warnings
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+sd_fec_v1_5:
+Correct spelling errors
+
+spi_v4_16:
+Add Inhibit logic in Interrupt handler
+Fix codespell errors
+Add device_type property
+Update Doxygen comments to include SDT flow details
+
+srio_v1_8:
+Fix codespell warnings in CPU and peripheral drivers
+
+sysmon_v8_0:
+Add SDT interrupt support and fix IP type detection
+Correct spelling errors
+
+sysmonpsu_v3_3:
+Correct spelling errors.
+
+tft_v6_8:
+update SPDX license to MIT
+Fix codespell errors
+Fix compilation warnings
+Update Doxygen comments to include SDT flow details
+
+tmr_inject_v1_8:
+Fix codespell warnings
+
+tmr_manager_v1_9:
+Fix codespell warnings
+
+tmrctr_v4_15:
+Fix codespell warnings in CPU and peripheral drivers
+Fix reset values in 64-bit cascade mode
+Update Doxygen comments to support SDT flow documentation
+
+trafgen_v4_9:
+update SPDX license to MIT
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+usb_v5_8:
+Fix codespell error in USB
+Update Doxygen comments to support SDT flow documentation
+Added 64-bit addressing support
+
+usbps_v2_11:
+suppress warning for HID SET_REPORT
+Fix codespell in usbpsu
+Fix EP0 STALL handling for invalid descriptor requests
+Update Doxygen comments to support SDT flow documentation
+Revert "usbpsu: Add cache flush/invalidate support for EL3"
+Add cache flush/invalidate support for EL3
+
+usbpsu_v1_19:
+suppress warning for HID SET_REPORT
+Fix codespell in usbpsu
+Fix EP0 STALL handling for invalid descriptor requests
+Update Doxygen comments to support SDT flow documentation
+Revert "usbpsu: Add cache flush/invalidate support for EL3"
+Add cache flush/invalidate support for EL3
+
+wdtps_v3_9:
+Add 64-bit addressing support
+Update Doxygen comments to include SDT flow details
+
+wdttb_v5_12:
+ Add 64-bit addressing support
+Fix codespell errors
+Update Doxygen comments to include SDT flow details
+
+xadcps_v2_8:
+Fix -Wunused-parameter warning and doc. errors
+Correct spelling errors.
+
+xilcert_v1_6;
+Add support to validate remaining xcert data buffer
+Codespell errors fix
+restructure xilocp library
+Revert "lib: sw_services: restructure xilocp library"
+restructure xilocp library
+Fix PLM build failure for Versal_2VP
+Update xilcert.yaml
+Add Layer field in TCB Info extension in X.509 certificate
+add validation for certificate buffer size
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+Revert "Xilocp: Move run time error codes to respective library"
+
+xilflash_v4_13:
+Update version number
+Fix codespell errors
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+
+xilfpga_v6_10:
+Add support to set config regs and read frame data via PMUFW
+Add SMC support for EL1 non-secure PDI load via ATF
+Fix Doxygen warnings
+Fix codespell errors
+Fix uninitialized ImageInfo access with signed bitstreams on unfused boards
+Add procedure to link and compile the example
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+
+xilpki_v2_4:
+Fix codespell errors
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+
+xilpm_v7_0:
+Add LPDDR5 DDRMC register offsets support for VRK160/VRK165
+Add CPM6 isolation node IDs to xpm_nodeid.h
+Clean up build configuration for supported devices
+Add additional isolation nodes for CPM6
+Skip known-bad all-F LPD BISR vector during eFuse search
+Increase DDRMC max index
+Add handling for xc2vp3602 during secure efuse transfer
+move bisr sequence
+Clear unused variable and label warnings
+Compile MV_Regulators only when PS I2C is enabled
+skip MEM_CTRLR prealloc in default subsystem
+mark XPm_ReleaseAllDevices Status as volatile
+security fixes in IsMemRegnAddressValid
+xpm_mem.c security fixes
+verify NPI PCSR lock via REG_PCSR_STATUS
+move PmChkRegMask32 into shared header
+name PREALLOC enabled state
+name SSIT release-node arg constants
+replace MEMIC node-type nibble magic numbers
+Increase timeout for AIE OPS during SSIT forward
+security fixes
+Include xpm_config.h in xpm_regs.h for XCVM2152
+Remove redundant NULL guard in SetResetNode
+Remove duplicate RegionSize checks in mem helpers
+Make XPmClockPll_Suspend void and remove dead error handling in PLL suspend paths
+Remove redundant index bound check in XPmPower_GetByIndex
+Remove unreachable ON-state guard in SendPowerUpReq
+Remove redundant checks in xpm_api.c
+Fix NPD housecleaning skip bit field
+Refactor SMC and IPI paths into separate functions
+Add PSXC_LPX_SLCR and MMI_GPU_SLCR register node ids
+Mem-Regn feature extension and enhancements
+Fix unchecked returns
+Replace magic numbers with named macros in xpm_device.c
+Update BISR efuse cache
+Skip non-local DDRMC MemCtrlrMap on SSIT slave SLRs
+Add new IOCTL to set AIE clock divider
+Add NULL check for Clk in XPm_SetClockParent
+Add NULL check for ParentDomain in XPmPowerDomain_UpdateRailUseCount
+Fix off-by-one boundary check in XPmPin_QueryAttributes
+Move the rtca logic inside XPm_GpioProcHandlerInit
+Add LPDDR5 DDRMC register offsets support for XCVM2152
+Remove unreachable else branch in XPmPin_SetPinFunction
+Remove unreachable else branch in ResetSdDllRegs
+Remove redundant NPS upper-bound check in XPmNpDomain_MemIcInit
+Add boot device release handling with RTCA skip policy
+Remove unreachable pin state and device ID check in XPm_PinCheckPermission
+Remove redundant NODECLASS check in XPm_IsWakeAllowed
+Remove generic GPIO wake-up handlers
+Add GPIO interrupt handler for PCIe reset attribute reprogramming
+Revert "Add GPIO interrupt handler for PCIe reset attribute reprogramming"
+Revert "Remove generic GPIO wake-up handlers"
+Remove redundant NULL check after XPm_AddNode
+Remove unreachable defensive code in xpm_access.c
+Remove unreachable NOT_INITIALIZED check in xpm_pldevice.c
+Pass validated EfuseCache pointer to BISR repair helpers
+Add SMC support for register notifier
+Remove dead code in domain isolation control
+Handle HB_MON as no-op during IPU restore
+Add regnode and access table save/restore for IPU
+Add workaround to create individual ADMA reset nodes
+Revert "Add workaround to create individual ADMA reset nodes"
+Remove generic GPIO wake-up handlers
+Add GPIO interrupt handler for PCIe reset attribute reprogramming
+Add APU lockstep mode detection
+Reject invalid APU core operations in lockstep mode
+Fix macro defects in GET_APU_CORE_NUM and GET_RPU_CLUSTER_ID
+Add PSCI CPU_SUSPEND support for SMC self-suspend
+Remove redundant NODECLASS check in XPm_GetQos
+Remove unreachable else branch in XPmPower_CheckPower
+Use NODESUBCLASS checks and remove unreachable code in xpm_clock.c
+Remove redundant defensive checks in xpm_device.c
+Remove unused Row parameter from Aie_TileType
+Convert XPm_NoCHWConfig to static void
+Move NULL Payload check to correct location in xpm_notifier.c
+Use NODESUBCLASS checks in xpm_api.c
+Revert "xilpm: versal_net: client: Add APU lockstep mode detection"
+Revert "xilpm: versal_net: Reject invalid RPU core operations in lockstep mode"
+Revert "xilpm: versal_net: Reject invalid APU core operations in lockstep mode"
+Revert "xilpm: versal_net: Fix macro defects in GET_APU_CORE_NUM and GET_RPU_CLUSTER_ID"
+Add INDEXED node subclass and ResolveIndexedNodeId infrastructure
+Add APU lockstep mode detection
+Reject invalid RPU core operations in lockstep mode
+Reject invalid APU core operations in lockstep mode
+Fix macro defects in GET_APU_CORE_NUM and GET_RPU_CLUSTER_ID
+check FpdPwrNode before ACPU nodes in ResetAPUGic
+Remove defensive code and enhance code quality
+Add SMC interface support for PM API calls
+xilpm/xilpm_ng: client: Map query IDs accross the platforms
+Fix NULL pointer dereference in XPmBisr_RepairME
+Add workaround to create individual ADMA reset nodes
+Replace reset-specific custom ops setters with generic XPmReset_MakeCustom
+Add support for per-channel ADMA reset
+Add reset IDs for individual ADMA channels
+Fix unsigned comparison warning in XPmNpDomain_MemIcInit
+Update NPD hosuecleaning for new devices
+Remove usage of deprecated AIE node
+Bump-up getnode status version
+add PS Mem-Regns to Default Subsystem
+Add type specific index validation in XPmNpDomain_MemIcInit()
+versal: Add support of LPDDR5 registers for Versal Premium Gen2 platforms
+Add EPLL clock nodes
+Fix codespell warnings across xilpm sources
+Update version to 7.0 for next release
+fix HNICX NPI data transfer blind writes
+Add ADC devices
+sw_services:xilplmi:Updated logic to save LPD EAM Info
+add all devices as requirements to Default Subsystem
+versal_net: remove unused headers
+Leave GTMPW PCSR unlocked for XC2VP3602 device
+Fix bugs in CPM pre-config
+Fix AIE device initialization logic error
+Fix flag clearing bug typo in XPmSubsystem_Configure function
+Fix uninitialized BaseAddr warning in XPmBisr_RepairXram
+Add NULL checks for ClkHandles and Clock in XPmDevice_GetStatus
+skip adding PMC_WDT to default subsystem
+Feature Enhancement on XPm_IsMemAddressValid()
+Fixes for CPM6 housecleaning
+Auto generate device specific macro for xc2vp3202 and xc2vp3602
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+move skip house cleaning handling to common API
+Add check for NULL pointer before dereferencing
+Add EIO GPIO device and reset nodes
+Revert "xilpm: versal_common: Add build flag for bulk device release support"
+Revert "xilpm: versal_common: Add build flag for unregister all notifiers support"
+Revert "xilpm: server: add all devices as requirements to Default Subsystem"
+Revert "xilpm: versal_net: server: fix blind writes for HNICX NPI data transfer"
+fix blind writes for HNICX NPI data transfer
+add all devices as requirements to Default Subsystem
+xilpm_ng: Add EIO_UART/SPI reset nodes
+Revert "xilpm: server: Auto generate device specific macro for xcvr1602 and xcvr1652"
+Revert "xilpm: versal: Add SDFEC Bisr Support"
+Add EIO_UART/SPI device and clock nodes
+Revert "xilpm: server: requesting all the devices for Default SUBSYS"
+Revert "xilpm: server: null sanity checkers added"
+Revert "sw_services: xilpm: add Node ID check for PM notify events"
+Revert "xilpm:versal: Move XPmPowerDomain_ApplyAmsTrim to versal_common"
+Revert "xilpm:versal_common: xpm_ams_trim swap LPD and FPD TSENS_DELTA"
+Revert "xilpm:versal_common: AMS Trim add new sysmon support for CPM5N and FPD"
+Revert "xilpm:versal_net: Add AMS trim function"
+Revert "xilpm:versal_net: save and restore PL devices' hierarchy"
+Revert "xilpm:versal_net: Restore missing Pl Devices during PLM update"
+Revert "xilpm:versal_common: fix potential issue on array out of bound."
+Revert "xilpm: versal_net: enable TCM Boot config option"
+
+libmetal_v2_10:
+include libmetal_xlnx_extension for relevant libs
+Increment the library version
+
+openamp_v1_13:
+ThirdParty: sw_services: include libmetal_xlnx_extension for relevant libs
+Openamp: Increment the library version
+ThirdParty: sw_services: openamp: Remove dead code
+
+mmidp:
+Fix spelling errors
+Fix average TU programming
+Add HPD interrupt infrastructure
+Harden AUX channel with guards, reset, retry, and debug
+Fix link training, add debug prints, replace magic nums
+Add automated TU computation and standard video mode setup
+Fix assertion macro in XMmiDp_InitiateActSeq
+Remove redundant lower bound check in audio channel assertion
+Add fall-through comments in switch statement
+Suppress unused parameter warnings in conversion functions
+Fix statement with no effect warnings in AUX command handling
+Revert "examples: dcsub: Enable Nonlive example"
+Revert "drivers: xmmidp: Prepare driver to support examples"
+
+dcsub:
+Fix spelling errors
+Fix VTC compilation
+Add support for mixed mode example
+Fix doxygen warnings
+Add support for Live example
+Refactor non live example
+Add function to get IP configuration
+Update configuration structure
+Add the sample config file
+Guard DP audio-SDP disable in SDP mode
+Manage shared channel for cursor/SDP
+Add SDP option in menu config
+Add SDP fields to runtime config
+Add SDP feature modules
+Force link training
+Improve pixel clock accuracy
+Add audio channels count in XDcSub_SetAudioChCtrl() API
+Configure audio descriptors and HPD-time DP audio setup
+Apply runtime audio channel control in DC init
+Add menu-driven audio channel selection mode
+Add interrupt-driven HPD handling with link retrain
+Add unified DPDC non-live example with interactive menu
+Fix XDcSub_SetCursorBlend() to handle enable/disable correctly
+Remove per-feature DPDC examples
+Fix GCC warning
+Update NonliveLatency and Video frame switch values
+Update the XDcSub_SetNonLiveLatency API
+Fix integer to pointer conversion warnings in nonlive_4k_hbr3 example
+Suppress unused parameter warning in sdp example
+Fix assertion macros and return statements in SDP functions
+Add const qualifier to VideoInfo pointer in XDcDma_Channel structure
+Remove ignored packed attribute from XDcDma_Descriptor structure
+Add const qualifiers to ScaleFactors pointers in Blender structure
+Initialize RegVal variables in xdc.c functions
+Add const qualifiers to Video variables
+Remove unused Status variables in xdcsub.c
+Initialize variables to suppress uninitialized warnings in xdcdma.c
+Add const qualifier to video timing mode pointer
+Remove unused VSampleCtrl variable in dcsub examples
+Fix header file references for 4K HBR3 and SDP examples
+Revert "examples: dcsub: Add Mixed mode and Live mode examples"
+Revert "drivers: xdcsub: Update driver to support examples"
+
+xilpm_ng:
+Support of different I2C masters for DDR5
+align repair-tag comment names with actual helpers
+override RTC GicProxyMask at topology add-node
+gic_proxy: size Groups[] for all 8 Versal 2VE/2VM groups
+xpm_runtime_api: Update status in XPm_HookAfterBootPdi
+Add CPM6 isolation node IDs to xpm_nodeid.h
+xpm_runtime_api: NULL-check Clk in XPm_SetClockState
+versal_2ve_2vm: fix duplicate DOMAIN_INIT_AND_HC error code
+Add additional isolation nodes for CPM6
+util: define runtime pool total size as macro
+util: drive XPmInitData IPU size from linker
+aie: validate caller DDR source ranges
+Fix doxygen command typos
+Fix StatusTmp init in GetSubsystemIdOfCore
+Add readback verify for SLCR writes
+Add redundancy and volatile in SetSecurityAttr
+Add NULL guards in XPm_GetDevOps_ById
+Add redundant NULL checks in IsDevAllocatedToSubsys
+Document TrustZone security policy
+Use strong 32-bit values in SecPolicy table
+Add volatile qualifier to CheckSecurityAccess status
+aie: Skip clock divider readback in emulation
+Remove unused label in SendPowerDownReq
+access: Add per-case switch redundancy in BaseHandler
+gic_proxy: NULL-check PMC lookup before dereference
+gic_proxy: document wake-event and status helpers
+gic_proxy: harden register address calculation
+Revert "xilpm_ng: Add volatile qualifier to CheckSecurityAccess status"
+Revert "xilpm_ng: Use strong 32-bit values in SecPolicy table"
+Revert "xilpm_ng: Document TrustZone security policy"
+Revert "xilpm_ng: Add redundant NULL checks in IsDevAllocatedToSubsys"
+Revert "xilpm_ng: Add NULL guards in XPm_GetDevOps_ById"
+Revert "xilpm_ng: Add redundancy and volatile in SetSecurityAttr"
+Revert "xilpm_ng: Add readback verify for SLCR writes"
+Revert "xilpm_ng: Fix StatusTmp init in GetSubsystemIdOfCore"
+Revert "xilpm_ng: Enable TrustZone enforcement in dev req/rel"
+Revert "xilpm_ng: Fix doxygen command typos"
+versal_2ve_2vm: Add AIE device node for QEMU/COSIM
+Revert "xilpm_ng: Reject invalid RPU core operations in lockstep mode"
+aie: bounds-check next TLV header in Aie2ps_Operation
+api: drop unused DeviceId from temperature helper
+Fix doxygen command typos
+Enable TrustZone enforcement in dev req/rel
+Fix StatusTmp init in GetSubsystemIdOfCore
+Add readback verify for SLCR writes
+Add redundancy and volatile in SetSecurityAttr
+Add NULL guards in XPm_GetDevOps_ById
+Add redundant NULL checks in IsDevAllocatedToSubsys
+Document TrustZone security policy
+Use strong 32-bit values in SecPolicy table
+Add volatile qualifier to CheckSecurityAccess status
+rpucore: validate BootAddr alignment in XPm_RpuBootAddrConfig
+rpucore: add doxygen header for XPm_RpuBootAddrConfig
+rpucore: add doxygen header for SetBootAddr
+pldomain: clarify divisor-doubling comment in ReduceCfuClkFreq
+aie: verify clock divider RMW in XPmAieDevice_UpdateClockDiv
+server: Add support for executing start-up STLs
+xpm_ioctl: NULL-check Response in XPm_GetLastResetReason
+xpm_ioctl: NULL-check Response in GET_OPER_MODE IOCTLs
+xpm_ioctl: remove dead XPm_GetSsitTemp stub
+xpm_asucore: replace magic numbers with named constants
+xpm_api: harden XPm_Init error path against fault injection
+rail: redundancy + named constants for InitVID + caller
+rail: replace AdjustVID power-state offset magic number
+rail: apply redundant XPmRail_Control to AdjustVID + callers
+xpm_common: verify NPI PCSR lock via REG_PCSR_STATUS
+access: Add redundant checks in BaseHandler
+runtime_clock: Add redundancy to CheckPermissions security checks
+subsystem: Add volatile qualifier in StartRecoveryTimer
+requirement: Set explicit error code when DeviceOps lookup fails
+runtime_eemi: Add redundancy in IsAccessAllowed permission checks
+runtime_eemi: Add volatile and redundant validation in SetState
+device: verify FPD SLCR_SECURE WPROT0 re-lock write
+device: verify LPD SLCR_SECURE WPROT0 re-lock write
+device: verify security-attribute register writes in SetSecurityAttr
+xpm_runtime_api: NULL-check Clk in XPm_SetClockDivider
+pin: NULL-check Resp in XPmPin_QueryAttributes
+pin: NULL-check Groups in XPmPin_GetPinGroups
+pin: NULL-check Value in XPmPin_GetPinConfig
+pin: NULL-check FuncId in XPmPin_GetPinFunction
+pin: NULL-check NumPins in XPmPin_GetNumPins
+xpm_runtime_eemi: guard PmErr against NULL Subsystem
+xilpm/xilpm-ng: server: security fixes
+Skip FSM dispatch for UART_0/UART_1 in PMC request/release
+xilpm: versal_common: server: Make XPmClockPll_Suspend void and remove dead error handling in PLL suspend paths
+Reject invalid RPU core operations in lockstep mode
+Add PSXC_LPX_SLCR and MMI_GPU_SLCR register node ids
+server: Mem-Regn feature extension and enhancements
+xilpm/xilpm_ng: Add new IOCTL to set AIE clock divider
+update RTCA offset
+ECC-initialize TCM before using
+xilpm_boot: add GPIO interrupt handler for PCIe attribute reprogramming
+xilpm/xilpm_ng: Add boot device release handling with RTCA skip policy
+Restore EM actions for EVENT notifiers after in-place update
+xilpm: Add workaround to create individual ADMA reset nodes
+Revert "xilpm: Add workaround to create individual ADMA reset nodes"
+Reject invalid APU core operations in lockstep mode
+Fix macro defects in GET_APU_CORE_NUM and GET_RPU_CLUSTER_ID
+server: GPIO Domain Control Feature
+server: PLD Power Management Feature
+support Indexed Node ID in PM_REQUEST_WAKEUP API
+Revert "xilpm_ng: Reject invalid RPU core operations in lockstep mode"
+Revert "xilpm_ng: Reject invalid APU core operations in lockstep mode"
+Revert "xilpm_ng: Fix macro defects in GET_APU_CORE_NUM and GET_RPU_CLUSTER_ID"
+Revert "xilpm_ng: server: PLD Power Management Feature"
+Add XILPM_NG_ENABLE_CLK_SCMI cmake option
+Add PM_CLOCK_DESCRIBERATE API
+Add PM_CLOCK_PROGRAM_RATE API
+Add PM_CLOCK_GETRATE API
+Add support to calculate clock rate
+Add GET_NODE_NAME and GET_NODE_COUNT query IDs
+Convert Index based Node ID to PM Node ID for APIs used by SCMI
+Add INDEXED node subclass and ResolveIndexedNodeId infrastructure
+Reject invalid RPU core operations in lockstep mode
+Reject invalid APU core operations in lockstep mode
+Fix macro defects in GET_APU_CORE_NUM and GET_RPU_CLUSTER_ID
+server: PLD Power Management Feature
+xilpm/xilpm_ng: client: Map query IDs accross the platforms
+Revert "xilpm_ng: Skip prealloc for core devices in default subsystem"
+xilpm: Add workaround to create individual ADMA reset nodes
+xilpm_runtime: Add support for per-channel ADMA reset
+Add reset IDs for individual ADMA channels
+Update AIE base address usage
+Enable DDR shutdown preparation support
+Implement DDR FSM with self-refresh entry/exit capabilities for Versal Gen 2 platform.
+Revert "xilpm_ng: Update AIE base address usage"
+Update AIE2PS OPS for baremetal support
+Update AIE base address usage
+Release reset for TCM devices during BringUp
+Only halt RPU core when operating mode actually changes
+Skip prealloc for core devices in default subsystem
+Bump-up getnode status version
+Fix subsystem restart UseCount synchronization bugs
+xilpm/xilpm-ng: server: add PS Mem-Regns to Default Subsystem
+Revert "xilpm_ng: runtime: add workaround to ignore ASU subsystem activation failure"
+server: Change UseCount data type from u8 to u16
+Add EPLL clock nodes
+sw_services:xilpm_ng: Add missing doxygen descriptions
+sw_services:xilpm_ng: Fix spelling errors
+runtime: add workaround to ignore ASU subsystem activation failure
+runtime: support for adding ASU subsystem by default
+xilpm: versal: Add ADC devices
+Add new BISR code
+Fix AIE2ps register address
+xilpm: versal_common: Add NULL checks for ClkHandles and Clock in XPmDevice_GetStatus
+Fix memory leak in AddMemRegnDevice during repeated PLD loads
+runtime: Make xilpm-eemi a true subset of xilpm-subsys module
+Enable CMake 4.0.1 Compatibility for sw_apps, sw_services and ThirdParty
+Add EIO GPIO device and reset nodes
+add const qualifer to all readonly variables
+xilpm_boot: Add support for additional APU cores
+Revert "xilpm_ng: xilpm_boot: Add support for additional APU cores"
+Add EIO_UART/SPI reset nodes
+xilpm_boot: Add support for additional APU cores
+Add EIO_UART/SPI device and clock nodes
+Revert "xilpm_ng: add Node ID check for PM notify events"
+Revert "xilpm_ng:xpm_requirement: Remove deadcode"
+Revert "xilpm: xilpm_ng (server): cleanups in xilpm-eemi"
+
+libmetal_xlnx_extension:
+create_bsp: Add cmake_minimum_required_version 3.24.2
+Revert "ThirdParty: libmetal_xlnx_extension: Fix Cmake configure warning"
+ThirdParty: libmetal_xlnx_extension: Fix Cmake configure warning
+ThirdParty: libmetal_xlnx_extension: Add build support for Microblaze
+ThirdParty: libmetal_xlnx_extension: Add support for FreeRTOS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
