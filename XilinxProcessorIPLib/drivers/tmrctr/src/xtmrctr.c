@@ -101,6 +101,10 @@ void XTmrCtr_CfgInitialize(XTmrCtr *InstancePtr, XTmrCtr_Config *ConfigPtr,
 	InstancePtr->IsReady = 0;
 	InstancePtr->Config = *ConfigPtr;
 
+	InstancePtr->IsStartedTmrCtr0 = 0U;
+	InstancePtr->IsStartedTmrCtr1 = 0U;
+	InstancePtr->IsPwmEnabled = FALSE;
+
 	InstancePtr->Config.BaseAddress = EffectiveAddr;
 	InstancePtr->BaseAddress = EffectiveAddr;
 
