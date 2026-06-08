@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2017 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -350,6 +350,7 @@ END:
 * @brief	This function reads IHT and optional data in Image Header Table.
 *
 * @param	MetaHdrPtr is pointer to Meta Header table.
+* @param	PdiType is type of PDI for which optional data is being read.
 *
 * @return
 * 			- XST_SUCCESS on successful read.
@@ -759,3 +760,5 @@ int XilPdi_VerifyImgHdrs(const XilPdi_MetaHdr * MetaHdrPtr)
 END:
 	return Status;
 }
+
+/** @} end of xilpdi_apis */
