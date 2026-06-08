@@ -749,8 +749,6 @@ END:
  *				decrypted.
  * @param	Size		Size of data to be decrypted in bytes, whereas
  *				the number of bytes should be multiples of 4.
- * @param	Size		Size of data to be decrypted in bytes, whereas
- *				the number of bytes should be multiples of 4.
  * @param	GcmTagAddr	Pointer to a buffer in which GCM tag address will
  *				be stored.
  * @return	This API returns the status of GCM tag matching.
@@ -790,8 +788,6 @@ END:
  * @param	InstancePtr 	Pointer to the XSecure_Aes instance.
  * @param	Chunking 	Used to enable or disable data chunking.
  *
- * @return	None
- *
  * @note	Chunking enable will be taken account only for
  *		XSecure_AesDecrypt() API usage.
  *
@@ -823,8 +819,6 @@ void XSecure_AesSetChunking(XSecure_Aes *InstancePtr, u8 Chunking)
  *		 - Length: Length of data in bytes.
  *		Return value should be 0 in case of success and 1
  *		in case of failure.
- *
- * @return	None
  *
  * @note	This function should be used along with
  *		XSecure_AesSetChunkConfig() API, this feature is taken into

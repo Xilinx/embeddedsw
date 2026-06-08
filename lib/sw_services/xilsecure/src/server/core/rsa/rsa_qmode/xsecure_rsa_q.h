@@ -84,5 +84,4 @@ int XSecure_RsaExpopt(u8 *Hash, u8 *Exp, u8 *Mod, u8 *RN, u8 *RRN, u8 *P, u8 *Q,
 
 #endif	/* PLM_RSA_EXCLUDE_H_ */
 
-/** @} */
 #endif /* XSECURE_RSA_Q_H_ */

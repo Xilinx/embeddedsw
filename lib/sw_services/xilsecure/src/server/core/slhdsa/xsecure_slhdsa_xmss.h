@@ -47,4 +47,3 @@ int XSecure_SlhdsaXmssPkFromSign(u64 IdxLeaf, u64 SignTmpAddr, u64 MAddr,
 #endif
 
 #endif /* XSECURE_SLH_DSA_XMSS_H_ */
-/** @} */

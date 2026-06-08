@@ -132,4 +132,3 @@ int XSecure_RsaPrivateDecrypt_64Bit(XSecure_Rsa *InstancePtr, u64 Input,
 #endif
 
 #endif /* XSECURE_RSA_H_ */
-/** @} */

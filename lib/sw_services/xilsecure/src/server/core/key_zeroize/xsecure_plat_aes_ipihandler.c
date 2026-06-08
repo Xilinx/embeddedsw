@@ -80,7 +80,7 @@ int XSecure_PlatAesIpiHandler(XPlmi_Cmd *Cmd)
 
 	switch (Cmd->CmdId & XSECURE_API_ID_MASK) {
 	case XSECURE_API(XSECURE_API_AES_PERFORM_OPERATION_AND_ZEROIZE_KEY):
-		/**   - @ref XSecure_AesPerformOperationAndZeroizeKey */
+		/**   - XSecure_AesPerformOperationAndZeroizeKey */
 		Status = XSecure_AesPerformOperationAndZeroizeKey(Cmd->SubsystemId, Pload[0], Pload[1], Pload[2], Pload[3]);
 		break;
 	default:

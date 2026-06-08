@@ -68,4 +68,3 @@ int XSecure_SlhdsaShake256sHashH(const u64 PublicKeyAddr, const u64 Data1Addr,
 #endif
 
 #endif /* XSECURE_SLH_DSA_HASH_H_ */
-/** @} */

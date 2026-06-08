@@ -147,4 +147,3 @@ extern const XSecure_ShaConfig ShaConfigTable[XSECURE_SHA_NUM_OF_INSTANCES];
 #endif
 
 #endif /** XSECURE_SHA_COMMON_H */
-/** @} */

@@ -47,4 +47,3 @@ int XSecure_Sha3IpiHandler(XPlmi_Cmd *Cmd);
 #endif
 
 #endif /* XSECURE_SHA_IPIHANDLER_H_ */
-/** @} */

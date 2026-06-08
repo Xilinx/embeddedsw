@@ -161,4 +161,3 @@ int XSecure_ShaLookupConfig(XSecure_Sha *InstancePtr, u32 DeviceId);
 #endif
 
 #endif /* XSECURE_SHA_H */
-/** @} */

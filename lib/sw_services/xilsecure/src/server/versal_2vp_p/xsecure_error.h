@@ -391,9 +391,6 @@ enum {
 
 #define XSECURE_SHA3_FINISH_ERROR		XSECURE_SHA_FINISH_ERROR
 							/**< SHA3 finish error */
-/**
- * @}
-*/
 /************************************* Function Prototypes ****************************************/
 
 #ifdef __cplusplus

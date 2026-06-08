@@ -112,6 +112,5 @@ END:
 	return Status;
 }
 
-/** @} end of xsecure_client_apis group */
-
 #endif /* defined (__aarch64__) && (EL1_NONSECURE == 1) */
+/** @} end of xsecure_client_apis group */

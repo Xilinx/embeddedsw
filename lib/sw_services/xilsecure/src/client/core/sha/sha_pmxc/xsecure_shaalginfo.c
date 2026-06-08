@@ -46,8 +46,6 @@
  *
  * @param	AlgInfo  Pointer to memory for holding the crypto algorithm information
  *
- * @return	None
- *
  **************************************************************************************************/
 void XSecure_ShaGetCryptoAlgInfo (Xil_CryptoAlgInfo *AlgInfo)
 {

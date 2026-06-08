@@ -47,7 +47,7 @@
 *
 ******************************************************************************/
 /**
-* @addtogroup xsecure_common_apis Xilsecure Common Apis
+* @addtogroup xsecure_common_apis XilSecure Common Apis
 * @{
 */
 #ifndef XSECURE_DEFS_H

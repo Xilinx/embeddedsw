@@ -49,4 +49,3 @@ int XSecure_SlhdsaForsPkFromSig(const u64 SignForsAddr, const u8 * const Md,
 #endif
 
 #endif /* XSECURE_SLH_DSA_FORS_H_ */
-/** @} */
