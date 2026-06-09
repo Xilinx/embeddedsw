@@ -100,10 +100,10 @@
 	(1ULL << (u64)IOCTL_PREPARE_DDR_SHUTDOWN)) | \
 	(1ULL << (u64)IOCTL_GET_SSIT_TEMP)
 
-#ifdef ENABLE_GPIO_PROC_HANDLER
+#if defined(XC2VP3602)
 static XPm_GpioProcCfg GpioProcCfg[MAX_GPIO_PROC_PINS];
 static u32 GpioProcCfgCount = 0U;
-#endif /* ENABLE_GPIO_PROC_HANDLER */
+#endif
 
 #ifdef PLM_ENABLE_STL
 static void (*StlCbInitFinishHandler)(void);
@@ -270,7 +270,7 @@ END:
 	return Status;
 }
 
-#ifdef ENABLE_GPIO_PROC_HANDLER
+#if defined(XC2VP3602)
 /*****************************************************************************/
 /**
  * @brief  Shared GPIO interrupt handler for configured MIO pins.
@@ -626,7 +626,7 @@ done:
 	XPm_Out32(RTCA_GPIO_PROC_CFG_REG, 0U);
 	return Status;
 }
-#endif /* ENABLE_GPIO_PROC_HANDLER */
+#endif /* defined(XC2VP3602) */
 
 /****************************************************************************/
 /**
@@ -1029,13 +1029,13 @@ XStatus XPm_HookAfterBootPdi(void)
 		XSECURE_TEMPORAL_CHECK(done, Status, XPmPeriph_SsitTempPropInitTask);
 	}
 
-#ifdef ENABLE_GPIO_PROC_HANDLER
+#if defined(XC2VP3602)
 	/* register gpio interrupt handler when MIO pin is selected */
 	Status = XPm_GpioProcHandlerInit();
 	if (XST_SUCCESS != Status) {
 		PmErr("Failed to initialize GPIO handler, Status: 0x%x\r\n", Status);
 	}
-#endif /* ENABLE_GPIO_PROC_HANDLER */
+#endif /* defined(XC2VP3602) */
 
 done:
 	return Status;
