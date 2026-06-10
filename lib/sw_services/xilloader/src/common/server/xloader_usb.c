@@ -72,8 +72,8 @@ u8 DownloadDone = 0U;
 /**
  * @brief	This function initializes the USB interface.
  *
- * @param	Device Flags are unused and only passed to maintain
- *			compatibility with init functions of other boot modes
+ * @param	DeviceFlags is unused and only passed to maintain
+ *			compatibility with init functions of other boot modes.
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -229,14 +229,14 @@ END:
 * @brief	This function copies from DFU temporary address in DDR to
 * 			destination.
 *
-* @param	Source Address is the offset of the memory chunk to be copied.
+* @param	SrcAddress is the offset of the memory chunk to be copied.
 *			This value is added to fixed DDR address to calculate the actual
 *			DDR address where the image resides.
-* @param	Destination Address is the address to which the memory chunk
+* @param	DestAddress is the address to which the memory chunk
 * 			is to be copied.
-* @param	Length Number of Bytes to be copied
+* @param	Length Number of Bytes to be copied.
 * @param	Flags is unused and is only passed to maintain compatibility
-*			with copy functions of other boot modes
+*			with copy functions of other boot modes.
 *
 * @return
 * 			- XST_SUCCESS on success and error code on failure

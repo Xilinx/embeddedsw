@@ -308,7 +308,7 @@ END1:
  *
  * @param	PdiSrc is source of PDI.
  * @param	PdiAddr is the address at which PDI is located in the PDI source
- * @param   IpiMask is mask  of IPI channel from which current partial PDI event is received
+ * @param	IpiMask is mask of IPI channel from which current partial PDI event is received
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure.

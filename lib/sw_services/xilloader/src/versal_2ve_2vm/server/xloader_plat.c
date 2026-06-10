@@ -1619,8 +1619,7 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
  * @brief	This function extends the SPK Hash into specified PCR.
  *
  * @param	SpkHash		SPK key hash measurement
- * @param	PcrInfo 	Provides the PCR number and Measurement Index
- * 				to be extended.
+ * @param	PcrNo 		Provides the PCR number to be extended.
  * @param	DigestIndex	Digest index in PCR log, applicable to SW PCR only
  * @param       OverWrite 	TRUE or FALSE for overwriting the PCR measurement
  * 				for that measurement index
@@ -1670,8 +1669,7 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
  * 		PCR.
  *
  * @param	SpkIdHash	Partition AC SPK ID Hash
- * @param	PcrInfo		Provides the PCR number and Measurement Index
- * 				to be extended
+ * @param	PcrNo			Provides the PCR number to be extended.
  * @param	DigestIndex 	Digest index in PCR log, applicable for SW PCR only
  * @param       OverWrite       TRUE or FALSE for overwriting the PCR measurement
  * 				for that measurement index
@@ -1720,8 +1718,7 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecu
  * 		specified PCR.
  *
  * @param	RevokeIdHash	Partition Header Revocation ID Hash
- * @param	PcrInfo		Provides the PCR number and Measurement Index
- * 				to be extended
+ * @param	PcrNo			Provides the PCR number to be extended.
  * @param	DigestIndex	Digest index in PCR log, applicable to SW PCR only
  * @param       OverWrite       TRUE or FALSE for overwriting the PCR measurement
  *

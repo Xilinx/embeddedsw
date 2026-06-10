@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -297,8 +297,6 @@ END:
  * @brief	This function is used to close the boot file and unmount the
  * 			file system.
  *
- * @param	None
- *
  * @return
  * 			- XST_SUCCESS on success.
  * 			- XLOADER_ERR_UFS_F_CLOSE if failed to close file in UFS filesystem.
@@ -374,6 +372,8 @@ static u8 XLoader_GetDrvNumUFS(u8 DeviceFlags)
  *
  * @param	MultiBootOffsetVal is the value of the multiboot register that
  *			would be suffixed to the filename
+ * @param	BootFileIndex is the index into the search sequence used to
+ *			construct the suffixed BOOT.BIN filename
  *
  * @return
  * 			- XST_SUCCESS on success.

@@ -50,7 +50,7 @@
  *
  * @param	PayloadBuf	Pointer to payload buffer containing packed header and arguments
  * @param	PayloadLen	Length of payload buffer (number of u32 elements)
- * @param	Response	Pointer to store response values
+ * @param	ResponseBuf	Pointer to store response values
  * @param	ResponseLen	Length of response buffer (number of u32 elements)
  *
  * @return
@@ -110,6 +110,6 @@ END:
 	return Status;
 }
 
-/** @} end of xloader_client_apis group */
-
 #endif /* defined (__aarch64__) && (EL1_NONSECURE == 1) */
+
+/** @} end of xloader_client_apis group */

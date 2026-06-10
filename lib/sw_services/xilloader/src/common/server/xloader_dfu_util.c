@@ -689,8 +689,7 @@ void XLoader_DfuSetState(const struct Usb_DevData* InstancePtr, u32 DfuState)
 /**
  * @brief	This function handles DFU reset, called from driver.
  *
- * @param	InstancePtr is a pointer to USB instance of the controller
- *
+ * @param	UsbInstancePtr is a pointer to USB instance of the controller.
  *
  ******************************************************************************/
 void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr)
@@ -706,10 +705,8 @@ void XLoader_DfuReset(struct Usb_DevData* UsbInstancePtr)
 /**
  * @brief	This function handles DFU set interface.
  *
- * @param	InstancePtr is a pointer to XUsbPsu instance of the controller
- * @param	SetupData is a pointer to setup token of control transfer
- *
- * @return	None
+ * @param	InstancePtr is a pointer to XUsbPsu instance of the controller.
+ * @param	SetupData is a pointer to setup token of control transfer.
  *
  ******************************************************************************/
 static void XLoader_DfuSetIntf(const struct Usb_DevData* InstancePtr, const SetupPacket *SetupData)

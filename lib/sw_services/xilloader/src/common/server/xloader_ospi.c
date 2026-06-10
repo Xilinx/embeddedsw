@@ -871,7 +871,7 @@ END:
  * 			As per the Micron spec, before issuing the command to enter into
  * 			4 byte addr mode, a write enable command is issued.
  *
- * @param	OspiPtr is a pointer to the OSPIPSV driver component to use.
+ * @param	OspiPsvPtr is a pointer to the OSPIPSV driver component to use.
  * @param	Enable 0x1 to enter 4-byte addressing mode, 0x0 to exit 4-byte addressing mode.
  *
  * @return

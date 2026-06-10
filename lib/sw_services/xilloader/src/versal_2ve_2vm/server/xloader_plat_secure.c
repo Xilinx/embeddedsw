@@ -368,9 +368,6 @@ END:
  * @param	Size holds the required size.
  * @param	Convert is a pointer in which output will be updated.
  *
- * @return
- * 			- None
- *
  ******************************************************************************/
 static inline void XLoader_I2Osp(u32 Integer, u32 Size, u8 *Convert)
 {

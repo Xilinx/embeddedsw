@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -546,22 +546,23 @@ extern "C" {
 
 #ifndef PLM_SECURE_EXCLUDE
 /**************************** Type Definitions *******************************/
-/**< RSA Key */
+/** RSA Key */
 typedef struct {
 	u32 PubModulus[128U];	/**< Public Modulus */
 	u32 PubModulusExt[128U];	/**< Public Modulus Extension */
 	u32 PubExponent;	/**< Public Exponent */
 } XLoader_RsaKey;
 
+/** Authentication Key */
 typedef struct {
 #ifdef VERSAL_2VP_P
-	u32 Header[8U];
+	u32 Header[8U];		/**< Key header */
 #endif
-	u8 Key[XLOADER_MAX_TOTAL_KEY_SIZE];
+	u8 Key[XLOADER_MAX_TOTAL_KEY_SIZE];	/**< Key data */
 } XLoader_AuthKey;
 
 #if !defined(VERSAL_2VE_2VM) && !defined(VERSAL_2VP_P)
-/**< Authentication Certificate */
+/** Authentication Certificate */
 typedef struct {
 	u32 AuthHdr;	/**< Authentication Header */
 	u32 SpkId;	/**< SPK ID */

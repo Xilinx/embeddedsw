@@ -178,23 +178,26 @@ int XLoader_OspiRelease(void);
 
 /************************** Variable Definitions *****************************/
 
+/**
+ * OSPI flash device parameters discovered via JEDEC ID lookup and used by the
+ * loader to issue correctly-sized read/write/status commands.
+ */
 typedef struct {
-	u32 jedec_id;	/* JEDEC ID */
-	u32 SectSize;		/* Individual sector size or
-						 * combined sector size in case of parallel config*/
-	u32 NumSect;		/* Total no. of sectors in one/two flash devices */
-	u32 PageSize;		/* Individual page size or
-				 * combined page size in case of parallel config*/
-	u32 NumPage;		/* Total no. of pages in one/two flash devices */
-	u32 FlashDeviceSize;	/* This is the size of one flash device
-				 * NOT the combination of both devices, if present
-				 */
-	u32 SectMask;		/* Mask to get sector start address */
-	u32 ReadCmd;		/* Read command used to read data from flash */
-	u32 WriteCmd;	/* Write command used to write data to flash */
-	u8 NumDie;		/* No. of die forming a single flash */
-	u8 StatusCmd;	/* Status Command */
-	u8 DummyCycles;	/* Number of Dummy cycles for Read operation */
+	u32 jedec_id;		/**< JEDEC ID */
+	u32 SectSize;		/**< Individual sector size or combined sector size
+						  *  in case of parallel config */
+	u32 NumSect;		/**< Total no. of sectors in one/two flash devices */
+	u32 PageSize;		/**< Individual page size or combined page size in
+						  *  case of parallel config */
+	u32 NumPage;		/**< Total no. of pages in one/two flash devices */
+	u32 FlashDeviceSize;	/**< Size of one flash device, NOT the combination
+						  *  of both devices, if present */
+	u32 SectMask;		/**< Mask to get sector start address */
+	u32 ReadCmd;		/**< Read command used to read data from flash */
+	u32 WriteCmd;		/**< Write command used to write data to flash */
+	u8 NumDie;			/**< No. of die forming a single flash */
+	u8 StatusCmd;		/**< Status Command */
+	u8 DummyCycles;		/**< Number of Dummy cycles for Read operation */
 } FlashInfo;
 
 #endif /* end of XLOADER_OSPI */

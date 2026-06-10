@@ -417,6 +417,7 @@ static inline int Xloader_SsitEoPdiSync(XilPdi *PdiPtr)
  * 		corresponding subsystem ID.
  *
  * @param	OptionalDataLen	Length of optional data.
+ * @param	OptionalDataId	Identifier of the optional data entry to look up.
  *
  * @return
  * 		- XST_SUCCESS always.
@@ -435,9 +436,6 @@ static inline int XLoader_StoreAppVersion(u32 OptionalDataLen, u32 OptionalDataI
 /**
  * @brief	This function is used to run MJTAG solution workaround in which
  * JTAG Tap state will be set to reset.
- *
- *
- * @return	None
  *
  *****************************************************************************/
 static inline void XLoader_SetJtagTapToReset(void)

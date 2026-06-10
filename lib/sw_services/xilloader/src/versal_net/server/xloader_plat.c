@@ -1598,8 +1598,7 @@ static int XLoader_SpkMeasurement(XLoader_SecureParams* SecurePtr,
  * @brief	This function extends the SPK Hash into specified PCR.
  *
  * @param	SpkHash SPK key hash measured
- * @param	PcrInfo provides the PCR number and Measurement Index
- * 		to be extended.
+ * @param	PcrNo provides the PCR number to be extended.
  * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
  * @param       PdiType Full or Partial or Restore PDI
  *
@@ -1649,8 +1648,7 @@ static int XLoader_SpkIdMeasurement(XLoader_SecureParams* SecurePtr, XSecure_Sha
  * 		PCR.
  *
  * @param	SpkIdHash Partition AC SPK ID Hash
- * @param	PcrInfo provides the PCR number and Measurement Index
- * 		to be extended.
+ * @param	PcrNo provides the PCR number to be extended.
  * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
  * @param       PdiType Full or Partial or Restore PDI
  *
@@ -1699,8 +1697,7 @@ static int XLoader_EncRevokeIdMeasurement(XLoader_SecureParams* SecurePtr, XSecu
  * 		specified PCR.
  *
  * @param	RevokeIdHash Partition Header Revocation ID Hash
- * @param	PcrInfo provides the PCR number and Measurement Index
- * 		to be extended.
+ * @param	PcrNo provides the PCR number to be extended.
  * @param	DigestIndex Digest index in PCR log, applicable to SW PCR only
  * @param       PdiType Full or Partial or Restore PDI
  *
@@ -1924,6 +1921,7 @@ int XLoader_CheckAndUpdateSecureState(void)
  * 		stores it with the corresponding subsystem ID.
  *
  * @param	OptionalDataLen	Length of optional data
+ * @param	OptionalDataId	Identifier of the optional data entry to look up
  *
  * @return
  * 		- XST_SUCCESS on success.
