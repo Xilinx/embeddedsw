@@ -27,6 +27,7 @@
 *       rmv  01/30/26 Renamed OCP header files and keymanagment macro
 *       obs  02/05/26 Implement peripheral pre-allocation at handoff time
 *       pre  05/25/26 Added function to calculate I2C device ID for I2C handshake feature
+*       tvp  06/11/26 Initialize TRNG instance irrespective of PLM_OCP
 *
 * </pre>
 *
@@ -52,8 +53,8 @@
 #include "xloader_ddr.h"
 #include "xilpdi.h"
 #include "xloader_kat.h"
-#ifdef PLM_OCP
 #include "xsecure_trng.h"
+#ifdef PLM_OCP
 #include "xocp.h"
 #include "xloader_secure.h"
 #endif
@@ -107,6 +108,7 @@ static int XLoader_RequestTCM(u32 TcmId);
 static int XLoader_CheckHandoffCpu(const XilPdi* PdiPtr, const u32 DstnCpu);
 static int XLoader_GetLoadAddr(u32 DstnCpu, u64 *LoadAddrPtr, u32 Len);
 static int XLoader_DumpDdrmcRegisters(void);
+static int XLoader_InitTrngInstance(void);
 #if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 static int XLoader_RunSha3EngineKat(XilPdi* PdiPtr);
 static int XLoader_SpkMeasurement(XLoader_SecureParams* SecureParams, XSecure_Sha3Hash* Sha3Hash);
@@ -1756,7 +1758,6 @@ void XLoader_ShaInstance1Reset(void)
 	/** Not Applicable for Versal_2vp */
 }
 
-#ifdef PLM_OCP
 /**************************************************************************************************/
 /**
  * @brief	This function initializes the Trng instance.
@@ -1802,7 +1803,7 @@ int XLoader_PlatInit(void)
 	return Status;
 }
 
-#if (!defined(PLM_SECURE_EXCLUDE))
+#if (!defined(PLM_SECURE_EXCLUDE)) && (defined(PLM_OCP))
 /*****************************************************************************/
 /**
  * @brief	This Function does the following:
@@ -1844,21 +1845,6 @@ END:
 	return Status;
 }
 #endif
-#else
-/**************************************************************************************************/
-/**
- * @brief	This function initializes the loader with platform specific
- * 		initializations.
- *
- * @return
- * 		- XST_SUCCESS always.
- *
- **************************************************************************************************/
-int XLoader_PlatInit(void)
-{
-	return XST_SUCCESS;
-}
-#endif /* PLM_OCP */
 
 #if defined(XLOADER_PMC_IIC) && defined(PLM_I2C_MB_HANDSHAKE)
 /*************************************************************************************************/
