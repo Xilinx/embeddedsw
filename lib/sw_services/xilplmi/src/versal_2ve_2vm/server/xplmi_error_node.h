@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xplmi_error_node.h
+* @file xplmi_error_node.h
 *
 * This is the file which contains node IDs information for versal_net error
 * events.

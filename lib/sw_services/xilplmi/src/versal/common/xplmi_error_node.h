@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_error_node.h
+* @file xplmi_error_node.h
 *
 * This is the file which contains node IDs information for versal error events.
 *
@@ -37,8 +37,6 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 #ifndef XPLMI_ERROR_NODE_H
 #define XPLMI_ERROR_NODE_H
@@ -47,7 +45,8 @@
 extern "C" {
 #endif
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 

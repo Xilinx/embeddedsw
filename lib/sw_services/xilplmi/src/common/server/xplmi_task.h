@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2021 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -50,7 +50,8 @@ extern "C" {
 #include "xstatus.h"
 #include "list.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -70,14 +71,15 @@ extern "C" {
 /**************************** Type Definitions *******************************/
 typedef struct XPlmi_TaskNode XPlmi_TaskNode;
 
+/** Task-queue node: scheduling metadata plus the handler to invoke. */
 struct XPlmi_TaskNode {
-    u8 Priority;
-    u8 State;
-    u32 IntrId;
-    u32 Delay;
-    struct metal_list TaskNode;
-    int (*Handler)(void * PrivData);
-    void * PrivData;
+    u8 Priority;			/**< Task priority */
+    u8 State;				/**< Task state */
+    u32 IntrId;				/**< Interrupt ID */
+    u32 Delay;				/**< Delay */
+    struct metal_list TaskNode;		/**< Task list linkage */
+    int (*Handler)(void * PrivData);	/**< Task entry function */
+    void * PrivData;			/**< Data passed to the handler */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

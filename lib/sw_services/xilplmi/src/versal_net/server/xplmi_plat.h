@@ -69,8 +69,6 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 
 #ifndef XPLMI_PLAT_H
@@ -257,7 +255,7 @@ enum {
 	/** 0x26 - Error when invalid log buffer type is received in Logging command. */
 	XPLMI_ERR_INVALID_LOG_BUF_TYPE,
 
-	/**< 0x27 - Error when registering the address range handler */
+	/** 0x27 - Error when registering the address range handler */
 	XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER,
 
 	/** 0x28 - Error when invalid address range is detected. */
@@ -307,19 +305,21 @@ enum {
 	XPLMI_ERR_INPLACE_UPDATE_ROM_ERROR,
 };
 
+/** This structure holds the module operation information. */
 typedef struct {
 	u8 Mode; /**< Operation information mode */
 } XPlmi_ModuleOp;
 
+/** This structure holds the FIPS KAT mask information. */
 typedef struct {
-	u32 RomKatMask; /**< ROM Kat mask*/
-	u32 PlmKatMask; /**< PLM Kat mask*/
-	u32 DDRKatMask; /**< DDR Kat mask*/
-	u32 HnicCpm5NPcideKatMask; /**< HNIC CPM5N PCIDE Kat mask*/
-	u32 PKI0KatMask; /**< PKI0 Kat mask*/
-	u32 PKI1KatMask; /**< PKI1 Kat mask*/
-	u32 PKI2KatMask; /**< PKI2 Kat mask*/
-}XPlmi_FipsKatMask;
+	u32 RomKatMask; /**< ROM Kat mask */
+	u32 PlmKatMask; /**< PLM Kat mask */
+	u32 DDRKatMask; /**< DDR Kat mask */
+	u32 HnicCpm5NPcideKatMask; /**< HNIC CPM5N PCIDE Kat mask */
+	u32 PKI0KatMask; /**< PKI0 Kat mask */
+	u32 PKI1KatMask; /**< PKI1 Kat mask */
+	u32 PKI2KatMask; /**< PKI2 Kat mask */
+} XPlmi_FipsKatMask;
 
 typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 
@@ -576,10 +576,10 @@ typedef enum {
 
 #define XPLMI_STATUS_GLITCH_DETECT(Status)		XSECURE_STATUS_CHK_GLITCH_DETECT(Status) /**< Glitch check on Status.  */
 
-/**< Function pointer type for address range validation handler */
+/** Function pointer type for address range validation handler */
 typedef XStatus (*XPlmi_IsAddrRangeValid_t)(u32 SubsystemId, u64 Addr, u64 Size);
 
-/**< Global address range validation handler */
+/** Global address range validation handler */
 extern XPlmi_IsAddrRangeValid_t XPlmi_IsAddrRangeValid;
 
 #ifdef PLM_VERIFY_ADDR_RANGE_DEBUG_PRINT
@@ -648,8 +648,6 @@ static inline u8 XPlmi_GetSlrType(void)
 /**
 * @brief    This function enables the SSIT interrupts
 *
-* @return   None
-*
 ****************************************************************************/
 static inline void XPlmi_EnableSsitErrors(void)
 {
@@ -659,11 +657,11 @@ static inline void XPlmi_EnableSsitErrors(void)
 
 /****************************************************************************/
 /**
- * * @brief    This function initializes SSIT events
- * *
- * * @return   XST_SUCCESS
- * *
- * ****************************************************************************/
+* @brief    This function initializes SSIT events
+*
+* @return   XST_SUCCESS
+*
+****************************************************************************/
 static inline int XPlmi_SsitEventsInit(void)
 {
 	/* Not Applicable for versalnet */
@@ -690,9 +688,7 @@ static inline void XPlmi_DisableCFrameIso(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides Iomodule instance pointer
- *
- * @return	Pointer to Iomodule instance
+ * @brief	This function is not applicable for Versal Net
  *
  *****************************************************************************/
 static inline void XPlmi_EnableIpiIntr(void)

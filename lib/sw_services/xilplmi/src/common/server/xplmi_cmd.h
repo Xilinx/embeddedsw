@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,8 +53,6 @@
 *
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 #ifndef XPLMI_CMD_H
 #define XPLMI_CMD_H
@@ -67,7 +65,8 @@ extern "C" {
 #include "xplmi_status.h"
 #include "xplmi_config.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -96,37 +95,41 @@ typedef struct XPlmi_Cmd XPlmi_Cmd;
 typedef struct XPlmi_KeyHoleParams XPlmi_KeyHoleParams;
 
 
+/** Stack of CDO begin offsets used to resolve matching end during CDO parsing. */
 typedef struct {
-	u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE];
-	int OffsetListTop;
+	u32 OffsetList[XPLMI_BEGIN_OFFSET_STACK_SIZE]; /**< Stack of begin offsets */
+	int OffsetListTop; /**< Top-of-stack index */
 } XPlmi_CdoParamsStack;
 
+/** CDO keyhole transfer parameters used to stream data directly into a destination. */
 struct XPlmi_KeyHoleParams {
-	u64 SrcAddr; /**< Boot Source address */
-	u32 ExtraWords; /**< Words that are directly DMAed to CFI */
-	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags);
+	u64 SrcAddr; /**< Boot source address */
+	u32 ExtraWords; /**< Keyhole command words that spilled past the current CDO chunk
+	                 *   into the next pre-fetched chunk */
+	int (*Func) (u64 SrcAddr, u64 DestAddress, u32 Length, u32 Flags); /**< Copy callback */
 	u8 IsNextChunkCopyStarted; /**< Used to check if next chunk is copied or not */
 };
 
+/** Decoded CDO command frame passed between the parser and command handlers. */
 struct XPlmi_Cmd {
-	u32 SubsystemId;
-	u32 BufIndex;
-	u32 IpiMask;
-	u32 CmdId;
-	u32 Len;
-	u32 ProcessedLen;
-	u32 PayloadLen;
-	u32 *Payload;
-	u32 Response[XPLMI_CMD_RESP_SIZE];
-	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr);
-	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN];
-	XPlmi_KeyHoleParams KeyHoleParams;
-	XPlmi_CdoParamsStack CdoParamsStack;
-	u32 IpiReqType;
-	u32 BreakLength;
-	u32 ProcessedCdoLen;
-	u8 DeferredError;
-	u8 AckInPLM;
+	u32 SubsystemId; /**< Subsystem ID that issued the command */
+	u32 BufIndex; /**< Index into the command buffer */
+	u32 IpiMask; /**< IPI source mask if originated from IPI */
+	u32 CmdId; /**< Module + command identifier */
+	u32 Len; /**< Total command payload length in words */
+	u32 ProcessedLen; /**< Words already processed */
+	u32 PayloadLen; /**< Length of @ref Payload */
+	u32 *Payload; /**< Pointer to the command payload words */
+	u32 Response[XPLMI_CMD_RESP_SIZE]; /**< Response returned to caller */
+	int (*ResumeHandler)(XPlmi_Cmd * CmdPtr); /**< Resume handler */
+	u32 ResumeData[XPLMI_CMD_RESUME_DATALEN]; /**< Saved state across resumes */
+	XPlmi_KeyHoleParams KeyHoleParams; /**< Keyhole transfer parameters */
+	XPlmi_CdoParamsStack CdoParamsStack; /**< begin/end nesting stack */
+	u32 IpiReqType; /**< IPI request type (secure/non-secure) */
+	u32 BreakLength; /**< Break length for break CDO command */
+	u32 ProcessedCdoLen; /**< Total CDO bytes processed so far */
+	u8 DeferredError; /**< Non-zero if an error has been deferred */
+	u8 AckInPLM; /**< Non-zero if PLM owns the ack response */
 };
 
 /***************** Macros (Inline Functions) Definitions *********************/

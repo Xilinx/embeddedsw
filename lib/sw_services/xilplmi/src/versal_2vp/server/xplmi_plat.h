@@ -379,7 +379,7 @@ enum {
 	/** 0x26 - Error when invalid log buffer type is received in Logging command. */
 	XPLMI_ERR_INVALID_LOG_BUF_TYPE,
 
-	/**< 0x27 - Error when registering the address range handler */
+	/** 0x27 - Error when registering the address range handler */
 	XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER,
 
 	/** 0x28 - Error when invalid address range is detected. */
@@ -392,30 +392,30 @@ enum {
 	/** 0x201 - Error when SSIT master times out waiting for slaves sync point */
 	XPLMI_ERR_SSIT_SLAVE_SYNC,
 
-	/**<
+	/**
 	 * 0x202 - Minor error if DMA initialization returns NULL during secure plm to plm
 	 * communication
 	 */
 	XPLMI_SSIT_INAVLID_DMA,
 
-	/**<
+	/**
 	 * 0x203 - Minor error if AES initialization fails during secure plm to plm communication
 	 */
 	XPLMI_SSIT_AES_INIT_FAIL,
 
-	/**<
+	/**
 	 * 0x204 - Minor error if encryption/decryption initialization fails during secure plm to
 	 * plm communication
 	 */
 	XPLMI_SSIT_ENCDEC_INIT_FAIL,
 
-	/**< 0x205 - Minor error if AAD updation fails during encryption/decryption operation */
+	/** 0x205 - Minor error if AAD updation fails during encryption/decryption operation */
 	XPLMI_SSIT_AAD_UPDATE_FAIL,
 
-	/**< 0x206 - Minor error if data updation fails during encryption/decryption operation */
+	/** 0x206 - Minor error if data updation fails during encryption/decryption operation */
 	XPLMI_SSIT_DATA_UPDATE_FAIL,
 
-	/**< 0x207 - Minor error if tag generation fails during encryption/decryption operation */
+	/** 0x207 - Minor error if tag generation fails during encryption/decryption operation */
 	XPLMI_SSIT_TAG_GENERATION_FAIL,
 };
 

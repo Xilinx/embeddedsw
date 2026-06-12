@@ -7,7 +7,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/server/xplmi_plat.c
+* @file xplmi_plat.c
 *
 * This file contains the PLMI versal_2vp platform specific code.
 *
@@ -733,3 +733,5 @@ u8 XPlmi_IsKatRan(u32 PlmKatMask)
 
 	return IsKatRan;
 }
+
+/** @} end of xilplmi_server_apis */

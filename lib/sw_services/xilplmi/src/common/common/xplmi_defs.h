@@ -103,14 +103,16 @@ extern "C" {
 #define XPLMI_KEY_SIZE_BYTES (32U) /**< Key size in bytes */
 
 /************************************** Type Definitions *****************************************/
+/** Structure holding the IVs and key used for SSIT secure communication. */
 typedef struct {
 	u32 IVs[XPLMI_KEY_SIZE_WORDS]; /**< IV1 and IV2 */
-    u32 Key[XPLMI_KEY_SIZE_WORDS]; /**< Key */
+	u32 Key[XPLMI_KEY_SIZE_WORDS]; /**< Key */
 }XPlmi_IVsandKey;
 
+/** Structure holding the SSIT secure communication parameters. */
 typedef struct {
 	u32 SlrIndex; /**< SLR index number */
-    XPlmi_IVsandKey IVsandKey; /**< Ivs and key */
+	XPlmi_IVsandKey IVsandKey; /**< Ivs and key */
 }XPlmi_SsitSecComm;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/

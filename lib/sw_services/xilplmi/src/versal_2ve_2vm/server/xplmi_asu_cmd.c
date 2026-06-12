@@ -85,20 +85,9 @@ static void (*AsuGetOcpEventMask)(u32 *EventMask) = NULL;
 /************************** Function Prototypes ******************************/
 
 /************************** Variable Definitions *****************************/
-/*****************************************************************************/
-/**
- * @brief	Contains the module ID and PLM error commands array
- *
- *****************************************************************************/
-/**
- * @{
- * @cond xplmi_internal
- */
+/** @cond xplmi_internal */
 static XPlmi_Module XPlmi_AsuModule;
-/**
- * @}
- * @endcond
- */
+/** @endcond */
 
 /*****************************************************************************/
 /**
@@ -281,8 +270,8 @@ END:
 #endif
 
 /**
- * @{
  * @cond xplmi_internal
+ * @{
  */
 /*****************************************************************************/
 /**
@@ -372,4 +361,4 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
  * @endcond
  */
 
-/** @} */
+/** @} end of xilplmi_server_apis */

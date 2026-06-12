@@ -430,6 +430,8 @@ void XPlmi_UpdateKatStatus(u32 PlmKatStatus)
 /**
  * @brief	This function is called to get KAT status.
  *
+ * @return	KAT status read from the RTCA configuration register.
+ *
  *****************************************************************************/
 u32 XPlmi_GetKatStatus(void)
 {

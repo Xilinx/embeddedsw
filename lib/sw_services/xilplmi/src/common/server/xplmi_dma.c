@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (C) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (C) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -101,6 +101,7 @@ static XPmcDma PmcDma1;		/**<Instance of the Pmc_Dma Device */
 static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
 			0U, 0U, 0U, 0xFFFU, 0x8U};  /* Default values of CTRL */
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  * @brief	This function is used to initialize a single Driver instance.
@@ -115,9 +116,22 @@ static XPmcDma_Configure DmaCtrl = {0x40U, 0U, 0U, 0U, 0xFFEU, 0x80U,
  * 			- XPLMI_ERR_DMA_SELFTEST if DMA driver self test fails.
  *
 *****************************************************************************/
-#ifndef SDT
 static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 DeviceId)
 #else
+/*****************************************************************************/
+/**
+ * @brief	This function is used to initialize a single Driver instance.
+ *
+ * @param	DmaPtr is pointer to the DMA instance
+ * @param	BaseAddress is the base address of the DMA
+ *
+ * @return
+ * 			- XST_SUCCESS on success.
+ * 			- XPLMI_ERR_DMA_LOOKUP if DMA driver lookup fails.
+ * 			- XPLMI_ERR_DMA_CFG if DMA driver configuration fails.
+ * 			- XPLMI_ERR_DMA_SELFTEST if DMA driver self test fails.
+ *
+*****************************************************************************/
 static int XPlmi_DmaDrvInit(XPmcDma *DmaPtr, u32 BaseAddress)
 #endif
 {
@@ -186,6 +200,7 @@ END:
 	return Status;
 }
 
+#ifndef SDT
 /*****************************************************************************/
 /**
  * @brief	This function returns DMA instance.
@@ -193,10 +208,11 @@ END:
  * @param	DeviceId is PMC DMA's device ID
  *
  * @return
- * 			- PMC DMA instance pointer.
+ * 		- PMC DMA instance pointer, if given device ID matches the
+ * 		device ID of DMA0/DMA1 and the device is initialized.
+ * 		- Otherwise, NULL.
  *
  *****************************************************************************/
-#ifndef SDT
 XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 {
 	XPmcDma *PmcDmaPtr = NULL;
@@ -219,6 +235,18 @@ XPmcDma *XPlmi_GetDmaInstance(u32 DeviceId)
 	return PmcDmaPtr;
 }
 #else
+/*****************************************************************************/
+/**
+ * @brief	This function returns DMA instance based on the base address.
+ *
+ * @param	BaseAddress is the base address of the DMA
+ *
+ * @return
+ * 		- PMC DMA instance pointer, if given base address matches the
+ * 		base address of DMA0/DMA1 and the device is initialized.
+ * 		- Otherwise, NULL.
+ *
+ *****************************************************************************/
 XPmcDma *XPlmi_GetDmaInstance(UINTPTR BaseAddress)
 {
 	XPmcDma *PmcDmaPtr = NULL;

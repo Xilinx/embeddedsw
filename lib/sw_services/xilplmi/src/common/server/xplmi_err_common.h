@@ -94,7 +94,8 @@ extern "C" {
 #include "xil_hw.h"
 #include "xplmi_cmd.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -175,7 +176,7 @@ typedef void (*XPlmi_ErrorHandler_t) (u32 ErrorNodeId, u32 RegMask);
 typedef s32 (*XPlmi_ShutdownHandler_t)(u32 SubsystemId, const u32 Type,
 		const u32 SubType, const u32 CmdType);
 
-/* Data Structure to hold Error Info */
+/** Data structure that holds error information for an error node. */
 typedef struct {
 	XPlmi_ErrorHandler_t Handler; /**< Error Handler function pointer */
 	u8 Action; /**< Action to take on error */

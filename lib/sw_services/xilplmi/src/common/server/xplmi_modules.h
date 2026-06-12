@@ -70,7 +70,8 @@ extern "C" {
 #include "xparameters.h"
 #include "xil_types.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -101,34 +102,46 @@ extern "C" {
 
 
 /**************************** Type Definitions *******************************/
+/** Command entry in a module's dispatch table; the table is indexed by command ID (ApiId). */
 typedef struct {
-	int (*Handler)(XPlmi_Cmd *Cmd);
+	int (*Handler)(XPlmi_Cmd *Cmd);	/**< Handler invoked to process the command */
 } XPlmi_ModuleCmd;
 
+/** IPI access permissions for a single command. */
 typedef u16 XPlmi_AccessPerm_t;
 
+/** Module registration record: identifier, command array, and access permissions. */
 typedef struct {
-	u32 Id;
-	const XPlmi_ModuleCmd *CmdAry;
-	u32 CmdCnt;
-	int (*InvalidCmdHandler)(u32 *Payload, u32 *RespBuf);
-	XPlmi_AccessPerm_t *AccessPermBufferPtr;
+	u32 Id;				/**< Module identifier */
+	const XPlmi_ModuleCmd *CmdAry;	/**< Command dispatch table, indexed by ApiId */
+	u32 CmdCnt;			/**< Number of commands in @ref CmdAry */
+	int (*InvalidCmdHandler)(u32 *Payload, u32 *RespBuf); /**< Fallback for unknown commands */
+	XPlmi_AccessPerm_t *AccessPermBufferPtr;	/**< IPI access permissions per command, indexed by ApiId */
 #if defined(VERSAL_NET) || defined(VERSAL_2VP_P)
-	XPlmi_UpdateHandler_t UpdateHandler;
+	XPlmi_UpdateHandler_t UpdateHandler;		/**< Handler invoked during in-place PLM update */
 #endif
 } XPlmi_Module;
 
+/** Per-command metadata stored in the .xplm_modules section by the @ref XPLMI_EXPORT_CMD macro. */
 typedef struct {
-	u8 CmdId;
-	u8 ModuleId;
-	u16 Reserved;
-	u8 MinArgCnt;
-	u8 MaxArgCnt;
-	u16 AlsoReserved;
+	u8 CmdId;	/**< Command identifier within the module */
+	u8 ModuleId;	/**< Module identifier */
+	u16 Reserved;	/**< Reserved, must be zero */
+	u8 MinArgCnt;	/**< Minimum number of payload arguments */
+	u8 MaxArgCnt;	/**< Maximum number of payload arguments */
+	u16 AlsoReserved; /**< Reserved, must be zero */
 } XPlmi_CmdInfo;
 
 /***************** Macros (Inline Functions) Definitions *********************/
-/* Macros for command ids */
+/**
+ * @ingroup xilplmi_server_apis
+ * @brief Defines a command's @ref XPlmi_CmdInfo entry in the .xplm_modules section to register it.
+ *
+ * @param CmdIdVal	Command identifier within the module.
+ * @param ModuleIdVal	Module identifier.
+ * @param MinArgCntVal	Minimum number of payload arguments accepted by the command.
+ * @param MaxArgCntVal	Maximum number of payload arguments accepted by the command.
+ */
 #define XPLMI_EXPORT_CMD(CmdIdVal, ModuleIdVal, MinArgCntVal, MaxArgCntVal) {	\
 		static volatile const XPlmi_CmdInfo CmdInfo_##ModuleIdVal##_##CmdIdVal __attribute__((unused)) \
 		__attribute__((section (".xplm_modules"))) = {	\

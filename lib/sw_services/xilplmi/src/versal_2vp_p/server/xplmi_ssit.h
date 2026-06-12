@@ -1,13 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
-
 
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp_p/server/xplmi_ssit.h
+* @file xplmi_ssit.h
 *
 * This file is added empty to avoid build errors. It needs to be removed once xilpm Versal code base
 * is updated for versal_2vp.
@@ -31,15 +30,8 @@ extern "C" {
 #endif
 
 /************************************ Constant Definitions ****************************************/
-/**
- * @{
- * @cond xplmi_internal
- */
-
 #ifdef __cplusplus
 }
 #endif
 
 #endif  /* XPLMI_SSIT_H */
-
-/** @} */

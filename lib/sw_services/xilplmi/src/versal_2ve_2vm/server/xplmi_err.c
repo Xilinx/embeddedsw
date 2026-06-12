@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xplmi_err.c
+* @file xplmi_err.c
 *
 * This file contains the PLMI versal_net platform specific code.
 *
@@ -568,8 +568,6 @@ XPlmi_Error_t *XPlmi_GetErrorTable(void)
 /**
  * @brief	This function reconfigures error actions after the update
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_ReconfigErrActions(void)
 {
@@ -643,8 +641,6 @@ u8 XPlmi_GetEventIndex(XPlmi_EventType ErrorNodeType)
 * @param    BaseAddr is the base address of the XPPU
 * @param    ProtUnitStr is string prefix to be used while printing event info
 *
-* @return   None
-*
 ****************************************************************************/
 static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 {
@@ -671,8 +667,6 @@ static void XPlmi_XppuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 *
 * @param    BaseAddr is the base address of the XMPU
 * @param    ProtUnitStr is string prefix to be used while printing event info
-*
-* @return   None
 *
 ****************************************************************************/
 static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
@@ -705,9 +699,6 @@ static void XPlmi_XmpuErrHandler(u32 BaseAddr, const char *ProtUnitStr)
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 void XPlmi_ErrPrintToLog(u32 ErrorNodeId, u32 RegMask)
@@ -928,8 +919,6 @@ static void XPlmi_PcieErrHandler(u32 ErrorNodeId, u32 RegMask)
 /**
 * @brief    This function dumps EAM Error status registers and Gic Status
 * registers
-*
-* @return   None
 *
 ****************************************************************************/
 void XPlmi_DumpErrNGicStatus(void)
@@ -1167,9 +1156,6 @@ int XPlmi_Versal2Ve2VmEAMHandler(void *Data)
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
 *
-* @return
-* 			- None
-*
 ****************************************************************************/
 static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask)
 {
@@ -1222,9 +1208,6 @@ static void XPlmi_ErrLPDSlcrIntrHandler(u32 ErrorNodeId, u32 RegMask)
 *
 * @param    ErrorNodeId is the node ID for the error event
 * @param    RegMask is the register mask of the error received
-*
-* @return
-* 			- None
 *
 ****************************************************************************/
 static void XPlmi_HandleLPDSlcrError(u32 ErrorNodeId, u32 RegMask)
@@ -1392,21 +1375,23 @@ int XPlmi_LpdSlcrEmInit(void)
 /*****************************************************************************/
 /**
  * @brief	This function sets the error action as prescribed by the command.
- *			Command payload parameters are
- *				* Error Node ID
- *				* Error Action
- *					0 - Invalid
- *					1 - POR
- *					2 - SRST
- *					3 - Custom(Not supported)
- *					4 - ErrOut
- *					5 - Subsystem Shutdown
- *					6 - Subsystem Restart
- *					7 - Print to log
- *					8 - SLD
- *					9 - SLD with TRI
- *					10 - None
- *			* Error ID Mask
+ *
+ * Command payload parameters are:
+ * - Error Node ID
+ * - Error Action:
+ *   - 0 - Invalid
+ *   - 1 - POR
+ *   - 2 - SRST
+ *   - 3 - Custom(Not supported)
+ *   - 4 - ErrOut
+ *   - 5 - Subsystem Shutdown
+ *   - 6 - Subsystem Restart
+ *   - 7 - Print to log
+ *   - 8 - SLD
+ *   - 9 - SLD with TRI
+ *   - 10 - None
+ * - Error ID Mask
+ *
  * @param	Cmd is pointer to the command structure
  *
  * @return
@@ -1528,3 +1513,5 @@ int XPlmi_Versal2Ve2VmSetAction(XPlmi_Cmd * Cmd)
 END:
 	return Status;
 }
+
+/** @} end of xilplmi_server_apis */

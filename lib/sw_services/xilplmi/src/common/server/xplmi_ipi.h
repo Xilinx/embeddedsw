@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -93,9 +93,10 @@ extern "C" {
 
 
 /**************************** Type Definitions *******************************/
+/** Event information delivered from PSM to PLM over IPI (power-management + STL). */
 typedef struct {
-    u32 PmEvent;
-    u32 StlEvent;
+        u32 PmEvent;	/**< Power-management event bitmap */
+        u32 StlEvent;	/**< Self-test library event bitmap */
 } PsmToPlmEventInfo_t;
 
 /***************** Macros (Inline Functions) Definitions *********************/

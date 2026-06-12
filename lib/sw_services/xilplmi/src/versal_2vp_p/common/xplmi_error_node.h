@@ -1,12 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/common/xplmi_error_node.h
+* @file xplmi_error_node.h
 *
 * This is the file which contains node IDs information for versal_2vp error events.
 *
@@ -29,7 +29,8 @@
 extern "C" {
 #endif
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 

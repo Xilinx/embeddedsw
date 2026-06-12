@@ -22,11 +22,6 @@
 *
 ******************************************************************************/
 
-/**
- * @addtogroup xilplmi_server_apis XilPlmi server APIs
- * @{
- */
-
 /***************************** Include Files *********************************/
 #ifndef XPLMI_ASU_CMD_H
 #define XPLMI_ASU_CMD_H
@@ -46,12 +41,6 @@ void XPlmi_AsuModuleInit(int (* const GeneratePufKEK)(u8* PufRegenStatusFlag),
 	void (* const GetOcpEventMask)(u32 *EventMask));
 
 /************************** Variable Definitions *****************************/
-
-/**
- * @}
- * @endcond
- */
-
 
 #ifdef __cplusplus
 }

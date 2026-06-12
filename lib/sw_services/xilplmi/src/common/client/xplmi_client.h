@@ -59,10 +59,11 @@ extern "C" {
 #define XPLMI_LOGGING_CMD_RETRIEVE_TRACE_BUFFER_INFO	(0x7U)
 #define XPLMI_LOGGING_CMD_CONFIG_UART			(0x8U)
 /************************************** Type Definitions *****************************************/
+/** Device ID code information. */
 typedef struct {
         u32 IdCode; /**< Id code */
         u32 ExtIdCode; /**< Extended id code */
-} XLoader_DeviceIdCode; /**< xilplmi device id code */
+} XLoader_DeviceIdCode;
 
 /*************************** Macros (Inline Functions) Definitions *******************************/
 

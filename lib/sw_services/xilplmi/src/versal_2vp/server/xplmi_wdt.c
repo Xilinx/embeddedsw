@@ -1,12 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/server/xplmi_wdt.c
+* @file xplmi_wdt.c
 *
 * This file contains the PLMI WDT functionality related code for versal_2vp.
 *
@@ -33,7 +33,8 @@
 #include "xplmi_debug.h"
 #include "xplmi.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 /************************************ Constant Definitions ****************************************/
@@ -201,3 +202,5 @@ void XPlmi_WdtHandler(void)
 END:
 	return;
 }
+
+/** @} end of xilplmi_server_apis */

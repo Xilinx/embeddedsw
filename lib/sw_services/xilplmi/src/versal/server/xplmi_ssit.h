@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_ssit.h
+* @file xplmi_ssit.h
 *
 * This file contains declarations for SSIT functions
 *
@@ -57,8 +57,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /**
+* @cond xplmi_internal
  * @{
- * @cond xplmi_internal
  */
 
 /**
@@ -175,14 +175,13 @@ enum SsitEventIndex {
 					(((u32)SlrIndex - 1U) * \
 					XPLMI_SLR_REQ_AND_RESP_MAX_SIZE_IN_WORDS * XPLMI_WORD_LEN))
 
-/*
- * SSIT events related structure definitions
- */
+/** SSIT event entry holding the event origin and its handler. */
 typedef struct {
 	u32 EventOrigin; /**< Event origin */
 	XPlmi_EventHandler_t EventHandler; /**< Event handler */
 }XPlmi_SsitEvents_t;
 
+/** Per-SLR SSIT event table with the event array and associated task nodes. */
 typedef struct {
 	u8 SlrIndex; /**< Slr index */
 	u8 IsIntrEnabled; /**< Interruput enable status check */
@@ -193,21 +192,24 @@ typedef struct {
 	XPlmi_TaskNode *Task3; /**< Task3 pointer to the TaskNode structure */
 }XPlmi_SsitEventStruct_t;
 
-/*
- * SSIT event vector table structure definition
- */
+/** SSIT event vector table holding the event bitmap across index words. */
 typedef struct {
 	u32 Events32[XPLMI_SSIT_MAX_EVENT32_INDEX]; /**< Array of SSIT maximum events 32 */
 }XPlmi_SsitEventVectorTable_t;
 
 #ifdef PLM_ENABLE_SECURE_PLM_TO_PLM_COMM
+/**
+ * @ingroup xilplmi_server_apis
+ * Establishment status of the secure PLM-to-PLM communication channel.
+ */
 typedef enum
 {
-	NOTESTABLISHED = 0,
-	ESTABLISHED,
+	NOTESTABLISHED = 0,	/**< Secure communication is not yet established */
+	ESTABLISHED,		/**< Secure communication is established */
 } XPlmi_SecCommEstFlag;
 #endif
 
+/** SSIT secure communication parameters: message transport and key/IV callbacks. */
 typedef struct
 {
 	int (*SendMessage)(u32* Buf, u32 BufSize, u32 SlrIndex, u32 IsCfgSecCommCmd);  /**< This function sends the message/response in the Buf with or without encryption */
@@ -265,5 +267,3 @@ void XPlmi_SsitSetCommEstFlag(u32 SlrIndex);
 #endif
 
 #endif  /* XPLMI_SSIT_H */
-
-/** @} */

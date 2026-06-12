@@ -7,7 +7,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_config.h
+* @file xplmi_config.h
 *
 * This is the header file which contains versal_net PLM configuration for users.
 * All key configuration options are now made available through Vitis GUI and

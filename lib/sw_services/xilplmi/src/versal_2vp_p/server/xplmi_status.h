@@ -1,13 +1,12 @@
 /***************************************************************************************************
-* Copyright (c) 2025 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
-
 
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/server/xplmi_status.h
+* @file xplmi_status.h
 *
 * This is the header file which contains status codes for the PLM, PLMI and loader in versal_2vp
 * platform.
@@ -27,8 +26,6 @@
 *       obs  04/03/2026 Reserved the unused error codes
 *
 * </pre>
-*
-* @note
 *
 ***************************************************************************************************/
 

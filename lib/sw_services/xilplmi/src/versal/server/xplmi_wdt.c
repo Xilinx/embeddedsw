@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc. All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_wdt.c
+* @file xplmi_wdt.c
 *
 * This file contains the PLMI WDT functionality related code for versal.
 *
@@ -218,3 +218,5 @@ void XPlmi_WdtHandler(void)
 END:
 	return;
 }
+
+/** @} end of xilplmi_server_apis */

@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xplmi_err.h
+* @file xplmi_err.h
 *
 * This file contains declarations versal_net PLMI module.
 *

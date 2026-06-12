@@ -4,11 +4,10 @@
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
-
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_ssit.c
+* @file xplmi_ssit.c
 *
 * This file contains the SSIT related code and is applicable only for versal
 *
@@ -225,6 +224,8 @@ u32 XPlmi_GetSlavesSlrMask(void)
 /****************************************************************************/
 /**
 * @brief    This function is used to accumulate the mask of all slave SLRs
+*
+* @param    SlavesMask is the mask of slave SLRs to accumulate
 *
 ****************************************************************************/
 static void XPlmi_UpdateSlavesSlrMask(u32 SlavesMask)
@@ -523,7 +524,7 @@ END:
 * @param    SlrIndex is the index of slr for which SecKeyIVEstablished flag
 *           is needed
 *
-* @return   -None
+* @return   @ref XPlmi_SecCommEstFlag entry for the requested slave SLR
 *
 ******************************************************************************/
 XPlmi_SecCommEstFlag XPlmi_SsitGetSecCommEstFlag(u32 SlrIndex)
@@ -538,8 +539,6 @@ XPlmi_SecCommEstFlag XPlmi_SsitGetSecCommEstFlag(u32 SlrIndex)
 
 * @param    SlrIndex is the index of slr for which SecKeyIVEstablished flag
 *           is to be set
-*
-* @return   -None
 *
 ******************************************************************************/
 void XPlmi_SsitSetCommEstFlag(u32 SlrIndex)
@@ -2369,3 +2368,5 @@ END:
 #endif
     return Status;
 }
+
+/** @} end of xilplmi_server_apis */

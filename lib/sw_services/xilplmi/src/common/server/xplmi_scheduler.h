@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2019 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -53,7 +53,8 @@ extern "C" {
 #include "xplmi_config.h"
 #include "xplmi_hw.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -79,22 +80,24 @@ typedef enum {
 	XPLMI_MAX_CORE, /* Maximum value */
 } XPlmi_CoreType;
 
+/** Scheduled task entry: timing, owning subsystem, and callback/error handlers. */
 struct XPlmi_Task_t{
-	u32 Interval;
-	u32 OwnerId;
-	u32 TriggerTime;
-	XPlmi_Callback_t CustomerFunc;
-	XPlmi_ErrorFunc_t ErrorFunc;
-	XPlmi_TaskNode *Task;
-	const void *Data;
-	u8 Type;
+	u32 Interval;			/**< Recurrence interval in scheduler ticks */
+	u32 OwnerId;			/**< Owner identifier */
+	u32 TriggerTime;		/**< Next trigger time (tick count) */
+	XPlmi_Callback_t CustomerFunc;	/**< Task callback */
+	XPlmi_ErrorFunc_t ErrorFunc;	/**< Callback invoked on error */
+	XPlmi_TaskNode *Task;		/**< Underlying task-queue node */
+	const void *Data;		/**< Data passed to the callback */
+	u8 Type;			/**< Task type */
 };
 
+/** Scheduler state: fixed-size task table, last tick, and current tick counter. */
 typedef struct {
-	struct XPlmi_Task_t TaskList[XPLMI_SCHED_MAX_TASK];
-	u64 LastTimerTick;
-	u32 TaskCount;
-	u32 Tick;
+	struct XPlmi_Task_t TaskList[XPLMI_SCHED_MAX_TASK];	/**< Active task slots */
+	u64 LastTimerTick;	/**< Last hardware tick observed */
+	u32 TaskCount;		/**< Number of populated slots */
+	u32 Tick;		/**< Current scheduler tick */
 } XPlmi_Scheduler_t ;
 
 void XPlmi_SchedulerInit(void);

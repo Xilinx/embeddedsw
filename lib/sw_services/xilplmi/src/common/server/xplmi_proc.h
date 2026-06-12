@@ -58,7 +58,8 @@ extern "C" {
 #include "xplmi_util.h"
 #include "xplmi_status.h"
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -92,9 +93,7 @@ extern "C" {
  * @endcond
  */
 
-/*
- * Performance measurement structure
- */
+/** Performance-measurement timestamp split into integer and fractional milliseconds. */
 typedef struct {
 	u64 TPerfMs;	/**< Whole part of time in milliseconds */
 	u64 TPerfMsFrac; /**< Fractional part of time in milliseconds */

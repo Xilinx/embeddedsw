@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_config.h
+* @file xplmi_config.h
 *
 * This is the header file which contains versal PLM configuration for users.
 * All key configuration options are now made available through Vitis GUI and
@@ -57,8 +57,6 @@
 * 1.20  obs  08/26/2025 Added PLM_ENABLE_ADDR_RANGE_VALIDATION config option
 * </pre>
 *
-* @note
-*
 ******************************************************************************/
 #ifndef XPLMI_CONFIG_H
 #define XPLMI_CONFIG_H
@@ -74,7 +72,8 @@ extern "C" {
 #include "xplmi_bsp_config.h"
 #endif
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 

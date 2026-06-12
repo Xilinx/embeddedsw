@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_plat.c
+* @file xplmi_plat.c
 *
 * This file contains the PLMI versal platform specific code.
 *
@@ -766,3 +766,5 @@ void XPlmi_CheckSlaveErrors(void)
 }
 
 #endif
+
+/** @} end of xilplmi_server_apis */

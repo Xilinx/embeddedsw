@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xplmi_plat.h
+* @file xplmi_plat.h
 *
 * This file contains declarations for versal_2ve_2vm specific APIs
 *
@@ -73,8 +73,6 @@
 *       vm   03/16/2026 Added error code related to ASU update event
 *       pre 03/23/26 Added macro for TPM data structure export
 * </pre>
-*
-* @note
 *
 ******************************************************************************/
 
@@ -266,7 +264,7 @@ enum {
 	/** 0x26 - Error when invalid log buffer type is received in Logging command. */
 	XPLMI_ERR_INVALID_LOG_BUF_TYPE,
 
-	/**< 0x27 - Error when registering the address range handler */
+	/** 0x27 - Error when registering the address range handler */
 	XPLMI_ERR_REGISTER_VERIFY_ADDR_RANGE_HANDLER,
 
 	/** 0x28 - Error when invalid address range is detected. */
@@ -322,19 +320,21 @@ enum {
 	XPLMI_ERR_ASU_SHUTDOWN_TIMEOUT,
 };
 
+/** This structure holds the module operation information. */
 typedef struct {
 	u8 Mode; /**< Operation information mode */
 } XPlmi_ModuleOp;
 
+/** This structure holds the FIPS KAT mask information. */
 typedef struct {
-	u32 RomKatMask; /**< ROM Kat mask*/
-	u32 PlmKatMask; /**< PLM Kat mask*/
-	u32 DDRKatMask; /**< DDR Kat mask*/
-	u32 HnicCpm5NPcideKatMask; /**< HNIC CPM5N PCIDE Kat mask*/
-	u32 PKI0KatMask; /**< PKI0 Kat mask*/
-	u32 PKI1KatMask; /**< PKI1 Kat mask*/
-	u32 PKI2KatMask; /**< PKI2 Kat mask*/
-}XPlmi_FipsKatMask;
+	u32 RomKatMask; /**< ROM Kat mask */
+	u32 PlmKatMask; /**< PLM Kat mask */
+	u32 DDRKatMask; /**< DDR Kat mask */
+	u32 HnicCpm5NPcideKatMask; /**< HNIC CPM5N PCIDE Kat mask */
+	u32 PKI0KatMask; /**< PKI0 Kat mask */
+	u32 PKI1KatMask; /**< PKI1 Kat mask */
+	u32 PKI2KatMask; /**< PKI2 Kat mask */
+} XPlmi_FipsKatMask;
 
 typedef int (*XPlmi_UpdateHandler_t)(XPlmi_ModuleOp Op);
 
@@ -689,8 +689,6 @@ static inline u8 XPlmi_GetSlrType(void)
 /**
 * @brief    This function enables the SSIT interrupts
 *
-* @return   None
-*
 ****************************************************************************/
 static inline void XPlmi_EnableSsitErrors(void)
 {
@@ -700,11 +698,11 @@ static inline void XPlmi_EnableSsitErrors(void)
 
 /****************************************************************************/
 /**
- * * @brief    This function initializes SSIT events
- * *
- * * @return   XST_SUCCESS
- * *
- * ****************************************************************************/
+* @brief    This function initializes SSIT events
+*
+* @return   XST_SUCCESS
+*
+****************************************************************************/
 static inline int XPlmi_SsitEventsInit(void)
 {
 	/* Not Applicable for versalnet */
@@ -722,8 +720,6 @@ static inline void XPlmi_CheckSlaveErrors(void)
 /**
  * @brief	This function Disables CFRAME Isolation
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_DisableCFrameIso(void)
 {
@@ -733,9 +729,7 @@ static inline void XPlmi_DisableCFrameIso(void)
 
 /*****************************************************************************/
 /**
- * @brief	This function provides Iomodule instance pointer
- *
- * @return	Pointer to Iomodule instance
+ * @brief	This function is not applicable for Versal 2ve 2vm
  *
  *****************************************************************************/
 static inline void XPlmi_EnableIpiIntr(void)
@@ -748,8 +742,6 @@ static inline void XPlmi_EnableIpiIntr(void)
 /**
  * @brief	This function clears IPI interrupt
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_ClearIpiIntr(void)
 {
@@ -761,8 +753,6 @@ static inline void XPlmi_ClearIpiIntr(void)
 /**
  * @brief	This function is not applicable for Versal Net
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_NotifySldSlaveSlrs(void)
 {
@@ -773,8 +763,6 @@ static inline void XPlmi_NotifySldSlaveSlrs(void)
 /*****************************************************************************/
 /**
  * @brief	This function is not applicable for Versal Net
- *
- * @return	None
  *
  *****************************************************************************/
 static inline void XPlmi_InterSlrSldHandshake(void)
@@ -809,9 +797,6 @@ static inline __attribute__((always_inline)) void XPlmi_AckIpi(u32 PlmErr, u32 R
 /*****************************************************************************/
 /**
  * @brief	This function waits for specified timeout before doing IPOR
- *
- *
- * @return	None
  *
  *****************************************************************************/
 static inline __attribute__((always_inline)) void XPlmi_IpuErrIporWait(void)

@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_plat.h
+* @file xplmi_plat.h
 *
 * This file contains declarations of versal specific APIs
 *

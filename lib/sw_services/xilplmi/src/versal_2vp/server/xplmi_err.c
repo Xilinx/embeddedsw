@@ -1,5 +1,5 @@
 /***************************************************************************************************
-* Copyright (c) 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2025 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ***************************************************************************************************/
 
@@ -7,7 +7,7 @@
 /**************************************************************************************************/
 /**
 *
-* @file versal_2vp/server/xplmi_err.c
+* @file xplmi_err.c
 *
 * This file contains the PLMI versal_2vp platform specific EAM code.
 *
@@ -690,3 +690,5 @@ int XPlmi_RestrictErrActions(XPlmi_EventType NodeType, u32 RegMask, u32 ErrorAct
 
 	return Status;
 }
+
+/** @} end of xilplmi_server_apis */

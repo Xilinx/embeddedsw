@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2026, Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_net/xplmi_status.h
+* @file xplmi_status.h
 *
 * This is the header file which contains status codes for the PLM, PLMI
 * and loader in versal_net platform.

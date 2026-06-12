@@ -29,7 +29,6 @@
 *
 * </pre>
 *
-*
 ******************************************************************************/
 
 #ifndef XPLMI_UPDATE_H
@@ -47,7 +46,7 @@ extern "C" {
 
 /**************************** Type Definitions *******************************/
 
-/*
+/**
  * Data Structure Version Info is used in DsHdr and also
  * used in creating a list of data structure versions which
  * is stored in .struct_versions section of elf
@@ -62,7 +61,7 @@ typedef union {
 	u32 HdrVal; /**< Header value */
 } XPlmi_DsVer;
 
-/*
+/**
  * Data Structure Header used in DsEntry and also
  * as the header of each data structure in DB
  */
@@ -71,7 +70,7 @@ typedef struct {
 	u32 Len; /**< Length of Data Structure in Bytes */
 } XPlmi_DsHdr;
 
-/*
+/**
  * Data Structure Entry is used to export data
  * structure information into the .struct_entries
  * section of the elf
@@ -82,7 +81,7 @@ typedef struct {
 	int (*Handler)(u32 Op, u64 Addr, void *Data); /**< Handler for the Data Structure operations */
 } XPlmi_DsEntry;
 
-/*
+/**
  * Database Header is header of the database of structures
  * which are stored during the update
  */
@@ -90,7 +89,7 @@ typedef struct {
 	u8 HdrVersion; /**< Database Header Version */
 	u8 HdrSize; /**< Database Header Size */
 	u16 Reserved; /**< Reserved Field */
-	u32 DbSize;/**< Database Size in Words */
+	u32 DbSize; /**< Database Size in Words */
 } XPlmi_DbHdr;
 
 typedef int (*XPlmi_CompatibilityCheck_t)(u32 PdiAddr);

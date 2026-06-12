@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal_2ve_2vm/xplmi_plat.c
+* @file xplmi_plat.c
 *
 * This file contains the PLMI versal_2ve_2vm platform specific code.
 *
@@ -696,8 +696,6 @@ END:
 /****************************************************************************/
 /**
 * @brief    This function will disable and clear the IOmodule interrupts
-*
-* @return   None
 *
 ****************************************************************************/
 static void XPlmi_DisableClearIOmodule(void)

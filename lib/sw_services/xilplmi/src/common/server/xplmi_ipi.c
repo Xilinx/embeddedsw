@@ -632,9 +632,9 @@ int XPlmi_IpiWrite(u32 DestCpuMask, const u32 *MsgPtr, u32 MsgLen, u8 Type)
  * @brief	This function reads an IPI message or response from source CPU.
  *
  * @param	SrcCpuMask	Source CPU IPI mask
- * 		MsgPtr 		IPI read message buffer
- * 		MsgLen		IPI message length
- * 		Type		IPI buffer type
+ * @param	MsgPtr 		IPI read message buffer
+ * @param	MsgLen		IPI message length
+ * @param	Type		IPI buffer type
  *
  * @return
  * 			- XST_SUCCESS on success.
@@ -675,8 +675,6 @@ int XPlmi_IpiRead(u32 SrcCpuMask, u32 *MsgPtr, u32 MsgLen, u8 Type)
  *
  * @param	IpiMask is the Mask of the IPIs to enable
  *
- * @return	None
- *
  *****************************************************************************/
 void XPlmi_IpiEnable(u32 IpiMask)
 {
@@ -708,7 +706,7 @@ int XPlmi_IpiTrigger(u32 DestCpuMask)
  * @brief	This function polls for IPI acknowledgment from destination CPU.
  *
  * @param	DestCpuMask Destination CPU IPI mask
- * 		TimeOutCount Timeout value
+ * @param	TimeOutCount Timeout value
  *
  * @return
  * 			- XST_SUCCESS on success and error code on failure

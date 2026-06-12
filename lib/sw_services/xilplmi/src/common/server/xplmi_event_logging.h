@@ -53,24 +53,31 @@ extern "C" {
 /************************** Constant Definitions *****************************/
 
 /**************************** Type Definitions *******************************/
-/* Circular buffer Structure */
+/**
+ * Circular log buffer that tracks a fixed-size memory region and wraps the write
+ * offset back to the start when full.
+ */
 typedef struct {
 	u64 StartAddr;	/**< Start address of log buffer */
 	u32 Len;	/**< Length of log in bytes */
-	u32 Offset:31;	/**< Variable that holds the offset of current log
-				from Start Address */
-	u32 IsBufferFull:1;	/**< If set, Log buffer is full and Offset
-					gets reset to 0 */
+	u32 Offset:31;	/**< Variable that holds the offset of current log from Start Address */
+	u32 IsBufferFull:1;	/**< If set, Log buffer is full and Offset gets reset to 0 */
 } XPlmi_CircularBuffer;
 
+/**
+ * Logging information structure that contains a circular buffer for logs and
+ * configuration settings.
+ */
 typedef struct {
 	XPlmi_CircularBuffer LogBuffer;	/**< Instance of circular buffer */
 	u8 LogLevel;	/**< LogLevel indicates levels like DEBUG_INFO */
-	u8 DiscardLogsAndPrintToBuf;	/**< If PrintToBuf is set, log is also written to PMC_RAM(along with UART)
-	                            and if DiscardLogs is set, log is written to neither PMC_RAM nor UART */
+	u8 DiscardLogsAndPrintToBuf;	/**< If PrintToBuf is set, log is also written to PMC_RAM
+					 *   (along with UART); if DiscardLogs is set, log is
+					 *   written to neither PMC_RAM nor UART */
 } XPlmi_LogInfo;
 
-/**@cond xplmi_internal
+/**
+ * @cond xplmi_internal
  * @{
  */
 
@@ -115,8 +122,6 @@ void XPlmi_InitDebugLogBuffer(void);
  *
  * @param	Header of the Trace log
  *
- * @return	None
- *
  ******************************************************************************/
 static inline void XPlmi_TraceLog2(u32 Header)
 {
@@ -130,8 +135,6 @@ static inline void XPlmi_TraceLog2(u32 Header)
  *
  * @param 	Header of the Trace log
  * @param	Arg1 of the Trace log
- *
- * @return	None
  *
  *****************************************************************************/
 static inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
@@ -148,8 +151,6 @@ static inline void XPlmi_TraceLog3(u32 Header, u32 Arg1)
  * @param	Arg1 of the Trace log
  * @param	Arg2 of the Trace log
  *
- * @return	None
- *
  *****************************************************************************/
 static inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
 {
@@ -165,8 +166,6 @@ static inline void XPlmi_TraceLog4(u32 Header, u32 Arg1, u32 Arg2)
  * @param	Arg1 of the Trace log
  * @param	Arg2 of the Trace log
  * @param	Arg3 of the Trace log
- *
- * @return	None
  *
  *****************************************************************************/
 static inline void XPlmi_TraceLog5(u32 Header, u32 Arg1, u32 Arg2, u32 Arg3)

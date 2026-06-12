@@ -1,6 +1,6 @@
 /******************************************************************************
 * Copyright (c) 2018 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2025 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
@@ -90,32 +90,36 @@ typedef struct {
 	u32 ProcessedLen;
 } XPlmi_ReadBackProps;
 
+/** Holds the keyhole transfer parameters. */
 typedef struct {
-	u64 SrcAddr;
-	u64 DestAddr;
-	u64 BaseAddr;
-	u32 Len;
-	u32 Keyholesize;
-	u32 Flags;
-	int (*Func) (u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags);
+	u64 SrcAddr;     /**< Source address of the data to transfer */
+	u64 DestAddr;    /**< Current destination address within the keyhole window */
+	u64 BaseAddr;    /**< Base address of the keyhole window */
+	u32 Len;         /**< Total number of bytes to transfer */
+	u32 Keyholesize; /**< Size of the keyhole window; transfers wrap at this boundary */
+	u32 Flags;       /**< DMA operation flags */
+	int (*Func) (u64 SrcAddr, u64 DestAddr, u32 Len, u32 Flags); /**< Copy callback */
 } XPlmi_KeyHoleXfrParams;
 
+/** Holds the ID and base address of a single buffer entry. */
 typedef struct {
-	u32 Id;
-	u64 Addr;
+	u32 Id;   /**< Unique identifier for the buffer */
+	u64 Addr; /**< Base address of the buffer in memory */
 } XPlmi_BufferData;
 
+/** Holds the list of registered data buffers and their capacity. */
 typedef struct {
-	u8 MaxBufferCount;
-	u8 BufferCount;
-	u8 IsBufferMemAvailable;
-	u16 BufferMemSize;
-	XPlmi_BufferData *Data;
+	u8 MaxBufferCount;       /**< Maximum number of buffer entries the array can hold */
+	u8 BufferCount;          /**< Current number of registered buffers */
+	u8 IsBufferMemAvailable; /**< TRUE if a buffer memory pool has been assigned */
+	u16 BufferMemSize;       /**< Total size of the buffer memory pool in bytes */
+	XPlmi_BufferData *Data;  /**< Pointer to the array of buffer entries */
 } XPlmi_BufferList;
 
+/** Holds the board name string and its length. */
 typedef struct {
-	u8 Name[XPLMI_MAX_NAME_LEN + 1U];
-	u32 Len;
+	u8 Name[XPLMI_MAX_NAME_LEN + 1U]; /**< Null-terminated board name string */
+	u32 Len;                           /**< Length of the board name in words */
 } XPlmi_BoardParams;
 
 /***************** Macros (Inline Functions) Definitions *********************/

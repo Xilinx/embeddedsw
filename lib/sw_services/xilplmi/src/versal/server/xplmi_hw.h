@@ -8,7 +8,7 @@
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_hw.h
+* @file xplmi_hw.h
 *
 * This is the header file which contains definitions for the versal hardware
 * registers.

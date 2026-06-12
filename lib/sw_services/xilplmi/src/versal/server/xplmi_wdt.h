@@ -1,13 +1,13 @@
 /******************************************************************************
 * Copyright (c) 2020 - 2022 Xilinx, Inc.  All rights reserved.
-* Copyright (c) 2022 - 2024 Advanced Micro Devices, Inc. All Rights Reserved.
+* Copyright (c) 2022 - 2026 Advanced Micro Devices, Inc. All Rights Reserved.
 * SPDX-License-Identifier: MIT
 ******************************************************************************/
 
 /*****************************************************************************/
 /**
 *
-* @file versal/xplmi_wdt.h
+* @file xplmi_wdt.h
 
 * This file contains declarations related to WDT in versal
 *
@@ -39,8 +39,8 @@ extern "C" {
 
 /************************** Constant Definitions *****************************/
 /**
- * @{
  * @cond xplmi_internal
+ * @{
  */
 
 #define XPLMI_WDT_EXTERNAL		(0x14104001U)
@@ -58,8 +58,8 @@ void XPlmi_ClearPlmLiveStatus(void);
  */
 int XPlmi_EnableWdt(u32 NodeId, u32 Periodicity);
 /**
- * @{
  * @cond xplmi_internal
+ * @{
  */
 void XPlmi_DisableWdt(u32 NodeId);
 void XPlmi_WdtHandler(void);
