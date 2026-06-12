@@ -400,7 +400,7 @@ enum {
 	 * 0x202 - Minor error if DMA initialization returns NULL during secure plm to plm
 	 * communication
 	 */
-	XPLMI_SSIT_INAVLID_DMA,
+	XPLMI_SSIT_INVALID_DMA,
 
 	/**
 	 * 0x203 - Minor error if AES initialization fails during secure plm to plm communication

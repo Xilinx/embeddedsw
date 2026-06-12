@@ -84,12 +84,6 @@ extern "C" {
 #define XPLMI_MAX_NAME_WORDS			(XPLMI_MAX_NAME_LEN / XPLMI_WORD_LEN)
 
 /**************************** Type Definitions *******************************/
-typedef struct {
-	u64 DestAddr;
-	u32 MaxSize;
-	u32 ProcessedLen;
-} XPlmi_ReadBackProps;
-
 /** Holds the keyhole transfer parameters. */
 typedef struct {
 	u64 SrcAddr;     /**< Source address of the data to transfer */

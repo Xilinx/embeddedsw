@@ -223,7 +223,7 @@ static int XPlm_SsitCommPerformAesOperation(XPlm_SsitCommParams *EncDecParamPtr)
 
 	/* Validate DMA instance pointer */
 	if (NULL == PmcDmaInstPtr) {
-		Status = XPLMI_SSIT_INAVLID_DMA;
+		Status = XPLMI_SSIT_INVALID_DMA;
 		goto END;
 	}
 
